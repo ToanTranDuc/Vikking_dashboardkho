@@ -14810,8 +14810,15 @@ body {
 /* ═══════════════════════════════════════════════════════
    DETAIL TABLE — v2.3.40 premium polished layout
 ═══════════════════════════════════════════════════════ */
-.dk-detail-table {
+/* v2.9 — Bảng tự co cột theo nội dung, không stretch full modal */
+.dk-table-scroll {
+    overflow-x: auto;
     width: 100%;
+}
+
+.dk-detail-table {
+    width: auto;           /* auto thay vì 100% — cột co theo nội dung */
+    min-width: 100%;       /* nhưng ít nhất fill đủ modal */
     border-collapse: separate;
     border-spacing: 0;
     font-size: 12.5px;
@@ -14820,6 +14827,7 @@ body {
     box-shadow: 0 1px 0 #e6ecf3;
     border-radius: 10px;
     overflow: hidden;
+    table-layout: auto;    /* cột tự co theo nội dung thực tế */
 }
 
 .dk-detail-table th,
@@ -17883,24 +17891,47 @@ body.dark-theme .dk-filter-select-inline {
 /* 3. Modal: Summary strip (4 ô ngang) */
 .dk-modal-summary-strip {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 10px;
-    margin: 0 0 14px 0;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 6px;
+    padding: 8px 12px;
+    margin: 0;
+    background: rgba(248, 250, 253, 0.85);  /* light mode */
+    border-bottom: 1px solid #e8f0f6;
+    flex-shrink: 0;
 }
 
-/* v2.7.1 — Force 4 ô trên 1 hàng khi có đúng 4 items */
+/* v2.7.1 — Force 4 ô trên 1 hàng */
 .dk-modal-summary-strip--4col {
     grid-template-columns: repeat(4, 1fr);
 }
 
-/* v2.7.1 — Force 3 ô trên 1 hàng khi có đúng 3 items */
+/* v2.7.1 — Force 3 ô trên 1 hàng */
 .dk-modal-summary-strip--3col {
     grid-template-columns: repeat(3, 1fr);
 }
 
+/* v2.9 — compact trong modal: chỉ giảm top/bottom, GIỮ left padding cho icon */
+.dk-modal-summary-strip .dk-sum-item {
+    padding: 8px 10px 8px 44px;   /* left 44px = chỗ cho icon ::after ở left:10px, 26px */
+    min-width: 0;
+    overflow: hidden;
+}
+
+.dk-modal-summary-strip .dk-sum-value {
+    font-size: 15px;       /* 20px → 15px */
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dk-modal-summary-strip .dk-sum-label {
+    font-size: 10px;
+}
+
 .dk-sum-item {
     padding: 10px 14px;
-    border-radius: 10px;
+    border-radius: 8px;
     background: var(--dk-bg-soft);
     border: 1px solid var(--dk-line);
     text-align: left;
@@ -17944,8 +17975,22 @@ body.dark-theme .dk-filter-select-inline {
     color: var(--dk-good);
 }
 
+/* v2.9 — Dark mode cho toàn bộ summary strip */
+body.dark-theme .dk-modal-summary-strip {
+    background: rgba(10, 22, 40, 0.92);         /* nền tối, không che khuất nội dung */
+    border-bottom-color: var(--dkk-border);
+}
+
 body.dark-theme .dk-sum-item {
+    background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.07) 0%,
+        rgba(255, 255, 255, 0.03) 100%);
     border-color: var(--dkk-border);
+}
+
+body.dark-theme .dk-sum-label,
+body.dark-theme .dk-sum-sub {
+    color: var(--dkk-text-dim);
 }
 
 body.dark-theme .dk-sum-primary .dk-sum-value {
@@ -17962,6 +18007,10 @@ body.dark-theme .dk-sum-danger .dk-sum-value {
 
 body.dark-theme .dk-sum-good .dk-sum-value {
     color: #6ee7b7;
+}
+
+body.dark-theme .dk-sum-neutral .dk-sum-value {
+    color: #cbd5e1;
 }
 
 /* 4. Todo modal: tab strip 4 màu accent */
@@ -20252,6 +20301,23 @@ body.dark-theme .dk-metric-delta:has(.dk-delta-up) {
     background: rgba(34, 197, 94, 0.22);
 }
 
+.dk-modal-summary-strip {
+    display: grid;
+    /* không hardcode số cột — để class --4col/-3col quyết định */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+/* Các class này phải nằm SAU bộ CSS chính để override đúng thứ tự cascade */
+.dk-modal-summary-strip--4col {
+    grid-template-columns: repeat(4, 1fr) !important;
+}
+
+.dk-modal-summary-strip--3col {
+    grid-template-columns: repeat(3, 1fr) !important;
+}
+
 body.dark-theme .dk-metric-delta:has(.dk-delta-down) {
     background: rgba(239, 68, 68, 0.22);
 }
@@ -20544,17 +20610,18 @@ body.dark-theme .dk-cell-muted {
 
 .dk-modal-summary-strip {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 14px;
+    /* không hardcode số cột — để class --4col/-3col quyết định */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+    margin-bottom: 8px;
 }
 
 .dk-sum-item {
     --sum-accent: #64748b;
     --sum-accent2: #94a3b8;
     position: relative;
-    padding: 14px 16px 14px 56px;
-    border-radius: 12px;
+    padding: 10px 12px 10px 44px;   /* giảm từ 14px/56px xuống để compact hơn */
+    border-radius: 10px;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 100%);
     border: 1px solid var(--dk-line);
     overflow: hidden;
@@ -20572,11 +20639,11 @@ body.dark-theme .dk-cell-muted {
 .dk-sum-item::after {
     content: "";
     position: absolute;
-    left: 14px;
+    left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    width: 32px;
-    height: 32px;
+    width: 26px;    /* 32px → 26px */
+    height: 26px;
     border-radius: 50%;
     background: color-mix(in srgb, var(--sum-accent) 18%, transparent);
     display: block;
@@ -20603,16 +20670,16 @@ body.dark-theme .dk-cell-muted {
 }
 
 .dk-sum-label {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--dk-text-muted-2);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .dk-sum-value {
-    font-size: 30px;
+    font-size: 18px;    /* 30px → 18px: cân bằng giữa đọợc đọc và compact */
     font-weight: 900;
     line-height: 1;
     color: var(--sum-accent);
@@ -20620,9 +20687,9 @@ body.dark-theme .dk-cell-muted {
 }
 
 .dk-sum-sub {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--dk-text-muted-2);
-    margin-top: 2px;
+    margin-top: 1px;
 }
 
 .dk-sum-good::after {
@@ -20637,9 +20704,15 @@ body.dark-theme .dk-cell-muted {
     background: rgba(239, 68, 68, 0.18) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='round'><circle cx='12' cy='12' r='10'/><line x1='12' y1='8' x2='12' y2='12'/><line x1='12' y1='16' x2='12.01' y2='16'/></svg>") center/16px no-repeat;
 }
 
+/* v2.9 — Dark mode: summary strip trong modal */
+body.dark-theme .dk-modal-summary-strip {
+    background: rgba(10, 22, 40, 0.95) !important;
+    border-bottom-color: var(--dkk-border) !important;
+}
+
 body.dark-theme .dk-sum-item {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-    border-color: var(--dkk-border);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%) !important;
+    border-color: var(--dkk-border) !important;
 }
 
 body.dark-theme .dk-sum-good .dk-sum-value {
@@ -23990,7 +24063,8 @@ body.dark-theme .dk-lpcp-side-topbar {
 }
 
 .dk-detail-table-wrap {
-    overflow: clip;
+    overflow-x: auto;      /* cho phép cuộn ngang khi bảng nhiều cột */
+    overflow-y: visible;
     border-radius: 10px;
     border: 1px solid #e2e8f0;
     box-shadow: 0 1px 6px rgba(37, 99, 235, 0.07);

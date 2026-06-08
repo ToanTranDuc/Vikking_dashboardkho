@@ -623,6 +623,11 @@ BEGIN
                 SELECT -SUM(ISNULL(SLNhap, 0)) FROM PhieuXuatHang WHERE ModuleXH = 1 AND TRY_CONVERT(DATE, NgayXuatHang) < @StartDate12T
                 UNION ALL
                 SELECT SUM(ISNULL(ThuHoi, 0)) FROM PhieuThuHoiNPL WHERE TRY_CONVERT(DATE, NgayTH) < @StartDate12T
+                UNION ALL
+                SELECT -SUM(ISNULL(SLKiemKeBanDau, 0) - ISNULL(SLKiemKeEdit, ISNULL(SLKiemKe, 0)))
+                FROM ERPPhieuKiemKe_NPL
+                WHERE IsXacNhan = 1 AND SLKiemKeEdit IS NOT NULL
+                  AND TRY_CONVERT(DATE, DateDuyetKK) < @StartDate12T
             ) t
         ),
         NhapTheoThang AS (
@@ -643,16 +648,28 @@ BEGIN
             FROM PhieuThuHoiNPL WHERE TRY_CONVERT(DATE, NgayTH) >= @StartDate12T
             GROUP BY YEAR(TRY_CONVERT(DATE, NgayTH)), MONTH(TRY_CONVERT(DATE, NgayTH))
         ),
+        -- [FIX] Chênh lệch kiểm kê theo tháng (ERPPhieuKiemKe_NPL, đã duyệt)
+        ChenhLechKKTheoThang AS (
+            SELECT YEAR(TRY_CONVERT(DATE, DateDuyetKK))  AS Nam,
+                   MONTH(TRY_CONVERT(DATE, DateDuyetKK)) AS Thang,
+                   SUM(ISNULL(SLKiemKeBanDau, 0) - ISNULL(SLKiemKeEdit, ISNULL(SLKiemKe, 0))) AS TotalChenhLech
+            FROM ERPPhieuKiemKe_NPL
+            WHERE IsXacNhan = 1 AND SLKiemKeEdit IS NOT NULL
+              AND TRY_CONVERT(DATE, DateDuyetKK) >= @StartDate12T
+            GROUP BY YEAR(TRY_CONVERT(DATE, DateDuyetKK)), MONTH(TRY_CONVERT(DATE, DateDuyetKK))
+        ),
         Combined AS (
             SELECT m.Nam, m.Thang,
-                ISNULL(n.TotalIn, 0) AS TotalIn, ISNULL(x.TotalOut, 0) AS TotalOut, ISNULL(th.TotalTH, 0) AS TotalTH
+                ISNULL(n.TotalIn, 0) AS TotalIn, ISNULL(x.TotalOut, 0) AS TotalOut, ISNULL(th.TotalTH, 0) AS TotalTH,
+                ISNULL(kk.TotalChenhLech, 0) AS TotalChenhLech
             FROM Months m
-            LEFT JOIN NhapTheoThang n ON n.Nam = m.Nam AND n.Thang = m.Thang
-            LEFT JOIN XuatTheoThang x ON x.Nam = m.Nam AND x.Thang = m.Thang
-            LEFT JOIN ThuHoiTheoThang th ON th.Nam = m.Nam AND th.Thang = m.Thang
+            LEFT JOIN NhapTheoThang       n  ON n.Nam  = m.Nam AND n.Thang  = m.Thang
+            LEFT JOIN XuatTheoThang       x  ON x.Nam  = m.Nam AND x.Thang  = m.Thang
+            LEFT JOIN ThuHoiTheoThang     th ON th.Nam = m.Nam AND th.Thang = m.Thang
+            LEFT JOIN ChenhLechKKTheoThang kk ON kk.Nam = m.Nam AND kk.Thang = m.Thang
         )
         SELECT c.Nam, c.Thang, c.TotalIn, c.TotalOut,
-            ISNULL(d.TonDau, 0) + SUM(c.TotalIn + c.TotalTH - c.TotalOut) OVER (ORDER BY c.Nam, c.Thang ROWS UNBOUNDED PRECEDING) AS TotalStock
+            ISNULL(d.TonDau, 0) + SUM(c.TotalIn + c.TotalTH - c.TotalOut - c.TotalChenhLech) OVER (ORDER BY c.Nam, c.Thang ROWS UNBOUNDED PRECEDING) AS TotalStock
         FROM Combined c CROSS JOIN TonDauKy d
         ORDER BY c.Nam, c.Thang;
     END
@@ -685,6 +702,11 @@ BEGIN
                 UNION ALL
                 SELECT SUM(ISNULL(ThuHoi, 0)) FROM PhieuThuHoiNPL
                     WHERE TRY_CONVERT(DATE, NgayTH) < @StartDateWeekly
+                UNION ALL
+                SELECT -SUM(ISNULL(SLKiemKeBanDau, 0) - ISNULL(SLKiemKeEdit, ISNULL(SLKiemKe, 0)))
+                FROM ERPPhieuKiemKe_NPL
+                WHERE IsXacNhan = 1 AND SLKiemKeEdit IS NOT NULL
+                  AND TRY_CONVERT(DATE, DateDuyetKK) < @StartDateWeekly
             ) t
         ),
         NhapTheoTuan AS (
@@ -711,19 +733,31 @@ BEGIN
             WHERE TRY_CONVERT(DATE, NgayTH) >= @StartDateWeekly
             GROUP BY YEAR(TRY_CONVERT(DATE, NgayTH)), DATEPART(ISO_WEEK, TRY_CONVERT(DATE, NgayTH))
         ),
+        -- [FIX] Chênh lệch kiểm kê theo tuần (ERPPhieuKiemKe_NPL, đã duyệt)
+        ChenhLechKKTheoTuan AS (
+            SELECT DATEPART(ISO_WEEK, TRY_CONVERT(DATE, DateDuyetKK)) AS Tuan,
+                   YEAR(TRY_CONVERT(DATE, DateDuyetKK))               AS Nam,
+                   SUM(ISNULL(SLKiemKeBanDau, 0) - ISNULL(SLKiemKeEdit, ISNULL(SLKiemKe, 0))) AS TotalChenhLech
+            FROM ERPPhieuKiemKe_NPL
+            WHERE IsXacNhan = 1 AND SLKiemKeEdit IS NOT NULL
+              AND TRY_CONVERT(DATE, DateDuyetKK) >= @StartDateWeekly
+            GROUP BY YEAR(TRY_CONVERT(DATE, DateDuyetKK)), DATEPART(ISO_WEEK, TRY_CONVERT(DATE, DateDuyetKK))
+        ),
         Combined AS (
             SELECT w.Nam, w.Tuan,
-                ISNULL(n.TotalIn, 0) AS TotalIn,
+                ISNULL(n.TotalIn,  0) AS TotalIn,
                 ISNULL(x.TotalOut, 0) AS TotalOut,
-                ISNULL(th.TotalTH, 0) AS TotalTH
+                ISNULL(th.TotalTH, 0) AS TotalTH,
+                ISNULL(kk.TotalChenhLech, 0) AS TotalChenhLech
             FROM Weeks w
-            LEFT JOIN NhapTheoTuan n ON n.Nam = w.Nam AND n.Tuan = w.Tuan
-            LEFT JOIN XuatTheoTuan x ON x.Nam = w.Nam AND x.Tuan = w.Tuan
-            LEFT JOIN ThuHoiTheoTuan th ON th.Nam = w.Nam AND th.Tuan = w.Tuan
+            LEFT JOIN NhapTheoTuan        n  ON n.Nam  = w.Nam AND n.Tuan  = w.Tuan
+            LEFT JOIN XuatTheoTuan        x  ON x.Nam  = w.Nam AND x.Tuan  = w.Tuan
+            LEFT JOIN ThuHoiTheoTuan      th ON th.Nam = w.Nam AND th.Tuan = w.Tuan
+            LEFT JOIN ChenhLechKKTheoTuan kk ON kk.Nam = w.Nam AND kk.Tuan = w.Tuan
         )
         SELECT c.Nam, c.Tuan, c.TotalIn, c.TotalOut,
             (SELECT TonDau FROM TonDauKy) +
-            SUM(c.TotalIn + c.TotalTH - c.TotalOut) OVER (ORDER BY c.Nam, c.Tuan ROWS UNBOUNDED PRECEDING) AS TotalStock
+            SUM(c.TotalIn + c.TotalTH - c.TotalOut - c.TotalChenhLech) OVER (ORDER BY c.Nam, c.Tuan ROWS UNBOUNDED PRECEDING) AS TotalStock
         FROM Combined c
         ORDER BY c.Nam, c.Tuan;
     END
@@ -1498,6 +1532,11 @@ BEGIN
                 SELECT SUM(ISNULL(ThuHoi, 0))
                 FROM PhieuThuHoiNPL
                 WHERE TRY_CONVERT(DATE, NgayTH) < @StartDateRange
+                UNION ALL
+                SELECT -SUM(ISNULL(SLKiemKeBanDau, 0) - ISNULL(SLKiemKeEdit, ISNULL(SLKiemKe, 0)))
+                FROM ERPPhieuKiemKe_NPL
+                WHERE IsXacNhan = 1 AND SLKiemKeEdit IS NOT NULL
+                  AND TRY_CONVERT(DATE, DateDuyetKK) < @StartDateRange
             ) t
         ),
         NhapTheoNgay AS (
@@ -1525,22 +1564,34 @@ BEGIN
               AND NgayTH <  DATEADD(DAY, 1, @EndDateRange)
             GROUP BY CAST(NgayTH AS DATE)
         ),
+        -- [FIX] Chênh lệch kiểm kê theo ngày (ERPPhieuKiemKe_NPL, đã duyệt)
+        ChenhLechKKTheoNgay AS (
+            SELECT TRY_CONVERT(DATE, DateDuyetKK) AS Ngay,
+                   SUM(ISNULL(SLKiemKeBanDau, 0) - ISNULL(SLKiemKeEdit, ISNULL(SLKiemKe, 0))) AS TotalChenhLech
+            FROM ERPPhieuKiemKe_NPL
+            WHERE IsXacNhan = 1 AND SLKiemKeEdit IS NOT NULL
+              AND TRY_CONVERT(DATE, DateDuyetKK) >= @StartDateRange
+              AND TRY_CONVERT(DATE, DateDuyetKK) <  DATEADD(DAY, 1, @EndDateRange)
+            GROUP BY TRY_CONVERT(DATE, DateDuyetKK)
+        ),
         Combined AS (
             SELECT d.Ngay,
-                   ISNULL(n.TotalIn, 0)  AS TotalIn,
-                   ISNULL(x.TotalOut, 0) AS TotalOut,
-                   ISNULL(th.TotalTH, 0) AS TotalTH
+                   ISNULL(n.TotalIn,  0)  AS TotalIn,
+                   ISNULL(x.TotalOut, 0)  AS TotalOut,
+                   ISNULL(th.TotalTH, 0)  AS TotalTH,
+                   ISNULL(kk.TotalChenhLech, 0) AS TotalChenhLech
             FROM Days d
-            LEFT JOIN NhapTheoNgay   n  ON n.Ngay  = d.Ngay
-            LEFT JOIN XuatTheoNgay   x  ON x.Ngay  = d.Ngay
-            LEFT JOIN ThuHoiTheoNgay th ON th.Ngay = d.Ngay
+            LEFT JOIN NhapTheoNgay         n  ON n.Ngay  = d.Ngay
+            LEFT JOIN XuatTheoNgay         x  ON x.Ngay  = d.Ngay
+            LEFT JOIN ThuHoiTheoNgay       th ON th.Ngay = d.Ngay
+            LEFT JOIN ChenhLechKKTheoNgay  kk ON kk.Ngay = d.Ngay
         )
         SELECT
             CONVERT(VARCHAR(10), c.Ngay, 120) AS Ngay,
             c.TotalIn,
             c.TotalOut,
             ISNULL(d.TonDau, 0)
-              + SUM(c.TotalIn + c.TotalTH - c.TotalOut)
+              + SUM(c.TotalIn + c.TotalTH - c.TotalOut - c.TotalChenhLech)
                 OVER (ORDER BY c.Ngay ROWS UNBOUNDED PRECEDING) AS TotalStock
         FROM Combined c CROSS JOIN TonDauKy d
         ORDER BY c.Ngay;
@@ -1963,8 +2014,18 @@ BEGIN
               AND (t2.BarCode = t1.BarCode OR t2.BarCode = t1.BarCodeGoc)
               AND t1.Dot = t2.Dot
         );
-        
-        WITH CTE AS (
+
+        -- [FIX] Lọc barcode đã soạn hàng xong (thiếu trong phiên bản cũ)
+        SELECT TOP (0) BarCode INTO #tmpSH_T5KH FROM ERP_SoanHangNPL_BarCode;
+        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
+           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
+        BEGIN
+            INSERT INTO #tmpSH_T5KH(BarCode)
+            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode
+                WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
+        END
+
+        ;WITH CTE AS (
             SELECT 
                 ISNULL(kh.TenKH, ISNULL(nk.KhachHang, N'Khách trống')) AS KhachHang, 
                 SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS GiaTriTon
@@ -1972,7 +2033,8 @@ BEGIN
             INNER JOIN ERP_NhapKhoNPL nk ON ct.SoLoID = nk.SoLoID
             LEFT JOIN KhachHang kh ON nk.MaKH = kh.MaKH
             WHERE ISNULL(ct.SoLuongThucTeBanDau, 0) > 0
-              AND (ct.BarCode IS NULL OR ct.BarCode NOT IN (SELECT BarCode FROM #TempXCTH_T5KH))
+              AND NOT EXISTS (SELECT 1 FROM #TempXCTH_T5KH x WHERE x.BarCode = ct.BarCode)
+              AND NOT EXISTS (SELECT 1 FROM #tmpSH_T5KH   s WHERE s.BarCode = ct.BarCode)
             GROUP BY ISNULL(kh.TenKH, ISNULL(nk.KhachHang, N'Khách trống'))
         ),
         TotalCTE AS (
@@ -1981,11 +2043,14 @@ BEGIN
         SELECT TOP 5 
             ROW_NUMBER() OVER(ORDER BY c.GiaTriTon DESC) AS STT,
             c.KhachHang, 
-            c.GiaTriTon AS GiaTri, -- Alias for JS 
+            c.GiaTriTon AS GiaTri,
             CASE WHEN ISNULL(t.TotalValue, 0) = 0 THEN 0.0 ELSE ROUND((c.GiaTriTon / t.TotalValue) * 100, 2) END AS TyTrong 
         FROM CTE c
         CROSS JOIN TotalCTE t
         ORDER BY c.GiaTriTon DESC;
+
+        DROP TABLE #TempXCTH_T5KH;
+        DROP TABLE #tmpSH_T5KH;
     END
 
     ELSE IF @Action = 'GetKhachHangTonKhoChiTiet'
@@ -1998,7 +2063,17 @@ BEGIN
               AND t1.Dot = t2.Dot
         );
 
-        WITH CTE AS (
+        -- [FIX] Lọc barcode đã soạn hàng xong
+        SELECT TOP (0) BarCode INTO #tmpSH_KHTKCT FROM ERP_SoanHangNPL_BarCode;
+        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
+           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
+        BEGIN
+            INSERT INTO #tmpSH_KHTKCT(BarCode)
+            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode
+                WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
+        END
+
+        ;WITH CTE AS (
             SELECT 
                 ISNULL(kh.TenKH, ISNULL(nk.KhachHang, N'Khách trống')) AS KhachHang, 
                 SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS GiaTri
@@ -2006,7 +2081,8 @@ BEGIN
             INNER JOIN ERP_NhapKhoNPL nk ON ct.SoLoID = nk.SoLoID
             LEFT JOIN KhachHang kh ON nk.MaKH = kh.MaKH
             WHERE ISNULL(ct.SoLuongThucTeBanDau, 0) > 0
-              AND (ct.BarCode IS NULL OR ct.BarCode NOT IN (SELECT BarCode FROM #TempXCTH_KHTKCT))
+              AND NOT EXISTS (SELECT 1 FROM #TempXCTH_KHTKCT x WHERE x.BarCode = ct.BarCode)
+              AND NOT EXISTS (SELECT 1 FROM #tmpSH_KHTKCT   s WHERE s.BarCode = ct.BarCode)
             GROUP BY ISNULL(kh.TenKH, ISNULL(nk.KhachHang, N'Khách trống'))
         ),
         TotalCTE AS (
@@ -2020,6 +2096,9 @@ BEGIN
         FROM CTE c
         CROSS JOIN TotalCTE t
         ORDER BY c.GiaTri DESC;
+
+        DROP TABLE #TempXCTH_KHTKCT;
+        DROP TABLE #tmpSH_KHTKCT;
     END
 
     ELSE IF @Action = 'GetGiaTriTonKhoTheoNhom'
@@ -2032,14 +2111,25 @@ BEGIN
               AND t1.Dot = t2.Dot
         );
 
-        WITH BaseData AS (
+        -- [FIX] Lọc barcode đã soạn hàng xong
+        SELECT TOP (0) BarCode INTO #tmpSH_GTTK FROM ERP_SoanHangNPL_BarCode;
+        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
+           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
+        BEGIN
+            INSERT INTO #tmpSH_GTTK(BarCode)
+            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode
+                WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
+        END
+
+        ;WITH BaseData AS (
             SELECT 
                 ISNULL(nh.TenNhom, N'Khác') AS Nhom, 
                 SUM(ISNULL(ct.SoLuongThucTeBanDau, 0) * ISNULL(CAST(ct.DonGia AS DECIMAL(20,4)), 0)) AS GiaTri
             FROM ERP_ChiTietNhapKhoNPL ct 
             LEFT JOIN (SELECT MaCLVT, MAX(TenNhom) AS TenNhom FROM NhomNguyenPhuLieu GROUP BY MaCLVT) nh ON ct.MaNhom = nh.MaCLVT
             WHERE ISNULL(ct.SoLuongThucTeBanDau, 0) > 0 
-              AND (ct.BarCode IS NULL OR ct.BarCode NOT IN (SELECT BarCode FROM #TempXCTH_GTTK))
+              AND NOT EXISTS (SELECT 1 FROM #TempXCTH_GTTK x WHERE x.BarCode = ct.BarCode)
+              AND NOT EXISTS (SELECT 1 FROM #tmpSH_GTTK   s WHERE s.BarCode = ct.BarCode)
             GROUP BY ISNULL(nh.TenNhom, N'Khác')
         ),
         RankedData AS (
@@ -2065,84 +2155,293 @@ BEGIN
         FROM TopData c
         CROSS JOIN TotalCTE t
         ORDER BY CASE WHEN c.Nhom = N'Khác' THEN 1 ELSE 0 END, c.GiaTri DESC;
+
+        DROP TABLE #TempXCTH_GTTK;
+        DROP TABLE #tmpSH_GTTK;
     END
 
-                ELSE IF @Action = 'GetGiaTriNhomChiTiet'
-      BEGIN
-          SELECT BarCode INTO #TempXCTH_GTNCT FROM PhieuXuatHang t1
-          WHERE NOT EXISTS (
-              SELECT 1 FROM PhieuThuHoiNPL t2
-              WHERE t2.MaLenh = t1.MaLenhSX
-                AND (t2.BarCode = t1.BarCode OR t2.BarCode = t1.BarCodeGoc)
-                AND t1.Dot = t2.Dot
-          );
-
-          SELECT 
-              ISNULL(nh.TenNhom, N'Khác') AS ParentNhom,
-              ct.MaVTID AS MaVT,
-              ISNULL(vt.ChiTiet, '') AS Nhom, 
-              SUM(ISNULL(ct.SoLuongThucTeBanDau, 0) * ISNULL(CAST(ct.DonGia AS DECIMAL(20,4)), 0)) AS GiaTri,
-              SUM(ISNULL(cbm.CBM, 0)) AS TongCBM
-          INTO #RawDetails
-          FROM ERP_ChiTietNhapKhoNPL ct
-          LEFT JOIN ERP_VatTuCBM cbm ON ct.BarCode = cbm.Barcode
-          LEFT JOIN (SELECT MaCLVT, MAX(TenNhom) AS TenNhom FROM NhomNguyenPhuLieu GROUP BY MaCLVT) nh ON ct.MaNhom = nh.MaCLVT
-          LEFT JOIN ERP_VatTuTV vt ON ct.MaVTID = vt.MaVTID 
-          WHERE ISNULL(ct.SoLuongThucTeBanDau, 0) > 0 
-            AND (ct.BarCode IS NULL OR ct.BarCode NOT IN (SELECT BarCode FROM #TempXCTH_GTNCT))
-          GROUP BY ISNULL(nh.TenNhom, N'Khác'), ct.MaVTID, ISNULL(vt.ChiTiet, '');
-
-          DECLARE @TotalGiaTri DECIMAL(18,2) = (SELECT SUM(GiaTri) FROM #RawDetails);
-
-          SELECT 
-              ParentNhom AS Nhom,
-              SUM(GiaTri) AS GiaTri,
-              COUNT(DISTINCT MaVT) AS SoMaVT,
-              SUM(TongCBM) AS TongCBM,
-              CASE WHEN ISNULL(@TotalGiaTri, 0) > 0 THEN ROUND(SUM(GiaTri) / @TotalGiaTri * 100, 2) ELSE 0 END AS TyTrong
-          INTO #RawGroups
-          FROM #RawDetails
-          GROUP BY ParentNhom;
-
-          (
-              SELECT 
-                  1 AS IsGroup,
-                  Nhom,
-                  ROW_NUMBER() OVER (ORDER BY CASE WHEN Nhom = N'Khác' THEN 1 ELSE 0 END, GiaTri DESC) AS STT,
-                  SoMaVT,
-                  TongCBM,
-                  GiaTri,
-                  TyTrong,
-                  NULL AS ParentNhom,
-                  NULL AS MaVT
-              FROM #RawGroups
-          )
-          UNION ALL
-          (
-              SELECT 
-                  0 AS IsGroup,
-                  Nhom,
-                  NULL AS STT,
-                  NULL AS SoMaVT,
-                  TongCBM,
-                  GiaTri,
-                  NULL AS TyTrong,
-                  ParentNhom,
-                  MaVT
-              FROM #RawDetails
-          )
-          ORDER BY IsGroup DESC, STT ASC, ParentNhom ASC, GiaTri DESC;
-      END
-
-    ELSE IF @Action = 'GetTinhHinhKiemKe'
+    ELSE IF @Action = 'GetGiaTriNhomChiTiet'
     BEGIN
-        SELECT 0 AS DaKiem, 0 AS Lech, 0 AS ChuaKiem;
+        SELECT BarCode INTO #TempXCTH_GTNCT FROM PhieuXuatHang t1
+        WHERE NOT EXISTS (
+            SELECT 1 FROM PhieuThuHoiNPL t2
+            WHERE t2.MaLenh = t1.MaLenhSX
+              AND (t2.BarCode = t1.BarCode OR t2.BarCode = t1.BarCodeGoc)
+              AND t1.Dot = t2.Dot
+        );
+
+        -- [FIX] Lọc barcode đã soạn hàng xong
+        SELECT TOP (0) BarCode INTO #tmpSH_GTNCT FROM ERP_SoanHangNPL_BarCode;
+        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
+           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
+        BEGIN
+            INSERT INTO #tmpSH_GTNCT(BarCode)
+            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode
+                WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
+        END
+
+        SELECT 
+            ISNULL(nh.TenNhom, N'Khác') AS ParentNhom,
+            ct.MaVTID AS MaVT,
+            ISNULL(vt.ChiTiet, '') AS Nhom, 
+            SUM(ISNULL(ct.SoLuongThucTeBanDau, 0) * ISNULL(CAST(ct.DonGia AS DECIMAL(20,4)), 0)) AS GiaTri,
+            -- [FIX] Dùng MAX(CBM) thay cho JOIN trực tiếp để tránh fanout khi 1 barcode có nhiều dòng CBM
+            SUM(ISNULL(cbm_agg.CBM, 0)) AS TongCBM
+        INTO #RawDetails
+        FROM ERP_ChiTietNhapKhoNPL ct
+        LEFT JOIN (SELECT Barcode, MAX(ISNULL(CBM, 0)) AS CBM FROM ERP_VatTuCBM WHERE MaONPL IS NOT NULL GROUP BY Barcode) cbm_agg
+               ON ct.BarCode = cbm_agg.Barcode
+        LEFT JOIN (SELECT MaCLVT, MAX(TenNhom) AS TenNhom FROM NhomNguyenPhuLieu GROUP BY MaCLVT) nh ON ct.MaNhom = nh.MaCLVT
+        LEFT JOIN ERP_VatTuTV vt ON ct.MaVTID = vt.MaVTID 
+        WHERE ISNULL(ct.SoLuongThucTeBanDau, 0) > 0 
+          AND NOT EXISTS (SELECT 1 FROM #TempXCTH_GTNCT x WHERE x.BarCode = ct.BarCode)
+          AND NOT EXISTS (SELECT 1 FROM #tmpSH_GTNCT   s WHERE s.BarCode = ct.BarCode)
+        GROUP BY ISNULL(nh.TenNhom, N'Khác'), ct.MaVTID, ISNULL(vt.ChiTiet, '');
+
+        DECLARE @TotalGiaTri DECIMAL(18,2) = (SELECT SUM(GiaTri) FROM #RawDetails);
+
+        SELECT 
+            ParentNhom AS Nhom,
+            SUM(GiaTri) AS GiaTri,
+            COUNT(DISTINCT MaVT) AS SoMaVT,
+            SUM(TongCBM) AS TongCBM,
+            CASE WHEN ISNULL(@TotalGiaTri, 0) > 0 THEN ROUND(SUM(GiaTri) / @TotalGiaTri * 100, 2) ELSE 0 END AS TyTrong
+        INTO #RawGroups
+        FROM #RawDetails
+        GROUP BY ParentNhom;
+
+        (
+            SELECT 
+                1 AS IsGroup,
+                Nhom,
+                ROW_NUMBER() OVER (ORDER BY CASE WHEN Nhom = N'Khác' THEN 1 ELSE 0 END, GiaTri DESC) AS STT,
+                SoMaVT,
+                TongCBM,
+                GiaTri,
+                TyTrong,
+                NULL AS ParentNhom,
+                NULL AS MaVT
+            FROM #RawGroups
+        )
+        UNION ALL
+        (
+            SELECT 
+                0 AS IsGroup,
+                Nhom,
+                NULL AS STT,
+                NULL AS SoMaVT,
+                TongCBM,
+                GiaTri,
+                NULL AS TyTrong,
+                ParentNhom,
+                MaVT
+            FROM #RawDetails
+        )
+        ORDER BY IsGroup DESC, STT ASC, ParentNhom ASC, GiaTri DESC;
+
+        DROP TABLE #TempXCTH_GTNCT;
+        DROP TABLE #tmpSH_GTNCT;
+        DROP TABLE #RawDetails;
+        DROP TABLE #RawGroups;
     END
+
+    -- [FIX] Khối GetTinhHinhKiemKe trùng lặp (dead code) đã được xóa. Block thực ở dòng ~1930.
 
     ELSE IF @Action = 'GetKiemKeChiTiet'
     BEGIN
         SELECT TOP 0 '' AS MaVT;
     END
+
+    -- =========================================================================
+    -- GetTonKhoTheoKy: T\u00ednh t\u1ed3n kho \u0111\u1ea7u k\u1ef3 / trong k\u1ef3 / cu\u1ed1i k\u1ef3 theo m\u00e3 NPL
+    -- Tham s\u1ed1:
+    --   @TuNgay  : Ng\u00e0y \u0111\u1ea7u k\u1ef3 (NULL = t\u1eeb \u0111\u1ea7u)
+    --   @DenNgay : Ng\u00e0y cu\u1ed1i k\u1ef3 (NULL = \u0111\u1ebfn cu\u1ed1i)
+    --   @Itemcode: L\u1ecdc theo m\u00e3 NPL (NULL / '' = t\u1ea5t c\u1ea3)
+    --   @LoaiNPL : 1=Nguy\u00ean li\u1ec7u, 2=Ph\u1ee5 li\u1ec7u, 0=T\u1ea5t c\u1ea3
+    -- K\u1ebft qu\u1ea3: NKDK, XHDK, THDK (= t\u1ed3n \u0111\u1ea7u k\u1ef3 breakdowns),
+    --            SLNK, SLXH, SLTH, SLSoanHang, SLLoi (= trong k\u1ef3),
+    --            TonKhoDK, TonKho (= cu\u1ed1i k\u1ef3)
+    -- =========================================================================
+    ELSE IF @Action = 'GetTonKhoTheoKy'
+    BEGIN
+        DECLARE @ParaTu   DATE = ISNULL(TRY_CONVERT(DATE, @TuNgay),  '1900-01-01');
+        DECLARE @ParaDen  DATE = ISNULL(TRY_CONVERT(DATE, @DenNgay), '2900-01-01');
+
+        -- B\u01b0\u1edbc 1: Barcode \u0111\u00e3 xu\u1ea5t ch\u01b0a thu h\u1ed3i
+        SELECT DISTINCT t1.BarCode INTO #tmpXuatTK FROM dbo.PhieuXuatHang t1
+        WHERE NOT EXISTS (
+            SELECT 1 FROM dbo.PhieuThuHoiNPL t2
+            WHERE t2.MaLenh = t1.MaLenhSX
+              AND (t2.BarCode = t1.BarCode OR t2.BarCode = t1.BarCodeGoc)
+              AND t1.Dot = t2.Dot
+        );
+
+        -- B\u01b0\u1edbc 2: Barcode \u0111\u00e3 so\u1ea1n h\u00e0ng xong (SLSoanHang_TK - SLSoanHang_BC = 0)
+        SELECT TOP (0) BarCode INTO #tmpSHanTK FROM dbo.ERP_SoanHangNPL_BarCode;
+        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
+           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
+        BEGIN
+            INSERT INTO #tmpSHanTK(BarCode)
+            EXEC sp_executesql N'SELECT BarCode FROM dbo.ERP_SoanHangNPL_BarCode
+                WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
+        END
+
+        -- B\u01b0\u1edbc 3: T\u1eadp barcode \u0111ang c\u00f3 trong kho (sau khi l\u1ecdc xu\u1ea5t + so\u1ea1n h\u00e0ng + l\u1ecdc theo lo\u1ea1i)
+        SELECT DISTINCT
+            ct.MaNPL,
+            ct.SoLoID,
+            ct.BarCode,
+            CAST(ISNULL(ct.SoLuongThucTeBanDau, 0) AS DECIMAL(18,4)) AS SoLuong,
+            TRY_CONVERT(DATE, ct.NgayNhapKho) AS NgayNhapKho
+        INTO #BaseTK
+        FROM dbo.ERP_ChiTietNhapKhoNPL ct
+        INNER JOIN dbo.ERP_VatTuCBM v ON v.Barcode = ct.BarCode
+        INNER JOIN dbo.ERP_ONPL    o ON o.TenO     = v.MaONPL
+        WHERE v.MaONPL IS NOT NULL
+          AND o.Module IN (1, 2)
+          AND (ISNULL(@LoaiNPL, 0) = 0 OR o.Module = @LoaiNPL)
+          AND (ISNULL(@Itemcode, '') = '' OR ct.MaNPL LIKE '%' + @Itemcode + '%')
+          AND ct.SoLuongThucTeBanDau > 0
+          AND NOT EXISTS (SELECT 1 FROM #tmpXuatTK x WHERE x.BarCode = ct.BarCode)
+          AND NOT EXISTS (SELECT 1 FROM #tmpSHanTK s WHERE s.BarCode = ct.BarCode);
+
+        -- B\u01b0\u1edbc 4: Ch\u00eanh l\u1ec7ch ki\u1ec3m k\u00ea \u0111\u1ea7u k\u1ef3 (tr\u01b0\u1edbc @ParaTu, \u0111\u00e3 duy\u1ec7t)
+        SELECT t1.SoLoID, t1.BarCode,
+               ISNULL(t1.SLKiemKeBanDau, 0) - ISNULL(t1.SLKiemKeEdit, ISNULL(t1.SLKiemKe, 0)) AS SLChenhLech
+        INTO #ChenhLechDK_TK
+        FROM dbo.ERPPhieuKiemKe_NPL t1
+        WHERE t1.IsXacNhan = 1 AND t1.SLKiemKeEdit IS NOT NULL
+          AND TRY_CONVERT(DATE, t1.DateDuyetKK) < @ParaTu;
+
+        -- B\u01b0\u1edbc 5: Ch\u00eanh l\u1ec7ch ki\u1ec3m k\u00ea trong k\u1ef3
+        SELECT t1.SoLoID, t1.BarCode,
+               ISNULL(t1.SLKiemKeBanDau, 0) - ISNULL(t1.SLKiemKeEdit, ISNULL(t1.SLKiemKe, 0)) AS SLChenhLech
+        INTO #ChenhLechTK_TK
+        FROM dbo.ERPPhieuKiemKe_NPL t1
+        WHERE t1.IsXacNhan = 1 AND t1.SLKiemKeEdit IS NOT NULL
+          AND TRY_CONVERT(DATE, t1.DateDuyetKK) BETWEEN @ParaTu AND @ParaDen;
+
+        -- B\u01b0\u1edbc 6: Nh\u1eadp kho \u0111\u1ea7u k\u1ef3 (tr\u1eeb ch\u00eanh l\u1ec7ch KK)
+        SELECT b.MaNPL,
+               SUM(b.SoLuong - ISNULL(dk.SLChenhLech, 0)) AS SLNhapDK
+        INTO #NhapDK_TK
+        FROM #BaseTK b
+        LEFT JOIN #ChenhLechDK_TK dk ON b.SoLoID = dk.SoLoID AND b.BarCode = dk.BarCode
+        WHERE b.NgayNhapKho < @ParaTu
+        GROUP BY b.MaNPL;
+
+        -- B\u01b0\u1edbc 7: Xu\u1ea5t h\u00e0ng \u0111\u1ea7u k\u1ef3
+        SELECT b.MaNPL, SUM(ISNULL(xh.SLNhap, 0)) AS SLXuatDK
+        INTO #XuatDK_TK
+        FROM dbo.PhieuXuatHang xh
+        INNER JOIN #BaseTK b ON xh.BarCodeGoc = b.BarCode
+        WHERE TRY_CONVERT(DATE, xh.NgayXuatHang) < @ParaTu
+        GROUP BY b.MaNPL;
+
+        -- B\u01b0\u1edbc 8: Thu h\u1ed3i \u0111\u1ea7u k\u1ef3
+        SELECT b.MaNPL, SUM(ISNULL(th.ThuHoi, 0)) AS SLThuDK
+        INTO #ThuDK_TK
+        FROM dbo.PhieuThuHoiNPL th
+        INNER JOIN dbo.PhieuXuatHang xh ON th.BarCode = xh.BarCode
+        INNER JOIN #BaseTK b ON xh.BarCodeGoc = b.BarCode
+        WHERE TRY_CONVERT(DATE, th.NgayTH) < @ParaTu
+        GROUP BY b.MaNPL;
+
+        -- B\u01b0\u1edbc 9: Nh\u1eadp kho trong k\u1ef3 (tr\u1eeb ch\u00eanh l\u1ec7ch KK)
+        SELECT b.MaNPL,
+               SUM(b.SoLuong - ISNULL(tk.SLChenhLech, 0)) AS SLNhapTK
+        INTO #NhapTK_TK
+        FROM #BaseTK b
+        LEFT JOIN #ChenhLechTK_TK tk ON b.SoLoID = tk.SoLoID AND b.BarCode = tk.BarCode
+        WHERE b.NgayNhapKho BETWEEN @ParaTu AND @ParaDen
+        GROUP BY b.MaNPL;
+
+        -- B\u01b0\u1edbc 10: Xu\u1ea5t h\u00e0ng trong k\u1ef3
+        SELECT b.MaNPL, SUM(ISNULL(xh.SLNhap, 0)) AS SLXuatTK
+        INTO #XuatTK_TK
+        FROM dbo.PhieuXuatHang xh
+        INNER JOIN #BaseTK b ON xh.BarCodeGoc = b.BarCode
+        WHERE TRY_CONVERT(DATE, xh.NgayXuatHang) BETWEEN @ParaTu AND @ParaDen
+        GROUP BY b.MaNPL;
+
+        -- B\u01b0\u1edbc 11: Thu h\u1ed3i trong k\u1ef3
+        SELECT b.MaNPL, SUM(ISNULL(th.ThuHoi, 0)) AS SLThuTK
+        INTO #ThuTK_TK
+        FROM dbo.PhieuThuHoiNPL th
+        INNER JOIN dbo.PhieuXuatHang xh ON th.BarCode = xh.BarCode
+        INNER JOIN #BaseTK b ON xh.BarCodeGoc = b.BarCode
+        WHERE TRY_CONVERT(DATE, th.NgayTH) BETWEEN @ParaTu AND @ParaDen
+        GROUP BY b.MaNPL;
+
+        -- B\u01b0\u1edbc 12: S\u1ed1 l\u01b0\u1ee3ng \u0111\u00e3 so\u1ea1n h\u00e0ng (SLSoanHang_BC = s\u1ed1 l\u01b0\u1ee3ng \u0111\u00e3 r\u00fat ra kh\u1ecfi k\u1ec7 ch\u01b0a xu\u1ea5t ch\u00ednh th\u1ee9c)
+        SELECT TOP (0) CAST(N'' AS NVARCHAR(500)) AS MaNPL, CAST(0.0 AS DECIMAL(18,4)) AS SLDaSoan
+        INTO #SoanHang_TK;
+        IF OBJECT_ID('dbo.ERP_SoanHangNPL_BarCode', 'U') IS NOT NULL
+           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
+        BEGIN
+            BEGIN TRY
+                INSERT INTO #SoanHang_TK (MaNPL, SLDaSoan)
+                EXEC sp_executesql N'
+                    SELECT sh.MaNPL, SUM(ISNULL(sh.SLSoanHang_BC, 0))
+                    FROM dbo.ERP_SoanHangNPL_BarCode sh
+                    INNER JOIN #BaseTK b ON sh.BarCode = b.BarCode
+                    GROUP BY sh.MaNPL;';
+            END TRY BEGIN CATCH END CATCH
+        END
+
+        -- B\u01b0\u1edbc 13: V\u1eadt t\u01b0 l\u1ed7i (trong k\u1ec7/d\u00e2y c\u00f3 Status=2)
+        SELECT b.MaNPL, SUM(b.SoLuong) AS SLLoi
+        INTO #Loi_TK
+        FROM #BaseTK b
+        WHERE EXISTS (
+            SELECT 1 FROM dbo.ERP_VatTuCBM vt
+            INNER JOIN dbo.ERP_ONPL   o2 ON o2.TenO   = vt.MaONPL
+            INNER JOIN dbo.ERP_DayNPL d2 ON d2.DayID  = o2.DayID AND d2.Status = 2
+            WHERE vt.Barcode = b.BarCode AND vt.MaONPL IS NOT NULL
+        )
+        GROUP BY b.MaNPL;
+
+        -- K\u1ebft qu\u1ea3 t\u1ed5ng h\u1ee3p theo MaNPL
+        SELECT DISTINCT
+            b.MaNPL,
+            ISNULL(PARSENAME(REPLACE(b.MaNPL, '@', '.'), 3), '')         AS MaVTID,
+            ROUND(ISNULL(ndk.SLNhapDK, 0), 4)                            AS NKDK,
+            ROUND(ISNULL(xdk.SLXuatDK, 0), 4)                            AS XHDK,
+            ROUND(ISNULL(tdk.SLThuDK,  0), 4)                            AS THDK,
+            ROUND(ISNULL(ntk.SLNhapTK, 0), 4)                            AS SLNK,
+            ROUND(ISNULL(xtk.SLXuatTK, 0), 4)                            AS SLXH,
+            ROUND(ISNULL(ttk.SLThuTK,  0), 4)                            AS SLTH,
+            ROUND(ISNULL(sh.SLDaSoan,  0), 4)                            AS SLSoanHang,
+            ROUND(ISNULL(lo.SLLoi,     0), 4)                            AS SLLoi,
+            -- T\u1ed3n \u0111\u1ea7u k\u1ef3 = nh\u1eadp tr\u01b0\u1edbc k\u1ef3 - xu\u1ea5t tr\u01b0\u1edbc k\u1ef3 + thu h\u1ed3i tr\u01b0\u1edbc k\u1ef3
+            ROUND(  ISNULL(ndk.SLNhapDK, 0)
+                  - ISNULL(xdk.SLXuatDK, 0)
+                  + ISNULL(tdk.SLThuDK,  0), 4)                          AS TonKhoDK,
+            -- T\u1ed3n kho cu\u1ed1i k\u1ef3 = T\u1ed3n\u0110K + nh\u1eadp trong - xu\u1ea5t trong + thu h\u1ed3i trong - \u0111\u00e3 so\u1ea1n
+            ROUND(  ISNULL(ndk.SLNhapDK, 0) + ISNULL(ntk.SLNhapTK, 0)
+                  - ISNULL(xdk.SLXuatDK, 0) - ISNULL(xtk.SLXuatTK, 0)
+                  + ISNULL(tdk.SLThuDK,  0) + ISNULL(ttk.SLThuTK,  0)
+                  - ISNULL(sh.SLDaSoan,  0), 4)                          AS TonKho
+        FROM #BaseTK b
+        LEFT JOIN #NhapDK_TK  ndk ON b.MaNPL = ndk.MaNPL
+        LEFT JOIN #XuatDK_TK  xdk ON b.MaNPL = xdk.MaNPL
+        LEFT JOIN #ThuDK_TK   tdk ON b.MaNPL = tdk.MaNPL
+        LEFT JOIN #NhapTK_TK  ntk ON b.MaNPL = ntk.MaNPL
+        LEFT JOIN #XuatTK_TK  xtk ON b.MaNPL = xtk.MaNPL
+        LEFT JOIN #ThuTK_TK   ttk ON b.MaNPL = ttk.MaNPL
+        LEFT JOIN #SoanHang_TK sh  ON b.MaNPL = sh.MaNPL
+        LEFT JOIN #Loi_TK      lo  ON b.MaNPL = lo.MaNPL
+        ORDER BY TonKho DESC;
+
+        DROP TABLE #BaseTK;
+        DROP TABLE #ChenhLechDK_TK; DROP TABLE #ChenhLechTK_TK;
+        DROP TABLE #NhapDK_TK; DROP TABLE #XuatDK_TK; DROP TABLE #ThuDK_TK;
+        DROP TABLE #NhapTK_TK; DROP TABLE #XuatTK_TK; DROP TABLE #ThuTK_TK;
+        DROP TABLE #SoanHang_TK;    DROP TABLE #Loi_TK;
+        DROP TABLE #tmpXuatTK;      DROP TABLE #tmpSHanTK;
+    END
+
     ELSE
     BEGIN
         SELECT 'Unknown action: ' + ISNULL(@Action, 'NULL') AS Error;
@@ -2504,14 +2803,13 @@ BEGIN
         END
         RETURN;
     END
-
+	
     -- Fallback
     SELECT 'Unknown action: ' + ISNULL(@Action, 'NULL') AS [Error];
 END
 GO
 
-PRINT 'SP_LICH_PHAN_CONG_PHU_LIEU created/updated successfully.';
-GO
+
 
 
 

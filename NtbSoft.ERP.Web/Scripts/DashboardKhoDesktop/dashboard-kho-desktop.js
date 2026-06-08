@@ -6126,20 +6126,18 @@
         if (!body) return;
         var rows = state.vtHetHan || [];
         if (rows.length === 0) {
-            body.innerHTML = "<tr><td colspan=\"4\" class=\"dk-empty\">Không có vật tư sắp hết hạn</td></tr>";
+            body.innerHTML = "<tr><td colspan=\"4\" class=\"dk-empty\">Không có dữ liệu tồn kho</td></tr>";
             return;
         }
-        var today = new Date(); today.setHours(0, 0, 0, 0);
         body.innerHTML = rows.map(function (r) {
-            var dt = r.NgayHetHan ? new Date(r.NgayHetHan) : null;
-            var daysLeft = dt ? Math.round((dt - today) / 86400000) : 999;
-            var dateCls = daysLeft <= 7 ? "dk-date-urgent" : (daysLeft <= 14 ? "dk-date-warn" : "");
-            var dateStr = dt ? formatDate(dt) : "—";
+            var days = toNumber(r.SoNgayTon || 0);
+            var dateCls = days >= 180 ? "dk-date-urgent" : (days >= 90 ? "dk-date-warn" : "");
+            var dateStr = r.NgayNhapKho ? formatDate(new Date(r.NgayNhapKho)) : "—";
             var donVi = r.DonVi ? " " + escapeHtml(r.DonVi) : "";
             return "<tr>" +
                 "<td class=\"dk-cell-mono\">" + escapeHtml(r.MaVT || "") + "</td>" +
                 "<td>" + escapeHtml(r.TenVT || "") + "</td>" +
-                "<td class=\"text-center " + dateCls + "\">" + dateStr + "</td>" +
+                "<td class=\"text-center " + dateCls + "\">" + dateStr + "<br><small class='dk-text-muted'>" + days + " ngày</small></td>" +
                 "<td class=\"text-end dk-cell-num\">" + formatNumber(toNumber(r.TonKho), 1) + donVi + "</td>" +
                 "</tr>";
         }).join("");
@@ -6727,7 +6725,7 @@
     }
 
     // ════════════════════════════════════════════════════════════════
-    // Modal: Vật tư sắp hết hạn
+    // Modal: Hàng tồn kho lâu nhất
     // ════════════════════════════════════════════════════════════════
     function renderHetHanAllModal() {
         var content = byId(ids.detailModalContent);
@@ -6735,57 +6733,60 @@
         content.innerHTML = modalLoading();
         requestJson("/api/DashboardKhoDesktop/GetVatTuSapHetHanChiTiet").then(function (data) {
             var rows = normalizeArray(data);
-            var today = new Date(); today.setHours(0, 0, 0, 0);
+            // SoNgayTon: số ngày từ ngày nhập đến hôm nay (lớn = hàng cũ hơn)
             rows.forEach(function (r) {
-                r._ConLai = r.NgayHetHan ? Math.round((new Date(r.NgayHetHan) - today) / 86400000) : 0;
+                r._SoNgayTon = toNumber(r.SoNgayTon || 0);
             });
-            rows.sort(function (a, b) { return a._ConLai - b._ConLai; });
-            var quaHan = 0, w7 = 0, w30 = 0;
+            // Sắp xếp từ cũ nhất đến mới nhất
+            rows.sort(function (a, b) { return b._SoNgayTon - a._SoNgayTon; });
+            var over365 = 0, over180 = 0, over90 = 0;
             for (var i = 0; i < rows.length; i++) {
-                var cl = rows[i]._ConLai;
-                if (cl <= 0) quaHan++;
-                else if (cl <= 7) w7++;
-                else if (cl <= 30) w30++;
+                var d = rows[i]._SoNgayTon;
+                if (d > 365) over365++;
+                else if (d > 180) over180++;
+                else if (d > 90) over90++;
             }
-            var sumHtml = renderSummaryStrip([
-                { label: "Tổng vật tư", value: formatNumber(rows.length, 0) },
-                { label: "Quá hạn", value: formatNumber(quaHan, 0), kind: "danger" },
-                { label: "≤ 7 ngày", value: formatNumber(w7, 0), kind: "danger" },
-                { label: "≤ 30 ngày", value: formatNumber(w30, 0), kind: "warn" }
+            // v2.9 — Dùng renderKpiSummaryStrip để có icon & --4col chính xác
+            var sumHtml = renderKpiSummaryStrip([
+                { label: "Tổng vật tư", value: formatNumber(rows.length, 0), sub: "mã VT", cls: "neutral" },
+                { label: "> 365 ngày", value: formatNumber(over365, 0), sub: "phiếu", cls: "danger" },
+                { label: "> 180 ngày", value: formatNumber(over180, 0), sub: "phiếu", cls: "danger" },
+                { label: "> 90 ngày", value: formatNumber(over90, 0), sub: "phiếu", cls: "warn" }
             ]);
             var filterHtml = '<div class="dk-modal-filter-bar">' +
                 '<label class="dk-text-muted">Lọc:</label>' +
                 '<select id="hetHanFilter" class="dk-filter-select-inline">' +
                 '<option value="all">Tất cả</option>' +
-                '<option value="qh">Quá hạn</option>' +
-                '<option value="7">≤ 7 ngày</option>' +
-                '<option value="30">≤ 30 ngày</option>' +
-                '<option value="90">≤ 90 ngày</option>' +
+                '<option value="365">> 365 ngày</option>' +
+                '<option value="180">> 180 ngày</option>' +
+                '<option value="90">> 90 ngày</option>' +
+                '<option value="30">> 30 ngày</option>' +
                 '</select>' +
                 '</div>';
-            var tableHtml = '<table class="dk-detail-table"><thead><tr>' +
-                '<th style="width:110px">Mã VT</th><th>Tên vật tư</th>' +
-                '<th style="width:50px;text-align:center">Loại</th>' +
-                '<th style="width:80px">Lô</th>' +
-                '<th style="width:90px;text-align:center">Ngày SX</th>' +
-                '<th style="width:100px;text-align:center">Hết hạn</th>' +
-                '<th style="width:90px;text-align:center">Còn lại</th>' +
-                '<th style="width:80px;text-align:right">Tồn kho</th>' +
-                '<th style="width:50px;text-align:center">ĐV</th>' +
-                '<th style="width:80px">Vị trí</th></tr></thead><tbody id="hetHanTbody">';
+            var tableHtml = '<div class="dk-detail-table-wrap"><table class="dk-detail-table"><thead><tr>' +
+                '<th style="width:38px;text-align:center">STT</th>' +
+                '<th style="width:100px">Mã VT</th>' +
+                '<th style="text-align:left;min-width:160px">Tên vật tư</th>' +
+                '<th style="width:42px;text-align:center">Loại</th>' +
+                '<th style="width:65px;text-align:center">Lô</th>' +
+                '<th style="width:84px;text-align:center">Ngày nhập</th>' +
+                '<th style="width:80px;text-align:center">Số ngày</th>' +
+                '<th style="width:70px;text-align:right">Tồn kho</th>' +
+                '<th style="width:38px;text-align:center">ĐV</th>' +
+                '</tr></thead><tbody id="hetHanTbody">';
             tableHtml += hetHanRowsHtml(rows);
-            tableHtml += '</tbody></table>';
+            tableHtml += '</tbody></table></div>';
             content.innerHTML = sumHtml + filterHtml + tableHtml;
             var rcEl = byId("detailModalRowCount");
             if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(rows.length, 0);
             byId("hetHanFilter").addEventListener("change", function () {
                 var v = this.value;
                 var filtered = rows.filter(function (r) {
-                    var cl = r._ConLai;
-                    if (v === "qh") return cl <= 0;
-                    if (v === "7") return cl > 0 && cl <= 7;
-                    if (v === "30") return cl > 0 && cl <= 30;
-                    if (v === "90") return cl > 0 && cl <= 90;
+                    var d = r._SoNgayTon;
+                    if (v === "365") return d > 365;
+                    if (v === "180") return d > 180;
+                    if (v === "90") return d > 90;
+                    if (v === "30") return d > 30;
                     return true;
                 });
                 byId("hetHanTbody").innerHTML = hetHanRowsHtml(filtered);
@@ -6795,22 +6796,26 @@
         }).catch(function (err) { content.innerHTML = modalErrorBox(err && err.message); });
     }
     function hetHanRowsHtml(rows) {
-        if (rows.length === 0) return '<tr><td colspan="10" class="dk-empty">Không có vật tư phù hợp bộ lọc</td></tr>';
-        return rows.map(function (r) {
-            var cl = r._ConLai;
-            var cls = cl <= 0 ? "dk-conlai-overdue" : cl <= 7 ? "dk-conlai-urgent" : cl <= 30 ? "dk-conlai-warn" : "dk-conlai-soft";
-            var icon = cl <= 0 ? '<i class="fa-solid fa-triangle-exclamation"></i> ' : "";
+        if (rows.length === 0) return '<tr><td colspan="9" class="dk-empty">Không có vật tư phù hợp bộ lọc</td></tr>';
+        return rows.map(function (r, idx) {
+            var days = r._SoNgayTon || toNumber(r.SoNgayTon || 0);
+            var cls = days > 365 ? "dk-conlai-overdue" : days > 180 ? "dk-conlai-urgent" : days > 90 ? "dk-conlai-warn" : "dk-conlai-soft";
+            var icon = days > 365 ? '<i class="fa-solid fa-triangle-exclamation"></i> ' : (days > 180 ? '<i class="fa-solid fa-clock"></i> ' : "");
+            // IsNPL: 1=Nguyên liệu (NL), 0=Phụ liệu (PL)
+            var loai = toNumber(r.IsNPL) === 1 ? 'NL' : 'PL';
+            var loaiCls = toNumber(r.IsNPL) === 1 ? 'style="color:#2563eb;font-weight:700"' : 'style="color:#f97316;font-weight:700"';
+            var maVT = r.MaVT || r.ItemCode || '';
+            var tenVT = r.TenVT || r.ChiTiet || '';
             return '<tr>' +
-                '<td class="dk-cell-mono">' + escapeHtml(r.MaVT || "") + '</td>' +
-                '<td>' + escapeHtml(r.TenVT || "") + '</td>' +
-                '<td class="text-center">' + escapeHtml(r.LoaiKho || "") + '</td>' +
-                '<td>' + escapeHtml(r.Lo || "") + '</td>' +
-                '<td class="text-center">' + formatDate(r.NgaySX) + '</td>' +
-                '<td class="text-center">' + formatDate(r.NgayHetHan) + '</td>' +
-                '<td class="text-center ' + cls + '">' + icon + (cl <= 0 ? "Quá " + Math.abs(cl) : cl) + ' ngày</td>' +
+                '<td class="text-center" style="color:var(--dk-text-muted-2);font-size:11px">' + (idx + 1) + '</td>' +
+                '<td class="dk-cell-mono" style="font-size:11.5px">' + (maVT ? escapeHtml(maVT) : '<span style="color:#aaa">—</span>') + '</td>' +
+                '<td style="text-align:left;white-space:normal">' + (tenVT ? escapeHtml(tenVT) : '<span style="color:#aaa;font-style:italic">Chưa có tên</span>') + '</td>' +
+                '<td class="text-center" ' + loaiCls + '>' + loai + '</td>' +
+                '<td class="text-center" style="font-size:11px">' + escapeHtml(String(r.Lo || "")) + '</td>' +
+                '<td class="text-center" style="font-size:11.5px">' + formatDate(r.NgaySX) + '</td>' +
+                '<td class="text-center ' + cls + '" style="font-weight:700">' + icon + days + ' ngày</td>' +
                 '<td class="text-end dk-cell-num">' + formatNumber(toNumber(r.TonKho), 1) + '</td>' +
-                '<td class="text-center">' + escapeHtml(r.DonVi || "") + '</td>' +
-                '<td>' + escapeHtml(r.ViTri || "") + '</td>' +
+                '<td class="text-center" style="font-size:11px">' + escapeHtml(r.DonVi || "") + '</td>' +
                 '</tr>';
         }).join("");
     }

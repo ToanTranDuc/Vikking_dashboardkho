@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -383,13 +383,18 @@ namespace NtbSoft.ERP.Model.DashboardKho
             return ExecuteSP("GetTop5KhachHangTonKho");
         }
 
+        /// <summary>
+        /// v2.8 — Hàng tồn kho lâu nhất: sắp xếp theo số ngày tồn (GETDATE() - NgayNhapKho) DESC.
+        /// Hiển thị TOP 5 lô hàng cũ nhất đang tồn trong kho.
+        /// </summary>
         public static DataTable GetVatTuSapHetHan()
         {
             return ExecuteQuery(@"
                 SELECT TOP 5
                     vt.MaVT,
                     ISNULL(vt.ChiTiet, '') AS TenVT,
-                    DATEADD(MONTH, 12, ct.NgayNhapKho) AS NgayHetHan,
+                    ct.NgayNhapKho AS NgayNhapKho,
+                    DATEDIFF(DAY, ct.NgayNhapKho, GETDATE()) AS SoNgayTon,
                     SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS TonKho,
                     ISNULL(dv.TenDVVT, '') AS DonVi
                 FROM dbo.ERP_ChiTietNhapKhoNPL ct
@@ -397,9 +402,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 LEFT JOIN dbo.ERP_KhoVai kv ON ct.KhoVaiID = kv.KhoVaiID
                 LEFT JOIN dbo.ERP_DonViVT dv ON kv.MaDVVT = dv.MaDVVT
                 WHERE ct.NgayNhapKho IS NOT NULL
+                  AND ISNULL(ct.SoLuongThucTeBanDau, 0) > 0
                 GROUP BY vt.MaVT, vt.ChiTiet, ct.NgayNhapKho, dv.TenDVVT
-                HAVING DATEADD(MONTH, 12, ct.NgayNhapKho) BETWEEN GETDATE() AND DATEADD(DAY, 60, GETDATE())
-                ORDER BY NgayHetHan;");
+                ORDER BY DATEDIFF(DAY, ct.NgayNhapKho, GETDATE()) DESC;");
         }
 
         public static DataTable GetGiaTriTonKhoTheoNhom()
@@ -413,7 +418,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
         }
 
         // ════════════════════════════════════════════════════════════════
-        // v2.5.0 — Chi tiết công việc chờ xử lý: SQL thật
+        //  Chi tiết công việc chờ xử lý: 
         // ════════════════════════════════════════════════════════════════
 
         public static DataTable GetTodoDetail(string type)
@@ -475,28 +480,33 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 });
         }
 
+        /// <summary>
+        /// v2.8 — Chi tiết hàng tồn kho lâu nhất: sắp xếp theo số ngày tồn DESC.
+        /// </summary>
         public static DataTable GetVatTuSapHetHanChiTiet()
         {
             return ExecuteQuery(@"
                 SELECT 
+                    ROW_NUMBER() OVER (ORDER BY DATEDIFF(DAY, ct.NgayNhapKho, GETDATE()) DESC) AS STT,
                     vt.MaVT,
                     ISNULL(vt.ChiTiet, '') AS TenVT,
                     CASE WHEN ct.IsNPL = 1 THEN 'NL' ELSE 'PL' END AS LoaiKho,
-                    ct.SoLoID AS Lo,
+                    nk.SoLo AS Lo,
                     ct.NgayNhapKho AS NgaySX,
-                    DATEADD(MONTH, 12, ct.NgayNhapKho) AS NgayHetHan,
+                    DATEDIFF(DAY, ct.NgayNhapKho, GETDATE()) AS SoNgayTon,
                     SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS TonKho,
                     ISNULL(dv.TenDVVT, '') AS DonVi,
-                    MAX(v.MaONPL) AS ViTri
+                    MAX(cbm.MaONPL) AS ViTri
                 FROM dbo.ERP_ChiTietNhapKhoNPL ct
+                LEFT JOIN dbo.ERP_NhapKhoNPL nk ON ct.SoLoID = nk.SoLoID
                 LEFT JOIN dbo.ERP_VatTuTV vt ON ct.MaVTID = vt.MaVTID
-                LEFT JOIN dbo.ERP_VatTuCBM v ON ct.BarCode = v.Barcode
+                LEFT JOIN dbo.ERP_VatTuCBM cbm ON ct.BarCode = cbm.Barcode
                 LEFT JOIN dbo.ERP_KhoVai kv ON ct.KhoVaiID = kv.KhoVaiID
                 LEFT JOIN dbo.ERP_DonViVT dv ON kv.MaDVVT = dv.MaDVVT
                 WHERE ct.NgayNhapKho IS NOT NULL
-                GROUP BY vt.MaVT, vt.ChiTiet, ct.IsNPL, ct.SoLoID, ct.NgayNhapKho, dv.TenDVVT
-                HAVING DATEADD(MONTH, 12, ct.NgayNhapKho) BETWEEN GETDATE() AND DATEADD(DAY, 90, GETDATE())
-                ORDER BY NgayHetHan;");
+                  AND ISNULL(ct.SoLuongThucTeBanDau, 0) > 0
+                GROUP BY vt.MaVT, vt.ChiTiet, ct.IsNPL, nk.SoLo, ct.NgayNhapKho, dv.TenDVVT
+                ORDER BY DATEDIFF(DAY, ct.NgayNhapKho, GETDATE()) DESC;");
         }
 
         public static DataTable GetGiaTriNhomChiTiet()
@@ -506,7 +516,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
 
         // ════════════════════════════════════════════════════════════════
         // v2.4.6 — STUB cho dải KPI mới + filter ngày + Page 2 widget mới.
-        // TODO: thay bằng SQL thật khi nghiệp vụ sẵn sàng.
+        //
         // ════════════════════════════════════════════════════════════════
 
         public static DataTable GetTongNhap(DateTime tuNgay, DateTime denNgay)
@@ -726,36 +736,52 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 cmd => cmd.Parameters.AddWithValue("@DenNgay", denNgay));
         }
 
+        /// <summary>
+        /// v2.8 — Cảnh báo tồn kho: dùng ERP_VatTuMinmax.TonToiDa thay vì hardcode 5000.
+        /// Nếu bảng ERP_VatTuMinmax không tồn tại, fallback về 0 (không cảnh báo TonVuot).
+        /// </summary>
         public static DataTable GetCanhBaoTonKho()
         {
             return ExecuteQuery(@"
                 DECLARE @POTre INT = 0, @NPLThieu INT = 0, @KKLech INT = 0, @TonVuot INT = 0;
 
+                -- PO trễ chưa kiểm
                 SELECT @POTre = COUNT(DISTINCT nk.SoLoID)
                 FROM dbo.ERP_NhapKhoNPL nk
                 WHERE nk.NgayNKDuKien IS NOT NULL AND nk.NgayNKDuKien < GETDATE()
                   AND EXISTS (SELECT 1 FROM dbo.ERP_ChiTietNhapKhoNPL ct WHERE ct.SoLoID = nk.SoLoID AND ISNULL(ct.IsDuyetNK, 0) <> 1);
 
+                -- NPL thiếu cho SX
                 SELECT @NPLThieu = COUNT(DISTINCT cs.MaLenhSanXuat)
                 FROM dbo.CanDoiDonViSanXuat cs
                 WHERE NOT EXISTS (SELECT 1 FROM dbo.PhieuXuatHang ph WHERE ph.MaLenhSX = cs.MaLenhSanXuat);
 
+                -- Kiểm kê lệch
                 SELECT @KKLech = COUNT(*)
                 FROM dbo.ERPPhieuKiemKe_NPL
-                WHERE IsXacNhan = 1 AND SLKiemKeEdit IS NOT NULL AND SLKiemKeBanDau <> ISNULL(SLKiemKeEdit, SLKiemKe);
+                WHERE IsXacNhan = 1 AND SLKiemKeEdit IS NOT NULL
+                  AND SLKiemKeBanDau <> ISNULL(SLKiemKeEdit, SLKiemKe);
 
-                SELECT @TonVuot = COUNT(*) FROM (
-                    SELECT ct.MaNPL, SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS Ton
-                    FROM dbo.ERP_ChiTietNhapKhoNPL ct
-                    GROUP BY ct.MaNPL
-                    HAVING SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) > 5000
-                ) t;
+                -- Tồn vượt định mức (so với ERP_VatTuMinmax.TonToiDa)
+                IF OBJECT_ID('dbo.ERP_VatTuMinmax', 'U') IS NOT NULL
+                BEGIN
+                    SELECT @TonVuot = COUNT(*) FROM (
+                        SELECT ct.MaVTID,
+                               SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS Ton,
+                               MAX(ISNULL(mm.TonToiDa, 0)) AS DinhMuc
+                        FROM dbo.ERP_ChiTietNhapKhoNPL ct
+                        LEFT JOIN dbo.ERP_VatTuMinmax mm ON mm.MaVTID = ct.MaVTID
+                        WHERE ISNULL(mm.TonToiDa, 0) > 0
+                        GROUP BY ct.MaVTID
+                        HAVING SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) > MAX(ISNULL(mm.TonToiDa, 0))
+                    ) t;
+                END;
 
                 SELECT 'po_tre' AS MaCB, N'PO đang trễ (chưa kiểm)' AS TenCB, @POTre AS SoLuong, N'PO' AS DonVi, N'Quá 48h chưa kiểm' AS MoTa, 'danger' AS MucDo
                 UNION ALL
                 SELECT 'npl_thieu', N'NPL thiếu cho sản xuất', @NPLThieu, N'mã hàng', N'Không đủ để cấp phát', 'danger'
                 UNION ALL
-                SELECT 'kk_lech', N'Kiểm kê lệch > 5%', @KKLech, N'phiếu', N'Cần kiểm tra lại', 'warn'
+                SELECT 'kk_lech', N'Kiểm kê lệch', @KKLech, N'phiếu', N'Cần kiểm tra lại', 'warn'
                 UNION ALL
                 SELECT 'ton_vuot_dm', N'Tồn kho vượt định mức', @TonVuot, N'mã hàng', N'Vượt mức tồn cho phép', 'danger';");
         }
@@ -1271,6 +1297,10 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 ORDER BY nk.NgayNKDuKien;");
         }
 
+        /// <summary>
+        /// v2.8 — Chi tiết tồn vượt định mức: join ERP_VatTuMinmax để lấy TonToiDa thực tế.
+        /// Nếu vật tư không có định mức → bỏ qua (chỉ cảnh báo khi có định mức được khai báo).
+        /// </summary>
         public static DataTable GetTonVuotDinhMucChiTiet()
         {
             return ExecuteQuery(@"
@@ -1280,24 +1310,28 @@ namespace NtbSoft.ERP.Model.DashboardKho
                     t.TenVT,
                     t.DonVi,
                     t.SLTon,
-                    5000.0 AS DinhMuc,
-                    ROUND((t.SLTon - 5000.0) / 5000.0 * 100, 2) AS VuotPct,
+                    t.DinhMuc,
+                    ROUND((t.SLTon - t.DinhMuc) / NULLIF(t.DinhMuc, 0) * 100, 2) AS VuotPct,
                     t.ViTriKe
                 FROM (
                     SELECT 
+                        ct.MaVTID,
                         vt.MaVT AS ItemCode,
                         ISNULL(vt.ChiTiet, '') AS TenVT,
                         ISNULL(dv.TenDVVT, '') AS DonVi,
                         SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS SLTon,
-                        MAX(v.MaONPL) AS ViTriKe
+                        MAX(ISNULL(cbm.MaONPL, N'Chưa xếp kệ')) AS ViTriKe,
+                        MAX(ISNULL(mm.TonToiDa, 0)) AS DinhMuc
                     FROM dbo.ERP_ChiTietNhapKhoNPL ct
                     LEFT JOIN dbo.ERP_VatTuTV vt ON ct.MaVTID = vt.MaVTID
-                    LEFT JOIN dbo.ERP_VatTuCBM v ON ct.BarCode = v.Barcode
+                    LEFT JOIN dbo.ERP_VatTuCBM cbm ON ct.BarCode = cbm.Barcode
                     LEFT JOIN dbo.ERP_KhoVai kv ON ct.KhoVaiID = kv.KhoVaiID
                     LEFT JOIN dbo.ERP_DonViVT dv ON kv.MaDVVT = dv.MaDVVT
-                    GROUP BY vt.MaVT, vt.ChiTiet, dv.TenDVVT
+                    LEFT JOIN dbo.ERP_VatTuMinmax mm ON mm.MaVTID = ct.MaVTID
+                    WHERE ISNULL(mm.TonToiDa, 0) > 0
+                    GROUP BY ct.MaVTID, vt.MaVT, vt.ChiTiet, dv.TenDVVT
                 ) t
-                WHERE t.SLTon > 5000
+                WHERE t.SLTon > t.DinhMuc
                 ORDER BY t.SLTon DESC;");
         }
 

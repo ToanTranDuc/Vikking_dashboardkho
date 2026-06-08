@@ -789,11 +789,7 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             }
         }
 
-        // ===================================================================
-        // POST api/DashboardKhoDesktop/LichPhanCong_SavePhanCong
-        // Lưu (tạo mới hoặc cập nhật) một phân công nhân viên cho lệnh SX
-        // (Van's code — merged 2026-06-05)
-        // ===================================================================
+
         [HttpPost]
         [Route("LichPhanCong_SavePhanCong")]
         public IHttpActionResult SavePhanCong([FromBody] NtbSoft.ERP.Model.DashboardKho.LichPhanCong_SavePhanCongRequest req)
@@ -844,11 +840,6 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             }
         }
 
-        // ===================================================================
-        // POST api/DashboardKhoDesktop/LichPhanCong_UpdateTrangThai
-        // Cập nhật trạng thái lệnh SX: 0=Chờ, 1=Đang, 2=Hoàn thành, 3=Chưa HT
-        // (Van's code — merged 2026-06-05)
-        // ===================================================================
         [HttpPost]
         [Route("LichPhanCong_UpdateTrangThai")]
         public IHttpActionResult UpdateTrangThai([FromBody] NtbSoft.ERP.Model.DashboardKho.LichPhanCong_UpdateTrangThaiRequest req)
@@ -894,11 +885,6 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             }
         }
 
-        // ===================================================================
-        // GET api/DashboardKhoDesktop/LichPhanCong_GetPickOrderDetail
-        // Lấy chi tiết các phụ liệu cần soạn cho một lệnh sản xuất
-        // (Van's code — merged 2026-06-05)
-        // ===================================================================
         [HttpGet]
         [Route("LichPhanCong_GetPickOrderDetail")]
         public IHttpActionResult GetPickOrderDetail(string maLenhSX)
@@ -966,11 +952,6 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             }
         }
 
-        // ===================================================================
-        // GET api/DashboardKhoDesktop/LichPhanCong_GetNhanVienList
-        // Lấy danh sách nhân viên để chọn phân công
-        // (Van's code — merged 2026-06-05)
-        // ===================================================================
         [HttpGet]
         [Route("LichPhanCong_GetNhanVienList")]
         public IHttpActionResult GetNhanVienList()
