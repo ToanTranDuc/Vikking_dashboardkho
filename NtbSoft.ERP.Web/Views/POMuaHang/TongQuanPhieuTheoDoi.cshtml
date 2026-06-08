@@ -1,0 +1,270 @@
+﻿@{
+    ViewBag.Title = "TongQuanPhieuTheoDoi";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng quan theo dõi nhà cung cấp</title>
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/select2/css/select2.min.css">
+    <link href="~/Content/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+    <link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="~/Content/plugins/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/POMuaHang/TongQuanPhieuTheoDoi.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="header-section bg-info sticky-top">
+            <div class="container-fluid px-3 px-md-4">
+                <div class="header-content d-flex align-items-center justify-content-between py-2">
+
+                    <!-- BÊN TRÁI -->
+                    <div class="d-flex align-items-center gap-3">
+                        <a href="@Url.Action("DashBoard","Home")" class="text-white">
+                            <i class="fas fa-home fa-lg"></i>
+                        </a>
+                        <h5 class="header-title mb-0 text-white">
+                            THEO DÕI NHÀ CUNG CẤP
+                        </h5>
+                    </div>
+
+                    <!-- BÊN PHẢI -->
+                    <div class="doc-info-box text-white small">
+                        <div><strong>Ký hiệu:</strong> BM04/QT15/KH02</div>
+                        <div><strong>Lần sửa đổi:</strong> 01</div>
+                        <div><strong>Ngày ban hành:</strong> 16/07/2025</div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="main-card animate-in">
+            <div class="row g-3">
+                <!-- Card 1 -->
+                <div class="col-12">
+                    <div class="card ui-card h-100">
+                        <div class="card-header ui-header">
+                            <button class="btn btn-sm btn-toggle ms-2" id="toggle-card">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <h6 class="mb-0">TT Phiếu theo dõi</h6>
+                            <div class="d-flex flex-wrap gap-2 ms-auto">
+                                <button class="btn btn-warning btn-sm" id="btn-them-danh-gia">
+
+                                    <i class="fa-brands fa-slack"></i> Thêm phiếu
+                                </button>
+                                <button class="btn btn-success btn-sm" id="btn-sua-phieu">
+
+                                    <i class="fas fa-plus"></i> Sửa phiếu
+                                </button>
+                                <button class="btn btn-danger btn-sm" id="btn-xoa-phieu">
+
+                                    <i class="fas fa-trash-alt"></i> Xóa Phiếu
+                                </button>
+
+                                <button class="btn btn-success btn-sm" id="btn-Excel">
+
+                                    <i class="fa-solid fa-file-excel"></i> Excel
+                                </button>
+                                <button class="btn btn-light btn-sm" id="btn-refresh">
+
+                                    <i class="fas fa-sync-alt"></i> Nạp lại
+                                </button>
+
+                            </div>
+                        </div>
+                        <div class="card-body collapse-content">
+                            <div class="row g-3 align-items-end">
+                                <div class="col-md-3">
+                                    <label class="form-label-custom">
+                                        <i class="fas fa-filter me-1"></i> Lọc
+                                    </label>
+                                    <select class="form-select form-select-sm" id="selectFilterType">
+                                        <option value="date">Khoảng ngày</option>
+                                        <option value="quarter">Theo quý</option>
+                                        <option value="chungloai">Hàng Hóa dịch vụ</option>
+                                        <option value="nhacungcap">Nhà cung cấp</option>
+                                    </select>
+
+                                </div>
+
+
+                                <div class="col-md-4 filter-chungloai d-none">
+                                    <label class="form-label-custom">
+                                        <i class="fas fa-box me-1"></i> Hàng hóa, dịch vụ
+                                    </label>
+                                    <div class="form-select" id="selectChungLoaiVatTu"></div>
+                                </div>
+                                <div class="col-md-3 filter-chungloai d-none">
+                                    <label class="form-label-custom"><i class="fas fa-calendar me-1"></i> Năm</label>
+                                    <select class="form-select form-select-sm" id="selectYearCLVT"></select>
+                                </div>
+
+                                <div class="col-md-4 filter-nhacungcap d-none">
+                                    <label class="form-label-custom">
+                                        <i class="fas fa-user-tie me-1"></i> Nhà cung cấp
+                                    </label>
+                                    <select class="form-select form-select-sm" id="selectNhaCungCap"></select>
+                                </div>
+
+
+
+                                <div class="col-md-3 filter-date">
+                                    <label class="form-label-custom"><i class="fas fa-calendar me-1"></i> Từ ngày</label>
+                                    <input type="text" class="form-control form-control-sm" id="fromDate">
+                                </div>
+                                <div class="col-md-3 filter-date">
+                                    <label class="form-label-custom"><i class="fas fa-calendar me-1"></i> Đến ngày</label>
+                                    <input type="text" class="form-control form-control-sm" id="toDate">
+                                </div>
+
+                                <div class="col-md-3 filter-quarter d-none">
+                                    <label class="form-label-custom"><i class="fas fa-calendar me-1"></i> Quý</label>
+                                    <select class="form-select form-select-sm" id="selectQuarter">
+                                        <option value="I">Quý I</option>
+                                        <option value="II">Quý II</option>
+                                        <option value="III">Quý III</option>
+                                        <option value="IV">Quý IV</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 filter-quarter d-none">
+                                    <label class="form-label-custom"><i class="fas fa-calendar me-1"></i> Năm</label>
+                                    <select class="form-select form-select-sm" id="selectYear"></select>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="grid-contianer">
+
+            <div id="gridPhieuDanhGia">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="~/Scripts/jquery.min-3.6.1.js"></script>
+    <script src="~/Content/plugins/moment/moment.min.js"></script>
+    <script src="/Content/js/core/utils.js"></script>
+    <script src="/Content/js/core/common.js"></script>
+    <script src="~/Scripts/Toast/Toast.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Content/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Scripts/ViTriKho/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Content/dist/js/adminlte.min.js"></script>
+    <script src="~/Content/plugins/DevExtreme/dx.all.js"></script>
+    <script src="~/Content/plugins/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Content/plugins/PadSign/signature_pad.min.js"></script>
+    <script>
+        let Action = '@(ViewBag.Action ?? "add")';
+        let MaPhieu = '@(ViewBag.MaPhieu ?? "NONE")';
+        let MaCLVTID = '@(ViewBag.MaCLVTID ?? "NONE")';
+    </script>
+
+    <script>
+
+         var _userName = '@ViewBag.userName';
+        if (window.CefSharp) {
+            $("#home").hide();
+            localStorage.setItem('username', _userName)
+        }
+
+
+    </script>
+    <script>
+
+        $("#selectChungLoaiVatTu").dxDropDownBox({
+            value: null,
+            valueExpr: "MaCLVT",
+            displayExpr: "ChungLoaiVatTu",
+            placeholder: "Chọn loại hàng hóa",
+            dataSource: [],
+            contentTemplate: function (e) {
+                return $("<div class='pl-contents'>").dxDataGrid({
+                    dataSource: e.component.option("dataSource"),
+                    height: 600, // hoặc giá trị phù hợp
+                    columns: [
+                        { dataField: "MaCLVT", caption: "MaCLVT", visible: false },
+                        { dataField: "ChungLoaiVatTu", caption: "Loại hàng hóa", cssClass: "col-chi-tiet" },
+                        { dataField: "TenKhac", caption: "Tên gọi khác" },
+                        {
+                            dataField: "LoaiVT", caption: "Loại vật tư",
+                            groupIndex: 0,
+                            groupCellTemplate: function (cellElement, cellInfo) {
+                                cellElement.html(`<span style="color: teal; font-weight: bold;">${cellInfo.value}</span>`);
+                            }
+                        },
+                    ],
+                    searchPanel: { visible: true },
+                    scrolling: {
+                        mode: 'standard',
+                        showScrollbar: 'always'
+                    },
+                    width: '100%',
+                    noDataText: "Chưa có dữ liệu",
+                    selection: { mode: "single" },
+                    hoverStateEnabled: true,
+                    paging: { enabled: false },
+                    filterRow: { visible: true },
+                    showBorders: true,
+                    showRowLines: true,
+                    showColumnLines: true,
+                    onRowClick: function (eRow) {
+                        const keys = [eRow.data];
+                        e.component.option("value", keys.length ? keys[0].MaCLVT : null);
+                        if (keys[0]?.MaCLVT) {
+                            rowSelected_CLVT = keys[0];
+                            GetNhaCungCap(keys[0]?.MaCLVT);
+                            if (Action != 'edit') {
+                                Action = "add"
+                                GeneratePhieuDanhGia();
+                                GetCountPhieuDanhGia(rowSelected_CLVT.MaCLVT, rowSelected_CLVT.ChungLoaiVatTu)
+                                GetPhieuDanhGia(rowSelected_CLVT.MaCLVT);
+                            }
+                        }
+                        eRow.component.selectRowsByIndexes([eRow.rowIndex]);
+                        $("#selectChungLoaiVatTu").dxDropDownBox("instance").close();
+                    },
+                    onContentReady: function () {
+                        $(".dx-datagrid-headers td").css({
+                            "background-color": "RoyalBlue",
+                            "color": "#fff",
+                            "text-align": "center",
+                            "vertical-align": "middle",
+                            "font-weight": "700"
+                        });
+                    }
+                });
+
+            },
+
+        });
+
+    </script>
+    <script src="~/Scripts/POMuaHang/TongQuanPhieuTheoDoi.js"></script>
+
+</body>
+
+</html>
+
+
+

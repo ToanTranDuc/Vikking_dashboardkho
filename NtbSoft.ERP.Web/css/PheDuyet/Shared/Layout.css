@@ -1,0 +1,888 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size: 13px;
+    overflow: hidden;
+    height: 100vh;
+}
+.container-fluid {
+    padding: 0 !important;
+ 
+}
+/* Title */
+.header-title {
+    white-space: normal;
+    margin: 0;
+    /* flex: 1 1 auto; */ /* Cho phép co lại khi thiếu chỗ */
+}
+
+
+.header-content {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    gap: 10px;
+}
+
+.main-container {
+    height: calc(100vh - 42px) !important;
+    display: flex;
+}
+
+.main-container {
+    display: flex;
+    height: 100vh;
+}
+/* Sidebar */
+.sidebar {
+    width: 270px;
+    background: #2c3e50;
+    color: white;
+    font-weight: 700;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+
+    .sidebar.mini-mode {
+        width: 50px !important;
+    }
+
+/* Header sticky */
+.sidebar-header {
+    position: sticky;
+    top: 0;
+    background: #2c3e50;
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.collapse-btn {
+    padding: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+
+    .collapse-btn:hover {
+        background: rgba(255,255,255,0.1);
+    }
+
+.sidebar.mini-mode .collapse-btn {
+    justify-content: center;
+    padding: 15px 5px;
+}
+
+    .sidebar.mini-mode .collapse-btn span {
+        display: none;
+    }
+
+/* Tree view */
+.tree-view {
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    height: 100vh !important;
+    scroll-behavior: smooth;
+}
+
+    /* Custom scrollbar */
+    .tree-view::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .tree-view::-webkit-scrollbar-track {
+        background: rgba(255,255,255,0.1);
+    }
+
+    .tree-view::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,0.3);
+        border-radius: 3px;
+    }
+
+        .tree-view::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
+.sidebar.mini-mode .tree-view {
+    padding: 5px;
+}
+
+/* Tree items */
+.tree-item {
+    padding: 2px 3px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin: 3px 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+    position: relative;
+}
+
+    .tree-item:hover {
+        background: rgba(255,255,255,0.1);
+    }
+
+    .tree-item.active {
+        background: #3498db;
+    }
+
+    .tree-item.parent {
+        font-weight: 600;
+    }
+
+    .tree-item.child {
+        padding-left: 30px;
+    }
+
+    .tree-item.child-level-2 {
+        padding-left: 50px;
+        font-size: 14px;
+    }
+
+/* Mini mode - chỉ hiện icon */
+.sidebar.mini-mode .tree-item span:not(.so-phieu-can-duyet) {
+    display: none;
+}
+
+.sidebar.mini-mode .tree-item {
+    justify-content: center;
+    padding: 8px 5px !important;
+}
+
+    .sidebar.mini-mode .tree-item i {
+        margin: 0;
+    }
+
+.sidebar.mini-mode .so-phieu-can-duyet {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    font-size: 9px;
+    background: #e74c3c;
+    padding: 2px 4px;
+    border-radius: 10px;
+    min-width: 16px;
+    text-align: center;
+}
+
+/* Tooltip khi hover ở mini mode */
+.sidebar.mini-mode .tree-item {
+    position: relative;
+}
+
+    .sidebar.mini-mode .tree-item:hover::after {
+        content: attr(data-title);
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #34495e;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        white-space: nowrap;
+        margin-left: 10px;
+        z-index: 1000;
+        font-size: 13px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .sidebar.mini-mode .tree-item:hover::before {
+        content: '';
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 5px solid transparent;
+        border-right-color: #34495e;
+        margin-left: 5px;
+        z-index: 1000;
+    }
+
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+
+
+/* Scrollbar Styling */
+.sidebar::-webkit-scrollbar,
+.content-area::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track,
+.content-area::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.content-area::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+    .sidebar::-webkit-scrollbar-thumb:hover,
+    .content-area::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+    }
+
+
+
+.so-phieu-can-duyet {
+    margin-left: auto;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+    animation: gentlePulse 2s ease-in-out infinite !important;
+    transition: all 0.3s ease;
+}
+
+
+@keyframes gentlePulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 3px 12px rgba(231, 76, 60, 0.5);
+        opacity: 0.95;
+    }
+}
+
+
+@keyframes gentleGlow {
+    0%, 100% {
+        box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 2px 12px rgba(231, 76, 60, 0.6), 0 0 20px rgba(231, 76, 60, 0.2);
+    }
+}
+
+
+@keyframes fadePulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.85;
+        transform: scale(1.03);
+    }
+}
+
+.so-phieu-can-duyet:hover {
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+    animation-play-state: paused;
+}
+
+/*Loading Page*/
+/* Toàn màn hình overlay */
+.custom-loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+    .custom-loader-wrapper.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+/* Box chứa loader + text */
+.custom-loader-box {
+    text-align: center;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.custom-loader-wrapper.active .custom-loader-box {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.custom-loading-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #e74c3c;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    animation: pulse-animation 2s infinite ease-in-out;
+}
+
+@keyframes pulse-animation {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+}
+
+/* Loader chính */
+.custom-loader {
+    width: 400px;
+    height: 32px;
+    background-color: #e0e0e0;
+    border: 3px solid #2196f3;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(33, 150, 243, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Thanh tiến trình */
+.custom-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #42a5f5, #1e88e5, #1565c0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    transition: width 0.4s ease-in-out;
+}
+
+    /* Hiển thị % */
+    .custom-progress::after {
+        content: attr(data-percentage);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-weight: bold;
+        transform: translate(-50%, -50%);
+        font-size: 1rem;
+        color: #ffffff;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .sidebar {
+    }
+}
+
+@media (max-width: 992px) {
+    .sidebar {
+    }
+
+    .tree-item {
+        font-size: 12px;
+    }
+
+    .sub-tab {
+        font-size: 12px;
+        padding: 6px 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: absolute;
+        z-index: 1000;
+        height: 100%;
+    }
+
+        .sidebar.collapsed {
+            min-width: 0;
+            border: none;
+            background: transparent;
+        }
+
+    .sub-tabs-container {
+        padding: 6px 8px;
+    }
+
+    .dx-datagrid {
+        border: none !important;
+        font-size: 10px !important;
+    }
+}
+/* Container chính của DxTabs */
+.dx-tabs {
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0;
+    overflow: visible;
+}
+
+/* Wrapper cho các tab items */
+.dx-tabs-wrapper {
+    display: flex;
+    gap: 4px;
+    padding: 0;
+    justify-content: flex-start;
+}
+
+/* Mỗi tab item */
+.dx-tab {
+    position: relative;
+    padding: 9px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #5f6368;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0;
+    min-height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    /* Hover effect cho tab */
+    .dx-tab:hover:not(.dx-tab-selected) {
+        color: #202124;
+        background: rgba(0, 0, 0, 0.04);
+    }
+
+    /* Tab đã được chọn */
+    .dx-tab.dx-tab-selected {
+        color: #1a73e8;
+        font-weight: 600;
+        background: transparent;
+    }
+
+        /* Gạch chân cho tab được chọn - hiệu ứng như Windows */
+        .dx-tab.dx-tab-selected::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #1a73e8 0%, #4285f4 100%);
+            border-radius: 3px 3px 0 0;
+            animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+@keyframes slideIn {
+    from {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+
+/* Focus state cho accessibility */
+.dx-tab:focus {
+    outline: none;
+}
+
+.dx-tab:focus-visible {
+    outline: 2px solid #1a73e8;
+    outline-offset: -2px;
+}
+
+/* Disabled state */
+.dx-tab.dx-state-disabled {
+    color: #dadce0;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Icon trong tab (nếu có) */
+.dx-tab .dx-icon {
+    margin-right: 8px;
+    font-size: 18px;
+    opacity: 0.8;
+}
+
+.dx-tab.dx-tab-selected .dx-icon {
+    opacity: 1;
+}
+
+/* Text trong tab */
+.dx-tab-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+    .dx-tabs-wrapper {
+        padding: 0 8px;
+        gap: 2px;
+    }
+
+    .dx-tab {
+        padding: 10px 16px;
+        font-size: 13px;
+        min-height: 44px;
+    }
+
+    .dx-tab-text {
+        max-width: 120px;
+    }
+}
+
+/* Variant: Dark theme */
+.dx-tabs.dark-theme {
+    background: #1f1f1f;
+    border-bottom-color: #3c3c3c;
+}
+
+    .dx-tabs.dark-theme .dx-tab {
+        color: #9aa0a6;
+    }
+
+        .dx-tabs.dark-theme .dx-tab:hover:not(.dx-tab-selected) {
+            color: #e8eaed;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .dx-tabs.dark-theme .dx-tab.dx-tab-selected {
+            color: #8ab4f8;
+        }
+
+            .dx-tabs.dark-theme .dx-tab.dx-tab-selected::after {
+                background: linear-gradient(90deg, #8ab4f8 0%, #669df6 100%);
+            }
+
+/* Variant: Minimal style */
+.dx-tabs.minimal {
+    border-bottom: 2px solid #f0f0f0;
+}
+
+    .dx-tabs.minimal .dx-tab {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+        .dx-tabs.minimal .dx-tab.dx-tab-selected::after {
+            height: 2px;
+        }
+
+/* Scrollable tabs navigation buttons */
+.dx-tabs-nav-button {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+    .dx-tabs-nav-button:hover {
+        background: #f5f5f5;
+        border-color: #d0d0d0;
+    }
+
+    .dx-tabs-nav-button:active {
+        background: #e8e8e8;
+    }
+
+.dx-tab .dx-tab-text {
+    font-weight: 600 !important;
+}
+
+.lay-out-cefShap {
+    display: flex;
+    height: 100vh;
+    flex-direction: row-reverse !important;
+}
+
+.col-soluong not .dx-header-filter-indicator {
+    font-weight: 700;
+    color: #0c2d5e;
+    font-size: 15px;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+/* Sidebar structure */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 42px);
+    transition: width 0.3s;
+}
+
+/* Sidebar header - luôn cố định */
+.sidebar-header {
+    height: 60px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+    .sidebar-header i {
+        font-size: 20px;
+        color: white;
+    }
+
+/* Tree view - phần cuộn */
+.tree-view {
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+    scroll-behavior: smooth;
+    transition: all 0.3s;
+}
+
+/* Khi collapse - ẩn tree view */
+.sidebar.collapsed .tree-view {
+    max-height: 0;
+    padding: 0;
+    overflow: hidden;
+    color: white !important;
+}
+
+/* Custom scrollbar */
+.tree-view::-webkit-scrollbar {
+    width: 6px;
+}
+
+.tree-view::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+}
+
+.tree-view::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+    border-radius: 3px;
+}
+
+    .tree-view::-webkit-scrollbar-thumb:hover {
+        background: rgba(255,255,255,0.5);
+    }
+
+/* Ẩn scrollbar khi mini mode */
+.sidebar.mini-mode .tree-view::-webkit-scrollbar {
+    width: 0px;
+}
+
+.sidebar.mini-mode .tree-view {
+    padding: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Sidebar footer - chứa 2 nút */
+.sidebar-footer {
+    display: flex;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Nút toggle sidebar - thu gọn/mở rộng sidebar */
+.sidebar-toggle-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: black !important;
+}
+
+    .sidebar-toggle-btn:hover {
+        background: rgba(0,0,0,0.3);
+    }
+
+    .sidebar-toggle-btn i {
+        font-size: 18px;
+        color: white;
+        transition: transform 0.3s;
+    }
+
+/* Khi sidebar ở chế độ mini */
+.sidebar.mini-mode .sidebar-toggle-btn i {
+    transform: rotate(180deg);
+}
+
+/* Nút collapse - thu gọn tree view */
+.sidebar-collapse-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+    .sidebar-collapse-btn:hover {
+        background: rgba(0,0,0,0.3);
+    }
+
+    .sidebar-collapse-btn i {
+        font-size: 18px;
+        color: white;
+        transition: transform 0.3s;
+    }
+
+/* Khi collapse - xoay icon */
+.sidebar.collapsed .sidebar-collapse-btn i {
+    transform: rotate(180deg);
+}
+
+/* Khi ở mini mode, ẩn nút collapse */
+.sidebar.mini-mode .sidebar-collapse-btn {
+    display: none;
+}
+
+.sidebar.mini-mode .sidebar-toggle-btn {
+    border-right: none;
+}
+
+/* Tree items */
+.tree-item {
+    padding: 2px 3px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin: 3px 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+    position: relative;
+}
+
+    .tree-item:hover {
+        background: rgba(255,255,255,0.1);
+    }
+
+    .tree-item.active {
+        background: #3498db;
+    }
+
+    .tree-item.parent {
+        font-weight: 600;
+    }
+
+    .tree-item.child {
+        padding-left: 30px;
+    }
+
+    .tree-item.child-level-2 {
+        padding-left: 50px;
+        font-size: 14px;
+    }
+
+/* Mini mode - chỉ hiện icon */
+.sidebar.mini-mode .tree-item span:not(.so-phieu-can-duyet) {
+    display: none;
+}
+
+.sidebar.mini-mode .tree-item {
+    justify-content: center;
+    padding: 10px 5px !important;
+}
+
+    .sidebar.mini-mode .tree-item i {
+        margin: 0;
+        font-size: 18px;
+    }
+
+.sidebar.mini-mode .so-phieu-can-duyet {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    font-size: 9px;
+    background: #e74c3c;
+    padding: 2px 4px;
+    border-radius: 10px;
+    min-width: 16px;
+    text-align: center;
+}
+
+/* Tooltip khi hover ở mini mode */
+.sidebar.mini-mode .tree-item {
+    position: relative;
+}
+
+    .sidebar.mini-mode .tree-item:hover::after {
+        content: attr(data-title);
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #34495e;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        white-space: nowrap;
+        margin-left: 10px;
+        z-index: 1000;
+        font-size: 13px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .sidebar.mini-mode .tree-item:hover::before {
+        content: '';
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 5px solid transparent;
+        border-right-color: #34495e;
+        margin-left: 5px;
+        z-index: 1000;
+    }

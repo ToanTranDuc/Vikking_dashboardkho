@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "BCNguonNhanLuc";
+    Layout = "~/Views/Shared/_LayoutBCTH.cshtml";
+}
+
+<link href="~/Libs/UIUX/Boottrap/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Libs/UIUX/Font/roboto.css" rel="stylesheet" />
+<link href="~/css/BaoCaoTongHop/BCNhanLuc/BCNhanLuc.css" rel="stylesheet" />
+<link href="~/css/BaoCaoTongHop/BCNhanLuc/BCNhanLucMobile.css" rel="stylesheet" />
+<link href="~/css/BaoCaoTongHop/BCNhanLuc/BCNhanLucTab.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
+<div class="kt-portlet">
+    <div style="background: #5E5D67; padding: 10px; display: flex; align-items: center; justify-content: flex-start; gap: 5px;position:relative">
+        <label style="color: #fff; white-space: nowrap;">Chọn ngày</label>
+        <input type="date" name="name" value="" id="date">
+
+        <div class="btn-group-excel">
+            <button id="btn-excel" class="btn-excel" role="button"><i class="fa-solid fa-file-excel" style="margin-right: 2px;"></i> Xuất Excel</button>
+
+        </div>
+
+    </div>
+    <div>
+        <div class="flex-chart">
+            <div class="row g-2">
+                <div class="col-xl-6">
+                    <h5 class="chart-title">Lao Động Trong Ngày</h5>
+                    <div class="row" id="box-ld">
+                        <div class="col-xl-3 pe-1 tbl-woker">
+                            <table class="pass" style="width: 100%; display:none">
+                                <thead id="theader">
+                                    <tr style="font-size: 10px;">
+                                        <th>Chuyền</th>
+                                        <th>LĐ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bodyTable">
+                                </tbody>
+                                <tfoot id="tfooter">
+                                    <tr>
+                                        <td>Tổng</td>
+                                        <td class="tfoot-total-worker"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <div class="col-xl-9 ps-1" id="container6"></div>
+                    </div>
+                </div>
+                <div class="col-xl-6" style=" background-color: #fff;">
+                    <h5 class="chart-title">Lao Động Vắng Trong Ngày</h5>
+                    <div id="container7"></div>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-xl-6">
+                    <div class="flex-txt">
+                        <h5 class="txt " style=" font-weight: 600; text-align: left;margin-right:15px;">Lao Động Theo</h5>
+                        <h5 class="txt" style="margin-right:0px">Năm :</h5>
+                        <select id="year" class="select-year">
+                        </select>
+                    </div>
+                    <div id="container9"></div>
+                    <div id="container10"></div>
+                </div>
+                <div class="col-xl-6">
+                    <p class="chart-title">Biến Động Lao Động </p>
+                    <div id="container8"></div>
+                    <div id="container11"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-no-padding data-time">
+        <div class="option-date">
+            <div class="action d-flex align-items-center">
+                <div style="position:relative">
+                    <label>Từ ngày</label>
+                    <input type="date" name="name" value="" id="fdate">
+
+                </div>
+                <div style="position:relative">
+                    <label>Đến ngày</label>
+                    <input type="date" name="name" value="" id="tdate">
+
+                </div>
+
+            </div>
+            <div class="mobile-item-btn"><button class="btnTim" id="click-me">Tìm </button></div>
+        </div>
+    </div>
+    <div class="row row-no-padding">
+
+        <div class="col-md-12 col-lg-12 col-xl-12 labor" style="padding: 0 2px;margin:2px 0 ">
+            <p class="chart-title">Số Lao Động Từng Chuyền</p>
+            <div id="container4"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    let brainChoose = sessionStorage.getItem("BranchName");
+    //if (brainChoose == null)
+    //    location.href = "../../../../danh-sach-bao-cao";
+    $('#tittleBC').text(`${brainChoose} - Báo cáo lao động từng chuyền`);
+    $('#home').on('click', function () {
+        location.href = "../../../danh-sach-bao-cao";
+    });
+
+    flatpickr("#date", {
+        dateFormat: "d-m-Y",
+        defaultDate: "today"
+    });
+
+    flatpickr("#fdate", {
+        dateFormat: "d-m-Y",
+        defaultDate: "today"
+    });
+    flatpickr("#tdate", {
+        dateFormat: "d-m-Y",
+        defaultDate: "today"
+    });
+</script>
+<script src="~/Scripts/BaoCaoTongHop/BCNhanLuc/BCNhanLuc.js"></script>
+
+

@@ -1,0 +1,75 @@
+﻿@media (max-width: 750px) {
+    .tieude label {
+        font-size: 15px;
+        margin-top: 2px;
+        width: 50px;
+    }
+
+    .height-container {
+        max-height: calc(100vh - 320px);
+        overflow-y: scroll;
+    }
+}
+
+@media (max-width: 650px) {
+    .grid-a {
+        display: flex;
+        gap: 10px;
+        white-space: nowrap;
+    }
+
+    #date {
+        margin-bottom: 5px;
+    }
+
+    .tieude .ex {
+        right: 10px;
+        top: 19px;
+    }
+
+    input[type="date"] {
+        font-size: 11px !important;
+        width: 180px !important;
+    }
+
+    .task-item .item-table {
+        max-height: calc(100vh - 253px) !important;
+    }
+
+    .height-container {
+        max-height: calc(100vh - 320px);
+        overflow-y: scroll;
+    }
+}
+
+@media(max-width: 1000px) {
+    .tieude label {
+        font-size: 15px;
+        margin-top: 2px
+    }
+
+    input[type="date"] {
+        font-size: 15px !important;
+        width: 200px;
+    }
+    .height-container {
+        max-height: calc(100vh - 320px);
+        overflow-y: scroll;
+    }
+}
+
+@media (max-width: 1150px) {
+    .task-item {
+        flex-direction: column;
+    }
+
+        .task-item .item-table1 {
+            width: 100%;
+        }
+
+        .task-item .item-table {
+            width: 100%;
+            max-height: 50vh;
+            margin-bottom: 10px;
+        }
+}

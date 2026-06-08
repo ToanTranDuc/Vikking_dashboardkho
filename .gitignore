@@ -1,0 +1,35 @@
+# Ignore personal / unnecessary directories and files
+/Toan/
+/Van/
+/antigravity-awesome-skills-main/
+/prompt-master-main/
+/Backup_BeforeMerge_20260605/
+/Backup_BeforeMerge_20260605_Round2/
+/Báo cáo thực tập/
+/Goi y SQL/
+/current_sp.txt
+/db_sp.sql
+/scratch_query.ps1
+/scratch_script.ps1
+
+# Ignore all archives recursively
+**/*.rar
+**/*.zip
+**/*.7z
+**/*.tar
+**/*.gz
+
+# Ignore Visual Studio / .NET outputs
+.vs/
+.vscode/
+.claude/
+packages/
+**/[Bb]in/
+**/[Oo]bj/
+*.user
+*.suo
+*.sln.docstates
+
+# SQL folder exclusions - ignore all files/directories except DashboardKhoDesktop.sql
+/SQL/*
+!/SQL/DashboardKhoDesktop.sql

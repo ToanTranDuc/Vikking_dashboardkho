@@ -1,0 +1,1774 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/select2/css/select2.min.css">
+    <link href="~/Content/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+    <link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="~/css/NguyenPhuLieu/Sign.css" rel="stylesheet" />
+    <link href="~/css/NguyenPhuLieu/kiemvaiv2.css?version=1.6" rel="stylesheet" />
+    <style>
+        .table-responsive {
+            display: table;
+        }
+
+        .selectedLi {
+            background: #00C6F0 !important;
+            border-radius: 7px;
+        }
+
+        .forecolorSelected {
+            color: white !important;
+        }
+
+        li a:focus {
+            background: #00C6F0;
+        }
+
+        .table-filter-container {
+            text-align: right;
+        }
+
+        table, th, td {
+            border: 1px ridge;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        .custom-table > tbody {
+            display: block;
+            overflow: auto;
+        }
+
+            .custom-table > thead, .custom-table > tbody tr {
+                display: table;
+                width: 100%;
+            }
+
+        .custom-table > thead {
+            width: 100%
+        }
+
+        .custom-table {
+            width: 100%;
+        }
+
+        .button-fix {
+            margin: 0px 10px !important;
+            width: 118px !important;
+            height: 40px !important;
+        }
+
+        .button-table {
+            margin: 0px 20px !important;
+            background-color: transparent !important;
+            height: 40px !important;
+            padding: 2px 5px !important;
+        }
+
+        .nhomloi::-webkit-scrollbar {
+            display: none;
+        }
+
+        .child-nhomloi::-webkit-scrollbar {
+            display: none;
+        }
+
+        .form-group {
+            margin: 0rem 0rem 0.2rem 0rem !important;
+        }
+
+        .inputEnLine {
+            text-align: center;
+            font-size: 0.8rem !important;
+            background-color: white !important;
+            height: 1.7rem !important;
+            font-weight: bold !important;
+            padding: 0.125rem !important
+        }
+
+        .labelHeader {
+            color: white;
+            font-size: 0.8rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .textHeader {
+            color: black;
+            font-size: 0.8rem;
+        }
+
+        .card {
+            margin-bottom: 0.4rem !important;
+        }
+
+        .js-width::-webkit-scrollbar {
+            display: none;
+        }
+
+        .canhbaoloi::-webkit-scrollbar {
+            display: none;
+        }
+
+        .set-height {
+            height: calc(100vh - 400px);
+        }
+
+        /**/
+        .sidebar-mini.sidebar-collapse .wrapper .content-wrapper {
+            margin-left: 0 !important;
+        }
+
+        .main-sidebar, .sidebar-collapse .wrapper .main-sidebar::before {
+            margin-left: -250px !important;
+        }
+
+        .sidebar-open .main-sidebar, .sidebar-collapse .wrapper .main-sidebar::before {
+            margin-left: 0 !important;
+        }
+
+        body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper {
+            margin-left: 0 !important;
+        }
+
+        body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+            margin-left: 0 !important;
+        }
+
+        .sidebar-open #sidebar-overlay {
+            display: block;
+        }
+
+        .sidebar-mini.sidebar-collapse .wrapper .main-footer {
+            margin-left: 0 !important;
+        }
+
+        .check-IsQC.is-none {
+            display: none;
+        }
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        /*-------------*/
+        .box-error {
+            position: absolute;
+            right: 0;
+            /* width: 100px; */
+            /* display: none; */
+            background: white;
+            top: 40px;
+            transition: 1s;
+            margin-right: 5px;
+        }
+
+            .box-error.is-hide {
+                transform: translateX(100%);
+                margin-right: 0px;
+            }
+
+        .nav-item.nav-item--1 {
+            position: absolute;
+            right: 7px;
+            top: 0;
+            /*background: red;*/
+        }
+
+        .col-cus {
+            padding-right: 2px !important;
+        }
+
+        .btn-CongDoan {
+            width: 48% !important;
+            display: inline !important;
+            margin: 2px;
+            box-sizing: border-box;
+            color: black;
+            background: linear-gradient(to bottom,#ffffff 0,#eeeeee 100%)
+        }
+
+        .btn-group-lg > .btn, .btn-lg {
+            font-size: 1rem !important;
+            padding: 0.2rem 0.1rem !important;
+        }
+
+        .item-MaLoi {
+            min-height: 55px !important;
+            font-weight: bold !important;
+            width: 55px !important;
+            /*background-color: #15979bf0 !important;
+            color: white !important;*/
+            margin: 0px 5px 5px 0px !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            cursor: pointer !important
+        }
+
+        .p-motaloi {
+            margin-bottom: 0px !important;
+            font-size: 1rem !important;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        h6 {
+            font-size: 0.75rem !important;
+            margin-bottom: 0.1rem !important;
+        }
+
+        .btn-outline-primary:hover {
+            background: #007bff;
+            color: white !important;
+        }
+        /*.btn-CongDoan:focus{
+            background:red;
+        }*/
+        .btn-outline-primary {
+            color: black !important;
+            /*border-color: #007bff;*/
+        }
+
+        #DSNhomLoi button.is-active {
+            background: #007bff;
+            color: #fff !important;
+        }
+
+        .ErrorImage {
+            height: 35px;
+            width: 35px;
+            margin-right: 2px;
+        }
+
+        .labelHT {
+            margin-right: 5px;
+        }
+
+        .lblValueHT {
+            color: red;
+        }
+
+        .daterangepicker .calendar-table table {
+            display: grid !important;
+        }
+
+        .select2-selection__rendered {
+            line-height: 25px !important;
+            font-size: 12px !important;
+            font-weight: bold !important;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 100% !important;
+            padding: 0rem 0.75rem !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            margin-top: 0px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 80% !important;
+        }
+
+        #select2-MaHang-results li {
+            font-size: 12px;
+        }
+
+        /* .select2-search__field {
+            display: none;
+        }*/
+
+        .select2-search.select2-search--dropdown [ aria-controls = "select2-MaHang-results"] {
+            display: block;
+        }
+
+        .select2-container--default .select2-results > .select2-results__options {
+            max-height: 60vh !important;
+            overflow-y: auto;
+        }
+
+        .class-PhuLieu, .DiemLoi {
+            height: 20px;
+            width: 20px
+        }
+
+        .classFocusVT {
+            background: #007bff;
+            color: white;
+        }
+
+        .table td {
+            vertical-align: middle !important;
+        }
+
+        .select2-results__option {
+            font-size: 12px !important;
+        }
+
+        .select2-container {
+            height: 27px !important;
+        }
+
+        .input-CheckList {
+            width: 100%;
+            height: 100% !important;
+            text-align: center;
+            border: none;
+        }
+
+        .item_text input[type="radio"] {
+            width: 15px !important;
+            height: 15px !important;
+            cursor: pointer;
+        }
+
+        .div-radio label {
+            font-size: 12px !important
+        }
+
+        input[name="weight"],
+        input[name="shrinkage"],
+        input[name="waterproof"],
+        input[name="weight"] + label,
+        input[name="shrinkage"] + label,
+        input[name="waterproof"] + label {
+            pointer-events: none !important;
+            cursor: not-allowed;
+        }
+        /*-------------*/
+    </style>
+    <link rel="stylesheet" href="~/css/NguyenPhuLieu/main.css">
+</head>
+<body>
+    <div class="content-wrapper" style="position:relative;overflow:">
+        <section class="content">
+            <div class="container-fluid">
+                <div id="toast"></div>
+                <div class="row js-get-height">
+                    <div class="col-12">
+                        <div class="card-header bg-info" style=" margin-bottom: 10px; margin-top: 10px; border-radius: 5px; background-color: #17a2b8 !important; ">
+                            <h3 class="card-title">
+                                <a href="~/Home/DashBoard" style="color:white"><i class="fas fa-home" style="font-size:x-large;margin-right:5px"></i></a>
+                                Kiểm vải
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="col-md-12 QCT">
+                        <div class="card-body" style="background-color: #1b81c9; border-radius: 5px; display: block; padding: 0px 10px 5px 10px; margin: 0px 0px 5px 0px">
+                            <div class="row top_nav">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 pr-4">
+                                    <div class="row">
+                                        <div class="col-4 col-md-4 col-lg-3 col-xl-2 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">PO</label>
+                                                <select class="sLenhSX form-control inputEnLine" onchange="GetKhachHang()" id="SoLo"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 col-md-4 col-lg-3 col-xl-2 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputEmail1" style="text-align:center; color:White">Nhà cung cấp</label>
+
+                                                <input type="text" class="form-control float-right inputEnLine" readonly id="nhacungcap">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4 col-md-4 col-lg-3 col-xl-2 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">K.Hàng</label>
+                                                <select class="sLenhSX form-control inputEnLine" onchange="GetMaHang()" id="KhachHang"></select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4 col-md-4 col-lg-3 col-xl-2 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">Mã hàng</label>
+
+                                                <select class="sLenhSX form-control inputEnLine" id="MaHang"></select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-4 col-md-4 col-lg-3 col-xl-2 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">Mã vật tư</label>
+                                                <select class="sLenhSX form-control inputEnLine" onchange="GetBatchLot()" id="MauVai"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 col-md-4 col-lg-3 col-xl-2 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">Số Batch/LOT</label>
+                                                <select class="sLenhSX form-control inputEnLine" onchange="GetCay()" id="SoCay"></select>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-4 col-md-4 col-lg-3 col-xl-2 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">Số cây</label>
+                                                <select class="sLenhSX form-control inputEnLine" onchange="changeSoCay()" id="SoCayItem"></select>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-4 col-md-4 col-lg-3 col-xl-3 col-cus QA d-none">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">SL thực tế<span style="color:red">(*)</span></label>
+                                                <input type="number" onchange="SaveSLKiem('SaveSLKiem')" value="0" class="form-control inputEnLine" id="SoLuong">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4 col-md-4 col-lg-2 col-xl-2 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputEmail1" style="text-align:center; color:White">Ngày nhập kho</label>
+
+                                                <input type="text" class="form-control float-right inputEnLine" readonly id="Ngay">
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-md-7 col-lg-6 col-xl-4 col-cus ">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputEmail1" style="text-align:center; color:transparent;height:10px">Ngày</label>
+                                                <div style="margin-top: -4px;" class="btn-group-demo">
+                                                    <button onclick="OpenImg()" style="background-color: #00e7ff; color: #000;" type="button" class="btn btn-success btn-sm">
+                                                        <i class="fa-solid fa-abacus"></i> Xem công thức
+                                                    </button>
+
+                                                    <button onclick="SaveKiemVai()" id="btnLuu" style="background-color: #d2ff20; color: #000;" type="button" class="btn btn-success btn-sm">
+                                                        <i class="fas fa-save"></i> Lưu
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-5 col-md-5 col-lg-6 col-xl-4 col-cus ">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputEmail1" style="text-align:center; color:transparent;height:10px">Ngày</label>
+                                                <div style="margin-top: -4px;" class="btn-group-demo d-flex justify-content-end">
+                                                    <button onclick="ConfirmLo()" id="btnConfirmLo" style="background-color: #d2ff20; color: #000;" type="button" class="btn btn-success btn-sm d-flex justify-content-center align-items-center gap-1">
+                                                        <i class="fa-solid fa-check-double"></i>XN H.thành
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-success  gap-2 mb-1 xacNhanLoHT" style="display:none" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-patch-check-fill flex-shrink-0" viewBox="0 0 16 16">
+                        <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm-2.97 7.77-1.143-1.143a.5.5 0 1 0-.707.707l1.5 1.5a.5.5 0 0 0 .707 0l3-3a.5.5 0 0 0-.707-.707z" />
+                    </svg>
+                    <div>
+                        <strong>Đã kiểm tra xong!</strong> Lô này đã được xác nhận kiểm tra hoàn tất.Vui lòng kiểm lô khác
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="form-card">
+                            <div class="" style="max-height: calc(100vh - 180px); overflow: auto;">
+                                <table class="inspection-table" style="overflow:auto">
+                                    <thead style="position: sticky; top: -1px; z-index: 10;">
+                                        <tr>
+                                            <th style="width: 50px; text-align: center;">STT</th>
+                                            <th style="width: 40%;">Nội dung kiểm tra</th>
+                                            <th style="width: 60%;">Kết quả</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Row 1 - Không cho edit -->
+                                        <tr>
+                                            <td class="row-number">1</td>
+                                            <td class="label-col">
+                                                <span class="label-text">Mã số vải của cty/NCC/</span>
+                                                <span class="label-english">Fabric code</span>
+                                            </td>
+                                            <td class="value-col">
+                                                <div style="min-height: 30px; color: red;" class="static-text text-loaivai"></div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 2 - Không cho edit -->
+                                        <tr>
+                                            <td class="row-number">2</td>
+                                            <td class="label-col">
+                                                <span class="label-text">Màu của cty/NCC/ </span>
+                                                <span class="label-english">Color code of Viking & Supplier </span>
+                                            </td>
+                                            <td class="value-col">
+                                                <div class="d-flex align-items-center item_text row">
+                                                    <div class="col-md-12 col-lg-6 col-xl-6 m-0 p-0">
+                                                        <div class="d-flex justify-content-around align-items-center">
+                                                            <div class="camera-image-container imgcolor" data-field="color" onclick="handleImageClick(this)">
+                                                                <i class="fas fa-camera"></i>
+                                                            </div>
+                                                            <div class="d-flex align-items-start flex-column ">
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="color" id="color-pass" value="pass">
+                                                                    <label class="form-check-label text-success" for="color-pass">
+                                                                        Pass
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="color" id="color-fail" value="fail">
+                                                                    <label class="form-check-label text-danger" for="color-fail">
+                                                                        Fail
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="color" id="color-no" value="no">
+                                                                    <label class="form-check-label text-danger" for="color-no">
+                                                                        No
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6 col-xl-6 ">
+                                                        <textarea style="color:green" class="form-control flex-grow-1 text-color" placeholder="" rows="1"></textarea>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="row-number">3</td>
+                                            <td class="label-col">
+                                                <span class="label-text">Thành phần % vải /</span>
+                                                <span class="label-english">Percentage of error components</span>
+                                            </td>
+                                            <td class="value-col">
+                                                <div class="d-flex align-items-center item_text row">
+                                                    <div class="col-md-12 col-lg-6 col-xl-6 m-0 p-0">
+                                                        <div class="d-flex justify-content-around align-items-center">
+                                                            <div class="camera-image-container imgpercent" data-field="percent" onclick="handleImageClick(this)">
+                                                                <i class="fas fa-camera"></i>
+                                                            </div>
+                                                            <div class="d-flex align-items-start flex-column">
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="percent" id="percent-pass" value="pass">
+                                                                    <label class="form-check-label text-success" for="percent-pass">
+                                                                        Pass
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="percent" id="percent-fail" value="fail">
+                                                                    <label class="form-check-label text-danger" for="percent-fail">
+                                                                        Fail
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="percent" id="percent-no" value="no">
+                                                                    <label class="form-check-label text-danger" for="percent-no">
+                                                                        No
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6 col-xl-6 ">
+                                                        <textarea style="color:green" class="form-control flex-grow-1 text-percent" placeholder="" rows="1"></textarea>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 3 - Không cho edit -->
+                                        <tr>
+                                            <td class="row-number">4</td>
+                                            <td class="label-col">
+                                                <span class="label-text">Số Batch/LOT/Roll/ </span>
+                                                <span class="label-english">Batch/LOT/Roll number</span>
+                                            </td>
+                                            <td class="value-col">
+                                                <div style="min-height: 30px; color: red;" class="static-text text-batchlot"></div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 4 - Cho sửa số -->
+                                        <tr>
+                                            <td class="row-number">5</td>
+                                            <td class="label-col">
+                                                <span class="label-text">Trọng lượng-(ghi rõ %) </span>
+                                                <span class="label-english">Pass/fail weight</span>
+                                            </td>
+                                            <td class="value-col">
+                                                <div class="d-flex align-items-center item_text row">
+                                                    <div class="col-md-12 col-lg-6 col-xl-12 m-0 p-0">
+                                                        <div class="d-flex justify-content-center align-items-center">
+                                                            <div class="camera-image-container imgweight d-none" data-field="weight" onclick="handleImageClick(this)">
+                                                                <i class="fas fa-camera"></i>
+                                                            </div>
+                                                            <div class="d-flex align-items-start">
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="weight" id="weight-pass" value="pass">
+                                                                    <label class="form-check-label text-success" for="weight-pass">
+                                                                        Pass
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="weight" id="weight-fail" value="fail">
+                                                                    <label class="form-check-label text-danger" for="weight-fail">
+                                                                        Fail
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="weight" id="weight-no" value="no">
+                                                                    <label class="form-check-label text-danger" for="weight-no">
+                                                                        No
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6 col-xl-6 d-none">
+                                                        <textarea style="color:green" class="form-control flex-grow-1 text-weight" placeholder="" rows="1"></textarea>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 5 - Cho sửa số -->
+                                        <tr>
+                                            <td class="row-number">6</td>
+                                            <td class="label-col">
+                                                <span class="label-text">Độ co rút-(ghi rõ %) </span>
+                                                <span class="label-english">Pass/fail Shrinkage</span>
+                                            </td>
+                                            <td class="value-col">
+                                                <div class="d-flex align-items-center item_text row">
+                                                    <div class="col-md-12 col-lg-6 col-xl-12 m-0 p-0">
+                                                        <div class="d-flex justify-content-center align-items-center">
+                                                            <div class="camera-image-container imgshrinkage d-none" data-field="shrinkage" onclick="handleImageClick(this)">
+                                                                <i class="fas fa-camera"></i>
+                                                            </div>
+                                                            <div class="d-flex align-items-start">
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="shrinkage" id="shrinkage-pass" value="pass">
+                                                                    <label class="form-check-label text-success" for="shrinkage-pass">
+                                                                        Pass
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="shrinkage" id="shrinkage-fail" value="fail">
+                                                                    <label class="form-check-label text-danger" for="shrinkage-fail">
+                                                                        Fail
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="shrinkage" id="shrinkage-no" value="no">
+                                                                    <label class="form-check-label text-danger" for="shrinkage-no">
+                                                                        No
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6 col-xl-6 d-none">
+                                                        <textarea style="color:green" class="form-control flex-grow-1 text-shrinkage" placeholder="" rows="1"></textarea>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 6 - Cho sửa số -->
+                                        <tr>
+                                            <td class="row-number">7</td>
+                                            <td class="label-col">
+                                                <span class="label-text">Chống thấm /</span>
+                                                <span class="label-english">Pass/fail Waterproof</span>
+                                            </td>
+                                            <td class="value-col">
+                                                <div class="d-flex align-items-center item_text row">
+                                                    <div class="col-md-12 col-lg-6 col-xl-12 m-0 p-0">
+                                                        <div class="d-flex justify-content-center align-items-center">
+                                                            <div class="camera-image-container imgwaterproof d-none" data-field="waterproof" onclick="handleImageClick(this)">
+                                                                <i class="fas fa-camera"></i>
+                                                            </div>
+                                                            <div class="d-flex align-items-start ">
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="waterproof" id="waterproof-pass" value="pass">
+                                                                    <label class="form-check-label text-success" for="waterproof-pass">
+                                                                        Pass
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="waterproof" id="waterproof-fail" value="fail">
+                                                                    <label class="form-check-label text-danger" for="waterproof-fail">
+                                                                        Fail
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="waterproof" id="waterproof-no" value="no">
+                                                                    <label class="form-check-label text-danger" for="waterproof-no">
+                                                                        No
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6 col-xl-6 d-none">
+                                                        <textarea style="color:green" class="form-control flex-grow-1 text-waterproof" placeholder="" rows="1"></textarea>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 7 - Cho check (checkbox) -->
+                                        <tr>
+                                            <td rowspan="2" class="row-number">8</td>
+                                            <td class="label-col">
+                                                <span class="label-text">Số lượng vải nhập /</span>
+                                                <span class="label-english">Receiving quantity</span>
+                                            </td>
+                                            <td class="value-col">
+                                                <div class="row">
+                                                    <div class="col-9" style=" border-right: 1px solid #ccc;">
+                                                        <textarea style="color:red" class="form-control text-receiving" placeholder="" rows="1"></textarea>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div style="color: #FF3A00; height: 100%; font-size: 13px;" class="form-control d-flex justify-content-center align-items-center text-unit-receiving" placeholder=""></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 7b - Cho check (checkbox) -->
+                                        <tr>
+                                            <td class="label-col">
+                                                <span class="label-text">Số lượng vải kiểm /</span>
+                                                <span class="label-english">Checking quantity</span>
+                                            </td>
+                                            <td class="value-col">
+                                                <div class="row">
+                                                    <div class="col-9" style=" border-right: 1px solid #ccc;">
+                                                        <textarea style="color:red" class="form-control text-checking" placeholder="" rows="1"></textarea>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div style="color: #FF3A00; height: 100%; font-size: 13px;" class="form-control d-flex align-items-center justify-content-center text-unit-checking" placeholder=""></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 8 - Cho check (checkbox) -->
+                                        <tr>
+                                            <td rowspan="2" class="row-number">9</td>
+                                            <td class="label-col">
+                                                <span class="label-text">Kiểm mặt phải /</span>
+                                                <span class="label-english">Face side</span>
+                                            </td>
+                                            <td class="value-col">
+                                                <div class="d-flex align-items-center item_text row">
+                                                    <div class="col-md-12 col-lg-6 col-xl-6 m-0 p-0">
+                                                        <div class="d-flex justify-content-around align-items-center">
+                                                            <div class="camera-image-container imgcheckFace" data-field="checkFace" onclick="handleImageClick(this)">
+                                                                <i class="fas fa-camera"></i>
+                                                            </div>
+                                                            <div class="d-flex align-items-start flex-column ">
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="checkFace" id="checkFace-pass" value="pass">
+                                                                    <label class="form-check-label text-success" for="checkFace-pass">
+                                                                        Yes
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="checkFace" id="checkFace-fail" value="fail">
+                                                                    <label class="form-check-label text-danger" for="checkFace-fail">
+                                                                        No
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6 col-xl-6 ">
+                                                        <textarea style="color:green" class="form-control flex-grow-1 text-checkFace" placeholder="" rows="1"></textarea>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 8 - Cho nhập số -->
+                                        <tr>
+                                            <td class="label-col">
+                                                <span class="label-text">Kiểm mặt trái /</span>
+                                                <span class="label-english">Back side</span>
+                                            </td>
+                                            <td class="value-col">
+                                                <div class="d-flex align-items-center item_text row">
+                                                    <div class="col-md-12 col-lg-6 col-xl-6 m-0 p-0">
+                                                        <div class="d-flex justify-content-around align-items-center">
+                                                            <div class="camera-image-container imgcheckBlack" data-field="checkBlack" onclick="handleImageClick(this)">
+                                                                <i class="fas fa-camera"></i>
+                                                            </div>
+                                                            <div class="d-flex align-items-start flex-column ">
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="checkBlack" id="checkBlack-pass" value="pass">
+                                                                    <label class="form-check-label text-success" for="checkBlack-pass">
+                                                                        Yes
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="checkBlack" id="checkBlack-fail" value="fail">
+                                                                    <label class="form-check-label text-danger" for="checkBlack-fail">
+                                                                        No
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6 col-xl-6 ">
+                                                        <textarea style="color:green" class="form-control flex-grow-1 text-checkBlack" placeholder="" rows="1"></textarea>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 9a - Cho nhập số -->
+                                        <tr>
+                                            <td rowspan="2" class="row-number">10</td>
+                                            <td class="label-col">
+                                                <div class="sub-label">
+                                                    Chiều dài/trọng lượng/khổ cây vải trên tem /
+                                                    <span class="label-english">Length/ Weight/ width roll in label</span>
+                                                </div>
+                                            </td>
+                                            <td class="value-col">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <textarea style="color: #FF3A00" class="form-control text-item" placeholder="" rows="1"></textarea>
+                                                    </div>
+                                                    <div class="col-2" style=" border-right: 1px solid #ccc; padding-left: 0px;">
+                                                        <div style="color: #FF3A00; height: 100%; font-size: 13px;" class="form-control d-flex align-items-center justify-content-center text-donvi" placeholder=""></div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <textarea style="color: #FF3A00" class="form-control text-itemKho" placeholder="" rows="1"></textarea>
+                                                    </div>
+                                                    <div class="col-2" style="padding-left: 0px;">
+                                                        <div style="color: #FF3A00; height: 100%; font-size: 13px;" class="form-control d-flex align-items-center justify-content-center text-donvi-khovai" placeholder=""></div>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 9b - Cho nhập số -->
+                                        <tr>
+                                            <td class="label-col">
+                                                <div class="sub-label">
+                                                    Chiều dài/trọng lượng/khổ thực tế /
+                                                    <span class="label-english">Length/ Weight/ width roll in actual</span>
+                                                </div>
+                                            </td>
+                                            <td class="value-col">
+                                                <div class="row">
+                                                    <div class="col-6" style="border-right: 1px solid #ccc;">
+                                                        <div class="row">
+                                                            <div class="col-8">
+                                                                <textarea style="color: #FF3A00" class="form-control text-actual" rows="1"></textarea>
+                                                            </div>
+                                                            <div class="col-4" style="padding-left: 0px;">
+                                                                <div style="color: #FF3A00; height: 100%; font-size: 13px" class="form-control d-flex align-items-center justify-content-center text-donvib"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex align-items-center justify-content-center ">
+                                                            <div class="form-check form-check-inline div-radio">
+                                                                <input class="form-check-input" type="radio" name="text-actual" id="text-actual-pass" value="pass">
+                                                                <label class="form-check-label text-success" for="text-actual-pass">
+                                                                    Pass
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline div-radio">
+                                                                <input class="form-check-input" type="radio" name="text-actual" id="text-actual-fail" value="fail">
+                                                                <label class="form-check-label text-danger" for="text-actual-fail">
+                                                                    Fail
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline div-radio">
+                                                                <input class="form-check-input" type="radio" name="text-actual" id="text-actual-no" value="no">
+                                                                <label class="form-check-label text-danger" for="text-actual-no">
+                                                                    No
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-8">
+                                                                <textarea style="color: #FF3A00" class="form-control text-actualKho" placeholder="" rows="1"></textarea>
+                                                            </div>
+                                                            <div class="col-4" style="padding-left: 0px;">
+                                                                <div style="color: #FF3A00; height: 100%; font-size: 13px" class="form-control d-flex align-items-center justify-content-center text-donvi-khovaib" placeholder=""></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex align-items-center justify-content-center ">
+                                                            <div class="form-check form-check-inline div-radio">
+                                                                <input class="form-check-input" type="radio" name="text-actualKho" id="text-actualKho-pass" value="pass">
+                                                                <label class="form-check-label text-success" for="text-actualKho-pass">
+                                                                    Pass
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline div-radio">
+                                                                <input class="form-check-input" type="radio" name="text-actualKho" id="text-actualKho-fail" value="fail">
+                                                                <label class="form-check-label text-danger" for="text-actualKho-fail">
+                                                                    Fail
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline div-radio">
+                                                                <input class="form-check-input" type="radio" name="text-actualKho" id="text-actualKho-no" value="no">
+                                                                <label class="form-check-label text-danger" for="text-actualKho-no">
+                                                                    No
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 10 - Cho check (checkbox) -->
+                                        <tr>
+                                            <td class="row-number">11</td>
+                                            <td class="label-col">
+                                                <div class="row">
+                                                    <div class="col-7" style="border-right: 1px solid #ccc;">
+                                                        <div><span class="label-text">Đệm bố/ CUT PROTECT :</span></div>
+                                                        <div class="sub-label">
+                                                            - Hướng của sợi chỉ màu /
+                                                            <span class="label-english">Thread direction</span>
+                                                        </div>
+                                                        <div class="sub-label">
+                                                            - Dọc theo chiều đã cây vải /
+                                                            <span class="label-english">Vertical</span>
+                                                        </div>
+                                                        <div class="sub-label">
+                                                            - Ngang theo khổ vải /
+                                                            <span class="label-english">Horizontal</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-5 d-flex justify-content-center flex-column">
+                                                        <div><span class="">Màu chỉ</span></div>
+                                                        <div class="sub-label">
+                                                            <span class="label-english">Color thread</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="value-col">
+                                                <div class="row">
+                                                    <div class="col-6" style=" border-right: 1px solid #ccc;">
+                                                        <textarea style="color: #FF3A00" class="form-control text-cutprotect" placeholder="" rows="2"></textarea>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <textarea style="color: #FF3A00" class="form-control text-colorthread" placeholder="" rows="2"></textarea>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 11 - Cho nhập -->
+                                        <tr>
+                                            <td class="row-number">12</td>
+                                            <td class="label-col">
+                                                <span class="label-text">Loang màu /</span>
+                                                <span class="label-english">Color shading</span>
+                                            </td>
+                                            <td class="value-col">
+                                                <div class="d-flex align-items-center item_text row">
+                                                    <div class="col-md-12 col-lg-6 col-xl-6 m-0 p-0">
+                                                        <div class="d-flex justify-content-around align-items-center">
+                                                            <div class="camera-image-container imgcheckloang" data-field="checkloang" onclick="handleImageClick(this)">
+                                                                <i class="fas fa-camera"></i>
+                                                            </div>
+                                                            <div class="d-flex align-items-start flex-column">
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="checkloang" id="checkloang-pass" value="pass">
+                                                                    <label class="form-check-label text-success" for="checkloang-pass">
+                                                                        Pass
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="checkloang" id="checkloang-fail" value="fail">
+                                                                    <label class="form-check-label text-danger" for="checkloang-fail">
+                                                                        Fail
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check form-check-inline div-radio">
+                                                                    <input class="form-check-input" type="radio" name="checkloang" id="checkloang-no" value="no">
+                                                                    <label class="form-check-label text-danger" for="checkloang-no">
+                                                                        No
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-lg-6 col-xl-6 ">
+                                                        <textarea style="color:green" class="form-control flex-grow-1 text-checkloang" placeholder="" rows="1"></textarea>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 12 - Cho nhập số -->
+                                        <tr>
+                                            <td class="row-number">13</td>
+                                            <td class="label-col">
+                                                <span class="label-text">Điểm nối trên cây /</span>
+                                                <span class="label-english">Joining points in roll</span>
+                                            </td>
+                                            <td class="value-col">
+                                                <textarea class="form-control text-join" placeholder="" rows="1"></textarea>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Row 13 - Thành phần % lỗi-->
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 " style="overflow:auto">
+
+                        <div class="form-card" style="padding: 5px;">
+
+                            <div style="overflow: auto; max-height: calc(100vh - 180px);">
+                                <div class="alert alert-info " role="alert">
+                                    <strong><i class="fas fa-lightbulb"></i> Hướng dẫn:</strong> Sử dụng nút <strong>+</strong> và <strong>-</strong> để đếm số lỗi cho từng mức điểm
+                                    <ul class="mb-0 mt-2 d-flex flex-wrap" style="gap:30px">
+                                        <li><strong>1 điểm:</strong> (≤ 7.5cm)</li>
+                                        <li><strong>2 điểm:</strong> (7.6 ≥ 14.9cm)</li>
+                                    </ul>
+                                    <ul class="mb-0 mt-2 d-flex flex-wrap" style="gap:30px">
+                                        <li><strong>3 điểm:</strong> (15 -> 23cm)</li>
+                                        <li><strong>4 điểm:</strong> ( > 23cm)</li>
+                                    </ul>
+                                </div>
+                                <table class="defect-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 25%;">Loại lỗi</th>
+                                            <th>1</th>
+                                            <th>2</th>
+                                            <th>3</th>
+                                            <th>4</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="defectTableBody">
+                                        <tr data-defect="Wrap-bar">
+                                            <td class="defect-name">
+                                                <span class="defect-name-vi">Lỗi sợi dọc</span>
+                                                <span class="defect-name-en">Wrap bar</span>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value loisoidoc1" data-point="1">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value loisoidoc2" data-point="2">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value loisoidoc3" data-point="3">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value loisoidoc4" data-point="4">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr data-defect="weft-bar">
+                                            <td class="defect-name">
+                                                <span class="defect-name-vi">Lỗi sợi ngang</span>
+                                                <span class="defect-name-en">Weft bar</span>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value loisoingang1" data-point="1">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value loisoingang2" data-point="2">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value loisoingang3" data-point="3">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value loisoingang4" data-point="4">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr data-defect="holes">
+                                            <td class="defect-name">
+                                                <span class="defect-name-vi">Thủng lỗ</span>
+                                                <span class="defect-name-en">Holes</span>
+                                                <p class="mb-0" style="font-size: 11px;"> <strong>(2đ ≥ 2,5cm,4đ > 2,5cm)</strong></p>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value thunglo1" data-point="1">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value thunglo2" data-point="2">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value thunglo3" data-point="3">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value thunglo4" data-point="4">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr data-defect="oil-stain">
+                                            <td class="defect-name">
+                                                <span class="defect-name-vi">Vết dầu/bẩn</span>
+                                                <span class="defect-name-en">Oil stain/spot</span>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value vetdau1" data-point="1">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value vetdau2" data-point="2">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value vetdau3" data-point="3">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value vetdau4" data-point="4">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr data-defect="color-yarn">
+                                            <td class="defect-name">
+                                                <span class="defect-name-vi">Sợi màu</span>
+                                                <span class="defect-name-en">Color yarn</span>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value soimau1" data-point="1">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value soimau2" data-point="2">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value soimau3" data-point="3">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value soimau4" data-point="4">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr data-defect="crease-mark">
+                                            <td class="defect-name">
+                                                <span class="defect-name-vi">Nếp gấp</span>
+                                                <span class="defect-name-en">Crease mark</span>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value nepgap1" data-point="1">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value nepgap2" data-point="2">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value nepgap3" data-point="3">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value nepgap4" data-point="4">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr data-defect="other">
+                                            <td class="defect-name">
+                                                <span class="defect-name-vi">Lỗi khác</span>
+                                                <span class="defect-name-en">Other defects</span>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value loikhac1" data-point="1">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value loikhac2" data-point="2">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value loikhac3" data-point="3">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                            <td class="point-cell">
+                                                <div class="counter-group">
+                                                    <button class="btn-counter btn-minus">-</button>
+                                                    <span class="counter-value loikhac4" data-point="4">0</span>
+                                                    <button class="btn-counter btn-plus">+</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="defect-table mt-3">
+                                    <tr data-defect="sum">
+                                        <td class="defect-name">
+                                            <span class="defect-name-vi">Tổng số điểm kết luận / </span>
+                                            <span class="defect-name-en">Total score in the conclusion</span>
+                                        </td>
+                                        <td class="point-cell">
+                                            <div class="counter-group">
+                                                <span class="sum1">0</span>
+                                            </div>
+                                        </td>
+                                        <td class="point-cell">
+                                            <div class="counter-group">
+                                                <span class="text-green">Pass</span>
+                                                <input type="radio" class="passed-result" style="pointer-events: none;" readonly />
+                                            </div>
+                                        </td>
+                                        <td class="point-cell">
+                                            <div class="counter-group">
+                                                <span class="text-red">Fail</span>
+                                                <input type="radio" class="failed-result" style="pointer-events: none;" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table class="defect-table mt-3">
+                                    <tr data-defect="sum">
+                                        <td class="defect-name">
+                                            <span class="defect-name-vi">Kết quả QC cây / </span>
+                                            <span class="defect-name-en">Tree QC results</span>
+                                        </td>
+                                        <td class="point-cell">
+                                            <div class="counter-group">
+                                                <span class="text-green">Pass</span>
+                                                <input type="radio" class="passed-result-tree" style="pointer-events: none;" readonly />
+                                            </div>
+                                        </td>
+                                        <td class="point-cell">
+                                            <div class="counter-group">
+                                                <span class="text-red">Fail</span>
+                                                <input type="radio" class="failed-result-tree" style="pointer-events: none;" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table class="defect-table mt-3">
+                                    <tr data-defect="sum">
+                                        <td class="defect-name">
+                                            <span class="defect-name-vi">Kết quả mer /</span>
+                                            <span class="defect-name-en">Mer results</span>
+                                        </td>
+                                        <td class="point-cell">
+                                            <div class="counter-group">
+                                                <span class="text-green">Pass</span>
+                                                <input type="radio" class="passed-result-mer" style="pointer-events: none;" readonly />
+                                            </div>
+                                        </td>
+                                        <td class="point-cell">
+                                            <div class="counter-group">
+                                                <span class="text-red">Fail</span>
+                                                <input type="radio" class="failed-result-mer" style="pointer-events: none;" readonly />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="alert alert-info mt-2">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <span>
+                                                <i class="fa-solid fa-note-sticky"></i>  Note (ghi chú): ghi rõ số lỗi kiểm và mức độ ánh màu so với mẫu duyệt /
+                                            </span>
+                                            <span class="defect-name-en">
+                                                State total defects, total points, and color levels compared to the approved sample
+                                            </span>
+                                        </div>
+                                        <div class="col-6">
+                                            <textarea style="" class="form-control flex-grow-1 text-black text-left text-note" placeholder="" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title" id="warningModalLabel">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>Thông báo
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">
+                        <strong>Vui lòng kiểm tra và xác nhận phiếu!</strong>
+                    </p>
+                    <p class="text-danger mt-2 mb-0">
+                        ⚠️ Chú ý: Sau khi lưu, bạn sẽ không thể chỉnh sửa lại phiếu này.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" id="btnFinalSave">Xác nhận lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalCongThuc" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Công thức kiểm nguyên liệu</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0" style="overflow: hidden; height: 70vh; background: #f4f4f4; position: relative; cursor: grab; border-radius: 0px 0px 15px 15px;">
+                    <div id="wrapper-img" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                        <img id="imgCongThuc" src="/img/congthucNPL.jpg" alt="Công thức"
+                             style="max-width: 100%; transition: transform 0.2s ease; transform-origin: center; pointer-events: none;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalNhapSoLuong" tabindex="-1" aria-labelledby="modalNhapSoLuongLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog" style="display: flex; justify-content: center;">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+
+
+                <div class="modal-header text-white" style="background: #5DA566;font-size:18px">
+                    <h5 class="modal-title" id="modalNhapSoLuongLabel" style="font-size: 18px"></h5>
+                    <button style="outline: none; border: 1px solid #ccc; border-radius: 5px; padding: 0px 10px; color: red;" type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <label for="soLuongInput" class="form-label fw-semibold itemLable">Số lượng</label>
+                    <input type="number" class="form-control" id="soLuongInput" placeholder="" min="0">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-success" id="btnLuuSoLuong" onclick="UpdateSLTT()">💾 Lưu</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalNhapSoLuongLabel" aria-hidden="true" style="z-index:999999">
+        <div class="modal-dialog modal-dialog" style=" display: flex; justify-content: center;">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+
+
+                <div class="modal-header text-white" style="background: #5DA566;font-size:18px">
+                    <h5 class="modal-title" id="modalDeleteLabel" style="font-size: 18px">Thông báo</h5>
+                    <button style="outline: none; border: 1px solid #ccc; border-radius: 5px; padding: 0px 10px; color: red;" type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <p class="font-weight-bold text-danger mb-0">
+                        <i class="fas fa-exclamation-triangle text-warning mb-3" style="font-size: 20px;"></i>
+                        Bạn có chắc chắn muốn xóa hình này kh?
+                    </p>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-success" id="" onclick="ConfirmDelete()"> Xóa</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalSign" style="" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="max-width: 900px !important;">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="d-flex signItem">
+                        <section class="tools-board">
+                            <div class="row">
+
+                            </div>
+                            <div class="row">
+                                <label class="title">Kí tên</label>
+                                <ul class="options" style="margin:20px 0px 0px 0px">
+                                    <li class="option active tool" id="brush">
+                                        <img src="icons/brush.svg" alt="">
+                                        <span>Nét chữ</span>
+                                    </li>
+                                    <li class="option" style="margin:20px 0px 0px 0px">
+                                        <input type="range" id="size-slider" min="1" max="30" value="5">
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="row colors">
+                                <label class="title">Colors</label>
+                                <ul class="options">
+                                    <li class="option"></li>
+                                    <li class="option selected"></li>
+                                    <li class="option"></li>
+                                    <li class="option"></li>
+                                    <li class="option">
+                                        <input type="color" id="color-picker" value="#4A98F7">
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="row buttons" style="margin-top:70px">
+                                <button class="clear-canvas">Xóa</button>
+                                <button class="save-img">Lưu</button>
+
+                            </div>
+
+                        </section>
+                        <section class="drawing-board" style="border:1px black solid">
+                            <canvas></canvas>
+                        </section>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Toast Container -->
+
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="successToast" class="toast" role="alert">
+            <div class="toast-header bg-success text-white">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto">Thành công</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="successMessage"></div>
+        </div>
+        <div id="errorToast" class="toast" role="alert">
+            <div class="toast-header bg-danger text-white">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong class="me-auto">Lỗi</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="errorMessage"></div>
+        </div>
+        <div id="warningToast" class="toast" role="alert">
+            <div class="toast-header bg-warning text-dark">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong class="me-auto">Cảnh báo</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="warningMessage"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="inputModalLabel">
+        <div class="modal-dialog" role="document" style="display: flex; justify-content: center;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #4CAF50; color: white;">
+                    <h5 class="modal-title" id="inputModalLabel">Nhập dữ liệu</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: white;">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    <label id="modalFieldLabel" style=" margin-bottom: 10px; display: block; font-weight: normal;"></label>
+                    <textarea id="modalTextarea" class="form-control text-left" rows="5" style="font-size: 16px; padding: 10px;"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btnConfirm">
+                        <i class="fa fa-check"></i> Xác nhận
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="counterModal" tabindex="-1" role="dialog" aria-labelledby="counterModalLabel">
+        <div class="modal-dialog" role="document" style="display: flex; justify-content: center;">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #4CAF50; color: white;">
+                    <h5 class="modal-title" id="counterModalLabel">Nhập số lượng lỗi</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: white;">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    <div style="margin-bottom: 15px;">
+                        <strong id="counterDefectName" style="font-size: 16px; color: #333;"></strong>
+                        <br>
+                        <span id="counterDefectNameEn" style="font-size: 14px; color: #666; font-style: italic;"></span>
+                        <br>
+                        <span id="counterPointLabel" style="font-size: 14px; color: #4CAF50; font-weight: 600;"></span>
+                    </div>
+                    <label for="counterInput" style="font-weight: 600; margin-bottom: 10px;">Số lượng:</label>
+                    <input type="number" id="counterInput" class="form-control" min="0"
+                           style="font-size: 15px; padding: 15px; text-align: center; font-weight: ;">
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-success" id="btnCounterConfirm">
+                        <i class="fa fa-check"></i> Xác nhận
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Camera Modal -->
+    <div id="cameraModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-camera"></i> Chụp Ảnh</h3>
+                <button class="close-modal" onclick="closeCamera()">&times;</button>
+            </div>
+            <div class="modal-body modalCamera">
+                <div class="camera-container">
+                    <video id="video" autoplay playsinline></video>
+                    <canvas id="canvas"></canvas>
+                    <div class="button-group">
+                        <button class="btn btn-primary" onclick="capturePhoto()">
+                            <i class="fas fa-camera"></i> Chụp Ảnh
+                        </button>
+                        <button class="btn btn-primary" style="background: #17a2b8;" onclick="switchCamera()">
+                            <i class="fas fa-sync-alt"></i> Xoay Camera
+                        </button>
+                        @*<button class="btn btn-secondary" onclick="closeCamera()">
+                                <i class="fas fa-times"></i> Hủy
+                            </button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Option Modal -->
+    <div id="optionModal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-images"></i> Chọn Nguồn Ảnh</h3>
+                <button class="close-modal" onclick="closeOptionModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="option-buttons optionSource" style="flex-direction: column;">
+                    <button class="btn btn-primary" style="width: 100%;" onclick="openCamera()">
+                        <i class="fas fa-camera"></i> Chụp Ảnh Từ Camera
+                    </button>
+                    <button class="btn btn-primary" style="width: 100%; background: #17a2b8;" onclick="selectFromGallery()">
+                        <i class="fas fa-folder-open"></i> Chọn Từ Thư Viện
+                    </button>
+                    @*<button class="btn btn-secondary" style="width: 100%;" onclick="closeOptionModal()">
+                            <i class="fas fa-times"></i> Hủy
+                        </button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hidden File Input -->
+    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    <div id="previewModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-image"></i> Xem Ảnh</h3>
+                <button class="close-modal" onclick="closePreview()">&times;</button>
+            </div>
+            <div class="modal-body" style="display: flex; flex-direction: column;">
+                <img id="previewImage" class="image-preview" src="" alt="Preview">
+                <div class="option-buttons">
+                    <button class="btn btn-primary" onclick="retakePhoto()">
+                        <i class="fas fa-camera"></i> Chụp Lại
+                    </button>
+                    <button class="btn btn-danger" onclick="deletePhoto()">
+                        <i class="fas fa-trash"></i> Xóa Ảnh
+                    </button>
+                    @*<button class="btn btn-secondary" onclick="closePreview()">
+                            <i class="fas fa-times"></i> Đóng
+                        </button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalXacNhanXongLo" tabindex="-1" aria-labelledby="modalXacNhanXongLoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+
+                <!-- Header -->
+                <div class="modal-header text-white" style="background-color: #BA7517;">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                        <div>
+                            <h5 class="modal-title mb-0" id="modalXacNhanXongLoLabel">Xác nhận hoàn thành xông lô</h5>
+                            <small class="opacity-75">Hành động này không thể hoàn tác</small>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body">
+                    <!-- Cảnh báo -->
+                    <div class="alert alert-warning d-flex gap-2 align-items-start" role="alert">
+                        <i class="bi bi-info-circle-fill mt-1 flex-shrink-0"></i>
+                        <div class="small">
+                            Sau khi xác nhận hoàn thành, lô này sẽ <strong>không thể kiểm tra lại</strong>.
+                            Vui lòng đảm bảo tất cả các roll/kiện đã được kiểm hoàn thành trước khi tiếp tục.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Hủy bỏ
+                    </button>
+                    <button type="button" id="xacNhanHoanThanh" class="btn text-white" style="background-color: #BA7517;" onclick="">
+                        <i class="bi bi-check-lg me-1"></i> Xác nhận hoàn thành
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    <script src="~/Scripts/jquery.min-3.6.1.js"></script>
+    <script src="~/Content/plugins/moment/moment.min.js"></script>
+    <script src="/Content/js/core/utils.js"></script>
+    <script src="/Content/js/core/common.js"></script>
+    <script src="/Content/js/core/knockout-2.2.1.debug.js"></script>
+    <script src="/Content/js/core/knockout.mapping-2.4.1.debug.js"></script>
+    <script src="/Content/js/core/knockout.bindings.js"></script>
+    <script src="~/Scripts/Toast/Toast.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Content/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Scripts/ViTriKho/bootstrap5.3.bundle.min.js"></script>
+
+    <script src="~/Content/dist/js/adminlte.min.js"></script>
+    <script>
+        $('.sLenhSX').select2({
+            width: '100%' // để Select2 co giãn theo cha .form-control
+        });
+        var _userName = '@ViewBag.userName';
+        if (window.CefSharp) {
+            $("#home").hide();
+            localStorage.setItem('username', _userName)
+        }
+
+    </script>
+    <script src="~/Scripts/NguyenPhuLieu/Sign.js"></script>
+    <script src="~/Scripts/NguyenPhuLieu/KiemVaiV2.js?version=1.3"></script>
+    <script type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "TongQuan";
+    Layout = "~/Views/Shared/_LayoutBCTH.cshtml";
+}
+
+
+<link href="~/css/BaoCaoTongHop/TongQuan/homepage.css" rel="stylesheet" />
+<style>
+    #renderBodyHere {
+        margin-top: 50px !important;
+    }
+</style>
+<div id="dieukienloc" style="display:none;">
+    <label>Từ:&nbsp;</label>
+    <input type="date" id="fromDate" class="date-ip" />
+    &nbsp;&nbsp;&nbsp;
+    <label>Đến:&nbsp;</label>
+    <input type="date" id="toDate" class="date-ip" />
+</div>
+<div class="wrap" style="margin-top:10px">
+    <!-- Tên brand TGI -->
+    <div id="info-tgi" class="branch ">
+        <div>
+            @*<button id="btn-XuatBC-TH">Xuất báo cáo tiến độ tổng hợp</button>*@
+            <button id="btnXemBaoCaoCT" style="border: 2px solid white; background-color: cornflowerblue; color: white; padding: 5px 15px; margin-bottom: 5px; border-radius: 8px; font-weight: bold; ">
+                Xem báo cáo chi tiết
+            </button>
+
+        </div>
+        <div class="tgi-drapper">
+            <div class="branch-content">
+                <span>Tex-Giang</span>
+                <div class="content">
+                    <span>Doanh thu:&nbsp;<span id="TGI-DT">0</span></span>
+                    <span>Năng suất:&nbsp;<span id="TGI-NS">0</span></span>
+                    <span>Số lao động:&nbsp;<span id="TGI-SLDg">0</span></span>
+                    <span>Số lượng lỗi:&nbsp;<span id="TGI-SLL">0</span></span>
+                    <span>Sửa đạt:&nbsp;<span id="TGI-SLD">0</span></span>
+                    <span>Tỉ lệ lỗi:&nbsp;<span id="TGI-TLL">0.0</span></span>
+                </div>
+            </div>
+            <div id="container" style="width:100%; height:300px;"></div>
+        </div>
+    </div>
+    <!-- Dữ liệu các info-tgi -->
+    <div id="info-tgi-th1" class="card">
+        <div class="first-content">
+            <span class="title">Tân Hương 1</span>
+            <div class="info">
+                <span>Doanh thu(USD):</span> <span id="TH1-DT" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Năng suất:</span> <span id="TH1-NS" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Số lao động:</span> <span id="TH1-SLDg" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Số lượng lỗi:</span> <span id="TH1-SLL" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Sửa đạt:</span> <span id="TH1-SLD" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Tỉ lệ lỗi:</span> <span id="TH1-TLL" class="value">0.0</span>
+            </div>
+        </div>
+    </div>
+    <div id="info-tgi-th2" class="card">
+        <div class="first-content">
+            <span class="title">Tân Hương 2</span>
+            <div class="info">
+                <span>Doanh thu(USD):</span> <span id="TH2-DT" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Năng suất:</span> <span id="TH2-NS" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Số lao động:</span> <span id="TH2-SLDg" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Số lượng lỗi:</span> <span id="TH2-SLL" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Sửa đạt:</span> <span id="TH2-SLD" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Tỉ lệ lỗi:</span> <span id="TH2-TLL" class="value">0.0</span>
+            </div>
+        </div>
+    </div>
+    <div id="info-tgi-cg" class="card">
+        <div class="first-content">
+            <span class="title">Chợ Gạo</span>
+            <div class="info">
+                <span>Doanh thu(USD):</span> <span id="CG-DT" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Năng suất:</span> <span id="CG-NS" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Số lao động:</span> <span id="CG-SLDg" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Số lượng lỗi:</span> <span id="CG-SLL" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Sửa đạt:</span> <span id="CG-SLD" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Tỉ lệ lỗi:</span> <span id="CG-TLL" class="value">0.0</span>
+            </div>
+        </div>
+    </div>
+    <div id="info-tgi-cl" class="card">
+        <div class="first-content">
+            <span class="title">Cai Lậy</span>
+            <div class="info">
+                <span>Doanh thu(USD):</span> <span id="CL-DT" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Năng suất:</span> <span id="CL-NS" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Số lao động:</span> <span id="CL-SLDg" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Số lượng lỗi:</span> <span id="CL-SLL" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Sửa đạt:</span> <span id="CL-SLD" class="value">0</span>
+            </div>
+            <div class="info">
+                <span>Tỉ lệ lỗi:</span> <span id="CL-TLL" class="value">0.0</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#tittleBC').text('Tổng quan tình hình sản xuất các khu');
+    $('#home').on('click', function () {
+        location.href = "../../../../Home/Dashboard";
+    });
+</script>
+<script src="~/Scripts/BaoCaoTongHop/TongQuan/homepage.js"></script>

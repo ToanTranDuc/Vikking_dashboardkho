@@ -1,0 +1,187 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Sơ Đồ ";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <link href="~/css/TheoDoiHangXuat/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/toastr.min.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/jquery.ui.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/sweetalert2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link href="~/css/sodogiacong.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="title">
+        <a class="home" style="color: #fff; text-decoration:none"><i class="fa-solid fa-arrow-left"></i></a>
+        <div style="display: flex; flex-wrap: wrap; width: 100%;">
+            <div class=" lst_DonHang">
+                <label class="col-form-label item_lable" style="color: white">Tên nhà máy</label>
+                <select class="item_select nhamay">
+                </select>
+            </div>
+            <div class=" lst_DonHang">
+                <label class="col-form-label item_lable" style="color: white">Tên kho</label>
+                <select class="item_select tenkho">
+                </select>
+            </div>
+            <div class=" lst_DonHang">
+                <label class="col-form-label item_lable" style="color: white">Tên khu vực</label>
+                <select class="item_select tenkhuvuc">
+                </select>
+            </div>
+            <div style="width: 60px; margin-top: 6px; margin-left: 6px;">
+                <label class="col-form-label item_lable" style="color: white">Nạp lại</label>
+                <div class="iconNapLap">
+                    <i class="fa-sharp-duotone fa-solid fa-arrows-rotate"></i>
+                </div>
+            </div>
+            <div style="margin-top: 6px; margin-left: 6px; width: auto; display: none; align-items: center; flex-direction: column; ">
+                <label class="col-form-label item_lable" style="color: white">CT thùng</label>
+                <div class="checkboxdetail">
+                    <input class="item_checkboxdetail" type="checkbox" name="name" value="" checked />
+                </div>
+            </div>
+            <div class="search_vitrio" style="display:">
+                <div style="display: flex; flex-direction: column;">
+                    <label class="col-form-label item_lable" style="color: white">Tìm kiếm mã hàng</label>
+                    <input class="list search_vitri" type="text" name="name" value="" placeholder="" autocomplete="off" />
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <label class="col-form-label item_lable" style="color: white; white-space: nowrap;">Ẩn mã hàng</label>
+                    <input class="list checkViTri" type="checkbox" />
+                </div>
+            </div>
+            <div class="viewChiTiet">
+                <button class="btnChiTietGiaCong">Chuyển kiện</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="renderbody" style="position:relative">
+
+        <div class="rederBodyKhoTong">
+            <div class="list_Ds">
+                <div class=" lst_DonHang" style="min-width: 200px;">
+                    <label class="col-form-label item_lable" style="color:#016b69 ">Đơn hàng</label>
+                    <select class="item_select selectDs madh">
+                    </select>
+                </div>
+                <div class=" lst_DonHang">
+                    <label class="col-form-label item_lable" style="color:#016b69 ">PO</label>
+                    <select class="item_select selectDs PO">
+                    </select>
+                </div>
+                <div class=" lst_DonHang">
+                    <label class="col-form-label item_lable" style="color:#016b69 ">Mã PKL</label>
+                    <select class="item_select selectDs maPKL">
+                    </select>
+                </div>
+                <div class=" lst_DonHang">
+                    <label class="col-form-label item_lable" style="color:#016b69 ">Đợt</label>
+                    <select class="item_select selectDs dot">
+                    </select>
+                </div>
+
+            </div>
+            <div class="list_dsThung">
+                <div class="item-slthung">
+                    <div class="item-thung">
+                        <div class="item-thungdetail">
+                            <div class="view-thung" style="row-gap: 6px; display: flex; flex-direction: column; margin-right: 17px;">
+
+                            </div>
+                            <div class="box-item">
+                                <i style="font-size: 58px; color: #095c85;" class="fa-duotone fa-solid fa-box-open"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list_tabIndex">
+            <button data-tab="tab-1" class="page1 active"> Thống kê  </button>
+            <div style="padding: 5px 0px; border-left: 1px solid #ccc; padding-left: 5px; font-size: 15px; font-weight: 600; font-family: 'Roboto'; color: #016b69;">
+                <span>Gợi ý ô: </span>
+                <span class="goiythung"></span>
+                <button class="goiy">
+                    <span>
+                        Gợi ý
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <div style="overflow: auto; width: 100%; border: 1px solid #ccc; padding: 0 2px; margin-top: 5px;position:relative">
+            <div id="tab-1" class="rendertable_list tab-content active">
+
+            </div>
+        </div>
+
+    </div>
+
+    @*<div class="container active">
+            <div class="spinner"> <span class="span"> Loadding...</span></div>
+        </div>*@
+    <div class="list_loading active">
+        <div class="cssCoding">
+
+        </div>
+        <div style="font-size: 20px; font-weight: 600; font-family: roboto; color: #016b69;">
+            Đang lấy dữ liệu
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Chuyển khu vực</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                    
+                </div>
+                @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Understood</button>
+                </div>*@
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/Scripts/TheoDoiHangXuat/WebCam.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/toastr.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/jquery-ui.min.js"></script>
+    <script src="~/Scripts/BienBanXuatHang/tvkiten.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/sweetalert2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        var data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+    </script>
+    <script src="~/Scripts/sodokho/sodogiacong.js"></script>
+</body>
+</html>
+
+
+

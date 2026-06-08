@@ -1,0 +1,284 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <title>Khai báo kho NPL</title>
+
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/css/QRCode/toastr.minM.css" rel="stylesheet" />
+    <link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+    <link href="~/css/ViTriKhoNPL/chitietkho.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+
+    <div class="container-fluid main-container px-3">
+        <!-- Back Button -->
+        <button class="btn back-btn" onclick="showAisleSelection()" style="display: none;">
+            <i class="bi bi-arrow-left"></i> Quay lại
+        </button>
+
+        <!-- Breadcrumb -->
+        <!--<nav aria-label="breadcrumb" id="breadcrumb" style="display: none;">
+            <ol class="breadcrumb breadcrumb-custom">
+                <li class="breadcrumb-item"><a href="#" onclick="showAisleSelection()">Tổng quan kho</a></li>
+                <li class="breadcrumb-item active" id="currentAisle">Chi tiết dãy</li>
+            </ol>
+        </nav>-->
+        <!-- Aisle Selection View -->
+        <div id="aisleSelectionView">
+            <!-- Header -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card glass-card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-4">
+                                    <h4 class="mb-0">
+                                        <i id="home" class="fa-sharp fa-solid fa-house"></i>
+                                        Hệ Thống Quản Lý Kho - Chi Tiết
+                                    </h4>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Search for Items -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card glass-card">
+                        <div class="card-body">
+                            <h5 class="mb-3">
+                                <i class="bi bi-search"></i>
+                                Tìm Kiếm Vật Tư Trong Kho
+                            </h5>
+                            <div class="position-relative">
+                                <div class="row w-100">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-success text-white">
+                                                <i class="bi bi-box-seam"></i>
+                                            </span>
+                                            <input type="text" class="form-control" id="globalSearchInput"
+                                                   placeholder="Nhập tên vật tư để tìm kiếm ">
+                                            <button class="btn btn-success  " type="button" id="clearSearch">
+                                                <i class="bi bi-x-lg"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6 d-none">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-success text-white">
+                                                <i style="height: 26px; display: flex; justify-content: center; align-items: center;" class="bi bi-box-seam"></i>
+                                            </span>
+                                            <input type="text" class="form-control" id="globalBarcode"
+                                                   placeholder="Quét hoặc nhập barcode để tìm kiếm ">
+                                            <button class="btn btn-success" type="button" id="">
+                                                <i class="fa-solid fa-magnifying-glass enterbarcode"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Keyboard shortcut hint -->
+                                <small class="text-muted mt-1 d-block">
+                                    <i class="bi bi-keyboard"></i>
+                                    Nhấn <kbd>Ctrl+K</kbd> để tìm kiếm nhanh | <kbd>ESC</kbd> để đóng kết quả
+                                </small>
+
+                                <!-- Search Results Dropdown -->
+                                <div class=" w-100 mt-1" style="z-index: 1000;">
+                                    <div id="searchResults" class="list-group shadow"
+                                         style="display: none; max-height: 400px; overflow-y: auto;">
+                                        <!-- Search results will be populated here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aisle Cards -->
+            <div class="row" id="aisleCards">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Detail View -->
+        <div id="detailView" style="display: none;">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card glass-card">
+                        <div class="card-body">
+                            <h5 class="mb-0" id="detailTitle">
+                                <a href="#">
+                                    <i id="backBtn" class="bi bi-arrow-left"></i>
+                                    Chi Tiết Kho - Dãy
+                                </a>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Header -->
+            <div class="row mb-4">
+                <div class="col-lg-8 mb-2">
+                    <div class="card glass-card">
+                        <div class="card-body">
+                            <h6><strong>Chú thích: Sức chứa còn lại</strong></h6>
+                            <div class="row">
+                                <div class="col-md-3 col-6 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="capacity-empty rounded-circle me-2" style="width: 20px; height: 20px;">
+                                        </div>
+                                        <small>= 0% (Đầy)</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="capacity-low rounded-circle me-2" style="width: 20px; height: 20px;">
+                                        </div>
+                                        <small>&lt; 50% (Sắp đầy)</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="capacity-medium rounded-circle me-2" style="width: 20px; height: 20px;">
+                                        </div>
+                                        <small>50% - 80%</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-6 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <div class="capacity-high rounded-circle me-2" style="width: 20px; height: 20px;">
+                                        </div>
+                                        <small>&gt; 80% (Còn nhiều)</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card stats-card">
+                        <div class="card-body text-center">
+                            <h6>Thống kê</h6>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="stat-number" id="detailTotalSlots">0</div>
+                                    <small>Tổng ô</small>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-number" id="detailAvailableSlots">0</div>
+                                    <small>Còn nhiều chỗ</small>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-number" id="detailOccupiedSlots">0</div>
+                                    <small>Đã đầy</small>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <!-- Search -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="input-group">
+                        <span class="input-group-text bg-primary text-white">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text" class="form-control" id="detailSearchInput"
+                               placeholder="Tìm kiếm ô (VD: A.1.2.3) hoặc tên vật tư...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail Content -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card warehouse-container">
+                        <div class="card-body">
+                            <div id="detailContent">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal cho chi tiết vật tư -->
+    <div class="modal fade" id="itemDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content item-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalSlotTitle">
+                        <i class="bi bi-box"></i> Chi tiết ô kho
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h6>Thông tin ô</h6>
+                                    <div id="modalSlotInfo"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h6>Sức chứa</h6>
+                                    <div id="modalCapacityInfo"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6>Danh sách vật tư trong ô:</h6>
+                    <div class="item-list" id="modalItemList">
+                        <!-- Items will be populated here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    @*<button type="button" class="btn btn-primary">Cập nhật vật tư</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Scripts/ViTriKho/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/select2.js"></script>
+    <link href="~/css/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.light.css" rel="stylesheet" />
+    <script src="~/css/DevExtreme/dx.all.js"></script>
+    <script src="~/css/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Scripts/ViTriKho/chitietkho.js"></script>
+
+</body>
+</html>

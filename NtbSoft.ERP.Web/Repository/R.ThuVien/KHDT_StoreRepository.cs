@@ -1,0 +1,37 @@
+﻿using NtbSoft.ERP.Model.ThuVien;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+
+namespace NtbSoft.ERP.Web.Repository.R.ThuVien
+{
+    public interface IKHDT_StoreRepository
+    {
+        DataTable Get(string Action, string Para1, string Para2);
+        string Post(object objSave);
+        string Delete(string Para1,string Para2,string Para3);
+    }
+    public class KHDT_StoreRepository : IKHDT_StoreRepository
+    {
+        KHDT_StoreModel _model = new KHDT_StoreModel();
+        public string Delete(string Para1, string Para2, string Para3)
+        {
+            var result = _model.Delete(Para1, Para2, Para3);
+            return result;
+        }
+
+        public DataTable Get(string Action, string Para1, string Para2)
+        {
+            var result = _model.Get(Action, Para1, Para2);
+            return result;
+        }
+
+        public string Post(object objSave)
+        {
+            var result = _model.Post(objSave);
+            return result;
+        }
+    }
+}

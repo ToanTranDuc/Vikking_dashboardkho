@@ -1,0 +1,330 @@
+﻿.itemScan {
+    border: 1px solid #Ccc;
+    padding: 6px 4px;
+    border-radius: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 27px;
+    display: flex;
+    align-items: center;
+}
+/* Thay đổi độ rộng modal */
+
+
+#scannerModal .modal-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 20px 10px;
+    min-height: 400px;
+    max-height: 95vh;
+    overflow: auto;
+    margin-bottom: 10px;
+    padding-bottom: 0px;
+}
+
+.controls {
+    margin: 8px !important;
+}
+
+#scannerModal .video-container {
+    height: 140px !important;
+    border-radius: 0;
+    margin: 0 auto !important;
+    min-height: 135px;
+    max-width: 310px !important;
+}
+
+#scannerModal .scan-region-highlight {
+    width: 200px !important;
+    height: 90px !important;
+    min-height: 80px;
+}
+
+#scannerModal .modal-content {
+    height: 100%;
+    border-radius: 20px;
+    border: none;
+    height:90vh;
+}
+
+.alt-button-2 {
+    background: #4A5568 !important;
+    color: #fff;
+    border: none;
+    padding: 7px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .alt-button-2:hover {
+        background: #2D3748;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+.label {
+    color: #666;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.toast-body {
+    background: #fff;
+}
+@media only screen and (max-width: 700px) {
+    #scannerModal {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+        #scannerModal .modal-dialog {
+            /* max-width: 100% !important; */
+            /* margin: 0; */
+        }
+
+        #scannerModal .modal-content {
+            border-radius: 20px;
+            border: none;
+        }
+
+        #scannerModal .video-container {
+            height: 140px !important;
+            border-radius: 0;
+            margin: 0 auto !important;
+            min-height: 135px;
+            max-width: 310px !important;
+        }
+
+        #scannerModal .scan-region-highlight {
+            width: 200px !important;
+            height: 90px !important;
+            min-height: 80px;
+        }
+
+        #scannerModal .modal-header {
+            padding: 0.75rem;
+        }
+
+        #scannerModal .modal-title {
+            font-size: 1rem;
+        }
+
+        #scannerModal .modal-body {
+            padding: 10px 5px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-height: 95vh;
+        }
+
+    .scanner-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+
+
+    .controls .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+
+    #scanResultContainer {
+        margin-top: 1rem !important;
+    }
+
+        #scanResultContainer .alert {
+            padding: 0.75rem;
+        }
+
+    #scanResult {
+        font-size: 1rem !important;
+    }
+}
+
+#scannerModal .scan-line {
+    position: absolute;
+    width: 100%;
+    height: 2px !important;
+    background: #00ff00 !important;
+    animation: neonScan 2s linear infinite alternate !important;
+    box-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 40px #00ff00;
+}
+
+@keyframes neonScan {
+    0% {
+        top: 0%;
+        opacity: 1;
+    }
+
+    100% {
+        top: 100%;
+        opacity: 1;
+    }
+}
+
+
+/* GROUP */
+.collapsible-group {
+    background: white;
+    border: 2px solid #dee2e6;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.group-header {
+    background: #357c97;
+    color: white;
+    padding: 4px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+
+    .group-header h4 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+.toggle-icon {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.group-header[aria-expanded="true"] .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.group-body {
+    padding: 20px;
+}
+
+.child-item {
+    background: #f8f9fa;
+    border-left: 4px solid #667eea;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+    .child-item:hover {
+        background: #e9ecef;
+        transform: translateX(5px);
+    }
+
+    .child-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .child-item h5 {
+        color: #667eea;
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .child-item p {
+        margin: 0;
+        color: #6c757d;
+    }
+
+@media (max-width: 768px) {
+    .modal-dialog {
+        margin: 0;
+    }
+
+    .modal-dialog {
+        max-width: 100%;
+        display: flex;
+        justify-content: center
+    }
+
+    #scannerModal .modal-content {
+        width: 80%;
+        height: 90vh;
+    }
+
+    #group-thongtinquet label {
+        margin-bottom: 2px;
+        font-weight: 600 !important;
+        font-size: 13px;
+    }
+
+    #group-thongtinquet .itemScan {
+        font-size: 12px;
+    }
+
+    #scannerModal .dx-header-row .col-header {
+      font-size:14px !important
+    }
+    #scannerModal .dx-header-row .col-header {
+        font-size: 12px !important
+    }
+
+    #scannerModal .dx-datagrid .dx-row > td {
+        padding: 6px 4px;
+        font-size: 12px !important;
+    }
+}
+#scannerModal .toggle-icon {
+    font-size:11px
+}
+#group-thongtinquet label {
+    margin-bottom: 2px;
+}
+
+@media (max-width: 600px) {
+    #scannerModal .modal-content {
+        width: 95%;
+        height: 90vh;
+    }
+
+    #group-thongtinquet label {
+        margin-bottom: 2px;
+        font-weight: 500 !important;
+        font-size: 12px;
+    }
+
+    #group-thongtinquet .itemScan {
+        font-size: 11px;
+    }
+
+    #scannerModal h4 {
+        font-size:13px
+    }
+    #scannerModal .dx-header-row .col-header {
+        font-size: 12px !important
+    }
+    #scannerModal .dx-datagrid .dx-row > td {
+        padding: 7px;
+    }
+}
+
+#scanStatus {
+    display: none !important
+}
+#scannerModal .dx-header-row .col-header {
+    background: #eaf0f1;
+    color: #000;
+}
+.callout label {
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap; /* Không cho xuống dòng */
+    overflow: hidden; /* Ẩn phần dư */
+    text-overflow: ellipsis; /* Hiển thị "..." nếu quá dài */
+}

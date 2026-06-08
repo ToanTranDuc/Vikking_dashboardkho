@@ -1,0 +1,577 @@
+﻿@{
+    ViewBag.Title = "WIP - Gantt đơn hàng";
+    ViewBag.SkipLayoutHighcharts = true;
+    Layout = "~/Views/Shared/_LayoutBCTH.cshtml";
+}
+<link href="~/css/DevExtreme/dx.light.css" rel="stylesheet" />
+<link href="~/css/DevExtreme/dx.common.css" rel="stylesheet" />
+<link href="~/css/WipDonHang/highcharts.css" rel="stylesheet" />
+<div class="wip-hc-page">
+    <div class="wip-hc-toolbar">
+        <div id="lineTabs" class="wip-hc-line-tabs"></div>
+        <input id="wipHcKeyword" class="wip-hc-input wip-hc-keyword" type="text" placeholder="Tìm lệnh SX, đơn hàng, mã hàng, PO..." />
+        <div id="wipHcFromDate" class="wip-hc-datebox"></div>
+        <div id="wipHcToDate" class="wip-hc-datebox"></div>
+        <button id="wipHcReload" class="wip-hc-button" type="button">Tải</button>
+    </div>
+
+    <div id="wipHcLoading" class="wip-hc-loading">Đang tải dữ liệu...</div>
+    <div class="wip-hc-chart-frame">
+        <div id="wipDonHangHighchartGantt" class="wip-hc-chart"></div>
+    </div>
+    <div class="wip-hc-pager">
+        <div class="wip-hc-pager-size">
+            <span>Hiển thị</span>
+            <select id="wipHcPageSize" class="wip-hc-page-size-select">
+                <option value="25">25 / trang</option>
+                <option value="50" selected>50 / trang</option>
+                <option value="100">100 / trang</option>
+            </select>
+            <span>trong tổng <strong id="wipHcRecordTotal">0</strong> bản ghi</span>
+        </div>
+        <div class="wip-hc-pager-nav">
+            <button id="wipHcPrev" class="wip-hc-icon-button" type="button" title="Trang trước">&lt;</button>
+            <span id="wipHcTotal" class="wip-hc-total"></span>
+            <button id="wipHcNext" class="wip-hc-icon-button" type="button" title="Trang sau">&gt;</button>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        window.WIP_HIGHCHARTS_GANTT_API = {
+            GET: "/api/wip-donhang-gantt/get",
+            GET_LINEX: "/api/wip-donhang/get-list-linex"
+        };
+    </script>
+    <script src="~/css/DevExtreme/dx.all.js"></script>
+    <script src="~/Scripts/Wip/highcharts-gantt.js"></script>
+    <script src="~/Scripts/Wip/exporting.js"></script>
+    <script src="~/Scripts/Wip/accessibility.js"></script>
+    <script src="~/Scripts/Wip/wip-donhang-gantt.js"></script>
+
+    <style>
+        body{
+            padding-bottom: 0px !important;
+            overflow: hidden;
+        }
+        .wip-hc-page {
+            height: calc(100vh - 51px);
+            min-height: 0;
+            padding: 4px 8px 0;
+            background: #f4f6f8;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .wip-hc-toolbar {
+            display: grid;
+            grid-template-columns: minmax(340px, 520px) minmax(210px, 1fr) 145px 145px 58px;
+            gap: 8px;
+            align-items: center;
+            flex: 0 0 auto;
+            margin-bottom: 8px;
+        }
+
+        .wip-hc-line-tabs {
+            min-width: 0;
+        }
+
+            .wip-hc-line-tabs .dx-tabs {
+                height: 34px;
+                border: 1px solid #cbd5e1;
+                background: #fff;
+                border-radius: 4px;
+                padding: 2px;
+            }
+
+            .wip-hc-line-tabs .dx-tab {
+                min-width: 58px;
+                padding: 5px 10px;
+                border-radius: 3px;
+                color: #475569;
+                font-size: 12px;
+                font-weight: 600;
+            }
+
+                .wip-hc-line-tabs .dx-tab.dx-tab-selected {
+                    background: #dbeafe;
+                    color: #0f172a;
+                }
+
+                    .wip-hc-line-tabs .dx-tab.dx-tab-selected::after {
+                        display: none;
+                    }
+
+        .wip-hc-input,
+        .wip-hc-button,
+        .wip-hc-icon-button {
+            height: 28px;
+            border: 1px solid #cbd5e1;
+            border-radius: 2px;
+            background: #fff;
+            color: #1f2937;
+            font-size: 13px;
+        }
+
+        .wip-hc-input {
+            width: 100%;
+            padding: 0 8px;
+            font-size: 12px;
+        }
+
+        .wip-hc-datebox {
+            width: 100%;
+            height: 28px;
+        }
+
+            .wip-hc-datebox.dx-texteditor,
+            .wip-hc-datebox .dx-texteditor {
+                height: 28px;
+                border-radius: 2px;
+            }
+
+            .wip-hc-datebox.dx-texteditor .dx-texteditor-input,
+            .wip-hc-datebox .dx-texteditor-input {
+                min-height: 26px;
+                padding-top: 0;
+                padding-bottom: 0;
+                font-size: 12px;
+            }
+
+        .wip-hc-button,
+        .wip-hc-icon-button {
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .wip-hc-button {
+            background: #0f766e;
+            border-color: #0f766e;
+            color: #fff;
+        }
+
+        .wip-hc-total {
+            min-width: 150px;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .wip-hc-pager {
+            min-height: 32px;
+            max-height: 34px;
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 3px 4px 2px;
+        }
+
+        .wip-hc-pager-size,
+        .wip-hc-pager-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .wip-hc-pager-size {
+            color: #334155;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .wip-hc-page-size-select {
+            height: 25px;
+            min-width: 90px;
+            padding: 0 28px 0 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: #fff;
+            color: #1f2937;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .wip-hc-pager-nav .wip-hc-icon-button {
+            width: 26px;
+            height: 26px;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        .wip-hc-pager-nav .wip-hc-total {
+            min-width: 110px;
+            height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            color: #0f172a;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .wip-hc-loading {
+            display: none;
+            flex: 0 0 auto;
+            padding: 8px 10px;
+            margin-bottom: 8px;
+            border: 1px solid #fde68a;
+            background: #fffbeb;
+            color: #92400e;
+            font-size: 13px;
+        }
+
+        .wip-hc-chart-frame {
+            width: 100%;
+            min-height: 0;
+            height: auto;
+            flex: 1 1 0;
+            border: 1px solid #d7dce5;
+            background: #fff;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .wip-hc-chart {
+            width: 100%;
+            min-width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+            .wip-hc-chart .highcharts-background {
+                fill: #fbfdff;
+            }
+
+            .wip-hc-chart .highcharts-plot-background {
+                fill: #f8fafc;
+            }
+
+            .wip-hc-chart .highcharts-title {
+                fill: #1f2937;
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+            .wip-hc-chart .highcharts-grid-line,
+            .wip-hc-chart .highcharts-yaxis-grid .highcharts-grid-line {
+                stroke: #d9e1ec;
+                stroke-width: 1px;
+            }
+
+            .wip-hc-chart .wip-hc-month-band {
+                fill: rgba(248, 250, 252, 0.95);
+            }
+
+            .wip-hc-chart .wip-hc-month-band-alt {
+                fill: rgba(226, 232, 240, 0.45);
+            }
+
+            .wip-hc-chart .wip-hc-month-header-boundary {
+                stroke: #94a3b8;
+                stroke-width: 1.5px;
+            }
+
+            .wip-hc-chart .wip-hc-month-header-label {
+                fill: #334155;
+                font-size: 11px;
+                font-weight: 700;
+            }
+
+            .wip-hc-chart .wip-hc-today-line {
+                stroke: #2563eb;
+                stroke-width: 2px;
+            }
+
+            .wip-hc-chart .highcharts-plot-line-label {
+                fill: #0f172a;
+                font-weight: 700;
+            }
+
+            .wip-hc-chart .highcharts-treegrid-node-collapsed,
+            .wip-hc-chart .highcharts-treegrid-node-expanded {
+                cursor: pointer;
+            }
+
+            .wip-hc-chart .highcharts-label text,
+            .wip-hc-chart .highcharts-axis-labels text {
+                fill: #111827;
+                font-size: 10px;
+            }
+
+            .wip-hc-chart .highcharts-xaxis-labels text {
+                font-size: 10px;
+            }
+
+        .wip-hc-empty {
+            height: 100%;
+            min-height: 520px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #475569;
+            text-align: center;
+            gap: 6px;
+        }
+
+        .wip-hc-empty__title {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .wip-hc-empty__desc {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        .highcharts-tooltip-container,
+        .highcharts-tooltip {
+            z-index: 99999 !important;
+            pointer-events: none;
+        }
+
+            .highcharts-tooltip span {
+                z-index: 99999 !important;
+            }
+
+        .wip-hc-chart .highcharts-point {
+            stroke: #ffffff;
+            stroke-width: 1px;
+        }
+
+        .wip-hc-chart .wip-hc-point-master {
+            opacity: 0.96;
+        }
+
+        .wip-hc-chart .highcharts-point.wip-hc-line-0,
+        .wip-hc-chart .wip-hc-line-0 .highcharts-point {
+            fill: #2f9fe8 !important;
+            stroke: #ffffff !important;
+        }
+
+        .wip-hc-chart .highcharts-point.wip-hc-line-1,
+        .wip-hc-chart .wip-hc-line-1 .highcharts-point {
+            fill: #6254c9 !important;
+            stroke: #ffffff !important;
+        }
+
+        .wip-hc-chart .highcharts-point.wip-hc-line-2,
+        .wip-hc-chart .wip-hc-line-2 .highcharts-point {
+            fill: #08c96c !important;
+            stroke: #ffffff !important;
+        }
+
+        .wip-hc-chart .highcharts-point.wip-hc-line-3,
+        .wip-hc-chart .wip-hc-line-3 .highcharts-point {
+            fill: #ff6b35 !important;
+            stroke: #ffffff !important;
+        }
+
+        .wip-hc-chart .highcharts-point.wip-hc-line-4,
+        .wip-hc-chart .wip-hc-line-4 .highcharts-point {
+            fill: #5f83bd !important;
+            stroke: #ffffff !important;
+        }
+
+        .wip-hc-chart .highcharts-point.wip-hc-line-5,
+        .wip-hc-chart .wip-hc-line-5 .highcharts-point {
+            fill: #c65af2 !important;
+            stroke: #ffffff !important;
+        }
+
+        .wip-hc-chart .highcharts-point.wip-hc-line-6,
+        .wip-hc-chart .wip-hc-line-6 .highcharts-point {
+            fill: #23bfb0 !important;
+            stroke: #ffffff !important;
+        }
+
+        .wip-hc-chart .highcharts-point.wip-hc-line-7,
+        .wip-hc-chart .wip-hc-line-7 .highcharts-point {
+            fill: #ef4444 !important;
+            stroke: #ffffff !important;
+        }
+
+        .wip-hc-chart .highcharts-point.wip-hc-line-8,
+        .wip-hc-chart .wip-hc-line-8 .highcharts-point {
+            fill: #f59e0b !important;
+            stroke: #ffffff !important;
+        }
+
+        .wip-hc-chart .highcharts-point.wip-hc-line-9,
+        .wip-hc-chart .wip-hc-line-9 .highcharts-point {
+            fill: #64748b !important;
+            stroke: #ffffff !important;
+        }
+
+        .wip-hc-chart .wip-hc-point-plan {
+            fill: #6254c9;
+        }
+
+        .wip-hc-chart .wip-hc-point-done {
+            fill: #08d66b;
+        }
+
+        .wip-hc-chart .wip-hc-point-late {
+            fill: #ff4b47;
+        }
+
+        .wip-hc-chart .highcharts-partfill-original {
+            fill: rgba(255, 255, 255, 0.35);
+        }
+
+        .wip-hc-chart .highcharts-navigator-outline,
+        .wip-hc-chart .highcharts-scrollbar-track {
+            stroke: #cbd5e1;
+            fill: #f8fafc;
+        }
+
+        .wip-hc-chart .highcharts-navigator-mask-inside {
+            fill: rgba(20, 184, 166, 0.16);
+        }
+
+        .wip-hc-chart .highcharts-navigator-mask-outside {
+            fill: rgba(148, 163, 184, 0.22);
+        }
+
+        .wip-hc-chart .highcharts-navigator-handle,
+        .wip-hc-chart .highcharts-scrollbar-thumb {
+            stroke: #64748b;
+            fill: #e2e8f0;
+        }
+
+        .wip-hc-chart .highcharts-scrollbar-button {
+            stroke: #cbd5e1;
+            fill: #f8fafc;
+        }
+
+        .wip-hc-chart .highcharts-data-label text {
+            fill: #1f2937;
+            font-size: 13px;
+            text-shadow: none;
+        }
+
+        .wip-hc-y-label {
+            width: clamp(132px, 12vw, 210px);
+            max-width: 100%;
+            min-height: 44px;
+            padding: 4px 6px 4px 8px;
+            border-left: 4px solid transparent;
+            border-radius: 2px;
+            box-sizing: border-box;
+            color: #111827;
+            font-size: 12px;
+            line-height: 1.22;
+            white-space: normal;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .wip-hc-y-label--line-0 {
+            background: rgba(47, 159, 232, 0.08);
+            border-left-color: #2f9fe8;
+        }
+
+        .wip-hc-y-label--line-1 {
+            background: rgba(98, 84, 201, 0.08);
+            border-left-color: #6254c9;
+        }
+
+        .wip-hc-y-label--line-2 {
+            background: rgba(8, 201, 108, 0.08);
+            border-left-color: #08c96c;
+        }
+
+        .wip-hc-y-label--line-3 {
+            background: rgba(255, 107, 53, 0.08);
+            border-left-color: #ff6b35;
+        }
+
+        .wip-hc-y-label--line-4 {
+            background: rgba(95, 131, 189, 0.08);
+            border-left-color: #5f83bd;
+        }
+
+        .wip-hc-y-label--line-5 {
+            background: rgba(198, 90, 242, 0.08);
+            border-left-color: #c65af2;
+        }
+
+        .wip-hc-y-label--line-6 {
+            background: rgba(35, 191, 176, 0.08);
+            border-left-color: #23bfb0;
+        }
+
+        .wip-hc-y-label--line-7 {
+            background: rgba(239, 68, 68, 0.08);
+            border-left-color: #ef4444;
+        }
+
+        .wip-hc-y-label--line-8 {
+            background: rgba(245, 158, 11, 0.09);
+            border-left-color: #f59e0b;
+        }
+
+        .wip-hc-y-label--line-9 {
+            background: rgba(100, 116, 139, 0.08);
+            border-left-color: #64748b;
+        }
+
+        .wip-hc-y-label__top,
+        .wip-hc-y-label__sub {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .wip-hc-y-label__sub {
+            color: #000;
+            font-weight: 600;
+        }
+
+        .wip-hc-bar-label {
+            width: clamp(150px, 14vw, 240px);
+            max-width: 100%;
+            min-height: 20px;
+            color: #111827;
+            font-size: 13px;
+            line-height: 1.1;
+            text-align: center;
+            font-weight: 700;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @@media (max-width: 960px) {
+            .wip-hc-toolbar {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .wip-hc-line-tabs {
+                grid-column: 1 / -1;
+            }
+
+            .wip-hc-total {
+                text-align: center;
+            }
+
+            .wip-hc-chart-frame {
+                min-height: 0;
+            }
+        }
+    </style>
+}

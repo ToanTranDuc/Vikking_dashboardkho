@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Phê duyệt";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Phê duyệt</title>
+
+    @*<link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css" />
+
+    <link href="~/Scripts/PheDuyet/DevExtreme/dx.light.css" rel="stylesheet" />
+
+    <link href="~/Scripts/PheDuyet/DevExtreme/dx.common.css" rel="stylesheet" />*@
+
+    <link href="~/css/PheDuyet/PheDuyetNK.css?v=20260327_122" rel="stylesheet" />
+
+    @*<script src="~/Scripts/jquery.min-3.6.1.js"></script>*@
+
+    @*<script src="~/Scripts/PheDuyet/DevExtreme/dx.all.js"></script>*@
+</head>
+<body>
+    <div class="qc-approval-page">
+        <div class="qc-toolbar">
+            <div class="qc-actions">
+                <button class="btn action-btn btn-duyet" id="nk-btn-duyet" type="button">
+                    <i class="fas fa-check"></i>
+                    Duyệt
+                </button>
+                <button class="btn action-btn btn-huy" id="nk-btn-huy-duyet" type="button">
+                    <i class="fas fa-times"></i>
+                    Hủy
+                </button>
+                <button class="btn action-btn btn-excel" id="nk-btn-export-excel" type="button">
+                    <i class="fas fa-file-excel"></i>
+                    Xuất Excel
+                </button>
+            </div>
+
+            <div class="qc-filters">
+                <div class="qc-search-box">
+                    <i class="fas fa-search"></i>
+                    <input id="nk-txt-search" type="text" placeholder="Tìm kiếm..." />
+                </div>
+
+                <div class="qc-date-range" id="qc-date-range">
+                    <div class="qc-date-item">
+                        <label for="nk-from-date">Từ ngày:</label>
+                        <div id="nk-from-date"></div>
+                    </div>
+                    <div class="qc-date-item">
+                        <label for="nk-to-date">Đến ngày:</label>
+                        <div id="nk-to-date"></div>
+                    </div>
+                </div>
+
+                <label class="qc-check-approved" for="nk-chk-da-duyet">
+                    <input id="nk-chk-da-duyet" type="checkbox" />
+                    <span>Đã duyệt</span>
+                </label>
+
+                <button class="btn action-btn btn-loc" id="nk-btn-filter" type="button">
+                    <i class="fas fa-filter"></i>
+                    Lọc
+                </button>
+            </div>
+        </div>
+
+        <div id="nk-gridContainer"></div>
+    </div>
+
+    <script src="~/Scripts/PheDuyet/PheDuyetNK.js?v=20260327_128"></script>
+</body>
+</html>

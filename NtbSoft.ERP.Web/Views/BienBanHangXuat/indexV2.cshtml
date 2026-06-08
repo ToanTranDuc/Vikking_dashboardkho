@@ -1,0 +1,1022 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Biên bản hàng xuất ";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <link href="~/css/TheoDoiHangXuat/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/toastr.min.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/jquery.ui.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/css/BienBanHangXuat/BienBanHangXuatV2.css" rel="stylesheet" />
+</head>
+
+<body>
+    <section class="nav_title">
+        <div class="list_phieu">
+            <i id="home" style="font-size: 21px; cursor: pointer; " class="fa-sharp fa-solid fa-house"></i>
+            <button id="creatPhieu">Tạo phiếu</button>
+            <button id="viewPhieu">Sửa phiếu</button>
+        </div>
+        <div class="maPhieu" style="display: flex; justify-content: center; align-items: center;">
+            <label style="white-space: nowrap; margin: 0px; ">Biên bản phiếu </label>
+            <p style=" font-style: unset; font-size: 16px; margin-left: 5px; font-weight: bold; display: none;" id="soPhieu">1</p>
+            <p style=" font-style: unset; font-size: 13px; margin-left: 5px; font-weight: bold;" id="namePhieu"></p>
+        </div>
+        <div style="margin-right: 10px;display:flex">
+            <button style="min-width:72px" class="btn_search" id="Update"><i class="fa-sharp fa-solid fa-floppy-disk"></i>Lưu</button>
+            <button style="background: #dde924; white-space: nowrap; display:none " class="btn_search" id="delete"><i class="fa-solid fa-trash-can-xmark"></i> Xóa phiếu</button>
+            <button style="background: #dde924; white-space: nowrap; display:none " class="btn_search" id="xuatEX">Xuất EX</button>
+        </div>
+    </section>
+    <section class="search" style="background: rgb(112, 186, 237); margin: 2px; padding: 0px 10px; width: 99.8%; border-radius: 5px; display: none">
+        <div style="margin: 5px; display: none; ">
+            <div class="" style="margin-right:10px">
+                <label style="display: block;" for="from">Từ ngày:</label>
+                <input style="width: 130px; outline: none; border: 1px solid; height: 26px;text-align: center;font-size: 15px;" type="text" id="from" name="from">
+            </div>
+            <div class="">
+                <label style="display: block;" for="to">Đến ngày:</label>
+                <input style="width: 130px;outline: none;border: 1px solid;height: 26px;text-align: center;font-size: 15px;" type="text" id="to" name="to">
+            </div>
+        </div>
+        <div style="margin: 5px; display: flex; justify-content: space-between; width: 100%; ">
+            <div class="lookup-container">
+                <label style="margin-right: 5px; font-size: 15px; font-family: 'Roboto';">Mã PKL</label>
+                <input style="text-align: center;" type="text" class="lookup-input" placeholder="Search...">
+                <div class="ultitle" style="display:flex;justify-content:space-between">
+                    <p class="ultile_p1">Mã Phiếu</p>
+                    <p class="ultile_p1">Số xe</p>
+                    <p class="ultile_p1">Số cont</p>
+                    <p class="ultile_p1">Số rờ móc</p>
+                    <p class="ultile_p1">Số Booking</p>
+                </div>
+                <ul class="lookup-results">
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="title">BIÊN BẢN KIỂM TRA</div>
+        <p> CONTAINER/TRAILER/TRUCK INSPECTION RECORD </p>
+    </section>
+    <section>
+        <div class="row" style="display:flex;margin: 10px;width: 100%;">
+            <div style="display: flex; width: 70%; margin-left: 56px; justify-content: center; align-items: center;">
+                <div style="display:flex;">
+                    <input class="vcCont" type="checkbox" name="name" value="" style="width: 33px; margin-left: 36px; outline: none; border: 1px solid;">
+                    <p> Container</p>
+                </div>
+                <div style="display:flex">
+                    <input class="vcroMoc" type="checkbox" name="name" value="" style=" width: 35px; margin-left: 36px; outline: none; border: 1px solid;">
+                    <p style="white-space: nowrap;">Đầu kéo </p>
+                </div>
+                <div style="display:flex">
+                    <input class="vcXetai" type="checkbox" name="name" value="" style=" width: 35px; margin-left: 36px; outline: none; border: 1px solid;">
+                    <p style="white-space: nowrap;">Xe tải </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="mapkl_cont">
+        <div style="display: flex; margin-left: 5px;">
+            <div style="position: relative;">
+                <label style="margin-right: 5px; font-size: 15px; font-family: 'Roboto'; white-space: nowrap;">Mã PKL</label>
+
+            </div>
+            <div class="lookup-input2">
+                <div class="item_input2">
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class=" list_item ma_PKL " style="display: flex; justify-content: left; align-items: center;margin-bottom:10px">
+
+            <div class="lookup-container1">
+
+                <div style="position: relative; display: flex; flex-direction: column;">
+
+                    <input style="text-align: center;display:none" type="text" class="lookup-input1" placeholder="Search...">
+                    <div class="hideLi" style="display:none">
+                        <button class="">Ẩn</button>
+                    </div>
+                    <ul class="lookup-results1">
+                    </ul>
+
+
+                </div>
+            </div>
+        </div>
+        @*</div>*@
+    </section>
+    <section>
+        <div>
+            <div class="item">
+                <div class="row " style="display: flex; flex-wrap: wrap; width: 100%; justify-content: space-between;">
+                    <div class=" list_item" style="display: flex; ">
+                        <p style="width:auto"> Loại</p>
+                        <div style="margin:0 5px" class="item_input">
+                            <input style="width: 100px; height: 22px; text-align: center;" class="loaiFeest" type="number" value="" />
+                        </div>
+                        <p>Feets</p>
+                    </div>
+                    <div class=" list_item" style="display: flex; ">
+                        <p style="width:auto">Loại</p>
+                        <div style="margin:0 5px" class="item_input">
+                            <input style="width: 100px; height: 22px; text-align: center;" class="loaiTan" type="number" value="" />
+                        </div>
+                        <p>Tấn</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section style="margin: 10px 10px;width:98%">
+        <div>
+            <div class="item">
+                <div class="row " style="display: flex; flex-wrap: wrap;">
+                    <div class=" list_item" style="position: relative;">
+                        <p>Số xe <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <i class="fa-regular fa-table icon_tableList listXe"></i>
+                        <div class="item_input">
+                            <input style="text-transform: uppercase;" class="banSo" type="text" value="" />
+                        </div>
+                    </div>
+                    <div class=" list_item inputcontainer">
+                        <p>Số container <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <div class="item_input">
+                            <input class="container" type="text" value="" />
+                        </div>
+                    </div>
+                    <div class=" list_item inputromoc">
+                        <p>Số rờ móc <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em> </p>
+                        <div class="item_input">
+                            <input class="romoc" type="text" name="name" value="" />
+                        </div>
+                    </div>
+                    <div class=" list_item" style="position: relative;">
+                        <p>Tên tài xế <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <i class="fa-regular fa-table icon_tableList listTenTX"></i>
+                        <div class="item_input">
+                            <input style="text-transform: capitalize;" class="nameTX" type="text" value="" />
+                        </div>
+                    </div>
+                    <div class=" list_item" style="position: relative;">
+                        <p>CCCD <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <i class="fa-regular fa-table icon_tableList listCMND"></i>
+                        <div class="item_input">
+                            <input class="CMND" type="text" value="" maxlength="12" />
+                        </div>
+                    </div>
+                    <div class=" list_item item_cty">
+                        <p>Công ty <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <div class="item_input">
+                            <select class="congty" style="width: 100%; height: 28px; border: 1px solid; outline: none; text-align: center; font-size: 17px;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class=" list_item item_cty1" style="display:none">
+                        <p>Công ty <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <div class="item_input">
+                            <input class="congty1" type="text" value="" readonly />
+                        </div>
+                    </div>
+                    <div class=" list_item ">
+                        <p>Ngày giờ xe đến <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <div class="item_input" style="position: relative; border: 1px solid;">
+                            <input style="color: transparent; height: 26px; z-index: 2;opacity:0" class="xeDen datetime" type="datetime-local" value="" />
+                            <span id="datetime_xeden" class="datetime_Xe">dd/mm/yyyy --:--</span>
+                            <i class="fa-regular fa-calendar-days icon_datexe"></i>
+                        </div>
+                    </div>
+                    <div class=" list_item" style="">
+                        <p>Ngày ETD  <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <div class="item_input" style="position: relative; border: 1px solid;">
+                            <input style="color: transparent; height: 26px; z-index: 2;opacity:0" class="checkXe datetime" type="date" value="" />
+                            <span id="datetime_xecheck" class="datetime_Xe">dd/mm/yyyy </span>
+                            <i class="fa-regular fa-calendar-days icon_datexe"></i>
+                        </div>
+                    </div>
+                    <div class=" list_item ">
+                        <p style="color: #4444c7;">Thời gian BV kiểm tra từ <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <div class="item_input" style="position: relative; border: 1px solid;">
+                            <input style="color: transparent; height: 26px; z-index: 2;opacity:0" class="bvcheckbd datetime" type="datetime-local" value="" />
+                            <span id="datetime_bvcheckbd" class="datetime_Xe">dd/mm/yyyy --:--</span>
+                            <i class="fa-regular fa-calendar-days icon_datexe"></i>
+                        </div>
+                    </div>
+                    <div class=" list_item ">
+                        <p style="color: #4444c7;">Thời gian BV kiểm tra đến <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <div class="item_input" style="position: relative; border: 1px solid;">
+                            <input style="color: transparent; height: 26px; z-index: 2;opacity:0" class="bvcheckkt datetime" type="datetime-local" value="" />
+                            <span id="datetime_bvcheckkt" class="datetime_Xe">dd/mm/yyyy --:--</span>
+                            <i class="fa-regular fa-calendar-days icon_datexe"></i>
+                        </div>
+                    </div>
+
+                    <div class=" list_item" style="position: relative;">
+                        <p> Nơi đến</p>
+                        <i class="fa-regular fa-table icon_tableList listCanDen"></i>
+                        <div class="item_input">
+                            <input style="text-transform: uppercase " class="cangden" type="text" value="" />
+                        </div>
+                    </div>
+                    <div class=" list_item" style="position: relative;">
+                        <p>Chứng từ </p>
+                        @*<i class="fa-regular fa-table icon_tableList listCanDen"></i>*@
+                        <div class="item_input">
+                            <input style="text-transform: uppercase " class="chungtu" type="text" value="" />
+                        </div>
+                    </div>
+
+
+                    <div class=" list_item ">
+                        <p>Thời gian NV kho kiểm tra từ <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <div class="item_input" style="position: relative; border: 1px solid;">
+                            <input style="color: transparent; height: 26px; z-index: 2;opacity:0" class="nvcheckbd datetime" type="datetime-local" value="" />
+                            <span id="datetime_nvcheckbd" class="datetime_Xe">dd/mm/yyyy --:--</span>
+                            <i class="fa-regular fa-calendar-days icon_datexe"></i>
+                        </div>
+                    </div>
+                    <div class=" list_item ">
+                        <p>Thời gian  NV kho kiểm tra đến <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <div class="item_input" style="position: relative; border: 1px solid;">
+                            <input style="color: transparent; height: 26px; z-index: 2;opacity:0" class="nvcheckkt datetime" type="datetime-local" value="" />
+                            <span id="datetime_nvcheckkt" class="datetime_Xe">dd/mm/yyyy --:--</span>
+                            <i class="fa-regular fa-calendar-days icon_datexe"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        @*<div style="width: 100%; display: flex; align-items: center; justify-content: center;">
+                <img class="imgPanner" src="~/img/imgPanner.jpg" />
+            </div>*@
+    </section>
+    <section>
+        <div class="main-item">
+            <div class="task-item">
+                <div class="item-table">
+                    <table class="table table2" style="position: relative">
+                        <thead class="thead-list">
+                            <tr id="thead" style="position:relative">
+                                <td rowspan="2">STT</td>
+                                <td rowspan="2">Nội dung </td>
+                                <td colspan="2">Container & Đầu kéo/trailer</td>
+                                <td colspan="2">Xe tải / Truck</td>
+                            </tr>
+                            <tr id="thead" style="position:relative">
+                                <td>An toàn</td>
+                                <td>Không an toàn</td>
+                                <td>An toàn</td>
+                                <td>Không an toàn</td>
+
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                            <tr>
+                                <td></td>
+                                <td style="color: #92b1dc; font-size: 18px; padding: 5px 5px;">Kiểm tra an ninh- CTPAT</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Cản trước xe/Bumper</td>
+                                <td><input class="isContT1" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT1" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT1" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT1" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Động cơ xe/Engine</td>
+                                <td><input class="isContT2" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT2" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT2" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT2" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Các bánh xe/Tires(truck & trailer)</td>
+                                <td><input class="isContT3" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT3" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT3" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT3" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Sàn (trong cabin) xe/Floor(inside truck)</td>
+                                <td><input class="isContT4" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT4" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT4" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT4" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Thùng chứa nhiên liệu/Fuel Tanks</td>
+                                <td><input class="isContT5" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT5" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT5" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT5" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Khoan lái (bên trong và ngoài)/ Cab/Storage Compartments</td>
+                                <td><input class="isContT6" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT6" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT6" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT6" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>Bình khí nén/Air Tanks</td>
+                                <td><input class="isContT7" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT7" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT7" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT7" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>Trục dẫn động/ Drive Shafts</td>
+                                <td><input class="isContT8" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT8" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT8" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT8" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>Nơi để bánh dư phòng/khớp nối/Fifth Wheel</td>
+                                <td><input class="isContT9" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT9" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT9" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT9" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>Khung gầm romoc và cont/Outside/ Undercarriage</td>
+                                <td><input class="isContT10" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT10" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT10" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT10" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>11 </td>
+                                <td>Sàn bên trong/Floor(inside)</td>
+                                <td><input class="isContT11" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT11" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT11" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT11" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>Bên trong và bên ngoài cánh của <br /> Outside/ Inside Doors</td>
+                                <td><input class="isContT12" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT12" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT12" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT12" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td>Hai bên thành cont/thùng xe tải/Side Walls</td>
+                                <td><input class="isContT13" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT13" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT13" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT13" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td>Bên trong trần và mái ngoài cont <br /> /xe tải/Ceiling/Roof</td>
+                                <td><input class="isContT14" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT14" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT14" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT14" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td>Thành trước cont/thùng xe/Front Wall</td>
+                                <td><input class="isContT15" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT15" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT15" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT15" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td>Hệ thống làm lạnh/Refrigerator Unit (nếu có)</td>
+                                <td><input class="isContT16" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT16" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT16" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT16" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>17</td>
+                                <td>Ống xả khối/ Exhaust</td>
+                                <td><input class="isContT17" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT17" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT17" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT17" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="color: #92b1dc; font-size: 18px; padding: 5px 5px;" colspan="2">Kiểm tra nông nghiệp- Agricultural security</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    Sự nhiễn bẩn:Đất, phân,Côn trùng/Insets,hạt giống/seed,động thực vật <br />gây ô nhiễm/animal and plant matter can cause harm,...
+                                </td>
+                                <td><input class="isContT18" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT18" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT18" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT18" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Biện pháp xử lý (nếu có)</td>
+                                <td><input class="isContT19" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isContKT19" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiT19" type="checkbox" name="name" value="" /></td>
+                                <td><input class="isXeTaiKT19" type="checkbox" name="name" value="" /></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Kết Luận:</td>
+                                <td style="text-align: left; position: relative;" colspan="2"><input class="isKetLuanT" type="checkbox" name="name" value="" /> <span style="position: absolute; top: 6px;">Được phép đóng hàng</span> </td>
+                                <td style="text-align: left; position: relative;" colspan="2"><input class="isKetLuanKT" type="checkbox" name="name" value="" /> <span style="position: absolute; top: 6px; white-space: nowrap;"> Không được phép đóng hàng</span></td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section style="margin: 10px 10px; ">
+        <div>
+            <div class="item">
+                <div class="row " style="display: flex; width: 100%; justify-content: space-between;">
+
+                    <div class=" list_item">
+                        <p style="color:red">TG bắt đầu đóng cont <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <div class="item_input" style="position: relative; border: 1px solid;">
+                            <input style="color: transparent; height: 26px; z-index: 2;opacity:0" class="donghang datetime" type="datetime-local" value="" />
+                            <span id="datetime_giodong" class="datetime_Xe">dd/mm/yyyy --:--</span>
+                            <i class="fa-regular fa-calendar-days icon_datexe"></i>
+                        </div>
+                    </div>
+                    <div class=" list_item">
+                        <p  style="color:red">TG kết thúc đóng cont<em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <div class="item_input" style="position: relative; border: 1px solid;">
+                            <input style="color: transparent; height: 26px; z-index: 2;opacity:0" class="finishDongHang datetime" type="datetime-local" value="" />
+                            <span id="datetime_ktgiodong" class="datetime_Xe">dd/mm/yyyy --:--</span>
+                            <i class="fa-regular fa-calendar-days icon_datexe"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="main-item">
+        <div class="task-item" style="position:relative">
+            <div class="item-table">
+                <div id="xuatHangDetail" style="position: absolute; left: 8px; top: 2px; z-index: 2; ">
+                    <button style="height: 30px; padding: 0 5px; font-size: 12px;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Chi tiết</button>
+                </div>
+                <table class="table" style="position: relative">
+                    <thead class="thead-list">
+                        <tr id="thead" style="position:relative">
+                            <td>Tên hàng</td>
+                            <td>Mã hàng</td>
+                            <td>Po số</td>
+                            <td> Số lượng  </td>
+                            <td>Thùng</td>
+                            <td>Số Booking</td>
+                            <td>Ghi chú</td>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyMahang">
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class=" list_item" style="display: flex; text-align: center; align-items: center; margin-left: 10px;">
+        <button style="" class="camera_car">Chụp hình xe Cont</button>
+        <button style="display:none" class="camera_car_back">Chụp hình lại</button>
+    </div>
+    <section class="image_Cont" style="display:none">
+        <div class="list_image">
+            <div class="row item_image">
+                <div class="imageCo5">
+                    <p>
+                        1.Hình ảnh lúc chưa chất hàng
+                    </p>
+                    <div class="image " id="image0" style="border: 1px solid; margin-right: 20px;">
+
+                    </div>
+                </div>
+                <div class="imageCo2" style="">
+                    @*<p>
+                            2.Hình độ ẩm
+                        </p>
+                        <div class="image " id="imageDoAm" style="border: 1px solid; margin-right: 20px;">
+
+                        </div>*@
+                </div>
+                <div class="imageCo5">
+                    <p>
+                        2.Hình ảnh chất được 25%
+                    </p>
+                    <div class="image " id="image25" style="border: 1px solid;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_image">
+            <div class="row item_image">
+                <div class="imageCo5">
+                    <p>
+                        3.Hình ảnh chất được 50%
+                    </p>
+                    <div class="image " id="image50" style="border: 1px solid; margin-right: 20px;">
+
+                    </div>
+                </div>
+                <div class="imageCo2">
+
+                </div>
+                <div class="imageCo5">
+                    <p>
+                        4.Hình ảnh chất được 75%
+                    </p>
+                    <div class="image " id="image75" style="border: 1px solid;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_image">
+            <div class="row item_image">
+                <div class="imageCo5">
+                    <p>
+                        5.Hình ảnh chất được 100%
+                    </p>
+                    <div class="image " id="image100" style="border: 1px solid; margin-right: 20px;">
+
+                    </div>
+                </div>
+                <div class="imageCo2">
+
+                </div>
+                <div class="imageCo5">
+                    <p>
+                        6.Hình khi đã đóng cửa phương tiện
+                    </p>
+                    <div class="image " id="imageDongCua" style="border: 1px solid;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list_image tablet">
+            <div class="row item_image">
+                <div class="imageCo5">
+                    <p>
+                        7.Hình kiểm tra seal trước chốt
+                    </p>
+                    <div class="image imageTruocChot" id="imageTruocChot" style="border: 1px solid; margin-right: 20px;">
+
+                    </div>
+                </div>
+                <div class="imageCo2">
+
+                </div>
+                <div class="imageCo5">
+
+                    <p>
+                        8.Hình seal đã chốt an toàn
+                    </p>
+                    <div class="image imageChotAT" id="imageChotAT" onclick="CloseCamera()" data-dismiss="modal" data-target="#ModalImage" style="border: 1px solid;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class=" list_item" style="display: flex; text-align: center; align-items: center; margin-left: 10px;">
+        <button style="display:" class="camera_imageOther">Chụp thêm hình</button>
+        <button style="display:; BACKGROUND: #a96060; color: #fff;" class="camera_imageOther_back">Ẩn hình</button>
+        <button style="display:none; BACKGROUND: #a96060; color: #fff;" class="camera_imageOther_View">Xem hình</button>
+    </div>
+    <section>
+        <div class=" item_addImage">
+
+
+        </div>
+    </section>
+    <section style="margin: 10px 10px; ">
+        <div>
+            <div class="item">
+                <div class="row " style="display: flex; flex-wrap: wrap; width: 100%; justify-content: space-between;">
+
+                    <div class=" list_item">
+                        <p>Số seal</p>
+                        <div class="item_input inputseal">
+                            <input class="maSeal" type="text" value="" />
+                        </div>
+                        <div class="item_input selectseal" style="display: none;border:none">
+                            <select multiple="multiple" class="maSealSelect">
+                            </select>
+                        </div>
+                    </div>
+                    <div class=" list_item">
+                        <p>Ngày giờ xe đi <em style="color: red; position: absolute; font-size: 25px; margin-top: -5px; margin-left: 5px;">*</em></p>
+                        <div class="item_input" style="position: relative; border: 1px solid;">
+                            <input style="color: transparent; height: 26px; z-index: 2;opacity:0" class="xeDI datetime" type="datetime-local" value="" />
+                            <span id="datetime_xedi" class="datetime_Xe">dd/mm/yyyy --:--</span>
+                            <i class="fa-regular fa-calendar-days icon_datexe"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+   
+    <section>
+        <div class="main-item">
+            <div class="task-item kyten" style="width:70%;position:relative">
+                <i style="position: absolute; top: 2px; left: 5px; font-size: 25px; cursor: pointer;" class="fa-solid fa-signature icon_tablesignature"></i>
+                <div class="item-table list_kyten">
+                    <table class="table">
+                        <thead class="thead-list">
+                            <tr id="thead">
+                                <td>Họ Tên</td>
+                                <td>Bộ phận </td>
+                                <td style="position:relative">
+                                    Kí Tên
+                                    <button class="addRow" style="right: 6px; position: absolute; border: 1px solid #ccc; padding: 3px 5px; border-radius: 5px; background: #b1ff12; top: 3px;">Thêm dòng </button>
+                                </td>
+
+                            </tr>
+                        </thead>
+                        <tbody id="bodyKyTen">
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade image" id="ModalImage" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width:100%;height:100%">
+        <div class="modal-dialog modal-lg modal-dialog-top" role="document">
+            <div class="modal-content">
+                @*<div class="modal-header" style="background-color:#17A2B8;padding:0.4rem">
+                        <h5 class="modal-title" style="color:white;font-size:1rem"><i class="fas fa-camera"></i>  Chụp ảnh lỗi</h5>
+                        <button type="button" style="color:white" class="close" data-dismiss="modal" aria-label="Close" id="btnCloseModal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
+                <div class="modal-body" style="padding:0rem">
+                    <div style="width:100%;height:100%" id="webcam"></div>
+                </div>
+                <div class="modal-footer" style="padding:0rem">
+                    <button onclick="Capture()" type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ModalPreviewImage">@*<i class="fas fa-save"></i>*@  Chụp ảnh</button>
+                    <button onclick="CloseCamera()" type="button" class="btn btn-danger" data-dismiss="modal">@*<i class="fas fa-save"></i>*@  Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup1">
+        <div class="list-popup">
+            <div class="tieude">
+                Danh sách
+            </div>
+            <div class="hide_popup">
+                <i class="fa-sharp fa-solid fa-xmark"></i>
+            </div>
+            <div>
+                <input class="search_table" type="text" name="name" value="" placeholder="...Tìm kiếm" autocomplete="off" />
+                <div class="main-item">
+                    <div class="task-itemlist">
+                        <div class="item-tableTong">
+                            <table class="table" style="position: relative">
+                                <thead id="theadList" class="thead-list">
+
+                                </thead>
+                                <tbody id="tbodyList">
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Chi tiết mã PKL</h4>
+                </div>
+                <div class="modal-body">
+                    <div style="width: 100%;">
+                        <div class="list_nav">
+                            <div class="lst_DonHang">
+                                <label class="col-form-label item_lable" style="color: ">Mã PKL-Cont-Số booking</label>
+                                <select class="item_select mapkl_select2">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <section class="lstTotal">
+                        <div class="main-item">
+                            <div class="task-itemTong">
+                                <div class="item-tableTong">
+                                    <table class="table" style="position: relative">
+                                        <thead id="theadTotal" class="thead-list">
+                                        </thead>
+                                        <tbody id="tbodyTotal">
+                                        </tbody>
+                                        <tfoot id="tfootTotal">
+
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal2" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Zoomed Image</h4>
+                </div>
+                <div class="modal-body">
+                    <img id="zoomedImage" src="" alt="Zoomed Image" style="width: 100%; object-fit: fill; height:70dvh;">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade " id="ModalPreviewImage" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width:100%;height:100%">
+        <div class="modal-dialog modal-lg modal-dialog-top" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body" style="padding:0rem">
+                    <img style="width:100%;height:80vh" id="PreViewImage">
+                </div>
+                <div class="modal-footer" style="padding:0rem">
+
+                    <button onclick="StartCamera()" type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#ModalImage">@*<i class="fas fa-save"></i>*@  Chụp lại</button>
+                    <button style="width: 72px; background: #a9a00f; color: #000; font-weight: bold;" onclick="SavePreImage()" type="button" class="btn btn-primary" data-dismiss="modal">@*<i class="fas fa-save"></i>*@  Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input id="fileInput" type="file" style="display:none;" accept="image/*">
+
+    <div class="modal fade " id="ModaCaptureAgain" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width:100%;height:100%">
+        <div class="modal-dialog modal-lg modal-dialog-top" role="document">
+            <div class="modal-content">
+                <div class="modal-body" style="padding:0rem">
+                    <div style="width:100%;height:100%" id="webcamA"></div>
+                </div>
+                <div class="modal-footer" style="padding:0rem">
+                    <button onclick="CaptureAgain()" type="button" class="btn btn-primary" data-dismiss="modal">@*<i class="fas fa-save"></i>*@  Lưu</button>
+                    <button onclick="CloseCamera()" type="button" class="btn btn-danger" data-dismiss="modal">@*<i class="fas fa-save"></i>*@  Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup">
+        <div class="list-popup">
+            <div class="tieude">
+                Người kí tên
+            </div>
+            <div class="hide_popup">
+                <i class="fa-sharp fa-solid fa-xmark"></i>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <div class="item-img">
+                    <canvas id="signatureCanvas" width="320" height="300" style="touch-action: none;"></canvas>
+                    <div class="list-item">
+                        <div class="color">
+                            <ul class="option" style=" list-style: none; margin: 0; padding: 0;">
+                                <li>
+                                    <input type="range" id="size-slider" min="1" max="30" value="5">
+                                </li>
+                            </ul>
+                            <input type="color" id="colorPicker" value="#000000">
+                        </div>
+                        <div class="save_cancel">
+                            <div class="clear">
+                                <i style="padding-left: 3px;" class="fa-duotone fa-eraser"></i>
+                                <button id="clearButton">Clear</button>
+                            </div>
+                            <div class="save">
+                                <i style="padding-left: 3px;" class="fa-duotone fa-floppy-disk"></i>
+                                <button id="saveButton">Save</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="lst_denngay">
+            <label for="denngay" class="col-form-label" style="padding-top: 2px;">Ngày</label>
+            <input type="text" class="datetime" name="denngay" id="DenNgay">
+            <i class="fa-light fa-calendar-days itemdate"></i>
+        </div>
+    </div>
+    <div class="popup2">
+        <div class="list-popup">
+            <div class="tieude">
+                <i class="fa-sharp fa-solid fa-circle-exclamation icon_warring"></i>
+            </div>
+            <div class="item_text">
+
+            </div>
+            <div class="clear">
+                <div class="clear_item">
+                    <button id="clearButtonDetail">Đồng ý</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="popup3">
+        <div class="list-popup">
+            <div class="tieude">
+                Danh sách
+            </div>
+            <div class="value_popup">
+                <input class="input_popup" type="number" name="name" value="1" autocomplete="off" />
+            </div>
+            <div class="addRow_popup">
+                <i class="fa-solid fa-square-plus"></i>
+            </div>
+            <div class="hide_popuplist">
+                <i class="fa-sharp fa-solid fa-xmark"></i>
+            </div>
+            <div class="item_text">
+                <div class="main-item">
+                    <div class="task-itemlist">
+                        <div class="item-tableTong">
+                            <table class="table" style="position: relative">
+                                <thead id="theadLists" class="thead-lists">
+                                    <tr id="thead" style="position:relative">
+                                        <td style="white-space: nowrap; padding: 4px;">
+                                            Tên tài xế
+                                            <i class="fa-regular fa-table icon_tableListAll  listTenTXAll"></i>
+                                        </td>
+                                        <td style="white-space: nowrap; padding: 4px;">
+                                            CMND
+                                            <i class="fa-regular fa-table  icon_tableListAll listTenTXAll"></i>
+                                        </td>
+                                        <td style="white-space: nowrap; padding: 4px;">Số xe</td>
+                                        <td style="white-space: nowrap; padding: 4px;">Seal</td>
+                                        <td class="theadSoKien" style="white-space: nowrap; padding: 4px;">Thùng</td>
+                                        <td class="theadSL" style="white-space: nowrap; padding: 4px;"> Số lượng  </td>
+
+                                        @*<td>Ghi chú</td>*@
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyLists">
+                                </tbody>
+                                <tfoot id="tfootLists">
+
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="clear">
+                <div class="clear_item">
+                    <button style="background: #954444; color: #fff; " class="clearlistTaxe">Xóa DS</button>
+                </div>
+                <div class="clear_item">
+                    <button class="savelistTaxe">Đồng ý</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="popup4">
+        <div class="list-popup">
+            <div class="tieude">
+                Danh sách
+            </div>
+            <div class="hide_popup1">
+                <i class="fa-sharp fa-solid fa-xmark"></i>
+            </div>
+            <div>
+                <input class="search_table1" type="text" name="name" value="" placeholder="...Tìm kiếm" autocomplete="off" />
+                <div class="main-item">
+                    <div class="task-itemlist">
+                        <div class="item-tableTong">
+                            <table class="table" style="position: relative">
+                                <thead id="theadList1" class="thead-list1">
+
+                                </thead>
+                                <tbody id="tbodyList1">
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup5">
+        <div class="list-popup">
+            <div class="tieude">
+                Danh sách
+            </div>
+            <div class="hide_popup2">
+                <i class="fa-sharp fa-solid fa-xmark"></i>
+            </div>
+            <div>
+                <input class="search_table2" type="text" name="name" value="" placeholder="...Tìm kiếm" autocomplete="off" />
+                <div class="main-item">
+                    <div class="task-itemlist">
+                        <div class="item-tableTong">
+                            <table class="table" style="position: relative">
+                                <thead id="theadList2" class="thead-list2">
+
+                                </thead>
+                                <tbody id="tbodyList2">
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/TheoDoiHangXuat/WebCam.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/toastr.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/jquery-ui.min.js"></script>
+    <script src="~/Scripts/BienBanXuatHang/tvkiten.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/sweetalert2.js"></script>
+    <script>
+        var data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+    </script>
+    <script src="~/Scripts/BienBanXuatHang/bienbanxuathangV3.js"></script>
+
+
+</body>
+</html>
+
+
+

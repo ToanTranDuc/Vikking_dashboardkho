@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewBag.Title = "BCThoiGianHaoPhi";
+    Layout = "~/Views/Shared/_LayoutBCTH.cshtml";
+}
+<link href="~/css/BaoCaoTongHop/BCThoiGianHP/BCThoiGianHaoPhi.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<div class="kt-section">
+    <div class="kt-section__content">
+        <div class="table-responsive" id="thoigianhaophi" style="position: relative">
+            <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;" class="top">
+                <div class="action">
+                    <div>
+                        <label>Chuyền</label>
+                        <select id="slc_lsx">
+                        </select>
+                    </div>
+                    <div>
+                        <label>Từ ngày</label>
+                        <input type="date" name="name" class="tuNgay" value="" id="tuNgay" style="width:130px;" />
+                    </div>
+                    <div>
+                        <label>Đến ngày</label>
+                        <input type="date" name="name" class="denNgay" value="" id="denNgay" style="width:130px;" />
+                    </div>
+
+                    @*<div> <button id="btnFind" class="btn-find">Tìm</button></div>
+
+                        <div class="btn-groups">
+                            <button id="btnXuat_Excel" class="btn-excel" role="button"><i class="fa-solid fa-file-excel" style="margin-right: 2px;"></i> Xuất Excel</button>
+
+                        </div>*@
+                    <div class="div-btn-find-data">
+                        <button class="btn-find-data" id="btnFind">
+                            <i class="fa fa-search"></i>
+                            <p>Tìm</p>
+                        </button>
+                    </div>
+                    <div class="div-btn-export-excel">
+                        <button class="btn-export-file-excel" id="btnXuat_Excel">
+                            <i class="fa-sharp fa-solid fa-file-excel "></i>
+                            <p>Xuất Excel</p>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row tbl-layout">
+            <div class="cols-lg-12 box-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th rowspan="3">STT</th>
+                            <th rowspan="3">Ngày</th>
+                            <th rowspan="3">Nhóm</th>
+                            <th colspan="4" class="color1">Cần Thợ Máy</th>
+                            <th colspan="4" class="color2">Cần Tổ Trưởng</th>
+                            <th colspan="4" class="color3">Cần Kỹ Thuật</th>
+                            <th colspan="4" class="color4">CN Ra Ngoài</th>
+                        </tr>
+                        <tr>
+                            <th>Bắt đầu <br /> bật đèn</th>
+                            <th>Bắt đầu <br /> xử lý</th>
+                            <th>Kết thúc</th>
+                            <th>TG xử lý <br /> (s)</th>
+
+                            <th>Bắt đầu <br> bật đèn</th>
+                            <th>Bắt đầu <br> xử lý</th>
+                            <th>Kết thúc</th>
+                            <th>TG xử lý <br> (s)</th>
+
+                            <th>Bắt đầu <br> bật đèn</th>
+                            <th>Bắt đầu <br> xử lý</th>
+                            <th>Kết thúc</th>
+                            <th>TG xử lý <br> (s)</th>
+
+                            <th>Bắt đầu <br> bật đèn</th>
+                            <th>Bắt đầu <br> xử lý</th>
+                            <th>Kết thúc</th>
+                            <th>TG xử lý <br> (s)</th>
+                        </tr>
+
+                    </thead>
+                    <tbody id="tbodyContent">
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" style="text-align: center; background-color: #fb8122">
+                                Tổng
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="sum_tgxl1" class="t-right"></td>
+
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="sum_tgxl2" class="t-right"></td>
+
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="sum_tgxl3" class="t-right"></td>
+
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="sum_tgxl4" class="t-right"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<div class="row g-2 chart-layout">
+    <div class="col-lg-6 pe-1">
+        <div id="pieChart"></div>
+    </div>
+    <div class=" col-lg-6 ps-1">
+        <div id="pieChart1"></div>
+    </div>
+</div>
+
+
+<div class="loading">
+    <div class="book">
+        <div class="book__pg-shadow"></div>
+        <div class="book__pg"></div>
+        <div class="book__pg book__pg--2"></div>
+        <div class="book__pg book__pg--3"></div>
+        <div class="book__pg book__pg--4"></div>
+        <div class="book__pg book__pg--5"></div>
+    </div>
+    <span class="loading-title">Đang Chờ Lấy Dữ Liệu...</span>
+</div>
+
+<script>
+    let brainChoose = sessionStorage.getItem("BranchName");
+    //if (brainChoose == null)
+    //    location.href = "../../../../danh-sach-bao-cao";
+    $('#tittleBC').text(`${brainChoose} - Báo cáo thời gian hao phí`);
+    $('#home').on('click', function () {
+        location.href = "../../../danh-sach-bao-cao";
+    });
+    flatpickr("#tuNgay", {
+        dateFormat: "d-m-Y", // Định dạng ngày/tháng/năm
+        defaultDate: "today" // Ngày mặc định là hôm nay
+    });
+    flatpickr("#denNgay", {
+        dateFormat: "d-m-Y", // Định dạng ngày/tháng/năm
+        defaultDate: "today" // Ngày mặc định là hôm nay
+    });
+
+</script>
+
+
+<script src="~/Libs/LoadingPage/LoadingPage.js"></script>
+<script src="~/Scripts/BaoCaoTongHop/BCThoiGianHP/BCThoiGianHaoPhi.js"></script>
+
+

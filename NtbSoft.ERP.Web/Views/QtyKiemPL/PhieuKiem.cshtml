@@ -1,0 +1,471 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "BB Kiểm Phụ Liệu";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BB Kiểm Phụ Liệu</title>
+
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/select2/css/select2.min.css">
+    <link href="~/Content/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+    @*<link href="~/css/NguyenPhuLieu/Sign.css" rel="stylesheet" />*@
+    <link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="~/Content/plugins/DevExtreme/dx.common.css" rel="stylesheet" />
+    @*<script src="~/Scripts/NguyenPhuLieu/Sign.js"></script>*@
+    <link href="~/css/QtyKiemPL/PhieuKiem.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="header-section sticky-top">
+            <div class="container-fluid">
+                <div class="header-content d-flex flex-wrap align-items-center justify-content-between gap-3 py-2">
+                    <div class="d-flex align-items-center gap-3">
+                        <a href="~/Home/DashBoard" class="text-white" id="home">
+                            <i class="fas fa-home fa-lg"></i>
+                        </a>
+                        <h5 class="header-title mb-0 text-white">
+                            ACCESSORY INSPECTION REPORT
+                            <br />
+                            <span class="d-block text-sm opacity-90">Báo Cáo Kiểm Tra Phụ Liệu</span>
+                        </h5>
+                    </div>
+
+                    <div class="action-buttons d-flex flex-wrap gap-2">
+                        <button class="btn btn-custom btn-danger" id="btn-cancel">
+                            <i class="fa-brands fa-cloudflare"></i> Cho phép kiểm lại
+                        </button>
+                        <button class="btn btn-custom btn-history" id="btn-history">
+                            <i class="fas fa-history"></i> Lịch Sử
+                        </button>
+                        <button class="btn btn-custom btn-save" id="btn-save" onclick="SavePhieuWithValidation()">
+                            <i class="fas fa-save"></i> Lưu
+                        </button>
+                        <button class="btn btn-custom btn-refresh" id="btn-refresh">
+                            <i class="fas fa-sync-alt"></i> Nạp Lại
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="main-card animate-in">
+
+        <div style="padding:3px 15px;">
+            <div class="row g-3">
+              
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1">
+                    <label class="form-label-custom">
+                        <i class="fas fa-filter me-1"></i>Lọc
+                    </label>
+                    <select class="form-control form-control-custom" id="filterTypeSelect">
+                        <option value="PO">PO</option>
+                        <option value="Items">Vật tư</option>
+                    </select>
+                </div>
+                @*Kiểm theo vật tư -> Số lô *@
+                <div class="col-8 col-sm-4 col-md-9 col-lg-6 kiem-vat-tu">
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <label class="form-label-custom">
+                            <i class="fas fa-tags me-1"></i>
+                            Mã Vật Tư
+                        </label>
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-custom" id="btn-chon-vat-tu" readonly placeholder="Chọn mã vật tư">
+                            <button class="btn btn-outline-secondary d-none" type="button" data-bs-toggle="modal" data-bs-target="#plModalbyVatTu" id="select-kiem-by-vat-tu">
+                                Chọn
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-8 col-lg-9 ">
+                        <label class="form-label-custom">
+                            <i class="fas fa-box me-1"></i>
+                            Số PO
+                        </label>
+                        <select class="form-control form-control-custom" id="selectSoLobyVatTu">
+                        </select>
+                    </div>
+                </div>
+            </div>
+                <!-- PI NCC -->
+                <div class="col-12 col-sm-12 col-md-8 col-lg-8 kiem-po">
+                    <label class="form-label-custom">
+                        <i class="fas fa-box me-1"></i>
+                        Số PO
+                    </label>
+                    <select class="form-control form-control-custom" id="selectSoLO">
+                    </select>
+                </div>
+                <!-- Nhà Cung Cấp -->
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <label class="form-label-custom">
+                        <i class="fas fa-building me-1"></i>
+                        Nhà Cung Cấp
+                    </label>
+                    <input type="text" class="form-control form-control-custom" id="txt-nha-cc" placeholder="Nhà cung cấp" disabled>
+                </div>
+                <!-- Khách Hàng -->
+                <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                    <label class="form-label-custom">
+                        <i class="fas fa-user-tie me-1"></i>
+                        Khách Hàng
+                    </label>
+                    <input type="text" class="form-control form-control-custom" id="txt-khach-hang" placeholder="Khách hàng" disabled>
+                </div>
+
+                <!-- PL Kiểm -->
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 kiem-po">
+                    <label class="form-label-custom">
+                        <i class="fas fa-tags me-1"></i>
+                        Mã Vật Tư
+                    </label>
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-custom" id="selectPL" readonly placeholder="Chọn mã vật tư">
+                        <button class="btn btn-outline-secondary d-none" type="button" data-bs-toggle="modal" data-bs-target="#plModal" id="btn-chon-pl-kiem">
+                            Chọn
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mô tả -->
+                <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                    <label class="form-label-custom">
+                        <i class="fa-sharp fa-solid fa-reel"></i> Mô Tả
+                    </label>
+                    <input type="text" class="form-control form-control-custom" id="txt-mo-ta-npl" placeholder="Mô tả" disabled>
+                </div>
+                <!-- Ngày Về Kho -->
+                <div class="col-12 col-sm-4 col-md-3 col-lg-2">
+                    <label class="form-label-custom">
+                        <i class="fas fa-warehouse me-1"></i>
+                        Ngày Về Kho
+                    </label>
+                    <input type="text" disabled class="form-control form-control-custom" id="ngay-nhap-kho" placeholder="Ngày nhập kho" readonly>
+                </div>
+                <div class="col-12 col-sm-2 col-md-2 col-lg-1 item-kiem-100-persents">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" id="check-kiem-100-persent">
+                        <span class="checkmark"></span>
+                        <span class="checkbox-label">Kiểm 100%</span>
+                    </label>
+                </div>
+                <!-- Số Roll (Hidden) -->
+                <div class="col-12 col-sm-2 col-md-2 col-lg-1 d-none">
+                    <label class="form-label-custom">
+                        <i class="fas fa-box me-1"></i>
+                        Số Roll
+                    </label>
+                    <select class="form-control form-control-custom" id="selectSoRoll">
+                        @*<option>Chọn số roll</option>*@
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <!-- Grid Container -->
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="grid-contianer">
+
+                    <div id="grvPhuLieuKiem">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+ 
+    <div class="container-fluid p-0">
+        <div class="row note m-0 g-0">
+            <div class="col-6 px-3">
+                <label class="form-label">
+                    <i class="fa-regular fa-comment-dots me-1"></i>
+                    Ghi Chú/Note - Kết Luận QC
+                </label>
+                <div class="d-flex gap-3 align-items-center flex-shrink-0">
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="result-kiem" id="KQPass" value="pass" disabled>
+                        <label class="form-check-label text-success font-weight-bold" for="KQPass">Pass</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="result-kiem" id="KQFail" value="fail" disabled>
+                        <label class="form-check-label text-danger font-weight-bold" for="KQFail">Fail</label>
+                    </div>
+
+                </div>
+                <textarea class=" w-100" id="text-note" rows="5"></textarea>
+            </div>
+            <div class="col-6 px-3">
+                <label class="form-label">
+                    <i class="fa-regular fa-comment-dots me-1"></i>
+                    Ghi Chú/Note - Kết Luận Mer
+                </label>
+                <div class="d-flex gap-3 align-items-center flex-shrink-0">
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="result-kiem-mer" id="KQPassMer" value="pass" disabled>
+                        <label class="form-check-label text-success font-weight-bold" for="KQPassMer">Pass</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="result-kiem-mer" id="KQFailMer" value="fail" disabled>
+                        <label class="form-check-label text-danger font-weight-bold" for="KQFailMer">Fail</label>
+                    </div>
+
+                </div>
+                <textarea class=" w-100" id="text-not-mer" rows="5" disabled></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Option Modal -->
+    <div class="modal fade" id="optionModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="max-width: 400px;">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-images"></i> Chọn Nguồn Ảnh</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex flex-column gap-2">
+                        <button class="btn btn-primary w-100" onclick="openCamera()">
+                            <i class="fas fa-camera"></i> Chụp Ảnh Từ Camera
+                        </button>
+                        <button class="btn btn-primary w-100" style="background: #17a2b8;" onclick="selectFromGallery()">
+                            <i class="fas fa-folder-open"></i> Chọn Từ Thư Viện
+                        </button>
+                        <button class="btn btn-secondary w-100" data-bs-dismiss="modal">
+                            <i class="fas fa-times"></i> Hủy
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Camera Modal -->
+    <div class="modal fade" id="cameraModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="max-width: 700px;">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-camera"></i> Chụp Ảnh</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="camera-container text-center">
+                        <video id="video" class="w-100" autoplay playsinline style="max-height: 400px;"></video>
+                        <canvas id="canvas" style="display: none;"></canvas>
+                        <div class="button-group mt-3 d-flex gap-2 justify-content-center flex-wrap">
+                            <button class="btn btn-primary" onclick="capturePhoto()">
+                                <i class="fas fa-camera"></i> Chụp Ảnh
+                            </button>
+                            <button class="btn btn-primary" style="background: #17a2b8;" onclick="switchCamera()">
+                                <i class="fas fa-sync-alt"></i> Xoay Camera
+                            </button>
+                            <button class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="fas fa-times"></i> Hủy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Modal -->
+    <div class="modal fade" id="previewModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="max-width: 700px;">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-image"></i> Xem Ảnh</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
+                    <img id="previewImage" class="img-fluid rounded mb-3" src="" alt="Preview" style="max-height: 400px;">
+                    <div class="button-group d-flex gap-2 justify-content-center flex-wrap">
+                        <button class="btn btn-primary" onclick="retakePhoto()">
+                            <i class="fas fa-camera"></i> Chụp Lại
+                        </button>
+                        <button class="btn btn-danger" onclick="deletePhoto()">
+                            <i class="fas fa-trash"></i> Xóa Ảnh
+                        </button>
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-times"></i> Đóng
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Delete (sửa sang Bootstrap, không dùng jQuery) -->
+    <div class="modal fade" id="modalDelete" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận xóa ảnh?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <button class="btn btn-danger" onclick="ConfirmDelete()">Xác nhận xóa</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal chọn phụ liệu -->
+    <div class="modal fade" id="plModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 style="font-weight:700;color:blue"> Chọn mã vật tư</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div style="background: #f8f9fa; padding: 5px; border-left: 4px solid #007bff; border-radius: 4px; margin-bottom: 15px;">
+                        <div id="headerInfo">
+
+                        </div>
+                    </div>
+
+
+                    <!-- Grid -->
+                    <div id="gridPL"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal chọn vật tư kiểm -->
+    <div class="modal fade" id="plModalbyVatTu" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 style="font-weight:700;color:blue"> Chọn mã vật tư</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">                 
+                    <!-- Grid -->
+                    <div id="gridItemKiem"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="customLoaderWrapper" class="custom-loader-wrapper">
+        <div class="custom-loader-box">
+            <div class="custom-loading-text">Đang lấy dữ liệu...</div>
+            <div id="customLoader" class="custom-loader">
+                <div id="customProgressBar" class="custom-progress" data-percentage="100%"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Input ẩn cho chọn ảnh từ gallery -->
+    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    <script src="~/Scripts/jquery.min-3.6.1.js"></script>
+    <script src="~/Content/plugins/moment/moment.min.js"></script>
+    <script src="/Content/js/core/utils.js"></script>
+    <script src="/Content/js/core/common.js"></script>
+    <script src="~/Scripts/Toast/Toast.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Content/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Scripts/ViTriKho/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Content/dist/js/adminlte.min.js"></script>
+    <script src="~/Content/plugins/DevExtreme/dx.all.js"></script>
+    <script src="~/Content/plugins/DevExtreme/knockout-latest.min.js"></script>
+    <script>
+
+        var _userName = "";
+        if (window.CefSharp) {
+            $("#home").hide();
+            localStorage.setItem('username1', _userName)
+        }
+        if (!_userName) {
+            _userName = localStorage.getItem('username', _userName)
+        }
+
+        // Add hover effects
+        document.querySelectorAll('.btn-custom').forEach(btn => {
+            btn.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-3px)';
+            });
+
+            btn.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add click effects
+        document.querySelectorAll('.btn-custom').forEach(btn => {
+            btn.addEventListener('click', function () {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-3px)';
+                }, 100);
+            });
+        });
+    </script>
+
+    <script src="~/Scripts/QtyKiemPL/PhieuKiem.js?version=1.1"></script>
+
+    <script>
+    var _soLoID = '@ViewBag.soLoID';
+    var _soLo   = '@ViewBag.soLo';
+    var _maNPL  = '@ViewBag.maNPL';
+
+    if (window.CefSharp && _soLoID && _soLoID !== '') {
+        var _original_GetSoLo = GetSoLo;
+        GetSoLo = function () {
+            _original_GetSoLo();
+            setTimeout(function () {
+                $('#selectSoLO').val(_soLoID).trigger('change');
+                GetPhuLieu(_soLoID);
+
+                setTimeout(function () {
+                    var grid = $("#gridPL").dxDataGrid("instance");
+                    if (!grid) return;
+
+                    var allItems = [];
+                    grid.getDataSource().items().forEach(function (group) {
+                        if (group.items) {
+                            group.items.forEach(function (item) { allItems.push(item); });
+                        } else {
+                            allItems.push(group);
+                        }
+                    });
+
+                    var found = allItems.find(function (x) { return x.MaNPL == _maNPL; });
+                    if (found) {
+                        rowSelected_PL = found;
+                        $("#selectPL").val(found.ItemCode);
+                        $("#txt-mo-ta-npl").val(found.TenPL);
+                        GetSoRoll(found.SoLoID, found.MaNPL,'1');
+                        GetXacNhanKiem(found.SoLoID, found.MaNPL,'1');
+                    }
+                }, 2000);
+            }, 500);
+        };
+    }
+    </script>
+
+
+</body>
+
+</html>

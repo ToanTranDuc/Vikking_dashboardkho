@@ -1,0 +1,412 @@
+﻿@{
+    Layout = null;
+    Response.ContentType = "text/html; charset=utf-8";
+    Response.ContentEncoding = System.Text.Encoding.UTF8;
+    Response.HeaderEncoding = System.Text.Encoding.UTF8;
+    Response.Charset = "utf-8";
+    Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
+    Response.Cache.SetNoStore();
+    Response.Cache.SetRevalidation(System.Web.HttpCacheRevalidation.AllCaches);
+    Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thiết lập thời gian dashboard kho</title>
+    <link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: linear-gradient(180deg, #e8f7ff 0%, #d9f0ff 100%);
+            --card: #ffffff;
+            --line: #bfe3f7;
+            --text: #0f172a;
+            --muted: #475569;
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --accent: #0ea5e9;
+            --shadow: 0 18px 40px rgba(2, 132, 199, 0.14);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Segoe UI", Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            overflow: hidden;
+        }
+
+        .settings-shell {
+            width: min(1080px, 100%);
+            max-height: calc(100vh - 48px);
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid #9fd9f6;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(8px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .settings-head {
+            padding: 10px 24px 14px;
+            background: linear-gradient(135deg, #eff9ff 0%, #dff4ff 100%);
+            border-bottom: 1px solid var(--line);
+            flex-shrink: 0;
+        }
+
+        .settings-head h1 {
+            margin: 0 0 6px;
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+
+        .settings-head p {
+            margin: 0;
+            font-size: 16px;
+            color: var(--muted);
+        }
+
+        .settings-head strong {
+            color: #0c4a6e;
+        }
+
+        .settings-form {
+            padding: 18px 24px 22px;
+            display: grid;
+            gap: 10px;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .group-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .group-card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 16px;
+            display: grid;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.08);
+        }
+
+        .group-title {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+
+        .group-sub {
+            margin: -4px 0 0;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .field-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .field {
+            display: grid;
+            gap: 6px;
+        }
+
+        .field label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .field input {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #bae6fd;
+            border-radius: 14px;
+            padding: 0 16px;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            background: linear-gradient(180deg, #ffffff, #f5fbff);
+            outline: none;
+        }
+
+        .field input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.14);
+        }
+
+        .time-input-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .time-box {
+            display: grid;
+            gap: 6px;
+        }
+
+        .time-box span {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--muted);
+        }
+
+        .field-note {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .foot-note {
+            padding: 14px 18px;
+            border: 1px dashed #7dd3fc;
+            border-radius: 16px;
+            background: #f0f9ff;
+            font-size: 15px;
+            color: #0c4a6e;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .btn-main,
+        .btn-link {
+            position: relative;
+            overflow: hidden;
+            border-radius: 999px;
+            padding: 12px 22px;
+            font-size: 16px;
+            font-weight: 800;
+            text-decoration: none;
+            border: 1px solid transparent;
+            transition: transform 0.18s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease, color 0.22s ease;
+            will-change: transform, box-shadow;
+        }
+
+        .btn-main::after,
+        .btn-link::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -140%;
+            width: 120%;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0));
+            transition: left 0.55s ease;
+            pointer-events: none;
+        }
+
+        .btn-main {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: #fff;
+            box-shadow: 0 10px 24px rgba(2, 132, 199, 0.24);
+        }
+
+        .btn-link {
+            background: #fff;
+            color: var(--primary-dark);
+            border-color: #bae6fd;
+            box-shadow: 0 6px 14px rgba(2, 132, 199, 0.08);
+        }
+
+        .btn-main:hover,
+        .btn-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-main:hover {
+            box-shadow: 0 14px 28px rgba(2, 132, 199, 0.34);
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+        }
+
+        .btn-link:hover {
+            border-color: #7dd3fc;
+            background: linear-gradient(180deg, #ffffff, #f0f9ff);
+            box-shadow: 0 12px 24px rgba(2, 132, 199, 0.16);
+        }
+
+        .btn-main:hover::after,
+        .btn-link:hover::after {
+            left: 115%;
+        }
+
+        .btn-main:active,
+        .btn-link:active {
+            transform: translateY(0);
+            transition-duration: 0.08s;
+        }
+
+        .btn-main:active {
+            box-shadow: 0 6px 14px rgba(2, 132, 199, 0.26);
+        }
+
+        .btn-link:active {
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.14);
+        }
+
+        @@media (max-width: 900px) {
+            body {
+                padding: 12px;
+            }
+
+            .settings-shell {
+                max-height: calc(100vh - 24px);
+            }
+
+            .group-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-shell">
+        <div class="settings-head">
+            <h1>Thiết lập thời gian chuyển màn hình</h1>
+            
+        </div>
+        @using (Html.BeginForm("DashboardKhoSetting", "DashboardKho", FormMethod.Post, new { @class = "settings-form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="group-grid">
+                <div class="group-card">
+                    <h2 class="group-title">Chuyển trang </h2>
+                    <div class="group-sub"></div>
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="TvPage1To2Minutes">Chuyển trang  1 → 2</label>
+                            <div class="time-input-row">
+                                <div class="time-box">
+                                    <span>Phút</span>
+                                    <input id="TvPage1To2Minutes" name="TvPage1To2Minutes" type="number" min="0" step="1" value='@ViewData["TvPage1To2Minutes"]' inputmode="numeric" />
+                                </div>
+                                <div class="time-box">
+                                    <span>Giây</span>
+                                    <input id="TvPage1To2Seconds" name="TvPage1To2Seconds" type="number" min="0" max="59" step="1" value='@ViewData["TvPage1To2Seconds"]' inputmode="numeric" />
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="field">
+                            <label for="TvPage2To1Minutes">Chuyển trang 2 → 1</label>
+                            <div class="time-input-row">
+                                <div class="time-box">
+                                    <span>Phút</span>
+                                    <input id="TvPage2To1Minutes" name="TvPage2To1Minutes" type="number" min="0" step="1" value='@ViewData["TvPage2To1Minutes"]' inputmode="numeric" />
+                                </div>
+                                <div class="time-box">
+                                    <span>Giây</span>
+                                    <input id="TvPage2To1Seconds" name="TvPage2To1Seconds" type="number" min="0" max="59" step="1" value='@ViewData["TvPage2To1Seconds"]' inputmode="numeric" />
+                                </div>
+                            </div>
+                         
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group-card">
+                    <h2 class="group-title">Trang 1</h2>
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="Page1CustomerMinutes">Hàng của khách</label>
+                            <div class="time-input-row">
+                                <div class="time-box">
+                                    <span>Phút</span>
+                                    <input id="Page1CustomerMinutes" name="Page1CustomerMinutes" type="number" min="0" step="1" value='@ViewData["Page1CustomerMinutes"]' inputmode="numeric" />
+                                </div>
+                                <div class="time-box">
+                                    <span>Giây</span>
+                                    <input id="Page1CustomerSeconds" name="Page1CustomerSeconds" type="number" min="0" max="59" step="1" value='@ViewData["Page1CustomerSeconds"]' inputmode="numeric" />
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="field">
+                            <label for="Page1ReceivingMinutes">Chuẩn bị về</label>
+                            <div class="time-input-row">
+                                <div class="time-box">
+                                    <span>Phút</span>
+                                    <input id="Page1ReceivingMinutes" name="Page1ReceivingMinutes" type="number" min="0" step="1" value='@ViewData["Page1ReceivingMinutes"]' inputmode="numeric" />
+                                </div>
+                                <div class="time-box">
+                                    <span>Giây</span>
+                                    <input id="Page1ReceivingSeconds" name="Page1ReceivingSeconds" type="number" min="0" max="59" step="1" value='@ViewData["Page1ReceivingSeconds"]' inputmode="numeric" />
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group-grid">
+                <div class="group-card">
+                    <h2 class="group-title">Trang 2</h2>
+                    
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="Page2ShippingMinutes">Lệnh đang xuất</label>
+                            <div class="time-input-row">
+                                <div class="time-box">
+                                    <span>Phút</span>
+                                    <input id="Page2ShippingMinutes" name="Page2ShippingMinutes" type="number" min="0" step="1" value='@ViewData["Page2ShippingMinutes"]' inputmode="numeric" />
+                                </div>
+                                <div class="time-box">
+                                    <span>Giây</span>
+                                    <input id="Page2ShippingSeconds" name="Page2ShippingSeconds" type="number" min="0" max="59" step="1" value='@ViewData["Page2ShippingSeconds"]' inputmode="numeric" />
+                                </div>
+                            </div>
+                         
+                        </div>
+                        <div class="field">
+                            <label for="Page2ReadyMinutes">Lệnh chuẩn bị xuất</label>
+                            <div class="time-input-row">
+                                <div class="time-box">
+                                    <span>Phút</span>
+                                    <input id="Page2ReadyMinutes" name="Page2ReadyMinutes" type="number" min="0" step="1" value='@ViewData["Page2ReadyMinutes"]' inputmode="numeric" />
+                                </div>
+                                <div class="time-box">
+                                    <span>Giây</span>
+                                    <input id="Page2ReadySeconds" name="Page2ReadySeconds" type="number" min="0" max="59" step="1" value='@ViewData["Page2ReadySeconds"]' inputmode="numeric" />
+                                </div>
+                            </div>
+                         
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group-card">
+                    <h2 class="group-title">Ghi chú vận hành</h2>
+                    <div class="foot-note">Dashboard sẽ tự reload sau mỗi 5 phút để lấy dữ liệu mới. Các giá trị thời gian được lưu bền trên trình duyệt hiện tại và dùng lại cho những lần mở dashboard sau.</div>
+                    <div class="actions">
+                        <a class="btn-link" href="@Url.Action("DashboardKho", "DashboardKho")">Vào dashboard</a>
+                        <button type="submit" class="btn-main">Lưu và mở dashboard</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>

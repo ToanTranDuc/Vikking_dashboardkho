@@ -1,0 +1,1728 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Xuất Hàng Nguyên Liệu";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/css/QRCode/toastr.minM.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link href="~/css/BienBanMoKien/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/BienBanMoKien/flatpickr-min.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/NguyenPhuLieu/Sign.css" rel="stylesheet" />
+    <link href="~/css/TongHopNPL/tempus-dominus.min.css" rel="stylesheet" />
+    <link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="~/css/ViTriKhoNPL/ScanQrCodeMobile.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/XuatHangNPL/xuathangnpl.css?version=1.8" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <style>
+
+        .sec-action .item {
+            margin-right: 10px;
+            border: none;
+        }
+
+
+
+        .select-pkl {
+            flex-direction: column;
+            display: flex;
+        }
+
+        .labelTitle {
+            font-weight: bold;
+            color: green;
+            font-size: 15px !important;
+        }
+
+        #reader {
+            width: 500px;
+            position: fixed !important;
+            padding: 0px;
+            border: none;
+            left: 50%;
+            top: 250px;
+            transform: translate(-50%, -0%);
+        }
+
+        #reader2 {
+            width: 600px;
+            position: fixed !important;
+            padding: 0px;
+            border: none;
+            left: 50%;
+            top: 144px;
+            transform: translate(-50%, -0%);
+            background: #fff;
+            height: 422px;
+            z-index: 99;
+        }
+
+        #reader.active {
+            z-index: 999;
+        }
+
+        .lableValue {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .select2-selection__choice {
+            background: linear-gradient(90deg, #42a5f5, #478ed1) !important;
+            color: #fff !important;
+            border: none !important;
+            border-radius: 15px !important;
+            /*padding: 3px 10px !important;*/
+            font-size: 14px !important;
+            /* margin-top: 6px !important;
+                    margin-right: 5px !important;*/
+        }
+
+        .select2-selection__choice__remove {
+            color: #fff !important;
+            /*    margin-right: 6px;*/
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            min-height: 40px;
+            border-radius: 5px;
+            border: 1px solid #42a5f5;
+        }
+
+        .tools-board .title {
+            background: none
+        }
+
+        tr:nth-child(even) {
+            background-color: #f7f3f3;
+        }
+
+        .dx-header-row .col-header {
+            background: #5da566;
+            color: #fff;
+            text-align: center !important;
+            vertical-align: middle !important
+        }
+
+        .dx-data-row .col-header {
+            text-align: center !important;
+            font-size: 13px !important;
+            vertical-align: middle !important
+        }
+
+        .dx-data-row .checkboxTD {
+            display: flex;
+            justify-content: center
+        }
+
+        .dx-footer-row .col-header .dx-datagrid-text-content {
+            text-align: center !important;
+            color: red !important
+        }
+
+        .dx-datagrid-summary-item {
+            text-align: center !important;
+            color: red !important
+        }
+
+        #tblDataBodyLS {
+            max-width: 100% !important
+        }
+
+        .dx-datagrid-filter-row {
+            background: #fff !important;
+        }
+
+        #tbodyA .activeT {
+            background: #cff2f3 !important;
+        }
+
+        #tbodyA tr.activeT.nenxanh,
+        #tbodyA tr.activeT.nendo {
+            background: #ff1a0ac7 !important;
+        }
+
+
+
+        ::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+        /* #group2 .dx-datagrid {
+                    width: 100%
+                }*/
+        .dx-datagrid-rowsview .dx-row td {
+            vertical-align: middle !important;
+            font-size: 13px !important;
+            border: 1px solid #ccc
+        }
+
+        .dx-row.dx-freespace-row.dx-column-lines {
+            display: none !important
+        }
+
+        .tdPosition {
+            min-width: 80px !important
+        }
+
+        .alt-button-2 {
+            background: #4A5568 !important;
+            color: #fff;
+            border: none;
+            padding: 7px 16px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+            .alt-button-2:hover {
+                background: #2D3748;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+
+        .label {
+            color: #666;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .toast-body {
+            background: #fff;
+        }
+
+        #modalChiTietLenh .dx-datagrid-total-footer > .dx-datagrid-content .dx-row > td {
+            font-size: 12px;
+            /* padding-top: 14px; */
+            /* padding-bottom: 14px; */
+        }
+
+        .nhapnhay-text {
+            animation: nhapnhay-text-do 1.5s infinite
+        }
+
+        .nenxanh {
+            background: #cbe8ff !important;
+        }
+
+            .nenxanh .fa-solid.fa-rectangle-list {
+                color: #7700d7 !important; /* Màu xanh */
+            }
+
+        .nendo {
+            background: #fb968fc7 !important; /* Đỏ */
+        }
+
+            .nendo .fa-solid.fa-rectangle-list {
+                color: #7700d7 !important;
+            }
+
+
+        @@keyframes nhapnhay-text-do {
+            0%, 100% {
+                color: black;
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+                background: red;
+                font-weight: bold;
+            }
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 5px 6px;
+            border-radius: 5px;
+            font-size: 13px;
+            cursor: pointer;
+            background: white;
+            border: var(--bs-border-width) solid var(--bs-border-color);
+        }
+
+            .input-box:focus {
+                outline: none;
+                border-color: #007bff;
+            }
+
+        .dropdown-list {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #007bff;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            margin-top: -2px;
+        }
+
+            .dropdown-list.show {
+                display: block;
+            }
+
+        .dropdown-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+            .dropdown-item:hover {
+                background: #f8f9fa;
+            }
+
+            .dropdown-item:last-child {
+                border-bottom: none;
+            }
+
+            .dropdown-item input[type="checkbox"] {
+                margin-right: 10px;
+                width: 18px;
+                height: 18px;
+                cursor: pointer;
+            }
+
+            .dropdown-item label {
+                cursor: pointer;
+                flex: 1;
+                user-select: none;
+                font-weight: unset !important
+            }
+
+                .dropdown-item label:not(.form-check-label):not(.custom-file-label) {
+                    font-weight: 500 !important;
+                }
+
+        .check-all {
+            background: #f0f0f0;
+            font-weight: bold;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .search-box {
+            padding: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+
+            .search-box input {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                font-size: 13px;
+            }
+
+                .search-box input:focus {
+                    outline: none;
+                    border-color: #007bff;
+                }
+
+        .labelHeader {
+            color: black !important;
+            font-size: 0.9rem !important;
+            margin-bottom: 0.1rem !important;
+            font-weight: normal !important;
+        }
+
+
+        .custom-tabs {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 4px 4px;
+        }
+
+            .custom-tabs .nav-tabs {
+                border-bottom: 2px solid #e0e0e0;
+            }
+
+            .custom-tabs .nav-link {
+                color: #666;
+                font-weight: 500;
+                padding: 5px 10px;
+                border: none;
+                border-bottom: 3px solid transparent;
+                transition: none !important;
+                font-size: 15px;
+                will-change: auto;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+                .custom-tabs .nav-link:hover {
+                    color: #42a5f5;
+                    background-color: #f5f5f5;
+                    border-bottom-color: #42a5f5;
+                }
+
+                .custom-tabs .nav-link.active {
+                    border: 1px solid #42a5f5;
+                    color: #42a5f5;
+                    font-weight: 600;
+                    background: #6f95ff29;
+                    border-radius: 8px;
+                }
+
+        /* Tắt animation fade của Bootstrap tab */
+        .tab-content > .tab-pane {
+            display: none;
+        }
+
+        .tab-content > .active {
+            display: block !important;
+        }
+
+        #dxPhieuCap1 .dx-row.activeT td, #dxPhieuCap4 .dx-row.activeT td {
+            background-color: #cff2f3 !important;
+        }
+
+        #mainTabs {
+            flex-wrap: wrap;
+            row-gap: 4px;
+        }
+
+            #mainTabs .nav.nav-tabs {
+                flex: 1 1 auto;
+                min-width: 0;
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+            }
+
+                #mainTabs .nav.nav-tabs::-webkit-scrollbar {
+                    display: none; /* Chrome/Safari */
+                }
+
+            #mainTabs > div:last-child {
+                flex-shrink: 0;
+                margin-left: auto;
+            }
+
+        @@media (max-width: 480px) {
+            .custom-tabs .nav-link {
+                font-size: 13px;
+                padding: 4px 8px;
+            }
+            /* Border trên phần buttons (dòng 2) */
+            #mainTabs > div.d-flex.align-items-center {
+                border-top: 1px solid #e0e0e0;
+                padding-top: 4px;
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        .dx-datagrid-total-footer,
+        .dx-datagrid-group-footer {
+            pointer-events: none;
+            user-select: none;
+        }
+
+            .dx-datagrid-total-footer .dx-row > td,
+            .dx-datagrid-group-footer .dx-row > td {
+                cursor: default !important;
+            }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="title">
+            <div style="display: flex; align-items: center; width: 100%; ">
+                <div style="display: flex; justify-content: center; align-items: center; gap: 6px;">
+                    <i id="home" style="font-size: 21px; cursor: pointer; margin-right: 7px; color: #fff; margin-top: 2px;" class="fa-sharp fa-solid fa-house"></i>
+                    <span style="margin-top: 2px; color: white">@ViewBag.Title</span>
+                </div>
+                <div class="d-none" style="margin-left:auto;margin-right:10px">
+                    <span style="text-align: center; float: right; display: flex !important; justify-content: center; align-items: center; gap: 10px;">
+                        <button onclick="stopScan()" class="btn  bg-green" id="stopScanButton" style="font-size:15px;background: #5fb7e1 !important;width: 70px; height: 30px; display: flex; justify-content: center; align-items: center;"> Dừng</button>
+                        <button onclick="startScan()" class="btn  bg-warning" id="scanQR" style="font-size: 15px; width: 70px; height: 30px; display: flex; justify-content: center; align-items: center; background: #68ff1b;"> Quét </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div>
+        <div class="">
+            <div class="custom-tabs">
+                <!-- Nav Tabs -->
+                <nav class="custom-tabs d-flex flex-wrap justify-content-between align-items-center border-bottom gap-2" id="mainTabs">
+                    <!-- Nav Tabs -->
+                    <div class="d-flex nav nav-tabs border-0  flex-nowrap overflow-auto" role="tablist" style="flex: 1 1 auto; min-width: 0;padding: 3px 0px">
+                        <button class="nav-link active text-nowrap" id="phieuyc-tab" data-bs-toggle="tab"
+                                data-bs-target="#phieuyc" type="button" role="tab">
+                            <i class="fa-solid fa-floppy-disk-circle-arrow-right mr-2"></i>Phiếu Yêu Cầu
+                        </button>
+                        <button class="nav-link text-nowrap" id="capphat-tab" data-bs-toggle="tab"
+                                data-bs-target="#capphat" type="button" role="tab">
+                            <i class="fa-solid fa-plus mr-2"></i>Cấp Phát
+                        </button>
+                        <button class="nav-link text-nowrap" id="xemphieu-tab" data-bs-toggle="tab"
+                                data-bs-target="#xemphieu" type="button" role="tab">
+                            <i class="fa-solid fa-eye mr-2"></i>Xem Phiếu
+                        </button>
+                    </div>
+
+                    <div class="d-flex align-items-center flex-shrink-0" style="gap: 5px;">
+                        <div class="tabl2A align-items-center tab2" style="display:none; gap:5px">
+                            <button onclick="inbarcode()" class="btn bg-warning" id="printBarCode"
+                                    style="font-size: 14px; height: 30px; display: flex; justify-content: center; align-items: center; background-color: #c883ff !important; color: #fff !important; white-space: nowrap; padding: 0 10px;">
+                                In barcode
+                            </button>
+                            <button onclick="CallModal()" type="button" style="background: #ffe216; color: #000; white-space: nowrap; height: 30px; padding: 0 10px;"
+                                    class="save-buttonShareA btnSave btn btn-primary d-flex align-items-center gap-1" >
+                                <i class="fa-solid fa-floppy-disk-circle-arrow-right"></i>
+                                Lưu
+                            </button>
+                        </div>
+
+                        <div class="tabl2A align-items-center tab3" style="display:none; gap:5px">
+                            <button onclick="Export()" type="button" style="background: #ffe216; color: #000; white-space: nowrap; height: 30px; padding: 0 10px;"
+                                    class="save-buttonShareA btnEX btn btn-primary d-flex align-items-center gap-1" >
+                                <i class="fa-solid fa-file-export"></i>
+                                Xuất EX
+                            </button>
+                        </div>
+
+                        <div class="tabl2A align-items-center tab1" style="gap:5px">
+                            <button onclick="Export2()" type="button"
+                                    style="background: #ffe216; color: #000; white-space: nowrap; height: 30px; padding: 0 10px;"
+                                    class="save-buttonShareA btnEX btn btn-primary d-flex align-items-center gap-1" >
+                                <i class="fa-solid fa-file-export"></i>
+                                Xuất EX
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <section>
+            <div class="tab2" style="display:none">
+                <div class="container-fluid p-0 m-0">
+                    <div class="row row p-0 m-0">
+                        <div class="col-12 col-md-12 col-lg-12 col-xl-4 row p-0 m-0">
+                            <div class="card-body" style="padding :2px;margin-bottom:5px">
+
+                                <div class="callout callout-info" style="margin: 0px;padding-top:5px;padding-bottom:5px">
+                                    <div class="row">
+                                        <div class="col-12 card-header" style="padding: 0px 0.4rem 5px; display: flex; border-bottom: 1px solid #ccc; padding-bottom: 6px; margin-bottom: 5px;">
+                                            <div style="display:flex;align-items:center" class="align-items-end-mb">
+
+                                                <h3 class="card-title" style=" font-size: 22px; color: #117a8b; font-weight: bold;">Dữ liệu scan</h3>
+                                            </div>
+                                            <div class="" style="margin-left:auto;margin-right:10px">
+                                                <span style="text-align: center; float: right; display: flex !important; justify-content: center; align-items: center; gap: 10px;">
+
+                                                    <button id="openScannerBtn" class="alt-button-2">
+                                                        <span class="icon">
+                                                            <i class="fa-solid fa-camera"></i>
+                                                        </span>
+                                                        <span>Mở máy quét</span>
+                                                    </button>
+
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-3 col-xl-3 p-0 px-1 d-none">
+                                            <div class="d-flex" style="flex-direction: column;">
+
+                                                <label style="display: flex; justify-content: space-between; align-items: center;" class="txtSelected">Đã cấp @*<i style="padding-right: 5px; cursor: pointer; color: #4744bf;" class="fa-solid fa-table"></i>*@</label>
+                                                <input class="dacap text-center text-green" readonly style="font-weight:bold; width: 100%; height: 30px; border-radius: 5px; outline: none; border: 1px solid #ccc;" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-3 col-xl-3 p-0 px-1 d-none">
+                                            <div class="d-flex" style="flex-direction: column;">
+
+                                                <label class="txtSelected">Chưa cấp</label>
+                                                <input class="chuacap text-center text-green" readonly style="font-weight: bold; width: 100%; height: 30px; border-radius: 5px; outline: none; border: 1px solid #ccc;" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-3 col-xl-3 p-0 px-1 d-none">
+                                            <div class="d-flex" style="flex-direction: column;">
+
+                                                <label class="txtSelected">Tổng cấp</label>
+                                                <input class="tongcap text-center text-danger" readonly style="font-weight: bold; width: 100%; height: 30px; border-radius: 5px; outline: none; border: 1px solid #ccc;" type="text" />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-12 col-xl-8 row p-0 m-0">
+                            <div class="card-body" style="padding :2px;margin-bottom:5px">
+
+                                <div class="callout callout-info" style="margin: 0px;padding-top:5px;padding-bottom:5px">
+                                    <div class="row">
+
+                                        <div class="col-4 col-md-3 col-lg-2 col-xl-2 p-0 px-1 ">
+                                            <div class="d-flex" style="flex-direction: column;">
+
+                                                <label class="txtSelected">Lệnh</label>
+                                                <input class="text-center optionCat" readonly style="width: 100%; height: 30px; border-radius: 5px; outline: none; border: 1px solid #ccc;" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-8 col-md-6 col-lg-4 col-xl-4 p-0 px-1 tabGiaC">
+                                            <div class="select-pkl" style="display: flex; flex-direction: column; ">
+                                                <label class="txtSelected txtMaLenh">Mã lệnh</label>
+                                                <div style="position: relative;">
+                                                    <select onchange="renderSLMetLoc()" id="MaLenhSX" class="select_2">
+                                                    </select>
+                                                    <input readonly style="position: absolute; top: 0; width: 100%; height: 30px; border-radius: 5px; outline: none; border: 1px solid #ccc;" type="text" class="text_phieu d-none" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6 col-md-3 col-lg-3 col-xl-2 p-0 px-1">
+                                            <div class="d-flex" style="flex-direction: column;">
+
+                                                <label class="txtSelected">Mã hàng</label>
+                                                <input class="mahangip text-center" readonly style="width: 100%; height: 30px; border-radius: 5px; outline: none; border: 1px solid #ccc;" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-3 col-lg-3 col-xl-2 p-0 px-1">
+                                            <div class="d-flex" style="flex-direction: column;">
+
+                                                <label class="txtSelected">Khách hàng</label>
+                                                <input class="khachhangip text-center" readonly style="width: 100%; height: 30px; border-radius: 5px; outline: none; border: 1px solid #ccc;" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-4 col-md-3 col-lg-3 col-xl-2 p-0 px-1 d-none">
+                                            <div class="d-flex" style="flex-direction: column;">
+
+                                                <label class="txtSelected">Loại vải</label>
+                                                <input class="loaivaiip text-center" readonly style="width: 100%; height: 30px; border-radius: 5px; outline: none; border: 1px solid #ccc;" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-4 col-md-3 col-lg-3 col-xl-2 p-0 px-1 ">
+                                            <div class="d-flex" style="flex-direction: column;">
+                                                <label class="txtSelected">Tìm kiếm</label>
+                                                <input class="item_inputsearch" style="width: 100%; text-align: center; height: 30px; border: 1px solid #ccc !important; border-radius: 4px; cursor: pointer; outline: none; "
+                                                       type="text" name="name" value="" autocomplete="off" placeholder="" />
+                                            </div>
+
+                                        </div>
+                                        <div class="col-4 col-md-3 col-lg-3 col-xl-4 p-0 px-1">
+                                            <label class="text-black-small mb-0">
+                                                <i class="bi bi-upc-scan"></i> Nhập barcode
+                                            </label>
+
+                                            <div class="input-group input-group-sm " style="margin-top: -6px;">
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="QRScan"
+                                                       placeholder="">
+                                                <button style="border: 1px solid #ccc;" type="button"
+                                                        class="btn btn-light enterbarcode"
+                                                        id=""
+                                                        data-side="left">
+                                                    <i class="bi bi-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4 col-md-3 col-lg-3 col-xl-2 p-0 px-1 d-none">
+                                            <div class="d-flex" style="flex-direction: column;">
+                                                <label class="txtSelected">Roll</label>
+                                                <input class="kienquet" style="width: 100%; text-align: center; height: 30px; border: 1px solid #ccc !important; border-radius: 4px; cursor: pointer; outline: none; "
+                                                       type="text" name="name" value="" autocomplete="off" placeholder="" />
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-4 col-md-3 col-lg-3 col-xl-2 p-0 px-1 d-none">
+                                            <div class="d-flex" style="flex-direction: column;">
+                                                <label class="txtSelected">Thực xuất</label>
+                                                <input class="thucnhap" style="width: 100%; text-align: center; height: 30px; border: 1px solid #ccc !important; border-radius: 4px; cursor: pointer; outline: none; "
+                                                       type="text" name="name" value="" autocomplete="off" placeholder="" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4 col-md-3 col-lg-3 col-xl-2 p-0 px-1 ">
+                                            <div class="d-flex" style="flex-direction: column;">
+
+                                                <label class="txtSelected">Phiếu XH</label>
+                                                <input class="text-center phieuxh" readonly style="width: 100%; height: 30px; border-radius: 5px; outline: none; border: 1px solid #ccc;" type="text" value="" />
+                                            </div>
+                                        </div>
+                                        @*<div class="col-3 col-md-3 col-lg-3 col-xl-3 p-0 px-1 ">
+
+                                            </div>*@
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row p-0 m-0">
+                    <div class="col-12 col-lg-4 col-xl-3 p-0 m-0 pe-lg-1">
+                        <div class="collapsible-group">
+                            <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group2" aria-expanded="true">
+                                <h4><i class="fa-solid fa-notes-medical"></i> Thông tin ItemCode</h4>
+                                <span class="toggle-icon">▼</span>
+                            </div>
+                            <div class="collapse show" id="group2">
+                                <section style="padding: 5px">
+                                    <div class="" style="width: 100%; overflow: auto;">
+                                        <div class="col-6 col-lg-6 col-xl-6 p-0 m-0 pe-lg-1 px-1 phieudangkycap">
+                                            <div class="select-pkl" style="display: flex; flex-direction: column; ">
+                                                <label class="txtSelected" style="margin-bottom: 1px;">Phiếu cấp</label>
+                                                <div style="position: relative;">
+                                                    <select onchange="GetXuatHangItemCode()" id="soPhieuDK" class="select_2">
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" main-item mt-1">
+                                            <div style="min-height: 200px; max-height: calc(100vh - 360px); margin-bottom: 13px; " id="tbodyXHItemCode"></div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-lg-8 col-xl-9 p-0 m-0 ps-lg-1">
+                        <div class="collapsible-group">
+                            <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group1" aria-expanded="true">
+                                <h4><i class="fa-solid fa-tag"></i> Thông tin xuất hàng</h4>
+                                <span class="toggle-icon">▼</span>
+                            </div>
+                            <div class="collapse show" id="group1">
+                                <section style="padding: 5px;" class="page-xuat-hang-dev">
+                                    <div id="notificationAlert" class="alert alert-warning border-start border-warning border-1 d-none" role="alert">
+                                        <strong>Lưu ý:</strong> Vui lòng chọn phiếu đăng ký vật tư
+                                    </div>
+                                    <div class="main-item">
+                                        <div style="min-height:400px;max-height: calc(100vh - 260px);" id="gridXuatHang"></div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="tab1">
+                <section>
+                    <div class="container-fluid p-0" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                        <div class="card-body" style="padding :2px;margin-bottom:5px">
+                            <div class="">
+                                <div class="row p-0 m-0">
+                                    <div class="col-6 col-md-6 col-lg-3 col-xl-2 p-1 m-0 ">
+                                        <div style="display: flex;justify-content: start;align-items: center;height: 100%;gap: 10px;width: 100%;">
+                                            <div style=" width: 100%;">
+                                                <label class="txtselected">Cấp phát </label>
+                                                <div class="item_ngaychon position-relative">
+                                                    <select onchange=" GetPhieuNhapKho()" class="select_loc" style="height: 30px;border: 1px solid #ccc;border-radius: 5px;width: 100%;text-align: center;outline: none;" fdprocessedid="lrrlrg">
+                                                        <option value="0">Sản xuất</option>
+                                                        <option class="" value="1">Gia công</option>
+                                                        <option value="2">Phiếu yêu cầu NPL</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-6 col-md-6 col-lg-3 col-xl-2 p-1 m-0">
+                                        <div style="display: flex;justify-content: start;align-items: center;height: 100%;gap: 10px;width: 100%;">
+                                            <div style=" width: 100%;">
+                                                <label class="txtselected">Lọc  </label>
+                                                <div class="item_ngaychon position-relative">
+                                                    <select onchange="GetPhieuNhapKho()" class="selectView" style="height: 30px;border: 1px solid #ccc;border-radius: 5px;width: 100%;text-align: center;outline: none;" fdprocessedid="lrrlrg">
+                                                        <option value="0">Tất cả</option>
+                                                        <option value="1">Chưa cấp</option>
+                                                        <option value="2">Đã cấp</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-8 col-md-8 col-lg-6 col-xl-3 tblngay mt-1">
+                                        <div class="row">
+                                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 ps-1 pe-1">
+                                                <div class="select2_item w-100">
+                                                    <label class="txtselected">Từ ngày</label>
+                                                    <div class="input-group datetimepicker " id="datetimepicker" style="position:relative">
+                                                        <input style="font-size: 13px; font-weight: 600; height: 30px; border-radius: 5px;" type="text" class="form-control dateInput" id="dateInput" value="1990-01-01" />
+                                                        <i style="position: absolute; right: 5px; top: 2px; font-size: 16px; cursor: pointer;z-index:10" class="fa-solid fa-calendar-days"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-6 col-lg-6 col-xl-6 ps-1">
+                                                <div class="select2_item w-100">
+                                                    <label class="txtselected">Đến ngày</label>
+                                                    <div class="input-group datetimepicker" id="datetimepicker2" style="position:relative">
+                                                        <input style="font-size: 13px; font-weight: 600; height: 30px; border-radius: 5px;" type="text" class="form-control dateInput" id="dateInput2" value="1990-01-01" />
+                                                        <i style="position: absolute; right: 5px; top: 2px; font-size: 16px; cursor: pointer;z-index:10" class="fa-solid fa-calendar-days"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-2 col-md-2 col-lg-2 col-xl-1 ">
+                                        <div style="display: flex; justify-content: start; align-items: center; height: 100%; gap: 10px;">
+                                            <div class="icon_reload" style="margin-top: 18px;">
+                                                <i class="fa-solid fa-arrows-rotate"></i>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-12 col-md-2 col-lg-2 col-xl-4 d-flex justify-content-end align-items-end mb-2 colPhieuCap mt-1 mt-md-0">
+                                        <button class="btn btn-secondary btn-sm" id="btnShowPhieuYC" style="font-size:13px">
+                                            <i class="fa-solid fa-eye"></i> Thống kê
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="container-fluid p-0">
+                            <div class="row m-0 p-0">
+                                <div class="col-12 col-lg-7 p-0 pe-lg-2 mb-3 mb-lg-0 item_dh">
+                                    <div class="collapsible-group">
+                                        <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group2" aria-expanded="true">
+                                            <h4><i class="fa-solid fa-notes-medical"></i> Lệnh Cấp Phát</h4>
+                                            <span class="toggle-icon">▼</span>
+                                        </div>
+                                        <div class="collapse show" id="group2">
+                                            <section style="padding: 5px">
+                                                <div style="width: 100%; overflow: auto;">
+                                                    <div class="main-item">
+                                                        <div style="max-height: calc(100vh - 220px);" id="tbodyA"></div>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-5 p-0 ps-lg-2 item_detailcapphat">
+                                    <div class="collapsible-group">
+                                        <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group1" aria-expanded="true">
+                                            <h4><i class="fa-solid fa-tag"></i> Chi Tiết Lệnh Cấp Phát</h4>
+                                            <span class="toggle-icon">▼</span>
+                                        </div>
+                                        <div class="collapse show" id="group1">
+                                            <section style="padding: 5px;" class="page-xuat-hang-dev">
+                                                <div class="main-item">
+                                                    <div style="max-height: calc(100vh - 220px);" id="tblBaoCao"></div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="tab3" style="display:none">
+                <div class="container-fluid p-0" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                    <div class="card-body" style="padding :2px;margin-bottom:5px">
+                        <div class="">
+                            <div class="row p-0 m-0">
+                                <div class="col-4 col-md-4 col-lg-2 col-xl-1 p-0 m-0 pe-1">
+                                    <div style="display: flex;justify-content: start;align-items: center;height: 100%;gap: 10px;width: 100%;">
+                                        <div style=" width: 100%;
+">
+                                            <label class="txtselected">Lọc </label>
+                                            <div class="item_ngaychon position-relative">
+                                                <select onchange="" class="select_locls" style="height: 30px;border: 1px solid #ccc;border-radius: 5px;width: 100%;text-align: center;outline: none;" fdprocessedid="lrrlrg">
+                                                    <option value="0">Sản xuất</option>
+                                                    <option class="" value="1">Gia công</option>
+                                                    <option value="2">Phiếu yêu cầu NPL</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-8 col-md-4 col-lg-4 col-xl-3 p-0 m-0 pe-1">
+                                    <div class="row">
+                                        <div class="select-pkl" style="display: flex; flex-direction: column; ">
+                                            <label class="txtphieuycls">Phiếu yêu cầu</label>
+                                            <div style="position: relative;">
+                                                <select id="phieuycls" class="select_2">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 col-lg-3 col-xl-2 p-0 m-0  pe-1">
+                                    <div class="row">
+                                        <div class="select-pkl" style="display: flex; flex-direction: column; ">
+                                            <label class="txtphieuxh">Phiếu XH</label>
+                                            <div style="position: relative;">
+                                                <select id="phieuxh" class="select_2">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-2 col-lg-2 col-xl-1 p-0 m-0">
+                                    <div style="display: flex; justify-content: start; align-items: center; height: 100%; gap: 10px;">
+                                        <div class="icon_reload" style="margin-top: 18px;">
+                                            <i class="fa-solid fa-arrows-rotate"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<div class="col-4 col-md-3 col-lg-3 col-xl-2 p-0 px-1 ">
+                                        <div class="d-flex" style="flex-direction: column;">
+
+                                            <label class="txtSelected">Tìm kiếm</label>
+
+                                            <input class="item_inputsearchTab3" style="width: 100%; text-align: center; height: 30px; border: 1px solid #ccc !important; border-radius: 4px; cursor: pointer; outline: none; "
+                                                   type="text" name="name" value="" autocomplete="off" placeholder="" />
+                                        </div>
+
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="main-item">
+                        <div class="task-item">
+                            <div class="item-table">
+                                <table class="table mb-0" style="position: relative">
+                                    <thead class="thead-list">
+                                        <tr id="thead" style="position:relative">
+                                            <td class="tdPosition">Phiếu XH</td>
+                                            <td class="tdPosition">Lô</td>
+                                            <td class="tdPosition">Chi tiết</td>
+                                            <td class="tdPosition">Màu</td>
+
+                                            <td class="tdPosition">LOT</td>
+                                            <td class="tdPosition">Khổ/size</td>
+                                            <td class="tdPosition">Đơn vị</td>
+                                            <td class="tdPosition">Roll</td>
+                                            <td class="tdPosition">Thực xuất</td>
+
+                                            <td class="tdPosition">Ghi chú</td>
+                                            <td class="tdPosition">Barcode</td>
+                                            <td style="max-width: 60px;" class="tdPosition d-none">Tách  kiện </td>
+                                            <td style="max-width: 60px;" class="tdPosition ">Hủy cấp phát</td>
+                                            <td style="max-width: 60px;" class="tdPosition ">Chữ ký</td>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="tblDataBodyLS">
+                                    </tbody>
+                                    <tfoot id="tfootLS">
+
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>*@
+                <div class="w-100">
+                    <div id="tblDataBodyLS" style="max-height: calc(100vh - 130px); max-width: 100% !important;"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" id="scannerModal" tabindex="-1" data-bs-backdrop="static"
+         data-bs-keyboard="false" style="z-index: 99999;background:rgb(0,0,0,0.45)">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">📷 Quét Barcode</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="scanner-container" style="max-width: 100%;">
+                        <div class="video-container" style="position: relative; width: 100%; height: ; background: #000; border-radius: 10px; overflow: hidden;">
+                            <video id="video-preview" playsinline muted style="width: 100%; height: 100%; object-fit: cover;"></video>
+                            <!-- Overlay khung quét -->
+                            <div class="scan-region-highlight" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px; height: 200px; border:none; box-shadow: 0 0 0 9999px rgba(0,0,0,0.5);">
+                                <div class="scan-line" style="position: absolute; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #00ff00, transparent); animation: scan 2s linear infinite;"></div>
+                                <div class="scan-corner corner-tl" style="position: absolute; top: -2px; left: -2px; width: 20px; height: 20px; border-top: 2px solid #00ff00; border-left: 2px solid #00ff00;"></div>
+                                <div class="scan-corner corner-tr" style="position: absolute; top: -2px; right: -2px; width: 20px; height: 20px; border-top: 2px solid #00ff00; border-right: 2px solid #00ff00;"></div>
+                                <div class="scan-corner corner-bl" style="position: absolute; bottom: -2px; left: -2px; width: 20px; height: 20px; border-bottom: 2px solid #00ff00; border-left: 2px solid #00ff00; "></div>
+                                <div class="scan-corner corner-br" style="position: absolute; bottom: -2px; right: -2px; width: 20px; height: 20px; border-bottom: 2px solid #00ff00; border-right: 2px solid #00ff00; "></div>
+                            </div>
+                        </div>
+                        <div class="controls text-center mt-3 mb-3">
+                            <button class="btn btn-success" id="startScanBtn">
+                                <i class="bi bi-play-circle"></i> Bắt đầu quét
+                            </button>
+                            <button class="btn btn-danger" id="stopScanBtn" style="display: none;">
+                                <i class="bi bi-stop-circle"></i> Dừng quét
+                            </button>
+                        </div>
+                        <div class="status text-center mt-2 d-none" id="scanStatus"></div>
+                        <div class="result-container mt-3" id="scanResultContainer" style="display: none;">
+                            <div class="alert alert-success">
+                                <div class="result-label"><strong>✅ Kết quả quét:</strong></div>
+                                <div class="result-text" id="scanResult" style="font-size: 1.2rem; font-weight: bold;"></div>
+                            </div>
+                        </div>
+                        <!--Thông tin quét-->
+                        <div class="collapsible-group">
+                            <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group-thongtinquet" aria-expanded="true">
+                                <h4><i class="fa-solid fa-tag"></i> Thông tin quét</h4>
+                                <span class="toggle-icon">▼</span>
+                            </div>
+                            <div class="collapse show" id="group-thongtinquet">
+                                <section style="padding: 5px 5px;">
+                                    <div class="row g-1">
+                                        <div class="col-4">
+                                            <label class="fw-bold">PO Mua:</label>
+                                            <div class="itemScan" id="txtPoMua"></div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <label class="fw-bold">Lot / Batch:</label>
+                                            <div class="itemScan" id="txtLotBatch"></div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <label class="fw-bold">Item Code:</label>
+                                            <div class="itemScan" id="txtItemCode"></div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <label class="fw-bold">Vật tư:</label>
+                                            <div class="itemScan" id="txtRoll"></div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <label class="fw-bold">Số mét:</label>
+                                            <div class="itemScan" id="txtSoMet"></div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <label class="fw-bold">SL xuất:</label>
+                                            <div class="itemScan" id="txtSoLuongXuat"></div>
+                                        </div>
+                                    </div>
+
+                                </section>
+                            </div>
+                        </div>
+                        <!-- Thông tin item code-->
+                        <div class="collapsible-group">
+                            <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group-thongtinitemcode" aria-expanded="true">
+                                <h4><i class="fa-solid fa-barcode"></i> Thông tin item code</h4>
+                                <span class="toggle-icon">▼</span>
+                            </div>
+                            <div class="collapse" id="group-thongtinitemcode">
+                                <section style="padding: 5px 5px;">
+                                    <div id="dxThongTinItemCode" style="max-height: 260px;"></div>
+                                </section>
+                            </div>
+                        </div>
+                        <!-- Lịch sử quét -->
+                        <div class="collapsible-group">
+                            <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group-lichsuquet" aria-expanded="true">
+                                <h4><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử quét</h4>
+                                <span class="toggle-icon">▼</span>
+                            </div>
+                            <div class="collapse" id="group-lichsuquet">
+                                <section style="padding: 5px 5px;">
+                                    <div id="dxLichSuQuet" style="max-height: 260px;"></div>
+                                </section>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <select id="select-LstVideo" style="display:none">
+    </select>
+    <div id="reader-container">
+        @*<div id="reader2">
+                Quét mã vạch
+            </div>*@
+        <div id="reader"></div>
+        <div id="shaded-region"></div>
+    </div>
+
+    <audio id="beepSound" controls="controls" style="display:none">
+        <source src="/css/QRCode/successSound.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="beepSoundError" controls="controls" style="display: none">
+        <source src="/css/QRCode/errorSound.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title" id="myModalLabel">Tách vật tư</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-2">
+                    <div class="row mb-2  pb-2" style="border-bottom: 1px solid #E9ECEF;">
+                        <div class="col-6 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Số lô:</span>
+                            <span id="modalSoLo" style="font-size: 13px; "></span>
+                        </div>
+                        <div class="col-6 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Vật tư:</span>
+                            <span id="modalVatTu" style="font-size: 13px; "></span>
+                        </div>
+                        <div class="col-6 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Thực nhập:</span>
+                            <span id="modalThucNhap" style="font-size: 13px; "></span>
+                        </div>
+                        <div class="col-6 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Màu:</span>
+                            <span id="modalMau" style="font-size: 13px; "></span>
+                        </div>
+                        <div class="col-6 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Khổ/Size:</span>
+                            <span id="modalKhoSize" style="font-size: 13px; "></span>
+                        </div>
+                        <div class="col-6 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Đơn vị:</span>
+                            <span id="modalDonVi" style="font-size: 13px; "></span>
+                        </div>
+
+                    </div>
+                    <div class="row ">
+                        <div class="col-6 py-1">
+                            <div style="display: flex; gap: 2px;">
+                                <span style="font-size: 16px; color: black; font-weight: 500; white-space: nowrap; width: 150px;"> Kiện gốc:</span>
+                                <input id="modalKienGoc" style="border: 1px solid #ccc; border-radius: 4px; text-align: center; font-size: 14px; font-weight: 500; width: 100%; outline: none" readonly value="" />
+                            </div>
+                        </div>
+                        <div class="col-6 py-1 d-none">
+                            <div style="display: flex; gap: 2px;">
+                                <span style="font-size: 16px; color: black; font-weight: 500; white-space: nowrap; width: 150px;"> Số kiện tách:</span>
+                                <input id="modalSoKienTach" type="number" style="border: 1px solid #ccc; border-radius: 4px; text-align: center; font-size: 14px; font-weight: 500; width: 100%; outline: none " value="1" min="1" step="1" />
+                            </div>
+                        </div>
+                        <div class="col-6 py-1">
+                            <div style="display: flex; gap: 2px;">
+                                <span style="font-size: 16px; color: black; font-weight: 500; white-space: nowrap; width: 150px;"> Thực xuất:</span>
+                                <input id="modalSoLuong" type="number" style="border: 1px solid #ccc; border-radius: 4px; text-align: center; font-size: 14px; font-weight: 500; width: 100%; outline: none" value="" />
+                            </div>
+                        </div>
+                        <div class="col-6 py-1">
+                            <div style="display: flex; gap: 2px;">
+                                <span style="font-size: 16px; color: black; font-weight: 500; white-space: nowrap; width: 150px;"> Ghi chú:</span>
+                                <input id="modalGhiChu" style="border: 1px solid #ccc; border-radius: 4px; text-align: center; font-size: 14px; font-weight: 500; width: 100%; outline: none" value="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" id="btnSaveTachKien">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="myModalD" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title" id="myModalLabelD">Xóa kiện chia</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-2">
+                    <div style="display: flex; justify-content: start; gap: 10px;">
+                        <input style="width: 20px; height: 20px;" type="checkbox" class="checkboxcapp" checked />
+                        <p class="mb-0" style="font-size:16px;">Chỉ hủy xuất hàng</p>
+                    </div>
+                    <div class="checkboxcCap mt-2 " style="display: flex; justify-content: start; gap: 10px;">
+                        <input style="width: 20px; height: 20px;" type="checkbox" class="checkboxcapcp" />
+                        <p class="mb-0" style="font-size:16px;">Hủy xuất hàng và xóa trong kho</p>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button onclick="" type="button" class="btn btn-primary" id="btnHuyKien">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModalIn" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog" style="width: 80%; max-width: 80%;">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title" id="myModalLabeIN">In barcode</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-2">
+                    <div id="labelContainerB">
+                        <div class="row lablebarcodeB">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="window.print()">In barcode</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModalDeital" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog" style="min-width: 80%;">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title" id="myModalLabeDetail"></h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-2">
+                    <div class="main-item">
+                        <div class="task-item">
+                            <div class="item-table">
+                                <table class="table mb-0" style="position: relative">
+                                    <thead class="thead-list">
+                                        <tr id="theadA" style="position:relative">
+
+                                            <td class="tdPosition">Phiếu</td>
+                                            <td class="tdPosition">Mã lệnh</td>
+                                            <td class="tdPosition">Mã hàng</td>
+                                            <td class="tdPosition">Khách hàng</td>
+                                            <td class="tdPosition">Số lô</td>
+                                            <td class="tdPosition">Chi tiết</td>
+                                            <td class="tdPosition">Thực xuất</td>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody id="tblDataDetail">
+                                    </tbody>
+                                    <tfoot id="tfootDetail">
+
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModalS" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title" id="myModalLabelS">Thông báo </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body py-2">
+                    <p class="mb-0" style="font-size:16px;">Dữ liệu trong bảng có sự thay đổi.Bạn có muốn ở lại trang không? </p>
+                </div>
+                <div class="modal-footer" style="justify-content: space-between;">
+                    <button onclick="" type="button" class="btn btn-danger" id="btnCheckHuySave">Tiếp tục</button>
+                    <button onclick="" type="button" class="btn btn-primary" id="btnCheckSave">Ở lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" style="z-index:999999" id="myModalV" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title" id="myModalLabelV">Thông báo </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-2">
+                    <p class="mb-0 textVuot" style="font-size:16px;"></p>
+                </div>
+                <div class="modal-footer" style="">
+                    <button onclick="" type="button" class="btn btn-primary" id="btnComfirm">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalSign" style="" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="max-width: 900px !important;">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex signItem">
+                        <section class="tools-board">
+                            <div class="row">
+
+                            </div>
+                            <div class="row">
+                                <div class="modal-header py-2">
+                                    <label class="title">Kí tên</label>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <ul class="options" style="margin:20px 0px 0px 0px">
+                                    <li class="option active tool" id="brush">
+                                        <img src="icons/brush.svg" alt="">
+                                        <span>Nét chữ</span>
+                                    </li>
+                                    <li class="option" style="margin:20px 0px 0px 0px">
+                                        <input type="range" id="size-slider" min="1" max="30" value="5">
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="row colors">
+                                <label class="title">Colors</label>
+                                <ul class="options">
+                                    <li class="option"></li>
+                                    <li class="option selected"></li>
+                                    <li class="option"></li>
+                                    <li class="option"></li>
+                                    <li class="option">
+                                        <input type="color" id="color-picker" value="#4A98F7">
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="row buttons" style="margin-top:70px">
+                                <button class="clear-canvas">Xóa</button>
+                                <button style="background-color: #38e381; color: #000; border: 1px solid #ccc;" class="save-imgA">Lưu không ký</button>
+                                <button class="save-img">Lưu</button>
+
+                            </div>
+
+                        </section>
+                        <section class="drawing-board" style="border:1px black solid">
+                            <canvas></canvas>
+                        </section>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="barcodein" style="display:none;">
+        <div id="labelContainer" style="opacity:0">
+            <div class="lablebarcode">
+
+            </div>
+        </div>
+    </div>
+    @*onclick="CallModal('SignGDXN')"*@
+    <div class="modal fade" id="signatureModal" tabindex="-1" aria-labelledby="signatureModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signatureModalLabel">
+                        <i class="fas fa-pen-fancy me-2"></i>Ký Tên
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <!-- Công cụ -->
+                    <div class="row mb-3 g-2">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label small fw-bold">Màu bút:</label>
+                            <div class="d-flex gap-2 flex-wrap">
+                                <input type="color" class="color-picker" id="penColor" value="#000000">
+                                <button class="btn btn-tool btn-outline-dark" onclick="setPenColor('#000000')">
+                                    <i class="fas fa-circle" style="color: #000000;"></i>
+                                </button>
+                                <button class="btn btn-tool btn-outline-primary" onclick="setPenColor('#0d6efd')">
+                                    <i class="fas fa-circle" style="color: #0d6efd;"></i>
+                                </button>
+                                <button class="btn btn-tool btn-outline-danger" onclick="setPenColor('#dc3545')">
+                                    <i class="fas fa-circle" style="color: #dc3545;"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label small fw-bold">Độ dày bút:</label>
+                            <div class="pen-size-selector">
+                                <div class="pen-size-btn active" onclick="setPenSize(2)" data-size="2">
+                                    <div style="width: 6px; height: 6px; background: #000; border-radius: 50%;"></div>
+                                </div>
+                                <div class="pen-size-btn" onclick="setPenSize(4)" data-size="4">
+                                    <div style="width: 10px; height: 10px; background: #000; border-radius: 50%;"></div>
+                                </div>
+                                <div class="pen-size-btn" onclick="setPenSize(6)" data-size="6">
+                                    <div style="width: 14px; height: 14px; background: #000; border-radius: 50%;"></div>
+                                </div>
+                                <div class="pen-size-btn" onclick="setPenSize(8)" data-size="8">
+                                    <div style="width: 18px; height: 18px; background: #000; border-radius: 50%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Canvas vẽ chữ ký -->
+                    <div class="position-relative">
+                        <canvas id="signatureCanvas" class="signature-canvas"></canvas>
+                        <small class="text-muted d-block mt-2 text-center">
+                            <i class="fas fa-info-circle"></i> Vẽ chữ ký của bạn vào khung trên
+                        </small>
+                    </div>
+
+                    <!-- Nút hành động -->
+                    <div class="d-flex gap-2 mt-3 flex-wrap justify-content-center">
+                        <button class="btn btn-outline-secondary" onclick="clearSignature()">
+                            <i class="fas fa-eraser me-1"></i> Xóa
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="undoSignature()">
+                            <i class="fas fa-undo me-1"></i> Hoàn tác
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i> Hủy
+                    </button>
+                    <button type="button" class="btn btn-warning save-imgA">
+                        <i class="fa-solid fa-list-check"></i> Lưu không ký
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="saveSignature()">
+                        <i class="fas fa-check me-1"></i> Lưu Chữ Ký
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalChiTietLenh" tabindex="-1" aria-labelledby="chiTietLenhModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 10px 18px;">
+                    <h6 class="modal-title">
+                        <i class="fas fa-circle-info me-2"></i>Chi Tiết Lệnh
+                    </h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="dxDataGridChiTietLenh" style="max-height: 500px; overflow-y: auto;"></div>
+                </div>
+                @*  <div class="modal-footer">
+                    </div>*@
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalPhieuCap" tabindex="-1" aria-labelledby="phieuCapModal" aria-hidden="true">
+        <div class="modal-dialog  modal-fullscreen p-0 p-md-4">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 10px 18px;">
+                    <h6 class="modal-title">
+                        <i class="fas fa-circle-info me-2"></i>Phiếu Yêu Cầu
+                    </h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding: 4px 12px;">
+                    <div class="row m-0 p-0">
+                        <div class="col-6 col-md-2 col-lg-1 col-xl-1 p-0  ">
+                            <div class="select-pkl" style="display: flex; flex-direction: column; ">
+                                <label class="txtSelected" style=" font-weight: normal !important; margin-bottom: 3px;">Lọc</label>
+                                <select class="select_2" id="locPhieuCap">
+                                    <option value="1">Chưa Cấp</option>
+                                    <option value="2">Đã Cấp</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-2 col-lg-2 col-xl-2 p-0 ps-1  ps-md-2 d-none colTuNgayPC">
+                            <div class="select2_item w-100">
+                                <label class="txtselected" style=" font-weight: normal !important; margin-bottom: 3px;">Từ ngày</label>
+                                <div class="input-group datetimepicker " id="datetimepicker3" style="position:relative">
+                                    <input style="font-size: 13px; font-weight: normal; height: 31px; border-radius: 5px; " type="text" class="form-control dateInput" id="tuNgayPhieuYC" value="1990-01-01" />
+                                    <i style="position: absolute; right: 5px; top: 2px; font-size: 16px; cursor: pointer;z-index:10" class="fa-solid fa-calendar-day"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-2 col-lg-2 col-xl-2 p-0 pe-1 ps-md-2 mt-1 mt-md-0  d-none colDenNgayPC">
+                            <div class="select2_item w-100">
+                                <label class="txtselected" style=" font-weight: normal !important; margin-bottom: 3px;">Đến ngày</label>
+                                <div class="input-group datetimepicker" id="datetimepicker4" style="position:relative">
+                                    <input style="font-size: 13px; font-weight: normal; height: 31px; border-radius: 5px;" type="text" class="form-control dateInput" id="denNgayPhieuYC" value="1990-01-01" />
+                                    <i style="position: absolute; right: 5px; top: 2px; font-size: 16px; cursor: pointer;z-index:10" class="fa-solid fa-calendar-day"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-3 col-xl-3 p-0 colCBItemCode d-none">
+                            <div class="form-group select-container">
+                                <label class="txtselected" for="exampleInputPassword1" style="font-weight: normal !important;text-align: center; margin-bottom: 2px !important ">ItemCode</label>
+                                <input type="text"
+                                       class="input-box"
+                                       id="itemCodeInput"
+                                       placeholder=""
+                                       readonly>
+                                <div class="dropdown-list" id="dropdownList">
+                                    <div class="search-box">
+                                        <input type="text" id="searchitemCodeInput" placeholder="Tìm kiếm...">
+                                    </div>
+
+                                    <div class="dropdown-item check-all">
+                                        <input type="checkbox" id="checkAll">
+                                        <label style="font-weight: 400 !important; margin:0px" for="checkAll">Chọn tất cả</label>
+                                    </div>
+                                    <div id="itemList"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="containerGrid1">
+                        <div class="row m-0 p-0 mt-2 ">
+                            <div class="col-12 col-md-4 m-0 p-0 pe-md-2">
+                                <div id="dxPhieuCap4" style="overflow: auto; min-height: 300px; max-height: calc(-190px + 100vh); width: 100%; "></div>
+                            </div>
+                            <div class="col-12 col-md-8 m-0 p-0 pt-2 pt-md-0">
+                                <div id="dxPhieuCap3" style="overflow: auto; min-height: 300px; max-height: calc(-190px + 100vh); width: 100%; "></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="containerGrid2  d-none ">
+                        <div class="row m-0 p-0 mt-2 ">
+                            <div class="col-12 col-md-5 m-0 p-0 pe-md-2">
+                                <div id="dxPhieuCap1" style="overflow: auto; min-height: 300px; max-height: calc(-190px + 100vh); width: 100%; "></div>
+
+                            </div>
+                            <div class="col-12 col-md-7 m-0 p-0 pt-2 pt-md-0">
+                                <div id="dxPhieuCap2" style="overflow: auto; min-height: 300px; max-height: calc(-190px + 100vh); width: 100%; "></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*  <div class="modal-footer">
+                    </div>*@
+            </div>
+
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index:9999999">
+        <div id="successToast" class="toast" role="alert">
+            <div class="toast-header bg-success text-white">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto">Thành công</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="successMessage"></div>
+        </div>
+        <div id="errorToast" class="toast" role="alert">
+            <div class="toast-header bg-danger text-white">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong class="me-auto">Lỗi</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="errorMessage"></div>
+        </div>
+        <div id="warningToast" class="toast" role="alert">
+            <div class="toast-header bg-warning text-dark">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong class="me-auto">Cảnh báo</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="warningMessage"></div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/toastr.min.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.js"></script>
+    <script src="~/Scripts/BienBanMoKien/qrcode.min.js"></script>
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/Scripts/BienBanMoKien/flatpickr.js"></script>
+    <script src="~/Scripts/ScanQR/html5-qrcode.js"></script>
+    <script src="~/Scripts/TongHopNPL/popperjs.js"></script>
+    <script src="~/Scripts/TongHopNPL/tempus-dominus.min.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/moment.min.js"></script>
+    <script src="~/css/DevExtreme/dx.all.js"></script>
+
+    <script src="~/css/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Scripts/ScanQR/toastM.js"></script>
+    <script>
+        var userName = '@ViewBag.userName';
+        $(".callout label").each(function () {
+            $(this).attr("title", $(this).text().trim());
+        });
+
+    </script>
+    <script type="module">
+
+        import QrScanner from '/Scripts/qrcodenew.js';
+        let qrScanner;
+        let isProcessing = false;
+        let lastScannedTime = 0;
+        let lastScannedCode = '';
+
+
+        // Khởi tạo scanner khi mở modal
+        $('#scannerModal').on('shown.bs.modal', function () {
+            initScanner();
+        });
+
+        // Dừng scanner khi đóng modal
+        $('#scannerModal').on('hidden.bs.modal', function () {
+            if (qrScanner) {
+                qrScanner.stop();
+                $('#startScanBtn').show();
+                $('#stopScanBtn').hide();
+                $('#scanResultContainer').hide();
+                lastScannedCode = '';
+            }
+        });
+
+        function initScanner() {
+            const videoElem = document.getElementById('video-preview');
+            QrScanner.WORKER_PATH = '/Scripts/qr-scanner-worker.min.js';
+
+            qrScanner = new QrScanner(
+                videoElem,
+                result => onScanSuccess(result),
+                {
+                    returnDetailedScanResult: true,
+                    highlightScanRegion: false,
+                    highlightCodeOutline: false,
+                    maxScansPerSecond: 10,
+                    preferredCamera: 'environment'
+                }
+            );
+        }
+
+        function onScanSuccess(result) {
+            const currentTime = Date.now();
+            const timeDiff = currentTime - lastScannedTime;
+            const barcode = result.data;
+            // CHỈ chặn nếu đang xử lý HOẶC quét cùng mã trong vòng 500ms
+            if (isProcessing || (barcode == lastScannedCode) || timeDiff < 1000) {
+                return;
+            }
+
+            isProcessing = true;
+            lastScannedTime = currentTime;
+            lastScannedCode = barcode;
+
+            //$('#scanResultContainer').show();
+            //showScanStatus('✅ Quét thành công! Đang kiểm tra...', 'success');
+
+            if (navigator.vibrate) {
+                navigator.vibrate(200);
+            }
+            GetVTBarCode(barcode, 1)
+                .then(() => {
+                    isProcessing = false;
+                    //    showScanStatus('🔍 Sẵn sàng quét mã tiếp theo...', 'info');
+                })
+                .catch((error) => {
+                    isProcessing = false;
+                    //    showScanStatus('❌ Lỗi xử lý: ' + error.message, 'error');
+                });
+        }
+
+
+        function showScanStatus(message, type) {
+            const statusElement = $('#scanStatus');
+            statusElement.text(message);
+            statusElement.removeClass().addClass(`status text-${type === 'success' ? 'success' : type === 'error' ? 'danger' : 'info'}`);
+        }
+
+
+
+        // Bắt đầu quét
+        $('#startScanBtn').on('click', async function () {
+            try {
+                $(this).prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Đang khởi động...');
+                await qrScanner.start();
+                $(this).hide();
+                $('#stopScanBtn').show();
+                $(this).prop('disabled', false).html('<i class="bi bi-play-circle"></i> Bắt đầu quét');
+                showScanStatus('🔍 Đang quét... Đưa mã barcode vào khung', 'info');
+                lastScannedCode = '';
+            } catch (err) {
+                $(this).prop('disabled', false).html('<i class="bi bi-play-circle"></i> Bắt đầu quét');
+                showScanStatus('❌ Không thể truy cập camera. Vui lòng cho phép quyền!', 'error');
+                console.error('Lỗi camera:', err);
+            }
+        });
+
+        // Dừng quét
+        $('#stopScanBtn').on('click', function () {
+            qrScanner.stop();
+            $(this).hide();
+            $('#startScanBtn').show();
+            showScanStatus('⏸️ Đã dừng quét', 'error');
+            lastScannedCode = '';
+        });
+
+        // Mở modal scanner
+        $('#openScannerBtn').on('click', function () {
+            const scannerModal = new bootstrap.Modal($('#scannerModal')[0]);
+            scannerModal.show();
+        });
+    </script>
+
+    <script src="~/Scripts/ViTriKho/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Scripts/XuatHangNPL/exceljs.min.js"></script>
+    <script src="~/Scripts/XuatHangNPL/xuathangnplv2.js?version=5.2"></script>
+</body>
+</html>

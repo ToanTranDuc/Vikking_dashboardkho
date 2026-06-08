@@ -1,0 +1,1235 @@
+﻿:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --danger-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --warning-gradient: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+    --header-bg: linear-gradient(135deg, #2d5a3d 0%, #1e3a28 100%);
+}
+
+body {
+    background: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.mt-dynamic {
+    margin-top: var(--mt-value, 20px) !important;
+}
+
+.header-section {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 0 !important;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+    background: #00477f !important;
+}
+
+/* Title */
+.header-title {
+    white-space: normal;
+    margin: 0;
+    /* flex: 1 1 auto; */ /* Cho phép co lại khi thiếu chỗ */
+}
+
+/* Buttons */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap; /* Cho phép nút tự xuống dòng */
+    /* flex: 0 0 auto; */ /* Kích thước theo nội dung */
+    margin-left: auto;
+}
+
+.btn-custom {
+    white-space: nowrap;
+}
+
+.btn-custom {
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    color: white;
+    white-space: nowrap;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+    .btn-custom::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: left 0.5s ease;
+    }
+
+    .btn-custom:hover::before {
+        left: 100%;
+    }
+
+/* Nút Lịch Sử - Màu Tím Hồng sang trọng */
+.btn-history {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    font-weight: 600;
+    color: black;
+}
+
+    .btn-history:hover {
+        background: linear-gradient(135deg, #fed6e3 0%, #a8edea 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 25px rgba(168, 237, 234, 0.5);
+    }
+
+/* Nút Lưu - Màu Xanh lá thành công */
+.btn-save {
+    background: #4a5fc1;
+}
+
+    .btn-save:hover {
+        background: linear-gradient(135deg, #38ef7d 0%, #11998e 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 25px rgba(56, 239, 125, 0.5);
+    }
+
+/* Nút Nạp Lại - Màu Xanh dương năng động */
+.btn-refresh {
+    background: #2568fb;
+}
+
+    .btn-refresh:hover {
+        background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 25px rgba(0, 210, 255, 0.5);
+    }
+
+.btn-custom:active {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-custom i {
+    margin-right: 8px;
+    font-size: 15px;
+}
+
+.header-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+}
+/* Animation khi load trang */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.header-section {
+    animation: slideDown 0.5s ease-out;
+}
+
+.row-flex {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.flex-item {
+    max-width: 190px;
+    min-width: 175px;
+}
+
+.flex-item-PL {
+    width: 200px;
+    max-width: 250px;
+    padding: 0 !important;
+}
+
+.flex-item-text {
+    min-width: 150px;
+    max-width: 200px;
+    white-space: nowrap;
+}
+
+.flex-grow {
+    white-space: normal;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label-custom {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 5px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    white-space: nowrap;
+}
+
+.form-control-custom, .select2 .select2-container .select2-container--default .select2-container--below select2-container--focus {
+    transition: all 0.3s ease !important;
+    font-size: 13px;
+    background: white;
+}
+
+    .form-control-custom:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+        outline: none;
+    }
+
+    .form-control-custom:disabled {
+        background: #f8f9fa;
+        border-color: #dee2e6;
+    }
+
+/*.select2-container .select2-selection--single {
+    height: 45px;
+}*/
+
+.select2-container {
+    margin: 0;
+    height: 45px !important;
+    width: 100% !important;
+}
+
+.dx-dropdowneditor.dx-dropdowneditor-field-clickable,
+.dx-dropdowneditor.dx-dropdowneditor-field-clickable .dx-texteditor-input {
+    padding: 0 5px !important;
+    text-align: left;
+    max-width: 250px;
+    min-width: 200px;
+}
+
+.input-icon {
+    position: relative;
+}
+
+    .input-icon i {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #667eea;
+        font-size: 16px;
+    }
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--success-gradient);
+    color: white;
+    box-shadow: 0 2px 10px rgba(67, 233, 123, 0.3);
+}
+
+.btn-status {
+    width: 100%;
+    padding: 11px 15px;
+    border: none;
+    border-radius: 10px;
+    background: var(--success-gradient);
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    box-shadow: 0 3px 12px rgba(67, 233, 123, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+    .btn-status:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(67, 233, 123, 0.4);
+    }
+
+
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-in {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.item-kiem-100-persents {
+    align-self: end;
+    display: flex;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+    .item-kiem-100-persents #check-kiem-100-persent {
+        border: 2px solid #abf62d;
+    }
+
+.dx-overlay-wrapper dx-popup-wrapper dx-dropdowneditor-overlay {
+    width: max-content !important;
+}
+
+
+
+.dx-datagrid-header-panel {
+    display: none !important;
+}
+
+.dx-datagrid-table .dx-datagrid-table-fixed .dx-datagrid-scrollable-simulated .dx-datagrid-content .dx-datagrid-scroll-container {
+    position: sticky !important;
+    z-index: 100 !important;
+    top: 0 !important;
+}
+
+/*.dx-overlay-wrapper .dx-popup-wrapper .dx-dropdowneditor-overlay {
+    min-width: 730px !important;
+    width: auto !important;
+    max-width: 800px !important;
+}
+*/
+
+
+.col-phu-luc, .col-chi-tiet {
+    /*    max-width: 400px !important; 
+*/ white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    line-height: 1.5 !important;
+    padding: 8px !important;
+}
+
+    .col-phu-luc .dx-datagrid-text-content, .col-chi-tiet .dx-datagrid-text-content {
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        /*max-width: 100% !important;*/
+    }
+
+/* ========================================
+   1. CAMERA – ĐỒNG BỘ XANH DƯƠNG
+   ======================================== */
+.camera-image-container {
+    width: 85px;
+    height: 50px;
+    border: 2px dashed #4285F4;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+    .camera-image-container:hover {
+        border-color: #1967D2;
+        background: #f0f7ff;
+        box-shadow: 0 4px 8px rgba(25, 103, 210, 0.2);
+        transform: translateY(-1px);
+    }
+
+    .camera-image-container.has-image {
+        border-style: solid;
+        border-color: #1967D2;
+        background: #e3f2fd;
+        box-shadow: 0 0 0 2px rgba(25, 103, 210, 0.15);
+    }
+
+    .camera-image-container i {
+        color: #4285F4;
+        font-size: 20px;
+    }
+
+    .camera-image-container:hover i {
+        color: #1967D2;
+    }
+
+    .camera-image-container img {
+        object-fit: contain;
+        border-radius: 6px;
+    }
+
+    .camera-image-container.has-image:hover img {
+        transform: scale(1.05);
+    }
+/* ========================================
+   2. HEADER – GRADIENT XANH GOOGLE, CHỈ TIÊU ĐỀ
+   ======================================== */
+.dx-datagrid .dx-datagrid-headers .dx-datagrid-table .dx-row > td:not(.dx-datagrid-filter-row td) {
+    color: #FFFFFF !important;
+    font-weight: 600;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    letter-spacing: 0.5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    background: #00477f;
+    text-align: center !important;
+}
+
+.dx-datagrid .dx-datagrid-headers .dx-row > td:not(.dx-datagrid-filter-row td):hover {
+    background: #00477f !important;
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(66, 133, 244, 0.3);
+}
+
+/* ========================================
+   3. FILTER ROW – TRONG SUỐT, NHẸ NHÀNG
+   ======================================== */
+.dx-datagrid .dx-datagrid-filter-row {
+    background-color: transparent !important;
+}
+
+    .dx-datagrid .dx-datagrid-filter-row .dx-row > td {
+        background-color: transparent !important;
+        color: #555 !important;
+        border-bottom: 1px dashed #e0e0e0 !important;
+        padding: 6px 8px !important;
+    }
+
+/* ========================================
+   4. ICON SORT – TRẮNG, NHỎ GỌN
+   ======================================== */
+.dx-datagrid .dx-sort,
+.dx-datagrid .dx-sort-up,
+.dx-datagrid .dx-sort-down {
+    color: #FFFFFF !important;
+    font-size: 11px;
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+}
+
+    .dx-datagrid .dx-sort:hover,
+    .dx-datagrid .dx-sort-up:hover,
+    .dx-datagrid .dx-sort-down:hover {
+        opacity: 1;
+    }
+/* ========================================
+   6. VIỀN DƯỚI HEADER
+   ======================================== */
+.dx-datagrid .dx-datagrid-headers {
+    border-bottom: 3px solid #1967D2 !important;
+    background: #00477f !important;
+}
+
+/* ========================================
+   7. ITEM TEXT – ĐẸP, CĂN CHỈNH
+   ======================================== */
+.item_text {
+    padding: 6px 8px !important;
+    margin: 0 !important;
+    font-size: 14px;
+    line-height: 1.4;
+}
+/* ========================================
+   8. TEXTAREA – NỀN TRẮNG, VIỀN XANH DƯƠNG, FOCUS MƯỢT
+   ======================================== */
+.form-control,
+.cell-view-textarea, .select2-container .select2-selection--single {
+    /* Xanh dương */
+    border-radius: 6px !important;
+    font-weight: 500;
+    width: 100% !important;
+}
+
+    /* Focus – xanh dương đậm hơn */
+    .form-control:focus,
+    .cell-view-textarea:focus, .select2-container .select2-selection--single {
+        border-color: #1967D2 !important;
+        box-shadow: 0 0 0 0.2rem rgba(25, 103, 210, 0.25) !important;
+        background-color: #f8fbff !important;
+        outline: none;
+    }
+
+/* VIEW MODE – viền nhẹ, nền trắng */
+.cell-view-textarea, .select2-container .select2-selection--single {
+    background-color: #ffffff !important;
+    color: #333 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    resize: none;
+    cursor: default;
+    height: 43px;
+}
+/* ========================================
+   9. ẨN NÚT UNDO & COMMAND EDIT
+   ======================================== */
+.dx-datagrid .dx-undo,
+.dx-datagrid .dx-revert-button,
+.dx-datagrid .dx-command-edit {
+    display: none !important;
+}
+
+/* ========================================
+   FIX: RADIO PASS/FAIL CĂN CHỈNH HOÀN HẢO – KHÔNG BỊ NHÔ LÊN/XUỐNG
+   ======================================== */
+.d-flex.align-items-center.gap-3 {
+    align-items: center !important;
+    /* Đảm bảo đủ chiều cao cho camera 50px */
+    /* Cân bằng trên dưới */
+}
+
+/* Cụ thể cho các phần tử con */
+.camera-image-container,
+.form-check,
+.form-control,
+.cell-view-textarea {
+    justify-content: center !important;
+}
+
+/* RADIO GROUP – CĂN GIỮA DỌC HOÀN HẢO */
+.form-check {
+    height: 100%;
+    min-height: 42px;
+    gap: 12px;
+    margin: 0 !important;
+    padding: 0 4px !important;
+    display: flex;
+    align-items: center;
+}
+
+/* Label Pass/Fail căn giữa dọc */
+.form-check-label {
+    margin: 0 !important;
+    line-height: 1.2;
+    padding: 2px 0;
+    font-weight: 600 !important;
+    font-size: 0.94em;
+}
+
+/* Input radio căn giữa */
+.form-check-input {
+    margin: 0 !important;
+    position: relative;
+    top: 0 !important;
+    transform: none !important;
+}
+
+/* TEXTAREA & VIEW TEXTAREA – ĐỒNG BỘ CHIỀU CAO */
+.form-control,
+.cell-view-textarea {
+    min-height: 45px !important;
+    height: 45px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.cell-view-textarea {
+    width: 100% !important;
+}
+/* CAMERA CONTAINER – GIỮ NGUYÊN */
+.camera-image-container {
+    width: 85px;
+    height: 50px;
+    min-width: 85px;
+    flex-shrink: 0;
+}
+
+/* Đảm bảo toàn bộ ô có cùng chiều cao */
+.dx-datagrid-rowsview .dx-row > td {
+    vertical-align: middle !important;
+    padding: 4px 8px !important;
+}
+
+/* Fix cho edit mode cũng đẹp */
+.dx-editor-cell .d-flex {
+    min-height: 50px;
+    align-items: center !important;
+}
+/* ========================================
+   11. LOẠI BỎ MỜ KHI CHƯA FOCUS
+   ======================================== */
+.dx-datagrid .dx-state-inactive {
+    opacity: 1 !important;
+}
+
+/* ========================================
+   12. Hiệu ứng loading nhẹ khi refresh
+   ======================================== */
+.dx-datagrid.dx-state-loading::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.7);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.dx-datagrid.dx-state-loading::after {
+    content: "\f110";
+    font-family: "Font Awesome 6 pro";
+    font-weight: 900;
+    font-size: 24px;
+    color: #4285F4;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.dx-gridbase-container > .dx-datagrid-rowsview.dx-scrollable {
+    max-height: calc(100vh - 150px) !important;
+    overflow: auto;
+}
+
+/* Fix Bootstrap Modal fade effect bị ghi đè */
+.modal.fade:not(.show) {
+    opacity: 1 !important;
+}
+
+
+
+
+.btn-custom {
+    padding: 8px;
+    font-size: 12px;
+    margin: 3px;
+}
+
+.form-section {
+    padding: 5px;
+}
+
+.row-flex {
+}
+
+.flex-item,
+.form-control-note {
+    width: 100%;
+}
+
+.flex-item-note {
+    width: 100%;
+}
+
+.dx-dropdowneditor-overlay .dx-datagrid {
+    overflow-x: auto;
+}
+
+/* Padding đẹp mắt */
+.dx-popup-flex-height .dx-popup-content {
+    padding: 0 !important;
+}
+
+/* Đảm bảo scrollbar hiển thị khi cần */
+.dx-scrollable-container {
+    overflow: auto !important;
+}
+
+#text-note {
+    border: 1px solid green !important;
+}
+
+.dx-datagrid-nodata {
+    display: none;
+}
+
+@media (max-width: 600px) {
+
+
+    .form-section {
+        padding: 5px;
+        display: flex;
+    }
+
+    .form-control,
+    .cell-view-textarea {
+        min-height: 45px !important;
+        height: 45px !important;
+        display: flex !important;
+        align-items: center !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        width: 100% !important;
+    }
+
+    .flex-item-text {
+        min-width: 120px;
+        max-width: 150px;
+        white-space: nowrap;
+    }
+
+    .dx-dropdowneditor.dx-dropdowneditor-field-clickable,
+    .dx-dropdowneditor.dx-dropdowneditor-field-clickable .dx-texteditor-input {
+        padding: 0 5px !important;
+        text-align: left;
+        min-width: 120px;
+        max-width: 150px;
+    }
+
+    .select2-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .btn-custom {
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-action {
+        padding: 10px 16px;
+        font-size: 14px;
+        min-width: 100px;
+    }
+
+    .action-buttons {
+        gap: 10px;
+    }
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.8);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out; /* hiệu ứng mượt */
+}
+
+    .overlay.show {
+        opacity: 1;
+    }
+
+/*Loading Page*/
+/* Toàn màn hình overlay */
+.custom-loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+    .custom-loader-wrapper.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+/* Box chứa loader + text */
+.custom-loader-box {
+    text-align: center;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.custom-loader-wrapper.active .custom-loader-box {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Dòng chữ "Đang lấy dữ liệu..." */
+.custom-loading-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #e74c3c; /* Màu đỏ nhẹ không chói */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    animation: pulse-animation 2s infinite ease-in-out;
+}
+
+/* Animation "pulse" cho hiệu ứng nhấp nháy nhẹ */
+@keyframes pulse-animation {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+}
+
+/* Loader chính */
+.custom-loader {
+    width: 400px;
+    height: 32px;
+    background-color: #e0e0e0;
+    border: 3px solid #2196f3;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(33, 150, 243, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Thanh tiến trình */
+.custom-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #42a5f5, #1e88e5, #1565c0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    transition: width 0.4s ease-in-out;
+}
+
+    /* Hiển thị % */
+    .custom-progress::after {
+        content: attr(data-percentage);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-weight: bold;
+        transform: translate(-50%, -50%);
+        font-size: 1rem;
+        color: #ffffff;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+@media (max-width: 950px) {
+    .modal-dialog {
+        max-width: max-content !important;
+    }
+}
+
+.cell-flash {
+    animation: flashAnimation 0.6s ease;
+}
+
+@keyframes flashAnimation {
+    0% {
+        background-color: #fff3cd;
+    }
+
+    50% {
+        background-color: #fffacd;
+    }
+
+    100% {
+        background-color: transparent;
+    }
+}
+
+.modal-backdrop.fade {
+    display: none !important;
+}
+
+
+/*Đánh Giá và Xác Nhận*/
+
+.danh-gia-container {
+    margin-top: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    overflow: hidden;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+    .header h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+/* ============== TABLE CHỈ ÁP DỤNG CHO BIỂU MẪU NÀY ============== */
+.danhgia-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: auto;
+}
+
+    .danhgia-table th,
+    .danhgia-table td {
+        padding: 5px;
+        border: 1px solid #e0e0e0;
+        vertical-align: middle;
+        background: white;
+        transition: background-color 0.3s ease;
+    }
+
+    .danhgia-table th {
+        font-weight: 600;
+        text-align: justify;
+    }
+
+    .danhgia-table tr:hover td {
+        background-color: #f8f9ff;
+    }
+
+    /* Cột đều nhau - đẹp nhất trên mọi màn hình */
+    .danhgia-table th:nth-child(1),
+    .danhgia-table td:nth-child(1) {
+        max-width: 35% !important;
+        min-width: 35% !important;
+    }
+
+    .danhgia-table th:nth-child(2),
+    .danhgia-table td:nth-child(2) {
+        min-width: 32% !important;
+        max-width: 32% !important;
+    }
+
+    .danhgia-table th:nth-child(3),
+    .danhgia-table td:nth-child(3) {
+        min-width: 32% !important;
+        max-width: 32% !important;
+    }
+
+/* Nội dung bên trong mỗi cell đều, đẹp, căn đều */
+.cell-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 100%;
+    width: 100% !important;
+    min-width: 300px !important;
+}
+
+.section-title {
+    font-weight: 600;
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 4px;
+    color: #667eea;
+    white-space: nowrap;
+}
+
+/* Input & Textarea đồng bộ đẹp */
+.danhgia-input,
+.danhgia-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background: white;
+    box-sizing: border-box;
+}
+
+    .danhgia-input:focus,
+    .danhgia-textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+    }
+
+    .danhgia-input:hover,
+    .danhgia-textarea:hover {
+        border-color: #667eea;
+    }
+
+.danhgia-textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Signature */
+.signature-wrapper {
+}
+
+.signature-label {
+    display: block;
+    /* margin-bottom: 8px; */
+    color: #667eea;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.signature-pad-container {
+    border: 2px dashed #667eea;
+    border-radius: 10px;
+    background: #f8f9ff;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+    .signature-pad-container:hover {
+        border-color: #764ba2;
+        box-shadow: 0 8px 25px rgba(118, 75, 162, 0.2);
+    }
+
+.signature-pad {
+    width: 100%;
+    height: 100px;
+    border-radius: 8px;
+    background: white;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.signature-controls {
+    margin-left: auto;
+}
+
+.btn {
+    padding: 7px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-clear {
+    background: #ff6b6b;
+    color: white;
+}
+
+    .btn-clear:hover {
+        background: #ff5252;
+        transform: translateY(-2px);
+    }
+
+.btn-save {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+    .btn-save:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+.content-sign {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.container-danh-gia {
+    overflow: scroll;
+}
+
+/* Hiệu ứng khi hover ảnh */
+.preview-img {
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+}
+
+    .preview-img:hover {
+        transform: scale(1.15);
+        box-shadow: 0 10px 25px rgba(13,110,253,0.3) !important;
+        z-index: 10;
+        border-color: #0d6efd !important;
+    }
+
+/* Input ghi chú đẹp hơn */
+.form-control[readonly] {
+    background: white !important;
+    cursor: default;
+    font-weight: 600;
+}
+
+.custom-input {
+    color: darkblue;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    min-height: 44px;
+    font-size: 16px;
+    resize: none;
+    padding: 8px 12px;
+    width: 120px;
+}
+
+/*hilight mau*/
+/* Status Badge Styles */
+.status-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* PASS - Màu xanh lá */
+.status-pass {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    border: 2px solid #059669;
+}
+
+/* FAIL - Màu đỏ */
+.status-fail {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: #ffffff;
+    border: 2px solid #dc2626;
+}
+
+/* PENDING - Màu vàng */
+.status-pending {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #78350f;
+    border: 2px solid #f59e0b;
+}
+
+/* N/A - Không tô màu (màu xám nhạt) */
+.status-na {
+    background: white;
+    color: white;
+    border: 2px solid white;
+    display: contents !important;
+}
+
+/* Hover effects */
+.status-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+/*css header filter*/
+.dx-datagrid .dx-header-filter-empty {
+    color: whitesmoke !important;
+}
+
+.dx-datagrid-filter-row td {
+    background-color: white !important;
+    color: inherit !important;
+}
+/* Giảm chiều cao dòng filter */
+.dx-datagrid-filter-row td {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+}
+
+.dx-datagrid .dx-icon-filter-operation-default::before,
+.dx-datagrid-container .dx-icon-filter-operation-default::before {
+    font-family: "Font Awesome 6 Pro";
+    font-weight: 900;
+    content: "\f03a";
+    color: darkgrey !important;
+}
+
+#headerInfo {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 6 cột */
+    gap: 10px;
+    white-space: nowrap;
+}
+#headerInfo-vat-tu-kiem {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 6 cột */
+    gap: 10px;
+    white-space: nowrap;
+}
+.val-level-0 {
+    font-weight: bold;
+    font-size: 13px !important;
+}
+
+.val-level-1 {
+    font-weight: bold;
+    color: green !important;
+ 
+    font-size: 13px !important;
+}
+
+.val-level-2 {
+    font-weight: bold;
+    color: #fb9039 !important;
+    font-size: 13px !important;
+}
+
+/* Đảm bảo style áp dụng trong dropdown và ô selection */
+.select2-results__option span,
+.select2-selection__rendered span {
+    display: block;
+    width: 100%;
+}
+/* Thêm vào CSS để force hiện */
+.dx-datagrid-search-panel {
+    display: block !important;
+}

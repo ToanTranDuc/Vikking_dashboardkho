@@ -1,0 +1,518 @@
+﻿@{
+    ViewBag.Title = "WIP - Thư viện WIP";
+    Layout = "~/Views/Shared/_LayoutBCTH.cshtml";
+}
+<link href="~/css/DevExtreme/dx.light.css" rel="stylesheet" />
+<link href="~/css/DevExtreme/dx.common.css" rel="stylesheet" />
+<link href="~/css/WipDonHang/popUp.css" rel="stylesheet" />
+
+<!--<div class="page-shell">
+    <div class="card">-->
+        <!-- Chỉ cần TabPanel, grid sẽ được tạo bên trong -->
+        <!--<div id="tabPanel"></div>
+    </div>
+</div>-->
+<div class="page-shell">
+    <div class="page-header">
+        <div class="title-area">
+            <h1>Quản lý thư viện WIP</h1>
+        </div>
+        <div class="page-header-actions">
+            <div id="btnViewHistory"></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div id="tabPanel"></div>
+    </div>
+</div>
+<div id="historyPopup"></div>
+@section scripts{
+    <script src="~/css/DevExtreme/dx.all.js"></script>
+    <script src="~/css/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Scripts/Wip/nang-luc-chuyen.js"></script>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --primary: #0f172a;
+            --accent: #2563eb;
+            --line: #e2e8f0;
+            --row-height: 28px; /* Chiều cao chuẩn cho toàn hệ thống */
+            --header-height: 32px; /* Chiều cao header cho toàn hệ thống */
+        }
+
+        body {
+            background: var(--bg);
+            font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+            color: var(--text);
+        }
+        /* Page Layout */
+        .page-shell {
+            padding: 8px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--accent);
+            padding-left: 6px !important;
+            margin-bottom: 6px !important;
+            margin: 0px 0 4px !important;
+            padding-bottom: 0px !important;
+        }
+        .page-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .page-header h1 {
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--text-main);
+            }
+
+        /* TabPanel tinh gọn */
+        #tabPanel {
+/*            margin-top: 10px;*/
+        }
+            #tabPanel .dx-tab .dx-icon {
+                font-size: 13px !important; /* Icon tab nhỏ lại */
+            }
+            #tabPanel .dx-tabpanel-tabs {
+                background: #fff;
+                border: 1px solid var(--line);
+                padding: 0;
+            }
+
+            #tabPanel .dx-tab {
+                padding: 6px 16px;
+                font-weight: 600;
+                font-size: 12px;
+                border-radius: 0 !important;
+            }
+
+            #tabPanel .dx-tab-selected {
+                background: var(--accent) !important;
+                color: #fff !important;
+            }
+
+        .dx-datagrid {
+            font-size: 12px !important; /* Toàn bộ chữ trong grid 12px */
+        }
+        /* ĐỒNG BỘ GRID: Row, Header và Editor */
+        /* 1. Ép chiều cao hàng và tiêu đề */
+        .dx-datagrid-headers .dx-header-row > td {
+            height: var(--header-height) !important;
+            background: #f1f5f9 !important; /* Màu nền nhẹ cho header */
+            color: var(--primary) !important;
+            vertical-align: middle !important;
+        }
+
+        .dx-datagrid-rowsview .dx-row > td {
+            height: var(--row-height) !important;
+            padding: 0 8px !important;
+            vertical-align: middle !important;
+            font-size: 13px;
+        }
+
+        /* 2. Xử lý ô Input (Editor) khi Edit hoặc Focus */
+        /* Ép Editor lấp đầy ô và không làm nhảy chiều cao */
+        .dx-datagrid-rowsview .dx-editor-cell {
+            padding: 0 !important; /* Quan trọng: Loại bỏ padding cell khi có input */
+        }
+
+            .dx-datagrid-rowsview .dx-editor-cell .dx-texteditor,
+            .dx-datagrid-rowsview .dx-editor-cell .dx-dropdowneditor,
+            .dx-datagrid-rowsview .dx-editor-cell .dx-numberbox {
+                height: var(--row-height) !important;
+                border: none !important; /* Bỏ border editor để dùng border của cell */
+                background: #fff;
+            }
+
+        .dx-datagrid-rowsview .dx-texteditor-input {
+            min-height: var(--row-height) !important;
+            padding: 0 8px !important;
+        }
+
+        /* 3. Panel layout (Năng suất) */
+        .ns-wrap {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .ns-panel {
+            flex: none;
+            border: 1px solid var(--line);
+            background: #fff;
+            width:100% !important;
+        }
+
+        .ns-panel__header {
+            background: #f8fafc;
+            padding: 8px 12px;
+            font-weight: 700;
+            border-bottom: 1px solid var(--line);
+            font-size: 13px;
+        }
+
+        /* 4. Màu sắc riêng cho các Grid đặc thù */
+        .grid--tglv-blue .dx-datagrid-headers .dx-header-row > td {
+            background: #2563eb !important;
+            color: #fff !important;
+        }
+
+        .ns-panel--tglv .ns-panel__header {
+            border-left: 4px solid #0ea5e9;
+        }
+
+        .ns-panel--hsln .ns-panel__header {
+            border-left: 4px solid #a855f7;
+        }
+
+        /* Button trong toolbar gọn hơn */
+        .dx-toolbar .dx-button-content {
+            padding: 4px 8px !important;
+        }
+
+        #tglv_display_filter_btn.is-filter-active .dx-button-content::after {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            background: #1e88e5;
+            margin-left: 2px;
+            vertical-align: middle;
+        }
+
+        #tglv_display_filter_btn {
+            background: #296293;
+            border: 1px solid #296293;
+            color: #fff;
+        }
+
+            #tglv_display_filter_btn .dx-icon {
+                color: #fff;
+                font-size: 13px !important;
+            }
+
+            #tglv_display_filter_btn.dx-state-hover,
+            #tglv_display_filter_btn.dx-state-focused {
+                background: #1f557f;
+                border-color: #1f557f;
+            }
+
+        .tglv-date-filter-popover .dx-popover-arrow::after {
+            border-bottom-color: #f8fafc;
+        }
+
+        .tglv-date-filter-popover .dx-popup-content {
+            padding: 8px !important;
+        }
+
+        .tglv-date-filter-content {
+            padding: 6px 8px 8px;
+        }
+
+        .tglv-date-filter-title {
+            color: #1f4f8f;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .tglv-date-filter-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .tglv-date-filter-row > div:not(.tglv-date-filter-sep) {
+                flex: 1 1 0;
+                min-width: 0;
+            }
+
+            .tglv-date-filter-row .dx-texteditor {
+                width: 100%;
+            }
+
+            .tglv-date-filter-row .dx-texteditor-input {
+                min-height: 28px !important;
+                height: 30px !important;
+            }
+
+        .tglv-date-filter-sep {
+            color: #8a8a8a;
+            font-weight: 600;
+            flex: 0 0 auto;
+            line-height: 32px;
+            user-select: none;
+        }
+
+        .tglv-date-filter-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            margin-top: 12px;
+        }
+
+        .tglv-weekday-setting-popup .dx-popup-title {
+            background: #0284c7;
+            color: #fff;
+            border-bottom-color: #0369a1;
+        }
+
+            .tglv-weekday-setting-popup .dx-popup-title .dx-toolbar-label,
+            .tglv-weekday-setting-popup .dx-popup-title .dx-button .dx-icon {
+                color: #fff;
+            }
+
+        /* Hover hiệu ứng nhẹ */
+        .dx-datagrid-rowsview .dx-row-alt > td {
+            background-color: #f8fafc !important;
+        }
+
+        .dx-datagrid-rowsview .dx-data-row:hover > td {
+            background-color: #eff6ff !important;
+        }
+        .dx-datagrid-header-panel .dx-toolbar{
+            margin-bottom:2px !important;
+        }
+        .dx-datagrid .dx-datagrid-header-panel .dx-toolbar {
+            padding-right: 4px !important;
+        }
+        .grid--tglv-blue .dx-datagrid-headers .dx-header-filter,
+        .grid--tglv-blue .dx-datagrid-headers .dx-sort,
+        .grid--tglv-blue .dx-datagrid-headers .dx-sort-up,
+        .grid--tglv-blue .dx-datagrid-headers .dx-sort-down,
+        .grid--tglv-blue .dx-datagrid-headers .dx-column-indicators .dx-icon {
+            color: #ffffff !important;
+        }
+
+        /* Đảm bảo text trong Header cũng là màu trắng */
+        .grid--tglv-blue .dx-datagrid-headers .dx-datagrid-text-content {
+            color: #ffffff !important;
+        }
+
+        /* Fix icon ở TabPanel khi được chọn */
+        #tabPanel .dx-tab-selected .dx-icon {
+            color: #ffffff !important;
+        }
+        .grid--hsln-purple .dx-datagrid-headers .dx-header-row > td {
+            background: #a855f7 !important; /* Màu tím tương ứng với border panel */
+            color: #fff !important;
+        }
+
+        /* Ép icon màu trắng cho Grid màu tím */
+        .grid--hsln-purple .dx-datagrid-headers .dx-header-filter,
+        .grid--hsln-purple .dx-datagrid-headers .dx-sort,
+        .grid--hsln-purple .dx-datagrid-headers .dx-sort-up,
+        .grid--hsln-purple .dx-datagrid-headers .dx-sort-down,
+        .grid--hsln-purple .dx-datagrid-headers .dx-datagrid-text-content {
+            color: #ffffff !important;
+        }
+        .bulk-container {
+            width: 100%;
+            box-sizing: border-box;
+            background: #f1f5f9; /* Màu nền hơi khác để phân biệt với Grid */
+            padding: 8px 12px;
+            margin-bottom: 2px;
+            border: 1px solid var(--line);
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+        }
+
+        .bulk-item {
+            flex: 1; /* Các ô input giãn đều nhau */
+        }
+        .day-off {
+            flex: 0; /* Các ô input giãn đều nhau */
+        }
+        .day-off-container {
+            width: 100%;
+            box-sizing: border-box;
+            background: #f1f5f9; /* Màu nền hơi khác để phân biệt với Grid */
+            padding: 8px 12px;
+            margin-bottom: 2px;
+            border: 1px solid var(--line);
+            display: flex;
+            align-items: flex-end;
+            justify-content: end;
+            gap: 15px;
+        }
+        /* Căn chỉnh nút Khai báo nhanh */
+        #tglv_btn_apply {
+            margin-bottom: 0px;
+        }
+
+            .bulk-item label {
+                font-size: 10px;
+                font-weight: bold;
+                color: #64748b;
+                margin-bottom: 2px;
+                display: block;
+            }
+            .day-off label {
+                font-size: 10px;
+                font-weight: bold;
+                color: #64748b;
+                margin-bottom: 2px;
+                display: block;
+            }
+        .dx-texteditor-input {
+            min-height: 20px !important;
+            height: 26px !important;
+
+        }
+        .dx-button-has-text .dx-button-content {
+            padding-block: 4px !important;
+            padding-inline-end: 6px !important;
+        }
+        .dx-button-has-text .dx-icon{
+            font-size: 14px !important;
+        }
+
+        .ns-panel__header--with-lines {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding-right: 8px;
+        }
+
+        .ns-panel__title {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .tglv-line-topbar {
+            flex: 0 0 auto;
+            width: auto;
+            box-sizing: border-box;
+            background: transparent;
+            border: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        #tglv_line_tabs {
+/*            width: 700px;*/
+            max-width: 75vw;
+        }
+
+        #tglv_line_tabs .dx-tabs {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background: #f8fafc;
+            padding: 1px;
+        }
+
+        #tglv_line_tabs .dx-tab {
+            min-height: 24px;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+
+        #tglv_line_tabs .dx-tab.dx-tab-selected {
+            background: #dbeafe !important;
+            color: #1d4ed8 !important;
+        }
+
+        #grid_tglv_main{
+            min-height:300px !important;
+            max-height:670px !important;
+        }
+
+        /* History popup: rộng hơn, cao hơn, tone ERP nhẹ nhàng */
+        .wip-history-popup .dx-overlay-content {
+            border: 1px solid #dbe3ef;
+            border-radius: 10px;
+            box-shadow: 0 14px 32px rgba(15, 23, 42, 0.14);
+            overflow: hidden;
+        }
+
+        .wip-history-popup .dx-popup-title {
+            background: linear-gradient(90deg, #eff6ff 0%, #f8fafc 100%);
+            border-bottom: 1px solid #dbe3ef;
+            color: #1e3a8a;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .wip-history-popup .dx-popup-content {
+            background: #f8fbff;
+            padding: 5px !important;
+        }
+
+        #historyTabPanel {
+            height: 100%;
+        }
+
+        #historyTabPanel .dx-tabpanel-tabs {
+            background: #eef4ff;
+            border: 1px solid #dbe3ef;
+            border-radius: 8px 8px 0 0;
+        }
+
+        #historyTabPanel .dx-tab {
+            min-height: 30px;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        #historyTabPanel .dx-tab.dx-tab-selected {
+            background: #dbeafe !important;
+            color: #1d4ed8 !important;
+        }
+
+        .history-grid {
+            height: 100%;
+        }
+
+        .history-grid .dx-datagrid {
+            height: 100%;
+            border: 1px solid #dbe3ef;
+            border-top: none;
+            background: #ffffff;
+        }
+
+        .history-grid .dx-datagrid-headers .dx-header-row > td {
+            background: #f1f5fb !important;
+            color: #0f172a !important;
+            font-weight: 700;
+            border-color: #e2e8f0 !important;
+        }
+
+        .history-grid .dx-datagrid-group-opened,
+        .history-grid .dx-datagrid-group-closed {
+            color: #334155 !important;
+        }
+
+        .history-grid .dx-group-row > td {
+            background: #f8fbff !important;
+            color: #1e293b;
+            font-weight: 600;
+            border-top: 1px solid #e5edf8;
+            border-bottom: 1px solid #e5edf8;
+        }
+
+        .history-grid .dx-row-alt > td {
+            background: #fbfdff !important;
+        }
+
+        .history-grid .dx-data-row:hover > td {
+            background: #f0f7ff !important;
+        }
+    </style>
+}

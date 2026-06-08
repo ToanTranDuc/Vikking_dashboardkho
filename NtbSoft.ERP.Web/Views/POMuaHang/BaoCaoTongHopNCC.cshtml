@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "BaoCaoTongHopNCC";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/select2/css/select2.min.css">
+    <link href="~/Content/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+    <link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="~/Content/plugins/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/POMuaHang/BaoCaoTongHopNCC.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="header-section bg-info sticky-top">
+            <div class="container-fluid px-3 px-md-4">
+                <div class="header-content d-flex align-items-center justify-content-between py-2">
+
+                    <!-- BÊN TRÁI -->
+                    <div class="d-flex align-items-center gap-3">
+                        <a href="@Url.Action("DashBoard","Home")" class="text-white">
+                            <i class="fas fa-home fa-lg"></i>
+                        </a>
+                        <h5 class="header-title mb-0 text-white">
+                            Báo Cáo Tổng Hợp
+                        </h5>
+                    </div>
+
+                    <!-- BÊN PHẢI -->
+                    <!--<div class="doc-info-box text-white small">
+                        <div><strong>Ký hiệu:</strong> BM04/QT15/KH02</div>
+                        <div><strong>Lần sửa đổi:</strong> 01</div>
+                        <div><strong>Ngày ban hành:</strong> 16/07/2025</div>
+                    </div>-->
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="main-card animate-in">
+            <div class="row g-3">
+                <!-- Card 1 -->
+                <div class="col-12">
+                    <div class="card ui-card h-100">
+                        <div class="card-header ui-header">
+                            <button class="btn btn-sm btn-toggle ms-2" id="toggle-card">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <h6 class="mb-0">
+                                Thông Tin
+                            </h6>
+                            <div class="d-flex flex-wrap gap-2 ms-auto">
+
+                                <button class="btn btn-success btn-sm" id="btnExportExcel">
+
+                                    <i class="fa-solid fa-file-excel"></i> Excel
+                                </button>
+                                <button class="btn btn-light btn-sm" id="btnRefresh">
+
+                                    <i class="fas fa-sync-alt"></i> Nạp lại
+                                </button>
+
+                            </div>
+                        </div>
+                        <div class="card-body collapse-content">
+                            <div class="row g-3 align-items-end">
+
+                                <div class="col-md-3 filter-date">
+                                    <label class="form-label-custom"><i class="fas fa-calendar me-1"></i> Từ ngày</label>
+                                    <div id="fromDatePicker"></div>
+                                </div>
+                                <div class="col-md-3 filter-date">
+                                    <label class="form-label-custom"><i class="fas fa-calendar me-1"></i> Đến ngày</label>
+                                    <div id="toDatePicker"></div>
+                                </div>
+                                <div class="col-md-3 filter-date">
+                                    <button id="btnLoadReport" class="btn btn-primary mt-4">
+                                        <i class="fa fa-search"></i> Load Report
+                                    </button>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="pivotGrid"></div>
+
+    </div>
+
+
+    <script src="~/Scripts/jquery.min-3.6.1.js"></script>
+    <script src="~/Content/plugins/moment/moment.min.js"></script>
+    <script src="/Content/js/core/utils.js"></script>
+    <script src="/Content/js/core/common.js"></script>
+    <script src="~/Scripts/Toast/Toast.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Content/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Scripts/ViTriKho/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Content/dist/js/adminlte.min.js"></script>
+    <script src="~/Content/plugins/DevExtreme/dx.all.js"></script>
+    <script src="~/Content/plugins/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Content/plugins/PadSign/signature_pad.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="~/Scripts/POMuaHang/BaoCaoTongHop.js"></script>
+</body>
+
+</html>
+

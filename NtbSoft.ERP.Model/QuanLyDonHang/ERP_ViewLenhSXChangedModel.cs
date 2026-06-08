@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace NtbSoft.ERP.Model.QuanLyDonHang
+{
+    public class ERP_ViewLenhSXChangedModel
+    {
+        public async Task<DataTable> Get(string action, string para1, string para2, string para3, string para4, string para5)
+        {
+            using (SqlConnection _cnn = NtbSoft.ERP.Libs.SqlHelper.GetConnection())
+            {
+                try
+                {
+                    using (SqlCommand cmd = new SqlCommand("SP_ViewLenhSXChanged", _cnn))
+                    {
+                        cmd.CommandTimeout = 300000;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Action", action);
+                        cmd.Parameters.AddWithValue("@Para1", para1 == "NONE" ? DBNull.Value : (object)para1);
+                        cmd.Parameters.AddWithValue("@Para2", para2 == "NONE" ? DBNull.Value : (object)para2);
+                        cmd.Parameters.AddWithValue("@Para3", para3 == "NONE" ? DBNull.Value : (object)para3);
+                        cmd.Parameters.AddWithValue("@Para4", para4 == "NONE" ? DBNull.Value : (object)para4);
+                        cmd.Parameters.AddWithValue("@Para5", para5 == "NONE" ? DBNull.Value : (object)para5);
+
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            var tb = new DataTable();
+                            tb.Load(reader);
+                            return tb;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                finally
+                {
+                    if (_cnn != null) { _cnn.Close(); _cnn.Dispose(); }
+                }
+            }
+        }
+     
+
+      
+    }
+}

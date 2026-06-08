@@ -1,0 +1,319 @@
+﻿body{
+    padding:0px !important;
+}
+:root{
+    --font-size:0.8rem;
+}
+/*********** Table *********/
+.table td {
+    padding: 3px 2px !important;
+    text-align: center ;
+    word-wrap: break-word; /* IE 5.5-7 */   
+    white-space: pre-wrap;
+}
+
+
+th {
+    font-weight: bold !important;
+    text-align: center !important;
+/*    background-color: #006599 !important;*/
+    color: #595d6e !important;
+    vertical-align: middle !important;
+}
+/*.table thead th {
+    border-bottom: none !important;
+    padding: 8px 2px !important;
+    font-size: 13px !important;
+}*/
+.thheader {
+    min-width: 100px;
+    display: block;
+    white-space: pre-line;
+    overflow: hidden;
+    line-height: initial;
+}
+tr:nth-child(even) {
+/*    background-color: #ececec;*/
+}
+
+/*********** Card *********/
+.card-header {
+    padding: 0.2rem 1.25rem !important
+}
+
+.card-title {
+    font-weight: 700 !important;
+    line-height: inherit !important;
+    font-size: 1rem !important;
+}
+.card-tools{
+    line-height:1.2rem !important;
+}
+
+.content-header{
+    margin-top: 41px !important;
+    padding:15px 0.5rem 0px;
+}
+/*.bg-info{
+    background-color: #343a40 !important
+}*/
+/*********** InLine Capture Camera *********/
+.imageInLine {
+    width: 50%;
+}
+.response-table {
+    height: 473px;
+}
+.nhomloi{
+    height: 668px;
+}
+html::-webkit-scrollbar {
+    display: none;    
+}
+.hiddenScroll::-webkit-scrollbar {
+    display: none;
+}
+body {
+    font-family: Arial, sans-serif !important;
+}
+.dataTables_scrollBody::-webkit-scrollbar {
+    display: none !important;
+}
+#cd-err, #form-report {
+    height: auto;
+    /*overflow-y: scroll;*/
+}
+.group-button {
+    display: flex;
+    justify-content: start;
+    flex-direction: row
+}
+.content{
+    /*margin-top:52px !important;*/
+    padding:0px !important;
+}
+.lblDM {
+    white-space: pre-wrap;
+}
+
+/*.card {
+    margin-bottom: 3rem;
+}
+*/
+#gridlist_SanXuat thead tr th:before, #gridlist_SanXuat thead tr th:after {
+    top: 30%;
+}
+
+.card-warning.card-outline {
+    border-top: 3px solid lightgrey;
+}
+
+.highlight .sticky-col {
+    background: #17a2b8 !important;
+    color: white;
+}
+
+.page-item.active .page-link {
+    border-radius: 5px;
+}
+
+.page-item .page-link {
+    margin: 0 5px;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #fff;
+}
+.table-striped tbody tr.highlight:nth-of-type(even) {
+    background-color: #007bff !important;
+    color:white !important;
+}
+.table:not(.table-dark) {
+    color: #595d6e;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: #fff !important;
+    color: #595d6e !important;
+}
+
+.js-width-chitietloi tr th{
+    color: #fff !important;
+}
+
+.content-wrapper {
+    /*padding-bottom: 60px !important;*/
+}
+
+
+
+@media (max-width: 1025px) {
+}
+
+@media (max-width: 900px) {
+
+   
+}
+@media (min-width: 992px) {
+    .image > .modal-lg, .image > .modal-xl {
+        max-width: 750px !important;
+    }
+}
+
+@media (min-width: 576px) {
+    .image > .modal-dialog {
+        max-width: 463px;
+        margin: 1.75rem auto;
+    }
+}
+@media (max-width : 1500px) {
+    .imageInLine {
+        width: 50%;
+    }
+    .textTabpage{
+        font-size:1.1rem;
+    }
+    html{
+        overflow:auto;
+    }
+    .response-table {
+        height: 473px;
+    }
+    .nhomloi {
+        height: 668px;
+    }
+    .group-button {
+        display: flex;
+        justify-content: start;
+        flex-direction: row
+    }
+
+    .button-fix {
+        margin: 0px 5px !important;
+    }
+
+    #tblLoi_filter input {
+        width: 70%;
+    }
+}
+@media (max-width : 1025px) {
+    .imageInLine {
+        width: 75%;
+    }
+}
+@media (max-width : 950px) {
+    .imageInLine {
+        width:100%;
+    }
+    html, body {
+        overflow: auto;
+        position: unset;
+        top: unset;
+        left: unset;
+        bottom: unset;
+        right: unset
+    }
+    .response-table {
+        height: auto;
+        max-height:250px;
+    }
+    .nhomloi {
+        height: auto;
+        max-height: 400px;
+    }
+    .group-button {
+        justify-content: center;
+    }
+    .set-js-width-chitietloi {
+        position: unset !important;
+        right: unset !important;
+    }
+    .set-js-width{
+        bottom:39px !important;
+    }
+}
+
+@media (max-width : 600px){
+    .textTabpage {
+        font-size: 0.9rem;
+    }
+    html {
+        overflow: auto;
+    }
+    .response-table {
+        height: auto;
+        max-height: 250px;
+    }
+    .nhomloi {
+        height: auto;
+        max-height: 400px;
+    }
+}
+.textHeader {
+    text-align: center;    
+    background-color: white !important;
+    height: 1.7rem !important;
+    padding: 0px;
+    font-size: var(--font-size) !important;
+}
+
+.labelHeader {
+    color: white;
+    font-size: var(--font-size) !important;
+    margin-bottom: 0.1rem;
+    padding:0px !important;
+    font-weight: 800 !important;
+}
+@media (min-width: 1000px) {
+    .col-ct-3 {
+        max-width: 5% !important
+    }
+    .col-ct-4 {
+        max-width: 6% !important
+    }
+
+    .col-ct-5 {
+        max-width: 7% !important
+    }
+   
+    .col-ct-6 {
+        max-width: 7% !important
+    }
+
+    .col-ct-10 {
+        max-width: 8% !important
+    }
+    .col-ct-10A {
+        max-width: 11% !important
+    }
+    .col-ct-15 {
+        max-width: 10% !important
+    }
+    .col-ct-15A {
+        max-width: 12% !important
+    }
+    .col-ct-14B {
+        max-width: 14% !important
+    }
+    .col-ct-20 {
+        max-width: 19% !important
+    }
+    .col-ct-19 {
+        max-width: 23% !important
+    }
+    .col-ct-18 {
+        max-width: 18% !important
+    }
+
+    .col-ct-25 {
+        max-width: 25% !important
+    }
+
+    .col-ct-27 {
+        max-width: 27% !important
+    }
+    .col-ct-30 {
+        max-width: 29% !important
+    }
+}
+

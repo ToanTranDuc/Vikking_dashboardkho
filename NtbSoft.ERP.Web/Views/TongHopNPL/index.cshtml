@@ -1,0 +1,454 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng Quan Kho NPL</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/Content/plugins/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="~/Content/plugins/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/TongHopNPL/bootstrap5.3.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+    <link href="~/css/TongHopNPL/tempus-dominus.min.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/select2.css" rel="stylesheet" />
+
+    <link href="~/css/TongHopNPL/tonghopnpl.css" rel="stylesheet" />
+    <style>
+        .labelHeader{
+            margin:0
+        }
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-top: -9px;
+            padding: 0px 0px;
+            font-size: 13px;
+        }
+        .select2-results {
+            display: block;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div id="loader" style="position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(255,255,255,0.8);display:none;align-items:center;justify-content:center;z-index:9999;">
+        <div class="spinner"></div>
+        <div style="margin-top:15px;font-size:18px;color:#333;font-weight:bold; padding-left:15px">
+            Đang tải dữ liệu...
+        </div>
+    </div>
+    <div class=" w-100 px-2">
+        <div class="header">
+            <i id="home" class="fa-solid fa-house fs-3"></i>
+            <h5 class="m-0">Tổng Quan Kho NPL</h5>
+
+        </div>
+
+        <div class="tab-container">
+            <div class="  mb-2">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-6 mb-1">
+                        <button class="tab-btn active w-100" onclick="showTab('dashboard')">📊 Dashboard</button>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-6  mb-1">
+                        <button class="tab-btn w-100" onclick="showTab('products')">📦 NPL theo mã hàng</button>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-6  mb-1">
+                        <button class="tab-btn w-100" onclick="showTab('progress')">⏱️ Tiến độ thực hiện</button>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-6  mb-1">
+                        <button class="tab-btn w-100" onclick="showTab('inventory')">📈 Tồn kho</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-content active">
+
+                <div class="row filter-bar" style="margin-bottom:10px">
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="form-group mb-2" style="display: flex; flex-direction: column;">
+                            <label class="labelHeader" for="MaKHSelectFilter" style="text-align: left; font-weight: 600 !important;">Khách hàng</label>
+                            <select id="MaKHSelectFilter" class="form-control select_2" style=" width: 365px;" required>
+                                <option value="all">Tất cả</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3" style="margin-left:0px;">
+                        <div class="form-group mb-2" style="display: flex; flex-direction: column;">
+                            <label class="labelHeader" for="MHSelectFilter" style="text-align: left; font-weight: 600 !important;">Mã hàng</label>
+                            <select id="MHSelectFilter" class="form-control select_2" required>
+                                <option value="all">Tất cả</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!--<div class="col-md-3 col-sm-6 col-6">
+        <div class="info-box">
+            <span class="info-box-icon bg-info"><i class="fa-solid fa-list"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Tổng số roll NPL</span>
+                <span id="tongSL" class="info-box-number"></span>
+            </div>-->
+                    <!-- /.info-box-content -->
+                    <!--</div>-->
+                    <!-- /.info-box -->
+                    <!--</div>-->
+                    <div class="col-md-3 col-sm-6 col-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info"><i class="fa-solid fa-list"></i></span>
+                            <div class="info-box-content">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <span class="info-box-text">Tổng số roll NL</span>
+                                        <span id="tongSL" class="info-box-number"></span>
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="info-box-text">Tổng số NL(YARD)</span>
+                                        <span id="tongYD" class="info-box-number"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Nhóm NPL</span>
+                                <span id="tongNPL" class="info-box-number"></span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning"><i class="fa-regular fa-money-bill-1-wave"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Giá trị tồn kho</span>
+                                <span id="tonKho" class="info-box-number"></span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-6">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Tỷ lệ sử dụng</span>
+                                <span id="tyLe" class="info-box-number"></span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <div class="row">
+                    <div class="col-6 pe-2">
+                        <div id="categoryChart" style="height: 300px; border-radius: 10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"> </div>
+                    </div>
+                    <div class="col-6 ps-2">
+                        <div id="ageChart" style="height: 300px; border-radius: 10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; "></div>
+                    </div>
+                </div>
+
+                <div class="row mt-2 ">
+                    <div style="margin-bottom:10px; display:flex; gap:10px;">
+
+                        <div class="select">
+                            <select id="groupSelect" required>
+                                <option value="" disabled selected>-- Chọn nhóm --</option>
+
+                            </select>
+                            <svg><use xlink:href="#select-arrow-down"></use></svg>
+                        </div>
+
+                        @*<div class="select">
+                                <select id="orderSelect" required>
+                                    <option value="1" selected>Nhiều nhất</option>
+                                    <option value="0">Ít nhất</option>
+                                </select>
+                                <svg><use xlink:href="#select-arrow-down"></use></svg>
+                            </div>*@
+
+                    </div>
+                    <div class="row">
+                        <div class="col-6 pe-2">
+                            <div id="topItemsChartMax" style="height: 385px; border-radius: 10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"> </div>
+                        </div>
+                        <div class="col-6 ps-2">
+                            <div id="topItemsChartMin" style="height: 385px; border-radius: 10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"> </div>
+                        </div>
+                    </div>
+                </div>
+                <svg class="sprites">
+                    <symbol id="select-arrow-down" viewBox="0 0 10 6">
+                        <polyline points="1 1 5 5 9 1"></polyline>
+                    </symbol>
+                </svg>
+            </div>
+
+            <!-- Products Tab -->
+            <div id="products" class="tab-content">
+
+                <div class="chart-card">
+
+                    <div class="row filter-bar">
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <div class="form-group mb-2" style="display: flex; flex-direction: column;">
+                                <label class="labelHeader" for="MaKHSelect" style="text-align: left; font-weight: 600 !important;">Khách hàng</label>
+                                <select id="MaKHSelect" class="form-control select_2" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <div class="form-group mb-2" style="display: flex; flex-direction: column;">
+                                <label class="labelHeader" for="MaHangSelect" style="text-align: left; font-weight: 600 !important;">Mã hàng</label>
+                                <select id="MaHangSelect" class="form-control select_2" required>
+                                </select>
+                            </div>
+                        </div>
+                        @*<div class="col-12 col-md-4 col-lg-4">
+                            <div class="form-group mb-2" style="display: flex; flex-direction: column;">
+                                <label class="labelHeader" for="searchInput" style="text-align: left; font-weight: 600 !important;">Tìm kiếm</label>
+                                <div class="input-group">
+                                    <input id="searchInput" type="text" class="form-control search-input" placeholder="Tìm kiếm..." onkeyup="filterProducts(this.value)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                    </div>
+                </div>
+
+                <div class="data-table">
+                    <div id="productsGrid"></div>
+
+                </div>
+            </div>
+
+            <!-- Progress Tab -->
+            <div id="progress" class="tab-content">
+
+                <!-- Filter/Search bar -->
+                <div class="filter-bar">
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="form-group mb-2" style="display: flex; flex-direction: column;">
+                            <label class="labelHeader" for="MaKHSelect" style="text-align: left; font-weight: 600 !important;">Khách hàng</label>
+                            <select id="MaKHSelect2" class="form-control select_2" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="form-group mb-2" style="display: flex; flex-direction: column;">
+                            <label class="labelHeader" for="MaHangSelect" style="text-align: left; font-weight: 600 !important;">Mã hàng</label>
+                            <select id="MaHangSelect2" class="form-control select_2" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group mb-1" style="display: none; flex-direction: column;">
+                        <label class="labelHeader" for="exampleInputEmail1" style="text-align: left; font-weight: 600 !important;">Ngày GH</label>
+                        <div class="input-group datetimepicker" id="datetimepicker3" style="position:relative">
+                            <input style="font-size: 13px; font-weight: 600; height: 28px; border-radius: 5px;" type="text" class="form-control dateInput" id="dateInput3" />
+                            <i style="position: absolute; right: 20px; top: 2px; font-size: 16px; cursor: pointer;z-index:10" class="fa-solid fa-calendar-days"></i>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="top-grids" style="min-height: 300px; max-height: 300px;">
+                    <div class="grid-box" >
+                        <div class="grid-header">TT Đơn Hàng</div>
+                        <div id="gridTTDH"></div>
+                    </div>
+
+                    <div class="grid-box">
+                        <div class="grid-header">TT Thực Hiện Tổng Hợp</div>
+                        <div id="gridTTTH"></div>
+                    </div>
+                </div>
+               
+                <section>
+                    <div class="container-fluid px-1 py-2"  style="max-height: calc(100vh - 515px); padding-top:20px !important">
+
+                        <ul class="nav nav-tabs justify-content-start" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button aria-controls="tab1" aria-selected="true" class="nav-link item_tab active" data-bs-target="#tab1" data-bs-toggle="tab" id="tab1-tab" role="tab" type="button">
+                                    Đơn Hàng
+                                </button>
+                               
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button aria-controls="tab2" aria-selected="false" class="nav-link item_tab" data-bs-target="#tab2" data-bs-toggle="tab" id="tab2-tab" role="tab" type="button">
+                                    KH Sản Xuất
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button aria-controls="tab3" aria-selected="false" class="nav-link item_tab" data-bs-target="#tab3" data-bs-toggle="tab" id="tab3-tab" role="tab" type="button">
+                                    Cắt
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button aria-controls="tab4" aria-selected="false" class="nav-link item_tab" data-bs-target="#tab4" data-bs-toggle="tab" id="tab4-tab" role="tab" type="button">
+                                    May
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button aria-controls="tab5" aria-selected="false" class="nav-link item_tab" data-bs-target="#tab5" data-bs-toggle="tab" id="tab5-tab" role="tab" type="button">
+                                    Đóng thùng
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button aria-controls="tab6" aria-selected="false" class="nav-link item_tab" data-bs-target="#tab6" data-bs-toggle="tab" id="tab6-tab" role="tab" type="button">
+                                    Nhập kho
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content active border border-top-0  rounded-bottom shadow-sm" id="myTabContent" style="min-height: 300px;">
+                            <div aria-labelledby="tab1-tab" class="tab-pane fade show active" id="tab1" role="tabpanel">
+                                <div class="w-100" id="gCCT"></div>
+                            </div>
+                            <div aria-labelledby="tab2-tab" class="tab-pane fade" id="tab2" role="tabpanel">
+                                <div class="w-100" id="gCKHSX"></div>
+                            </div>
+                            <div aria-labelledby="tab3-tab" class="tab-pane fade" id="tab3" role="tabpanel">
+                                <div class="w-100" id="gCCat"></div>
+                            </div>
+                            <div aria-labelledby="tab4-tab" class="tab-pane fade" id="tab4" role="tabpanel">
+                                <div class="w-100" id="gCMay"></div>
+                            </div>
+                            <div aria-labelledby="tab5-tab" class="tab-pane fade" id="tab5" role="tabpanel">
+                                <div class="w-100" id="gCDongThung"></div>
+                            </div>
+                            <div aria-labelledby="tab6-tab" class="tab-pane fade" id="tab6" role="tabpanel">
+                                <div class="w-100" id="gCNhapKho"></div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+
+
+            <div id="inventory" class="tab-content">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6 col-sm-3 col-md-2 col-lg-1 col-xl-1">
+                                <div class="select2_item">
+                                    <label class="txtselected" style="margin:0">Lọc</label>
+                                    <select class="form-control" id="filterType" onchange="ChangeFilter()">
+                                        <option value="khachhang">Khách hàng</option>
+                                        <option value="thoigian">Thời gian</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-3 col-md-2 col-lg-2 col-xl-2 filterKH">
+                                <div class="select2_item d-flex flex-column">
+                                    <label class="txtselected" style="margin:0">Khách hàng</label>
+                                    <select id="khachhang" class="select_2">
+                                        <option value="all">Tất cả</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="col-6 col-sm-3 col-md-2 col-lg-2 col-xl-2 filterKH">
+                                <div class="select2_item d-flex flex-column">
+                                    <label class="txtselected" style="margin:0">Mã hàng</label>
+                                    <select id="mahang" class="select_2">
+                                        <option value="all">Tất cả</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="col-6 col-sm-3 col-md-2 col-lg-2 col-xl-2 filterDate" style="display:none">
+                                <div class="form-group mb-1" style="flex-direction: column;">
+                                    <label class="labelHeader " for="exampleInputEmail1" style="text-align: left; font-weight: 600 !important;">Từ ngày</label>
+                                    <div class="input-group datetimepicker " id="datetimepicker" style="position:relative">
+                                        <input style="font-size: 13px; font-weight: 600; height: 28px; border-radius: 5px;" type="text" class="form-control dateInput" id="dateInput" />
+                                        <i style="position: absolute; right: 5px; top: 2px; font-size: 16px; cursor: pointer;z-index:10" class="fa-solid fa-calendar-days"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-3 col-md-2 col-lg-2 col-xl-2 filterDate" style="display:none">
+                                <div class="form-group mb-1" style="flex-direction: column">
+                                    <label class="labelHeader" for="exampleInputEmail1" style="text-align: left; font-weight: 600 !important;">Đến ngày</label>
+                                    <div class="input-group datetimepicker" id="datetimepicker2" style="position:relative">
+                                        <input style="font-size: 13px; font-weight: 600; height: 28px; border-radius: 5px;" type="text" class="form-control dateInput" id="dateInput2" />
+                                        <i style="position: absolute; right: 5px; top: 2px; font-size: 16px; cursor: pointer;z-index:10" class="fa-solid fa-calendar-days"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-3 col-md-2 col-lg-2 col-xl-4">
+                                <div class="form-group mb-1" style="display: flex; flex-direction: column;">
+                                    <label class="labelHeader" for="exampleInputEmail1" style="text-align: left; font-weight: 600 !important;">Vật tư</label>
+                                    <select id="itemSelect" class="select_2">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6 col-sm-3 col-md-2 col-lg-2 col-xl-1">
+                                <div class="form-group mb-1" style="display: flex; flex-direction: column;">
+                                    <label class="labelHeader" for="exampleInputEmail1" style="text-align: left; font-weight: 600 !important;">PI NCC</label>
+                                    <select id="SoLoSelect" class="select_2">
+                                        <option value="all">Tất cả</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3 col-lg-2 col-xl-1">
+                                <div class="form-group mb-1" style="display: flex; flex-direction: column;">
+                                    <label class="labelHeader" for="exampleInputEmail1" style="text-align: left; font-weight: 600 !important;">Lọc</label>
+                                    <i id="btnLocTonKho" onclick="" style="font-size: 25px; color: #b53131; cursor: pointer; margin-top: -6px; " class="fa-solid fa-filters"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div style="min-height: 300px; max-height: 300px;">
+                    <div class="summary-table-container" id="summaryTonKho">
+                    </div>
+                </div>
+                <div class="detailTonKho" style="max-height: calc(100vh - 515px)">
+                    <div class="detail-table-container" id="detailTonKho">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery.min-3.6.1.js"></script>
+    <script src="~/Content/plugins/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Content/plugins/DevExtreme/dx.all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/3.8.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/select2.js"></script>
+    <script src="~/Scripts/TongHopNPL/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Scripts/TongHopNPL/popperjs.js"></script>
+    <script src="~/Scripts/TongHopNPL/tempus-dominus.min.js"></script>
+    <script src="~/Scripts/BienBanMoKien/Moment.js"></script>
+    <script src="~/Scripts/TongHopNPL/tonghopnpl.js"></script>
+</body>
+</html>

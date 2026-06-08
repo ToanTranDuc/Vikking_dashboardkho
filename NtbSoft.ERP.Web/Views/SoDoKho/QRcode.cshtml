@@ -1,0 +1,160 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Sơ Đồ Kho";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <link href="~/Css/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/Css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Css/roboto.css" rel="stylesheet" />
+    <link href="~/Css/QRcode.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="title">
+        <p>
+            Quét mã
+        </p>
+    </div>
+    <input id="textBool" value="1" hidden />
+    <div class="login-box">
+        <form>
+            <div class="user-box">
+                <a href="/SoDoKho/QRcode">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    QR code kho thành phẩm
+                </a>
+            </div>
+        </form>
+    </div>
+    <div class="item_img">
+        <a id="btn-scan-qr" style="width:100%">
+            <img style="border-radius: 30px;" src="~/Content/images/qrcode.jpg" />
+        </a>
+    </div>
+
+    <div style="display: none;">
+        <b>Preferred camera:</b>
+        <select id="cam-list" style="display:block;">
+            <option value="environment" selected>Environment Facing (default)</option>
+            <option value="user">User Facing</option>
+        </select>
+    </div>
+    <div id="animbox" class='anim-box center spacer' hidden="hidden">
+        <div></div>
+        <div class='scanner'></div>
+        <div id="containVideo">
+            <canvas id="canvas"></canvas>
+            @*<div>*@
+            <video id="video" hidden></video>
+            @*</div>*@
+            @*<div class="hieuungscanner">
+                    ╙
+                </div>*@
+        </div>
+
+    </div>
+    @*<button style="position: absolute; z-index: 20; left: 50%; top: 218px; height: 19px" id="switchCamera">Chuyển đổi Camera</button>*@
+    <span id="cam-qr-result" hidden>None</span>
+    <div id="qr-result" hidden>
+        <b></b> <span id="outputData"></span>
+    </div>
+    @*<button id="switchCameraBtn">Chuyển đổi Camera</button>*@
+    <div class="qr-scanner">
+        <div class="box">
+            <div class="line"></div>
+            <div class="angle"></div>
+        </div>
+    </div>
+
+    @*<div id="chua_quetLienTuc_div">
+            <div id="latCamera">
+                <button id="btnLatCamera_Button" class="button-33" role="button" style=" margin-left: 10px;">
+                    <img id="btnLatCamera_Img" src="~/Content/svg/repeat.svg" />
+                </button>
+                <label style=" margin-left: 20px; font-size: 18px; color: black;">Đổi Camera</label>
+            </div>
+            <div id="quetLienTuc">
+                <div class="checkbox-wrapper-7">
+                    <input class="tgl tgl-ios" id="scan_consecutive" type="checkbox" />
+                    <label class="tgl-btn" for="scan_consecutive" />
+                </div>
+                <label id="quetLienTuc_label" style="font-size: 18px; color: black;">&nbsp; Quét liên tục</label>
+            </div>
+        </div>*@
+
+    <div class="popup">
+        <div class="list-popup">
+            <div class="item_title">
+                <div class="tieude">
+                    @*Chi tiết Ô 1 Tầng 2 Kệ 3*@
+                </div>
+                <div class="search">
+                    <input class="list_input search_maphieu" type="text" value="" placeholder="Mã phiếu nhập" />
+                    <input class="list_input search_ctvt" type="text" value="" placeholder="Mã CTVT" />
+                    <input class="list_input search_ngay" type="text" value="" placeholder="Ngày nhập kho" />
+                </div>
+
+            </div>
+
+            <div class="item">
+                <div class="body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td> Mã phiếu nhập </td>
+                                <td> Mã CTVT </td>
+                                <td> Số lượng </td>
+                                <td> Trọng lượng </td>
+                                <td> Khối lượng  </td>
+                                <td> CBM </td>
+                                <td style="min-width: 77px;"> Ngày nhập kho </td>
+                                <td> Đã xuất </td>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody1">
+                        </tbody>
+                    </table>
+
+                </div>
+                @*<div id="container"></div>*@
+            </div>
+            <div class="text_list">
+                @*<p>Tên vị trí  Ô 1 </p>
+                    <p>Sức chứa 7.5 </p>
+                    <p>Đã chứa 12 </p>
+                    <p>Còn lại -4.5 </p>*@
+            </div>
+            <div class="save_cancel">
+                <div class="cancel_list">
+                    <button>Đóng</button>
+                </div>
+                @*<div class="save_list">
+                        <button>Lưu</button>
+                    </div>*@
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="~/Scripts/sodokho/jquery.js"></script>
+    <script src="~/Scripts/sodokho/qr-scanner.umd.min.js"></script>
+    <script src="~/Scripts/sodokho/qr-scanner.legacy.min.js"></script>
+    <script src="~/Scripts/sodokho/qr-scanner-worker.min.js"></script>
+    <script src="~/Scripts/sodokho/qr-scanner.min.js"></script>
+    <script src="~/Scripts/sodokho/scanner_qrcode.js"></script>
+
+</body>
+</html>

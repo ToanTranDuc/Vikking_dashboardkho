@@ -1,0 +1,297 @@
+﻿body {
+}
+
+.sec-action .item {
+    margin-right: 10px;
+    border: none;
+}
+
+.select2-selection__choice {
+    background: linear-gradient(90deg, #42a5f5, #478ed1) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 15px !important;
+    /*padding: 3px 10px !important;*/
+    font-size: 14px !important;
+    /* margin-top: 6px !important;
+            margin-right: 5px !important;*/
+}
+
+.select2-selection__choice__remove {
+    color: #fff !important;
+    /*    margin-right: 6px;*/
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.select2-container--default .select2-selection--multiple {
+    min-height: 40px;
+    border-radius: 5px;
+    border: 1px solid #42a5f5;
+}
+
+/* Highlight row effect */
+tr.highlight {
+    background-color: #fff3cd !important;
+    animation: highlightFade 2s ease-in-out;
+    transition: background-color 0.3s ease;
+}
+
+    tr.highlight td {
+        font-weight: 600;
+        color: #000 !important;
+    }
+
+/* Thêm hiệu ứng hover cho các row */
+tbody tr:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+/* Đảm bảo highlight luôn nổi bật hơn hover */
+tbody tr.highlight:hover {
+    background-color: #fff3cd !important;
+}
+
+.task-item {
+    max-height: calc(100vh - 255px) !important;
+}
+
+.dx-header-row .col-header {
+    background: #5da566;
+    color: #fff;
+    text-align: center !important;
+    vertical-align: middle !important;
+    white-space: nowrap
+}
+
+.dx-data-row .col-header {
+    text-align: center !important;
+    font-size: 13px !important;
+    vertical-align: middle !important
+}
+
+.dx-data-row .checkboxTD {
+    display: flex;
+    justify-content: center
+}
+
+.dx-footer-row .col-header .dx-datagrid-text-content {
+    text-align: center !important;
+    color: red !important
+}
+
+.dx-datagrid-summary-item {
+    text-align: center !important;
+    color: red !important
+}
+
+#headerEditSLKK th {
+    border: 1px solid #dee2e6;
+    background: #5DA566 !important;
+    font-weight: unset;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.dx-column-lines td {
+    border: 1px solid #ccc;
+    border-bottom-width: 1px !important;
+}
+
+.tr-error td {
+    background-color: #ffe5e5 !important;
+}
+
+@keyframes pulse {
+    0% {
+        background-color: #fff3cd;
+    }
+
+    50% {
+        background-color: #ffeaa7;
+    }
+
+    100% {
+        background-color: #fff3cd;
+    }
+}
+
+.dx-row.dx-freespace-row.dx-column-lines {
+    display: none !important
+}
+
+::-webkit-scrollbar {
+    height: 2px;
+    width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+
+#modalConfirmSLKK .modal-header {
+    border-radius: 6px;
+    background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+    color: white;
+}
+
+#modalConfirmSLKK .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+#modalConfirmSLKK .info-group {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+#modalConfirmSLKK .info-row {
+    font-size: 14px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+    #modalConfirmSLKK .info-row:last-child {
+        border-bottom: none;
+    }
+
+    #modalConfirmSLKK .info-row.highlight {
+        display: flex;
+        align-items: center;
+        background: #fff3cd;
+        margin: 10px -15px -15px;
+        padding: 12px 15px;
+        border-radius: 0 0 8px 8px;
+    }
+
+    #modalConfirmSLKK .info-row.highlight-green {
+        display: flex;
+        align-items: center;
+        background: #d3ffdd;
+        margin: 10px -15px -15px;
+        padding: 12px 15px;
+        border-radius: 0 0 8px 8px;
+    }
+
+#modalConfirmSLKK .label {
+    margin: 0;
+    font-weight: 500;
+    color: #495057;
+}
+
+#modalConfirmSLKK .value {
+    font-weight: 600;
+    color: #212529;
+}
+
+#modalConfirmSLKK .info-row.highlight .value {
+    color: #e74c3c;
+    font-size: 1.1rem;
+}
+
+#modalConfirmSLKK .info-row.highlight-green .value {
+    font-size: 1.1rem;
+}
+
+#modalConfirmSLKK .modal-body {
+    max-height: 450px;
+}
+
+#modalConfirmSLKK .modal-content {
+    margin: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 92%;
+    color: var(--bs-modal-color);
+    pointer-events: auto;
+    background-color: var(--bs-modal-bg);
+    background-clip: padding-box;
+    border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
+    border-radius: var(--bs-modal-border-radius);
+    outline: 0;
+}
+
+#modalInputSLKK td {
+    vertical-align: middle;
+}
+
+#modalInputSLKK .modal-content {
+    min-width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+#modalInputSLKK .form-control {
+    font-weight: normal;
+    font-size: 12px;
+}
+
+#tbodyChiTietKiemKe td {
+    padding: 8px;
+    border: 1px solid #dee2e6;
+    min-width: 50px
+}
+
+.td-slkk-edit {
+    width: 90px; /* chỉnh theo ý */
+}
+
+    .td-slkk-edit input {
+        max-width: 80px;
+        margin: 0 auto; /* căn giữa */
+    }
+
+#btnClearFilter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+    #btnClearFilter:hover {
+        background-color: #dc3545;
+        color: white;
+        border-color: #dc3545;
+    }
+
+.select2_item .txtselected {
+    font-size: 13px !important;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    margin-top: -3px !important;
+    font-size: 14px;
+}
+
+.select2-container .select2-selection--single {
+    height: 36px !important;
+}
+
+@media(min-width : 770px) {
+    #modalInputSLKK .modal-dialog {
+        min-width: 60%;
+    }
+}
+
+#modalTimNhanh .modal-dialog {
+    margin: auto;
+    max-width: 70%;
+}

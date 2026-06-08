@@ -1,0 +1,1074 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <title>Khai báo kho NPL</title>
+
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/css/QRCode/toastr.minM.css" rel="stylesheet" />
+    <link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+
+
+    <style>
+
+        body {
+            /*   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: none;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-gradient-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+            .btn-gradient-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+                color: white;
+            }
+
+        .btn-gradient-success {
+            background: linear-gradient(45deg, #43cea2, #185a9d);
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+            .btn-gradient-success:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(67, 206, 162, 0.4);
+                color: white;
+            }
+
+        .btn-gradient-copy {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+            .btn-gradient-copy:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+                color: white;
+            }
+
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.15);
+        }
+
+        .section-title {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .dimension-label {
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+
+        .inherited-value {
+            background: #e8f5e8;
+            border-color: #28a745;
+            color: #155724;
+            font-weight: 600;
+        }
+
+        .disabled-section {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .table th {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f8f9ff;
+            transition: all 0.2s ease;
+        }
+
+        .badge-day {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .badge-ke {
+            background: linear-gradient(45deg, #43cea2, #185a9d);
+        }
+
+        .badge-tang {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+        }
+
+        .badge-o {
+            background: linear-gradient(45deg, #ffc107, #ff8800);
+        }
+
+        .btn-sm {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .stats-card {
+            background: linear-gradient(135deg, #fff, #f8f9fa);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            transition: all 0.3s ease;
+        }
+
+            .stats-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+
+        .tab-content {
+            background: white;
+            border-radius: 0 0 10px 10px;
+            border: 1px solid #dee2e6;
+            border-top: none;
+        }
+
+        .nav-tabs .nav-link {
+            border: 1px solid #dee2e6;
+            border-bottom: none;
+            color: #667eea;
+            font-weight: 500;
+        }
+
+            .nav-tabs .nav-link.active {
+                background: linear-gradient(45deg, #667eea, #764ba2);
+                color: white;
+                border-color: #667eea;
+            }
+
+        tr:nth-child(even) {
+            background-color: #ececec;
+        }
+
+        .dx-header-row .col-header {
+            background: #5da566;
+            color: #fff;
+            text-align: center !important;
+            vertical-align: middle !important
+        }
+
+        .dx-data-row .col-header {
+            text-align: center !important;
+            font-size: 13px !important;
+            vertical-align: middle !important
+        }
+
+        .dx-data-row .checkboxTD {
+            display: flex;
+            justify-content: center
+        }
+
+        .dx-footer-row .col-header .dx-datagrid-text-content {
+            text-align: center !important;
+            color: red !important
+        }
+
+        .dx-datagrid-summary-item {
+            text-align: center !important;
+            color: red !important
+        }
+
+        .dx-datagrid-filter-row {
+            background: #fff !important;
+        }
+
+        .title {
+            margin: 0 10px;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .item_copy, .item_delete {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .select2-dropdown {
+            background-color: white;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            left: -100000px;
+            width: 100%;
+            z-index: 9999;
+        }
+
+        .select2-container--default .select2-selection--single {
+            background-color: #fff;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+        }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow {
+                height: 26px;
+                position: absolute;
+                top: 7px;
+                right: 1px;
+                width: 20px;
+            }
+
+        .titleHeader {
+            width: 100%;
+            font-size: 20px;
+            font-family: roboto;
+            font-weight: bold;
+            background: #9bcbfd;
+            padding: 5px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-xl {
+            max-width: 1200px;
+        }
+
+        .modal-xl {
+            max-width: 1200px;
+        }
+
+        .tang-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px;
+            background: #fff;
+            transition: all 0.2s;
+        }
+
+            .tang-card:hover {
+                border-color: #667eea;
+                box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+            }
+
+        .tang-card-header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .tang-card label {
+            font-size: 0.75rem;
+            color: #6c757d;
+            margin-bottom: 2px;
+            display: block;
+            font-weight: 500;
+        }
+
+        .tang-card input {
+            font-size: 0.8rem;
+            padding: 4px 6px;
+            height: 28px;
+        }
+
+        .tang-card .existing-info {
+            font-size: 0.7rem;
+            color: #28a745;
+            margin-top: -4px;
+        }
+
+        .table-primary th {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            font-size: 0.8rem;
+            padding: 8px 4px;
+        }
+
+        #previewOTableBody td {
+            padding: 6px 4px;
+            vertical-align: middle;
+        }
+
+        .sticky-top {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .o-cell {
+            border: 2px solid #e0e0e0;
+            transition: all 0.2s;
+            background: #f8f9ff;
+        }
+
+            .o-cell:hover {
+                background: #e8f0fe;
+                border-color: #667eea;
+            }
+
+        #previewOTable {
+            margin-bottom: 0;
+        }
+
+            #previewOTable td {
+                white-space: nowrap;
+            }
+
+        ::-webkit-scrollbar {
+            width: 2px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+
+        .vitrikho-cell {
+            border: 2px solid #e0e0e0;
+            background: #f8f9ff;
+        }
+
+            .vitrikho-cell:hover {
+                background: #e8f0fe !important;
+                border-color: #667eea !important;
+                transform: scale(1.02);
+            }
+
+            .vitrikho-cell.selected-cell {
+                background: #d4e3fc !important;
+                border-color: #667eea !important;
+                box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+            }
+
+        .btn-warehouse {
+            padding: 4px 8px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 2px solid #dee2e6;
+            background-color: white;
+            color: #495057;
+            transition: all 0.3s ease;
+        }
+
+            .btn-warehouse:hover {
+                background-color: #e9ecef;
+                border-color: #adb5bd;
+            }
+
+            .btn-warehouse.active {
+                background-color: #0d6efd;
+                color: white;
+                border-color: #0d6efd;
+                box-shadow: 0 4px 8px rgba(13, 110, 253, 0.3);
+            }
+
+            .btn-warehouse i {
+                margin-right: 8px;
+            }
+
+    </style>
+    <link href="~/css/ViTriKhoNPL/vitrikhonpl.css" rel="stylesheet" />
+</head>
+
+<body>
+    <section>
+        <div class="titleHeader">
+            <div style="display: flex; align-items: center; width: 100%; flex-wrap: wrap; ">
+                <div style="display: flex; justify-content: center; align-items: center; gap: 6px;">
+                    <i id="home" class="fa-sharp fa-solid fa-house"></i>
+                    <span style="margin-top: 2px;">Khai báo vị trí kho</span>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <div class="d-flex justify-content-start gap-3 flex-wrap" style="margin: 5px 5px; padding-bottom: 5px; border-bottom: 1px solid #ccc;">
+        <button class="btn btn-warehouse active" onclick="setActive(this)" data-warehouse="nguyen-lieu">
+            <i class="fa-solid fa-box"></i>
+            Kho nguyên liệu
+        </button>
+        <button class="btn btn-warehouse" onclick="setActive(this)" data-warehouse="phu-lieu">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            Kho phụ liệu
+        </button>
+        <button class="btn btn-warehouse" onclick="setActive(this)" data-warehouse="thanh-pham">
+            <i class="fa-solid fa-warehouse"></i>
+            Kho thành phẩm
+        </button>
+    </div>
+    <div class="title">
+        Khai báo
+    </div>
+    <div class="container-fluid ">
+        <div class="main-container ">
+            <div class="row mb-4">
+                <!-- Khởi tạo Dãy -->
+                <div class="col-md-6 col-lg-3 mb-3">
+                    <div class="card section-card h-100">
+                        <div class="card-header py-2">
+                            <h6 class="section-title mb-0">
+                                <i class="fas fa-th-large me-2"></i>Dãy
+                            </h6>
+                        </div>
+                        <div class="card-body py-3">
+                            <div class="d-flex mb-2 gap-2">
+                                <input readonly type="text" class="form-control form-control-sm w-50 inherited-value" id="dayNameID" value="Dãy" placeholder="Tên dãy">
+                                <input type="text" class="form-control form-control-sm w-50" id="dayName" value="" placeholder="Tên dãy">
+                            </div>
+                            <div class="mt-3 mb-2">
+                                <div class="d-flex gap-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="warehouseType" id="warehouseA" value="1" checked>
+                                        <label class="form-check-label" for="warehouseA">
+                                            Kho A (Hàng đạt)
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="warehouseType" id="warehouseB" value="2">
+                                        <label class="form-check-label" for="warehouseB">
+                                            Kho B (Hàng lỗi)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-gradient-primary btn-sm" id="createDay">
+                                    <i class="fas fa-plus me-1"></i>Tạo
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khởi tạo Kệ -->
+                <div class="col-md-6 col-lg-3 mb-3">
+                    <div class="card section-card h-100" id="keSection">
+                        <div class="card-header py-2">
+                            <h6 class="section-title mb-0">
+                                <i class="fas fa-layer-group me-2"></i>Kệ
+                            </h6>
+                        </div>
+                        <div class="card-body py-3">
+                            <div class="mb-2">
+                                <select class="form-select form-select-sm" id="selectedDay">
+                                    <option value="">Chọn dãy</option>
+                                </select>
+                            </div>
+                            <div class="d-flex mb-2 gap-2">
+                                <input disabled type="text" class="form-control form-control-sm inherited-value" id="keNameID" value="Kệ" placeholder="">
+                                <input type="text" class="form-control form-control-sm" id="keName" value="" placeholder="Mã kệ">
+                            </div>
+                            <div class="row g-1 mb-2">
+                                <div class="col-12">
+                                    <input type="text" step="0.01" class="form-control form-control-sm text-center" id="keText" placeholder="Tên kệ" value="">
+                                    <small class="dimension-label"></small>
+                                </div>
+
+                            </div>
+                            <div class="row g-1 mb-2 d-none">
+                                <div class="col-4">
+                                    <input type="text" step="0.01" class="form-control form-control-sm text-center" id="keText" placeholder="Tên kệ" value="">
+                                    <small class="dimension-label"></small>
+                                </div>
+                                <div class="col-4">
+                                    <input type="number" step="0.01" class="form-control form-control-sm text-center" id="keDai" placeholder="Dài" value="0">
+                                    <small class="dimension-label">Dài (m)</small>
+                                </div>
+                                <div class="col-4  d-none">
+                                    <input type="number" step="0.01" class="form-control form-control-sm text-center" id="keRong" placeholder="Rộng" value="0">
+                                    <small class="dimension-label">Rộng (m)</small>
+                                </div>
+                                <div class="col-4  d-none">
+                                    <input type="number" step="0.01" class="form-control form-control-sm text-center" id="keCao" placeholder="Cao" value="0">
+                                    <small class="dimension-label">Cao (m)</small>
+                                </div>
+                            </div>
+                            <button class="btn btn-gradient-success btn-sm w-100" id="createKe">
+                                <i class="fas fa-plus me-1"></i>Tạo Kệ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khởi tạo Tầng -->
+                <div class="col-md-6 col-lg-3 mb-3">
+                    <div class="card section-card h-100" id="tangSection">
+                        <div class="card-header py-2">
+                            <h6 class="section-title mb-0">
+                                <i class="fas fa-bars me-2"></i>Tầng
+                            </h6>
+                        </div>
+                        <div class="card-body py-3">
+                            <div class="mb-2">
+                                <select class="form-select form-select-sm" id="selectedKe">
+                                    <option value="">Chọn kệ</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <div class="mb-2 col-lg-6">
+                                    <label class="form-label mb-1" style="font-size: 0.875rem; color: #6c757d;">Số lượng tầng</label>
+                                    <input type="number" class="form-control form-control-sm" id="tangSoLuong" value="" placeholder="" min="1">
+                                </div>
+                                <div class="mb-2  col-lg-6">
+                                    <label class="form-label mb-1" style="font-size: 0.875rem; color: #6c757d;">Tên tầng (tùy chọn)</label>
+                                    <input type="text" class="form-control form-control-sm" id="tangText" placeholder="" value="">
+
+                                </div>
+                            </div>
+                            <button class="btn btn-gradient-success btn-sm w-100" id="createTang">
+                                <i class="fas fa-plus me-1"></i>Tạo Tầng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Khởi tạo Ô -->
+                <div class="col-md-6 col-lg-3 mb-3">
+                    <div class="card section-card h-100" id="oSection">
+                        <div class="card-header py-2">
+                            <h6 class="section-title mb-0">
+                                <i class="fas fa-square me-2"></i>Ô
+                            </h6>
+                        </div>
+                        <div class="card-body py-3">
+
+                            <button class="btn btn-gradient-success btn-sm w-100" id="openCreateOModal">
+                                <i class="fas fa-plus me-1"></i>Tạo Ô Cho Các Tầng
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 mb-3 d-none">
+                    <div class="card section-card h-100" id="oSection">
+                        <div class="card-header py-2">
+                            <h6 class="section-title mb-0">
+                                <i class="fas fa-square me-2"></i>Ô
+                            </h6>
+                        </div>
+                        <div class="card-body py-3">
+                            <div class="mb-2">
+                                <select class="form-select form-select-sm" id="selectedTang">
+                                    <option value="">Chọn tầng</option>
+                                </select>
+                            </div>
+                            <div class="d-flex mb-2 gap-2">
+                                <input type="text" readonly class="form-control form-control-sm  inherited-value" id="oNameID" value="" placeholder="">
+                                <input type="number" class="form-control form-control-sm " id="oName" value="" placeholder="Mã ô">
+                            </div>
+                            <div class="row g-1 mb-2">
+                                <div class="col-12">
+                                    <input type="text" step="0.01" class="form-control form-control-sm text-center" id="oText" placeholder="Tên ô" value="">
+                                    <small class="dimension-label"></small>
+                                </div>
+
+                            </div>
+                            <div class="row g-1 mb-2">
+                                <div class="col-4">
+                                    <input type="number" step="0.01" class="form-control form-control-sm text-center" id="oDai" placeholder="Dài">
+                                    <small class="dimension-label">Dài (m)</small>
+                                </div>
+                                <div class="col-4">
+                                    <input type="number" step="0.01" class="form-control form-control-sm text-center " id="oRong" placeholder="Rộng">
+                                    <small class="dimension-label">Rộng</small>
+                                </div>
+                                <div class="col-4">
+                                    <input type="number" step="0.01" class="form-control form-control-sm text-center " id="oCao" placeholder="Cao">
+                                    <small class="dimension-label">Cao</small>
+                                </div>
+                            </div>
+                            <button class="btn btn-gradient-success btn-sm w-100" id="createO">
+                                <i class="fas fa-plus me-1"></i>Tạo Ô
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="title">
+        Tổng quan
+    </div>
+    <div class="container-fluid ">
+        <div class="main-container ">
+            <div class="row mb-4">
+                <!-- Khởi tạo Dãy -->
+                <div class="col-12 col-md-6 col-lg-6 mb-3">
+                    <div class="card section-card">
+                        <div class="card-header py-2">
+                            <h6 class="section-title mb-0">
+                                <i class="fas fa-th-large me-2"></i>Dãy
+                            </h6>
+                        </div>
+                        <div class="card-body py-1 px-1">
+                            <div class="task-item" id="tbodyDay"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khởi tạo Kệ -->
+                <div class="col-12 col-md-6 col-lg-6 mb-3">
+                    <div class="card section-card">
+                        <div class="card-header py-2">
+                            <h6 class="section-title mb-0">
+                                <i class="fas fa-layer-group me-2"></i>Kệ
+                            </h6>
+                        </div>
+                        <div class="card-body py-1 px-1">
+                            <div class="task-item" id="tbodyKe"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khởi tạo Tầng -->
+                <div class="col-12 col-md-12 col-lg-12 mb-3">
+                    <div class="card section-card">
+                        <div class="card-header py-2">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="section-title mb-0">
+                                    <i class="fas fa-bars me-2"></i>Tầng && Ô
+                                </h6>
+                                <div>
+                                    <button type="button"
+                                            class="btn btn-danger btn-sm"
+                                            id="btnDeleteAllTangO"
+                                            style="font-size: 0.8rem;">
+                                        <i class="fas fa-trash-alt me-1"></i>Xóa Tất Cả Tầng & Ô
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body py-1 px-1">
+                            <div class="task-item" id="tbodyTang"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Khởi tạo Ô -->
+                <div class="col-12 col-md-6 col-lg-6 mb-3 d-none">
+                    <div class="card section-card">
+                        <div class="card-header py-2">
+                            <h6 class="section-title mb-0">
+                                <i class="fas fa-square me-2"></i>Ô
+                            </h6>
+                        </div>
+                        <div class="card-body py-1 px-1">
+                            <div class="task-item" id="tbodyO"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="successToast" class="toast" role="alert">
+            <div class="toast-header bg-success text-white">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto">Thành công</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="successMessage"></div>
+        </div>
+        <div id="errorToast" class="toast" role="alert">
+            <div class="toast-header bg-danger text-white">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong class="me-auto">Lỗi</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="errorMessage"></div>
+        </div>
+        <div id="warningToast" class="toast" role="alert">
+            <div class="toast-header bg-warning text-dark">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong class="me-auto">Cảnh báo</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="warningMessage"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="copyModal" tabindex="-1" aria-labelledby="copyModalLabel" aria-hidden="true" data-bs-backdrop="static"
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="copyModalLabel">
+                        <i class="fas fa-copy me-2"></i>Copy Dữ Liệu
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-4">
+                        <h6 class="fw-bold mb-3">
+                            <i class="fas fa-edit text-primary me-2"></i>Copy
+                        </h6>
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col-4 daycopy">
+                                    <label for="copyInput" class="form-label">Dãy copy </label>
+                                    <div class="input-group">
+                                        <input readonly type="text" class="form-control" id="copyInput" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-4 kecopy">
+                                    <label for="copyInput" class="form-label">Kệ copy </label>
+                                    <div class="input-group">
+                                        <input readonly type="text" class="form-control" id="copyInputKe" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="col-4 tangcopy">
+                                    <label for="copyInput" class="form-label">Tầng copy </label>
+                                    <div class="input-group">
+                                        <input readonly type="text" class="form-control" id="copyInputTang" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div>
+                        <h6 class="fw-bold mb-3">
+                            <i class="fas fa-paste text-success me-2"></i>Past - Danh sách để copy
+                        </h6>
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col-4 daycopy">
+                                    <label for="selectToCopy" class="form-label">Chọn dãy cần copy</label>
+                                    <select onchange="renderSelect2Ke()" class="form-select" id="selectToCopy" style="width: 100%;">
+                                    </select>
+                                </div>
+                                <div class="col-4 kecopy">
+                                    <label for="selectToCopyKe" class="form-label">Chọn kệ cần copy</label>
+                                    <select onchange="renderSelect2Tang()" class="form-select" id="selectToCopyKe" style="width: 100%;">
+                                    </select>
+                                </div>
+                                <div class="col-4 tangcopy">
+                                    <label for="selectToCopyTang" class="form-label pasttext">Chọn tầng cần copy</label>
+                                    <select class="form-select" id="selectToCopyTang" style="width: 100%;">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>Đóng
+                    </button>
+                    <button onclick="comfirmCopy()" type="button" class="btn btn-success" id="copySelectedBtn">
+                        <i class="fas fa-copy me-2"></i>Copy giá trị đã chọn
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade"
+         id="confirmDeleteModal"
+         tabindex="-1"
+         aria-hidden="true"
+         data-bs-backdrop="static"
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận xóa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p class="mb-0" id="confirmDeleteMessage"></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade"
+         id="confirmCopy"
+         tabindex="-1"
+         aria-hidden="true"
+         data-bs-backdrop="static"
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận copy</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p class="mb-0" id="confirmCopyMessage"></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" id="confirmCopyBtn">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="editOModel" tabindex="-1" aria-labelledby="editOModelLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông tin Ô</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <!-- TABLE HIỂN THỊ THÔNG TIN  -->
+                    <table class="table table-bordered">
+                        <thead class="">
+                            <tr>
+                                <th style="background:#5DA566">Tầng</th>
+                                <th style="background:#5DA566">Ô</th>
+                                <th style="background:#5DA566">Tên Ô</th>
+                                <th style="background:#5DA566">Dài</th>
+                                <th style="background:#5DA566">Rộng</th>
+                                <th style="background:#5DA566">Cao</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="tblTangName"></td>
+                                <td id="tblTenO"></td>
+                                <td id="tblTenTextO"></td>
+                                <td id="tblDai"></td>
+                                <td id="tblRong"></td>
+                                <td id="tblCao"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <hr>
+
+                    <!-- INPUT CHỈNH SỬA -->
+                    <input type="hidden" id="oId">
+
+
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label fw-bold">Text O</label>
+                            <input type="text" id="inpTextO" class="form-control">
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label fw-bold">Dài</label>
+                            <input type="number" id="inpDai" class="form-control">
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label fw-bold">Rộng</label>
+                            <input type="number" id="inpRong" class="form-control">
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label fw-bold">Cao</label>
+                            <input type="number" id="inpCao" class="form-control">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button class="btn btn-primary" id="btnSaveO">Lưu thay đổi</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="editOneNameModal" tabindex="-1" aria-hidden="true" style="z-index: 9999; background: rgb(0, 0, 0, 0.45);">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="labelEditName">Sửa Tên</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-1">
+                        <input type="text" id="editNameInput" class="form-control">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button class="btn btn-primary" id="btnSaveOneName">Lưu</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="createOModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-gradient-success text-white">
+                    <h5 class="modal-title" style="font-size: 1rem;color:#000">
+                        <i class="fas fa-layer-group me-2"></i>Tạo Ô Cho Các Tầng
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white text-black-50" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+
+                    <div class="card mb-3" style="border: 2px solid #667eea; box-shadow: 0 4px 6px rgba(102, 126, 234, 0.2);">
+                        <div class="card-header" style="background: linear-gradient(45deg, #667eea, #764ba2); color: white; font-weight: bold; font-size: 0.9rem; padding: 10px 15px;">
+                            <i class="fas fa-edit me-2"></i>Nhập Chung Cho Tất Cả Tầng
+                        </div>
+                        <div class="card-body py-3">
+                            <div class="row g-2 align-items-end">
+                                <div class="col-md-2">
+                                    <label style="font-size: 0.75rem; font-weight: 600; color: #495057; margin-bottom: 4px;">Số lượng ô</label>
+                                    <input type="number" class="form-control form-control-sm" id="allSoLuong" min="1" placeholder="">
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="font-size: 0.75rem; font-weight: 600; color: #495057; margin-bottom: 4px;">Dài (m)</label>
+                                    <input type="number" class="form-control form-control-sm" id="allDai" step="0.01" placeholder="">
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="font-size: 0.75rem; font-weight: 600; color: #495057; margin-bottom: 4px;">Rộng (m)</label>
+                                    <input type="number" class="form-control form-control-sm" id="allRong" step="0.01" placeholder="">
+                                </div>
+                                <div class="col-md-2">
+                                    <label style="font-size: 0.75rem; font-weight: 600; color: #495057; margin-bottom: 4px;">Cao (m)</label>
+                                    <input type="number" class="form-control form-control-sm" id="allCao" step="0.01" placeholder="">
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-primary btn-sm w-100" id="applyAllValues" style="height: 31px;">
+                                        <i class="fas fa-arrow-down me-1"></i>Áp Dụng Cho Tất Cả
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="border-top: 2px dashed #dee2e6; margin: 15px 0;">
+                    <div id="tangCardsContainer" class="row g-2">
+                        <!-- Danh sách card tầng sẽ được render ở đây -->
+                    </div>
+
+                    <!-- Bảng xem trước danh sách ô dạng lưới -->
+                    <div id="previewOContainer" class="mt-3" style="display: none;">
+                        <hr>
+                        <h6 class="mb-2" style="font-size: 0.9rem; color: #667eea;">
+                            <i class="fas fa-eye me-2"></i>Xem Trước Danh Sách Ô (Từ dưới lên - Trái sang phải)
+                        </h6>
+                        <div class="table-responsive" style="max-height: 400px; overflow: auto;">
+                            <table class="table table-bordered" id="previewOTable" style="font-size: 0.75rem;">
+                                <tbody id="previewOTableBody">
+                                    <!-- Danh sách ô preview dạng lưới sẽ render ở đây -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="alert alert-success py-2 mt-2 d-none" style="font-size: 0.8rem;">
+                            <strong>Tổng số ô sẽ tạo: <span id="totalOCount">0</span></strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer py-2">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>Đóng
+                    </button>
+                    <button type="button" class="btn btn-info btn-sm" id="renderDanhSachO">
+                        <i class="fas fa-list me-2"></i>Khởi tạo danh sách ô
+                    </button>
+                    <button type="button" class="btn btn-success btn-sm" id="confirmCreateO">
+                        <i class="fas fa-check me-2"></i>Xác nhận lưu ô
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Scripts/ViTriKho/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/select2.js"></script>
+    <link href="~/css/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.light.css" rel="stylesheet" />
+    <script src="~/css/DevExtreme/dx.all.js"></script>
+    <script>
+        var userName = '@ViewBag.userName';
+   
+
+    </script>
+    <script src="~/css/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Scripts/ViTriKho/khaibaovitrikho.js?version=1.1"></script>
+
+</body>
+</html>

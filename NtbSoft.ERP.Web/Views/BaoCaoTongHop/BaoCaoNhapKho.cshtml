@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "BaoCaoNhapKho";
+    Layout = "~/Views/Shared/_LayoutBCTH.cshtml";
+}
+
+<link href="~/Libs/UIUX/Boottrap/bootstrap.min.css" rel="stylesheet" />
+@*<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>*@
+<link href="~/Libs/UIUX/Selected2/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link href="~/css/BaoCaoTongHop/BaoCaoNhapKhoTP/BCnhapkho-Mobile.css" rel="stylesheet" />
+<link href="~/css/BaoCaoTongHop/BaoCaoNhapKhoTP/bcnhapkho.css" rel="stylesheet" />
+<link href="~/css/BaoCaoTongHop/BaoCaoNhapKhoTP/BCNhapKhoTab.css" rel="stylesheet" />
+<style>
+    body{
+        padding-top:0px;
+        padding-bottom:0px;
+    }
+</style>
+<div class="tieude">
+    <div class="grid-a" style="display:flex">
+        <div class="item-time">
+            <label for="date">Từ Ngày</label>
+            <input type="date" id="date" name="name" @*data-date="" data-date-format="DD MMMM YYYY"*@ />
+        </div>
+        <div class="item-time">
+            <label for="text">Đến ngày</label>
+            <input type="text" id="date1" name="name" />
+        </div>
+    </div>
+    <div class="item-time">
+        <label><i class="fa-solid fa-filter" style="color: #74C0FC;padding-right:8px"></i>Lọc Mã Hàng</label>
+        <select id="selected-mh">
+        </select>
+    </div>
+    <div class="btn-group-excel">
+        <button id="btn-excel" class="btn-excel" role="button"><i class="fa-solid fa-file-excel" style="margin-right: 2px;"></i> Xuất Excel</button>
+
+    </div>
+</div>
+
+
+<div class="row g-2" style="width: 100%;  margin-top: -3px;">
+    <div class="col-xl-12 col-lg-12 pe-1 height-container" style="background-color: white;">
+        <table class="table" style="position: relative">
+            <thead id="theader">
+                <tr id="thear">
+                    <td rowspan="2">Mã Hàng</td>
+                    <td rowspan="2">Mùa</td>
+                    <td rowspan="2">Ngày</td>
+                    <td rowspan="2">SLKH </td>
+                    <td rowspan="2">Số Lượng </td>
+                    <td rowspan="2">Kiện</td>
+                </tr>
+                @*<tr id="thear1">
+                    </tr>*@
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xl-12 col-lg-12 ps-1 height-container-chart">
+        <div class="tab-wrap">
+            <input type="radio" id="tab-amount-product" name="tabGroup2" class="tab" checked>
+            <label for="tab-amount-product">Số Lượng Sản Phẩm</label>
+
+            <input type="radio" id="tab-amount-carton" name="tabGroup2" class="tab">
+            <label for="tab-amount-carton">Số Kiện</label>
+
+            <div class="tab_content">
+                <div id="Amount-Chart-Container"></div>
+            </div>
+            <div class="tab_content">
+                <div id="Carton-Chart-Container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let brainChoose = sessionStorage.getItem("BranchName");
+    //if (brainChoose == null)
+    //    location.href = "../../../../danh-sach-bao-cao";
+    $('#tittleBC').text(`${brainChoose} - Báo cáo nhập kho thành phẩm`);
+    $('#home').on('click', function () {
+        location.href = "../../../danh-sach-bao-cao";
+    });
+    flatpickr("#date", {
+        dateFormat: "d-m-Y",
+        defaultDate: "today"
+    });
+
+    flatpickr("#date1", {
+        dateFormat: "d-m-Y",
+        defaultDate: "today"
+    });
+   
+</script>
+<script src="~/Libs/Selected2/select2.min.js"></script>
+<script src="~/Scripts/BaoCaoTongHop/BaoCaoNhapKhoTP/BCNhapKho.js"></script>

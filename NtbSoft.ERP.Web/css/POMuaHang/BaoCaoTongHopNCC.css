@@ -1,0 +1,230 @@
+﻿/* ======================================================
+   BASE RESET
+====================================================== */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f6f9;
+}
+
+/* ======================================================
+   PAGE LAYOUT - FIXED!
+====================================================== */
+.container-fluid {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    /* KHÔNG dùng overflow: hidden */
+}
+
+/* ======================================================
+   HEADER - FIXED!
+====================================================== */
+.header-section {
+    height: 56px;
+    background: #2563eb !important;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    position: sticky !important;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    width: 100%;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.header-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.header-section a {
+    z-index: 1001;
+    position: relative;
+}
+
+/* ======================================================
+   FILTER CARD
+====================================================== */
+.main-card {
+    padding: 12px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10001;
+}
+
+.card {
+    border-radius: 6px;
+    border: none;
+}
+
+.card-header {
+    background: #0d6efd;
+    color: #fff;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+}
+
+    .card-header h6 {
+        margin: 0;
+        font-weight: 600;
+    }
+
+.card-body {
+    background: #fff;
+    padding: 12px;
+    position: relative;
+    z-index: 10;
+}
+
+/* ======================================================
+   GRID CONTAINER - FIXED!
+====================================================== */
+#pivotGrid {
+    flex: 1;
+    margin: 0 12px 12px;
+    background: #fff;
+    border-radius: 6px;
+    min-height: 0;
+    position: relative;
+    z-index: 1001;
+}
+
+/* ======================================================
+   DEVEXTREME GRID
+====================================================== */
+.dx-datagrid {
+    height: 100%;
+    border: none;
+}
+
+.dx-datagrid-rowsview {
+    overflow: auto !important;
+}
+
+    .dx-datagrid-rowsview .dx-row {
+        position: relative;
+    }
+
+/* ======================================================
+   GRID HEADER
+====================================================== */
+.dx-datagrid-headers {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+    .dx-datagrid-headers td {
+        font-weight: 600;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+/* ======================================================
+   GRID BODY
+====================================================== */
+.dx-datagrid-content td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Hover */
+.dx-datagrid-rowsview .dx-row:hover td {
+    background: #f1f3f5;
+}
+
+/* ======================================================
+   GRAND TOTAL FOOTER STYLING
+====================================================== */
+.dx-datagrid-total-footer {
+    background: #fff3cd !important;
+    font-weight: 600 !important;
+    border-top: 2px solid #000 !important;
+}
+
+    .dx-datagrid-total-footer td {
+        background: #fff3cd !important;
+        font-weight: bold !important;
+    }
+
+/* ======================================================
+   FIX DEVEXTREME POPUPS & DROPDOWNS
+====================================================== */
+/* Đảm bảo popup hiển thị đúng */
+.dx-overlay-wrapper {
+    z-index: 1500 !important;
+}
+
+.dx-popup-wrapper {
+    z-index: 1500 !important;
+}
+
+.dx-dropdowneditor-overlay {
+    z-index: 1500 !important;
+}
+
+/* DatePicker popup */
+.dx-datebox-wrapper {
+    z-index: 1500 !important;
+}
+
+/* Overlay content phải clickable */
+.dx-overlay-content {
+    pointer-events: auto !important;
+}
+
+/* ======================================================
+   FIX BUTTONS & INTERACTIVE ELEMENTS
+====================================================== */
+button, a, input, select {
+    position: relative;
+    cursor: pointer;
+}
+
+.btn {
+    z-index: 10;
+    position: relative;
+}
+
+/* ======================================================
+   FIX Z-INDEX CONFLICTS
+====================================================== */
+/* Xóa các lớp che không cần thiết */
+.dx-loadpanel-wrapper.dx-state-invisible {
+    display: none !important;
+}
+
+.dx-overlay-shader {
+    z-index: -1 !important;
+    opacity: 0 !important;
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+@media (max-width: 768px) {
+    .header-title {
+        font-size: 16px;
+    }
+
+    .card-body {
+        padding: 8px;
+    }
+}

@@ -1,0 +1,69 @@
+﻿
+header-baocao ul.menu, header-baocao ul.menu ul.sub {
+    padding: 0;
+    margin: 0;
+}
+header-baocao ul.menu {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    background-color: transparent;
+    color: black;
+    height: auto;
+    box-shadow: rgb(0 0 0 / 0%) 0px 5px 15px;
+    border: none;
+    font-weight: bold;
+}
+
+    header-baocao ul.menu li {
+        list-style-type: none; /* code này để bỏ các dấu chấm tròn*/
+        float: left; /* code này để menu dàn hàng ngang*/
+        border-bottom:1px solid #ddd;
+        padding-top:5px;
+
+    }
+
+        header-baocao ul.menu li a {
+            text-decoration: none;
+            background-color: #900;
+            color: white;
+        }
+
+    header-baocao ul.menu li {
+        positon: relative;
+    }
+
+        header-baocao ul.menu li ul.sub {
+            display: none;
+            position: FIXED;
+            width: 360px;
+            background-color: white;
+            border: 2px solid #f0be55;
+            border-radius: 5px;
+            padding: 0px 10px 0 25px;
+            height: 300px;
+            overflow-y: auto;
+        }
+
+            header-baocao ul.menu li ul.sub li {
+                margin-top: 1px;
+                margin-bottom: 1px;
+            }
+
+                header-baocao ul.menu li ul.sub li:hover {
+                    background-color: #5a9ca5;
+                }
+.li-pc:hover{
+    background-color:white !important;
+}
+        /*header-baocao ul.menu li:hover ul.sub {
+            display: block;
+        }*/
+.radio, .checkbox {
+     display: block; 
+     min-height: 0px; 
+     padding-left: 0px; 
+     margin-top: 0px; 
+     margin-bottom: 0px; 
+     vertical-align: middle; 
+}

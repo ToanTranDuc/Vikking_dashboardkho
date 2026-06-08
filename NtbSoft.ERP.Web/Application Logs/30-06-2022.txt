@@ -1,0 +1,143 @@
+
+Log Entry
+11:36:24
+Account: QLTB 
+IP: 192.168.2.22 
+Content: Lập phiếu xuất linh kiện - Mã phiếu: PXLK_02_300622 
+MaLK: PKD0004 (soluong: 5, dongia: 66000, makho: KH_TB)
+
+--------------------------------------------------------------------------------------
+
+Log Entry
+11:40:05
+Account: QLTB 
+IP: 192.168.2.22 
+Content: Lập phiếu xuất linh kiện - Mã phiếu: PXLK_02_300622 
+MaLK: PKD0004 (soluong: 10, dongia: 168000, makho: KH_TB)
+
+--------------------------------------------------------------------------------------
+
+Log Entry
+11:50:05
+Account: QLTB 
+IP: 192.168.2.22 
+Content: Lập phiếu xuất linh kiện - Mã phiếu: PXLK_02_300622 
+MaLK: PKD0004 (soluong: 10, dongia: 168000, makho: KH_TB)
+
+--------------------------------------------------------------------------------------
+
+Log Entry
+13:18:20
+Account: QLTB 
+IP: 192.168.2.22 
+Content: Lập phiếu nhập linh kiện
+--------------------------------------------------------------------------------------
+
+Log Entry
+13:19:48
+Account: QLTB 
+IP: 192.168.2.22 
+Content: Lập phiếu nhập linh kiện
+--------------------------------------------------------------------------------------
+
+Log Entry
+13:23:03
+Account: QLTB 
+IP: 192.168.2.22 
+Content: Lập phiếu nhập linh kiện
+--------------------------------------------------------------------------------------
+
+Log Entry
+13:27:30
+Account: QLTB 
+IP: 192.168.2.22 
+Content: Lập phiếu nhập linh kiện
+--------------------------------------------------------------------------------------
+
+Log Entry
+13:28:36
+Account: QLTB 
+IP: 192.168.2.22 
+Content: Lập phiếu xuất linh kiện - Mã phiếu: PXLK_02_010622 
+MaLK: PCV007 (soluong: 5, dongia: 47500, makho: KH_TB)
+MaLK: PCV008 (soluong: 5, dongia: 42500, makho: KH_TB)
+
+--------------------------------------------------------------------------------------
+
+Log Entry
+13:35:59
+Account: QLTB 
+IP: 192.168.2.22 
+Content: Lập phiếu xuất linh kiện - Mã phiếu: PXLK_03_240622 
+MaLK: PCV007 (soluong: 26, dongia: 383500, makho: KH_TB)
+MaLK: PCV008 (soluong: 26, dongia: 492100, makho: KH_TB)
+
+--------------------------------------------------------------------------------------
+
+Log Entry
+15:08:06
+Account: admin 
+IP: 192.168.2.22 
+Content: Lập phiếu sửa chữa
+--------------------------------------------------------------------------------------
+
+Log Entry
+15:18:06
+Account: admin 
+IP: 192.168.2.22 
+Content: Lập phiếu sửa chữa
+--------------------------------------------------------------------------------------
+
+Log Entry
+15:19:49
+Account: VT3_CD 
+IP: 192.168.2.22 
+Content: Lập phiếu sửa chữa
+--------------------------------------------------------------------------------------
+
+Log Entry
+15:23:09
+Account: admin 
+IP: 192.168.2.22 
+Content: Lập phiếu nhập linh kiện
+--------------------------------------------------------------------------------------
+
+Log Entry
+15:23:54
+Account: admin 
+IP: 192.168.2.22 
+Content: Lập phiếu nhập linh kiện
+--------------------------------------------------------------------------------------
+
+Log Entry
+15:27:23
+Account: admin 
+IP: 192.168.2.22 
+Content: Lập phiếu xuất linh kiện - Mã phiếu: PXLK_01_300622 
+MaLK: VCC001 (soluong: 15, dongia: 150, makho: KH_TB)
+MaLK: VCC002 (soluong: 22, dongia: 220, makho: KH_TB)
+MaLK: VCC003 (soluong: 30, dongia: 600, makho: KH_TB)
+MaLK: VCC004 (soluong: 30, dongia: 640, makho: KH_TB)
+MaLK: VCC005 (soluong: 50, dongia: 1100, makho: KH_TB)
+
+--------------------------------------------------------------------------------------
+
+Log Entry
+15:39:00
+Account: admin 
+IP: 192.168.2.22 
+Content: Lập phiếu sửa chữa
+--------------------------------------------------------------------------------------
+
+Log Entry
+15:39:38
+Account: admin 
+IP: 192.168.2.22 
+Content: Lập phiếu xuất linh kiện - Mã phiếu: PXLK_03_250622 
+MaLK: VPTMC001 (soluong: 1, dongia: 0, makho: KH_TB)
+MaLK: VPTMC002 (soluong: 1, dongia: 0, makho: KH_TB)
+MaLK: VPTMC003 (soluong: 1, dongia: 0, makho: KH_TB)
+MaLK: VPTMC004 (soluong: 1, dongia: 0, makho: KH_TB)
+MaLK: VPTMC005 (soluong: 1, dongia: 0, makho: KH_TB)
+
+--------------------------------------------------------------------------------------

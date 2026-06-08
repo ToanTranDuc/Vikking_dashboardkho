@@ -1,0 +1,11 @@
+﻿.title {
+    width: 100%;
+    font-size: 20px;
+    font-family: roboto;
+    font-weight: bold;
+    background: #9bcbfd;
+    padding: 5px;
+    display: flex;
+    gap: 10px;
+}
+

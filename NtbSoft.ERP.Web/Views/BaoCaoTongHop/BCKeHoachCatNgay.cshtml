@@ -1,0 +1,223 @@
+﻿
+@{
+    ViewBag.Title = "BCKeHoachCatNgay";
+    Layout = "~/Views/Shared/_LayoutBCTH.cshtml";
+}
+<link href="~/css/BaoCaoTongHop/BCKHCatNgay/BCKHCatNgay.css" rel="stylesheet" />
+<link href="~/css/BaoCaoTongHop/BCKHCatNgay/BCKHCatNgayMobile.css" rel="stylesheet" />
+<link href="~/css/BaoCaoTongHop/BCKHCatNgay/BCKHCatNgayTab.css" rel="stylesheet" />
+<link href="~/Libs/UIUX/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<style>
+
+    #container, #container1, #container2 {
+        margin: 0 0;
+        height: 400px;
+    }
+
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #dfb3b3;
+        border-radius: 10px;
+    }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b30000;
+        }
+
+    .row {
+        --bs-gutter-x: 0 !important;
+        --bs-gutter-y: 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .task-item {
+        display: flex;
+        max-height: 290px;
+        background: #fff
+    }
+
+
+        .task-item .item-table {
+            overflow: auto;
+            width: 100%;
+        }
+
+            .task-item .item-table .table thead {
+                position: sticky;
+                top: 0;
+                z-index: 3
+            }
+
+                .task-item .item-table .table thead tr {
+                    border: 1px solid #ccc;
+                    position: sticky;
+                    top: 0;
+                }
+
+                    .task-item .item-table .table thead tr td {
+                        border: 1px solid #ccc;
+                        text-align: center;
+                        font-weight: bold;
+                        color: #fff;
+                        vertical-align: middle;
+                        background: #5da566;
+                        outline: none;
+                        font-family: 'Roboto';
+                        min-width: 60px;
+                        font-size: 14px;
+                    }
+
+
+
+            .task-item .item-table .table tbody {
+            }
+
+                .task-item .item-table .table tbody tr {
+                    border: 1px solid #ccc;
+                }
+
+                    .task-item .item-table .table tbody tr td {
+                        border: 1px solid #ccc;
+                        text-align: center;
+                        font-size: 13px;
+                        font-weight: bold;
+                        vertical-align: middle;
+                        font-family: 'Roboto';
+                        color: #016b69;
+                    }
+
+            .task-item .item-table .table tfoot {
+                position: sticky;
+                bottom: 0;
+                background: #fff;
+                outline: 1px solid #ccc;
+            }
+
+                .task-item .item-table .table tfoot tr {
+                    border: 1px solid #ccc;
+                }
+
+                    .task-item .item-table .table tfoot tr td {
+                        border: 1px solid #ccc;
+                        text-align: center;
+                        font-size: 13px;
+                        font-weight: bold;
+                        font-family: serif;
+                        vertical-align: middle;
+                        font-family: 'Roboto';
+                        color: red;
+                    }
+
+    .table, table {
+        margin: 0
+    }
+
+    .highcharts-title {
+        font-size: 15px !important;
+        font-family: roboto;
+        color: #016b69 !important
+    }
+
+    .item_listngay {
+        display: flex
+    }
+
+    .highcharts-data-label text {
+        font-size: 10px !important;
+        color: #016b69 !important
+    }
+</style>
+
+<div class="container-fluid mt-2">
+    <div class="item_listngay p-1 bg-white">
+        <div class="date-option">
+            <label class="col-form-label item_label" style="color: #016b69; font-weight: bold">Từ ngày</label>
+            <input type="date" name="name" value="" id="todate">
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <button class="btn-find-data" id="btnFind">
+                <i class="fa fa-search"></i>
+                <p>Tìm</p>
+            </button>
+        </div>
+        <div style="flex: 1; display: flex; justify-content: flex-end; padding-right: 15px;">
+            <button id="btnExportExcel" class="btn btn-success excel">
+                <i class="fa fa-file-excel"></i> Xuất Excel
+            </button>
+        </div>
+    </div>
+
+
+</div>
+<div class="container-fluid py-1">
+    <section class="solieunhap">
+        <div class="main-item">
+            <div class="task-item">
+                <div class="item-table">
+                    <table class="table" style="position: relative">
+                        <thead class="thead-list">
+                            <tr id="thead" style="position:relative">
+                                <td style="position: sticky; top: 0;">STT</td>
+                                <td style="position: sticky; top: 0;">Mã hàng</td>
+                                <td style="position: sticky; top: 0;">Số lượng cắt</td>
+                                <td style="position: sticky; top: 0;">Lũy kế</td>
+                                <td style="position: sticky; top: 0;">Số lượng kế hoạch</td>
+                            </tr>
+                        </thead>
+                        <tbody id="bodyContent">
+                        </tbody>
+                        <tfoot id="footContent">
+
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+<div style="width:100%" class="container-fluid ">
+    <div class="bg-white">
+        <div class="row  g-4">
+            <div class="col-md-12 col-lg-4 py-2 px-1">
+                <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;" class="container p-2">
+                    <div id="pieDTKhachHang">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-12 col-lg-8 p-2">
+                <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;" class="container p-2">
+                    <div id="container1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery -->
+<script src="~/Scripts/BaoCaoTongHop/BCKHCatNgay/BCKHCatNgay.js"></script>
+<script>
+    let brainChoose = sessionStorage.getItem("BranchName");
+    //if (brainChoose == null)
+    //    location.href = "../../../../danh-sach-bao-cao";
+    $('#tittleBC').text(`${brainChoose} - Báo cáo kế hoạch cắt ngày`);
+    $('#home').on('click', function () {
+        location.href = "../../../danh-sach-bao-cao";
+    });
+</script>

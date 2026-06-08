@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.Title = "ChatLuongMaHangSauUi";
+    Layout = "~/Views/Shared/_LayoutBCTH.cshtml";
+}
+
+<link href="~/css/BaoCaoTongHop/BaoCaoChatLuong/ChatLuongMaHangSauUi.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="kt-portlet">
+        <div class="kt-widget24 d-flex align-items-center justify-content-between box-action">
+            <div class="action d-flex align-items-center" style="flex-wrap: wrap; gap: 10px 0;">
+                <div>
+                    <label>Từ ngày</label>
+                    <input type="date" name="name" value="" id="fromdate" class="fromdate" style="width: 130px;">
+                </div>
+                <div>
+                    <label>Đến ngày</label>
+                    <input type="date" name="name" value="" id="todate" class="todate" style="width: 130px;">
+                </div>
+                <div>
+                    <label>Tổ(Chuyền)</label>
+                    <select id="slc_line">
+                        @*<option value="value">text</option>*@
+                    </select>
+                </div>
+
+                <div class="div-btn-find-data">
+                    <button class="btn-find-data" id="btnFind">
+                        <i class="fa fa-search"></i>
+                        <p>Tìm</p>
+                    </button>
+                </div>
+                <div class="div-btn-export-excel">
+                    <button class="btn-export-file-excel" id="btnExport">
+                        <i class="fa-sharp fa-solid fa-file-excel "></i>
+                        <p>Xuất Excel</p>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet">
+        <div class="kt-portlet__body">
+            <!--begin::Section-->
+            <div class="kt-section">
+                <div class="kt-section__content">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Mã hàng</th>
+                                <th rowspan="2">Ngày</th>
+                                <th rowspan="2">Số lượng kiểm</th>
+                                <th rowspan="2">Số lượng đạt</th>
+                                <th colspan="12">Theo nhóm lỗi</th>
+                                <th rowspan="2">Tỉ lệ đạt</th>
+                                <th rowspan="2">Tỉ lệ lỗi</th>
+                                <th rowspan="2">Người kiểm tra</th>
+                                <th rowspan="2">Kỹ ghi nhận lỗi</th>
+                            </tr>
+                            <tr>
+                                <th class="nhomloi" id="nhomloi1">1</th>
+                                <th class="nhomloi" id="nhomloi2">2</th>
+                                <th class="nhomloi" id="nhomloi3">3</th>
+                                <th class="nhomloi" id="nhomloi4">4</th>
+                                <th class="nhomloi" id="nhomloi5">5</th>
+                                <th class="nhomloi" id="nhomloi6">6</th>
+                                <th class="nhomloi" id="nhomloi7">7</th>
+                                <th class="nhomloi" id="nhomloi8">8</th>
+                                <th class="nhomloi" id="nhomloi9">9</th>
+                                <th class="nhomloi" id="nhomloi10">10</th>
+                                <th class="nhomloi" id="nhomloi11">11</th>
+                                <th class="nhomloi" id="nhomloi12">12</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodyContent">
+                        </tbody>
+                        <tfoot id="footContent">
+
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <!--end::Section-->
+        </div>
+        <!--end::Form-->
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 order-lg-3 order-xl-1">
+            <div class="kt-portlet">
+                <div id="container">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 order-lg-3 order-xl-1">
+            <div class="kt-portlet">
+                <div id="container1">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+<script src="~/Scripts/BaoCaoTongHop/BaoCaoChatLuong/BCChatLuongMaHangSauUi.js"></script>
+<script>
+    let brainChoose = sessionStorage.getItem("BranchName");
+    //if (brainChoose == null)
+    //    location.href = "../../../../danh-sach-bao-cao";
+    $('#tittleBC').text(`${brainChoose} - Cáo cáo chất lượng từng mã hàng sau ủi`);
+    $('#home').on('click', function () {
+        location.href = "../../../danh-sach-bao-cao";
+    });
+    // Khởi tạo flatpickr cho cả hai trường nhập liệu
+    flatpickr("#fromdate", {
+        dateFormat: "d-m-Y", // Định dạng ngày/tháng/năm
+        defaultDate: "today" // Ngày mặc định là hôm nay
+    });
+
+    flatpickr("#todate", {
+        dateFormat: "d-m-Y", // Định dạng ngày/tháng/năm
+        defaultDate: "today" // Ngày mặc định là hôm nay
+    });
+
+    $(".btn-warning1").on("click", function () {
+        $(".btn-warning1").removeClass("active");
+        $(this).addClass("active");
+    })
+</script>

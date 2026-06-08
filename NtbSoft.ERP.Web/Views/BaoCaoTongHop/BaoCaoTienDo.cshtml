@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "BaoCaoTienDo";
+    Layout = "~/Views/Shared/_LayoutBCTH.cshtml";
+}
+
+<link href="~/css/BaoCaoTongHop/BaoCaoTienDo/tiendo.css" rel="stylesheet" />
+<link href="~/css/BaoCaoTongHop/BaoCaoTienDo/tienDoMobiel.css" rel="stylesheet" />
+<link href="~/css/BaoCaoTongHop/BaoCaoTienDo/tienDoTab.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<style>
+    body {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+</style>
+<div style="display:none;">
+    <p id="checkCShapUserName">@ViewBag.Username</p>
+    <p id="checkCShapBranch">@ViewBag.Dvsx</p>
+</div>
+<div class="tieude">
+    <label id="lbDate" for="date">Ngày: &nbsp;</label>
+    <input type="date" id="todate" name="name" />
+    <button class="ex">
+        <i class="fa-sharp fa-solid fa-file-excel "></i>
+        <p>Xuất Excel</p>
+    </button>
+</div>
+<div class="table-responsive">
+    <table class="table" id="table-result">
+        <thead>
+            <tr style="top:0px;">
+                <th class="classHeaderDungYen headerTopRow0 leftCol1" rowspan="3">Chuyền</th>
+                <th class="classHeaderDungYen headerTopRow0 leftCol1ScolSpan2" colspan="2">LĐ Có Mặt / Tổng LĐ </th>
+                <th class="classHeaderDungYen headerTopRow0 leftCol4" rowspan="3">Mã Hàng</th>
+                <th class="classHeaderDungYen headerTopRow0 leftCol5" rowspan="3">PO / Order / Màu</th>
+                <th class="classHeaderDungYen headerTopRow0 leftCol6" rowspan="3">SLKH</th>
+                <th class="classHeaderDungYen headerTopRow0 leftCol7" rowspan="3" style=" white-space: pre-line;">SL Tính Lương</th>
+                <th class="classHeaderDungYen headerTopRow0 leftCol8" rowspan="3">SL/ Tháng</th>
+                <th class="headerTopRow0" colspan="3">Cắt</th>
+                <th class="headerTopRow0" colspan="4">Bán Thành Phẩm </th>
+                <th class="headerTopRow0" rowspan="3">Đơn Giá</th>
+                <th class="headerTopRow0" colspan="4">R/C Thực Hiện </th>
+                <th class="headerTopRow0" rowspan="3">Còn Lại Kế Hoạch</th>
+                <th class="headerTopRow0" colspan="16">Hoàn Thành</th>
+                <th class="headerTopRow0" rowspan="3">Chênh Lệch</th>
+            </tr>
+            <tr style="top:30px;">
+                <th class="classHeaderDungYen headerTopRow1 leftCol2" rowspan="4">Có mặt </th>
+                <th class="classHeaderDungYen headerTopRow1 leftCol3" rowspan="4">Tổng</th>
+                <th class="headerTopRow1" rowspan="2">Ngày Cắt</th>
+                <th class="headerTopRow1" rowspan="2">T.H</th>
+                <th class="headerTopRow1" rowspan="2">L.K</th>
+                <th class="headerTopRow1" rowspan="2">Ngày Cấp</th>
+                <th class="headerTopRow1" rowspan="2">T.H</th>
+                <th class="headerTopRow1" rowspan="2">L.K</th>
+                <th class="headerTopRow1" rowspan="2">Tồn BTP</th>
+                <th class="headerTopRow1" rowspan="2">TH</th>
+                <th class="headerTopRow1" rowspan="2">LK</th>
+                <th class="headerTopRow1" colspan="2" style="color:red;">D.Thu</th>
+                <th class="headerTopRow1" colspan="3">Nhập HT</th>
+                <th class="headerTopRow1" colspan="3">Ủi</th>
+                <th class="headerTopRow1" colspan="5">Kiểm</th>
+                <th class="headerTopRow1" colspan="3">Đóng Thùng</th>
+                <th class="headerTopRow1" colspan="2" style="color:red;">D.Thu</th>
+            </tr>
+            <tr>
+                <th class="headerTopRow3" style="color:red;">TH</th>
+                <th class="headerTopRow3" style="color:red;">LK</th>
+                <th class="headerTopRow3">TH</th>
+                <th class="headerTopRow3">LK</th>
+                <th class="headerTopRow3">Tồn TP chuyền</th>
+                <th class="headerTopRow3">TH</th>
+                <th class="headerTopRow3">LK</th>
+                <th class="headerTopRow3">Ứ Ủi</th>
+                <th class="headerTopRow3">TH</th>
+                <th class="headerTopRow3">LK Kiểm</th>
+                <th class="headerTopRow3">LK Kiểm đạt</th>
+                <th class="headerTopRow3">Ứ Kiểm</th>
+                <th class="headerTopRow3">Hàng Hư</th>
+                <th class="headerTopRow3">TH</th>
+                <th class="headerTopRow3">LK </th>
+                <th class="headerTopRow3">Tồn TP HT</th>
+                <th class="headerTopRow3" style="color:red;">TH</th>
+                <th class="headerTopRow3" style="color:red;">LK </th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+            <tr id="body">
+                <!-- Rows data will be dynamically populated here -->
+            </tr>
+        </tbody>
+        <tfoot class="tfoot">
+            <!-- Footer content here if needed -->
+        </tfoot>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        let brainChoose = sessionStorage.getItem("BranchName");
+        //if (brainChoose == null)
+        //    location.href = "../../../../danh-sach-bao-cao";
+        $('#tittleBC').text(`${brainChoose} - Báo cáo tiến độ`);
+        $('#home').on('click', function () {
+            location.href = "../../../danh-sach-bao-cao";
+        });
+    });
+</script>
+<script src="~/Scripts/BaoCaoTongHop/BCTienDo/TongQuan.js"></script>

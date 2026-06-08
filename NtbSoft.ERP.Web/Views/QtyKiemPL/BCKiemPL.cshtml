@@ -1,0 +1,569 @@
+﻿
+@{
+    ViewBag.Title = "BCKiemPL";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BB Kiểm Phụ Liệu</title>
+
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/select2/css/select2.min.css">
+    <link href="~/Content/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+    @*<link href="~/css/NguyenPhuLieu/Sign.css" rel="stylesheet" />*@
+    <link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="~/Content/plugins/DevExtreme/dx.common.css" rel="stylesheet" />
+    @*<script src="~/Scripts/NguyenPhuLieu/Sign.js"></script>*@
+    <link href="~/css/QtyKiemPL/BCKiemPL.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="header-section bg-info sticky-top">
+            <div class="container-fluid">
+                <div class="header-content d-flex flex-wrap align-items-center justify-content-between gap-3 py-2">
+                    <div class="d-flex align-items-center gap-3">
+                        <a href="~/Home/DashBoard" class="text-white">
+                            <i class="fas fa-home fa-lg"></i>
+                        </a>
+                        <h5 class="header-title mb-0 text-white">
+                            ACCESSORY INSPECTION REPORT
+                            <br />
+                            <span class="d-block text-sm opacity-90">Báo Cáo Kiểm Tra Phụ Liệu</span>
+                        </h5>
+                    </div>
+
+                    <div class="action-buttons d-flex flex-wrap gap-2">
+                        <button class="btn btn-custom btn-kiem-pl" id="btn-kiem-pl">
+                            <i class="fa-brands fa-slack"></i>
+                            Kiểm Phụ Liệu
+                        </button>
+                        <button class="btn btn-custom btn-save d-none" id="btn-save" onclick="savePhuLieuKiem()">
+                            <i class="fas fa-save"></i>
+                            Lưu
+                        </button>
+                        <button class="btn btn-custom btn-excel" id="btn-Excel">
+                            <i class="fa-solid fa-file-excel"></i>
+                            Excel
+                        </button>
+                        <button class="btn btn-custom btn-refresh" id="btn-refresh">
+                            <i class="fas fa-sync-alt"></i>
+                            Nạp Lại
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-card animate-in">
+            <!-- Form Section -->
+            <div class="form-section">
+                <div class="row g-2 align-items-end">
+                    <!-- Ngày Kiểm (Hidden) -->
+                    <div class="col-auto" style="display:none">
+                        <label class="form-label-custom">
+                            <i class="fas fa-calendar-alt me-1"></i>
+                            Ngày Kiểm
+                        </label>
+                        <input type="text" class="form-control form-control-custom" id="ngay-kiem">
+                    </div>
+
+                    <!-- Loại Lọc -->
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1">
+                        <label class="form-label-custom">
+                            <i class="fas fa-filter me-1"></i>Lọc
+                        </label>
+                        <select class="form-control form-control-custom" id="filterTypeSelect">
+                            <option value="date">Khoảng Ngày</option>
+                            <option value="week">Theo Tuần</option>
+                            <option value="pi" selected>Số PO</option>
+                        </select>
+                    </div>
+
+                    <!-- Date Range Filter -->
+                    <div id="dateFilterContent" class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3">
+                        <div class="row g-1">
+                            <div class="col-6">
+                                <label class="form-label-custom">
+                                    <i class="fas fa-calendar-alt me-1"></i>Từ Ngày
+                                </label>
+                                <input type="date" class="form-control form-control-custom" id="fromDate" onchange="onDateRangeChange()">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label-custom">
+                                    <i class="fas fa-calendar-alt me-1"></i>Đến Ngày
+                                </label>
+                                <input type="date" class="form-control form-control-custom" id="toDate" onchange="onDateRangeChange()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Week Filter -->
+                    <div id="weekFilterContent" class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3" style="display:none">
+                        <div class="row g-1">
+                            <div class="col-4">
+                                <label class="form-label-custom">
+                                    <i class="fas fa-calendar me-1"></i>Năm
+                                </label>
+                                <select class="form-control form-control-custom" id="yearSelect" onchange="updateWeeks()">
+                                </select>
+                            </div>
+                            <div class="col-8">
+                                <label class="form-label-custom">
+                                    <i class="fas fa-calendar-week me-1"></i>Tuần
+                                </label>
+                                <select class="form-control form-control-custom" id="weekSelect" onchange="onWeekChange()">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PI Filter Content -->
+                    <div id="piFilterContent" class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <label class="form-label-custom">
+                            <i class="fas fa-box me-1"></i>
+                            Số PO
+                        </label>
+                        <select class="form-control form-control-custom" id="selectSoLO">
+                        </select>
+                    </div>
+
+                    <!-- Khách Hàng -->
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <label class="form-label-custom">
+                            <i class="fas fa-user-tie me-1"></i>
+                            Khách Hàng
+                        </label>
+                        <input type="text" class="form-control form-control-custom" id="txt-khach-hang" placeholder="khách hàng" disabled>
+                    </div>
+
+                    <!-- Nhà Cung Cấp -->
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <label class="form-label-custom">
+                            <i class="fas fa-building me-1"></i>
+                            Nhà Cung Cấp
+                        </label>
+                        <input type="text" class="form-control form-control-custom" id="txt-nha-cc" placeholder="nhà cung cấp" disabled>
+                    </div>
+
+                    <!-- Ngày Về Kho -->
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+                        <label class="form-label-custom">
+                            <i class="fas fa-warehouse me-1"></i>
+                            Ngày Về Kho
+                        </label>
+                        <input type="text" disabled class="form-control form-control-custom" id="ngay-nhap-kho" placeholder="ngày nhập kho" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Grid Container -->
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="grid-contianer">
+
+                        <div id="grvPhuLieuKiem">
+
+                        </div>
+                        <div class="container-danh-gia">
+                            <table class="danhgia-table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div style="display: flex; justify-content: flex-start; align-items: center; gap: 20px;">
+                                                <div>Kết luận của QC/Conclusion <br><strong>(1) ĐẠT/PASS</strong></div>
+                                                <div class="d-flex gap-3 align-items-center flex-shrink-0">
+
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="result-kiem" id="KQPass" value="pass">
+                                                        <label class="form-check-label text-success font-weight-bold" for="KQPass">Pass</label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="result-kiem" id="KQFail" value="fail">
+                                                        <label class="form-check-label text-danger font-weight-bold" for="KQFail">Fail</label>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </th>
+                                        <th>(2) KHÔNG ĐẠT: Chuyển Merchandise giải quyết<br><strong>FAIL → Pass info. to Merchandise</strong></th>
+                                        <th>(3) Kết quả giải quyết- (Mer ghi kết quả và TBP ký )<br><strong>Solving result & sign by Manager</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyXNKiem">
+                                    <tr>
+                                        <td>
+                                            <div class="cell-content">
+                                                <div>
+
+                                                    <div>
+
+                                                        <textarea class="danhgia-textarea" id="txtDG_QC"></textarea>
+                                                    </div>
+
+                                                </div>
+                                                <div class="signature-wrapper">
+                                                    <div class="content-sign">
+                                                        <span class="signature-label">Ký Tên</span>
+                                                        <div class="signature-controls">
+                                                            <button class="btn btn-clear" onclick="clearSignature('signQC')">Xóa</button>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="signature-pad-container">
+                                                        <canvas class="signature-pad" id="signQC"></canvas>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="cell-content">
+                                                <textarea class="danhgia-textarea" id="txtDG_Mer"></textarea>
+                                                <div class="signature-wrapper">
+                                                    <div class="content-sign">
+                                                        <span class="signature-label">Ký Tên</span>
+                                                        <div class="signature-controls">
+                                                            <button class="btn btn-clear" onclick="clearSignature('signMer')">Xóa</button>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="signature-pad-container">
+                                                        <canvas class="signature-pad" id="signMer"></canvas>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="cell-content">
+                                                <textarea class="danhgia-textarea" id="txtDG_KQ"></textarea>
+                                                <div class="signature-wrapper">
+                                                    <div class="content-sign">
+                                                        <span class="signature-label">Ký Tên</span>
+                                                        <div class="signature-controls">
+                                                            <button class="btn btn-clear" onclick="clearSignature('signXN_KQ')">Xóa</button>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="signature-pad-container">
+                                                        <canvas class="signature-pad" id="signXN_KQ"></canvas>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="cell-content">
+                                                <div class="section-title">TPCL xác nhận/QC manager confirm</div>
+
+                                                <div class="signature-wrapper">
+
+                                                    <div class="content-sign">
+                                                        <span class="signature-label">Ký Tên</span>
+                                                        <div class="signature-controls">
+                                                            <button class="btn btn-clear" onclick="clearSignature('signTPCLPass')">Xóa</button>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="signature-pad-container">
+                                                        <canvas class="signature-pad" id="signTPCLPass"></canvas>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="cell-content">
+                                                <div class="section-title">Nhận thông tin/Received info.</div>
+
+                                                <div class="signature-wrapper">
+                                                    <div class="content-sign">
+                                                        <span class="signature-label">Ký Tên</span>
+                                                        <div class="signature-controls">
+                                                            <button class="btn btn-clear" onclick="clearSignature('signTPCLFail')">Xóa</button>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="signature-pad-container">
+                                                        <canvas class="signature-pad" id="signTPCLFail"></canvas>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+    <!-- Modal xem ảnh lớn - SIÊU ĐẸP -->
+    <div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-image me-2"></i>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <img id="previewImage" src="" class="img-fluid w-100" style="max-height:85vh; object-fit:contain;">
+                </div>
+                <div class="modal-footer justify-content-center bg-light">
+                    <small class="text-muted">Click ảnh để phóng to • Dùng chuột cuộn để zoom</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Input ẩn cho chọn ảnh từ gallery -->
+    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+
+
+    <script src="~/Scripts/jquery.min-3.6.1.js"></script>
+    <script src="~/Content/plugins/moment/moment.min.js"></script>
+    <script src="/Content/js/core/utils.js"></script>
+    <script src="/Content/js/core/common.js"></script>
+    <script src="~/Scripts/Toast/Toast.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Content/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Scripts/ViTriKho/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Content/dist/js/adminlte.min.js"></script>
+    <script src="~/Content/plugins/DevExtreme/dx.all.js"></script>
+    <script src="~/Content/plugins/DevExtreme/knockout-latest.min.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>*@
+    <script src="~/Content/plugins/PadSign/signature_pad.min.js"></script>
+    <script>
+
+         var _userName = '@ViewBag.userName';
+        if (window.CefSharp) {
+            $("#home").hide();
+            localStorage.setItem('username', _userName)
+        }
+
+        // Add hover effects
+        document.querySelectorAll('.btn-custom').forEach(btn => {
+            btn.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-3px)';
+            });
+
+            btn.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add click effects
+        document.querySelectorAll('.btn-custom').forEach(btn => {
+            btn.addEventListener('click', function () {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-3px)';
+                }, 100);
+            });
+        });
+        const signaturePads = {};
+        const signatureData = {}; // Lưu trữ dữ liệu chữ ký
+        const canvasIds = ['signQC', 'signMer', 'signXN_KQ', 'signTPCLPass', 'signTPCLFail'];
+
+        canvasIds.forEach(id => {
+            const canvas = document.getElementById(id);
+            const signaturePad = new SignaturePad(canvas, {
+                backgroundColor: 'rgb(255,255,255)',
+                penColor: '#667eea',
+                minWidth: 1.5,
+                maxWidth: 3,
+            });
+
+            // Lưu chữ ký mỗi khi vẽ xong
+            signaturePad.onEnd = function () {
+                if (!signaturePad.isEmpty()) {
+                    signatureData[id] = signaturePad.toDataURL();
+                }
+            };
+
+            function resizeCanvas() {
+                // Lưu chữ ký trước khi resize
+                const data = signaturePad.isEmpty() ? null : signaturePad.toDataURL();
+
+                const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                canvas.width = canvas.offsetWidth * ratio;
+                canvas.height = canvas.offsetHeight * ratio;
+                canvas.getContext('2d').scale(ratio, ratio);
+
+                // Khôi phục chữ ký sau khi resize
+                if (data) {
+                    signaturePad.fromDataURL(data);
+                    signatureData[id] = data;
+                } else if (signatureData[id]) {
+                    signaturePad.fromDataURL(signatureData[id]);
+                }
+            }
+
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            signaturePads[id] = signaturePad;
+        });
+
+        // Hàm xóa chữ ký
+        function clearSignature(id) {
+            if (signaturePads[id]) {
+                signaturePads[id].clear();
+                delete signatureData[id]; // Xóa dữ liệu đã lưu
+            }
+        }
+
+        // Hàm khôi phục tất cả chữ ký
+        function restoreAllSignatures() {
+            Object.keys(signatureData).forEach(id => {
+                if (signaturePads[id] && signatureData[id]) {
+                    signaturePads[id].fromDataURL(signatureData[id]);
+                }
+            });
+        }
+
+        // Xử lý khi focus textarea - jQuery
+        $(document).ready(function () {
+            let isScrolling = false;
+
+            $('.danhgia-textarea').on('focus', function () {
+                if (isScrolling) return;
+                isScrolling = true;
+
+                const $textarea = $(this);
+
+                // Lưu tất cả chữ ký trước khi scroll
+                Object.keys(signaturePads).forEach(id => {
+                    if (!signaturePads[id].isEmpty()) {
+                        signatureData[id] = signaturePads[id].toDataURL();
+                    }
+                });
+
+                // Scroll textarea lên đầu trang với animation mượt
+                setTimeout(function () {
+                    const offset = $textarea.offset().top - 10; // 10px padding từ top
+
+                    $('html, body').animate({
+                        scrollTop: offset
+                    }, 300, function () {
+                        isScrolling = false;
+                        // Khôi phục chữ ký sau khi scroll xong
+                        restoreAllSignatures();
+                    });
+                }, 100);
+            });
+
+            // Xử lý khi blur textarea
+            $('.danhgia-textarea').on('blur', function () {
+                setTimeout(function () {
+                    restoreAllSignatures();
+                }, 200);
+            });
+
+            // Xử lý khi orientation change trên mobile
+            $(window).on('orientationchange', function () {
+                // Lưu chữ ký trước khi xoay màn hình
+                Object.keys(signaturePads).forEach(id => {
+                    if (!signaturePads[id].isEmpty()) {
+                        signatureData[id] = signaturePads[id].toDataURL();
+                    }
+                });
+
+                setTimeout(function () {
+                    restoreAllSignatures();
+                }, 500);
+            });
+
+            // Xử lý khi virtual keyboard xuất hiện/ẩn trên mobile
+            let lastHeight = window.innerHeight;
+            $(window).on('resize', function () {
+                const currentHeight = window.innerHeight;
+
+                // Keyboard xuất hiện (chiều cao giảm)
+                if (currentHeight < lastHeight) {
+                    // Lưu chữ ký
+                    Object.keys(signaturePads).forEach(id => {
+                        if (!signaturePads[id].isEmpty()) {
+                            signatureData[id] = signaturePads[id].toDataURL();
+                        }
+                    });
+                }
+                // Keyboard ẩn (chiều cao tăng)
+                else if (currentHeight > lastHeight) {
+                    setTimeout(function () {
+                        restoreAllSignatures();
+                    }, 300);
+                }
+
+                lastHeight = currentHeight;
+            });
+
+            // Prevent scroll khi đang tương tác với signature pad
+            $('.signature-pad').each(function () {
+                $(this).on('touchstart touchmove', function (e) {
+                    e.stopPropagation();
+                });
+            });
+        });
+
+        // Hàm lấy tất cả dữ liệu chữ ký (để submit form)
+        function getAllSignatures() {
+            const result = {};
+            Object.keys(signaturePads).forEach(id => {
+                if (!signaturePads[id].isEmpty()) {
+                    result[id] = signaturePads[id].toDataURL();
+                } else if (signatureData[id]) {
+                    result[id] = signatureData[id];
+                }
+            });
+            return result;
+        }
+
+        // Hàm load chữ ký từ database
+        function loadSavedSignatures(savedData) {
+            if (!savedData) return;
+
+            Object.keys(savedData).forEach(id => {
+                if (signaturePads[id] && savedData[id]) {
+                    signatureData[id] = savedData[id];
+                    signaturePads[id].fromDataURL(savedData[id]);
+                }
+            });
+        }
+
+        // Hàm check xem có chữ ký nào chưa
+        function hasAnySignature() {
+            return Object.keys(signaturePads).some(id => !signaturePads[id].isEmpty());
+        }
+
+    </script>
+  
+    <script src="~/Scripts/QtyKiemPL/BCKiemPL.js"></script>
+
+
+</body>
+
+</html>
+

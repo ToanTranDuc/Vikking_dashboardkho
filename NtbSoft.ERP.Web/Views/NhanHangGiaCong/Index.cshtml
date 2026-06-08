@@ -1,0 +1,199 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Nhận hàng gia công sản phẩm ";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/TheoDoiHangXuat/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/toastr.min.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="~/css/NhanHangGiaCong/nhanhanggiacong.css" rel="stylesheet" />
+</head>
+
+<body>
+    <section style="display: flex; width: 99.8%; justify-content: space-between; height: 40px; background: #70baed; margin: 5px 2px; padding: 0px 10px; align-items: center; border-radius: 5px; position: sticky; top: 2px; z-index: 10; ">
+
+        <div class="list_phieu">
+            <i id="home" style="font-size: 21px; cursor: pointer; " class="fa-sharp fa-solid fa-house"></i>
+            <button id="creatDot">Nhập liệu gia công</button>
+            <button id="viewDot">Thống kê</button>
+        </div>
+        <div class="list_phieu" style="margin-left: auto; margin-right:10px">
+            <button style="display:none" class="btn_soKien">Nhập số kiện</button>
+            <i id="eye-hideSL" style="font-size: 21px; cursor: pointer; border: 1px solid; padding: 0 5px; background: #fff; border-radius: 5px; outline: none; " class="fa-solid fa-eye-slash"></i>
+
+        </div>
+
+
+    </section>
+    <section class="content" style=" ">
+        <div class="" style="width: 100%; display: flex; padding: 0 5px; justify-content: space-between; flex-wrap: wrap;">
+            <div style="display: flex; width: 100%; flex-wrap: wrap;">
+                <div class=" lst_DonHang">
+                    <label class="col-form-label item_lable" style="color: white">Tên ĐVSX</label>
+                    <select class="item_select dvsx">
+                    </select>
+                </div>
+                <div class=" lst_DonHang">
+                    <label class="col-form-label item_lable" style="color: white">Đơn hàng</label>
+                    <select class="item_select donhang">
+                    </select>
+                </div>
+                <div class=" lst_PO">
+                    <label class="col-form-label item_lable" style="color: white">PO</label>
+                    <select class="item_select po">
+                    </select>
+                </div><div class="lst_DauSize">
+                    <label class="col-form-label item_lable" style="color: white">InSeam</label>
+                    <select class="item_select dausize">
+                    </select>
+                </div>
+
+                <div style="margin-right: 10px; display: flex; justify-content: center; align-items: center; margin-left: auto;">
+                    <button style="min-width:72px;display:none" class="btn btn-primary" id="Update"><i class="fas fa-save"></i> Lưu</button>
+                    <button style="background: #dde924; white-space: nowrap;color:#000 " class="btn btn-success" id="hoanthanh"><i class="fa-sharp fa-solid fa-check-to-slot"></i> Hoàn thành</button>
+                    <button style="background: #dde924; white-space: nowrap; display:none " class="btn btn-danger" id="delete"><i class="fas fa-trash-alt"></i> Xóa </button>
+
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+    <div class="popupTextarea" style=" width: 100%; height: 100vh; position: fixed; top: 0; background: rgba(0, 0, 0, 0.34);display:none;z-index:4">
+        <div id="popup1" class="popup1">
+            <span id="closePopupBtn" style="float:right;cursor:pointer;font-size: 35px;height: 34px;margin-top: -20px;color: red;">×</span>
+            <label style="font-size: 14px; color: red; font-family: 'Roboto'; margin-right: 10px; padding-bottom: 3px; border-bottom: 1px solid;">Nhập liệu số lương gia công</label>
+            <div class="text_chitiet">
+
+            </div>
+            <div>
+                <label>SL mới</label>
+                <input class="nhapLieu" type="number" name="name" value="" />
+            </div>
+
+            <div style="display:flex;justify-content:end">
+                <div class="cancel">
+                    <i style="padding-left: 3px;" class="fa-duotone fa-eraser"></i>
+                    <button style="border: none; background: #a4c06e; font-weight: bold;" id="cancel">Xóa</button>
+                </div>
+                <div class="result">
+                    <i style="padding-left: 3px;" class="fa-duotone fa-floppy-disk"></i>
+                    <button style="border: none; background: #a4c06e; font-weight: bold;" id="result">Xong</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*view  nhập*@
+    <section class="solieunhap">
+        <div class="main-item">
+            <div class="task-item">
+                <div class="item-table">
+                    <table class="table" style="position: relative">
+                        <thead class="thead-list">
+                            <tr id="thead" style="position:relative">
+                                <td style="position: sticky; top: 0;">Tên lệnh</td>
+                                <td style="position: sticky; top: 0;">Màu</td>
+                                <td style="position: sticky; top: 0;">Season</td>
+                                <td style="position: sticky; top: 0;">Size</td>
+                                <td style="position: sticky; top: 0;">SL kế hoạch</td>
+                                <td style=" position: sticky; top: 0;">SLSP  nhập </td>
+                                <td style=" position: sticky; top: 0;">SLSP lũy kế</td>
+                                <td style=" position: sticky; top: 0;">Đợt </td>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                        </tbody>
+                        <tfoot id="tfootTotal">
+
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    @*view thông kê nhập tổng*@
+    <section class="thongke" style="display:none">
+        <div class="main-itemTong">
+            <div class="task-itemTong">
+                <div class="item-tableTong">
+                    <table class="table" style="position: relative">
+                        <thead class="thead-list">
+                            <tr id="thead" style="position:relative">
+                                <td style="position: sticky; top: 0;">Tên lệnh</td>
+                                <td style="position: sticky; top: 0;">Màu</td>
+                                <td style="position: sticky; top: 0;">Tổng SL kế hoạch</td>
+                                <td style=" position: sticky; top: 0;"> Tổng lũy kế SLT</td>
+                                <td style=" position: sticky; top: 0;"> Tổng SLT nhập  </td>
+                                <td style=" position: sticky; top: 0;"> Tổng SL nhập  </td>
+                                <td style=" position: sticky; top: 0;"> Tổng lũy kế</td>
+                                <td style="position: sticky; top: 0;">Đợt</td>
+                            </tr>
+
+                        </thead>
+                        <tbody id="tbodyTong">
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    @*view thống kê theo đợt*@
+    <section class="thongkeChiTiet1" style="display:none">
+        <div class="main-itemDot">
+            <div class="task-itemDot">
+                <div class="item-tableDot">
+                    <table class="table" style="position: relative">
+                        <thead class="thead-list">
+                            <tr id="thead" style="position:relative">
+                                <td style="position: sticky; top: 0;">Tên lệnh</td>
+                                <td style="position: sticky; top: 0;">Màu</td>
+                                <td style="position: sticky; top: 0;">Size</td>
+                                <td style="position: sticky; top: 0;">SL kế hoạch</td>
+                                <td style="position: sticky; top: 0;"> Số lượng nhập </td>
+                                <td style="position: sticky; top: 0;"> LuyKe</td>
+
+                                <td style="position: sticky; top: 0;">Đợt</td>
+                            </tr>
+
+                        </thead>
+                        <tbody id="tbodyDot">
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/toastr.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/sweetalert2.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        var data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+    </script>
+    <script src="~/Scripts/NhanHangGiaCong/nhanhanggiacong.js"></script>
+
+
+</body>
+</html>
+
+
+

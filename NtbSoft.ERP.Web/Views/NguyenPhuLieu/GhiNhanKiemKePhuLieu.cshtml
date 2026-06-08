@@ -1,0 +1,435 @@
+﻿
+@{
+    ViewBag.Title = "Ghi nhận kiểm kê phụ liệu";
+    Layout = null;
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Ghi nhận kiểm kê phụ liệu</title>
+
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/css/QRCode/toastr.minM.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link href="~/css/BienBanMoKien/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/BienBanMoKien/flatpickr-min.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/BienBanMoKien/daterangepicker.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/css/XuatHangNPL/xuathangnpl.css" rel="stylesheet" />
+    <link href="~/css/TongHopNPL/tempus-dominus.min.css" rel="stylesheet" />
+    <link href="~/css/BienBanMoKien/BienBanMoKien.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="~/css/ViTriKhoNPL/ScanQrCodeMobile.css?version=1.0" rel="stylesheet" />
+    <link href="~/css/DangKyVatTu/dkvattu.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div>
+        <section>
+            @*<div class="title">
+                    <div style="display: flex; align-items: center; width: 100%; ">
+                        <div style="display: flex; justify-content: center; align-items: center; gap: 6px;">
+                            <i id="home" class="fa-sharp fa-solid fa-house"></i>
+                            <span style="margin-top: 2px;">Ghi nhận kiểm kê phụ liệu</span>
+                        </div>
+                    </div>
+                </div>*@
+
+        </section>
+        <section>
+            <div class="tab2 mb-2">
+                <div class="container-fluid p-0" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                    <div class="card-body" style="padding :2px;margin-bottom:5px">
+                        <div class="row m-0 p-0 align-items-end mb-2 g-2">
+                            <div class="col-12 col-md-4  col-lg-2">
+                                <div class="select2_item d-flex flex-column">
+                                    <label class="txtselected">Lọc</label>
+                                    <select id="loc" class="select_2">
+                                        <option value="1">Phiếu</option>
+                                        <option value="2">Thời Gian</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-1 filterThoiGian d-none">
+                                <div class="select2_item d-flex flex-column">
+                                    <label class="txtselected">Từ ngày</label>
+                                    <div class="input-group datetimepicker " id="datetimepicker3" style="position:relative">
+                                        <input style="height: 36px; font-size: 14px; border-radius: 5px;" type="text" class="form-control dateInput" id="tuNgay" />
+                                        <i style="height:36px; position: absolute; right: 14px; top: 8px; font-size: 14px; cursor: pointer; z-index: 10" class="fa-solid fa-calendar-day"></i>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-6 col-md-4 col-lg-1 filterThoiGian d-none">
+                                <div class="select2_item d-flex flex-column">
+                                    <label class="txtselected">Đến ngày</label>
+                                    <div class="input-group datetimepicker " id="datetimepicker4" style="position:relative">
+                                        <input style="font-size: 14px ; height: 36px; border-radius: 5px;" type="text" class="form-control dateInput" id="denNgay" />
+                                        <i style="position: absolute; right: 14px; top: 8px; font-size: 14px; cursor: pointer; z-index: 10 " class="fa-solid fa-calendar-day"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 col-lg-2">
+                                <div class="select2_item">
+                                    <label class="txtselected">Phiếu</label>
+                                    <select class="select_2" id="phieuvattukiemke">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 col-lg-2 d-flex gap-1">
+                                <button id="btnTimNhanh" class="btn btn-primary d-flex align-items-center justify-content-center gap-2 w-100" style="font-size: 12px; height: 37px">
+                                    <i class="fa-solid fa-search"></i>
+                                    <span class="btn-text">Tìm Nhanh </span>
+                                </button>
+                                <button id="btnExportPL" class="btn btn-success d-flex align-items-center justify-content-center gap-2 w-100" style="font-size: 12px; text-align: center; height: 37px">
+                                    <i class="fa-solid fa-file-excel"></i>
+                                    <span class="btn-text">Xuất Excel </span>
+                                </button>
+                            </div>
+                            <div class="col-12 col-lg-auto mt-2 mt-lg-0 btnHuyKiemKe ms-lg-auto">
+                                <div class="row g-2 justify-content-lg-end">
+                                    <div class="col-4 col-lg-auto">
+                                        <button class="btn btn-primary btn-action w-100" id="btnSaveAllSLKK" style="font-size: 13px; height: 37px">
+                                            <i class="fas fa-check-double"></i> Xác nhận tất cả
+                                        </button>
+                                    </div>
+                                    <div class="col-4 col-lg-auto">
+                                        <button class="btn btn-info btn-action w-100" id="btnSaveKK" style="font-size: 13px; height: 37px">
+                                            <i class="fa-sharp-duotone fa-regular fa-check-to-slot mr-2"></i>Xác nhận
+                                        </button>
+                                    </div>
+                                    <div class="col-4 col-lg-auto">
+                                        <button class="btn btn-action w-100" id="btnShowModalDelete" style="color: white; background: #ea8066; font-size: 13px; height: 37px">
+                                            <i class="fa-duotone fa-light fa-trash-can mr-2"></i>Hủy Kiểm Kê
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                     </div>
+                </div>
+             </div>
+            <div class="px-1">
+                <div id="dxDataGhiNhanKiemKe" style="min-height: 300px; max-height: calc(100vh - 185px);"></div>
+            </div>
+        </section>
+        <!-- Modal Xác Nhận Thay Đổi -->
+        <div class="modal fade" id="modalConfirmSLKK" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            <i class="fas fa-exclamation-circle"></i> Xác nhận
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-3">Bạn muốn xác nhận thay đổi số lượng kiểm kê cho:</p>
+
+                        <div class="info-group" style="font-size: 14px;display: flex;justify-content: space-between;flex-wrap: wrap;">
+                            <div class="info-row">
+                                <span class="label">Item Code:</span>
+                                <span class="value" id="confirmItemCode">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Màu:</span>
+                                <span class="value" id="confirmMau">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Khổ vải:</span>
+                                <span class="value" id="confirmKhoVai">-</span>
+                            </div>
+                            <div class="info-row highlight">
+                                <span class="label" style="margin:0">Số lượng mới:</span>
+                                <span class="value" id="confirmSLKK">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary" id="btnConfirmSaveSLKK">Xác nhận</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Xem thông tin chi tiết vật tư -->
+        <div class="modal fade" id="modalInputSLKK" tabindex="-1" aria-labelledby="modalInputSLKKLabel" aria-hidden="true" data-bs-backdrop="static"
+             data-bs-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalInputSLKKLabel">Thông tin kiểm kê </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!--<div class="row mb-3 gap-2">
+                            <div class="col-md-5">
+                                <input type="text" class="form-control form-control-sm" id="searchVatTu" placeholder="Tìm kiếm số roll/số kiện...">
+                            </div>
+                            <div class="col-md-5 d-none">
+                                <div class="select2_item d-flex flex-column">
+                                    <div class="input-group datetimepicker " id="datetimepicker3" style="position:relative">
+                                        <input style="height: 30px; font-size: 12px; border-radius: 5px;" type="text" class="form-control dateInput" placeholder="Ngày Kiểm kê" id="ngayKK" />
+                                        <i style="position: absolute; right: 5px; top: 4px; font-size: 14px; cursor: pointer; z-index: 10" class="fa-solid fa-calendar-days"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1 d-none" id="colClearFilter">
+                                <button type="button" class="btn btn-sm btn-outline-secondary w-100" id="btnClearFilter" style="height: 30px; font-size: 12px;">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>-->
+                        <!-- Bảng nhập -->
+                        <!--<div class="table-responsive" style=" max-height: 60vh;">
+                        <table class="table table-bordered align-middle">
+                            <thead style="position: sticky; top: 0; background-color: #fff; z-index: 10; border-bottom: 2px solid #dee2e6;">-->
+                        <!-- Header Hình hộp -->
+                        <!--<tr id="headerEditSLKK">
+                                <th>Item Code</th>
+                                <th>Màu</th>
+                                <th>Số lô</th>
+                                <th>Số roll/Số kiện </th>
+                                <th>Tồn kho</th>
+                                <th>SL Kiểm kê</th>
+                                <th>Ngày kiểm kê</th>
+                                <th>Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyChiTietKiemKe">-->
+                        <!-- render vào đây -->
+                        <!--</tbody>-->
+                        <!-- SUMMARY -->
+                        <!--<tfoot style=" border-color: #ddd;">
+                                    <tr class="fw-bold bg-light text-red">
+                                        <td colspan="4"></td>
+                                        <td id="sumSLNK" style="color:red" class="text-center">0</td>
+                                        <td id="sumSLKiemKe" style="color:red" class="text-center">0</td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>-->
+                        <div id="dxDataGridChiTiet" style="max-height: calc(100vh - 255px) "></div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Xác Nhận Tất Cả -->
+        <div class="modal fade" id="modalConfirmAll" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="background: linear-gradient(135deg, #ff9e30 0%, #ff6616 100%); color: white;">
+                        <h5 class="modal-title">
+                            <i class="fas fa-exclamation-triangle"></i> Xác nhận tất cả
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" style="filter: brightness(0) invert(1);"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <i style="font-size: 28px; color: orange;" class="bi bi-exclamation-triangle icon-warning"></i>
+                        <h5 class="mt-3 mb-3">Xác nhận danh sách yêu cầu kiểm kê?</h5>
+                        <p class="text-muted">
+                            Bạn có chắc chắn muốn xác nhận danh sách yêu cầu kiểm kê này không?
+                        </p>
+                        <div class="bg-light border border-warning rounded p-3 mt-3">
+                            <i class="bi bi-unlock-fill text-warning me-2"></i>
+                            <span class="text-dark">
+                                <strong>Lưu ý:</strong> Sau khi xác nhận, các vật tư trên sẽ <strong>được phép xuất hàng</strong> trở lại.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-times"></i> Hủy
+                        </button>
+                        <button type="button" class="btn btn-primary" id="btnConfirmAllSave">
+                            <i class="fas fa-check"></i> Xác nhận
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Xác Nhận  -->
+    <div class="modal fade" id="modalConfirmKK" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, #ff9e30 0%, #ff6616 100%); color: white;">
+                    <h5 class="modal-title">
+                        <i class="fas fa-exclamation-triangle"></i> Xác nhận <span class="txtSLVTKK"></span> vật tư
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" style="filter: brightness(0) invert(1);"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i style="font-size: 28px; color: orange;" class="bi bi-exclamation-triangle icon-warning"></i>
+                    <h5 class="mt-3 mb-3">Xác nhận kiểm kê?</h5>
+                    <p class="text-muted">
+                        Bạn có chắc chắn muốn xác nhận <span class="txtSLVTKK"></span> vật tư yêu cầu kiểm kê này không?
+                    </p>
+                    <div class="bg-light border border-warning rounded p-3 mt-3">
+                        <i class="bi bi-unlock-fill text-warning me-2"></i>
+                        <span class="text-dark">
+                            <strong>Lưu ý:</strong> Sau khi xác nhận, các vật tư trên sẽ <strong>được phép xuất hàng</strong> trở lại.
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Hủy
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btnConfirmSave">
+                        <i class="fas fa-check"></i> Xác nhận
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tìm Kiếm -->
+    <div class="modal fade mt-2" id="modalTimNhanh" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header py-2 bg-danger text-white">
+                    <h6 class="modal-title" id="myModalLabelD">
+                        <i class="fa-solid fa-search me-2"></i>Tìm Nhanh
+                    </h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-3">
+                    <div class="mb-2" style="max-width: 225px">
+                        <div class="input-group" style="min-width:350px">
+                            <input id="inputTimKiem" class="form-control input-group-btn" placeholder="Tìm kiếm theo ItemCode ... " style="font-size: 13px" />
+                            <span id="btnTimKiem" class="input-group-text" style="cursor:pointer"><i class="fa-solid fa-search"></i></span>
+                        </div>
+                    </div>
+                    <div id="dxDanhSachItemCode" style="max-height: calc(100vh - 264px); min-height: 300px;"></div>
+                </div>
+                <div class="modal-footer d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark me-1"></i>Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <select id="select-LstVideo" style="display:none">
+    </select>
+    <audio id="beepSoundSuccess" controls="controls" style="display: none">
+        <source src="/css/QRCode/successSound.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="beepSoundError" controls="controls" style="display:none">
+        <source src="/css/QRCode/errorSound.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="successToast" class="toast" role="alert">
+            <div class="toast-header bg-success text-white">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto">Thành công</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="successMessage"></div>
+        </div>
+        <div id="errorToast" class="toast" role="alert">
+            <div class="toast-header bg-danger text-white">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong class="me-auto">Lỗi</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="errorMessage"></div>
+        </div>
+        <div id="warningToast" class="toast" role="alert">
+            <div class="toast-header bg-warning text-dark">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong class="me-auto">Cảnh báo</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="warningMessage"></div>
+        </div>
+    </div>
+
+    <!--Modal Xác Nhận Hủy Kiểm Kê-->
+    <div class="modal fade" id="modalCancelInventory" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-white" style="background:linear-gradient(135deg, #ea8066 0%, #b8553c 100%);">
+                    <h5 class="modal-title">
+                        Xác nhận hủy kiểm kê
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <i class="bi bi-exclamation-triangle" style="font-size: 28px; color: #ea8066;"></i>
+                        <h5 class="mt-3 mb-3">Bạn có chắc chắn muốn hủy kiểm kê?</h5>
+                    </div>
+
+                    <div class="bg-light border border-warning rounded p-3 mt-3 mb-3" role="alert">
+                        <i class="bi bi-lock-fill me-2"></i>
+                        <strong>Lưu ý:</strong> Sau khi hủy, các vật tư sẽ bị <strong>khóa lại</strong> không được phép <strong>nhập kho và xuất hàng</strong>.
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cancelReason" class="form-label">
+                            Lý do hủy <span class="text-danger">*</span>
+                        </label>
+                        <textarea style="font-size:14px" class="form-control"
+                                  id="cancelReason"
+                                  rows="3"
+                                  placeholder="Nhập lý do hủy kiểm kê..."
+                                  required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-arrow-left"></i> Quay lại
+                    </button>
+                    <button type="button" class="btn" style="color: white; background-color: #ea8066;" id="btnCancelInventory">
+                        <i class="bi bi-trash"></i> Hủy kiểm kê
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/checklistkhkiemsoat/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Content/Date/tempus-dominus.min.js"></script>
+    <script src="~/Content/Date/popperjs.js"></script>
+
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/toastr.min.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.js"></script>
+    <script src="~/Scripts/BienBanMoKien/qrcode.min.js"></script>
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/Scripts/BienBanMoKien/flatpickr.js"></script>
+    <script src="~/Scripts/ScanQR/html5-qrcode.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/moment.min.js"></script>
+    <script src="~/Content/Date/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Scripts/BienBanMoKien/daterangepicker.js"></script>
+
+    <script src="~/css/DevExtreme/dx.all.js"></script>
+    <script src="~/css/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Scripts/ScanQR/toastM.js"></script>
+    <script>
+        var userName = '@ViewBag.userName';
+
+    </script>
+    <script src="~/Scripts/NguyenPhuLieu/GhiNhanKiemKePL.js?version=1.0"></script>
+</body>
+</html>

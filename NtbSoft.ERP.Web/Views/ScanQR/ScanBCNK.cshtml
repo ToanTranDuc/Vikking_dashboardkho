@@ -1,0 +1,386 @@
+﻿
+@{
+    ViewBag.Title = "ScanQR";
+    Layout = null;
+}
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link href="~/Content/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+    @*<link rel="stylesheet" href="~/Content/bootstrap.min.css">
+        <link rel="stylesheet" href="~/Content/bootstrap.css">*@
+    <link rel="stylesheet" href="~/Content/plugins/select2/css/select2.min.css">
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link href="~/css/QRCode/QRCode.css" rel="stylesheet" />
+    <link href="~/css/QRCode/toastr.minM.css" rel="stylesheet" />
+    <link href="~/Content/Toast/Toast.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min-3.6.1.js"></script>
+    <link href="~/css/NhanHangGiaCong/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/css/QRCode/ScanBCDT.css" rel="stylesheet" />
+    <style>
+        .item_label {
+            font-size: 0.9rem !important;
+        }
+
+        .is-active {
+            background: blue;
+            color: white;
+        }
+
+        .labelHeader {
+            color: white;
+            font-size: 0.8rem;
+            margin: 5px 5px 0.1rem 0px;
+        }
+
+        .inputEnLine {
+            text-align: center;
+            font-size: 0.8rem !important;
+            background-color: white !important;
+            height: 1.7rem !important;
+            font-weight: bold !important;
+            padding: 0px !important;
+        }
+
+        .form-group {
+            margin: 0px !important;
+            /*  display: flex;*/
+            width: 100%;
+        }
+
+        .form-control {
+            height: 30px !important;
+        }
+
+        .col-form-label {
+            padding: 0px !important;
+            color: black !important
+        }
+
+        #reader {
+            width: 500px;
+            position: fixed !important;
+            padding: 0px;
+            border: none;
+            left: 50%;
+            top: 170px;
+            transform: translate(-50%, -0%);
+        }
+
+        #reader2 {
+            width: 600px;
+            position: fixed !important;
+            padding: 0px;
+            border: none;
+            left: 50%;
+            top: 144px;
+            transform: translate(-50%, -0%);
+            background: #fff;
+            height: 422px;
+            z-index: 99;
+        }
+
+        #reader.active {
+            z-index: 999;
+        }
+
+        .labelTitle {
+            font-weight: bold;
+            font-size: 0.9rem !important;
+        }
+
+        .lableValue {
+            font-weight: bold;
+            color: #009823;
+            font-size: 0.9rem !important;
+        }
+
+        .hightlight {
+            color: red !important;
+            font-size: 1.2rem;
+        }
+
+        .lblHeader {
+            text-align: center;
+            width: 100%;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 1.6rem;
+            background: #0a9c2b;
+            border-radius: 5px;
+            padding: 6px;
+        }
+
+        .card-info-2 {
+            display: block;
+            padding: 0px 10px 5px 10px;
+            margin: 0px 0px 5px 0px;
+            border-radius: .25rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
+        }
+
+        .select2-results {
+            font-size: 0.8rem !important;
+        }
+
+        .select2-selection__rendered {
+            font-size: 0.8rem !important;
+        }
+
+        .sumrow {
+            font-weight: bold !important;
+            color: red !important;
+        }
+
+        .IsThungLe {
+            background-color: #fadf8d;
+        }
+
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+
+        #swal2-title {
+            font-size: 1.3rem !important;
+        }
+    </style>
+</head>
+<body>
+    @*<div class="camera">
+            <div style="width:500px" id="reader"></div>
+        </div>*@
+    <div class="container" style="min-width:100vw!important;">
+        <div id="toast"></div>
+        <div class="alert" id="divalerts">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Thông báo!</strong> <span id="alertsuccess">Indicates a dangerous or potentially negative action.</span>
+        </div>
+        <div class="alertf" id="divalertf">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Thông báo!</strong> <span id="alertfail">Indicates a dangerous or potentially negative action.</span>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="lblHeader" style="display:flex">
+                    <div style="display: flex; gap: 15px; justify-content: center; align-items: center;">
+                        <i id="home" style="font-size: 21px; cursor: pointer;float:left " class="fas fa-home"></i>
+                        <h3 style="font-size: 24px; margin-bottom: 0px;">
+                            Nhập kho
+                        </h3>
+                    </div>
+                    <div class="" style="margin-left:auto">
+                        <span style="text-align: center; float: right; display: flex !important; justify-content: center; align-items: center; gap: 10px;">
+                            <button onclick="stopScan()" class="btn  bg-green" id="stopScanButton" style="background: #5fb7e1 !important;;width: 70px; height: 30px; display: flex; justify-content: center; align-items: center;"> Dừng</button>
+                            <button onclick="startScan()" class="btn  bg-warning" id="scanQR" style="width: 70px; height: 30px; display: flex; justify-content: center; align-items: center;"> Quét </button>
+
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-12 col-md-5 col-lg-4 col-xl-4">
+                <div class="card-body" style="padding :2px;margin-bottom:5px">
+
+                    <div class="callout callout-info" style="margin: 0px;padding-top:5px;padding-bottom:5px">
+                        <div class="row">
+                            <div class="col-12 card-header" style="padding: 0px 0.4rem 5px">
+                                <h3 class="card-title" style=" font-size: 22px; color: #117a8b; font-weight: bold;">Dữ liệu scan</h3>
+                                @*<button class="btn btn-block bg-warning" id="scanQR" style="width:120px;height:32px;float:right"> Quét mã</button>*@
+                            </div>
+                            <div class="col-7">
+                                <span class="labelTitle">MH :</span><span id="MaHang_S" class="lableValue"></span><br>
+                                <span class="labelTitle">PO :</span><span id="PO_S" class="lableValue"></span><br>
+                                <span class="labelTitle">InSeam :</span><span id="DauSize_S" class="lableValue"></span><br>
+
+                            </div>
+                            <div class="col-5" style="padding:0px">
+                                <div class="col-12" style="display:flex;justify-content:left;align-items:center;padding:0px">
+                                    <span class="labelTitle" style="font-size:1.2rem">SL : </span><span class="lableValue hightlight" style="font-size: 1.1rem !important" id="STTong_S"></span>
+                                </div>
+                                <div class="col-12" style="padding:0px">
+                                    <span class="labelTitle">Màu : </span><span id="Mau_S" class="lableValue"></span><br>
+                                    <span class="labelTitle">Size : </span><span id="Size_S" class="lableValue"></span><br>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="col-12 col-md-7 col-lg-8 col-xl-8">
+                <div class="card-body card-info-2">
+                    <div class="row">
+
+                        <div class="col-6 col-sm-6 col-lg-6">
+                            <div class="form-group display">
+                                <label class="col-form-label item_label" style="text-align:center; color:White">Đơn hàng</label>
+                                <select class="form-control inputEnLine sLenhSX" id="MaDH" onchange="GetPO()" style="text-align:center;"></select>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3 col-lg-3">
+                            <div class="form-group display">
+                                <label class="col-form-label item_label" style="text-align:center; color:White">PO</label>
+                                <select class="form-control inputEnLine sLenhSX" id="POID" onchange="GetThongTinDT()" style="text-align:center;"></select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-lg-3">
+                            <div class="form-group display" style="flex-direction: column; display: flex; justify-content: left;">
+                                <label class="col-form-label item_label" style=" color:White">QR scan</label>
+                                <textarea id="QRScan" style=" height: 28px; margin-right: 2px; outline: none; border: 1px solid #CED4DA; border-radius: 5px;">
+                                </textarea>
+                            </div>
+                        </div>
+
+
+                        <div class="col-6 col-md-4 col-lg-4">
+                            <div class="form-group display">
+                                <label class="col-form-label item_label" style="text-align:center; color:White">InSeam</label>
+                                <select class="form-control inputEnLine" id="DauSize" onchange="GetMau()" style="text-align:center; "></select>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 col-lg-4">
+                            <div class="form-group display">
+                                <label class="col-form-label item_label" style="text-align:center; color:White">Màu</label>
+                                <select class="form-control inputEnLine" id="Mau" onchange="GetSize()" style="text-align:center;"></select>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 col-lg-3">
+                            <div class="form-group display">
+                                <label class="col-form-label item_label" style="text-align:center; color:White">Size</label>
+                                <select class="form-control inputEnLine" id="Size" onchange="GetText()" style="text-align:center; "></select>
+                            </div>
+                        </div>
+                        @*style="display:flex;margin-top:25px !important;justify-content:"*@
+                        <div class="col-6 col-md-2 col-lg-1">
+                            <div class="form-group display" style="flex-direction: column; display: flex; justify-content: left;">
+                                <label class="col-form-label item_label" style="white-space:nowrap; text-align:; color:White">Thùng gọp</label>
+                                <input id="cbxThungLe" onchange="CheckThungLeChange()" style="width:25px;height:25px;margin-right:2px" type="checkbox" />
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div>
+                    <div class="main-item">
+                        <div class="task-item">
+                            <div class="item-table">
+                                <table class="table" style="position: relative">
+                                    <thead class="thead-listPO">
+                                        <tr>
+                                            <td>Tên hàng</td>
+                                            <td>PO</td>
+                                            <td>InSeam</td>
+                                            <td>Màu</td>
+                                            <td>Size</td>
+                                            <td>SL Thùng</td>
+                                            <td>Đóng thùng</td>
+                                            <td>Nhập kho</td>
+                                            <td>Barcode</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody">
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="col-12">
+                    <div class="containerA" style="max-height:calc(100vh - 160px);overflow-y:scroll">
+                        <table class="table table-fixed" id="table2" style="margin-bottom:0px">
+                            <thead id="tblHeaderCT" class="head2">
+                                <tr>
+                                    <th rowspan="2">PKL</th>
+                                    <th colspan="2">Carton Number</th>
+                                    <th rowspan="2">Mã hàng</th>
+                                    <th rowspan="2">PO</th>
+                                    <th rowspan="2">Đầu size</th>
+                                    <th rowspan="2">Color</th>
+                                    <th rowspan="2">Cont</th>
+                                    <th id="colSize" ; colspan="1">Size</th>
+                                    <th rowspan="2">Qty</th>
+                                    <th rowspan="2">Carton</th>
+                                    <th rowspan="2">Thùng đã quét</th>
+                                    <th rowspan="2">TotalPiece</th>
+                                    <th rowspan="2">Barcode</th>
+                                </tr>
+                                <tr id="lstSize">
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblBodyCT">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+    <div id="popupModal" class="modal fade" tabindex="-1" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" style="width: ; ">
+            <div class="modal-content" style="height: 100%;">
+                <div class="modal-header" style="padding: 3px 10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+
+
+                </div>
+                <div class="modal-body p-0">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <select id="select-LstVideo" style="display:none">
+    </select>
+    <div id="reader-container">
+        @*<div id="reader2">
+                Quét mã vạch
+            </div>*@
+        <div id="reader"></div>  <!-- Canvas cho quét mã QR -->
+        <div id="shaded-region"></div> <!-- Vùng tối bao quanh chỉ vùng quét -->
+    </div>
+
+    <audio id="beepSound" controls="controls" style="display:none">
+        <source src="~/css/QRCode/successSound.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="beepSoundError" controls="controls" style="display:none">
+        <source src="~/css/QRCode/errorSound.mp3" type="audio/mpeg" />
+    </audio>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/ScanQR/html5-qrcode.js"></script>
+    <script src="~/Scripts/ScanQR/toastM.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.js"></script>
+    <script src="~/Scripts/ScanQR/ScanBCNK.js"></script>
+
+    <script>
+        $('.sLenhSX').select2();
+
+    </script>
+
+
+</body>
+</html>
+
+

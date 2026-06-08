@@ -1,0 +1,179 @@
+﻿
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhập Kho</title>
+
+    <link href="~/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/sweetalert2.min-11.6.0.css">
+    <link href="/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/fontawesome-6.5.1.css" rel="stylesheet" />
+    <script src="~/Scripts/sweetalert2.min-11.6.0.js"></script>
+    <link rel="stylesheet" href="~/css/dongthungnew.css">
+    <link href="~/css/tippy-animation.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="page-nhapkho">
+        <div class="title d-flex  align-items-end-mb" style="position: sticky;top:0;z-index:99;justify-content:space-between">
+            <div style="display:flex;align-items:center" class="align-items-end-mb">
+                <i id="home" style="font-size: 21px; cursor: pointer; " class="fa-sharp fa-solid fa-house"></i>
+                <div>
+                    <div class="toggle_input">
+                        <label class="text" for="">Lệnh SX</label>
+                        <input type="text" name="name" value="" disabled="disabled" placeholder="Chọn Lệnh SX" />
+                    </div>
+                    <div class="box_toggle">
+                        <div style="position: sticky; top: 0; left: 0; z-index: 1; background: #DEDEDE; text-align: left">
+                            <div>
+                                <input id="search_mahang" type="text" name="name" value="" placeholder="Theo mã hàng" />
+                                <input id="search_po" type="text" name="name" value="" placeholder="Theo PO" />
+                            </div>
+                            <div style="display: flex; align-items: center;position: absolute; right: 10px; top: 0;gap: 4px; font-size: 16px; z-index: 2; height: 100%;">
+                                <input type="checkbox" name="name" value="" id="hidePKL" style="width: 20px; height: 20px; margin: 0;" />
+                                <label for="hidePKL">PKL đã nhập</label>
+                            </div>
+                        </div>
+                        <table>
+                            <tbody id="slc_lenhsx">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="display:flex;margin-left: 5px; align-items: center" class="luuchuyen">
+                    <input type="checkbox" name="name" value="" id="btn-luuchuyen" style="width: 25px; height: 25px" />
+                    <label for="btn-luuchuyen" style="font-size: 20px">Luân chuyển</label>
+                </div>
+                <div class="item-search">
+                    <input id="search" class="form-control search-input" type="text" draggable="false" placeholder="Tìm kiếm " />
+                    <div class="icon" id="remove-search">
+                        <img src="~/img/x.svg" />
+                    </div>
+                </div>
+            </div>
+            <div class="btn-action">
+                <button class="btn" id="btn-hide">Ẩn</button>
+                <button class="btn" id="btn-refresh">Nạp lại</button>
+            </div>
+        </div>
+
+        <div class="dongthung">
+            <div class="list-item">
+                <table id="tbl_DS_KHDT">
+                    <thead>
+                        <tr>
+                            @*<th class="mw-2">PO </th>*@
+                            <th class="mw-2">Mã ĐH</th>
+                            <th class="mw-2">Mã Hàng</th>
+                            <th class="mw-2">PO</th>
+                            <th class="mw-2">Tên DVSX</th>
+                            <th class="mw-2">Đợt </th>
+                            <th class="mw-1">Màu</th>
+                            <th class="mw-2">Size</th>
+                            <th class="minw-2">Đầu Size</th>
+                            <th class="diadiem hide">Từ Kho</th>
+                            <th class="diadiem hide">Đến kho</th>
+                            <th class="minw-2">Thùng</th>
+                            <th class="minw-2">Đã Nhập/Tổng Thùng</th>
+                            <th class="minw-2">Ngày Lập KH</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="sec-action">
+                <div class="custom-select item" id="customSelect">
+                    <div class="select-selected">
+                        Tất cả
+                    </div>
+                    <div class="select-options item" wfd-invisible="true">
+                        <div class="option" data-action="0">Chưa nhập</div>
+                        <div class="option" data-action="1">Đã nhập</div>
+                        <div class="option active" data-action="2">Tất cả</div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn item" id="handleByQuantity">Nhập theo số lượng</button>
+                </div>
+                <div>
+                    <button class="btn item" id="handleByVitri" data-toggle="modal" data-target="#exampleModal">Nhập theo vị trí</button>
+                </div>
+                <div>
+                    <button class="btn" id="handleFast">Nhập tất cả</button>
+                </div>
+                <div style="display:flex; align-items: center;">
+                    @*<div style="display:flex; align-items: center;">
+                        <input type="checkbox" name="name" value="" id="swapDate" />
+                        <label for="swapDate">Đổi ngày</label>
+                    </div>*@
+                    <button class="btn" id="handleNhapKho">Nhập Kho</button>
+                </div>
+            </div>
+            <div class="dongthung__right">
+                <div style="position: relative">
+                    <p class="item-list">
+                        Danh Sách Thùng
+                    </p>
+
+                    <div style="position: absolute; top: 0; right: 0; height: 100%; width: 150px;">
+                        <select style="height: 100%; width: 100%; background: #a4dbd1;" id="slc_kho">
+                            @*<option value="value">Chọn kho</option>
+                                <option value="value">Chọn kho</option>
+                                <option value="value">Chọn kho</option>*@
+                        </select>
+                    </div>
+                </div>
+                <div class="PSM" id="dsThung">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Nhập theo vị trí</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <label>Từ thùng</label>
+                        <input type="number" name="name" value="" id="ViTriBD" min="1" />
+                    </div>
+                    <div>
+                        <label>Đến thùng</label>
+                        <input type="number" name="name" value="" id="ViTriKT" min="1" />
+                    </div>
+                </div>
+                <div style="text-align: center">
+                    <input type="date" name="name" value="" id="ngayTheoViTri" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnViTriXacNhan" class="btn btn-primary" data-dismiss="modal">Đồng ý</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery.min-3.6.1.js"></script>
+    <script src="~/Scripts/popperjs.min.js"></script>
+    <script src="~/Scripts/tippy.min.js"></script>
+    <script src="~/Scripts/tooltip.min.js"></script>
+    <script src="~/Scripts/login.js"></script>
+    <script src="~/Scripts/DongThung/nhapkho.js"></script>
+    <script>
+        $("#home").on("click", function () {
+            window.location.href = '/Home/Dashboard'
+        })
+    </script>
+</body>
+</html>
+

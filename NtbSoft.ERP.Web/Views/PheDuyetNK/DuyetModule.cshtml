@@ -1,0 +1,73 @@
+@{
+    ViewBag.Title = "Phê duyệt";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phê duyệt</title>
+
+    @*<link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css" />*@
+    @*<link href="~/Lib/FrontEnd/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/Lib/FrontEnd/DevExtreme/dx.light.css" rel="stylesheet" />*@
+    <link href="~/css/PheDuyet/duyetnk.css?v=20260327_12" rel="stylesheet" />
+
+    @*<script src="~/Scripts/jquery.min-3.6.1.js"></script>*@
+    @*<script src="~/Lib/FrontEnd/DevExtreme/dx.all.js"></script>*@
+</head>
+<body>
+    <div class="qc-approval-page">
+        <div class="qc-toolbar">
+            <div class="qc-actions">
+                <button class="btn action-btn btn-duyet" id="btn-duyet" type="button">
+                    <i class="fas fa-check"></i>
+                    Duyệt
+                </button>
+                <button class="btn action-btn btn-huy" id="btn-huy-duyet" type="button">
+                    <i class="fas fa-times"></i>
+                    Hủy
+                </button>
+                <button class="btn action-btn btn-excel" id="btn-export-excel" type="button">
+                    <i class="fas fa-file-excel"></i>
+                    Xuất Excel
+                </button>
+            </div>
+
+            <div class="qc-filters">
+                <div class="qc-search-box">
+                    <i class="fas fa-search"></i>
+                    <input id="txt-search" type="text" placeholder="Tìm kiếm..." />
+                </div>
+
+                <div class="qc-date-range" id="qc-date-range">
+                    <div class="qc-date-item">
+                        <label for="from-date">Từ ngày:</label>
+                        <div id="from-date"></div>
+                    </div>
+                    <div class="qc-date-item">
+                        <label for="to-date">Đến ngày:</label>
+                        <div id="to-date"></div>
+                    </div>
+                </div>
+
+                <label class="qc-check-approved" for="chk-da-duyet">
+                    <input id="chk-da-duyet" type="checkbox" />
+                    <span>Đã duyệt</span>
+                </label>
+
+                <button class="btn action-btn btn-loc" id="btn-filter" type="button">
+                    <i class="fas fa-filter"></i>
+                    Lọc
+                </button>
+            </div>
+        </div>
+
+        <div id="gridContainer"></div>
+    </div>
+
+    @*<script src="~/Scripts/PheDuyet/PheDuyet.js?v=20260327_18"></script>*@
+</body>
+</html>

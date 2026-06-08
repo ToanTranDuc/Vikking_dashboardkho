@@ -1,0 +1,40 @@
+﻿@media (max-width: 480px) {
+
+    th {
+        font-size: 12px;
+    }
+    header-baocao{
+        display: flex;
+        flex-direction: column;
+        height: 80px;
+    }
+    .hangHoa, .productOrder {
+        width: 100% !important;
+        margin: 0 0 5px 0 !important;
+        max-width: 100vw;
+    }
+
+    #chooseHangHoa, #chooseProductOrder, .hangHoa li, .productOrder li {
+        width: 94vw !important;
+    }
+    #liMaHang,  #liLenhSX {
+        width: 94vw !important;
+        z-index: 999;
+    }
+    .fixed-bottom {
+        display: flex !important;
+        justify-content: center !important;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        padding: 10px;
+        background-color: #fff;
+        z-index: 1000;
+        width: 100%;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .fixed-bottom button {
+        padding: 12px 20px;
+    }
+}

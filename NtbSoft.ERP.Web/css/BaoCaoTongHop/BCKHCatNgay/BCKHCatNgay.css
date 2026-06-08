@@ -1,0 +1,225 @@
+﻿/**/
+.body {
+    background-color: #93a5ff;
+    border-bottom: 1px solid;
+    padding: 5px 10px 10px 10px;
+}
+
+.tbl-report {
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.option-setting {
+    margin-bottom: 10px
+}
+
+.date-option {
+    padding: 10px;
+}
+
+.item-container {
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    border-radius: 5px;
+    background-color: snow;
+}
+/*layout*/
+#fromdate, #todate {
+    height: 35px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 10px;
+    border: 2px solid #8f8f8f;
+    margin-left: 9px;
+    outline: none;
+}
+
+.action input, #btnAll {
+    font-weight: 700;
+}
+
+.btn-warning1.active {
+    background: #ffb822;
+}
+
+.btn-warning1 {
+    border-color: #8f8f8f;
+    border: 2px solid #8f8f8f;
+    border-radius: 8px;
+    height: 35px;
+    padding: 9px;
+}
+
+.highcharts-credits {
+    display: none;
+}
+
+.table-bordered thead {
+    background: #CEDE7B;
+    color: #000;
+    font-weight: 700;
+}
+
+/**/
+@media only screen and (max-width: 600px) {
+    .action {
+        /* align-items: end !important;*/
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .box-action {
+        flex-wrap: wrap-reverse;
+    }
+}
+
+
+@media only screen and (max-width: 1400px) {
+    .rorder-0 {
+        order: 0;
+    }
+
+    .rorder-1 {
+        order: 1;
+    }
+
+    .rorder-9 {
+        order: -1;
+    }
+}
+
+.kt-subheader__title {
+    font-weight: 700;
+}
+
+@media (min-width: 1025px) {
+    .kt-header--fixed.kt-aside--minimize .kt-header {
+        left: 0 !important;
+    }
+
+    .kt-aside--fixed.kt-aside--minimize .kt-wrapper {
+        padding-left: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .kt-footer .kt-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.action.d-flex.align-items-center {
+    display: flex;
+    align-items: center;
+}
+/* CSS cho bảng và các thành phần liên quan */
+.table-container {
+    margin: 20px;
+    padding: 10px;
+    border: 2px solid #000000; /* Viền bao quanh bảng màu đen */
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+    table th, table td {
+        border: 1px solid #262222;
+        padding: 12px;
+        text-align: left;
+    }
+
+    table th {
+        background-color: #ffffff;
+        font-weight: bold;
+    }
+
+    table tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+
+    table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+tfoot td {
+    font-weight: bold;
+    text-align: start;
+    background-color: #e6d5be;
+}
+
+/* CSS cho các phần tử khác */
+#bodyContent {
+    padding: 10px;
+}
+
+#footContent {
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-top: 2px solid #ddd;
+}
+
+h1 {
+    font-size: 24px;
+    margin: 20px 0;
+    color: #333;
+}
+
+h2 {
+    font-size: 20px;
+    margin: 20px 0;
+    color: #666;
+}
+
+#container, #container1, #container2 {
+    margin: 20px 0;
+    height: 400px;
+}
+
+#btnExportExcel {
+    
+    height: 35px;
+    margin-top: 12px;
+    margin-right: 13px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    background-color: #28a745;
+    color: #fff;
+    border: 1px solid #28a745;
+    transition: background-color 0.3s ease-in-out;
+}
+
+    #btnExportExcel:hover {
+        background-color: #218838;
+    }
+
+
+@media only screen and (max-width: 374px) {
+    #btnExportExcel {
+        font-size: 0;
+        padding: 10px; 
+    }
+}
+
+
+body {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 16px;
+}
+
+input {
+    min-height: 25px;
+    font-size: 16px;
+}

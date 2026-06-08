@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewBag.Title = "BCKiemPLNgay";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BB Kiểm Phụ Liệu</title>
+
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/select2/css/select2.min.css">
+    <link href="~/Content/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+    @*<link href="~/css/NguyenPhuLieu/Sign.css" rel="stylesheet" />*@
+    <link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="~/Content/plugins/DevExtreme/dx.common.css" rel="stylesheet" />
+    @*<script src="~/Scripts/NguyenPhuLieu/Sign.js"></script>*@
+    <link href="~/css/QtyKiemPL/PhieuKiem.css" rel="stylesheet" />
+    <link href="~/css/QtyKiemPL/BCNguyenPhuLieuNgay.css" rel="stylesheet" />
+    <style>
+        .dx-popup-wrapper > .dx-overlay-content {
+            min-width: 350px !important;
+            max-width: 350px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="header-section bg-info sticky-top">
+            <div class="container-fluid">
+                <div class="header-content d-flex flex-wrap align-items-center justify-content-between gap-3 py-2">
+                    <div class="d-flex align-items-center gap-3">
+                        <a href="~/Home/DashBoard" class="text-white">
+                            <i class="fas fa-home fa-lg"></i>
+                        </a>
+                        <h5 class="header-title mb-0 text-white">
+
+                            <span class="d-block text-sm opacity-90">Báo Cáo Phụ Liệu Theo Ngày</span>
+                        </h5>
+                    </div>
+                
+                    <div class="action-buttons d-flex align-items-center gap-2 flex-nowrap">
+
+                        <!-- Lọc -->
+                        <div class="d-flex align-items-center gap-1 flex-nowrap" style="font-size: 13px;">
+                            <i class="fa-brands fa-codepen"></i>
+                            <span>Lọc</span>
+                            <select class="form-control form-control-dropdown" id="select-filer" style="width: 90px;">
+                                <option value="ALL">ALL</option>
+                                <option value="0">FAIL</option>
+                                <option value="1">PASS</option>
+                            </select>
+                        </div>
+
+                        <!-- Nạp Lại -->
+                        <button class="btn btn-custom btn-refresh" id="btn-refresh">
+                            <i class="fas fa-sync-alt"></i>
+                            Nạp Lại
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-card animate-in">
+           
+            <div class="form-section">
+                <div class="row g-2 align-items-end">                  
+                    <!-- Date Range Filter -->
+                    <div id="dateFilterContent" class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3">
+                        <div class="row g-1">
+                            <div class="col-6">
+                                <label class="form-label-custom">
+                                    <i class="fas fa-calendar-alt me-1"></i>Từ Ngày
+                                </label>
+                                <div id="fromDate"></div>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label-custom">
+                                    <i class="fas fa-calendar-alt me-1"></i>Đến Ngày
+                                </label>
+                                <div id="toDate"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4" style=" margin-left: auto;" >
+                        <div style="background: #f8f9fa; padding: 5px; border-left: 4px solid #007bff; border-radius: 4px;">
+
+                            <div id="headerInfo"> </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Grid Container -->
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="grid-contianer">
+                        <div id="grvPhuLieuKiemNgay">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="customLoaderWrapper" class="custom-loader-wrapper">
+        <div class="custom-loader-box">
+            <div class="custom-loading-text">Đang lấy dữ liệu...</div>
+            <div id="customLoader" class="custom-loader">
+                <div id="customProgressBar" class="custom-progress" data-percentage="100%"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="~/Scripts/jquery.min-3.6.1.js"></script>
+    <script src="~/Content/plugins/moment/moment.min.js"></script>
+    <script src="/Content/js/core/utils.js"></script>
+    <script src="/Content/js/core/common.js"></script>
+    <script src="~/Scripts/Toast/Toast.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Content/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Scripts/ViTriKho/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Content/dist/js/adminlte.min.js"></script>
+    <script src="~/Content/plugins/DevExtreme/dx.all.js"></script>
+    <script src="~/Content/plugins/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Content/plugins/PadSign/signature_pad.min.js"></script>
+    <script src="~/Scripts/QtyKiemPL/BCKiemPLNgay/BCKiemPLNgay.js?version=1.1"></script>
+    <script>
+
+         var _userName = '@ViewBag.userName';
+        if (window.CefSharp) {
+            $("#home").hide();
+            localStorage.setItem('username', _userName)
+        }
+    </script>
+
+</body>
+
+</html>
+
+

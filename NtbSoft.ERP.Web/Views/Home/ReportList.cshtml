@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "Danh sách báo cáo";
+    Layout = "~/Views/Shared/_LayoutBCTH.cshtml";
+}
+<style>
+
+
+    body {
+        padding-top: 0;
+        padding-bottom: 0;
+        font-size: 16px;
+    }
+
+    input {
+        min-height: 25px;
+        font-size: 16px;
+    }
+
+</style>
+<div class="row" style="margin-top:10px">
+
+    <div id="HoanThanh" class="col-12" style="margin-bottom:5px;">
+        <div class="card card-row card-default">
+            <div class="card-header bg-info">
+                <h3 style="font-size: 20px;" class="card-title">
+                    Doanh thu
+                </h3>
+            </div>
+            <div class="card-body" style="padding:0.5rem 0rem 0rem">
+                <a id="bienbanKT" href="../../../bao-cao-tong-hop/bao-cao-nang-suat-doanh-thu" class="btn btn-app bg-success">
+                    <i class="fas fa-file-import"></i> Năng xuất và doanh thu
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top:10px">
+    <div id="HoanThanh" class="col-12" style="margin-bottom:5px;">
+        <div class="card card-row card-default">
+            <div class="card-header bg-info">
+                <h3 style="font-size: 20px;" class="card-title">
+                    Tiến độ
+                </h3>
+            </div>
+            <div class="card-body" style="padding:0.5rem 0rem 0rem">
+                <a id="tk_dongthung" href="../../../bao-cao-tong-hop/bao-cao-tien-do" class="btn btn-app bg-success">
+                    <i class="fa-regular fa-chart-gantt" style="font-size: 15px; display: block;"></i> Báo cáo tiến độ
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top:10px">
+    <div id="HoanThanh" class="col-12" style="margin-bottom:5px;">
+        <div class="card card-row card-default">
+            <div class="card-header bg-info">
+                <h3 style="font-size: 20px;" class="card-title">
+                    Chất lượng
+                </h3>
+            </div>
+            <div class="card-body" style="padding:0.5rem 0rem 0rem">
+                <a id="NhanHangGiaCong" href="../../../bao-cao-tong-hop/bao-cao-chat-luong-ma-hang-tren-chuyen" class="btn btn-app bg-success">
+                    <i style="display: block; font-size: 15px; margin-top: -3px;" class="fa-sharp fa-solid fa-file-import"></i>Chất lượng mã hàng trên chuyền
+                </a>
+                <a id="NhanHangGiaCong" href="../../../bao-cao-tong-hop/bao-cao-chat-luong-ma-hang-sau-ui" class="btn btn-app bg-success">
+                    <i style="display: block; font-size: 15px; margin-top: -3px;" class="fa-sharp fa-solid fa-pen-field"></i> Chất lượng mã hàng sau ủi
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top:10px">
+    <div id="KhoHoanThanh" class="col-12" style="margin-bottom:5px;">
+        <div class="card card-row card-default">
+            <div class="card-header bg-info">
+                <h3 style="font-size: 20px;" class="card-title">
+                    Báo cáo khác
+                </h3>
+            </div>
+            <div class="card-body" style="padding:0.5rem 0rem 0rem">
+                <a id="tk_nhamay" href="../../../bao-cao-tong-hop/bao-cao-nhap-kho-tp" class="btn btn-app bg-success">
+                    <i class="fa-solid fa-box-archive" style="font-size: 15px; display: block;"></i> Nhập kho TP
+                </a>
+                <a id="tk_nhamay" href="../../../bao-cao-tong-hop/bao-cao-dong-thung" class="btn btn-app bg-success">
+                    <i class="fa-solid fa-box-archive" style="font-size: 15px; display: block;"></i> Đóng thùng
+                </a>
+                <a id="tk_nhamay" href="../../bao-cao-tong-hop/bao-cao-ke-hoach-cat-ngay" class="btn btn-app bg-success">
+                    <i class="fa-solid fa-box-archive" style="font-size: 15px; display: block;"></i> Kế hoạch cắt ngày
+                </a>
+                <a id="tk_nhamay" href="../../../bao-cao-tong-hop/bao-cao-ma-hang-loi-tren-chuyen-may" class="btn btn-app bg-success">
+                    <i class="fa-solid fa-box-archive" style="font-size: 15px; display: block;"></i> Tỉ lệ mã hàng lỗi trên chuyền
+                </a>
+                <a id="tk_nhamay" href="../../../bao-cao-tong-hop/bao-cao-thoi-gian-hao-phi" class="btn btn-app bg-success">
+                    <i class="fa-solid fa-box-archive" style="font-size: 15px; display: block;"></i> Thời ian hao phí
+                </a>
+                <a id="tk_nhamay" href="../../../bao-cao-tong-hop/bao-cao-nhan-su" class="btn btn-app bg-success">
+                    <i class="fa-solid fa-box-archive" style="font-size: 15px; display: block;"></i> Nhân lực
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let brainChoose = sessionStorage.getItem("BranchName");
+    $('#tittleBC').text(`${brainChoose} - Danh sách báo cáo`);
+    $('#home').on('click', function () {
+        location.href = "../../../../Home/TongQuan";
+    });
+</script>
+<script src="~/Scripts/home/report_list.js"></script>

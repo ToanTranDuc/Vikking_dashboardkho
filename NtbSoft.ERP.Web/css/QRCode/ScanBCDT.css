@@ -1,0 +1,196 @@
+﻿.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+}
+
+#video {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+    #video canvas,
+    #video video {
+    }
+
+.anim-box.center {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.scanner {
+    width: 100%;
+    height: 2px;
+    background-color: red;
+    animation: scan 5s infinite linear;
+    position: absolute;
+    top: 0;
+}
+.task-item {
+    display: flex;
+    max-height: calc(100vh - 180px);
+    border: 1px solid #ccc;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+
+    .task-item .item-table {
+        overflow: auto;
+        width: 100%;
+    }
+
+        .task-item .item-table .table thead {
+            position: sticky;
+            top: -1px;
+            z-index: 3
+        }
+
+            .task-item .item-table .table thead tr {
+                border: 1px solid #ccc;
+                position: sticky;
+                top: -1px !important;
+                height: 30px;
+            }
+
+                .task-item .item-table .table thead tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-weight: bold;
+                    color: #fff;
+                    vertical-align: middle;
+                    background: #5da566;
+                    outline: none;
+                    font-family: 'Roboto';
+                    min-width: 60px;
+                    font-size: 14px;
+                    padding: 3px 5px;
+                }
+
+
+
+        .task-item .item-table .table tbody {
+        }
+
+            .task-item .item-table .table tbody tr {
+                border: 1px solid #ccc;
+            }
+
+                .task-item .item-table .table tbody tr.active {
+                    background: #efefef
+                }
+
+                .task-item .item-table .table tbody tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: bold;
+                    vertical-align: middle;
+                    font-family: 'Roboto';
+                    color: #000;
+                    padding: 5px 2px !important;
+                    word-break: break-all;
+                    outline: none;
+                }
+
+                .task-item .item-table .table tbody tr input {
+                    text-align: center;
+                    width: 100%;
+                    padding: 0;
+                    height: 27px;
+                    border: none;
+                    outline: none;
+                    min-width: 100px
+                }
+
+        .task-item .item-table .table tfoot {
+            position: sticky;
+            bottom: 0;
+            background: #fff;
+            outline: 1px solid #ccc;
+        }
+
+            .task-item .item-table .table tfoot tr {
+                border: 1px solid #ccc;
+            }
+
+                .task-item .item-table .table tfoot tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: bold;
+                    font-family: serif;
+                    vertical-align: middle;
+                    font-family: 'Roboto';
+                    color: red;
+                }
+
+@keyframes scan {
+    0% {
+        top: 0;
+    }
+
+    100% {
+        top: 100%;
+    }
+}
+
+#text-Scanning {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+#reader-container {
+    position: relative; /* Cần có vị trí tương đối để đặt các phần tử con */
+}
+
+#reader {
+}
+
+#shaded-region {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Màu tối, làm mờ */
+    z-index: 1; /* Đảm bảo vùng che phủ nằm trên canvas */
+}
+
+    #shaded-region .qrbox {
+        background-color: transparent; /* Vùng quét sẽ không bị mờ */
+        z-index: 2; /* Đảm bảo vùng quét nằm trên vùng che phủ */
+    }
+
+
+@media (max-width: 500px) {
+    /* Thu nhỏ camera và vùng quét trên thiết bị di động */
+    #reader-container {
+        display: block; /* Cải tiến để camera không chiếm toàn bộ màn hình */
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    #reader {
+        width: 50%; /* Thu nhỏ camera trên di động */
+        /*height: 80%;*/  
+        border: 2px solid white; /* Viền để dễ nhận diện */
+        margin-top:-5px
+    }
+
+    #shaded-region {
+        display: block;
+        background-color: rgba(0, 0, 0, 0.7); /* Làm mờ màn hình */
+    }
+
+        /* Chỉnh sửa vị trí của vùng quét */
+        #shaded-region .qrbox {
+            width: 90%; /* Đảm bảo vùng quét vừa đủ */
+            height: 200px; /* Chiều cao cố định cho vùng quét */
+            border: 3px dashed white; /* Viền để dễ nhận diện */
+            margin: 0 auto;
+        }
+}

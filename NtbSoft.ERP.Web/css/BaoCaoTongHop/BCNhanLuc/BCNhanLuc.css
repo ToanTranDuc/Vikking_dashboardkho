@@ -1,0 +1,516 @@
+﻿/*modify 27-09-24*/
+/*date picker*/
+#fdate, #tdate, #date {
+    position: relative;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.mobile-item-btn {
+    padding-left: 15px;
+}
+/**/
+.mobile-item-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.highcharts-title, .highcharts-credits {
+    display: none
+}
+
+table {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+th {
+    background-color: #5da566 !important;
+    color: white !important;
+    font-family: 'roboto' !important;
+    border: 1px solid black !important;
+    outline: 1px solid black !important;
+}
+
+thead td {
+    background-color: #5da566 !important;
+    color: white !important;
+    font-family: 'roboto' !important;
+    border: 1px solid black !important;
+    outline: 1px solid black !important;
+}
+
+td {
+    font-family: 'roboto';
+    border: 1px solid black !important;
+    outline: 1px solid black !important;
+    font-weight: 400 !important;
+    padding: 0.45rem !important;
+}
+
+
+#tfooter {
+    background-color: #fdf5df;
+    font-weight: bold;
+    text-align: center;
+    border-top: 2px solid #343a40;
+    color: red;
+}
+
+    #tfooter tr {
+        height: 50px;
+    }
+
+    #tfooter td {
+        padding: 10px;
+        border-left: 1px solid #e0e0e0;
+        border-right: 1px solid #e0e0e0;
+    }
+
+
+
+
+.data-time {
+    height: 80px;
+    background: #5e5d67;
+}
+
+.col-lg-12.col-12 {
+    padding: 0 0px;
+    color: white;
+}
+
+.title1 {
+    text-align: center;
+    margin-right: 38px;
+    font-size: 20px;
+}
+
+#container1 {
+    width: 243px !important;
+    height: 300px !important;
+}
+
+#year {
+    width: auto;
+    font-size: 15px;
+    height: 90%;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 2px;
+    border: 2px solid #FFB822;
+    outline: none;
+    text-align: center;
+}
+
+#container {
+    height: 300px !important;
+}
+
+
+#staff {
+    text-align: center;
+    margin-top: 10%;
+}
+
+tr, th, td {
+    text-align: center;
+    outline: 1px solid
+}
+
+.tbl-woker th {
+    font-size: 16px;
+}
+
+.nhanluc {
+    display: flex
+}
+
+.nhanluc-left {
+    width: 24%;
+    height: auto;
+    overflow-y: scroll;
+    max-height: 645px
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+.table1 thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.nhanluc-right {
+    height: 42vh;
+    display: flex;
+    width: 100%;
+    border-bottom: 2px solid
+}
+
+    .nhanluc-right .color {
+        width: 20%
+    }
+
+        .nhanluc-right .color p {
+            font-size: 13px;
+            margin-bottom: 7px
+        }
+
+
+.chart {
+    width: 100%;
+    display: flex;
+}
+
+.totall {
+    display: flex;
+    margin-top: 20px;
+    background: #ffdfdf;
+    position: relative;
+    width: 30%;
+}
+
+
+    .totall .title1 {
+        position: absolute;
+        z-index: 2;
+        text-align: center;
+        left: 26%;
+        top: -45px;
+        font-size: 19px;
+    }
+
+.total2 {
+    position: relative;
+}
+
+    .total2 .title1 {
+        position: absolute;
+        z-index: 2;
+        left: 34%;
+        top: -8%;
+    }
+
+
+
+#chuyen {
+    margin-left: -2%;
+    margin-bottom: 13px;
+    border-radius: 5px;
+    height: 20px;
+}
+
+.tieude {
+    text-align: center;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+    background: #ffe6e6;
+    width: 100%;
+    margin-bottom: 0;
+    padding: 5px;
+}
+
+.btnTim {
+    height: 36px;
+    width: 59px;
+    border-radius: 5px;
+    background: #FFB822;
+    color: #fff;
+    font-weight: 500;
+}
+
+.title {
+    width: 100%;
+    text-align: center;
+    border: 1px solid;
+    background: #e6cccc;
+    text-transform: uppercase;
+    font-size: 27px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+
+
+.item {
+    display: flex
+}
+
+    .item .item-list {
+        position: absolute;
+        background: #ffe6e6;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        bottom: 10px;
+        left: 20px;
+    }
+
+
+        .item .item-list .list {
+            margin-bottom: 5px
+        }
+
+#chuyen1, #chuyen2 {
+    width: 90px;
+    height: 22px;
+    border-radius: 6px;
+    padding-left: 5px;
+    margin-right: 5px;
+}
+
+#year {
+    display: flex;
+    appearance: none;
+    font-size: 14px;
+}
+
+
+#chartContainer5 .canvasjs-chart-canvas {
+    width: 297px !important;
+    height: 272px !important;
+    position: absolute;
+    user-select: none;
+    margin-top: 49px;
+}
+
+#chartContainer5 .canvasjs-chart-tooltip {
+    left: 30px !important;
+}
+
+#container6 {
+}
+
+    #container6 tspan {
+        font-weight: normal !important
+    }
+
+    #container6 text {
+        font-weight: normal !important
+    }
+
+
+#container10 {
+    display: none;
+}
+
+
+
+#container11 {
+    display: none
+}
+
+.success {
+    left: 83%;
+    position: absolute
+}
+
+    .success span {
+        text-align: center;
+        font-weight: 600
+    }
+
+    .success p {
+        margin-bottom: 1px;
+        margin-top: 9px;
+    }
+
+        .success p strong {
+            position: absolute;
+            right: 5px
+        }
+
+.color-border {
+    border-right: 5px solid;
+    border-image: linear-gradient(to bottom, red, green, blue) 1;
+}
+
+.color-border1 {
+    border-right: 5px solid;
+    border-image: linear-gradient(to bottom, red, yellow, green) 1;
+}
+
+.value .text {
+    width: 90px;
+    font-size: 13px;
+    margin-top: 8px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.ui-state-default {
+    text-align: center !important;
+    border: none !important;
+    border-radius: 50px;
+}
+
+
+
+.action.d-flex.align-items-center {
+    display: flex;
+    align-items: center;
+}
+
+
+.kt-portlet {
+    background: #3876e766;
+}
+
+.tbl-woker {
+    background-color: #fff;
+    padding: 10px 0;
+}
+
+
+.flex-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 5px 0;
+}
+
+.flex-txt {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    height: 40px;
+    background-color: #faf0dc;
+    justify-content: center;
+}
+
+.chart-title {
+    font-weight: 600;
+    width: 100%;
+    margin-bottom: 0px;
+    background: #faf0dc;
+    height: 40px;
+    text-align: center;
+    padding: 5px;
+    font-size: 20px;
+    color: cornflowerblue;
+}
+
+.txt {
+    font-weight: 600;
+    background: #faf0dc;
+    text-align: center;
+    padding: 5px;
+    font-size: 20px;
+    color: cornflowerblue;
+    margin-bottom: 0px !important;
+}
+
+.select-year {
+    width: auto;
+    border-radius: 6px;
+    text-align: center;
+    margin-top: -1px;
+    height: 21px;
+    padding: 0px 10px;
+    outline: none;
+    margin-bottom: 5px;
+}
+
+#box-ld {
+    height: 91%;
+}
+
+#theader {
+    background-color: #9cf6fb
+}
+
+.action {
+    gap: 20px;
+    flex-direction: row;
+}
+
+    .action label {
+        color: white
+    }
+
+.option-date {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    flex-direction: row;
+    margin: 8px;
+}
+
+/*BC Nhân Lực Excel*/
+/*layout*/
+.btn-group-excel {
+    margin-left: auto;
+}
+/*btn*/
+.btn-excel {
+    appearance: none;
+    background-color: #2ea44f;
+    border: 1px solid rgba(27, 31, 35, .15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 6px 20px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+    .btn-excel:focus:not(:focus-visible):not(.focus-visible) {
+        box-shadow: none;
+        outline: none;
+    }
+
+    .btn-excel:hover {
+        background-color: #2c974b;
+    }
+
+    .btn-excel:focus {
+        box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+        outline: none;
+    }
+
+    .btn-excel:disabled {
+        background-color: #94d3a2;
+        border-color: rgba(27, 31, 35, .1);
+        color: rgba(255, 255, 255, .8);
+        cursor: default;
+    }
+
+    .btn-excel:active {
+        background-color: #298e46;
+        box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+    }
+
+
+body {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 16px;
+}
+
+input {
+    min-height: 25px;
+    font-size: 16px;
+}

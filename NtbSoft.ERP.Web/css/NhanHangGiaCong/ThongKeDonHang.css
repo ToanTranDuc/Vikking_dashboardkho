@@ -1,0 +1,25 @@
+﻿body {
+}
+
+.lst_DonHang {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    min-width: 100px;
+    width: auto;
+}
+
+    .lst_DonHang .select2-container {
+        text-align: center !important;
+        width: auto !important;
+    }
+
+        .lst_DonHang .select2-container .select2-selection--single .select2-selection__rendered {
+            padding-left: 0px;
+        }
+
+@media (max-width: 750px) {
+    .task-item {
+        max-height: calc(100vh - 140px) !important;
+    }
+}

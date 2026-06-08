@@ -1,0 +1,784 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
+    <title>Danh Sách Vật Tư Kiểm Kê NL</title>
+
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/css/QRCode/toastr.minM.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link href="~/css/BienBanMoKien/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/BienBanMoKien/flatpickr-min.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/BienBanMoKien/daterangepicker.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/css/XuatHangNPL/xuathangnpl.css" rel="stylesheet" />
+    <link href="~/css/TongHopNPL/tempus-dominus.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="~/css/ViTriKhoNPL/ScanQrCodeMobile.css" rel="stylesheet" />
+    <link href="~/css/BienBanMoKien/BienBanMoKien.css" rel="stylesheet" />
+
+    <style>
+
+        .sec-action .item {
+            margin-right: 10px;
+            border: none;
+        }
+
+
+
+        .select-pkl {
+            flex-direction: column;
+            display: flex;
+        }
+
+        .labelTitle {
+            font-weight: bold;
+            color: green;
+            font-size: 15px !important;
+        }
+
+        #reader {
+            width: 500px;
+            position: fixed !important;
+            padding: 0px;
+            border: none;
+            left: 50%;
+            top: 170px;
+            transform: translate(-50%, -0%);
+        }
+
+        #reader2 {
+            width: 600px;
+            position: fixed !important;
+            padding: 0px;
+            border: none;
+            left: 50%;
+            top: 144px;
+            transform: translate(-50%, -0%);
+            background: #fff;
+            height: 422px;
+            z-index: 99;
+        }
+
+        #reader.active {
+            z-index: 999;
+        }
+
+        .lableValue {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .select2-selection__choice {
+            background: linear-gradient(90deg, #42a5f5, #478ed1) !important;
+            color: #fff !important;
+            border: none !important;
+            border-radius: 15px !important;
+            /*padding: 3px 10px !important;*/
+            font-size: 14px !important;
+            /* margin-top: 6px !important;
+            margin-right: 5px !important;*/
+        }
+
+        .select2-selection__choice__remove {
+            color: #fff !important;
+            /*    margin-right: 6px;*/
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            min-height: 40px;
+            border-radius: 5px;
+            border: 1px solid #42a5f5;
+        }
+
+        .tdPosition {
+            font-size: 14px
+        }
+
+        .task-item .item-table .table tfoot {
+            bottom: -2px !important;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 36px !important;
+        }
+
+            .select2-container .select2-selection--single .select2-selection__rendered {
+                margin-top: -3px !important;
+            }
+
+        /* Highlight row effect */
+        tr.highlight {
+            background-color: #fff3cd !important;
+            animation: highlightFade 2s ease-in-out;
+            transition: background-color 0.3s ease;
+        }
+
+            tr.highlight td {
+                font-weight: 600;
+                color: #000 !important;
+            }
+
+        #tbodyChiTietKiemKe td {
+            padding: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        /* Thêm hiệu ứng hover cho các row */
+        tbody tr:hover {
+            background-color: #f8f9fa;
+            cursor: pointer;
+        }
+
+        /* Đảm bảo highlight luôn nổi bật hơn hover */
+        tbody tr.highlight:hover {
+            background-color: #fff3cd !important;
+        }
+
+        .task-item .item-table .table thead tr td {
+            height: 35px;
+        }
+
+        .dx-header-row .col-header {
+            background: #5da566;
+            color: #fff;
+            text-align: center !important;
+            vertical-align: middle !important;
+            white-space: nowrap
+        }
+
+        .dx-data-row .col-header {
+            text-align: center !important;
+            font-size: 13px !important;
+            vertical-align: middle !important
+        }
+
+        .dx-data-row .checkboxTD {
+            display: flex;
+            justify-content: center
+        }
+
+        .dx-footer-row .col-header .dx-datagrid-text-content {
+            text-align: center !important;
+            color: red !important
+        }
+
+        .dx-datagrid-summary-item {
+            text-align: center !important;
+            color: red !important
+        }
+
+        .dx-row.dx-freespace-row.dx-column-lines {
+            display: none !important
+        }
+
+        ::-webkit-scrollbar {
+            height: 2px;
+            width: 2px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+
+        #modalInputSLKK td {
+            vertical-align: middle;
+        }
+
+        #modalInputSLKK .modal-content {
+            min-width: 650px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        #modalInputSLKK .form-control {
+            font-weight: normal;
+            font-size: 12px;
+        }
+
+        #modalConfirmSLKK .modal-header {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+        }
+
+        #modalConfirmSLKK .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        #modalConfirmSLKK .info-group {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        #modalConfirmSLKK .info-row {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+            #modalConfirmSLKK .info-row:last-child {
+                border-bottom: none;
+            }
+
+            #modalConfirmSLKK .info-row.highlight {
+                display: flex;
+                align-items: center;
+                background: #fff3cd;
+                margin: 10px -15px -15px;
+                padding: 12px 15px;
+                border-radius: 0 0 8px 8px;
+            }
+
+        #modalConfirmSLKK .label {
+            margin: 0;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        #modalConfirmSLKK .value {
+            font-weight: 600;
+            color: #212529;
+        }
+
+        #modalConfirmSLKK .info-row.highlight .value {
+            color: #e74c3c;
+            font-size: 1.1rem;
+        }
+
+        #headerEditSLKK th {
+            border: 1px solid #dee2e6;
+            background: #5DA566 !important;
+            font-weight: unset;
+            color: #fff;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .custom-tabs {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 5px;
+            padding: 10px;
+        }
+
+            .custom-tabs .nav-tabs {
+                border-bottom: 2px solid #e0e0e0;
+            }
+
+            .custom-tabs .nav-link {
+                color: #666;
+                font-weight: 500;
+                padding: 5px 10px;
+                border: none;
+                border-bottom: 3px solid transparent;
+                transition: all 0.3s ease;
+                font-size: 15px
+            }
+
+                .custom-tabs .nav-link:hover {
+                    color: #42a5f5;
+                    background-color: #f5f5f5;
+                    border-bottom-color: #42a5f5;
+                }
+
+                .custom-tabs .nav-link.active {
+                    color: #42a5f5;
+                    font-weight: 600;
+                    background-color: #fff;
+                    border-bottom-color: #42a5f5;
+                }
+
+        #txtSoPhieu:disabled {
+            background-color: transparent;
+            cursor: default;
+        }
+
+        @@media(max-width: 370px) {
+            #btnHuyKiemKe {
+                padding: 2px 6px;
+            }
+        }
+
+        #modalTimNhanh .modal-dialog {
+            margin: auto;
+            max-width: 70%;
+        }
+
+        .labelHeader {
+            color: black !important;
+            font-size: 0.9rem !important;
+            margin-bottom: 0.1rem !important;
+            font-weight: 500 !important;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 7px 6px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            background: white;
+            border: var(--bs-border-width) solid var(--bs-border-color);
+        }
+
+            .input-box:focus {
+                outline: none;
+                border-color: #007bff;
+            }
+
+        .dropdown-list {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #007bff;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            margin-top: -2px;
+        }
+
+            .dropdown-list.show {
+                display: block;
+            }
+
+        .search-box {
+            padding: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+
+            .search-box input {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                font-size: 13px;
+            }
+
+                .search-box input:focus {
+                    outline: none;
+                    border-color: #007bff;
+                }
+
+        .dropdown-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+            .dropdown-item:hover {
+                background: #f8f9fa;
+            }
+
+            .dropdown-item:last-child {
+                border-bottom: none;
+            }
+
+            .dropdown-item input[type="checkbox"] {
+                margin-right: 10px;
+                width: 18px;
+                height: 18px;
+                cursor: pointer;
+            }
+
+            .dropdown-item label {
+                cursor: pointer;
+                flex: 1;
+                user-select: none;
+                font-weight: unset !important
+            }
+
+                .dropdown-item label:not(.form-check-label):not(.custom-file-label) {
+                    font-weight: 500 !important;
+                }
+        .title {
+            background: #357C97;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="title">
+            <div style="display: flex; align-items: center; width: 100%; ">
+                <div style="display: flex; justify-content: center; align-items: center; gap: 6px;">
+                    <i id="home" class="fa-sharp fa-solid fa-house"></i>
+                    <span style="margin-top: 2px;">Danh Sách Vật Tư Kiểm Kê NL</span>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <section>
+        <!-- Custom Tabs Container -->
+        <div class="custom-tabs">
+            <!-- Nav Tabs -->
+            <ul class="nav nav-tabs mb-2" id="mainTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="vat-tu-kiem-ke-tab" data-bs-toggle="tab"
+                            data-bs-target="#vat-tu-kiem-ke" type="button" role="tab">
+                        <i class="fas fa-chart-line me-2"></i>Vật Tư Kiểm Kê
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="phieu-vat-tu-kiem-ke-tab" data-bs-toggle="tab"
+                            data-bs-target="#phieu-vat-tu-kiem-ke" type="button" role="tab">
+                        <i class="fas fa-clipboard-check me-2"></i>Phiếu Vật Tư Kiêm Kê
+                    </button>
+                </li>
+            </ul>
+            <!-- Tab Content -->
+            <div class="tab-content" id="mainTabContent">
+                <!-- Tab Vật Tư Kiểm Kê -->
+                <div class="tab-pane fade show active" id="vat-tu-kiem-ke" role="tabpanel">
+                    <section>
+                        <div class="tab2 mb-2">
+                            <div class="container-fluid" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; padding: 0px 0px 3px 0px !important;">
+                                <div class="card-body" style="padding :2px;margin-bottom:5px">
+                                    <div class="row m-0 p-0 align-items-end">
+                                        <div class="col-4 col-md-3  col-lg-2  col-xl-2 ">
+                                            <div class="select2_item d-flex flex-column">
+                                                <label class="txtselected">Số Phiếu</label>
+                                                <input class="form-control" id="txtSoPhieu" style="height: 36px; font-size: 13px " disabled />
+                                            </div>
+                                        </div>
+                                        <div class="col-4 col-md-3  col-lg-2  col-xl-2 ">
+                                            <div class="select2_item d-flex flex-column">
+                                                <label class="txtselected">Từ ngày</label>
+                                                <div class="input-group datetimepicker " id="datetimepicker" style="position:relative">
+                                                    <input style="height: 36px; font-size: 14px; border-radius: 5px;" type="text" class="form-control dateInput" id="tuNgay" />
+                                                    <i style="height:36px; position: absolute; right: 14px; top: 8px; font-size: 14px; cursor: pointer; z-index: 10" class="fa-solid fa-calendar-day"></i>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4 col-md-3  col-lg-2  col-xl-2 ">
+                                            <div class="select2_item d-flex flex-column">
+                                                <label class="txtselected">Đến ngày</label>
+                                                <div class="input-group datetimepicker " id="datetimepicker2" style="position:relative">
+                                                    <input style="font-size: 14px ; height: 36px; border-radius: 5px;" type="text" class="form-control dateInput" id="denNgay" />
+                                                    <i style="position: absolute; right: 14px; top: 8px; font-size: 14px; cursor: pointer; z-index: 10 " class="fa-solid fa-calendar-day"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 col-md-3  col-lg-2  col-xl-2  ">
+                                            <div class="select2_item d-flex flex-column">
+                                                <label class="txtselected">Khách Hàng</label>
+                                                <select id="khachhang" class="select_2">
+                                                    <option value="all">Tất cả</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-4 col-md-3 col-lg-2 col-xl-2">
+                                            <div class="form-group select-container mb-0">
+                                                <label class="txtselected" for="exampleInputPassword1">Chủng Loại</label>
+                                                <input type="text"
+                                                       class="input-box"
+                                                       id="chungLoaiInput"
+                                                       placeholder=""
+                                                       readonly>
+                                                <div class="dropdown-list" id="dropdownList">
+                                                    <div class="search-box">
+                                                        <input type="text" id="searchInput" placeholder="Tìm kiếm...">
+                                                    </div>
+
+                                                    <div class="dropdown-item check-all">
+                                                        <input type="checkbox" id="checkAll">
+                                                        <label style="font-weight: 400 !important; margin:0px" for="checkAll">Chọn tất cả</label>
+                                                    </div>
+                                                    <div id="itemList"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4 col-md-9 col-lg-2 col-xl-2 d-flex justify-content-end mt-2">
+                                            <button id="btnSave" class="btn btn-success d-flex align-items-center gap-2" style="font-size: 12px">
+                                                <i class="fa-solid fa-check-double"></i>
+                                                <span class="btn-text">Xác Nhận DS</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div id="dxDanhSachVatTuKiemKe" style="max-height: calc(100vh - 264px); min-height: 300px;"></div>
+                        </div>
+                    </section>
+                </div>
+                <!-- Tab Phiếu Vật Tư Kiểm Kê -->
+                <div class="tab-pane fade" id="phieu-vat-tu-kiem-ke" role="tabpanel">
+                    <section>
+                        <div class="container-fluid p-0 pb-2 mb-2" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                            <div class="card-body" style="padding :2px;margin-bottom:5px">
+                                <div class="row m-0 p-0 align-items-end">
+                                    <div class="col-12 col-md-3  col-lg-2  col-xl-2">
+                                        <div class="select2_item d-flex flex-column">
+                                            <label class="txtselected">Lọc</label>
+                                            <select id="loc" class="select_2">
+                                                <option value="1">Phiếu</option>
+                                                <option value="2">Thời Gian</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3  col-lg-2  col-xl-2 d-none filterThoiGian">
+                                        <div class="select2_item d-flex flex-column">
+                                            <label class="txtselected">Từ ngày</label>
+                                            <div class="input-group datetimepicker " id="datetimepicker3" style="position:relative">
+                                                <input style="height: 36px; font-size: 14px; border-radius: 5px;" type="text" class="form-control dateInput" id="tuNgayTab2" />
+                                                <i style="height:36px; position: absolute; right: 14px; top: 8px; font-size: 14px; cursor: pointer; z-index: 10" class="fa-solid fa-calendar-day"></i>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-md-3  col-lg-2  col-xl-2 d-none filterThoiGian">
+                                        <div class="select2_item d-flex flex-column">
+                                            <label class="txtselected">Đến ngày</label>
+                                            <div class="input-group datetimepicker " id="datetimepicker4" style="position:relative">
+                                                <input style="font-size: 14px ; height: 36px; border-radius: 5px;" type="text" class="form-control dateInput" id="denNgayTab2" />
+                                                <i style="position: absolute; right: 14px; top: 8px; font-size: 14px; cursor: pointer; z-index: 10 " class="fa-solid fa-calendar-day"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-md-3 col-lg-2 col-xl-2 ">
+                                        <div class="select2_item">
+                                            <label class="txtselected">Phiếu</label>
+                                            <select class="select_2" id="phieuvattukiemke">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-8 col-md-6 col-lg-8 col-xl-8 d-flex justify-content-end mt-2 btnHuyKiemKe gap-2">
+                                        <button id="btnHuyKiemKe" class="btn btn-danger d-flex align-items-center gap-2" style="font-size: 12px;">
+                                            <i class="fa-solid fa-circle-xmark"></i>
+                                            <span class="btn-text">Hủy Kiểm Kê</span>
+                                        </button>
+                                        <button id="btnTimNhanh" class="btn btn-success d-flex align-items-center gap-2" style="font-size: 12px;">
+                                            <i class="fa-solid fa-search"></i>
+                                            <span class="btn-text">Tìm Nhanh </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div id="dxPhieuDanhSachVatTuKiemKe" style="max-height: calc(100vh - 264px); min-height: 300px;"></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Xác nhận xóa-->
+    <div class="modal fade" id="modalComfimrtDeleteVT" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header py-2 bg-danger text-white">
+                    <h5 class="modal-title" id="myModalLabelD">
+                        <i class="fa-solid fa-trash-can me-2"></i>Xác nhận xóa
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-3">
+                    <p class="text-center mb-2" style="font-size: 17px;">
+                        Bạn có chắc chắn muốn hủy kiểm kê <span id="txtSLVTDelete"></span> vật tư này khỏi danh sách ?
+                    </p>
+                </div>
+                <div class="modal-footer d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark me-1"></i>Hủy
+                    </button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmtDeletePhieu">
+                        <i class="fa-solid fa-trash-can me-1"></i>Xác nhận xóa
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tìm Kiếm -->
+    <div class="modal fade mt-2" id="modalTimNhanh" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header py-2 bg-danger text-white">
+                    <h6 class="modal-title" id="myModalLabelD">
+                        <i class="fa-solid fa-search me-2"></i>Tìm Nhanh
+                    </h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-3">
+                    <div class="mb-2" style="max-width: 225px">
+                        <div class="input-group" style="min-width:350px">
+                            <input id="inputTimKiem" class="form-control input-group-btn" placeholder="Tìm kiếm theo ItemCode ... " style="font-size: 13px" />
+                            <span id="btnTimKiem" class="input-group-text" style="cursor:pointer"><i class="fa-solid fa-search"></i></span>
+                        </div>
+                    </div>
+                    <div id="dxDanhSachItemCode" style="max-height: calc(100vh - 264px); min-height: 300px;"></div>
+                </div>
+                <div class="modal-footer d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark me-1"></i>Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999">
+        <div id="successToast" class="toast" role="alert">
+            <div class="toast-header bg-success text-white">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto">Thành công</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="successMessage"></div>
+        </div>
+        <div id="errorToast" class="toast" role="alert">
+            <div class="toast-header bg-danger text-white">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong class="me-auto">Lỗi</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="errorMessage"></div>
+        </div>
+        <div id="warningToast" class="toast" role="alert">
+            <div class="toast-header bg-warning text-dark">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong class="me-auto">Cảnh báo</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="warningMessage"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">
+                        <i class="bi bi-question-circle me-2"></i>Xác nhận
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body text-center">
+                    <i style="font-size: 28px; color: orange;" class="bi bi-exclamation-triangle icon-warning"></i>
+                    <h5 class="mt-3 mb-3">Xác nhận danh sách yêu cầu kiểm kê và muốn gửi lên quản lý để duyệt??</h5>
+                    <p class="text-muted">
+                        Bạn có chắc chắn muốn xác nhận danh sách yêu cầu kiểm kê này không?
+                    </p>
+                    <div class="bg-light border border-warning rounded p-3 mt-3">
+                        <i class="bi bi-lock-fill text-warning me-2"></i>
+                        <span class="text-dark">
+                            <strong>Lưu ý:</strong> Sau khi xác nhận, các vật tư trên sẽ <strong>không được phép nhập kho và xuất hàng</strong> nữa.
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i>Hủy bỏ
+                    </button>
+                    <button type="button" class="btn btn-primary" id="confirmBtn" onclick="">
+                        <i class="bi bi-check-circle me-1"></i>Xác nhận
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+
+    <script src="~/Scripts/TheoDoiHangXuat/toastr.min.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.js"></script>
+    <script src="~/Scripts/BienBanMoKien/qrcode.min.js"></script>
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/Scripts/BienBanMoKien/flatpickr.js"></script>
+    <script src="~/Scripts/ScanQR/html5-qrcode.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/moment.min.js"></script>
+    <script src="~/Scripts/BienBanMoKien/daterangepicker.js"></script>
+    <script src="~/Scripts/TongHopNPL/popperjs.js"></script>
+    <script src="~/Scripts/TongHopNPL/tempus-dominus.min.js"></script>
+    <script src="~/css/DevExtreme/dx.all.js"></script>
+    <script src="~/Content/Date/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/css/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Scripts/ScanQR/toastM.js"></script>
+    <script>
+        var userName = '@ViewBag.userName';
+        var isNPL = 1
+        function showToast(type, message, delay = 2000) {
+            let toastId, messageId;
+
+            switch (type) {
+                case 'success':
+                    toastId = 'successToast';
+                    messageId = 'successMessage';
+                    break;
+                case 'error':
+                    toastId = 'errorToast';
+                    messageId = 'errorMessage';
+                    break;
+                case 'warning':
+                    toastId = 'warningToast';
+                    messageId = 'warningMessage';
+                    break;
+                default:
+                    console.error('Unknown toast type:', type);
+                    return;
+            }
+
+            $('#' + messageId).text(message);
+
+            const toastElement = $('#' + toastId)[0];
+            const toast = new bootstrap.Toast(toastElement, {
+                autohide: true,
+                delay: delay
+            });
+
+            toast.show();
+        }
+
+    </script>
+    <script src="~/Scripts/DanhSachVatTuKiemKe/danhsachvattukiemke.js?version=1.0"></script>
+</body>
+</html>

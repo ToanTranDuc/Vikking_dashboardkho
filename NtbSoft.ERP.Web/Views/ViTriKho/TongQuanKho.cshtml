@@ -1,0 +1,165 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <title>Khai báo kho NPL</title>
+
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/css/QRCode/toastr.minM.css" rel="stylesheet" />
+    <link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+    <link href="~/css/ViTriKhoNPL/tongquankho.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <div class="container-fluid main-container px-3">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card glass-card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-4">
+                                <h4 class="mb-0">
+                                    <i id="home" class="fa-sharp fa-solid fa-house"></i>
+                                    Hệ Thống Quản Lý Kho
+                                </h4>
+                            </div>
+                            <div class="col-md-8 ">
+                                 <div style="justify-content:end;align-items:center;gap:5px" id="filterGroup" class="btn-group w-100" role="group"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search --> 
+        <div class="row mb-4 d-none">
+            <div class="col-12">
+                <div class="input-group">
+                    <span class="input-group-text bg-primary text-white">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input style="border: 1px solid #ccc;" type="text" class="form-control search-box" id="searchInput"
+                           placeholder="Tìm kiếm vị trí (VD: A.1.2.3, Dãy A, Kệ 1, Tầng 2...)">
+                </div>
+            </div>
+        </div>
+
+        <!-- Legend & Stats -->
+        <div class="row mb-4 ">
+            <div class="col-lg-8 mb-2">
+                <div class="card glass-card">
+                    <div class="card-body">
+                        <h6><strong>Chú thích: Sức chứa còn lại</strong></h6>
+                        <div class="row">
+                            <div class="col-md-3 col-6 mb-2">
+                                <div class="d-flex align-items-center">
+                                    <div class="capacity-empty rounded-circle me-2" style="width: 20px; height: 20px;">
+                                    </div>
+                                    <small>= 0% (Đầy)</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-2">
+                                <div class="d-flex align-items-center">
+                                    <div class="capacity-low rounded-circle me-2" style="width: 20px; height: 20px;">
+                                    </div>
+                                    <small>&lt; 50% (Sắp đầy)</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-2">
+                                <div class="d-flex align-items-center">
+                                    <div class="capacity-medium rounded-circle me-2" style="width: 20px; height: 20px;">
+                                    </div>
+                                    <small>50% - 80%</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-2">
+                                <div class="d-flex align-items-center">
+                                    <div class="capacity-high rounded-circle me-2" style="width: 20px; height: 20px;">
+                                    </div>
+                                    <small>&gt; 80% (Còn nhiều)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" d-flex justify-content-start align-items-center mt-2">
+                    <button type="button" class="btn btn-primary btn-lg" onclick="chitietkho()">
+                        <i class="fas fa-warehouse me-2"></i>
+                        Xem Chi tiết kho
+                    </button>
+                </div>
+            
+            </div>
+            <div class="col-lg-4">
+                <div class="card stats-card">
+                    <div class="card-body text-center">
+                        <h6>Thống kê</h6>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="stat-number" id="totalSlots">0</div>
+                                <small>Tổng ô</small>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-number" id="availableSlots">0</div>
+                                <small>Còn nhiều chỗ</small>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-number" id="occupiedSlots">0</div>
+                                <small>Đã đầy</small>
+                            </div>
+                            <div class="col-6 mt-2 d-none">
+                                <div class="stat-number" id="utilizationRate">0%</div>
+                                <small>Tỷ lệ cảnh báo</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Warehouse Map -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card warehouse-container">
+                    <div class="card-body">
+                        <h2 class="text-center warehouse-title mb-4">
+                            <i class="bi bi-diagram-3"></i> SƠ ĐỒ KHO 
+                        </h2>
+                        <div class="row" id="warehouseAisles">
+                            <!-- Aisles will be generated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tooltip -->
+    <div class="tooltip-custom" id="tooltip"></div>
+
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Scripts/ViTriKho/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/select2.js"></script>
+    <link href="~/css/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.light.css" rel="stylesheet" />
+    <script src="~/css/DevExtreme/dx.all.js"></script>
+    <script src="~/css/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Scripts/ViTriKho/tongquankho.js"></script>
+
+</body>
+</html>

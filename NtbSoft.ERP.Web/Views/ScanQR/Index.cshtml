@@ -1,0 +1,471 @@
+﻿
+@{
+    ViewBag.Title = "ScanQR";
+    Layout = null;
+}
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link href="~/Content/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+    @*<link rel="stylesheet" href="~/Content/bootstrap.min.css">
+        <link rel="stylesheet" href="~/Content/bootstrap.css">*@
+    <link rel="stylesheet" href="~/Content/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link href="~/css/QRCode/QRCode.css" rel="stylesheet" />
+    <link href="~/Content/Toast/Toast.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min-3.6.1.js"></script>
+    <link href="~/css/NhanHangGiaCong/sweetalert2.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Extended+Text&display=swap" rel="stylesheet">
+    <style>
+        .item_label{
+            font-size:0.9rem !important;
+        }
+        .is-active {
+            background: blue;
+            color: white;
+        }
+
+        .labelHeader {
+            color: white;
+            font-size: 0.8rem;
+            margin: 5px 5px 0.1rem 0px;
+        }
+
+        .inputEnLine {
+            text-align: center;
+            font-size: 0.8rem !important;
+            background-color: white !important;
+            height: 1.7rem !important;
+            font-weight: bold !important;
+            padding: 0px !important;
+        }
+
+        .form-group {
+            margin: 0px !important;
+            /*  display: flex;*/
+            width: 100%;
+        }
+
+        .form-control {
+            height: 30px !important;
+        }
+
+        .col-form-label {
+            padding: 0px !important;
+            color: black !important
+        }
+
+        #reader {
+            width: 500px;
+            position: fixed !important;
+            padding: 0px;
+            border: none;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 999;
+        }
+
+        .labelTitle {
+            font-weight: bold;
+            font-size:0.9rem !important;
+        }
+
+        .lableValue {
+            font-weight: bold;
+            color: #009823;
+            font-size: 0.9rem !important;
+        }
+
+        .hightlight {
+            color: red !important;
+            font-size: 1.2rem;
+        }
+
+        .lblHeader {
+            text-align: center;
+            width: 100%;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 1.6rem;
+            background: #0a9c2b;
+            border-radius: 5px;
+            padding:6px;
+        }
+
+        .card-info-2 {
+            display: block;
+            padding: 0px 10px 5px 10px;
+            margin: 0px 0px 5px 0px;
+            border-radius: .25rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
+        }
+
+        .select2-results {
+            font-size: 0.8rem !important;
+        }
+
+        .select2-selection__rendered {
+            font-size: 0.8rem !important;
+        }
+        .sumrow{
+            font-weight:bold !important;
+            color:red !important;
+        }
+        .IsThungLe {
+            background-color: #fadf8d;
+        }
+        .select2-container .select2-selection--single .select2-selection__rendered{
+            padding-left:0px !important;
+            padding-right:0px !important;
+        }
+        #swal2-title {
+            font-size: 1.3rem !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="camera">
+        <div style="width:500px" id="reader"></div>
+    </div>
+    <div class="container" style="min-width:100vw!important;">
+        <div id="toast"></div>
+        <div class="alert" id="divalerts">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Thông báo!</strong> <span id="alertsuccess">Indicates a dangerous or potentially negative action.</span>
+        </div>
+        <div class="alertf" id="divalertf">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Thông báo!</strong> <span id="alertfail">Indicates a dangerous or potentially negative action.</span>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                
+                <h5 class="lblHeader"><i id="home" style="font-size: 21px; cursor: pointer;float:left " class="fas fa-home"></i> Quét Barcode Xuất Hàng</h5>
+            </div>
+            <div class="col-10 col-md-6 col-lg-4 col-xl-4">
+                <div class="card-body" style="padding :2px;margin-bottom:5px">
+
+                    <div class="callout callout-info" style="margin: 0px;padding-top:5px;padding-bottom:5px">
+                        <div class="row">
+                            <div class="col-12 card-header" style="padding: 0px 0.4rem 5px">
+                                <h3 class="card-title" style=" font-size: 22px; color: #117a8b; font-weight: bold;">Dữ liệu scan</h3>
+                                @*<button class="btn btn-block bg-warning" id="scanQR" style="width:120px;height:32px;float:right"> Quét mã</button>*@
+                            </div>
+                            <div class="col-7">
+                                <span class="labelTitle">MH :</span><span id="MaHang_S" class="lableValue"></span><br>
+                                <span class="labelTitle">PO :</span><span id="PO_S" class="lableValue"></span><br>
+                                <span class="labelTitle">Đầu size :</span><span id="DauSize_S" class="lableValue"></span><br>
+
+                            </div>
+                            <div class="col-5" style="padding:0px">
+                                <div class="col-12" style="padding:0px">
+                                    <span class="labelTitle">Màu : </span><span id="Mau_S" class="lableValue"></span><br>
+                                    <span class="labelTitle">Size : </span><span id="Size_S" class="lableValue"></span><br>
+                                </div>
+                                <div class="col-12" style="display:flex;justify-content:left;align-items:center;padding:0px">
+                                    <span class="labelTitle" style="font-size:1.2rem">SL : </span><span class="lableValue hightlight" style="font-size: 1.1rem !important" id="STTong_S"></span>
+                                </div>
+                            </div>
+                            @*<div class="col-7">
+                                    <span class="labelTitle">MH :</span><span id="MaHang_S" class="lableValue"></span><br>
+                                    <span class="labelTitle">PO :</span><span id="PO_S" class="lableValue"></span>
+                                </div>
+                                <div class="col-5">
+                                    <span class="labelTitle" style="font-size: 30px">SLT :</span>
+                                    <span class="lableValue hightlight" id="STTong_S"> 0</span>
+                                </div>
+
+
+                                <div class="col-7">
+                                    <span class="labelTitle">Đầu size :</span><span id="DauSize_S" class="lableValue"></span><br>
+                                    <span class="labelTitle">Màu : </span><span id="Mau_S" class="lableValue"></span>
+                                </div>
+                                <div class="col-5">
+                                    <span class="labelTitle" style="font-size: 30px">Scan :</span>  <span id="SLScan_S" class="lableValue hightlight">0</span>
+                                </div>*@
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="col-12 col-md-6 col-lg-8 col-xl-8">
+                <div class="card-body card-info-2">
+                    <div class="row">
+                        @*<div class="col-sm-6 col-lg-2">
+            <div class="form-group display">
+                <label class="col-form-label item_label" style="text-align:center; color:White">Ngày</label>
+                <div>
+                    <div class="input-group ">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="far fa-calendar-alt"></i>
+                            </span>
+                        </div>
+                        <input type="text" readonly style="background:white" class="form-control float-right" id="fromdate">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-2">
+            <div class="form-group display">
+                <label class="col-form-label item_label" style="text-align:center; color:White">Ngày</label>
+                <div>
+                    <div class="input-group ">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="far fa-calendar-alt"></i>
+                            </span>
+                        </div>
+                        <input type="text" readonly style="background:white" class="form-control float-right" id="todate">
+                    </div>
+                </div>
+            </div>
+        </div>*@
+                        <div class="col-sm-3 col-lg-2">
+                            <div class="form-group display">
+                                <label class="col-form-label item_label" style="text-align:center; color:White">Khách hàng</label>
+                                <select class="form-control inputEnLine sLenhSX" id="KhachHang" onchange="KhachHangChange()" style="text-align:center;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group display">
+                                <label class="col-form-label item_label" style="text-align:center; color:White">Phiếu XH</label>
+                                <select class="form-control inputEnLine sLenhSX" id="MaPKLXH" onchange="PhieuXHChange()" style="text-align:center;"></select>
+                            </div>
+                        </div>
+                        @*<div class="col-sm-3 col-lg-2">
+                            <div class="form-group display">
+                                <label class="col-form-label item_label" style="text-align:center; color:White">Cont</label>
+                                <select class="form-control inputEnLine" id="MaHang" onchange="ContChange()" style="text-align:center; "></select>
+                            </div>
+                        </div>*@
+                        <div class="col-sm-3 col-lg-2">
+                            <div class="form-group display">
+                                <label class="col-form-label item_label" style="text-align:center; color:White">Mã hàng</label>
+                                <select class="form-control inputEnLine" id="MaHang" onchange="MaHangChange()" style="text-align:center; "></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-lg-2">
+                            <div class="form-group display">
+                                <label class="col-form-label item_label" style="text-align:center; color:White">PO</label>
+                                <select class="form-control inputEnLine" id="PO" onchange="POChange()" style="text-align:center; "></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-lg-2">
+                            <div class="form-group display">
+                                <label class="col-form-label item_label" style="text-align:center; color:White">Đầu size </label>
+                                <select class="form-control inputEnLine" id="DauSize" onchange="DauSizeChange()" style="text-align:center; "></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-lg-2">
+                            <div class="form-group display">
+                                <label class="col-form-label item_label" style="text-align:center; color:White">Màu</label>
+                                <select class="form-control inputEnLine" id="Mau" onchange="MauChange()" style="text-align:center;"></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-lg-2">
+                            <div class="form-group display">
+                                <label class="col-form-label item_label" style="text-align:center; color:White">Size</label>
+                                <select class="form-control inputEnLine" id="Size" onchange="SizeChange()" style="text-align:center; "></select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-lg-2">
+                            <div class="form-group display" style="display:flex;margin-top:25px !important;justify-content:center">
+                                <input id="cbxThungLe" onchange="CheckThungLeChange()" style="width:25px;height:25px;margin-right:2px" type="checkbox" />
+                                <label class="col-form-label item_label" style="text-align:center; color:White">Thùng lẽ, gọp</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 col-lg-4">
+                            <span style="text-align:center;margin:25px 0px 0px 0px;float:right">
+                                @*<button class="btn btn-block bg-warning" id="scanQR" style="width:120px;height:32px"> Quét mã</button>*@
+                                <button class="btn btn-block bg-warning" data-target="#ModalBarcode" data-toggle="modal" style="width:150px;height:32px"> Tạo barcode</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="containerA" style="max-height:calc(100vh - 160px);overflow-y:scroll">
+                    <table class="table table-fixed" id="table2" style="margin-bottom:0px">
+                        <thead id="tblHeaderCT" class="head2">
+                            <tr>
+                                <th>Tên hàng</th>
+                                <th>PO</th>
+                                <th>Đầu size</th>
+                                <th>Màu</th>
+                                <th>Size</th>
+                                <th>Thùng</th>
+                                <th>Thùng đã quét</th>
+                                <th>Barcode</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblBodyCT">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @*<div class="col-12">
+                    <div class="containerA" style="max-height:calc(100vh - 160px);overflow-y:scroll">
+                        <table class="table table-fixed" id="table2" style="margin-bottom:0px">
+                            <thead id="tblHeaderCT" class="head2">
+                                <tr>
+                                    <th rowspan="2">PKL</th>
+                                    <th colspan="2">Carton Number</th>
+                                    <th rowspan="2">Mã hàng</th>
+                                    <th rowspan="2">PO</th>
+                                    <th rowspan="2">Đầu size</th>
+                                    <th rowspan="2">Color</th>
+                                    <th rowspan="2">Cont</th>
+                                    <th id="colSize" ; colspan="1">Size</th>
+                                    <th rowspan="2">Qty</th>
+                                    <th rowspan="2">Carton</th>
+                                    <th rowspan="2">Thùng đã quét</th>
+                                    <th rowspan="2">TotalPiece</th>
+                                    <th rowspan="2">Barcode</th>
+                                </tr>
+                                <tr id="lstSize">
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tblBodyCT">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+    <div class="modal fade" id="ModalHT" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content" style="position: absolute; z-index: 999; transform: translate(-50%, -50%); left: 50%; top: 10%; ">
+                <div class="modal-header" style="background-color:#17A2B8;padding:0.6rem">
+                    <h5 class="modal-title" style="color:white">Thông báo</h5>
+                    <button type="button" style="color:white" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span>Xác nhận đã kiểm xong!</span>
+                </div>
+
+                <div class="modal-footer" style="padding:0.1rem">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fas fa-trash"></i> Hủy</button>
+                    <button onclick="PostHT()" type="button" class="btn btn-primary" data-dismiss="modal"> <i class="fas fa-save"></i> Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalBarcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content" style="position: absolute; z-index: 999; transform: translate(-50%, -50%); left: 50%; top: 10%; ">
+                <div class="modal-header" style="background-color:#17A2B8;padding:0.6rem">
+                    <h5 class="modal-title" style="color:white">Thông báo</h5>
+                    @*<button type="button" style="color:white" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>*@
+                </div>
+                <div class="modal-body">
+                    <span>Bạn có muốn khai báo barcode lần đầu tiên?</span>                   
+                </div>
+
+                <div class="modal-footer" style="padding:0.1rem">
+                    <button  onclick="CancelCreate()"type="button" class="btn btn-danger" data-dismiss="modal">  Hủy</button>
+                    <button onclick="ConfirmCreate()" type="button" class="btn btn-primary" data-dismiss="modal"> Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content" style="position: absolute; z-index: 999; transform: translate(-50%, -50%); left: 50%; top: 10%; ">
+                <div class="modal-header" style="background-color:#17A2B8;padding:0.6rem">
+                    <h5 class="modal-title" style="color:white">Thông báo</h5>
+                    <button type="button" style="color:white" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span>Bạn có chắc muốn xóa không?</span>
+                </div>
+
+                <div class="modal-footer" style="padding:0.1rem">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="fas fa-trash"></i> Hủy</button>
+                    <button onclick="Delete()" type="button" class="btn btn-primary" data-dismiss="modal"> <i class="fas fa-save"></i> Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ModalCheck" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-xl modal-dialog-top" role="document" style="margin-top: 5px; max-width:98% !important">
+            <div class="modal-content">
+                <div class="modal-body" style="padding:3px">
+                    <div class="containerA">
+                        @*<div class="label">Phiếu kiểm</div>*@
+                        <div class="table-layout2">
+                            <table class="table table-fixed" id="table1" style="margin-bottom:5px">
+                                <thead id="tblHeader" class="head1">
+                                    <tr>
+                                        <th colspan="5">Thông tin kiểm tra</th>
+                                        <th colspan="2">Thông tin chi tiết nhồi</th>
+                                        <th rowspan="2">Tiêu chuẩn</th>
+                                        <th colspan="2">TrLượng thực tế</th>
+                                        <th colspan="2">Kết quả</th>
+                                        <th rowspan="2">Chữ ký</th>
+                                        <th rowspan="2">Biện pháp</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Ngày kiểm</th>
+                                        <th style="min-width:150px">Công đoạn</th>
+                                        <th style="min-width:150px">Màu</th>
+                                        <th style="min-width:70px">Size</th>
+                                        <th>SL kiểm</th>
+                                        <th>TL vỏ bao</th>
+                                        <th>ĐM nhồi</th>
+                                        <th>TL thấp nhất</th>
+                                        <th>TL cao nhất</th>
+                                        <th>Pass</th>
+                                        <th>Fail</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tblBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="padding:0.1rem">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="height:35px"> Hủy</button>
+                    <button onclick="Save()" type="button" class="btn btn-primary" data-dismiss="modal" style="height:35px"> Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/plugins/moment/moment.min.js"></script>
+    <script src="~/Content/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="~/Content/dist/js/adminlte.min.js"></script>
+    <script src="~/Scripts/Toast/Toast.js"></script>
+    <script src="~/Content/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Scripts/html5-qrcode.min.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/sweetalert2.js"></script>
+    <script src="~/Scripts/ScanQR/ScanQR.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.full.min.js"></script>
+    <script>
+        $('.sLenhSX').select2();
+    </script>
+
+
+</body>
+</html>
+
+

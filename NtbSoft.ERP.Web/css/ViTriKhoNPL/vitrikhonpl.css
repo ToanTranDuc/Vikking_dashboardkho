@@ -1,0 +1,64 @@
+﻿.active-row {
+    background: linear-gradient(45deg, #e3f2fd, #f3e5f5) !important;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2) !important;
+    transition: all 0.3s ease !important;
+}
+
+    
+
+/* Override DevExtreme default row styles for active rows */
+.dx-datagrid-rowsview .dx-row.active-row {
+    background: linear-gradient(45deg, #e3f2fd, #f3e5f5) !important;
+}
+
+    .dx-datagrid-rowsview .dx-row.active-row:hover {
+        background: linear-gradient(45deg, #bbdefb, #e1bee7) !important;
+    }
+
+/* Text color for active rows */
+.active-row td {
+    color: #2c3e50 !important;
+    font-weight: 500 !important;
+}
+
+/* Make active row stand out more */
+.active-row .dx-datagrid-text-content {
+    color: #2c3e50 !important;
+    font-weight: 500 !important;
+}
+
+
+/* Apply animation when row becomes active */
+.active-row {
+    animation: selectRow 0.3s ease-in-out;
+}
+
+/* Additional styles for better visual hierarchy */
+.dx-datagrid-rowsview .dx-row:not(.active-row):hover {
+    background-color: #f8f9ff !important;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Make sure buttons in active rows are visible */
+.active-row .btn {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Optional: Different colors for different levels */
+#tbodyDay .active-row {
+    border-left-color: #667eea !important; /* Blue for Day */
+}
+
+#tbodyKe .active-row {
+    border-left-color: #43cea2 !important; /* Green for Ke */
+}
+
+#tbodyTang .active-row {
+    border-left-color: #f093fb !important; /* Pink for Tang */
+}
+
+#tbodyO .active-row {
+    border-left-color: #ffc107 !important; /* Yellow for O */
+}

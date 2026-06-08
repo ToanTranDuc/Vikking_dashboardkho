@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0BE1D348-E3BC-4EEB-AEE6-FE39FACB9CAB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NtbSoft.ERP.Entity</RootNamespace>
+    <AssemblyName>NtbSoft.ERP.Entity</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ghostscript.NET, Version=1.2.3.0, Culture=neutral, PublicKeyToken=f85051de34525b59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ghostscript.NET.1.2.3\lib\net40\Ghostscript.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="KeHoach\DanhSachPhieuXHEntity.cs" />
+    <Compile Include="KeHoach\PackageListCheckTonKhoEntity.cs" />
+    <Compile Include="KeHoach\PackageListChuyenKhoEntity.cs" />
+    <Compile Include="KeHoach\QRCodeInfoEntity.cs" />
+    <Compile Include="KeHoach\Tile_DongThungEntity.cs" />
+    <Compile Include="Kho\DongThungEntity.cs" />
+    <Compile Include="Kho\ERPDonViVTEntity.cs" />
+    <Compile Include="Kho\ERPKhoVaiEntity.cs" />
+    <Compile Include="Kho\ERPMaMauVTEntity.cs" />
+    <Compile Include="Kho\KhoNPLEntity.cs" />
+    <Compile Include="Kho\NguyenLieuEntity.cs" />
+    <Compile Include="Kho\NhanHangGiaCongEntity.cs" />
+    <Compile Include="Kho\NhapKhoEntity.cs" />
+    <Compile Include="Kho\TheBaiVatTuNhapKhoEntity.cs" />
+    <Compile Include="Kho\TheKhoEntity.cs" />
+    <Compile Include="Kho\ThoiGianXaVaiEntity.cs" />
+    <Compile Include="Kho\TienTeEntity.cs" />
+    <Compile Include="Kho\VatTuEntity.cs" />
+    <Compile Include="Kho\VatTuNhapKhoEntity.cs" />
+    <Compile Include="Kho\ViTriKhoEntity.cs" />
+    <Compile Include="NguyenPhuLieu\QtyKiemPhuLieuEntity.cs" />
+    <Compile Include="NguyenPhuLieu\QtyMaHangPhuLieuEntity.cs" />
+    <Compile Include="Notification\NotificationEntity.cs" />
+    <Compile Include="POMH\CanDoiNPLEntity.cs" />
+    <Compile Include="POMH\DicDanhGiaNLVEntity.cs" />
+    <Compile Include="POMH\DTOEntity.cs" />
+    <Compile Include="POMH\DTOTQEntity.cs" />
+    <Compile Include="POMH\ERPDanhGiaNCCEntity.cs" />
+    <Compile Include="POMH\ERPXacNhanPOMuaEntity.cs" />
+    <Compile Include="POMH\ERP_POMH_PhieuMuaHang_MMTB_SoSeriEntity.cs" />
+    <Compile Include="POMH\PheDuyetPhieuEntity.cs" />
+    <Compile Include="POMH\TyGiaEntity.cs" />
+    <Compile Include="QuanLyDonHang\BomNguyenPhuLieuEntity.cs" />
+    <Compile Include="QuanLyDonHang\CanDoiDonHangTongEntity.cs" />
+    <Compile Include="QuanLyDonHang\CapThemEntity.cs" />
+    <Compile Include="QuanLyDonHang\CapThemNgoaiDH.cs" />
+    <Compile Include="QuanLyDonHang\ChiTietCayVai_Entity.cs" />
+    <Compile Include="QuanLyDonHang\DinhMucEntity.cs" />
+    <Compile Include="QuanLyDonHang\DMNPLEntity.cs" />
+    <Compile Include="QuanLyDonHang\DonHangTongEntityV1.cs" />
+    <Compile Include="QuanLyDonHang\DonHangTongEntity.cs" />
+    <Compile Include="QuanLyDonHang\DonHangTongPOChiTietUSEREntity.cs" />
+    <Compile Include="QuanLyDonHang\DonHangTongPOChiTietEntity.cs" />
+    <Compile Include="QuanLyDonHang\DonHangTongPOUSEREntity.cs" />
+    <Compile Include="QuanLyDonHang\DonHangTongPOEntity.cs" />
+    <Compile Include="QuanLyDonHang\DonHangTonKhoEntity.cs" />
+    <Compile Include="KeHoach\PackageListXuatHangEntity.cs" />
+    <Compile Include="QuanLyDonHang\EditCanDoiLenhSanXuatEntity.cs" />
+    <Compile Include="SoTheoDoi\SoTheoDoiContainerEntity.cs" />
+    <Compile Include="SoTheoDoi\SoTheoDoiSealNoiBoEntity.cs" />
+    <Compile Include="SYSTEM\MD5StringCrypt.cs" />
+    <Compile Include="SYSTEM\SystemUserCostingEntity.cs" />
+    <Compile Include="SYSTEM\SystemUserDuyetEntity.cs" />
+    <Compile Include="SYSTEM\SystemUserDuyetModel.cs" />
+    <Compile Include="SYSTEM\SystemUserYeuCauNPLEntity.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SYSTEM\Account.cs" />
+    <Compile Include="SYSTEM\SystemDepartmentEntity.cs" />
+    <Compile Include="SYSTEM\SystemGroupEntity.cs" />
+    <Compile Include="SYSTEM\SystemGroupModuleEntity.cs" />
+    <Compile Include="SYSTEM\SystemGroupReportEntity.cs" />
+    <Compile Include="SYSTEM\SystemLogEntity.cs" />
+    <Compile Include="SYSTEM\SystemModuleEntity.cs" />
+    <Compile Include="SYSTEM\SystemUserEntity.cs" />
+    <Compile Include="SYSTEM\SystemUserModuleEntity.cs" />
+    <Compile Include="SYSTEM\SystemUserReportEntity.cs" />
+    <Compile Include="Kho\KhoEntity.cs" />
+    <Compile Include="ThuVien\BangMauEntity.cs" />
+    <Compile Include="ThuVien\BangSizeEntity.cs" />
+    <Compile Include="ThuVien\BrandEntity.cs" />
+    <Compile Include="ThuVien\ChungLoaiEntity.cs" />
+    <Compile Include="ThuVien\CongTyEntity.cs" />
+    <Compile Include="ThuVien\DicQCDongThungEntity.cs" />
+    <Compile Include="ThuVien\DonViChungLoaiEntity.cs" />
+    <Compile Include="ThuVien\DonViEntity.cs" />
+    <Compile Include="ThuVien\DonViSanXuatEntity.cs" />
+    <Compile Include="ThuVien\ERPKHDongThung_PCBEntity.cs" />
+    <Compile Include="ThuVien\ERPMuaEntity.cs" />
+    <Compile Include="ThuVien\HangHoaEntity.cs" />
+    <Compile Include="ThuVien\KhachHangEntity.cs" />
+    <Compile Include="ThuVien\KHDT_StoreEntity.cs" />
+    <Compile Include="ThuVien\LoaiHangHoaEntity.cs" />
+    <Compile Include="ThuVien\MaContEntity.cs" />
+    <Compile Include="ThuVien\MaHang_CodeSizeEntity.cs" />
+    <Compile Include="ThuVien\MaSealEntity.cs" />
+    <Compile Include="ThuVien\NguyenPLEntity.cs" />
+    <Compile Include="ThuVien\NhanVienEntity.cs" />
+    <Compile Include="ThuVien\PhapDanhCtyEntity.cs" />
+    <Compile Include="ThuVien\QCKiemDauChuyenEntity.cs" />
+    <Compile Include="ThuVien\QCScannerEntity.cs" />
+    <Compile Include="ThuVien\QuocGiaEntity.cs" />
+    <Compile Include="ThuVien\ThuVienKhoSizeEntity.cs" />
+    <Compile Include="ThuVien\ThuVienMauEntity.cs" />
+    <Compile Include="ThuVien\VatTuChiTietEntity.cs" />
+    <Compile Include="ThuVien\VatTuGiaDto.cs" />
+    <Compile Include="ThuVien\VatTuMinMaxEntity.cs" />
+    <Compile Include="WipDonHang\WipPermissionModel.cs" />
+    <Compile Include="XuLyVT\XLVTDTOEntity.cs" />
+    <Compile Include="XuLyVT\XLVTEntity.cs" />
+    <Compile Include="XuLyVT\XLVTMUAHANGEntity.cs" />
+    <Compile Include="XuLyVT\XLVTPRPOEntity.cs" />
+    <Compile Include="XuLyVT\XLVTVTEntity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

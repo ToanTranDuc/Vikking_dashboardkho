@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @RenderSection("css", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+    @*<link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">*@
+    @*<link rel="stylesheet" href="~/Content/css qrcode scanner/layoutShare.css" />*@
+</head>
+<body>
+    @*<div id="divUserName" style="text-align: right; margin-top: 5px; display: none;">
+            <button id="btn-UserName"></button>
+        </div>*@
+    <div class="">
+        @RenderBody()
+    </div>
+
+    
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        $(".toggle_input input").removeAttr("disabled");
+        $(".toggle_input input").prop("readonly", true);
+        //Trong ví dụ trên, document.querySelectorAll(".toggle_input input") chọn tất cả các thẻ input trong các phần tử có class toggle_input.Sau đó, sử dụng.forEach() để lặp qua mỗi thẻ input và sử dụng setAttribute("disabled", "disabled") để vô hiệu hóa chúng.
+ $(".toggle_input2 input").removeAttr("disabled");
+        $(".toggle_input2 input").prop("readonly", true);
+$(".toggle_input1 input").removeAttr("disabled");
+        $(".toggle_input1 input").prop("readonly", true);
+    </script>
+</body>
+</html>

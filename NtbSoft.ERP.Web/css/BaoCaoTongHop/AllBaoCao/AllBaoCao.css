@@ -1,0 +1,93 @@
+﻿
+div#main-contain {
+    background: white;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 3px 5px;
+    text-align: center;
+    font-size: 13px;
+    min-height: 19px;
+}
+
+#dieukienloc {
+    display: flex;
+    padding: 5px 5px 5px 50px;
+    align-items: center;
+}
+
+h3 {
+    margin: 10px 0;
+}
+
+thead {
+    background-color: #0d7103;
+    color: white;
+    font-size: 15px;
+    font-family: 'roboto';
+}
+
+.valueNhaMay {
+    padding: 5px 0
+}
+.tdChuyen{
+    font-weight:bold;
+font-size:15px;
+}
+.td12{
+    font-weight:bold;
+font-size:15px;
+ background-color: #5eaafa;
+color: black
+}
+.tdSLKH{
+    font-weight:bold;
+font-size:15px;
+background-color: #99ce87;
+color: ;
+}
+
+.valueNhaMay {
+    margin-top: 5px;
+    padding: 0px 5px;
+    color: blue;
+    font-weight: bold;
+    font-size: 21px;
+}
+.tableTongHop{
+padding-top: 30px;
+}
+.meomaydoreamon {
+    background-color: #ffe7c9;
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.btn-xuat {
+          display: flex;
+    justify-content: flex-end;
+    padding: 0px 10px;
+    /* translate: 0 -25px; */
+    position: fixed;
+    top: 55px;
+    align-items: center;
+    width: 100vw;
+    padding-right: 25px;
+}
+
+#btn-XuatBC-TH {
+    padding: 10px 5px;
+    background-color: green;
+    border-radius: 10px;
+    color: white;
+}
+
+body {
+    padding-top: 0px;
+}

@@ -1,0 +1,1146 @@
+﻿
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: roboto
+}
+/*chỉnh nut buton cho popup swal2-loader*/
+div:where(.swal2-container) button:where(.swal2-styled) {
+    font-size: 12px !important;
+}
+
+.table {
+    margin-bottom: 0px
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid #aaa;
+    outline: none;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    right: -2px;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+.content {
+    display: flex;
+    width: 99.8%;
+    justify-content: space-between;
+    background: #70baed;
+    margin: 3px;
+    padding: 0px 5px;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.select2-container {
+    text-align: center;
+}
+
+.btn_soKien {
+    margin-right: 9px;
+    height: 32px !important;
+}
+
+.lst_DonHang {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    min-width: 100px;
+    width: auto;
+}
+
+    .lst_DonHang .select2-container {
+        text-align: center !important;
+    }
+
+        .lst_DonHang .select2-container .select2-selection--single .select2-selection__rendered {
+            padding-left: 0px;
+        }
+
+.list_PKL {
+    display: flex;
+    margin: 5px;
+    min-width: 100px;
+    justify-content: left;
+    margin-left: 0;
+    width: 100%;
+}
+
+.select2-results {
+    display: block;
+    text-align: left;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    display: block;
+    padding-left: 0px;
+    padding-right: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lst_DauSize {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    min-width: 100px;
+    width: auto;
+}
+
+#Excel:hover {
+    background: #a4c06e
+}
+
+.lst_PO {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    min-width: 100px;
+    width: auto;
+}
+
+.lst_ngay {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    width: 150px;
+}
+
+.item_lable {
+    font-size: 16px;
+    margin-bottom: 0;
+    font-family: roboto;
+    margin-left: 2px;
+}
+
+.item_ngaychon {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 2px 5px;
+}
+
+.item_select {
+    font-size: 13px;
+    text-align: center;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 25px;
+    font-family: roboto;
+    padding: 0 5px;
+}
+
+.text_chitiet {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+    .text_chitiet .solieu {
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+
+.nhapLieu {
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 30px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+}
+
+.popup1 {
+    position: fixed;
+    top: 83px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    z-index: 9999;
+    border-radius: 5px;
+}
+
+    .popup1 .cancel {
+        border: 1px solid;
+        background: #c1ff4a;
+        border-radius: 5px;
+        margin-left: 5px;
+        padding: 0 5px;
+        height: 27px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup1 .result {
+        border: 1px solid #ccc;
+        background: #36f4ff;
+        border-radius: 5px;
+        margin-left: 5px;
+        padding: 0 5px;
+        height: 27px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+.inRow {
+    height: 30px;
+    outline: none;
+    margin-left: auto;
+    border: 1px solid #ccc;
+    padding: 0 5px;
+    border-radius: 5px;
+}
+
+.cancelRow {
+    font-size: 15px;
+    background: #ffc416;
+    padding: 0px 13px;
+    border: 1px solid #ccc;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+#Update, #delete, #hoanthanh {
+    height: 30px;
+    outline: none;
+    margin-left: auto;
+    margin-right: -15px;
+}
+
+.list_phieu {
+    display: flex;
+}
+
+    .list_phieu button {
+        padding: 0 5px;
+        height: 30px;
+        margin-left: 8px;
+        border: 1px solid;
+        border-radius: 5px;
+        background: #1f4f6b;
+        color: #fff;
+        white-space: nowrap;
+    }
+
+        .list_phieu button:hover {
+            background: #b6ff00;
+            color: #000
+        }
+
+.active2 {
+    background: #b6ff00 !important;
+    color: #000 !important
+}
+/*view nhập*/
+.task-item {
+    display: flex;
+    max-height: calc(100vh - 150px);
+    margin: 10px 10px 0;
+    border: 1px solid #ccc;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+
+    .task-item .item-table {
+        overflow: auto;
+        width: 100%;
+    }
+
+        .task-item .item-table .table thead {
+            position: sticky;
+            top: 0;
+            z-index: 3
+        }
+
+            .task-item .item-table .table thead tr {
+                border: 1px solid #ccc;
+                position: sticky;
+                top: 0;
+            }
+
+                .task-item .item-table .table thead tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-weight: bold;
+                    color: #fff;
+                    vertical-align: middle;
+                    background: #5da566;
+                    outline: none;
+                    font-family: 'Roboto';
+                    min-width: 60px;
+                }
+
+
+
+        .task-item .item-table .table tbody {
+        }
+
+            .task-item .item-table .table tbody tr {
+                border: 1px solid #ccc;
+            }
+
+                .task-item .item-table .table tbody tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: bold;
+                    font-family: serif;
+                    vertical-align: middle;
+                    font-family: 'Roboto';
+                }
+
+        .task-item .item-table .table tfoot {
+            position: sticky;
+            bottom: 0;
+            background: #fff;
+            outline: 1px solid #ccc;
+        }
+
+            .task-item .item-table .table tfoot tr {
+                border: 1px solid #ccc;
+            }
+
+                .task-item .item-table .table tfoot tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: bold;
+                    font-family: serif;
+                    vertical-align: middle;
+                    font-family: 'Roboto';
+                    color: red;
+                }
+
+.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
+    padding: 3px;
+}
+
+.slNhapDT {
+    outline: none
+}
+
+.dadong {
+    /* pointer-events: none;*/
+}
+
+.rowDaDong {
+    background: #eb9e9e
+}
+
+.btn_list {
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    column-gap: 5px;
+}
+
+    .btn_list.active {
+        display: none
+    }
+
+.nav_dongthungall {
+    width: 100%;
+    background: #29fff5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+    .nav_dongthungall .nav_dongthung {
+        margin-bottom: 3px;
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: start;
+    }
+
+        .nav_dongthungall .nav_dongthung button {
+            border: 1px solid #ccc;
+            padding: 4px 5px;
+            margin: 3px;
+            border-radius: 3px;
+            font-family: 'Roboto';
+            font-size: 14px;
+            margin-left: 1px;
+            white-space: nowrap;
+            display: block;
+            width: 200px;
+        }
+
+            .nav_dongthungall .nav_dongthung button:hover {
+                background: #d94f4f;
+                color: #fff
+            }
+
+.nav_dongthung.active {
+    display: none
+}
+
+.nav_dongthungall .nav_Huydongthung {
+    margin-bottom: 3px;
+}
+
+    .nav_dongthungall .nav_Huydongthung button {
+        border: 1px solid #ccc;
+        padding: 4px 5px;
+        margin: 3px;
+        border-radius: 3px;
+        font-family: 'Roboto';
+        font-size: 14px;
+        margin-left: 1px;
+    }
+
+        .nav_dongthungall .nav_Huydongthung button:hover {
+            background: #d94f4f;
+            color: #fff
+        }
+
+.nav_dongthungall .dtAll {
+    background: #ff2173;
+    color: #fff;
+}
+
+.nav_dongthungall .inRow {
+    background: #6e8f1d;
+    color: #fff;
+}
+
+.nav_dongthungall .inViTri {
+    background: #555555;
+    color: #fff;
+}
+
+.nav_dongthungall .inSL {
+    background: #e7ba16;
+}
+/*view thongketong*/
+.task-itemTong {
+    display: flex;
+    max-height: calc(100vh - 600px);
+    margin: 8px 2px 0;
+    border: 1px solid #ccc;
+    padding: 2px;
+    border-radius: 5px;
+    width: 99.8%;
+    min-height: 100px;
+}
+
+
+    .task-itemTong .item-tableTong {
+        overflow: auto;
+        width: 100%;
+    }
+
+        .task-itemTong .item-tableTong .table thead {
+            position: sticky;
+            top: 0;
+            z-index: 3
+        }
+
+            .task-itemTong .item-tableTong .table thead tr {
+                border: 1px solid #ccc;
+                position: sticky;
+                top: 0;
+            }
+
+                .task-itemTong .item-tableTong .table thead tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-weight: bold;
+                    color: #fff;
+                    vertical-align: middle;
+                    background: #5da566;
+                    outline: none;
+                    font-family: 'Roboto';
+                }
+
+
+
+        .task-itemTong .item-tableTong .table tbody {
+        }
+
+            .task-itemTong .item-tableTong .table tbody tr {
+                border: 1px solid #ccc;
+            }
+
+                .task-itemTong .item-tableTong .table tbody tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: bold;
+                    font-family: serif;
+                    vertical-align: middle;
+                    font-family: 'Roboto';
+                }
+
+        .task-itemTong .item-tableTong .table tfoot {
+            position: sticky;
+            bottom: 0;
+            background: #fff;
+            outline: 1px solid #ccc;
+        }
+
+            .task-itemTong .item-tableTong .table tfoot tr {
+                border: 1px solid #ccc;
+            }
+
+                .task-itemTong .item-tableTong .table tfoot tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: bold;
+                    font-family: serif;
+                    vertical-align: middle;
+                    font-family: 'Roboto';
+                    color: red;
+                }
+
+/*.active {
+    margin-bottom: 400px;
+}*/
+
+.popup4 {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    background: rgba(0, 0, 0, 0.34);
+    z-index: 99;
+    display: none;
+}
+
+
+
+    .popup4 .list-popup {
+        position: fixed;
+        top: 230px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        border-radius: 5px;
+        background: #fff
+    }
+
+        .popup4 .list-popup .display {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            flex-direction: column;
+        }
+
+            .popup4 .list-popup .display .list-tem {
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                width: 100%;
+            }
+
+                .popup4 .list-popup .display .list-tem label {
+                    text-align: center;
+                    font-size: 13px;
+                    margin: 0px;
+                }
+
+                .popup4 .list-popup .display .list-tem p {
+                    white-space: nowrap;
+                    margin-left: 5px;
+                    margin-bottom: 0;
+                    padding: 5px 0;
+                    color: red;
+                    font-size: 15px;
+                    font-weight: bold;
+                    margin-right: 4px;
+                    margin-top: -3px;
+                }
+
+        .popup4 .list-popup .text {
+            display: flex;
+            margin-top: 6px;
+            border-top: 1px solid;
+            padding-top: 2px;
+            margin-bottom: 11px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .popup4 .list-popup .text .list-text {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid;
+                padding: 10px 14px;
+                width: 100%;
+            }
+
+                .popup4 .list-popup .text .list-text label {
+                    width: 100%;
+                    text-align: center;
+                    border-bottom: 1px solid;
+                    padding: 5px;
+                    font-size: 13px;
+                    white-space: nowrap;
+                }
+
+                .popup4 .list-popup .text .list-text p {
+                    white-space: nowrap;
+                    margin-bottom: 0px;
+                    margin-left: 5px;
+                }
+
+                .popup4 .list-popup .text .list-text input {
+                    border: 1px solid;
+                    outline: none;
+                    width: auto;
+                    max-width: 100px;
+                    text-align: center;
+                }
+
+    .popup4 .save_cancel {
+        display: flex;
+        margin-top: 5px;
+        justify-content: right;
+        align-items: center;
+        padding-top: 10px;
+        border-top: 1px solid #333;
+    }
+
+        .popup4 .save_cancel .save_list {
+            margin-right: 10px;
+            width: 70px;
+        }
+
+            .popup4 .save_cancel .save_list button {
+                width: 100%;
+                border-radius: 5px;
+                height: 30px;
+                background: #ffD43B;
+                font-weight: bold;
+            }
+
+
+
+        .popup4 .save_cancel .cancel_list {
+            margin-right: 10px;
+            width: 70px;
+        }
+
+            .popup4 .save_cancel .cancel_list button {
+                width: 100%;
+                border-radius: 5px;
+                height: 30px;
+                background: #92a874;
+                font-weight: bold;
+            }
+
+.hide_popup1 {
+    font-size: 15px;
+    margin-right: 5px;
+    color: red;
+    cursor: pointer;
+}
+
+.popup {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    background: rgba(0, 0, 0, 0.34);
+    z-index: 99;
+    display: none;
+}
+
+
+
+    .popup .list-popup {
+        position: fixed;
+        top: 230px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        border-radius: 5px;
+        background: #fff
+    }
+
+        .popup .list-popup .display {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            flex-direction: column;
+        }
+
+            .popup .list-popup .display .list-tem {
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                width: 100%;
+            }
+
+                .popup .list-popup .display .list-tem label {
+                    text-align: center;
+                    font-size: 13px;
+                    margin: 0px;
+                }
+
+                .popup .list-popup .display .list-tem p {
+                    white-space: nowrap;
+                    margin-left: 5px;
+                    margin-bottom: 0;
+                    padding: 5px 0;
+                    color: red;
+                    font-size: 15px;
+                    font-weight: bold;
+                    margin-right: 4px;
+                    margin-top: -3px;
+                }
+
+        .popup .list-popup .text {
+            display: flex;
+            margin-top: 6px;
+            border-top: 1px solid;
+            padding-top: 2px;
+            margin-bottom: 11px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .popup .list-popup .text .list-text {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid;
+                padding: 10px 14px;
+                width: 100%;
+            }
+
+                .popup .list-popup .text .list-text label {
+                    width: 100%;
+                    text-align: center;
+                    border-bottom: 1px solid;
+                    padding: 5px;
+                    font-size: 13px;
+                    white-space: nowrap;
+                }
+
+                .popup .list-popup .text .list-text p {
+                    white-space: nowrap;
+                    margin-bottom: 0px;
+                    margin-left: 5px;
+                }
+
+                .popup .list-popup .text .list-text input {
+                    border: 1px solid;
+                    outline: none;
+                    width: auto;
+                    max-width: 100px;
+                    text-align: center;
+                }
+
+    .popup .save_cancel {
+        display: flex;
+        margin-top: 5px;
+        justify-content: right;
+        align-items: center;
+        padding-top: 10px;
+        border-top: 1px solid #333;
+    }
+
+        .popup .save_cancel .save_list {
+            margin-right: 10px;
+            width: 70px;
+        }
+
+            .popup .save_cancel .save_list button {
+                width: 100%;
+                border-radius: 5px;
+                height: 30px;
+                background: #ffD43B;
+                font-weight: bold;
+            }
+
+
+
+        .popup .save_cancel .cancel_list {
+            margin-right: 10px;
+            width: 70px;
+        }
+
+            .popup .save_cancel .cancel_list button {
+                width: 100%;
+                border-radius: 5px;
+                height: 30px;
+                background: #92a874;
+                font-weight: bold;
+            }
+
+.tuthung_SoKien {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+    .tuthung_SoKien label {
+    }
+
+    .tuthung_SoKien input {
+        border-radius: 5px;
+        outline: none;
+        border: 1px solid #ccc;
+        height: 27px;
+        text-align: center;
+    }
+
+.denthung_SoKien {
+    display: flex;
+    flex-direction: column;
+}
+
+    .denthung_SoKien label {
+    }
+
+    .denthung_SoKien input {
+        border-radius: 5px;
+        outline: none;
+        border: 1px solid #ccc;
+        height: 27px;
+        text-align: center;
+    }
+
+.list_SizeColor {
+    display: flex;
+    justify-content: left;
+    align-items: end;
+    width: 100%;
+    margin-left: 8px;
+    margin-top: 5px;
+}
+
+    .list_SizeColor .item_size {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+        .list_SizeColor .item_size p {
+            margin-right: 20px;
+            margin-bottom: 0px;
+        }
+
+            .list_SizeColor .item_size p span {
+                color: red
+            }
+
+    .list_SizeColor .item_color {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+        .list_SizeColor .item_color p {
+            margin-right: 20px;
+            margin-bottom: 0px;
+        }
+
+            .list_SizeColor .item_color p span {
+                color: red
+            }
+
+    .list_SizeColor .item_skold {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+        .list_SizeColor .item_skold p {
+            margin-right: 20px;
+            margin-bottom: 0px;
+        }
+
+            .list_SizeColor .item_skold p span {
+                color: red
+            }
+
+.quantitySoKien {
+    display: none
+}
+
+.popup1 .display1 {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 7px;
+}
+
+
+    .popup1 .display1 .list-tem {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        width: 100%;
+    }
+
+        .popup1 .display1 .list-tem label {
+            text-align: center;
+            font-size: 13px;
+            margin: 0px;
+        }
+
+        .popup1 .display1 .list-tem p {
+            white-space: nowrap;
+            margin-left: 5px;
+            margin-bottom: 0;
+            padding: 5px 0;
+            color: red;
+            font-size: 15px;
+            font-weight: bold;
+            margin-right: 4px;
+            margin-top: -3px;
+        }
+
+.task-itemDot {
+    display: flex;
+    max-height: calc(100vh - 300px);
+    margin: 5px 2px 0;
+    border: 1px solid #ccc;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+
+    .task-itemDot .item-tableDot {
+        overflow: auto;
+        width: 100%;
+    }
+
+        .task-itemDot .item-tableDot .table thead {
+            position: sticky;
+            top: 0;
+            z-index: 3
+        }
+
+            .task-itemDot .item-tableDot .table thead tr {
+                border: 1px solid #ccc;
+                position: sticky;
+                top: 0;
+            }
+
+                .task-itemDot .item-tableDot .table thead tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-weight: bold;
+                    color: #fff;
+                    vertical-align: middle;
+                    background: #5da566;
+                    outline: none;
+                    font-family: 'Roboto';
+                }
+
+
+
+        .task-itemDot .item-tableDot .table tbody {
+        }
+
+            .task-itemDot .item-tableDot .table tbody tr {
+                border: 1px solid #ccc;
+            }
+
+                .task-itemDot .item-tableDot .table tbody tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: bold;
+                    font-family: serif;
+                    vertical-align: middle;
+                    font-family: 'Roboto';
+                }
+
+        .task-itemDot .item-tableDot .table tfoot {
+            position: sticky;
+            bottom: 0;
+            background: #fff;
+            outline: 1px solid #ccc;
+        }
+
+            .task-itemDot .item-tableDot .table tfoot tr {
+                border: 1px solid #ccc;
+            }
+
+                .task-itemDot .item-tableDot .table tfoot tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: bold;
+                    font-family: serif;
+                    vertical-align: middle;
+                    font-family: 'Roboto';
+                    color: red;
+                }
+
+#tbodyTong tr.active7 {
+    background: #bafbff
+}
+
+.quantity {
+    outline: none
+}
+
+.active1 {
+    background: #d3e3f6
+}
+
+.arrowList {
+    display: flex;
+    column-gap: 30px;
+}
+
+.hideIn {
+    display: none
+}
+
+.arrowList i {
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.modal-body {
+    position: relative;
+    padding: 2px 20px;
+    row-gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .modal-body p {
+        margin: 0px;
+        margin-left: 2px;
+        font-size: 15px;
+    }
+
+    .modal-body label {
+        margin: 0px;
+        font-size: 16px;
+        color: #c32323;
+    }
+
+.modal-header {
+    min-height: 13.428571px;
+    padding: 0px 12px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-left: 18px;
+    padding-top: 10px;
+}
+
+.modal-footer {
+    padding: 6px 20px 20px;
+    margin-top: 0px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+
+.ico-btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: all .20s cubic-bezier(0.4, 0.0, 0.2, 1);
+    background: #faff37;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 2px;
+}
+
+.ico-btn__plus {
+    width: 16px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: all .25s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+    .ico-btn__plus::after {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 2px;
+        background: currentColor;
+        border-radius: 2px;
+        transition: all .25s cubic-bezier(0.4, 0.0, 0.2, 1);
+        transform: rotate(90deg);
+    }
+
+.ico-btn.is-active .ico-btn__plus {
+    transform: rotate(225deg);
+}
+
+.tab-content {
+    display: none
+}
+
+    .tab-content.active {
+        display: initial
+    }
+
+.list_tabIndex {
+    margin-top: 2px;
+    column-gap: 5px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+    .list_tabIndex button {
+        border-radius: 3px;
+        padding: 0 5px;
+        cursor: pointer;
+        background: #fff;
+        border: none;
+        margin: 5px 0px;
+    }
+
+    .list_tabIndex .active {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 2px 5px;
+        cursor: pointer;
+        background: #317bd9;
+        color: #fff;
+    }
+
+@media (max-width: 950px) {
+    .task-itemTong {
+        width: auto;
+    }
+}
+
+@media (max-width: 800px) {
+    .nav_dongthungall .nav_Huydongthung button {
+        font-size: 12px;
+    }
+
+    .nav_dongthungall .nav_dongthung button {
+        font-size: 12px;
+    }
+}

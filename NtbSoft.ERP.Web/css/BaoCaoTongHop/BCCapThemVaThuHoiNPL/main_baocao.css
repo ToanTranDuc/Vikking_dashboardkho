@@ -1,0 +1,30 @@
+﻿body {
+    padding: 0px;
+    margin: 10px;
+}
+
+header {
+    display: flex;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    align-items: center;
+}
+
+main {
+    padding: 5px;
+}
+
+/*custom tab*/
+.nav-tabs {
+    margin-bottom: 5px;
+}
+
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+        background-color: #f0ce90;
+    }
+
+.tab-pane fade {
+    display: none !important;
+}
+/**/

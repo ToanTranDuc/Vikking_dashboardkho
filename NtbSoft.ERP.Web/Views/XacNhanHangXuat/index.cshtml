@@ -1,0 +1,587 @@
+﻿
+@{
+    ViewBag.Title = "XacNhanHangXuat";
+    Layout = null;
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Xác Nhận Hàng Xuất</title>
+
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/css/QRCode/toastr.minM.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link href="~/css/BienBanMoKien/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/BienBanMoKien/flatpickr-min.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/BienBanMoKien/daterangepicker.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/css/XuatHangNPL/xuathangnpl.css" rel="stylesheet" />
+    <link href="~/css/TongHopNPL/tempus-dominus.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="~/css/BienBanMoKien/BienBanMoKien.css" rel="stylesheet" />
+    <style>
+
+        .dx-header-row .col-header {
+            background: #5da566;
+            color: #fff;
+            text-align: center !important;
+            vertical-align: middle !important;
+            white-space: nowrap
+        }
+
+        .dx-data-row .col-header {
+            text-align: center !important;
+            font-size: 13px !important;
+            vertical-align: middle !important
+        }
+
+        .dx-footer-row .col-header .dx-datagrid-text-content {
+            text-align: center !important;
+            color: red !important
+        }
+
+        .dx-row.dx-freespace-row.dx-column-lines {
+            display: none !important
+        }
+
+        /* Set chiều cao cho tất cả các row */
+        #dxDataGridDangKyVatTu, #dxDataGridDanhSachDangKy .dx-datagrid-rowsview .dx-row {
+            height: 50px !important;
+            min-height: 50px !important;
+        }
+
+        /* Set chiều cao cho header */
+        #dxDataGridDangKyVatTu, #dxDataGridDanhSachDangKy .dx-datagrid-headers .dx-row {
+            height: 45px !important;
+        }
+
+        /* Set chiều cao cho cell */
+        #dxDataGridDangKyVatTu, #dxDataGridDanhSachDangKy .dx-datagrid-rowsview .dx-data-row > td {
+            padding: 8px !important;
+            vertical-align: middle !important;
+        }
+
+        #txtSoPhieu:disabled {
+            background-color: transparent
+        }
+
+        .form-group {
+            margin: 0rem 0rem 0rem 0rem !important;
+        }
+
+        .labelHeader {
+            color: black !important;
+            font-size: 0.8rem !important;
+            margin-bottom: 0.1rem !important;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 7px 6px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            background: white;
+            border: var(--bs-border-width) solid var(--bs-border-color);
+        }
+
+            .input-box:focus {
+                outline: none;
+                border-color: #007bff;
+            }
+
+        .dropdown-list {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #007bff;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            margin-top: -2px;
+        }
+
+            .dropdown-list.show {
+                display: block;
+            }
+
+        .dropdown-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+            .dropdown-item:hover {
+                background: #f8f9fa;
+            }
+
+            .dropdown-item:last-child {
+                border-bottom: none;
+            }
+
+            .dropdown-item input[type="checkbox"] {
+                margin-right: 10px;
+                width: 18px;
+                height: 18px;
+                cursor: pointer;
+            }
+
+            .dropdown-item label {
+                cursor: pointer;
+                flex: 1;
+                user-select: none;
+                font-weight: unset !important
+            }
+
+        .check-all {
+            background: #f0f0f0;
+            font-weight: bold;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .search-box {
+            padding: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+
+            .search-box input {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                font-size: 13px;
+            }
+
+                .search-box input:focus {
+                    outline: none;
+                    border-color: #007bff;
+                }
+
+        .form-control {
+            font-weight: normal;
+            font-size: 12px;
+        }
+
+        .select2-container .select2-selection--single {
+            border: var(--bs-border-width) solid var(--bs-border-color);
+            padding-top: 10px;
+            height: 36px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 31px;
+            right: 8px;
+            top: 4px;
+        }
+
+        /* width */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+            /* Handle on hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+
+        #txtPhieu:disabled {
+            background-color: transparent;
+            cursor: default;
+        }
+
+        .modal-fullscreen .modal-content {
+            height: 80%;
+            border: 0;
+            border-radius: 0;
+        }
+
+        #modalComfimrtDeleteVT {
+            z-index: 1060 !important;
+        }
+
+            #modalComfimrtDeleteVT + .modal-backdrop {
+                z-index: 1055 !important;
+            }
+
+        .modal-backdrop.show:nth-of-type(2) {
+            z-index: 1055 !important;
+        }
+
+        /* Style cho mobile */
+        @@media (max-width: 768px) {
+            .btn-mobile {
+                padding: 0.4rem 0.5rem;
+                font-size: 0.75rem;
+                white-space: nowrap;
+            }
+
+                .btn-mobile .btn-text {
+                    font-size: 0.75rem;
+                }
+
+                .btn-mobile i {
+                    font-size: 0.875rem;
+                }
+        }
+
+        /* Style cho tablet */
+        @@media (min-width: 768px) and (max-width: 991px) {
+            .btn-mobile {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.875rem;
+            }
+        }
+
+        /* Style cho desktop */
+        @@media (min-width: 992px) {
+            .btn-mobile {
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+            }
+        }
+
+        #modalEditDKVT #dxDataGridEditVatTu {
+            width: 100% !important;
+        }
+
+        #modalEditDKVT .dx-datagrid {
+            width: 100% !important;
+        }
+
+        #signatureModal .modal-content {
+            width : 76% !important
+        }
+
+        #signatureModal .modal-dialog-centered {
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            min-height: calc(100% - var(--bs-modal-margin) * 2);
+        }
+        .modal .btn,
+        .title .btn,
+        button.btn {
+            font-size: 13px !important;
+        }
+
+        #modalTimNhanh .modal-dialog {
+            margin: auto;
+            max-width: 70%;
+        }
+
+        .dx-datagrid-summary-item {
+            text-align: center !important;
+            color: red !important
+        }
+        .title {
+            background: #357C97;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <section>
+            <div class="title">
+                <div style="display: flex; align-items: center; width: 100%; ">
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 6px;">
+                        <i id="home" class="fa-sharp fa-solid fa-house"></i>
+                        <span style="margin-top: 2px;">Xác Nhận Hàng Xuất</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section>
+            <section>
+                <div class="row m-0 p-0 align-items-end mb-2">
+                    <div class="col-6 col-md-3 col-lg-2 p-1 mb-2 mb-md-0 d-none">
+                        <div class="select2_item d-flex flex-column ">
+                            <label class="txtselected labelHeader">Lọc</label>
+                            <select onchange="GetPYC()" class="select_2" id="loc">
+                                <option value="0">Sản Xuất</option>
+                                <option value="1">Gia Công</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2 p-1 mb-2 mb-md-0">
+                        <div class="select2_item d-flex flex-column ">
+                            <label class="txtselected labelHeader">Mã Lệnh</label>
+                            <select onchange="GetPhieuDKVT()" id="malenh" class="select_2">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 col-lg-2 p-1 mb-2 mb-md-0">
+                        <div class="select2_item d-flex flex-column ">
+                            <label class="txtselected labelHeader">Phiếu Đăng Ký</label>
+                            <select onchange="GetViewPDKVT()" id="phieuxuathang" class="select_2">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-5 col-lg-8 p-1 mb-2 mb-md-0">
+                        <div class="d-flex flex-nowrap gap-2 justify-content-md-end">
+                            <button class="btn btn-primary " id="btnEditAllPhieu">
+                                <i class="fa-solid fa-check-double mr-1 mr-md-2 text-white"></i>
+                                <span class="btn-text-full d-sm-inline">Xác Nhận Hàng Xuất</span>
+                            </button>
+                            <button class="btn btn-success " id="btnTimNhanh">
+                                <i class="fa-solid fa-search mr-1 mr-md-2 text-white"></i>
+                                <span class="btn-text-full d-sm-inline">Tìm Nhanh</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <div class="p-1">
+                <div id="dxDataGridHangXuat" style="max-height: calc(100vh - 120px); min-height: 300px;"></div>
+            </div>
+        </section>
+    </div>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999">
+        <div id="successToast" class="toast" role="alert">
+            <div class="toast-header bg-success text-white">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto">Thành công</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="successMessage"></div>
+        </div>
+        <div id="errorToast" class="toast" role="alert">
+            <div class="toast-header bg-danger text-white">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong class="me-auto">Lỗi</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="errorMessage"></div>
+        </div>
+        <div id="warningToast" class="toast" role="alert">
+            <div class="toast-header bg-warning text-dark">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong class="me-auto">Cảnh báo</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="warningMessage"></div>
+        </div>
+    </div>
+
+    <!-- Modal Tìm Kiếm -->
+    <div class="modal fade mt-2" id="modalTimNhanh" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header py-2 bg-danger text-white">
+                    <h6 class="modal-title" id="myModalLabelD">
+                        <i class="fa-solid fa-search me-2"></i>Tìm Nhanh
+                    </h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-3">
+                    <div class="mb-2" style="max-width: 225px">
+                        <div class="input-group" style="min-width:350px">
+                            <input id="inputTimKiem" class="form-control input-group-btn" placeholder="Tìm kiếm theo ItemCode và màu ... " style="font-size: 13px" />
+                            <span id="btnTimKiem" class="input-group-text" style="cursor:pointer"><i class="fa-solid fa-search"></i></span>
+                        </div>
+                    </div>
+                    <div id="dxDataPhieuDKVT" style="max-height: calc(100vh - 264px); min-height: 300px;"></div>
+                </div>
+                <div class="modal-footer d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark me-1"></i>Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Xác nhận xóa-->
+    <div class="modal fade" id="modalComfimrtDeleteVT" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header py-2 bg-danger text-white">
+                    <h5 class="modal-title" id="myModalLabelD">
+                        <i class="fa-solid fa-trash-can me-2"></i>Xác nhận xóa
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-3">
+                    <p class="text-center mb-2" style="font-size: 17px;">
+                        Bạn có chắc chắn muốn xóa<span id="txtSLVTDelete"></span> vật tư này khỏi danh sách?
+                    </p>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark me-1"></i>Hủy
+                    </button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmtDeletePhieu">
+                        <i class="fa-solid fa-trash-can me-1"></i>Xác nhận xóa
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Xác Nhận Chữ Ký-->
+    <div class="modal fade" id="signatureModal" tabindex="-1" aria-labelledby="signatureModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signatureModalLabel">
+                        <i class="fas fa-pen-fancy me-2"></i>Ký Tên
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <!-- Công cụ -->
+                    <div class="row mb-3 g-2">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label small fw-bold">Màu bút:</label>
+                            <div class="d-flex gap-2 flex-wrap">
+                                <input type="color" class="color-picker" id="penColor" value="#000000">
+                                <button class="btn btn-tool btn-outline-dark" onclick="setPenColor('#000000')">
+                                    <i class="fas fa-circle" style="color: #000000;"></i>
+                                </button>
+                                <button class="btn btn-tool btn-outline-primary" onclick="setPenColor('#0d6efd')">
+                                    <i class="fas fa-circle" style="color: #0d6efd;"></i>
+                                </button>
+                                <button class="btn btn-tool btn-outline-danger" onclick="setPenColor('#dc3545')">
+                                    <i class="fas fa-circle" style="color: #dc3545;"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label small fw-bold">Độ dày bút:</label>
+                            <div class="pen-size-selector">
+                                <div class="pen-size-btn active" onclick="setPenSize(2)" data-size="2">
+                                    <div style="width: 6px; height: 6px; background: #000; border-radius: 50%;"></div>
+                                </div>
+                                <div class="pen-size-btn" onclick="setPenSize(4)" data-size="4">
+                                    <div style="width: 10px; height: 10px; background: #000; border-radius: 50%;"></div>
+                                </div>
+                                <div class="pen-size-btn" onclick="setPenSize(6)" data-size="6">
+                                    <div style="width: 14px; height: 14px; background: #000; border-radius: 50%;"></div>
+                                </div>
+                                <div class="pen-size-btn" onclick="setPenSize(8)" data-size="8">
+                                    <div style="width: 18px; height: 18px; background: #000; border-radius: 50%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Canvas vẽ chữ ký -->
+                    <div class="position-relative">
+                        <canvas id="signatureCanvas" class="signature-canvas"></canvas>
+                        <small class="text-muted d-block mt-2 text-center">
+                            <i class="fas fa-info-circle"></i> Vẽ chữ ký của bạn vào khung trên
+                        </small>
+                    </div>
+
+                    <!-- Nút hành động -->
+                    <div class="d-flex gap-2 mt-3 flex-wrap justify-content-center">
+                        <button class="btn btn-outline-secondary" onclick="clearSignature()">
+                            <i class="fas fa-eraser me-1"></i> Xóa
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="undoSignature()">
+                            <i class="fas fa-undo me-1"></i> Hoàn tác
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i> Hủy
+                    </button>
+                    <button type="button" class="btn btn-warning save-imgA d-none">
+                        <i class="fa-solid fa-list-check"></i> Lưu không ký
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="saveSignature()">
+                        <i class="fas fa-check me-1"></i> Lưu Chữ Ký
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/toastr.min.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.js"></script>
+    <script src="~/Scripts/BienBanMoKien/qrcode.min.js"></script>
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/Scripts/BienBanMoKien/flatpickr.js"></script>
+    <script src="~/Scripts/ScanQR/html5-qrcode.js"></script>
+    <script src="~/Content/Date/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Scripts/BienBanMoKien/daterangepicker.js"></script>
+    <script src="~/Scripts/TongHopNPL/popperjs.js"></script>
+    <script src="~/Scripts/TongHopNPL/tempus-dominus.min.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/moment.min.js"></script>
+    <script src="~/css/DevExtreme/dx.all.js"></script>
+    <script src="~/css/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Scripts/ScanQR/toastM.js"></script>
+    <script>
+        var userName = '@ViewBag.userName';
+        var isNPL = 1
+        function showToast(type, message, delay = 2000) {
+            let toastId, messageId;
+
+            switch (type) {
+                case 'success':
+                    toastId = 'successToast';
+                    messageId = 'successMessage';
+                    break;
+                case 'error':
+                    toastId = 'errorToast';
+                    messageId = 'errorMessage';
+                    break;
+                case 'warning':
+                    toastId = 'warningToast';
+                    messageId = 'warningMessage';
+                    break;
+                default:
+                    console.error('Unknown toast type:', type);
+                    return;
+            }
+
+            $('#' + messageId).text(message);
+
+            const toastElement = $('#' + toastId)[0];
+            const toast = new bootstrap.Toast(toastElement, {
+                autohide: true,
+                delay: delay
+            });
+
+            toast.show();
+        }
+
+    </script>
+    <script src="~/Scripts/XacNhanHangXuat/xacnhanhangxuat.js?version=1.1"></script>
+</body>
+</html>
+
+

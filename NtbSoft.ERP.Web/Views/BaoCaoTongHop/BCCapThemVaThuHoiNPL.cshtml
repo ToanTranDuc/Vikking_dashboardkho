@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Báo cáo cấp thêm và thu hồi NPL";
+}
+<head>
+    @* Libary CSS *@
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" rel="stylesheet" />
+
+    @* Custom CSS *@
+    <link href="~/css/BaoCaoTongHop/BCCapThemVaThuHoiNPL/main_baocao.css" rel="stylesheet" />
+    <link href="~/css/BaoCaoTongHop/BCCapThemVaThuHoiNPL/filter_custom.css" rel="stylesheet" />
+    <link href="~/css/BaoCaoTongHop/BCCapThemVaThuHoiNPL/gridCustom.css" rel="stylesheet" />
+    <link href="~/css/BaoCaoTongHop/BCCapThemVaThuHoiNPL/custom_bootstrap.css" rel="stylesheet" />
+</head>
+
+<header class="d-flex w-100 gap-3" id="">
+    <div id="select-startdate"></div>
+    <div id="select-enddate"></div>
+    <div id="filter_mahang" style="width: 25%"></div>
+    <button class="btn btn-default" id="btn-refresh" style="margin-left:auto"><i class="fa-solid fa-arrow-rotate-right"></i> Tải lại</button>
+    <button class="btn btn-success"><i class="fa-solid fa-file-export"></i> Xuất excel</button>
+</header>
+
+<main>
+    <ul class="nav nav-tabs" id="custom-tabs-npl" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="tab-cap-them-tab" data-toggle="pill" href="#tab-cap-them" role="tab">
+                Cấp thêm NPL
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tab-thu-hoi-tab" data-toggle="pill" href="#tab-thu-hoi" role="tab">
+                Thu hồi NPL
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tab-cap-them-ngoai-don-hang-tab" data-toggle="pill" href="#tab-cap-them-ngoai-don-hang" role="tab">
+                Cấp thêm ngoài đơn hàng
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade active" id="tab-cap-them" role="tabpanel">
+            <div id="grid-cap-them"></div>
+        </div>
+        <div class="tab-pane fade" id="tab-thu-hoi" role="tabpanel">
+            <div id="grid-thu-hoi"></div>
+        </div>
+        <div class="tab-pane fade" id="tab-cap-them-ngoai-don-hang" role="tabpanel">
+            <div id="grid-cap-them-ngoai-don-hang"></div>
+        </div>
+    </div>
+</main>
+
+<footer></footer>
+@* Script Binary *@
+<script src="~/Scripts/jquery.min-3.6.1.js"></script>
+<script src="~/css/DevExtreme/dx.all.js"></script>
+
+@* Scripts Custom *@
+
+<script src="~/Scripts/BCCapThemVaThuHoiNPL/function_item.js?version=1.2"></script>
+<script src="~/Scripts/BCCapThemVaThuHoiNPL/function_baocaocapthepthuhoi.js?version=1.2"></script>
+<script src="~/Scripts/BCCapThemVaThuHoiNPL/create_views.js?version=1.2"></script>

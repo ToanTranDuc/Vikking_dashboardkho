@@ -1,0 +1,172 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Sơ đồ tổng";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <link href="~/css/TheoDoiHangXuat/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/toastr.min.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/jquery.ui.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/Css/sodokhoTong.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="title">
+        <a style="color: #fff; text-decoration:none" href="/Home/Dashboard"><i class="fa-sharp fa-solid fa-house"></i></a>
+        <div style="display: flex; flex-wrap: wrap; width: 100%;">
+            <div class=" lst_DonHang">
+                <label class="col-form-label item_lable" style="color: white">Tên nhà máy</label>
+                <select class="item_select nhamay">
+                </select>
+            </div>
+            <div class=" lst_DonHang">
+                <label class="col-form-label item_lable" style="color: white">Tên kho</label>
+                <select class="item_select tenkho">
+                </select>
+            </div>
+            <div class=" lst_DonHang">
+                <label class="col-form-label item_lable" style="color: white">Tên khu vực</label>
+                <select class="item_select tenkhuvuc">
+                </select>
+            </div>
+
+            <div class="search_vitrio">
+                <div style="display: flex; flex-direction: column;">
+                    <label class="col-form-label item_lable" style="color: white">Tìm kiếm </label>
+                    <input class="list search_vitri" type="text" name="name" value="" placeholder="" autocomplete="off" />
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <label class="col-form-label item_lable" style="color: white; white-space: nowrap;">Ẩn mã hàng</label>
+                    <input class="list checkViTri" type="checkbox" />
+                </div>
+            </div>
+            <div class=" lst_DonHang" style="justify-content: center; align-items: center;">
+                <label class="col-form-label item_lable" style="color: white;margin-top:2px">Lọc đơn hàng</label>
+                <i style="font-size: 20px; color: #000000; cursor: pointer; " class="fa-sharp fa-solid fa-eye-slash eye-dh"></i>
+            </div>
+            <div class="viewChiTiet">
+                <button class="btnChiTiet">Kiện </button>
+                <button class="btnChiTietGiaCong"> SL Kiện</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="list_Ds active">
+        <div class=" lst_DonHang" style="min-width: 150px;">
+            <label class="col-form-label item_lable" style="color:#016b69 ">Đơn hàng</label>
+            <select class="item_select selectDs madh">
+            </select>
+        </div>
+        <div class=" lst_DonHang">
+            <label class="col-form-label item_lable" style="color:#016b69 ">PO</label>
+            <select class="item_select selectDs PO">
+            </select>
+        </div>
+        <div class=" lst_DonHang" style="display:none">
+            <label class="col-form-label item_lable" style="color:#016b69 ">Mã PKL</label>
+            <select class="item_select selectDs maPKL">
+            </select>
+        </div>
+        <div class=" lst_DonHang">
+            <label class="col-form-label item_lable" style="color:#016b69 ">Lọc</label>
+            <i style="font-size: 22px; padding: 0; color: #cf1212; cursor: pointer;" class="fa-solid fa-filters filtervitri"></i>
+        </div>
+        
+    </div>
+    <div class="list_tabIndex">
+        <button data-tab="tab-1" class="page1 active"> Chi tiết  </button>
+        <button data-tab="tab-2" class="page2"> Tổng quan </button>
+
+    </div>
+    <div class="renderbody" style="position:relative">
+        <div style="overflow: auto; width: 100%; border: 1px solid #ccc; padding: 0 2px; margin-top: 5px;">
+            <div id="tab-1" class="rendertable_list tab-content active">
+
+            </div>
+            <div id="tab-2" class="rendertable_list1 tab-content">
+
+            </div>
+        </div>
+
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Danh sách thùng</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box_sheft">
+                        <div class="shelf" id="shelf">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @*<div class="container active">
+            <div class="spinner"> <span class="span"> Loadding...</span></div>
+        </div>*@
+    <div class="list_loading active">
+        <div class="cssCoding">
+
+        </div>
+        <div style="font-size: 20px; font-weight: 600; font-family: roboto; color: #016b69;">
+            Đang lấy dữ liệu
+        </div>
+    </div>
+    <div class="modal fade" id="myModal3" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Chuyển khu vực</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                </div>
+                @*<div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/TheoDoiHangXuat/WebCam.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/toastr.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/jquery-ui.min.js"></script>
+    <script src="~/Scripts/BienBanXuatHang/tvkiten.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/sweetalert2.js"></script>
+    <script>
+        var data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+    </script>
+    <script src="~/Scripts/sodokho/sodokhoTong.js"></script>
+</body>
+</html>
+
+
+

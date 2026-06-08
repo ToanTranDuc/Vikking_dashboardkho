@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8231CA67-2340-4195-A642-1C28A544A0CC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NtbSoft.ERP.Model</RootNamespace>
+    <AssemblyName>NtbSoft.ERP.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ghostscript.NET, Version=1.2.3.0, Culture=neutral, PublicKeyToken=f85051de34525b59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ghostscript.NET.1.2.3\lib\net40\Ghostscript.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DashboardKho\DashboardKhoDesktopModel.cs" />
+    <Compile Include="GetData\ShortSqlQueryModel.cs" />
+    <Compile Include="KeHoach\KeHoachDongThungModel.cs" />
+    <Compile Include="KeHoach\KeHoachDongThungTonKhoModel.cs" />
+    <Compile Include="KeHoach\KeHoachXuatHangThanhPhamModel.cs" />
+    <Compile Include="KeHoach\KHDKXuatHangModel.cs" />
+    <Compile Include="KeHoach\KHDongThungDescriptionModel.cs" />
+    <Compile Include="KeHoach\PackageListCheckTonKhoModel.cs" />
+    <Compile Include="KeHoach\PackageListChuyenKhoModel.cs" />
+    <Compile Include="KeHoach\PackageListXuatHangModel.cs" />
+    <Compile Include="KeHoach\PhieuCapVatTu_Model.cs" />
+    <Compile Include="KeHoach\PhieuYC_Model.cs" />
+    <Compile Include="KeHoach\ScanBarCodeDT_NKModel.cs" />
+    <Compile Include="KeHoach\ScanBarcodeModel.cs" />
+    <Compile Include="KeHoach\SoTheoDoiXuatHangModel.cs" />
+    <Compile Include="KeHoach\TheoDoiDonHangModel.cs" />
+    <Compile Include="KeHoach\ThongKeDongThungModel.cs" />
+    <Compile Include="Kho\BaoCaoTongHopKhoNPLModel.cs" />
+    <Compile Include="Kho\BienBanLuuSealModel.cs" />
+    <Compile Include="Kho\BienBanMoKienModel.cs" />
+    <Compile Include="Kho\DashboardKhoModel.cs" />
+    <Compile Include="Kho\DongThungModel.cs" />
+    <Compile Include="Kho\ERPBaoCaoXuatNhapTonModel.cs" />
+    <Compile Include="Kho\ERPBienBanMoKienChiTietModel.cs" />
+    <Compile Include="Kho\ERPDonViVTModel.cs" />
+    <Compile Include="Kho\ERPKhoVaiModel.cs" />
+    <Compile Include="Kho\ERPMauVatTuModel.cs" />
+    <Compile Include="Kho\ERPNhapKhoNPLModel.cs" />
+    <Compile Include="Kho\ERPNhapKhoNPLPOMUAModel.cs" />
+    <Compile Include="Kho\ERPNhapKhoNPLTachKienModel.cs" />
+    <Compile Include="Kho\ErpPheDuyetNKModel.cs" />
+    <Compile Include="Kho\ERPThongSoVatTuModel.cs" />
+    <Compile Include="Kho\Erp_Export_BBMoKien_NPLModel.cs" />
+    <Compile Include="Kho\KhaiBaoKH_VTKModel.cs" />
+    <Compile Include="Kho\KhoModel.cs" />
+    <Compile Include="Kho\NguyenLieuModel.cs" />
+    <Compile Include="Kho\NhapKhoModel.cs" />
+    <Compile Include="Kho\NHGiaCongModel.cs" />
+    <Compile Include="Kho\PhieuGiaoNhanModel.cs" />
+    <Compile Include="Kho\PhieuKhoNPLModel.cs" />
+    <Compile Include="Kho\PhieuNhapKhoV1Model.cs" />
+    <Compile Include="Kho\PhuLieuModel.cs" />
+    <Compile Include="Kho\TheKhoModel.cs" />
+    <Compile Include="Kho\TheKhoThanhPhamModel.cs" />
+    <Compile Include="Kho\TienTeModel.cs" />
+    <Compile Include="Kho\TongHopKhoNPLModel.cs" />
+    <Compile Include="Kho\VatTuModel.cs" />
+    <Compile Include="Kho\VatTuNhapKhoModel.cs" />
+    <Compile Include="Kho\ViTriKhoModel.cs" />
+    <Compile Include="Kho\ViTriKhoNewModel.cs" />
+    <Compile Include="Kho\ViTriKhoTongModel.cs" />
+    <Compile Include="Kho\WriteLogThuVienModel.cs" />
+    <Compile Include="NguyenPhuLieu\QTYMaHangPhuLieuModel.cs" />
+    <Compile Include="POMAU\POMauModel.cs" />
+    <Compile Include="POMH\CanDoiNPLModel.cs" />
+    <Compile Include="POMH\DanhGiaNLVModel.cs" />
+    <Compile Include="POMH\ERPCanDoiNguyenPhuLieuModel.cs" />
+    <Compile Include="POMH\ERPDanhGiaNhaCCModel.cs" />
+    <Compile Include="POMH\ERPPOMHSimpleShipmentModel.cs" />
+    <Compile Include="POMH\ERPPOMuaMMTBModel.cs" />
+    <Compile Include="POMH\LichSuPhieuBGModel.cs" />
+    <Compile Include="POMH\NhaCungCapModel.cs" />
+    <Compile Include="POMH\NotifyManagerModel.cs" />
+    <Compile Include="POMH\PhanQuyenPOMHModel.cs" />
+    <Compile Include="POMH\PheDuyetModel.cs" />
+    <Compile Include="POMH\PhieuBaoGiaMayMocTBModel.cs" />
+    <Compile Include="POMH\PhieuBaoGiaModel.cs" />
+    <Compile Include="POMH\POMH_PhieuMuaHangMMTB_Import_SeriModel.cs" />
+    <Compile Include="POMH\TyGiaModel.cs" />
+    <Compile Include="Qty\QtyKiemPLModel.cs" />
+    <Compile Include="QuanLyDonHang\BCCapThem_ThuHoi_NPL.cs" />
+    <Compile Include="QuanLyDonHang\BomNguyenPhuLieuModel.cs" />
+    <Compile Include="QuanLyDonHang\CanDoiCapPhatModel.cs" />
+    <Compile Include="QuanLyDonHang\CanDoiDinhMucNPL_LogModel.cs" />
+    <Compile Include="QuanLyDonHang\CanDoiDMNLModel.cs" />
+    <Compile Include="QuanLyDonHang\CanDoiDonHangModel.cs" />
+    <Compile Include="QuanLyDonHang\CapThemModel.cs" />
+    <Compile Include="QuanLyDonHang\CapThemNgoaiDH.cs" />
+    <Compile Include="QuanLyDonHang\ChiTietCayVai.cs" />
+    <Compile Include="QuanLyDonHang\ChiTietTungLenhModel.cs" />
+    <Compile Include="QuanLyDonHang\DangKyVatTuModel.cs" />
+    <Compile Include="QuanLyDonHang\DeNghiCapThemNPLModel.cs" />
+    <Compile Include="QuanLyDonHang\DinhMucModel.cs" />
+    <Compile Include="QuanLyDonHang\DinhMucNPLModel.cs" />
+    <Compile Include="QuanLyDonHang\DonHangTongModel.cs" />
+    <Compile Include="QuanLyDonHang\DonHangTonKhoModel.cs" />
+    <Compile Include="QuanLyDonHang\DuyetDonHangModel.cs" />
+    <Compile Include="QuanLyDonHang\ERPDongBoQLSXModel.cs" />
+    <Compile Include="QuanLyDonHang\ERPDonHangTongModel.cs" />
+    <Compile Include="QuanLyDonHang\ERPVatTuCBMModel.cs" />
+    <Compile Include="QuanLyDonHang\ERP_CanDoiYeuCauNPLModel.cs" />
+    <Compile Include="QuanLyDonHang\ERP_DeleteBOM_DMModel.cs" />
+    <Compile Include="QuanLyDonHang\Erp_TongQuanCapPhatModel.cs" />
+    <Compile Include="QuanLyDonHang\ERP_ViewLenhSXChangedModel.cs" />
+    <Compile Include="QuanLyDonHang\ERP_ViTriKhoNPLModel.cs" />
+    <Compile Include="QuanLyDonHang\GhepDHBoModel.cs" />
+    <Compile Include="QuanLyDonHang\KhaiBaoAllModel.cs" />
+    <Compile Include="QuanLyDonHang\KhoiTaoBOMV1Model.cs" />
+    <Compile Include="QuanLyDonHang\KhoiTaoDMModel.cs" />
+    <Compile Include="QuanLyDonHang\PhanTichBomModel.cs" />
+    <Compile Include="QuanLyDonHang\PhieuBaoGiaModel.cs" />
+    <Compile Include="QuanLyDonHang\PhieuXuatHangNPLModel.cs" />
+    <Compile Include="QuanLyDonHang\QuyDoiModel.cs" />
+    <Compile Include="QuanLyDonHang\SaveOnCanDoiDonViSXModel.cs" />
+    <Compile Include="QuanLyDonHang\UpdateXetDuyetModel.cs" />
+    <Compile Include="QuanLyDonHang\XinNPLMayMauModel.cs" />
+    <Compile Include="SoTheoDoi\SoTheoDoiContainerModel.cs" />
+    <Compile Include="SoTheoDoi\SoTheoDoiSealNoiBoModel.cs" />
+    <Compile Include="SYSTEM\SystemGETsqlModel.cs" />
+    <Compile Include="SYSTEM\SystemLoginModel.cs" />
+    <Compile Include="SYSTEM\SystemRoleUser_LineModel.cs" />
+    <Compile Include="SYSTEM\SystemUserCostingModel.cs" />
+    <Compile Include="SYSTEM\SystemUserExcelTSModel.cs" />
+    <Compile Include="SYSTEM\SystemUserXacNhanBomModel.cs" />
+    <Compile Include="SYSTEM\SysUserDonHangModel.cs" />
+    <Compile Include="SYSTEM\SysUserDuyetModel.cs" />
+    <Compile Include="SYSTEM\SysUserExcelTSModel.cs" />
+    <Compile Include="SYSTEM\SysUserXacNhanBOMModel.cs" />
+    <Compile Include="SYSTEM\SysUserYeuCauNPLModel.cs" />
+    <Compile Include="ThuVien\ArtSize_MaHangModel.cs" />
+    <Compile Include="ThuVien\BangMauModel.cs" />
+    <Compile Include="ThuVien\BangSizeModel.cs" />
+    <Compile Include="ThuVien\BrandModel.cs" />
+    <Compile Include="ThuVien\CaiDatBarCodeModel.cs" />
+    <Compile Include="ThuVien\CaiDatThongSoKHDTModel.cs" />
+    <Compile Include="ThuVien\CheckListCongDoanModel.cs" />
+    <Compile Include="ThuVien\ChungLoaiModel.cs" />
+    <Compile Include="ThuVien\ChungLoaiVatTuModel.cs" />
+    <Compile Include="ThuVien\ChungLoai_CongDoanModel.cs" />
+    <Compile Include="ThuVien\CongDoanModel.cs" />
+    <Compile Include="ThuVien\CongTyModel.cs" />
+    <Compile Include="ThuVien\DicQCDongThungModel.cs" />
+    <Compile Include="ThuVien\DicThuVienBaoGiaModel.cs" />
+    <Compile Include="ThuVien\Dic_ShippingModel.cs" />
+    <Compile Include="ThuVien\DonViChungLoaiModel.cs" />
+    <Compile Include="ThuVien\DonViModel.cs" />
+    <Compile Include="ThuVien\DonViSanXuatModel.cs" />
+    <Compile Include="ThuVien\ERPBangInSeamModel.cs" />
+    <Compile Include="ThuVien\ERPBangMauModel.cs" />
+    <Compile Include="ThuVien\ERPBangSizeModel.cs" />
+    <Compile Include="ThuVien\ERPHangHoaModel.cs" />
+    <Compile Include="ThuVien\ErpKHDongThung_PCBModel.cs" />
+    <Compile Include="ThuVien\ERPThuVienNKModel.cs" />
+    <Compile Include="ThuVien\ERPVatTuThanhPhanModel.cs" />
+    <Compile Include="ThuVien\ERP_ThoiGianXaVaiModel.cs" />
+    <Compile Include="ThuVien\ERP_ThuVienMauModel.cs" />
+    <Compile Include="ThuVien\ERP_VatTuModel.cs" />
+    <Compile Include="ThuVien\ERP_VatTuTVModel.cs" />
+    <Compile Include="ThuVien\GetPostDeleteAllModel.cs" />
+    <Compile Include="ThuVien\GetTenNVModel.cs" />
+    <Compile Include="ThuVien\GetThuVienModel.cs" />
+    <Compile Include="ThuVien\HangHoaModel.cs" />
+    <Compile Include="ThuVien\HinhThucModel.cs" />
+    <Compile Include="ThuVien\KhachHangModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SYSTEM\SystemDepartmentModel.cs" />
+    <Compile Include="SYSTEM\SystemGroupModel.cs" />
+    <Compile Include="SYSTEM\SystemGroupModuleModel.cs" />
+    <Compile Include="SYSTEM\SystemGroupReportModel.cs" />
+    <Compile Include="SYSTEM\SystemLogModel.cs" />
+    <Compile Include="SYSTEM\SystemUserModel.cs" />
+    <Compile Include="SYSTEM\SystemUserModuleModel.cs" />
+    <Compile Include="SYSTEM\SystemUserReportModel.cs" />
+    <Compile Include="ThuVien\KHDT_DaKieuLapModel.cs" />
+    <Compile Include="ThuVien\KHDT_StoreModel.cs" />
+    <Compile Include="ThuVien\LenghtUnitConvertModel.cs" />
+    <Compile Include="ThuVien\LoaiHangHoaModel.cs" />
+    <Compile Include="ThuVien\MaContModel.cs" />
+    <Compile Include="ThuVien\MaHang_CodeSizeModel.cs" />
+    <Compile Include="ThuVien\MaSealModel.cs" />
+    <Compile Include="ThuVien\MuaModel.cs" />
+    <Compile Include="ThuVien\NguyenPhuLieuModel.cs" />
+    <Compile Include="ThuVien\NhanVienModel.cs" />
+    <Compile Include="ThuVien\NhomLoiNLModel.cs" />
+    <Compile Include="ThuVien\NhomLoiPLModel.cs" />
+    <Compile Include="ThuVien\NhomNguyenPhuLieuModel.cs" />
+    <Compile Include="ThuVien\PhapDanhCtyModel.cs" />
+    <Compile Include="ThuVien\PhongBanModel.cs" />
+    <Compile Include="ThuVien\QTY_KiemDauChuyenModel.cs" />
+    <Compile Include="ThuVien\QTY_MaHang_HinhModel.cs" />
+    <Compile Include="ThuVien\QTY_MaHang_TaiLieuKiThuatModel.cs" />
+    <Compile Include="ThuVien\QTY_MaHang_ThongSoDoModel.cs" />
+    <Compile Include="ThuVien\QuocGiaModel.cs" />
+    <Compile Include="ThuVien\SettingTiLeLoiModel.cs" />
+    <Compile Include="ThuVien\ThuVienKhoSizeModel.cs" />
+    <Compile Include="ThuVien\ThuVienMauModel.cs" />
+    <Compile Include="ThuVien\VatTuChiTietModel.cs" />
+    <Compile Include="ThuVien\VatTuGiaModel.cs" />
+    <Compile Include="ThuVien\VatTuMinMaxModel.cs" />
+    <Compile Include="WipDonHang\WipDonHangModel.cs" />
+    <Compile Include="XuLyVT\XLVTModel.cs" />
+    <Compile Include="XuLyVT\XLVTMUAHANGModel.cs" />
+    <Compile Include="XuLyVT\XLVTVTModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NtbSoft.ERP.Entity\NtbSoft.ERP.Entity.csproj">
+      <Project>{0BE1D348-E3BC-4EEB-AEE6-FE39FACB9CAB}</Project>
+      <Name>NtbSoft.ERP.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NtbSoft.ERP.Libs\NtbSoft.ERP.Libs.csproj">
+      <Project>{28091866-5eda-4578-bf37-368867311a16}</Project>
+      <Name>NtbSoft.ERP.Libs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

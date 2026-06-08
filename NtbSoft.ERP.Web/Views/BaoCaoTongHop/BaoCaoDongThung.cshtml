@@ -1,0 +1,178 @@
+﻿
+@{
+    ViewBag.Title = "BaoCaoDongThung";
+    Layout = "~/Views/Shared/_LayoutBCTH.cshtml";
+}
+
+<link href="~/css/BaoCaoTongHop/BaoCaoDongThung/button.css" rel="stylesheet" />
+<link href="~/css/BaoCaoTongHop/BaoCaoDongThung/menu.css" rel="stylesheet" />
+<link href="~/css/BaoCaoTongHop/BaoCaoDongThung/report-design.css" rel="stylesheet" />
+<link href="~/css/BaoCaoTongHop/BaoCaoDongThung/reportDongthung.css" rel="stylesheet" />
+<link href="~/css/BaoCaoTongHop/BaoCaoDongThung/reportDongThungMobile.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<div style="display:none;">
+    <p id="checkCShapUserName">@ViewBag.Username</p>
+    <p id="checkCShapBranch">@ViewBag.Dvsx</p>
+</div>
+<header-baocao>
+    <div style="display:flex;width:100%">
+        <div style="display:flex">
+            <div class="hangHoa" style="width: 210px; margin-right: 10px; overflow:hidden;">
+                <ul style="width:200px;" class="menu" id="dsMH">
+                    <li style="width:200px;">
+                        <input id="chooseHangHoa" placeholder="Các mã hàng được chọn" type="text" readonly />
+                        <ul class="sub" id="liMaHang">
+                            <li class="li-pc">
+                                <div id="div-search-mahang" style="gap: 10px;;">
+                                    @*<img id="icondSearch" src="~/Content/img/search-icon.svg" />*@
+                                    <input placeholder="Tìm kiếm mã hàng" id="search_input" type="search" />
+                                    <button id="btnXacNhanMH" onclick="">Xác nhận</button>
+                                    <div class="checkbox-wrapper-29" style="background-color: white; font-size:12px;">
+                                        <label class="checkbox">
+                                            <input type="checkbox" class="checkbox__input" id="AllMH" />
+                                            <span class="checkbox__label"> </span>
+                                            Chọn hết
+                                        </label>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="productOrder" style="width: 200px; margin-right: 10px;">
+                <ul style="width:200px;" class="menu" id="dsLenh">
+                    <li style="width:200px;">
+                        <input id="chooseProductOrder" placeholder="Các lệnh được chọn" type="text" readonly />
+                        <ul class="sub" id="liLenhSX">
+                            <li>
+                                <div id="tuLenhDenLenh">
+                                    <span>Từ:&nbsp;</span><input type="number" id="tuLenh" />
+                                    <span>&nbsp;Đến:&nbsp;</span><input type="number" id="denLenh" />
+                                    &nbsp;
+                                    <div class="checkbox-wrapper-29" style="background-color: white; font-size: 12px; translate: 0 5px; ">
+                                        <label class="checkbox">
+                                            <input type="checkbox" class="checkbox__input" id="AllML" />
+                                            <span class="checkbox__label"> </span>
+                                            Chọn hết
+                                        </label>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="" style="margin-left:auto">
+
+            <button class="btn-export-file-excel" id="btnXuatExcel">
+                <i class="fa-sharp fa-solid fa-file-excel "></i>
+                <p>Xuất Excel</p>
+            </button>
+
+
+        </div>
+    </div>
+
+</header-baocao>
+<main-baocao>
+    <div id="div-TongQuan" style="height: 43vh; margin-top: 10px;">
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="2">Lệnh SX</th>
+                    <th rowspan="2">PO</th>
+                    <th rowspan="2">Mã hàng</th>
+                    <th rowspan="2">Khách hàng</th>
+                    <th rowspan="2">Quốc gia</th>
+                    <th rowspan="2">Ngày GH</th>
+                    <th rowspan="2">Số lượng</th>
+                    <th colspan="2">Thành phẩm</th>
+                    <th colspan="2">Đóng thùng</th>
+                    <th colspan="2">Nhập kho</th>
+                </tr>
+                <tr>
+                    <th>Nhận</th>
+                    <th>Còn lại</th>
+                    <th>Thực hiện</th>
+                    <th>Còn lại</th>
+                    <th>Nhập</th>
+                    <th>Còn lại</th>
+                </tr>
+            </thead>
+            <tbody id="div-TongQuan-tbody">
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+        </table>
+    </div>
+    <div id="div-ChiTiet" style="height:48vh">
+        <div id="DS-Mau">
+            <table id="table-DS-Mau">
+                <thead>
+                    <tr>
+                        <th>Đầu size</th>
+                        <th>Mã màu</th>
+                        <th>Màu</th>
+                    </tr>
+                </thead>
+                <tbody id="table-DS-Mau-tbody"></tbody>
+
+                <tfoot></tfoot>
+            </table>
+        </div>
+        <div id="DS-KetQua">
+            <table id="table-DS-KetQua">
+                <thead style="position: sticky; z-index: 1; top: 0;">
+                    <tr>
+                        <th rowspan="2">Mã màu</th>
+                        <th rowspan="2">Màu</th>
+                        <th rowspan="2">Size</th>
+                        <th rowspan="2">Số lượng</th>
+                        <th colspan="2">Thành phẩm</th>
+                        <th colspan="2">Đóng thùng</th>
+                        <th colspan="2">Nhập kho</th>
+                    </tr>
+                    <tr>
+                        <th>Nhận</th>
+                        <th>Còn lại</th>
+                        <th>Thực hiện</th>
+                        <th>Còn lại</th>
+                        <th>Nhập</th>
+                        <th>Còn lại</th>
+                    </tr>
+                </thead>
+                <tbody id="table-DS-KetQua-tbody">
+                </tbody>
+                <tfoot style="position: sticky; z-index: 2; bottom: 0;">
+                    <tr style="background-color:antiquewhite;">
+                        <td colspan="3" style="color:red;text-align:center;font-weight:600;">Tổng</td>
+                        <td id="sumT">0</td>
+                        <td class="slnhan" id="sumTPN">0</td>
+                        <td class="slcl" id="sumTPCL">0</td>
+                        <td class="slnhan" id="sumDTN">0</td>
+                        <td class="slcl" id="sumDTCL">0</td>
+                        <td class="slnhan" id="sumNKN">0</td>
+                        <td class="slcl" id="sumNKCL">0</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</main-baocao>
+
+<script>
+
+    $(document).ready(function () {
+        let brainChoose = sessionStorage.getItem("BranchName");
+
+        $('#tittleBC').text(`${brainChoose} - Báo cáo đóng thùng`);
+        $('#home').on('click', function () {
+            location.href = "../../../danh-sach-bao-cao";
+        });
+    });
+
+</script>
+<script src="~/Scripts/BaoCaoTongHop/BaoCaoDongThung/report-design.js"></script>

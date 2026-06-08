@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Thống kê nhập kho ";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>@ViewBag.Title</title>
+    <link href="~/css/TheoDoiHangXuat/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/toastr.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link href="~/css/BienBanMoKien/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/BienBanMoKien/flatpickr-min.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/TongHopNPL/tempus-dominus.min.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/jquery.ui.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/ThongKeNhapKho.css?version=1.0" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!--Tiêu Đề-->
+    <section>
+        <div class="title" style="background: #0b5477 ">
+            <div style="display: flex; align-items: center; width: 100%; ">
+                <div style="display: flex; justify-content: center; align-items: center; gap: 6px;padding: 6px 8px;">
+                    <i style="font-size:18px" id="home" class="fa-sharp fa-solid fa-house text-white"></i>
+                    <span style="margin-top: 2px;color:white;font-size:18px">@ViewBag.Title</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section style="padding:6px">
+        <div class="row g-2 align-items-end">
+            <div class="col-6 col-md-2">
+                <div class="select2_item d-flex flex-column">
+                    <label class="txtselected">Từ ngày</label>
+                    <div class="input-group datetimepicker" id="datetimepicker" style="position: relative">
+                        <input type="text" class="form-control dateInput" id="tuNgay" style="height: 28px; font-size: 12px; border-radius: 5px;" />
+                        <i style="height: 36px; position: absolute; right: 14px; top: 4px; font-size: 14px; cursor: pointer; z-index: 10" class="fa-solid fa-calendar-day"></i>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-6 col-md-2">
+                <div class="">
+                    <label class="txtselected">Đến ngày</label>
+                    <div class="input-group datetimepicker" id="datetimepicker1" style="position: relative">
+                        <input type="text" class="form-control dateInput" id="denNgay" style="height: 28px; font-size: 12px; border-radius: 5px;" />
+                        <i style="height:36px; position:absolute; right:14px; top:4px; font-size:14px; cursor:pointer; z-index:10" class="fa-solid fa-calendar-day"></i>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 d-flex flex-column">
+                <label class="txtselected">Mã hàng</label>
+                <select class="select_2 w-100" id="mahang"></select>
+            </div>
+            <div class="col-12 col-sm-6 col-md-5 d-flex align-items-end justify-content-end gap-2">
+                <button class="btn btn-primary" id="xacnhan" style="font-size:13px">
+                    <i class="fas fa-save me-1"></i> Xác Nhận
+                </button>
+                <button class="btn btn-danger" id="huyxacnhan" style="font-size:13px">
+                    <i class="fas fa-trash me-1"></i> Hủy Xác Nhận
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div id="dxtbody" style="margin-top: 12px; min-height:300px;max-height: calc(100vh - 141);"></div>
+        <div class="mt-3" id="dxtbodytotal" style="min-height:300px;max-height: calc(100vh - 141);"></div>
+    </section>
+
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/toastr.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/jquery-ui.min.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/moment.min.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/locale.vi.min.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/sweetalert2.js"></script>
+    <script src="~/Scripts/TongHopNPL/tempus-dominus.min.js"></script>
+    <script src="~/Scripts/TongHopNPL/popperjs.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/moment.min.js"></script>
+    <script src="~/css/DevExtreme/dx.all.js"></script>
+    <script src="~/css/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/thongkenhapkho.js"></script>
+
+
+</body>
+</html>
+
+
+

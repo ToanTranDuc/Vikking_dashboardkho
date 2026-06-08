@@ -1,0 +1,542 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Đăng nhập — PMS</title>
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/toastr.min.css" rel="stylesheet" />
+
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #1a56db;
+            --primary-dk: #1342b0;
+            --primary-glow: rgba(26, 86, 219, .18);
+            --bg: #f0f4ff;
+            --card: #ffffff;
+            --text: #0f1f3d;
+            --muted: #7b8ab0;
+            --border: #dde3f0;
+            --input-bg: #f7f9ff;
+            --font: 'Be Vietnam Pro', sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: var(--font);
+            background: #0a0f1e;
+            color: var(--text);
+        }
+
+            /* ── Background ── */
+            body::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background: radial-gradient(ellipse 70% 55% at 15% 15%, rgba(26,86,219,.22) 0%, transparent 55%), radial-gradient(ellipse 55% 45% at 88% 80%, rgba(37,99,235,.18) 0%, transparent 50%), radial-gradient(ellipse 40% 40% at 55% 50%, rgba(14,165,233,.08) 0%, transparent 60%);
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            body::after {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background-image: radial-gradient(circle, rgba(255,255,255,.035) 1px, transparent 1px);
+                background-size: 32px 32px;
+                pointer-events: none;
+                z-index: 0;
+            }
+
+        /* ── Layout ── */
+        .page {
+            position: relative;
+            z-index: 1;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            background: #3D4C74
+        }
+
+        /* ── Card ── */
+        .card {
+            width: 100%;
+            max-width: 500px;
+            background: #ffffff;
+            border: 1px solid #e8edf5;
+            border-radius: 28px;
+            padding: 15px 37px 30px;
+            box-shadow: 0 4px 6px rgba(15, 31, 61, .04), 0 20px 60px rgba(15, 31, 61, .10);
+            animation: slideUp .55s cubic-bezier(.22, 1, .36, 1) both;
+        }
+
+        @@keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Logo ── */
+        .logo-wrap {
+            display: flex;
+            justify-content: center;
+        }
+
+            .logo-wrap img {
+                height: 130px;
+                object-fit: contain;
+                width: 130px;
+            }
+
+        /* ── Heading ── */
+        .heading {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+            .heading h1 {
+                font-size: 22px;
+                font-weight: 800;
+                color: #0f1f3d;
+                letter-spacing: -.02em;
+                line-height: 1.2;
+            }
+
+            .heading p {
+                font-size: 13px;
+                color: var(--muted);
+                margin-top: 6px;
+                font-weight: 400;
+            }
+
+        /* ── Divider ── */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #dde3f0, transparent);
+            margin-bottom: 28px;
+        }
+
+        /* ── Form ── */
+        .field {
+            margin-bottom: 18px;
+        }
+
+            .field label {
+                display: block;
+                font-size: 13px;
+                font-weight: 600;
+                color: #0f1f3d;
+                margin-bottom: 7px;
+                letter-spacing: .01em;
+            }
+
+                .field label span {
+                    color: #e11d48;
+                    margin-left: 2px;
+                }
+
+        .input-wrap {
+            position: relative;
+        }
+
+            .input-wrap .icon {
+                position: absolute;
+                left: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 14px;
+                color: var(--muted);
+                pointer-events: none;
+                transition: color .2s;
+            }
+
+            .input-wrap input {
+                width: 100%;
+                height: 46px;
+                background: var(--input-bg);
+                border: 1.5px solid var(--border);
+                border-radius: 12px;
+                padding: 0 44px 0 40px;
+                font-family: var(--font);
+                font-size: 14px;
+                font-weight: 500;
+                color: #0f1f3d;
+                outline: none;
+                transition: border-color .2s, box-shadow .2s, background .2s;
+                -webkit-appearance: none;
+                max-width: 100% !important
+            }
+
+                .input-wrap input::placeholder {
+                    color: #b0bace;
+                    font-weight: 400;
+                }
+
+                .input-wrap input:focus {
+                    border-color: var(--primary);
+                    background: #fff;
+                    box-shadow: 0 0 0 4px var(--primary-glow);
+                }
+
+                    .input-wrap input:focus ~ .icon,
+                    .input-wrap:focus-within .icon {
+                        color: var(--primary);
+                    }
+
+        /* Toggle password */
+        .toggle-pw {
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--muted);
+            font-size: 15px;
+            padding: 4px;
+            border-radius: 6px;
+            transition: color .15s, background .15s;
+            line-height: 1;
+        }
+
+            .toggle-pw:hover {
+                color: var(--primary);
+                background: var(--primary-glow);
+            }
+
+        /* ── Remember ── */
+        .remember-row {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 24px;
+        }
+
+            .remember-row input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                border-radius: 5px;
+                border: 1.5px solid var(--border);
+                accent-color: var(--primary);
+                cursor: pointer;
+                flex-shrink: 0;
+            }
+
+            .remember-row label {
+                font-size: 13px;
+                font-weight: 500;
+                color: #7b8ab0;
+                cursor: pointer;
+                user-select: none;
+            }
+
+        /* ── Submit button ── */
+        .btn-login {
+            width: 100%;
+            height: 48px;
+            background: linear-gradient(135deg, #1a56db 0%, #2563eb 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: var(--font);
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: .01em;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform .15s, box-shadow .15s;
+            box-shadow: 0 4px 16px rgba(26,86,219,.35);
+        }
+
+            .btn-login::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(135deg, rgba(255,255,255,.15) 0%, transparent 60%);
+                opacity: 0;
+                transition: opacity .2s;
+            }
+
+            .btn-login:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 8px 24px rgba(26,86,219,.40);
+            }
+
+                .btn-login:hover::before {
+                    opacity: 1;
+                }
+
+            .btn-login:active {
+                transform: translateY(0);
+                box-shadow: 0 4px 12px rgba(26,86,219,.30);
+            }
+
+            .btn-login .btn-text {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            /* Loading spinner inside button */
+            .btn-login.loading .btn-text::after {
+                content: '';
+                width: 16px;
+                height: 16px;
+                border: 2px solid rgba(255,255,255,.4);
+                border-top-color: #fff;
+                border-radius: 50%;
+                animation: spin .6s linear infinite;
+            }
+
+        @@keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .btn-login.loading {
+            pointer-events: none;
+            opacity: .85;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 12px;
+            color: #b0bace;
+        }
+
+        /* ── Responsive ── */
+        @@media (max-width: 480px) {
+            .card {
+                padding: 36px 24px 32px;
+                border-radius: 20px;
+            }
+
+            .heading h1 {
+                font-size: 20px;
+            }
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .radio-item {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            height: 40px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--muted);
+            background: var(--input-bg);
+            transition: all .18s;
+            user-select: none;
+            padding: 0 10px;
+        }
+
+            .radio-item input[type="radio"] {
+                accent-color: var(--primary);
+                width: 15px;
+                height: 15px;
+                cursor: pointer;
+                flex-shrink: 0;
+            }
+
+            .radio-item:has(input:checked) {
+                border-color: var(--primary);
+                background: var(--primary-glow);
+                color: var(--primary);
+            }
+
+            .radio-item:hover {
+                border-color: var(--primary);
+                color: var(--primary);
+            }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="card">
+
+            <!-- Logo -->
+            <div class="logo-wrap">
+                <img src="~/img/logoNTB.png" alt="Logo NTB" />
+            </div>
+
+            <!-- Heading -->
+            <div class="divider"></div>
+
+            <!-- Form -->
+            <form id="login-form" autocomplete="off">
+
+                <div class="field">
+                    <label for="username">Tài khoản <span>*</span></label>
+                    <div class="input-wrap">
+                        <i class="fas fa-user icon"></i>
+                        <input type="text" id="username" name="username"
+                               placeholder="Nhập tài khoản..." autocomplete="username" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="password">Mật khẩu <span>*</span></label>
+                    <div class="input-wrap">
+                        <i class="fas fa-lock icon"></i>
+                        <input type="password" id="password" name="password"
+                               placeholder="Nhập mật khẩu..." autocomplete="current-password" required>
+                        <span class="toggle-pw" id="toggle-password">
+                            <i class="fas fa-eye-slash"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="remember-row">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Nhớ mật khẩu</label>
+                </div>
+
+                <div class="radio-group d-none">
+                    <label class="radio-item">
+                        <input type="radio" name="system" value="1" checked>
+                        <span>QLDH</span>
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="system" value="2">
+                        <span>QLSX</span>
+                    </label>
+                    <label class="radio-item d-none">
+                        <input type="radio" name="system" value="3">
+                        <span>QTY</span>
+                    </label>
+                </div>
+
+                <button class="btn-login" type="submit" id="btn-submit">
+                    <span class="btn-text">
+                        <i class="fas fa-arrow-right-to-bracket"></i>
+                        Đăng nhập
+                    </span>
+                </button>
+
+            </form>
+
+            <div class="footer">Production Management System &copy; 2025</div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Content/Date/bootstrap5.3.bundle.min.js"></script>
+
+    <script src="~/Scripts/TheoDoiHangXuat/toastr.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            toastr.options = {
+                closeButton: true, newestOnTop: false, progressBar: true,
+                positionClass: "toast-top-right", preventDuplicates: false,
+                showDuration: "300", hideDuration: "1000",
+                timeOut: "3000", extendedTimeOut: "1000",
+                showEasing: "swing", hideEasing: "linear",
+                showMethod: "fadeIn", hideMethod: "fadeOut"
+            };
+
+            // Toggle password
+            $('#toggle-password').click(function () {
+                const $pw = $('#password');
+                const isPassword = $pw.attr('type') === 'password';
+                $pw.attr('type', isPassword ? 'text' : 'password');
+                $(this).find('i').toggleClass('fa-eye-slash', !isPassword).toggleClass('fa-eye', !isPassword);
+                $(this).find('i').attr('class', isPassword ? 'fas fa-eye' : 'fas fa-eye-slash');
+            });
+
+            // Remember password
+            if (localStorage.getItem('remember') === 'true') {
+                $('#username').val(localStorage.getItem('username'));
+                $('#password').val(localStorage.getItem('password'));
+                $('#remember').prop('checked', true);
+            }
+
+            // Submit
+            $('#login-form').submit(function (e) {
+                e.preventDefault();
+
+                const username = $('#username').val().trim();
+                const password = $('#password').val();
+
+                if (!username || !password) {
+                    toastr.warning('Vui lòng nhập đầy đủ thông tin');
+                    return;
+                }
+
+                const $btn = $('#btn-submit');
+                $btn.addClass('loading').find('.btn-text').html('Đang xử lý...');
+
+                localStorage.setItem('username1', username);
+                localStorage.setItem('password1', password);
+
+                if ($('#remember').is(':checked')) {
+                    localStorage.setItem('remember', 'true');
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('password', password);
+                } else {
+                    localStorage.setItem('remember', 'false');
+                    localStorage.removeItem('username');
+                    localStorage.removeItem('password');
+                }
+
+                $.ajax({
+                    url: "/api/Login/Get?para1=" + encodeURIComponent(username) + "&para2=" + encodeURIComponent(password),
+                    type: 'GET',
+                    success: function (d) {
+                        if (d == "true") {
+                            window.location.href = "/Home/Dashboard";
+                        } else {
+                            $btn.removeClass('loading').find('.btn-text').html('<i class="fas fa-arrow-right-to-bracket"></i> Đăng nhập');
+                            toastr.error('Tài khoản hoặc mật khẩu không đúng');
+                            $('#password').val('').focus();
+                        }
+                    },
+                    error: function () {
+                        $btn.removeClass('loading').find('.btn-text').html('<i class="fas fa-arrow-right-to-bracket"></i> Đăng nhập');
+                        toastr.error('Không thể kết nối máy chủ, vui lòng thử lại');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

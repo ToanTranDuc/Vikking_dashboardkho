@@ -1,0 +1,36 @@
+﻿
+
+@media only screen and (max-width: 1400px) {
+	.rorder-0 {
+		order: 0;
+	}
+
+	.rorder-1 {
+		order: 1;
+	}
+
+	.rorder-9 {
+		order: -1;
+	}
+}
+
+.kt-subheader__title {
+	font-weight: 700;
+}
+
+@media (min-width: 1025px) {
+	.kt-header--fixed.kt-aside--minimize .kt-header {
+		left: 0 !important;
+	}
+
+	.kt-aside--fixed.kt-aside--minimize .kt-wrapper {
+		padding-left: 0 !important;
+	}
+}
+
+@media (max-width: 768px) {
+	.kt-footer .kt-container {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+}

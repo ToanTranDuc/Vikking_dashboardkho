@@ -1,0 +1,416 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Sơ Đồ ";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <link href="~/css/TheoDoiHangXuat/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/toastr.min.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/jquery.ui.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/Css/sodokho.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="title">
+        <a class="home" style="color: #fff; text-decoration:none"><i class="fa-solid fa-arrow-left"></i></a>
+        <div style="display: flex;  flex-wrap: wrap;">
+            <div class=" lst_DonHang">
+                <label class="col-form-label item_lable" style="color: white">Tên nhà máy</label>
+                <select class="item_select nhamay">
+                </select>
+            </div>
+            <div class=" lst_DonHang">
+                <label class="col-form-label item_lable" style="color: white">Tên kho</label>
+                <select class="item_select tenkho">
+                </select>
+            </div>
+            <div class=" lst_DonHang">
+                <label class="col-form-label item_lable" style="color: white">Tên khu vực</label>
+                <select class="item_select tenkhuvuc">
+                </select>
+            </div>
+            <div style="width: 60px; margin-top: 6px; margin-left: 6px;">
+                <label class="col-form-label item_lable" style="color: white">Nạp lại</label>
+                <div class="iconNapLap">
+                    <i class="fa-sharp-duotone fa-solid fa-arrows-rotate"></i>
+                </div>
+            </div>
+            <div style="margin-top: 6px; margin-left: 6px; width: auto; display: none; align-items: center; flex-direction: column; ">
+                <label class="col-form-label item_lable" style="color: white">CT thùng</label>
+                <div class="checkboxdetail">
+                    <input class="item_checkboxdetail" type="checkbox" name="name" value="" checked />
+                </div>
+            </div>
+            <div class="search_vitrio" style="display:">
+                <div style="display: flex; flex-direction: column;">
+                    <label class="col-form-label item_lable" style="color: white">Tìm kiếm mã hàng</label>
+                    <input class="list search_vitri" type="text" name="name" value="" placeholder="" autocomplete="off" />
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <label class="col-form-label item_lable" style="color: white; white-space: nowrap;">Ẩn mã hàng</label>
+                    <input class="list checkViTri" type="checkbox" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="renderbody" style="position:relative">
+        <div class="sphere-container active">
+            <div style="display: flex;">
+                <div class="sphere sphere1"></div>
+                <div class="sphere sphere2"></div>
+                <div class="sphere sphere3"></div>
+            </div>
+            <div style="margin-top: 60px; font-size: 21px; color: #000;">Đang lấy dữ liệu</div>
+        </div>
+        <div class="rederBodyKhoTong">
+            <div class="list_Ds">
+                <div class=" lst_DonHang" style="min-width: 150px;">
+                    <label class="col-form-label item_lable" style="color:#016b69 ">Đơn hàng</label>
+                    <select class="item_select selectDs madh">
+                    </select>
+                </div>
+                <div class=" lst_DonHang">
+                    <label class="col-form-label item_lable" style="color:#016b69 ">PO</label>
+                    <select class="item_select selectDs PO">
+                    </select>
+                </div>
+                <div class=" lst_DonHang">
+                    <label class="col-form-label item_lable" style="color:#016b69 ">Mã PKL</label>
+                    <select class="item_select selectDs maPKL">
+                    </select>
+                </div>
+                <div class=" lst_DonHang">
+                    <label class="col-form-label item_lable" style="color:#016b69 ">Màu</label>
+                    <select class="item_select selectDs color">
+                    </select>
+                </div>
+                <div class=" lst_DonHang">
+                    <label class="col-form-label item_lable" style="color:#016b69 ">InSeam</label>
+                    <select class="item_select selectDs dausize">
+                    </select>
+                </div>
+                <div class=" lst_DonHang">
+                    <label class="col-form-label item_lable" style="color:#016b69 ">Size</label>
+                    <select class="item_select selectDs Size">
+                    </select>
+                </div>
+            </div>
+            <div class="list_dsThung">
+                <div class="searchThung">
+                    <div class="list_tuthngdenthung">
+                        <div class="item">
+                            <label class="col-form-label item_lable" style="color:#016b69 ">Từ thùng</label>
+                            <input class="tuthung" type="number" />
+                        </div>
+                        <div class="item">
+                            <label class="col-form-label item_lable" style="color:#016b69 ">Đến thùng</label>
+                            <input class="denthung" type="number" />
+                        </div>
+                        <div class="item">
+                            <button class="searchListThung">Lọc thùng</button>
+                        </div>
+                    </div>
+                    <div class="checkAllDSThung">
+                        <label class="col-form-label item_lable" style="color:#016b69 ">Chọn tất cả</label>
+                        <input class="checkDSThung" type="checkbox" />
+                    </div>
+                    <div class="lst_CBM">
+                        <label class="col-form-label item_lable" style="color: #016b69">Tổng CBM</label>
+                        <p class="totalCBM">0 (CBM)</p>
+                    </div>
+                </div>
+                <div class="item_thung">
+
+                </div>
+            </div>
+        </div>
+        <div class="list_tabIndex">
+            <button data-tab="tab-1" class="page1 active"> Thống kê  </button>
+            <button data-tab="tab-2" class="page2"> Chọn khu vực </button>
+            <div style="background: #ffff4c; border: 1px solid #ccc; border-radius: 3px; padding: 2px 5px; cursor: pointer; color: #016b69; font-weight: bold; " class="changeo active active2">
+                <i class="fa-sharp fa-light fa-table-pivot"></i>
+                <p> Chuyển Ô</p>
+            </div>
+            <div class="viewAll active2">
+                <i class="fa-solid fa-eye eye_all"></i>
+            </div>
+        </div>
+
+        <div style="overflow: auto; width: 100%; border: 1px solid #ccc; padding: 0 2px; margin-top: 5px;position:relative">
+
+            <div id="tab-1" class="rendertable_list tab-content active">
+
+            </div>
+            <div id="tab-2" class="rendertable_list1 tab-content">
+
+                <div class="boxDi">
+                    <div class="list_Boxitem">
+                        <div class=" lst_DonHang">
+                            <label class="col-form-label item_lable" style="color:#016b69 ">Dãy</label>
+                            <select class="item_select selectDs page1_day clickActive">
+                            </select>
+                        </div>
+                        <div class=" lst_DonHang">
+                            <label class="col-form-label item_lable" style="color:#016b69 ">Kệ</label>
+                            <select class="item_select selectDs page1_make clickActive">
+                            </select>
+                        </div>
+                        <div class=" lst_DonHang">
+                            <label class="col-form-label item_lable" style="color:#016b69 "> Tầng</label>
+                            <select class="item_select selectDs page1_matang clickActive">
+                            </select>
+                        </div>
+                        <div class=" lst_DonHang">
+                            <label class="col-form-label item_lable" style="color:#016b69 "> Ô</label>
+                            <select class="item_select selectDs page1_mao clickActive">
+                            </select>
+                        </div>
+                        <div style="width: auto; display: flex; align-items: center; flex-direction: column; ">
+                            <label class="col-form-label item_lable" style="color: #016b69 ">Chọn</label>
+                            <div class="checkThung">
+                                <input class="item_checkpage1" type="checkbox" name="name" value="" />
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; flex-direction: column; min-width: 50px;">
+                            <label class="col-form-label item_lable" style="color: #016b69 ">CBM</label>
+                            <p data-cbm="0" class="CBMPage1"></p>
+                        </div>
+                    </div>
+                    <div class="viewDetail">
+                        <div class="checkBoxlistDi  checkBoxlist">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="chuyenList " style="width:50px">
+                    <div style="flex-direction: column; color: red; font-weight: bold;">
+                        <span>Chuyển </span>
+                        <span> ô</span>
+                    </div>
+                    <div>
+                        <i style="font-size: 18px;" class="fa-solid fa-eye-slash eye_viewXem"></i>
+
+                    </div>
+                    <div style="flex-direction: column; color: red; font-weight: bold;">
+                        <span>Phải </span>
+                        <i style="font-size: 24px;" class="fa-solid fa-arrow-right-from-line iconpage1"></i>
+                    </div>
+
+                   
+                    <div  style="flex-direction: column; color: red; font-weight: bold; margin-top: 10px;">
+                        <span>Trái </span>
+                        <i style="font-size: 24px;" class="fa-solid fa-arrow-left-from-line iconpage2"></i>
+                    </div>
+
+
+                </div>
+                <div class="boxDen active">
+                    <div class="list_Boxitem">
+                        <div class=" lst_DonHang">
+                            <label class="col-form-label item_lable" style="color:#016b69 ">Dãy</label>
+                            <select class="item_select selectDs page2_day clickActive">
+                            </select>
+                        </div>
+                        <div class=" lst_DonHang">
+                            <label class="col-form-label item_lable" style="color:#016b69 ">Kệ</label>
+                            <select class="item_select selectDs page2_make clickActive">
+                            </select>
+                        </div>
+                        <div class=" lst_DonHang">
+                            <label class="col-form-label item_lable" style="color:#016b69 "> Tầng</label>
+                            <select class="item_select selectDs page2_matang clickActive">
+                            </select>
+                        </div>
+                        <div class=" lst_DonHang">
+                            <label class="col-form-label item_lable" style="color:#016b69 "> Ô</label>
+                            <select class="item_select selectDs page2_mao clickActive">
+                            </select>
+                        </div>
+
+                        <div style="width: auto; display: flex; align-items: center; flex-direction: column; ">
+                            <label class="col-form-label item_lable" style="color: #016b69 ">Chọn</label>
+                            <div class="checkThung">
+                                <input class="item_checkpage2" type="checkbox" name="name" value="" />
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; flex-direction: column; min-width: 50px; ">
+                            <label class="col-form-label item_lable" style="color: #016b69 ">CBM</label>
+                            <p data-cbm="0" class="CBMPage2"></p>
+                        </div>
+                    </div>
+                    <div class="viewDetail">
+                        <div class="checkBoxlistDen checkBoxlist">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <section>
+        <div class="popup">
+            <div class="list-popup">
+                <div class="tieude" style="border-bottom: 1px solid #333; padding-bottom: 6px; margin-bottom: 5px;">
+                    Theo vị trí
+                </div>
+                <div class=" lst_DonHang">
+                    <label class="col-form-label item_lable" style="color:#016b69 ">Lọc</label>
+                    <select class="item_select selectDs totalLoc">
+                    </select>
+                </div>
+
+                <div class="display">
+
+                </div>
+                <div class="text">
+                    <div class="tuthung_SoKien">
+                        <label class="col-form-label item_lable" style="margin-top: 5px; margin-right: 10px;">Từ Thùng </label>
+                        <input class="item_tuthung" type="number" name="name" value="" autocomplete="off" />
+                    </div>
+                    <div class="denthung_SoKien">
+                        <label class="col-form-label item_lable" style="margin-top: 5px; margin-right: 10px;">Đến thùng</label>
+                        <input class="item_denthung" type="number" name="name" value="" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="save_cancel">
+                    <div class="cancel_list">
+                        <button>Đóng</button>
+                    </div>
+                    <div class="save_list">
+                        <button>Xác nhận</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @*<div class="container active">
+        <div class="spinner"> <span class="span"> Loadding...</span></div>
+    </div>*@
+    <div class="list_loading active">
+            <div class="cssCoding">
+
+            </div>
+            <div style="font-size: 20px; font-weight: 600; font-family: roboto; color: #016b69;">
+                Đang lấy dữ liệu
+            </div>
+        </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 7px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Chi tiết thùng</h4>
+                </div>
+                <div class="modal-body" style="padding: 2px;">
+                    <div class="main-item">
+                        <div class="task-item" style="position:relative">
+                            <div class="item-table">
+                                <table class="table" style="position: relative">
+                                    <thead class="thead-list">
+                                        <tr id="thead" style="position:relative">
+                                            <td>Tên hàng</td>
+                                            <td>Po</td>
+                                            <td> Mã PKL </td>
+                                            <td>Size</td>
+                                            <td>CBM</td>
+                                            <td>Số chiếc</td>
+                                            <td>Tên thùng</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bodyChiTietThung">
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal2" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 7px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 style="color: #dd4646; font-weight: bold; font-size: 17px;" class="modal-title namoDetail">Chi tiết </h4>
+                </div>
+                <div class="modal-body" style="padding: 2px;">
+                    <div class="lst_DonHang" style="margin: 0 11px; margin-right: 16px;">
+                        <label class="col-form-label item_lable" style="color:#016b69 ">Mã hàng - PO - Size</label>
+                        <select class="item_select selectDs searchInSize">
+                        </select>
+                    </div>
+                    <div class="main-item">
+                        <div class="task-item" style="position:relative">
+                            <div class="item-table" style="overflow: auto; max-height: calc(100vh - 325px);">
+                                <table class="table" style="position: relative">
+                                    <thead class="thead-list">
+                                        <tr id="theadInSize" style="position:relative">
+                                            <td style="position: sticky; top: 0;background: #b99d9d;color: #fff;">
+                                                Tên hàng
+                                            </td>
+                                            <td style="position: sticky; top: 0;background: #b99d9d; color: #fff;">
+                                                Po
+                                            </td>
+                                            <td style="position: sticky; top: 0;background: #b99d9d; color: #fff;">
+                                                Thùng
+                                            </td>
+                                            <td style="position: sticky; top: 0;background: #b99d9d; color: #fff;">
+                                                Size
+                                            </td>
+                                            <td style="position: sticky; top: 0;background: #b99d9d; color: #fff;">
+                                                CBM
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bodyChiTietThungInSize">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/TheoDoiHangXuat/WebCam.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/toastr.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/jquery-ui.min.js"></script>
+    <script src="~/Scripts/BienBanXuatHang/tvkiten.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/sweetalert2.js"></script>
+    <script>
+        var data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+    </script>
+    <script src="~/Scripts/sodokho/sodokho.js"></script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,934 @@
+﻿@{
+    Layout = null;
+}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link href="~/css/NguyenPhuLieu/mon.css" rel="stylesheet" />
+    <link href="~/css/Toast/Toast.css" rel="stylesheet" />
+    <link href="~/css/NguyenPhuLieu/other.css" rel="stylesheet" />
+    <link href="~/Content/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+   
+
+    <style>
+        .table-responsive {
+            display: table;
+        }
+
+        .selectedLi {
+            background: #00C6F0 !important;
+            border-radius: 7px;
+        }
+
+        .forecolorSelected {
+            color: white !important;
+        }
+
+        li a:focus {
+            background: #00C6F0;
+        }
+
+        .table-filter-container {
+            text-align: right;
+        }
+
+        table, th, td {
+            border: 1px ridge;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        .custom-table > tbody {
+            display: block;
+            overflow: auto;
+        }
+
+            .custom-table > thead, .custom-table > tbody tr {
+                display: table;
+                width: 100%;
+            }
+
+        .custom-table > thead {
+            width: 100%
+        }
+
+        .custom-table {
+            width: 100%;
+        }
+
+        .button-fix {
+            margin: 0px 10px !important;
+            width: 118px !important;
+            height: 40px !important;
+        }
+
+        .button-table {
+            margin: 0px 20px !important;
+            background-color: transparent !important;
+            height: 40px !important;
+            padding: 2px 5px !important;
+        }
+
+        .nhomloi::-webkit-scrollbar {
+            display: none;
+        }
+
+        .child-nhomloi::-webkit-scrollbar {
+            display: none;
+        }
+
+        .form-group {
+            margin: 0rem 0rem 0.2rem 0rem !important;
+        }
+
+        .inputEnLine {
+            text-align: center;
+            font-size: 0.8rem !important;
+            background-color: white !important;
+            height: 1.7rem !important;
+            font-weight: bold !important;
+            padding: 0px !important
+        }
+
+        .labelHeader {
+            color: white;
+            font-size: 0.8rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .textHeader {
+            color: black;
+            font-size: 0.8rem;
+        }
+
+        .card {
+            margin-bottom: 0.4rem !important;
+        }
+
+        .js-width::-webkit-scrollbar {
+            display: none;
+        }
+
+        .canhbaoloi::-webkit-scrollbar {
+            display: none;
+        }
+
+        .set-height {
+            height: calc(100vh - 400px);
+        }
+
+        /**/
+        .sidebar-mini.sidebar-collapse .wrapper .content-wrapper {
+            margin-left: 0 !important;
+        }
+
+        .main-sidebar, .sidebar-collapse .wrapper .main-sidebar::before {
+            margin-left: -250px !important;
+        }
+
+        .sidebar-open .main-sidebar, .sidebar-collapse .wrapper .main-sidebar::before {
+            margin-left: 0 !important;
+        }
+
+        body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper {
+            margin-left: 0 !important;
+        }
+
+        body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+            margin-left: 0 !important;
+        }
+
+        .sidebar-open #sidebar-overlay {
+            display: block;
+        }
+
+        .sidebar-mini.sidebar-collapse .wrapper .main-footer {
+            margin-left: 0 !important;
+        }
+
+        .check-IsQC.is-none {
+            display: none;
+        }
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        /*-------------*/
+        .box-error {
+            position: absolute;
+            right: 0;
+            /* width: 100px; */
+            /* display: none; */
+            background: white;
+            top: 40px;
+            transition: 1s;
+            margin-right: 5px;
+        }
+
+            .box-error.is-hide {
+                transform: translateX(100%);
+                margin-right: 0px;
+            }
+
+        .nav-item.nav-item--1 {
+            position: absolute;
+            right: 7px;
+            top: 0;
+            /*background: red;*/
+        }
+
+        .col-cus {
+            padding-right: 2px !important;
+        }
+
+        .btn-CongDoan {
+            width: 48% !important;
+            display: inline !important;
+            margin: 2px;
+            box-sizing: border-box;
+            color: black;
+            background: linear-gradient(to bottom,#ffffff 0,#eeeeee 100%)
+        }
+
+        .btn-group-lg > .btn, .btn-lg {
+            font-size: 1rem !important;
+            padding: 0.2rem 0.1rem !important;
+        }
+
+        .item-MaLoi {
+            min-height: 55px !important;
+            font-weight: bold !important;
+            width: 55px !important;
+            /*background-color: #15979bf0 !important;
+                color: white !important;*/
+            margin: 0px 5px 5px 0px !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            cursor: pointer !important
+        }
+
+        .p-motaloi {
+            margin-bottom: 0px !important;
+            font-size: 0.75rem !important;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        h6 {
+            font-size: 0.75rem !important;
+            margin-bottom: 0.1rem !important;
+        }
+
+        .btn-outline-primary:hover {
+            background: #007bff;
+            color: white !important;
+        }
+        /*.btn-CongDoan:focus{
+                background:red;
+            }*/
+        .btn-outline-primary {
+            color: black !important;
+            /*border-color: #007bff;*/
+        }
+
+        #DSNhomLoi button.is-active {
+            background: #007bff;
+            color: #fff !important;
+        }
+
+        .ErrorImage {
+            height: 35px;
+            width: 35px;
+            margin-right: 2px;
+        }
+
+        .labelHT {
+            margin-right: 5px;
+        }
+
+        .lblValueHT {
+            color: red;
+        }
+
+        .daterangepicker .calendar-table table {
+            display: grid !important;
+        }
+
+        .select2-selection__rendered {
+            line-height: 25px !important;
+            font-size: 0.8rem !important;
+            font-weight: bold !important;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 100% !important;
+            padding: 0rem 0.75rem !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            margin-top: 0px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 80% !important;
+        }
+
+        #select2-MaHang-results li {
+            font-size: 12px;
+        }
+
+        /* .select2-search__field {
+                display: none;
+            }*/
+
+        .select2-search.select2-search--dropdown [ aria-controls = "select2-MaHang-results"] {
+            display: block;
+        }
+
+        .select2-container--default .select2-results > .select2-results__options {
+            max-height: 60vh !important;
+            overflow-y: auto;
+        }
+
+        .class-PhuLieu {
+            height: 20px;
+            width: 20px
+        }
+
+        .classFocusVT {
+            background: #007bff;
+            color: white;
+        }
+
+        .select2-results__option {
+            font-size: 12px !important;
+        }
+
+        .select2-container {
+            height: 27px !important;
+        }
+
+        .table td {
+            vertical-align: middle !important;
+        }
+
+        .table tr {
+            min-height: 55px !important;
+        }
+        /*-------------*/
+    </style>
+    <link rel="stylesheet" href="~/css/NguyenPhuLieu/main.css">
+    <style>
+        .table td {
+            padding: 6px 2px !important;            
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="content-wrapper" style="position:relative;overflow:hidden">
+        <section class="content" style="">
+            <div class="container-fluid">
+                <div id="toast"></div>
+                <div class="row js-get-height">
+                    <div class="col-12">
+                        <div class="card-header bg-info" style=" margin-bottom: 10px; margin-top: 10px; border-radius: 5px;">
+                            <h3 class="card-title">
+                                <a href="~/Home/DashBoard" style="color:white"><i class="fas fa-home" style="font-size:x-large;margin-right:5px"></i></a>
+                                Kiểm phụ liệu
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="col-md-12 QCT">
+                        <div class="card-body" style="background-color: #1b81c9; border-radius: 5px; display: block; padding: 0px 10px 5px 10px; margin: 0px 0px 5px 0px">
+
+                            <div class="row top_nav">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-4 col-md-4 col-lg-2 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">Số lô</label>
+                                                <select class="sLenhSX form-control inputEnLine" id="SoLo"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 col-md-4 col-lg-2 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">K.Hàng</label>
+                                                <select class="sLenhSX form-control inputEnLine" id="KhachHang"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 col-md-4 col-lg-3 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">Mã hàng</label>
+                                                <div class="input-group" data-colorpicker-id="2">
+                                                    <input type="text" id="MaHang" style="padding: 0.1rem 0.75rem; height: fit-content; font-weight: bolder !important; font-size: 13px !important;" disabled="" class="inputEnLine form-control">
+
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" onclick="OpenModalMH()" style="height:fit-content;padding:0.31rem 0.75rem"><i class="fas fa-check-double"></i></span>
+                                                    </div>
+                                                </div>
+                                                @*<select class="sLenhSX form-control inputEnLine" id="MaHang"></select>*@
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-4 col-md-4 col-lg-3 col-cus">
+                                            <div class="form-group" onclick="OpenModalPhuLieu()">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">Phụ liệu</label>
+                                                <div class="input-group" data-colorpicker-id="2">
+                                                    <input type="text" id="PhuLieu" style="padding: 0.1rem 0.75rem; height: fit-content; font-weight: bolder !important; color: red; font-size: 13px !important;" readonly class="inputEnLine form-control">
+
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" style="height:fit-content;padding:0.31rem 0.75rem"><i class="fas fa-check-double"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-3 col-md-4 col-lg-2 col-cus QA">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">Qui Cách</label>
+                                                <input type="text" onchange="SaveSLKiem('UpdateQC_Balance')" value="" class="form-control inputEnLine" id="QuiCach">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3 col-md-4 col-lg-2 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">SL chứng từ</label>
+                                                <input type="text" class="form-control inputEnLine" disabled id="SLKH">
+                                            </div>
+                                        </div>
+                                        <div class="col-3 col-md-2 col-lg-2 col-cus QA">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">SL thực tế</label>
+                                                <input type="number" onchange="SaveSLKiem('SaveSLKiem')" value="0" disabled class="form-control inputEnLine" id="SLThuc">
+                                            </div>
+                                        </div>
+                                        <div class="col-3 col-md-2 col-lg-2 col-cus QA">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">Balance</label>
+                                                <input type="number" onchange="SaveSLKiem('UpdateQC_Balance')" value="0" class="form-control inputEnLine" id="Balance">
+                                            </div>
+                                        </div>
+                                        <div class="col-3 col-md-2 col-lg-2 col-cus QA">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">SL kiểm (10%)</label>
+                                                <input type="number" disabled value="0" class="form-control inputEnLine" id="SLKiem">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-3 col-md-2 col-lg-1 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">SL lỗi</label>
+                                                <input type="text" class="form-control inputEnLine" disabled id="HangLoi" value="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-3 col-md-2 col-lg-1 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputPassword1" style="text-align:center; color:White">TL lỗi</label>
+                                                <input type="text" class="form-control inputEnLine" disabled id="TLLoi" value="0">
+                                            </div>
+                                        </div>
+                                        <div class="col-3 col-md-2 col-lg-2 col-cus">
+                                            <div class="form-group">
+                                                <label class="labelHeader" for="exampleInputEmail1" style="text-align:center; color:White">Ngày</label>
+                                                @*<div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" style="height:27px;padding:7px">
+                            <i class="far fa-calendar-alt"></i>
+                        </span>
+                    </div>
+
+                </div>*@
+                                                <input type="text" class="form-control float-right inputEnLine" readonly id="Ngay">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-3">
+                        <div class="card card-row card-default">
+                            <div class="card-header bg-info">
+                                <h3 class="card-title">
+                                    1.Mô tả lỗi
+                                </h3>
+                            </div>
+                            <div class="card-body nhomloi" style="overflow-y:scroll;padding:0.5rem 0rem">
+                                <div id="DSNhomLoi">
+                                    <div col-12>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                        <div class="row-lg-12" style="">
+                                            <div class="info-box" style="max-height:80px;min-height:80px !important;margin-bottom:5px">
+                                                @*<span class="info-box-icon bg-warning"><i class="far fa-star"></i></span>*@
+                                                <div class="info-box-content">
+                                                    <span class="info-box-text" style="white-space:unset !important;font-weight:bold" id="NhomLoi"> A. Nhóm lỗi</span>
+                                                    <span class="info-box-number" id="Loi" style="color:red;font-weight:500">A1. Mã lỗi</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-lg-12">
+                                            <div class="card card-row card-default">
+                                                <div class="card-header bg-info">
+                                                    <h3 class="card-title">
+                                                        4.Chi tiết lỗi
+                                                    </h3>
+                                                </div>
+                                                <div class="card-body js-width-chitietloi" style="padding:5px 0px 0px 0px">
+                                                    <table class="custom-table" style="font-size:0.8rem">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="width:30%; background-color:#17a2b8 !important">Code</th>
+                                                                <th style="width:70%;background-color:#17a2b8 !important">Name</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="listErrorDetail" class="response-table">
+                                                        </tbody>
+                                                    </table>
+
+                                                    <div class="row-lg-12">
+                                                        <div id="groupbutton" class="card group-button set-js-width-chitietloi" style="position:absolute;display:flex;justify-content:center;height:60px;bottom:-5px;background:#fff;border-radius:5px;">
+                                                            <button class="btn btn-block btn-primary button-fix" onclick="clearCavasAll()" id="btClearAll" style="height:2rem;border:0px;width:100px;margin-top:10px !important;margin-right: 15px;font-size:0.9rem;font-weight:700;padding:6px 0px">
+                                                                <i class="fas fa-trash" style="color:white;font-size:0.9rem;font-weight:700"></i> Xóa
+                                                            </button>
+                                                            <button class="btn btn-block btn-secondary button-fix" onclick="clearCavas()" id="btUndo" style="height:2rem;border:0px;width:100px;margin-top:10px !important;font-size:0.9rem;font-weight:700">
+                                                                <i class="fas fa-undo-alt" style="color:white;font-size:0.9rem;font-weight:700"></i> Undo
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-9">
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <div class="row" style=" margin-right: 0px; margin-left: -3px;">
+                                    <div class="col-12 card js-width" style="display:flex;position:relative">
+                                        <div class="row">
+                                            <div class="col-12" style="padding:0px">
+                                                <div class="card-header bg-info">
+                                                    <h3 class="card-title">
+                                                        Thống kê lỗi
+                                                    </h3>
+                                                </div>
+                                                <div class="card-body" style="padding:5px 5px 0px 0px;">
+                                                    <table class="table table-bordered" style="font-size:0.8rem;">
+                                                        <thead>
+                                                            @*<tr>*@
+                                                            <tr>
+                                                                <th rowspan="2">STT</th>
+                                                                <th rowspan="2">Tên phụ liệu </th>
+                                                                <th rowspan="2">Qui cách</th>
+                                                                <th rowspan="2">Unit</th>
+                                                                <th colspan="3">Kiểm số lượng</th>
+                                                                <th colspan="3">Kiểm C.Lượng</th>
+                                                                <th rowspan="2">Loại lỗi</th>
+                                                                <th rowspan="2">Kết quả</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>SL theo C.từ</th>
+                                                                <th>SL thực tế</th>
+                                                                <th>Balance</th>
+                                                                <th>SL kiểm (10%)</th>
+                                                                <th>SL lỗi</th>
+                                                                <th>% lỗi</th>
+                                                            </tr>
+                                                            @*<th>STT</th>
+                                                    <th>Phụ liệu</th>
+                                                    <th>SL C.Từ</th>
+                                                    <th>SL T.tế</th>
+                                                    <th>SL kiểm</th>
+                                                    <th>SL lỗi</th>
+                                                    <th>TL lỗi</th>
+                                                    <th>Loại lỗi</th>
+                                                    <th>Kết quả</th>*@
+                                                            @*</tr>*@
+                                                        </thead>
+                                                        <tbody id="BodyListChecked" style="height:calc(100% - 70px)">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="" style="position:relative">
+                            <div class="card group-button set-js-width" id="groupbutton" style="padding:10px;position:fixed;z-index:999;bottom:0px;right:10px;">
+                                @*<button class="btn btn-block button-fix" id="btHangLoai" style="background-color:orange;font-size:0.9rem;font-weight:700">
+                            <i class="fas fa-inbox"></i> Hàng loại
+                        </button>*@
+                                <button class="btn btn-block bg-warning button-fix QA" data-toggle="modal" data-target="#myModal" style="font-size:0.9rem;font-weight:700;width:150px !important">
+                                    <i class="fas fa-check-double"></i>Chọn lỗi
+                                </button>
+                                <button class="btn btn-block btn-primary button-fix" data-toggle="modal" data-target="#ModalGhiChu" id="btChiChu" style="font-size:0.9rem;font-weight:700">
+                                    <i class="fas fa-save"></i> Ghi chú
+                                </button>
+                                <button class="btn btn-block btn-success button-fix" onclick="SaveError()" id="btLuuLoi" style="font-size:0.9rem;font-weight:700">
+                                    <i class="fas fa-save"></i> Lưu lỗi
+                                </button>
+
+                                @*<button class="btn btn-block btn-warning button-fix" data-toggle="modal" data-target="#ModalGhiChu" style="font-size:0.9rem;font-weight:700">
+                            <i class="fas fa-save"></i> Ghi chú
+                        </button>*@
+                                @*<button class="btn btn-block bg-info button-fix" id="btSuaDat" style="font-size:0.9rem;font-weight:700">
+                            <i class="fas fa-edit"></i> Sửa đạt
+                        </button>*@
+                                @*<button class="btn btn-block bg-primary button-fix QA" id="btHoanThanh" data-toggle="modal" data-target="#ModalHT" style="font-size:0.9rem;font-weight:700;width:150px !important">
+                            <i class="fas fa-check-double"></i> Hoàn thành
+                        </button>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ModalMH" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-xl modal-dialog-top" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color:#17A2B8;padding:0.3rem">
+                                <h5 class="modal-title card-title" style="color:white">Danh sách mã hàng</h5>
+
+                                <button type="button" style="color:white" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div id="DsMaHang" style=" column-count: 2; column-gap: 20px; margin-bottom: 10px">
+                                            @*<div>
+                                        <input class="class-PhuLieu" type="checkbox" readonly="">
+                                        <label style="font-weight: 400;font-size:14px">Dây kéo </label>
+                                    </div>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer" style="padding:0.1rem">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"> @*<i class="fas fa-trash">*@ Hủy</button>
+                                <button onclick="ChonMaHang()" type="button" class="btn btn-primary"> @*<i class="fas fa-save">*@ Đồng ý</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ModalPhuLieu" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-xl modal-dialog-top" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color:#17A2B8;padding:0.3rem">
+                                <h5 class="modal-title card-title" style="color:white">Danh sách phụ liệu</h5>
+
+                                <button type="button" style="color:white" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div id="DsPhuLieu" style=" column-count: 2; column-gap: 20px; margin-bottom: 10px">
+                                            @*<div>
+                                        <input class="class-PhuLieu" type="checkbox" readonly="">
+                                        <label style="font-weight: 400;font-size:14px">Dây kéo </label>
+                                    </div>*@
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer" style="padding:0.1rem">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"> @*<i class="fas fa-trash">*@ Hủy</button>
+                                <button onclick="ChonPhuLieu()" type="button" class="btn btn-primary"> @*<i class="fas fa-save">*@ Đồng ý</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ModalHT" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-sm modal-dialog-top" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color:#17A2B8;padding:0.6rem">
+                                <h5 class="modal-title" style="color:white">Thông báo</h5>
+                                <button type="button" style="color:white" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <span style="font-weight:bold">Xác nhận đã kiểm xong!</span><br />
+                                @*<span>Ghi chú</span>
+                        <textarea id="GhiChu" style="width:100%;height:100px" type="text"> </textarea>*@
+                                @*<span class="labelHT">SP lỗi:</span><span class="lblValueHT" id="lblSPLoi"></span><br />
+                        <span class="labelHT">Lỗi NT:</span><span class="lblValueHT" id="lblNT"></span><br />
+                        <span class="labelHT">Lỗi nặng:</span> <span class="lblValueHT" id="lblNang"></span><br />
+                        <span class="labelHT">Lỗi nhẹ:</span><span class="lblValueHT" id="lblNhe"></span><br />
+                        <label class="border-top" style="width:100%"></label>
+                        <span class="labelHT">Kết quả:</span><span id="lblKetQua"> </span><br />*@
+                                @*<span>Tgian khắc phục:</span> <div>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="height:27px">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control float-right inputEnLine" readonly id="NgayKhacPhuc">
+                            </div>
+                        </div>*@
+                            </div>
+
+                            <div class="modal-footer" style="padding:0.1rem">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"> @*<i class="fas fa-trash">*@ Hủy</button>
+                                <button onclick="PostHT(4)" type="button" class="btn btn-primary"> @*<i class="fas fa-save">*@ Đồng ý</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color:#17A2B8;padding:0.6rem">
+                                <h5 class="modal-title" style="color:white">Thông báo</h5>
+                                <button type="button" style="color:white" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <span id="TitleDelete">Bạn có chắn chắn muốn xóa!</span>
+                            </div>
+
+                            <div class="modal-footer" style="padding:0.1rem">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"> @*<i class="fas fa-trash">*@ Hủy</button>
+                                <button onclick="DeleteError()" type="button" class="btn btn-primary" data-dismiss="modal"> @*<i class="fas fa-save">*@ Đồng ý</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ModalHTA" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color:#17A2B8;padding:0.6rem">
+                                <h5 class="modal-title" style="color:white">Thông báo</h5>
+                                <button type="button" style="color:white" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="display:flex;justify-content:space-around">
+                                <span><img onclick="PostHT(1)" style="height:60px" src="~/Css/close.svg" data-dismiss="modal" aria-label="Close" /></span>
+                                <span><img onclick="PostHT(2)" style="height:60px" src="~/Css/check.svg" data-dismiss="modal" aria-label="Close" /></span>
+                                <span><img onclick="PostHT(3)" style="height:60px" src="~/Css/return.svg" data-dismiss="modal" aria-label="Close" /></span>
+                            </div>
+
+                            <div class="modal-footer" style="padding:0.1rem">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"> @*<i class="fas fa-trash">*@ Hủy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ModalGhiChu" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-md modal-dialog-top" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color:#17A2B8;padding:0.4rem">
+                                <h5 class="modal-title" style="color:white;font-size:1rem">Ghi chú</h5>
+                                <button type="button" style="color:white" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <textarea id="GhiChu" style="width:100%;height:100px" type="text"> </textarea>
+                                @*<textarea id="NoiDungT" style="width:100%" type="text" />*@
+                            </div>
+
+                            <div class="modal-footer" style="padding:0.1rem">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"> @*<i class="fas fa-trash">*@ Đóng</button>
+                                <button type="button" onclick="SaveGhiChu()" class="btn btn-success" data-dismiss="modal"> @*<i class="fas fa-trash">*@ Lưu</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade image" id="ModalImage" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width:100%;height:100%">
+                    <div class="modal-dialog modal-lg modal-dialog-top" role="document">
+                        <div class="modal-content">
+                            @*<div class="modal-header" style="background-color:#17A2B8;padding:0.4rem">
+                        <h5 class="modal-title" style="color:white;font-size:1rem"><i class="fas fa-camera"></i>  Chụp ảnh lỗi</h5>
+                        <button type="button" style="color:white" class="close" data-dismiss="modal" aria-label="Close" id="btnCloseModal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
+                            <div class="modal-body" style="padding:0rem">
+                                <div style="width:100%;height:100%" id="webcam"></div>
+                            </div>
+                            <div class="modal-footer" style="padding:0rem">
+                                <button onclick="Capture()" type="button" class="btn btn-primary" data-dismiss="modal">@*<i class="fas fa-save"></i>*@  Lưu</button>
+                                <button onclick="CloseCamera()" type="button" class="btn btn-danger" data-dismiss="modal">@*<i class="fas fa-save"></i>*@  Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ModaCaptureAgain" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="width:100%;height:100%">
+                    <div class="modal-dialog modal-lg modal-dialog-top" role="document">
+                        <div class="modal-content">
+                            @*<div class="modal-header" style="background-color:#17A2B8;padding:0.4rem">
+                        <h5 class="modal-title" style="color:white;font-size:1rem"><i class="fas fa-camera"></i>  Chụp ảnh lỗi</h5>
+                        <button type="button" style="color:white" class="close" data-dismiss="modal" aria-label="Close" id="btnCloseModal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
+                            <div class="modal-body" style="padding:0rem">
+                                <div style="width:100%;height:100%" id="webcamA"></div>
+                            </div>
+                            <div class="modal-footer" style="padding:0rem">
+                                <button onclick="CaptureAgain()" type="button" class="btn btn-primary" data-dismiss="modal">@*<i class="fas fa-save"></i>*@  Lưu</button>
+                                <button onclick="CloseCamera()" type="button" class="btn btn-danger" data-dismiss="modal">@*<i class="fas fa-save"></i>*@  Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            @*<div class="modal-header" style="background-color:#17A2B8;padding:5px">
+                        <h5 class="modal-title" style="color:white;font-size:1rem">Chọn mã lỗi</h5>
+                        <button type="button" style="color:white" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
+                            <div class="modal-body" style="padding:2px">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div id="ChiTietMaLoi" class="card-body" style="display: block;border-right:1px solid;padding: 2px">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row" id="MotaLoi">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer" style="padding:0px">
+                                <button id="Delete" type="button" class="btn btn-danger" data-dismiss="modal"> @*<i class="fas fa-trash">*@ Đóng</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade image" id="ModalViewImage" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-md modal-dialog-top" role="document">
+                        <div class="modal-content">
+                            <div id="ModelReCheckContent" class="modal-body" style="text-align:center;font-size:1rem;padding:0rem">
+                                <img id="EImage" style="width:100%;" />
+
+                            </div>
+                            <div class="modal-footer" style="padding:0rem">
+                                <button onclick="DeleteImage()" type="button" class="btn btn-primary" data-dismiss="modal">  Xóa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ModalViewImageChecked" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-md modal-dialog-top" role="document">
+                        <div class="modal-content">
+                            <div id="ModelReCheckContent" class="modal-body" style="text-align:center;font-size:1rem;padding:0rem">
+                                <img id="EImageChecked" style="width:100%;" />
+                            </div>
+                            <div class="modal-footer" style="padding:0rem">
+                                <button onclick="DeleteImageChecked()" type="button" class="btn btn-primary" data-dismiss="modal">  Xóa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="~/Scripts/jquery.min-3.6.1.js"></script>
+    <script src="~/Content/plugins/moment/moment.min.js"></script>
+    <script src="/Content/js/core/utils.js"></script>
+    <script src="/Content/js/core/common.js"></script>
+    <script src="/Content/js/core/knockout-2.2.1.debug.js"></script>
+    <script src="/Content/js/core/knockout.mapping-2.4.1.debug.js"></script>
+    <script src="/Content/js/core/knockout.bindings.js"></script>
+    <script src="~/Scripts/Toast/Toast.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Content/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/dist/js/adminlte.min.js"></script>
+    <script type="text/javascript">
+        var dataPara = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+        var _userName = '@ViewBag.userName';      
+        localStorage.setItem('username', _userName)
+        
+    </script>
+    <script src="~/Scripts/NguyenPhuLieu/KiemPhuLieu.js"></script>
+    <script>
+        $('.sLenhSX').select2({
+            width: '100%' // để Select2 co giãn theo cha .form-control
+        });
+    </script>
+    <script type="text/javascript">
+        //window['Ngay'] = $('#Ngay').daterangepicker({
+        //    //timePicker: true;
+        //    singleDatePicker: true,
+        //    showDropdowns: true,
+        //    locale: {
+        //        format: 'DD-MM-YYYY'
+        //    }
+        //});
+        //$(document).ready(function () {
+        //    $("body").on("click", "#sidebar-overlay", function () {
+        //        $('.layout-footer-fixed').removeClass('sidebar-open');
+        //    })
+        //})
+        ////document.getElementById("ClickNav").onclick = function () { myFunction() };
+
+
+        //function myFunction() {
+        //    $('.layout-footer-fixed').addClass('sidebar-open');
+        //}
+        //$("body").on("click", "#DSNhomLoi button", function () {
+        //    $("#DSNhomLoi button").removeClass("is-active");
+        //    $(this).addClass("is-active");
+        //})
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,1472 @@
+﻿:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --danger-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --warning-gradient: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+    --header-bg: linear-gradient(135deg, #2d5a3d 0%, #1e3a28 100%);
+}
+
+body {
+    background: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.mt-dynamic {
+    margin-top: var(--mt-value, 20px) !important;
+}
+
+.header-section {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 0;
+    background: #00477f !important;
+}
+
+/* Title */
+.header-title {
+    white-space: normal;
+    margin: 0;
+    /* flex: 1 1 auto; */ /* Cho phép co lại khi thiếu chỗ */
+}
+
+
+
+.header-content {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    gap: 10px;
+}
+
+.doc-info-box {
+    border: 1px solid #ffffff; /* viền giống Excel */
+    padding: 6px 10px;
+    line-height: 1.5;
+    min-width: 230px; /* giữ form gọn gàng */
+    text-align: right;
+}
+
+/* Animation khi load trang */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.header-section {
+    animation: slideDown 0.5s ease-out;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label-custom {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+}
+
+.form-control-custom, .select2 .select2-container .select2-container--default .select2-container--below select2-container--focus {
+    border: 2px solid #e1e8ed;
+    border-radius: 10px !important;
+    padding: 12px 15px !important;
+    transition: all 0.3s ease !important;
+    font-size: 14px;
+    background: white;
+}
+
+    .form-control-custom:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+        outline: none;
+    }
+
+    .form-control-custom:disabled {
+        background: #f8f9fa;
+        border-color: #dee2e6;
+    }
+
+
+
+.dx-dropdowneditor.dx-dropdowneditor-field-clickable,
+.dx-dropdowneditor.dx-dropdowneditor-field-clickable .dx-texteditor-input {
+    /* padding: 0 5px !important; */
+    /* text-align: left; */
+    /* max-width: 250px; */
+    /* min-width: 200px; */
+}
+
+.input-icon {
+    position: relative;
+}
+
+    .input-icon i {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #667eea;
+        font-size: 16px;
+    }
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--success-gradient);
+    color: white;
+    box-shadow: 0 2px 10px rgba(67, 233, 123, 0.3);
+}
+
+.btn-status {
+    width: 100%;
+    padding: 11px 15px;
+    border: none;
+    border-radius: 10px;
+    background: var(--success-gradient);
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    box-shadow: 0 3px 12px rgba(67, 233, 123, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+    .btn-status:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(67, 233, 123, 0.4);
+    }
+
+
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-in {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.dx-overlay-wrapper dx-popup-wrapper dx-dropdowneditor-overlay {
+    width: max-content !important;
+}
+
+
+
+.dx-datagrid-header-panel {
+    display: none !important;
+}
+
+.dx-datagrid-table .dx-datagrid-table-fixed .dx-datagrid-scrollable-simulated .dx-datagrid-content .dx-datagrid-scroll-container {
+    position: sticky !important;
+    z-index: 100 !important;
+    top: 0 !important;
+}
+
+.dx-overlay-wrapper .dx-popup-wrapper .dx-dropdowneditor-overlay {
+    min-width: 730px !important;
+    width: auto !important;
+    max-width: 800px !important;
+}
+
+
+
+.col-phu-luc, .col-chi-tiet {
+    /*    max-width: 400px !important; 
+*/ white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    line-height: 1.5 !important;
+    padding: 8px !important;
+}
+
+    .col-phu-luc .dx-datagrid-text-content, .col-chi-tiet .dx-datagrid-text-content {
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        /*max-width: 100% !important;*/
+    }
+
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+#gridPhieuDanhGia .dx-datagrid-headers .dx-header-row .dx-datagrid-text-content {
+    font-weight: bold;
+    display: flex;
+    align-items: center; /* dọc */
+    justify-content: center; /* ngang */
+    text-align: center;
+    height: 100%;
+}
+
+#gridPhieuDanhGia .dx-datagrid-rowsview .dx-row > td {
+    /*   padding: 0 !important;
+    text-align: center !important;
+    vertical-align: middle !important;*/
+    height: 35px !important;
+}
+
+#gridPhieuDanhGia .dx-datagrid-rowsview .dx-row .dx-datagrid-cell {
+    display: flex;
+    align-items: center; /* dọc */
+    justify-content: center; /* ngang */
+    text-align: center;
+    color: navy;
+    font-weight: bold;
+    height: 100%;
+}
+
+#gridPhieuDanhGia .dx-selectbox {
+    text-align: center;
+    font-weight: bold;
+}
+
+.dx-datagrid-headers .dx-datagrid-table .dx-row > td {
+    vertical-align: middle !important;
+}
+
+.dx-gridbase-container > .dx-datagrid-rowsview.dx-scrollable {
+    max-height: calc(100vh - 150px) !important;
+    overflow: auto;
+}
+
+
+.dx-datagrid-nowrap, .dx-datagrid-nowrap .dx-header-row > td > .dx-datagrid-text-content {
+    white-space: pre-wrap !important;
+}
+
+/* Tất cả cell căn giữa ngang + dọc */
+.dx-datagrid-content .dx-datagrid-table .dx-row > td,
+.dx-datagrid-content .dx-datagrid-table .dx-row > tr > td {
+    vertical-align: middle !important;
+    text-align: center !important;
+    padding: 5px !important;
+}
+
+/* Riêng group row: text căn trái */
+.dx-datagrid-content .dx-datagrid-table .dx-group-row > td {
+    text-align: left !important;
+    font-weight: bold; /* thường group row hiển thị tiêu đề, nên làm đậm */
+}
+
+
+.header-tieu-chi-dg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+.item-headear-tieu-chi {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    background-color: #fff;
+    font-size: 0.9rem;
+    color: #333;
+    width: fit-content;
+    align-self: flex-end;
+}
+
+/* Fix Bootstrap Modal fade effect bị ghi đè */
+.modal.fade:not(.show) {
+    opacity: 1 !important;
+}
+
+/*.btn-custom {
+    padding: 8px;
+    font-size: 12px;
+    margin: 3px;
+}*/
+
+.form-section {
+    padding: 5px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.row-flex {
+}
+
+.flex-item,
+.form-control-note {
+    width: 100%;
+}
+
+.flex-item-note {
+    width: 100%;
+}
+
+
+
+
+#text-note {
+    border: 1px solid green !important;
+}
+
+.dx-datagrid-nodata {
+    display: none;
+}
+
+@media (max-width: 600px) {
+
+
+    .form-section {
+        padding: 5px;
+        display: flex;
+    }
+
+    .form-control,
+    .cell-view-textarea {
+        min-height: 45px !important;
+        height: 45px !important;
+        display: flex !important;
+        align-items: center !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        width: 100% !important;
+    }
+
+    .flex-item-text {
+        min-width: 120px;
+        max-width: 150px;
+        white-space: nowrap;
+    }
+
+    .dx-dropdowneditor.dx-dropdowneditor-field-clickable,
+    .dx-dropdowneditor.dx-dropdowneditor-field-clickable .dx-texteditor-input {
+        /* padding: 0 5px !important; */
+        /* text-align: left; */
+        /* min-width: 120px; */
+        /* max-width: 150px; */
+    }
+
+    .flex-item-PL {
+        min-width: 120px;
+        max-width: 150px;
+    }
+
+    .select2-container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .btn-custom {
+    }
+}
+
+/*Đánh Giá và Xác Nhận*/
+
+.danh-gia-container {
+    margin-top: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    overflow: hidden;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+    .header h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+/* ============== TABLE CHỈ ÁP DỤNG CHO BIỂU MẪU NÀY ============== */
+.danhgia-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: auto;
+    white-space: nowrap !important;
+}
+
+    .danhgia-table th,
+    .danhgia-table td {
+        padding: 5px;
+        border: 1px solid #e0e0e0;
+        vertical-align: middle;
+        background: white;
+        transition: background-color 0.3s ease;
+    }
+
+    .danhgia-table th {
+        font-weight: 600;
+        text-align: justify;
+    }
+
+    .danhgia-table tr:hover td {
+        background-color: #f8f9ff;
+    }
+
+    /* Cột đều nhau - đẹp nhất trên mọi màn hình */
+    .danhgia-table th:nth-child(1),
+    .danhgia-table td:nth-child(1) {
+        max-width: 33% !important;
+        min-width: 33% !important;
+    }
+
+    .danhgia-table th:nth-child(2),
+    .danhgia-table td:nth-child(2) {
+        min-width: 33% !important;
+        max-width: 33% !important;
+    }
+
+    .danhgia-table th:nth-child(3),
+    .danhgia-table td:nth-child(3) {
+        min-width: 33% !important;
+        max-width: 33% !important;
+    }
+
+/* Nội dung bên trong mỗi cell đều, đẹp, căn đều */
+.cell-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 100%;
+    width: 100% !important;
+    min-width: 300px !important;
+}
+
+.section-title {
+    font-weight: 600;
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 4px;
+    color: #667eea;
+    white-space: nowrap;
+}
+
+/* Input & Textarea đồng bộ đẹp */
+.danhgia-input,
+.danhgia-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background: white;
+    box-sizing: border-box;
+}
+
+    .danhgia-input:focus,
+    .danhgia-textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+    }
+
+    .danhgia-input:hover,
+    .danhgia-textarea:hover {
+        border-color: #667eea;
+    }
+
+.danhgia-textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Signature */
+.signature-wrapper {
+}
+
+.signature-label {
+    display: block;
+    /* margin-bottom: 8px; */
+    color: #667eea;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.signature-pad-container {
+    border: 2px dashed #667eea;
+    border-radius: 10px;
+    background: #f8f9ff;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+    .signature-pad-container:hover {
+        border-color: #764ba2;
+        box-shadow: 0 8px 25px rgba(118, 75, 162, 0.2);
+    }
+
+.signature-pad {
+    width: 100%;
+    height: 100px;
+    border-radius: 8px;
+    background: white;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.signature-controls {
+    margin-left: auto;
+}
+
+.btn {
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-radius: 0;
+}
+
+.btn-clear {
+    background: #ff6b6b;
+    color: white;
+}
+
+    .btn-clear:hover {
+        background: #ff5252;
+        transform: translateY(-2px);
+    }
+
+.btn-save {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+    .btn-save:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+.content-sign {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.container-danh-gia {
+    overflow: scroll;
+}
+
+/* Hiệu ứng khi hover ảnh */
+.preview-img {
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+}
+
+    .preview-img:hover {
+        transform: scale(1.15);
+        box-shadow: 0 10px 25px rgba(13,110,253,0.3) !important;
+        z-index: 10;
+        border-color: #0d6efd !important;
+    }
+
+/* Input ghi chú đẹp hơn */
+.form-control[readonly] {
+    background: transparent !important;
+    cursor: default;
+}
+
+/* Modal xem ảnh lớn - SIÊU ĐẸP, HIỆN ĐẠI */
+#previewModal .modal-content {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+#previewModal .modal-header {
+    background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+    color: white;
+    border-bottom: none;
+    padding: 1rem 1.5rem;
+}
+
+#previewModal .modal-title {
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+#previewModal .btn-close {
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+#previewModal .modal-body {
+    background: #000;
+    padding: 0;
+}
+
+#previewModal img {
+    transition: transform 0.4s ease;
+}
+
+    #previewModal img:hover {
+        transform: scale(1.05);
+    }
+
+/* Nền mờ khi mở modal */
+.modal-backdrop.show {
+    background: rgba(0,0,0,0.7) !important;
+}
+/* Responsive */
+@media (max-width: 768px) {
+    .danhgia-table th, .danhgia-table td {
+        font-size: 13px;
+    }
+
+    .signature-pad {
+        height: 80px;
+    }
+
+    .danhgia-input,
+    .danhgia-textarea {
+        font-size: 13px;
+        padding: 9px 10px;
+    }
+}
+
+@media (max-width: 992px) {
+
+    .btn-custom {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+
+
+    .header-title {
+        font-size: 15px;
+        /* margin-bottom: 10px; */
+        /* width: 100%; */
+    }
+
+    .action-buttons {
+        /* width: 100%; */
+        /* gap: 5px; */
+    }
+
+    .btn-custom {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+        .btn-custom i {
+            margin-right: 5px;
+            font-size: 13px;
+        }
+}
+
+/* Nút Lưu - Xanh chủ đạo */
+.btn-save {
+    background: #4a5fc1;
+}
+
+
+.btn-excel {
+    background: linear-gradient(135deg, #107C10, #1A9D43) !important;
+}
+
+
+
+.btn-refresh {
+    background: linear-gradient(135deg, #007bff, #2d9cdb);
+}
+
+/* Responsive nhỏ hơn 480px: nút nhỏ lại một chút */
+@media (max-width: 480px) {
+    .btn-action {
+        padding: 10px 16px;
+        font-size: 14px;
+        min-width: 100px;
+    }
+
+    .action-buttons {
+        gap: 10px;
+    }
+}
+/* Card */
+.ui-card {
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: #fff;
+}
+
+    .ui-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+/* Header */
+.ui-header {
+    background: #17a2b8 !important;
+    color: #fff;
+    border-bottom: none;
+    padding: 12px 16px;
+}
+
+    .ui-header.alt {
+        background: linear-gradient(90deg, #0ea5e9 0%, #22c55e 100%);
+    }
+
+    .ui-header h6 {
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        margin: 0;
+    }
+
+/* Form */
+.form-label {
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-bottom: 6px;
+}
+
+.form-control, .form-control-dropdown {
+    border-radius: 10px;
+    padding: 10px 12px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .form-control:focus, .form-control-dropdown:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        outline: none;
+    }
+
+/* Result boxes */
+.bg-soft {
+    background: var(--bg-soft);
+}
+
+.result-box {
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+    .result-box:hover {
+        box-shadow: var(--shadow-md);
+    }
+
+.group-title {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+}
+
+/* Checks */
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-check-input {
+    width: 18px;
+    height: 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .form-check-input:checked {
+        background-color: var(--primary);
+        border-color: var(--primary);
+    }
+
+.form-check-label {
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+/* Items hover */
+.item {
+    padding: 10px 8px;
+    border-radius: 8px;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+    .item:hover {
+        background: #f1f5f9;
+        transform: translateX(3px);
+    }
+
+/* Actions */
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn.ui-btn {
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--primary);
+    border: 1px solid transparent;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+    .btn.ui-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+    .btn.ui-btn.primary {
+        background: var(--primary);
+    }
+
+    .btn.ui-btn.success {
+        background: var(--success);
+    }
+
+    .btn.ui-btn.muted {
+        background: var(--muted);
+    }
+
+    .btn.ui-btn.outline {
+        background: #fff;
+        color: var(--primary);
+        border-color: var(--primary);
+    }
+
+        .btn.ui-btn.outline:hover {
+            background: rgba(37,99,235,0.08);
+            color: var(--primary);
+        }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .btn.ui-btn {
+        padding: 9px 14px;
+        font-size: 0.92rem;
+    }
+
+    .ui-header h6 {
+        font-size: 0.95rem;
+    }
+
+    .group-title {
+        font-size: 0.95rem;
+    }
+}
+
+.result-box .row .form-check {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+    .result-box .row .form-check:hover {
+        background-color: #f1f5f9;
+        transform: translateY(-2px);
+    }
+
+.result-box .form-check-input {
+    margin-right: 10px;
+}
+
+.select2-container .select2-selection--single {
+    height: 36px !important;
+}
+/* Áp dụng cho tất cả input */
+input {
+    border: 1px solid #ccc; /* màu xám nhạt */
+    padding: 6px 10px;
+    border-radius: 4px; /* bo góc nhẹ */
+    box-sizing: border-box;
+}
+
+    /* Khi focus vào input */
+    input:focus {
+        border: 1px solid #007bff; /* xanh dương */
+        outline: none; /* bỏ viền mặc định */
+        box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+    }
+/* Tắt nền của filter row */
+.dx-datagrid-filter-row .dx-editor-cell {
+    background-color: transparent !important;
+}
+
+/* Nếu muốn cả header filter row không có màu */
+.dx-datagrid-filter-row {
+    background-color: transparent !important;
+}
+
+.dx-datagrid-content .dx-datagrid-table .dx-row > td.dx-datagrid-group-space, .dx-datagrid-content .dx-datagrid-table .dx-row > tr > td.dx-datagrid-group-space {
+}
+
+
+/* Checked state - Tiếp tục (màu xanh lá) */
+.checkbox-pass .dx-checkbox-checked .dx-checkbox-icon {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+    border-color: #10B981 !important;
+    box-shadow: 0 4px 18px rgba(16, 185, 129, 0.45), 0 0 0 5px rgba(16, 185, 129, 0.15), inset 0 1px 3px rgba(255, 255, 255, 0.35), inset 0 -1px 3px rgba(0, 0, 0, 0.2) !important;
+    transform: scale(1.05) !important;
+}
+
+/* Checked state - Đổi NCC (màu đỏ) */
+.checkbox-fail .dx-checkbox-checked .dx-checkbox-icon {
+    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
+    border-color: #EF4444 !important;
+    box-shadow: 0 4px 18px rgba(239, 68, 68, 0.45), 0 0 0 5px rgba(239, 68, 68, 0.15), inset 0 1px 3px rgba(255, 255, 255, 0.35), inset 0 -1px 3px rgba(0, 0, 0, 0.2) !important;
+    transform: scale(1.05) !important;
+}
+
+/* Checked + Hover - Tiếp tục */
+.checkbox-pass .dx-checkbox-checked:hover .dx-checkbox-icon {
+    transform: scale(1.15) !important;
+    box-shadow: 0 6px 22px rgba(16, 185, 129, 0.55), 0 0 0 7px rgba(16, 185, 129, 0.2), inset 0 1px 3px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Checked + Hover - Đổi NCC */
+.checkbox-fail .dx-checkbox-checked:hover .dx-checkbox-icon {
+    transform: scale(1.15) !important;
+    box-shadow: 0 6px 22px rgba(239, 68, 68, 0.55), 0 0 0 7px rgba(239, 68, 68, 0.2), inset 0 1px 3px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Icon dấu check */
+.dx-checkbox-checked .dx-checkbox-icon::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    width: 6px;
+    height: 11px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    animation: checkmark 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.1s forwards;
+}
+
+@keyframes checkmark {
+    0% {
+        transform: translate(-50%, -50%) rotate(45deg) scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) rotate(45deg) scale(1.25);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(45deg) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Active state */
+.dx-checkbox:active .dx-checkbox-icon {
+    transform: scale(0.92) !important;
+    transition-duration: 0.1s !important;
+}
+
+/* Focus state */
+.dx-checkbox.dx-state-focused .dx-checkbox-icon {
+    outline: none !important;
+    box-shadow: 0 0 0 5px rgba(0, 120, 212, 0.25), 0 4px 14px rgba(0, 120, 212, 0.35) !important;
+}
+
+/* Disabled state */
+.dx-checkbox.dx-state-disabled .dx-checkbox-icon {
+    opacity: 0.35 !important;
+    cursor: not-allowed !important;
+    background: #f3f4f6 !important;
+    border-color: #d1d5db !important;
+}
+
+/* Override DevExtreme default styles */
+.dx-datagrid-rowsview .dx-row > td {
+    padding: 0 !important;
+}
+
+.dx-datagrid .dx-row > td .result-checkboxes-container {
+    height: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .result-checkboxes-container {
+        gap: 12px !important;
+    }
+
+    .checkbox-item {
+        min-width: 50px !important;
+    }
+
+    .dx-checkbox .dx-checkbox-icon {
+        width: 22px !important;
+        height: 22px !important;
+    }
+}
+
+
+.ui-header {
+    display: flex !important;
+    align-content: center !important;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+
+.collapse-content {
+    max-height: 1000px; /* chiều cao tối đa */
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s ease;
+    padding: 8px;
+    margin-bottom: -17px;
+}
+
+    .collapse-content.collapsed {
+        max-height: 0;
+        padding: 0 !important;
+    }
+
+.btn-toggle {
+    border: none;
+    background: transparent;
+    color: #333;
+}
+
+    .btn-toggle i {
+        color: white;
+        transition: transform 0.3s ease;
+    }
+
+    .btn-toggle.collapsed i {
+        transform: rotate(180deg);
+    }
+
+/* Group box giống như fieldset */
+.group-box {
+    border: 2px solid #007bff;
+    border-radius: 6px;
+    padding: 12px 16px;
+    position: relative;
+    background: #f9f9f9;
+    transition: box-shadow 0.3s ease;
+}
+
+    .group-box:hover {
+        box-shadow: 0 0 8px rgba(0,123,255,0.4);
+    }
+
+.group-title {
+    position: absolute;
+    top: -12px;
+    left: 12px;
+    background: #f9f9f9;
+    padding: 0 8px;
+    font-weight: 600;
+    color: #007bff;
+}
+
+.ui-header {
+    padding: 2px !important;
+}
+
+.dx-datagrid-filter-row td {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+/* Giảm chiều cao dòng filter */
+.dx-datagrid-filter-row td {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    height: 24px !important;
+}
+
+
+/* Container chính cho 2 checkbox - FLEXBOX NGANG */
+.result-checkboxes-container {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    padding: 10px 8px !important;
+    width: 100% !important;
+}
+
+/* Wrapper cho mỗi checkbox */
+.checkbox-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    min-width: 60px !important;
+}
+
+/* DevExtreme checkbox container */
+.dx-checkbox {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0 !important;
+}
+
+    /* Icon checkbox - trạng thái mặc định */
+    .dx-checkbox .dx-checkbox-icon {
+        width: 26px !important;
+        height: 26px !important;
+        border-radius: 8px !important;
+        border: 2.5px solid #D1D5DB !important;
+        background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%) !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+        position: relative;
+        overflow: hidden;
+    }
+
+        /* Hiệu ứng ripple */
+        .dx-checkbox .dx-checkbox-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(0, 120, 212, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+    .dx-checkbox:hover .dx-checkbox-icon::before {
+        width: 42px;
+        height: 42px;
+    }
+
+    /* Hover state */
+    .dx-checkbox:hover .dx-checkbox-icon {
+        border-color: #0078D4 !important;
+        transform: scale(1.1) !important;
+        box-shadow: 0 4px 14px rgba(0, 120, 212, 0.25), 0 0 0 5px rgba(0, 120, 212, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+    }
+
+/* Checked state - Tiếp tục (màu xanh lá) */
+.checkbox-pass .dx-checkbox-checked .dx-checkbox-icon {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+    border-color: #10B981 !important;
+    box-shadow: 0 4px 18px rgba(16, 185, 129, 0.45), 0 0 0 5px rgba(16, 185, 129, 0.15), inset 0 1px 3px rgba(255, 255, 255, 0.35), inset 0 -1px 3px rgba(0, 0, 0, 0.2) !important;
+    transform: scale(1.05) !important;
+}
+
+/* Checked state - Đổi NCC (màu đỏ) */
+.checkbox-fail .dx-checkbox-checked .dx-checkbox-icon {
+    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
+    border-color: #EF4444 !important;
+    box-shadow: 0 4px 18px rgba(239, 68, 68, 0.45), 0 0 0 5px rgba(239, 68, 68, 0.15), inset 0 1px 3px rgba(255, 255, 255, 0.35), inset 0 -1px 3px rgba(0, 0, 0, 0.2) !important;
+    transform: scale(1.05) !important;
+}
+
+/* Checked + Hover - Tiếp tục */
+.checkbox-pass .dx-checkbox-checked:hover .dx-checkbox-icon {
+    transform: scale(1.15) !important;
+    box-shadow: 0 6px 22px rgba(16, 185, 129, 0.55), 0 0 0 7px rgba(16, 185, 129, 0.2), inset 0 1px 3px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Checked + Hover - Đổi NCC */
+.checkbox-fail .dx-checkbox-checked:hover .dx-checkbox-icon {
+    transform: scale(1.15) !important;
+    box-shadow: 0 6px 22px rgba(239, 68, 68, 0.55), 0 0 0 7px rgba(239, 68, 68, 0.2), inset 0 1px 3px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Icon dấu check */
+.dx-checkbox-checked .dx-checkbox-icon::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    width: 6px;
+    height: 11px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    animation: checkmark 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0.1s forwards;
+}
+
+@keyframes checkmark {
+    0% {
+        transform: translate(-50%, -50%) rotate(45deg) scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) rotate(45deg) scale(1.25);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(45deg) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Active state */
+.dx-checkbox:active .dx-checkbox-icon {
+    transform: scale(0.92) !important;
+    transition-duration: 0.1s !important;
+}
+
+/* Focus state */
+.dx-checkbox.dx-state-focused .dx-checkbox-icon {
+    outline: none !important;
+    box-shadow: 0 0 0 5px rgba(0, 120, 212, 0.25), 0 4px 14px rgba(0, 120, 212, 0.35) !important;
+}
+
+/* Disabled state */
+.dx-checkbox.dx-state-disabled .dx-checkbox-icon {
+    opacity: 0.35 !important;
+    cursor: not-allowed !important;
+    background: #f3f4f6 !important;
+    border-color: #d1d5db !important;
+}
+
+/* Override DevExtreme default styles */
+.dx-datagrid-rowsview .dx-row > td {
+    padding: 0 !important;
+}
+
+.dx-datagrid .dx-row > td .result-checkboxes-container {
+    height: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .result-checkboxes-container {
+        gap: 12px !important;
+    }
+
+    .checkbox-item {
+        min-width: 50px !important;
+    }
+
+    .dx-checkbox .dx-checkbox-icon {
+        width: 22px !important;
+        height: 22px !important;
+    }
+}
+
+#gridPhieuDanhGia .dx-datagrid-rowsview .dx-row > td {
+    /*   padding: 0 !important;
+    text-align: center !important;
+    vertical-align: middle !important;*/
+    height: 35px !important;
+    white-space: nowrap !important;
+}
+
+.collapse-content {
+    max-height: 1000px; /* chiều cao tối đa */
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s ease;
+    padding: 8px;
+    margin-bottom: -17px;
+}
+
+    .collapse-content.collapsed {
+        max-height: 0;
+        padding: 0 !important;
+    }
+
+.btn-toggle {
+    border: none;
+    background: transparent;
+    color: #333;
+}
+
+    .btn-toggle i {
+        color: white;
+        transition: transform 0.3s ease;
+    }
+
+    .btn-toggle.collapsed i {
+        transform: rotate(180deg);
+    }
+
+/* Group box giống như fieldset */
+.group-box {
+    border: 2px solid #007bff;
+    border-radius: 6px;
+    padding: 12px 16px;
+    position: relative;
+    background: #f9f9f9;
+    transition: box-shadow 0.3s ease;
+}
+
+    .group-box:hover {
+        box-shadow: 0 0 8px rgba(0,123,255,0.4);
+    }
+
+.group-title {
+    position: absolute;
+    top: -12px;
+    left: 12px;
+    background: #f9f9f9;
+    padding: 0 8px;
+    font-weight: 600;
+    color: #007bff;
+}
+
+.ui-header {
+    padding: 2px !important;
+}
+
+
+.dx-datagrid-filter-row td {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
+.col-diem-dg {
+    min-width: 120px !important;
+    max-width: 120px !important;
+    white-space: nowrap !important;
+}
+
+.dx-datagrid-revert-tooltip .dx-revert-button > .dx-button-content {
+    display: none !important;
+}
+
+.dx-popup-wrapper.grid-lookup-popup > .dx-overlay-content {
+    min-width: 250px !important;
+    max-width: 390px !important;
+}
+
+
+
+.dx-popup-content {
+    /* overflow: auto; */
+    /* max-height: 300px !important; */
+}
+
+.dx-popup-flex-height .dx-popup-content {
+    padding: 0px !important;
+}
+
+
+/* Đảm bảo scrollbar luôn hiển thị */
+.dx-scrollable-container {
+    overflow: auto !important;
+}
+#tbodyXNKiem tr td  {
+    width: 100% !important;
+}
+
+/* Ẩn border và shadow của editor khi focus */
+.dx-datagrid .dx-editor-cell .dx-texteditor,
+.dx-datagrid .dx-editor-cell .dx-dropdowneditor,
+.dx-datagrid .dx-editor-cell .dx-datebox {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    background-color: transparent !important;
+}
+
+/* Ẩn viền khi input bên trong được focus */
+.dx-datagrid .dx-editor-cell .dx-texteditor-input:focus {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    background-color: transparent !important;
+}
+
+/* Ẩn viền cell khi được chọn */
+.dx-datagrid .dx-focused,
+.dx-datagrid .dx-editor-cell.dx-focused {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Tùy chỉnh input để hiển thị nội dung đầy đủ */
+.dx-datagrid .dx-editor-cell .dx-texteditor-input {
+    white-space: normal !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    height: auto !important;
+}
+
+.dx-datagrid-revert-tooltip .dx-revert-button > .dx-button-content {
+    padding: 7px;
+    display: none !important;
+}
+
+.dx-popup-flex-height {
+   
+    min-width: 450px !important;
+    max-width: 500px !important;
+}

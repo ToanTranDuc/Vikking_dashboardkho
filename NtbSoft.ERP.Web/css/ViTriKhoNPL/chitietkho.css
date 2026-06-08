@@ -1,0 +1,288 @@
+﻿body {
+
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-container {
+    padding: 20px 0;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.warehouse-container {
+    background: rgba(13, 110, 253, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(13, 110, 253, 0.2);
+}
+
+/* Aisle Selection View */
+.aisle-selection-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 3px solid rgba(13, 110, 253, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    min-height: 200px;
+}
+
+    .aisle-selection-card:hover {
+/*        transform: translateY(-10px);
+*/        box-shadow: 0 15px 35px rgba(13, 110, 253, 0.3);
+        border-color: rgba(13, 110, 253, 0.8);
+    }
+
+.aisle-icon {
+    font-size: 4rem;
+    color: #0d6efd;
+    margin-bottom: 1rem;
+}
+
+/* Detail View */
+.detail-slot {
+    width: 120px;
+    height: 100px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    margin: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .detail-slot:hover {
+/*        transform: scale(1.1) translateY(-5px);
+*/       z-index: 1000;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .detail-slot .slot-id {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .detail-slot .slot-capacity {
+        font-size: 11px;
+        opacity: 0.9;
+    }
+
+    .detail-slot .item-count {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+/* Capacity Colors cho detail view */
+.capacity-empty {
+    background: linear-gradient(45deg, #dc3545, #c82333);
+    color: white;
+    border-color: #dc3545;
+}
+
+.capacity-low {
+    background: linear-gradient(45deg, #fd7e14, #e55a00);
+    color: white;
+    border-color: #fd7e14;
+}
+
+.capacity-medium {
+    background: linear-gradient(45deg, #0dcaf0, #0aa5c2);
+    color: white;
+    border-color: #0dcaf0;
+}
+
+.capacity-high {
+    background: linear-gradient(45deg, #198754, #157347);
+    color: white;
+    border-color: #198754;
+}
+
+.detail-slot.highlighted {
+    animation: pulse-glow 2s infinite;
+    border-color: #ffc107 !important;
+}
+
+@keyframes pulse-glow {
+
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7);
+    }
+
+    50% {
+        box-shadow: 0 0 0 20px rgba(255, 193, 7, 0);
+    }
+}
+
+.level-section {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.level-header {
+    background: linear-gradient(45deg, #198754, #20c997);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.shelf-header {
+    background: linear-gradient(45deg, #6610f2, #0d6efd);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Modal cho chi tiết vật tư */
+.item-modal .modal-header {
+    background: linear-gradient(45deg, #0d6efd, #6610f2);
+    color: white;
+}
+
+.item-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.item-card {
+    background: rgba(13, 110, 253, 0.1);
+    border: 1px solid rgba(13, 110, 253, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 8px;
+}
+
+.back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1050;
+    background: rgba(13, 110, 253, 0.9);
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+}
+
+    .back-btn:hover {
+        background: rgba(13, 110, 253, 1);
+        transform: translateY(-2px);
+    }
+
+.stats-mini {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.breadcrumb-custom {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* Global Search Styles */
+.search-result-item {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(13, 110, 253, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+    .search-result-item:hover {
+        background: rgba(13, 110, 253, 0.1);
+        border-color: rgba(13, 110, 253, 0.5);
+/*        transform: translateX(5px);
+*/    }
+
+.item-location-badge {
+    background: linear-gradient(45deg, #198754, #20c997);
+    color: white;
+    font-size: 0.85rem;
+    padding: 4px 8px;
+    border-radius: 15px;
+}
+
+.item-info {
+    font-size: 0.9rem;
+}
+
+.view-detail-btn {
+    background: linear-gradient(45deg, #0d6efd, #6610f2);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+    .view-detail-btn:hover {
+/*        transform: scale(1.05);
+*/        box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+    }
+
+kbd {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    color: #495057;
+    font-size: 0.875em;
+    padding: 2px 4px;
+}
+.stats-card {
+    background: linear-gradient(45deg, #0d6efd, #6610f2);
+    color: white;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+}
+::-webkit-scrollbar {
+    height: 2px;
+    width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }

@@ -1,0 +1,298 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý duyệt phiếu</title>
+
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/select2/css/select2.min.css">
+    <link href="~/Content/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+    <link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="~/Content/plugins/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/PheDuyet/Shared/Layout.css" rel="stylesheet" />
+
+    <style>
+        #externalPageContainer, #iframeContainer {
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+    </style>
+    @RenderSection("styles", required: false)
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="header-section sticky-top" style="background: #00477f">
+
+            <div class="header-content d-flex align-items-center justify-content-between py-2">
+
+
+                <div class="d-flex align-items-center gap-3">
+                    <a href="@Url.Action("DashBoard","Home")" class="text-white" id="Home"> 
+                        <i class="fas fa-home fa-lg"></i>
+                    </a>
+                    <h5 class="header-title mb-0 text-white">
+                        @ViewBag.PageTitle
+                    </h5>
+                </div>
+                @RenderSection("headerButtons", required: false)
+
+
+            </div>
+
+
+        </div>
+        <div class="main-container">
+            <div class="sidebar" id="sidebar">
+                <div class="collapse-btn" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars collapsed" id="collapseIcon"></i>
+
+
+                    <span>Duyệt phiếu</span>
+                </div>
+
+                <div class="tree-view" id="treeView">
+
+                </div>
+                <div class="sidebar-footer">
+                    <div class="sidebar-toggle-btn" onclick="toggleCollapse()">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                  
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="sub-tabs-container"></div>
+                @RenderBody()
+            </div>
+
+        </div>
+        <div id="customLoaderWrapper" class="custom-loader-wrapper">
+            <div class="custom-loader-box">
+                <div class="custom-loading-text">Đang lấy dữ liệu...</div>
+                <div id="customLoader" class="custom-loader">
+                    <div id="customProgressBar" class="custom-progress" data-percentage="100%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery.min-3.6.1.js"></script>
+    <script src="~/Content/plugins/moment/moment.min.js"></script>
+    <script src="/Content/js/core/utils.js"></script>
+    <script src="/Content/js/core/common.js"></script>
+    <script src="~/Scripts/Toast/Toast.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Content/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Scripts/ViTriKho/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Content/dist/js/adminlte.min.js"></script>
+    <script src="~/Content/plugins/DevExtreme/dx.all.js"></script>
+    <script src="~/Content/plugins/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Content/plugins/PadSign/signature_pad.min.js"></script>
+    <script src="~/Scripts/PheDuyet/Shared/Layout.js"></script>
+    <script>
+
+        var UserID = "";
+        if (!window.CefSharp) {
+            UserID = localStorage.getItem("username1");
+        } else {
+            UserID = '@ViewBag.userName';
+            $("#Home").hide();
+
+        }
+
+    </script>
+    @RenderSection("scripts", required: false)
+    <script>
+        var signaturePads = {};
+        var signatureData = {}; 
+        var canvasIds = ['signQC', 'signMer', 'signXN_KQ'];
+
+     
+        function clearSignature(id) {
+            if (signaturePads[id]) {
+                signaturePads[id].clear();
+                delete signatureData[id]; // Xóa dữ liệu đã lưu
+            }
+        }
+
+       
+        function restoreAllSignatures() {
+            Object.keys(signatureData).forEach(id => {
+                if (signaturePads[id] && signatureData[id]) {
+                    signaturePads[id].fromDataURL(signatureData[id]);
+                }
+            });
+        }
+
+  
+        function getAllSignatures() {
+            const result = {};
+            Object.keys(signaturePads).forEach(id => {
+                if (!signaturePads[id].isEmpty()) {
+                    result[id] = signaturePads[id].toDataURL();
+                } else if (signatureData[id]) {
+                    result[id] = signatureData[id];
+                }
+            });
+            return result;
+        }
+
+
+        function loadSavedSignatures(savedData) {
+            if (!savedData) return;
+
+            Object.keys(savedData).forEach(id => {
+                if (signaturePads[id] && savedData[id]) {
+                    signatureData[id] = savedData[id];
+                    signaturePads[id].fromDataURL(savedData[id]);
+                }
+            });
+        }
+
+     
+        function hasAnySignature() {
+            return Object.keys(signaturePads).some(id => !signaturePads[id].isEmpty());
+        }
+        function getSignatureBase64(canvasId) {
+            if (!signaturePads[canvasId]) {
+                console.warn(`SignaturePad "${canvasId}" chưa được khởi tạo!`);
+                return null;
+            }
+
+            if (signaturePads[canvasId].isEmpty()) {
+                return null;
+            }
+
+            
+            return signaturePads[canvasId].toDataURL('image/png');
+        }
+
+        function InitSignalture() {
+            canvasIds.forEach(id => {
+                const canvas = document.getElementById(id);
+                const signaturePad = new SignaturePad(canvas, {
+                    backgroundColor: 'rgb(255,255,255)',
+                    penColor: '#667eea',
+                    minWidth: 1.5,
+                    maxWidth: 3,
+                });
+
+                // Lưu chữ ký mỗi khi vẽ xong
+                signaturePad.onEnd = function () {
+                    if (!signaturePad.isEmpty()) {
+                        signatureData[id] = signaturePad.toDataURL();
+                    }
+                };
+
+                function resizeCanvas() {
+                    // Lưu chữ ký trước khi resize
+                    const data = signaturePad.isEmpty() ? null : signaturePad.toDataURL();
+
+                    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                    canvas.width = canvas.offsetWidth * ratio;
+                    canvas.height = canvas.offsetHeight * ratio;
+                    canvas.getContext('2d').scale(ratio, ratio);
+
+                    // Khôi phục chữ ký sau khi resize
+                    if (data) {
+                        signaturePad.fromDataURL(data);
+                        signatureData[id] = data;
+                    } else if (signatureData[id]) {
+                        signaturePad.fromDataURL(signatureData[id]);
+                    }
+                }
+
+                window.addEventListener('resize', resizeCanvas);
+                resizeCanvas();
+                signaturePads[id] = signaturePad;
+            });
+        }
+        function initDetailPopup() {
+
+            $("#PopupDanhGia").dxPopup({
+                title: "Ký tên phiếu đánh giá nhà cung cấp",
+                width: "90%",
+                height: "80%",
+                showTitle: true,
+                showCloseButton: true,
+                visible: false,
+            
+            });
+
+
+
+
+            $("#detailPopup").dxPopup({
+                title: "Chi tiết",
+                width: "90%",
+                height: "80%",
+                showTitle: true,
+                showCloseButton: true,
+                visible: false,
+                onContentReady: function (e) {
+                    initDetailGrid();
+                },
+                onShown: function (e) {
+                    const grid = $("#detailGridContainer").dxDataGrid("instance");
+                    if (grid) {
+                        grid.repaint();
+                    }
+                },
+            });
+            initDetailGrid();
+        }
+
+        function initDetailGrid() {
+            $("#detailGridContainer").dxDataGrid({
+                dataSource: [],
+                columns: [
+                    {
+                        dataField: "rowIndex",
+                        caption: "STT",
+                        width: 50,
+                        alignment: "center",
+                        cellTemplate: function (container, options) {
+                            $("<div>").text(options.rowIndex + 1).appendTo(container);
+                        }
+                    }
+                ],
+                showBorders: true,
+                showRowLines: true,
+                showColumnLines: true,
+                rowAlternationEnabled: true,
+                columnAutoWidth: true,
+                hoverStateEnabled: true,
+                paging: {
+                    enabled: false,
+                },
+                headerFilter: {
+                    visible: true
+                },
+                filterRow: {
+                    visible: true
+                },
+                searchPanel: {
+                    visible: true,
+                    width: 200,
+                    placeholder: "Tìm kiếm..."
+                },
+
+                loadPanel: {
+                    enabled: true
+                }
+            });
+        }
+
+
+    </script>
+    <script src="~/Scripts/PheDuyet/PheDuyet.js"></script>
+</body>
+</html>

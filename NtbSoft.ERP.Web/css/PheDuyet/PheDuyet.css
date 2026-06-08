@@ -1,0 +1,909 @@
+﻿/*popup*/
+/* HEADER */
+.dx-popup .dx-popup-title {
+    background-color: #00477f;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* FOOTER */
+.dx-popup .dx-popup-bottom {
+    background-color: #e9f2ff;
+    border-top: 1px solid #b6d4fe;
+}
+/*btn*/
+.btn {
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-radius: 0;
+}
+
+.btn {
+    font-weight: 700;
+    color: white !important;
+}
+
+#btn-duyet {
+    background: #438945;
+}
+
+#btn-huy-duyet {
+    background: #F02F34;
+}
+
+#btn-refresh {
+    background: #5626c4;
+}
+
+#btn-duyet-all {
+    background: #8da242;
+}
+
+.sub-tabs-container {
+    background: linear-gradient(to bottom, #f8f9fa, #eceff1);
+    border-bottom: 2px solid #cfd8dc;
+    display: flex;
+    padding: 3px 5px;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.sub-tab {
+    padding: 7px 18px;
+    cursor: pointer;
+    background: linear-gradient(to bottom, #ffffff, #f5f7fa);
+    font-size: 13px;
+    border: 1px solid #cfd8dc;
+    border-radius: 5px;
+    color: #546e7a;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+    .sub-tab i {
+        font-size: 14px;
+    }
+
+    .sub-tab:hover:not(.active) {
+        background: linear-gradient(to bottom, #f8f9fa, #eceff1);
+        border-color: #90a4ae;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+    }
+
+    .sub-tab.active {
+        background: linear-gradient(to bottom, #2196F3, #1976D2);
+        color: white;
+        border-color: #1565C0;
+        font-weight: 500;
+        box-shadow: 0 3px 8px rgba(33, 150, 243, 0.4);
+    }
+
+.content-area {
+    flex: 1;
+    overflow: hidden;
+}
+
+.dx-datagrid {
+    border: none !important;
+    font-size: 13px !important;
+}
+
+.dx-datagrid-headers {
+    background: #00477f !important;
+    color: white !important;
+    font-weight: 500 !important;
+}
+
+    .dx-datagrid-headers .dx-header-row > td {
+        border-color: #2d6aa3 !important;
+        color: white !important;
+        padding: 5px !important;
+        background: #00477f !important;
+        text-align: center !important;
+        vertical-align: middle !important;
+        white-space: break-spaces;
+    }
+
+.dx-datagrid-rowsview .dx-row {
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.2s ease;
+}
+
+    .dx-datagrid-rowsview .dx-row:nth-child(even) {
+        background-color: #f5f9ff;
+    }
+
+    .dx-datagrid-rowsview .dx-row:hover {
+        background-color: #e3f2fd !important;
+    }
+
+.dx-datagrid-rowsview .dx-data-row > td {
+    padding: 8px !important;
+}
+
+.dx-datagrid .dx-header-filter-empty {
+    color: whitesmoke !important;
+}
+
+.dx-datagrid-filter-row td {
+    background-color: white !important;
+    color: inherit !important;
+}
+/* Giảm chiều cao dòng filter */
+.dx-datagrid-filter-row td {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    height: 24px !important;
+}
+
+/* Responsive Design */
+
+
+@media (max-width: 576px) {
+    .sub-tab span {
+        /* display: none; */
+    }
+
+    .sub-tab {
+        padding: 7px 12px;
+        white-space: nowrap;
+    }
+}
+
+.dx-datagrid .dx-icon-filter-operation-default::before,
+.dx-datagrid-container .dx-icon-filter-operation-default::before {
+    font-family: "Font Awesome 6 Pro";
+    font-weight: 900;
+    content: "\f03a";
+    color: darkgrey !important;
+}
+
+.dx-icon-close:before {
+    content: "\f00a" !important;
+    color: white !important;
+}
+
+/*signature*/
+/*Đánh Giá và Xác Nhận*/
+
+.danh-gia-container {
+    margin-top: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    overflow: hidden;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+    .header h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+
+.danhgia-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: auto;
+    white-space: nowrap !important;
+}
+
+    .danhgia-table th,
+    .danhgia-table td {
+        padding: 5px;
+        border: 1px solid #e0e0e0;
+        vertical-align: middle;
+        background: white;
+        transition: background-color 0.3s ease;
+    }
+
+    .danhgia-table th {
+        font-weight: 600;
+        text-align: justify;
+    }
+
+    .danhgia-table tr:hover td {
+        background-color: #f8f9ff;
+    }
+
+    /* Cột đều nhau - đẹp nhất trên mọi màn hình */
+    .danhgia-table th:nth-child(1),
+    .danhgia-table td:nth-child(1) {
+        max-width: 33% !important;
+        min-width: 33% !important;
+        width: 33% !important;
+    }
+
+    .danhgia-table th:nth-child(2),
+    .danhgia-table td:nth-child(2) {
+        max-width: 33% !important;
+        min-width: 33% !important;
+        width: 33% !important;
+    }
+
+    .danhgia-table th:nth-child(3),
+    .danhgia-table td:nth-child(3) {
+        max-width: 33% !important;
+        min-width: 33% !important;
+        width: 33% !important;
+    }
+
+
+.cell-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 100%;
+    width: 100% !important;
+    min-width: 300px !important;
+}
+
+.section-title {
+    font-weight: 600;
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 4px;
+    color: #667eea;
+    white-space: nowrap;
+}
+
+
+.danhgia-input,
+.danhgia-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background: white;
+    box-sizing: border-box;
+}
+
+    .danhgia-input:focus,
+    .danhgia-textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+    }
+
+    .danhgia-input:hover,
+    .danhgia-textarea:hover {
+        border-color: #667eea;
+    }
+
+.danhgia-textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Signature */
+.signature-wrapper {
+}
+
+.signature-label {
+    display: block;
+    /* margin-bottom: 8px; */
+    color: #667eea;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.signature-pad-container {
+    border: 2px dashed #667eea;
+    border-radius: 10px;
+    background: #f8f9ff;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+    .signature-pad-container:hover {
+        border-color: #764ba2;
+        box-shadow: 0 8px 25px rgba(118, 75, 162, 0.2);
+    }
+
+.signature-pad {
+    width: 100%;
+    height: 100px;
+    border-radius: 8px;
+    background: white;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.signature-controls {
+    margin-left: auto;
+}
+
+.btn {
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-radius: 0;
+}
+
+.btn-clear {
+    background: #ff6b6b;
+    color: white;
+}
+
+    .btn-clear:hover {
+        background: #ff5252;
+        transform: translateY(-2px);
+    }
+
+.btn-save {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+    .btn-save:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+.content-sign {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.container-danh-gia {
+    overflow: scroll;
+}
+
+/* Hiệu ứng khi hover ảnh */
+.preview-img {
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+}
+
+    .preview-img:hover {
+        transform: scale(1.15);
+        box-shadow: 0 10px 25px rgba(13,110,253,0.3) !important;
+        z-index: 10;
+        border-color: #0d6efd !important;
+    }
+
+/* Input ghi chú đẹp hơn */
+.form-control[readonly] {
+    background: transparent !important;
+    cursor: default;
+}
+
+/* Modal xem ảnh lớn - SIÊU ĐẸP, HIỆN ĐẠI */
+#previewModal .modal-content {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+#previewModal .modal-header {
+    background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+    color: white;
+    border-bottom: none;
+    padding: 1rem 1.5rem;
+}
+
+#previewModal .modal-title {
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+#previewModal .btn-close {
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+#previewModal .modal-body {
+    background: #000;
+    padding: 0;
+}
+
+#previewModal img {
+    transition: transform 0.4s ease;
+}
+
+    #previewModal img:hover {
+        transform: scale(1.05);
+    }
+
+/* Nền mờ khi mở modal */
+.modal-backdrop.show {
+    background: rgba(0,0,0,0.7) !important;
+}
+/* Responsive */
+@media (max-width: 768px) {
+    .danhgia-table th, .danhgia-table td {
+        font-size: 13px;
+    }
+
+    .signature-pad {
+        height: 80px;
+    }
+
+    .danhgia-input,
+    .danhgia-textarea {
+        font-size: 13px;
+        padding: 9px 10px;
+    }
+}
+
+/*set col điểm đánh giá*/
+
+
+
+#gridPhieuDanhGia .dx-header-row > td > .dx-datagrid-text-content {
+    min-width: 80px !important;
+    max-width: 100px !important;
+    word-wrap: break-word;
+    white-space: normal !important;
+    text-align: center;
+}
+
+
+.dx-popup-content {
+    -webkit-user-drag: none;
+    padding: 15px;
+}
+
+.dx-toolbar-items-container {
+    display: block !important;
+    /* margin-bottom: -7px; */
+}
+
+.page-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e5e5e5;
+}
+
+    .page-header h2 {
+        color: #333;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+#headerInfo {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 6 cột */
+    grid-template-rows: repeat(2, auto); /* 2 hàng */
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.dx-row-focused > td {
+    background-color: #e3f2fd !important; /* Xanh dương nhạt */
+    color: #1976d2 !important; /* Chữ xanh đậm */
+    font-weight: 500;
+}
+
+
+
+/* Selected row (nếu có selection) */
+.dx-selection > td {
+    background-color: #bbdefb !important;
+}
+
+/* Border cho row focus để nổi bật hơn */
+.dx-row-focused {
+    border-left: 3px solid #1976d2 !important;
+}
+/* Toolbar button base */
+.dx-toolbar .dx-button {
+    border-radius: 6px;
+    font-weight: 500;
+    /* padding: 6px 14px; */
+    transition: all 0.2s ease;
+}
+
+/* ===== Duyệt ===== */
+.btn-duyet .dx-button-content {
+    background-color: #2ecc71; /* xanh dịu */
+    color: #fff;
+    border-radius: 6px;
+}
+
+.btn-duyet.dx-state-hover .dx-button-content {
+    background-color: #27ae60;
+}
+
+.btn-duyet.dx-state-active .dx-button-content {
+    background-color: #1e8449;
+}
+
+/* ===== Hủy duyệt ===== */
+.btn-huy-duyet .dx-button-content {
+    background-color: #e74c3c; /* đỏ chuyên nghiệp */
+    color: #fff;
+    border-radius: 6px;
+}
+
+.btn-huy-duyet.dx-state-hover .dx-button-content {
+    background-color: #c0392b;
+}
+
+.btn-huy-duyet.dx-state-active .dx-button-content {
+    background-color: #a93226;
+}
+
+/* ===== Nạp lại ===== */
+.btn-refresh .dx-button-content {
+    background-color: #3498db; /* xanh dương dịu */
+    color: #fff;
+    border-radius: 6px;
+}
+
+.btn-refresh.dx-state-hover .dx-button-content {
+    background-color: #2e86c1;
+}
+
+.btn-refresh.dx-state-active .dx-button-content {
+    background-color: #21618c;
+}
+
+/* ===== Icon cân đối hơn ===== */
+.dx-button .dx-icon {
+    font-size: 13px;
+}
+
+/* ===== Toolbar gọn và thoáng ===== */
+.dx-toolbar {
+    padding: 6px 8px;
+}
+
+.dx-toolbar-item {
+    /* margin-left: 6px; */
+}
+
+.dx-button {
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: unset !important
+}
+
+.dx-button-mode-contained {
+    background-color: #fff;
+    border-color: #ffff !important;
+    color: #333
+}
+
+
+
+/* Container chính của DxTabs */
+.dx-tabs {
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0;
+    overflow: visible;
+    max-width: 100%;
+    margin-left: auto;
+    width: 100%;
+}
+
+/* Wrapper cho các tab items */
+.dx-tabs-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    padding: 0 16px;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+}
+
+/* Mỗi tab item */
+.dx-tab {
+    position: relative;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #5f6368;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+    /* Hover effect cho tab */
+    .dx-tab:hover:not(.dx-tab-selected) {
+        color: #202124;
+        background: rgba(0, 0, 0, 0.04);
+    }
+
+    /* Tab đã được chọn */
+    .dx-tab.dx-tab-selected {
+        color: #1a73e8;
+        font-weight: 600;
+        background: transparent;
+    }
+
+        /* Gạch chân cho tab được chọn - hiệu ứng như Windows */
+        .dx-tab.dx-tab-selected::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #1a73e8 0%, #4285f4 100%);
+            border-radius: 3px 3px 0 0;
+            animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+@keyframes slideIn {
+    from {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+
+/* Focus state cho accessibility */
+.dx-tab:focus {
+    outline: none;
+}
+
+.dx-tab:focus-visible {
+    outline: 2px solid #1a73e8;
+    outline-offset: -2px;
+}
+
+/* Disabled state */
+.dx-tab.dx-state-disabled {
+    color: #dadce0;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Icon trong tab (nếu có) */
+.dx-tab .dx-icon {
+    margin-right: 6px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.dx-tab.dx-tab-selected .dx-icon {
+    opacity: 1;
+}
+
+/* Text trong tab */
+.dx-tab-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    font-size: 12px;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+    .dx-tabs-wrapper {
+        padding: 0 8px;
+        gap: 2px;
+    }
+
+    .dx-tab {
+        padding: 6px 12px;
+        font-size: 11px;
+        min-height: 32px;
+    }
+
+    .dx-tab-text {
+        max-width: 100px;
+        font-size: 11px;
+    }
+}
+
+/* Variant: Căn trái (nếu cần) */
+.dx-tabs.align-left {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+    .dx-tabs.align-left .dx-tabs-wrapper {
+        justify-content: flex-start;
+        flex-direction: row;
+    }
+
+/* Variant: Căn giữa (nếu cần) */
+.dx-tabs.align-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+    .dx-tabs.align-center .dx-tabs-wrapper {
+        justify-content: center;
+        flex-direction: row;
+    }
+
+/* Variant: Dark theme */
+.dx-tabs.dark-theme {
+    background: #1f1f1f;
+    border-bottom-color: #3c3c3c;
+}
+
+    .dx-tabs.dark-theme .dx-tab {
+        color: #9aa0a6;
+    }
+
+        .dx-tabs.dark-theme .dx-tab:hover:not(.dx-tab-selected) {
+            color: #e8eaed;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .dx-tabs.dark-theme .dx-tab.dx-tab-selected {
+            color: #8ab4f8;
+        }
+
+            .dx-tabs.dark-theme .dx-tab.dx-tab-selected::after {
+                background: linear-gradient(90deg, #8ab4f8 0%, #669df6 100%);
+            }
+
+/* Variant: Minimal style */
+.dx-tabs.minimal {
+    border-bottom: 2px solid #f0f0f0;
+}
+
+    .dx-tabs.minimal .dx-tab {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+
+        .dx-tabs.minimal .dx-tab.dx-tab-selected::after {
+            height: 2px;
+        }
+
+/* Variant: Compact (extra nhỏ) */
+.dx-tabs.compact .dx-tab {
+    padding: 6px 12px;
+    font-size: 11px;
+    min-height: 30px;
+}
+
+.dx-tabs.compact .dx-tab-text {
+    font-size: 11px;
+    max-width: 120px;
+}
+
+/* Scrollable tabs navigation buttons */
+.dx-tabs-nav-button {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+    .dx-tabs-nav-button:hover {
+        background: #f5f5f5;
+        border-color: #d0d0d0;
+    }
+
+    .dx-tabs-nav-button:active {
+        background: #e8e8e8;
+    }
+
+/* ==================== DevExtreme DataGrid Header CSS ==================== */
+
+/* Header tự động xuống hàng */
+#detailGridContainer .dx-datagrid-headers .dx-datagrid-table .dx-row > td {
+    border-bottom: 1px solid #ddd;
+    white-space: normal !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    vertical-align: middle;
+    padding: 10px 8px;
+    line-height: 1.4;
+    min-height: 40px;
+}
+
+/* Header text wrapper */
+#detailGridContainer .dx-datagrid-headers .dx-datagrid-text-content {
+    white-space: normal !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    display: block;
+}
+
+/* Header cell */
+#detailGridContainer.dx-datagrid-headers .dx-header-row > td {
+    background: #f8f9fa;
+    font-weight: 600;
+    font-size: 13px;
+    color: #202124;
+}
+
+    /* Hover effect cho header */
+    #detailGridContainer.dx-datagrid-headers .dx-header-row > td:hover {
+        background: #f1f3f4;
+    }
+
+/* Header với sort icon */
+#detailGridContainer.dx-datagrid-headers .dx-datagrid-text-content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+/* Sort indicator */
+#detailGridContainer.dx-sort-indicator {
+    flex-shrink: 0;
+    margin-left: 4px;
+}
+
+/* Filter icon */
+#detailGridContainer.dx-header-filter {
+    flex-shrink: 0;
+}
+
+/* Compact header variant */
+#detailGridContainer.dx-datagrid.compact-header .dx-datagrid-headers .dx-row > td {
+    padding: 6px 8px;
+    font-size: 12px;
+    min-height: 32px;
+}
+
+/* Large header variant (cho text dài) */
+#detailGridContainer.dx-datagrid.large-header .dx-datagrid-headers .dx-row > td {
+    padding: 12px 10px;
+    font-size: 14px;
+    min-height: 48px;
+    line-height: 1.5;
+}

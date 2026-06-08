@@ -1,0 +1,792 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Nhập nguyên phụ liệu";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sơ Đồ Kho</title>
+    <link href="~/css/TongHopNPL/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+    <link href="~/css/ViTriKhoNPL/nhapvitri.css?version=1.1" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #f5f5f5;
+            padding: 2px;
+        }
+
+        .warehouse-container {
+            background: white;
+            border: 2px solid #ccc;
+            padding: 8px 4px;
+            margin: 20px auto;
+            max-width: 100%;
+            max-height: 90vh;
+            overflow-x: auto;
+            border-radius: 5px;
+        }
+
+        .warehouse-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .main-layout {
+            display: flex;
+            gap: 0;
+        }
+
+        .middle-section {
+            display: flex;
+            flex-direction: column;
+            width: 60px;
+            min-width: 80px;
+            margin: 0px 5px;
+        }
+
+        .middle-walkway {
+            flex: 1;
+            background-color: #fff;
+        }
+
+        .middle-exit {
+            height: 50px;
+            background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .section {
+            display: inline-block;
+            vertical-align: top;
+            width: 50%;
+            border: 1px solid #ccc;
+            padding: 2px 5px;
+            min-width: 500px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 0;
+            font-size: 12px;
+            color: #333;
+            border: 1px solid #000;
+            padding: 8px 5px;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
+        }
+
+        .aisle-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: nowrap;
+        }
+
+        .aisle {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .shelf-pair {
+            display: flex;
+            gap: 2px;
+        }
+
+        .shelf {
+            border: 1px solid #000;
+            background-color: #fff;
+            position: relative;
+            cursor: pointer;
+        }
+
+
+
+        .shelf-label {
+            position: absolute;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            font-size: 12px;
+            color: #000;
+            z-index: 1;
+        }
+
+        .cell {
+            border: 1px solid #dcd6d66b;
+            background-color: #fff;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #000;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tooltip-custom {
+            position: absolute;
+            background-color: #333;
+            color: white;
+            padding: 4px 4px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 5px;
+        }
+
+            .tooltip-custom::after {
+                content: '';
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                border: 5px solid transparent;
+                border-top-color: #333;
+            }
+
+        .cell:hover .tooltip-custom {
+            opacity: 1;
+        }
+
+        .tooltip-custom ul {
+            margin: 0;
+            padding-left: 15px;
+            list-style: disc;
+        }
+
+        .tooltip-custom li {
+            margin: 3px 0;
+        }
+
+        .walkway {
+            width: 25px;
+            background-color: #fff;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            min-width: 60px
+        }
+
+        .walkway-horizontal {
+            height: 25px;
+            background-color: #fff;
+            border-top: 1px solid #000;
+            min-height: 25px;
+        }
+
+        .other-section {
+            display: flex;
+            gap: 0;
+            height: calc(100% - 0px);
+            min-height: 200px;
+        }
+
+        .other-shelf {
+            border: 1px solid #000;
+            background: linear-gradient(135deg, #fed7aa 0%, #fef3c7 100%);
+            padding: 5px;
+            width: 70px;
+            text-align: center;
+            position: relative;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+            .other-shelf:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+
+        .other-shelf-title {
+            font-weight: bold;
+            font-size: 11px;
+            color: #333;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(180deg);
+        }
+
+        /* Modal Styles */
+        .modal-xl {
+            max-width: 95%;
+        }
+
+        .aisle-card {
+            transition: all 0.3s ease;
+        }
+
+            .aisle-card:hover {
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+
+        #tooltip {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.2s;
+            max-width: 300px;
+        }
+
+            #tooltip div {
+                margin: 3px 0;
+            }
+
+        .modal-backdrop.fade {
+            z-index: 999
+        }
+
+        #container-khuvucphulieu {
+            flex: 2;
+            display: flex;
+            gap: 8px;
+            margin-right: 50px
+        }
+
+        .headerItem {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #E9E7FF;
+            border: 1px solid #000;
+            height: 31px;
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 4px;
+            margin-top: 2px
+        }
+
+        .checkbox-item {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            font-size: 14px;
+        }
+
+            .checkbox-item span {
+                font-weight: 500;
+                color: #444;
+                font-size: 12px
+            }
+
+            .checkbox-item input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+            }
+
+        .btnXemChiTiet {
+            border: 1px solid #ccc;
+            font-size: 12px;
+            background: white;
+        }
+
+            .btnXemChiTiet:hover {
+                border: 1px solid #cccccc;
+                font-size: 12px;
+                background: #f1f1f1;
+            }
+
+            .btnXemChiTiet:active {
+                background: #f1f1f1;
+                border: 1px solid #ccc;
+            }
+
+        ::-webkit-scrollbar {
+            height: 6px;
+            width: 2px;
+        }
+
+        #shelfModalBody ::-webkit-scrollbar {
+            height: 4px !important;
+            width: 2px !important;
+        }
+
+
+        .cell {
+            height: 73px !important;
+            background-color: #fff;
+            display: block;
+            font-size: 10px;
+            color: #000;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .shelf-display-content {
+            position: absolute;
+            inset: 0;
+            padding: 2px 3px;
+            overflow: hidden;
+            pointer-events: none;
+            font-size: 9px;
+            text-align: left;
+            z-index: 10;
+        }
+
+        .cell-line {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: break-all;
+            line-height: 1.3;
+            margin-bottom: 2px;
+        }
+
+        .cell.hide-tooltip .tooltip-custom {
+            display: none !important;
+            opacity: 0 !important;
+        }
+
+        .shelf-group-toggle {
+            cursor: pointer;
+            background: rgba(0,0,0,0.07);
+            padding: 1px 3px;
+            border-radius: 2px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 9px;
+            user-select: none;
+        }
+
+            .shelf-group-toggle:hover {
+                background: rgba(0,0,0,0.15);
+            }
+
+        .shelf-group-content {
+            font-size: 9px;
+            padding: 2px 3px;
+            word-break: break-word;
+        }
+
+        /* Xoay mũi tên khi collapsed */
+        .shelf-group-toggle.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        .toggle-icon {
+            display: inline-block;
+            transition: transform 0.2s;
+            font-size: 9px;
+        }
+
+        .shelf-display-content::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .shelf-display-content::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.3);
+            border-radius: 3px;
+        }
+
+        .shelf-display-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .shelf[draggable="true"] {
+            cursor: grab;
+        }
+
+            .shelf[draggable="true"]:active {
+                cursor: grabbing;
+            }
+
+        .shelf-dragging {
+            opacity: 0.4;
+            border: 2px dashed #6366f1 !important;
+        }
+
+        .walkway-dragover {
+            background: #fef9c3 !important;
+            border-left: 2px dashed #eab308 !important;
+            border-right: 2px dashed #eab308 !important;
+        }
+
+        .walkway-dragover-invalid {
+            background: #fee2e2 !important;
+            border-left: 2px dashed #ef4444 !important;
+            border-right: 2px dashed #ef4444 !important;
+            cursor: not-allowed !important;
+        }
+
+        .shelf-group {
+            margin-top: 2px;
+        }
+
+        .shelfDetailSDK {
+            border: 1px solid #c5cae9; /* border nhạt bên trong */
+            text-align: center;
+            font-size: 13px;
+            color: #130eb2;
+        }
+
+        .shelfDetailKeSDK {
+            width: 80px !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #130eb2;
+        }
+
+        /* Khung ngoài đậm cho col-11 */
+        .shelf-outer-border {
+            border: 2px solid #1a237e !important; /* đậm */
+        }
+
+
+        @@media (max-width: 480px) {
+            .shelfTenKeChiTiet {
+                font-size: 10px !important;
+            }
+        }
+
+        .collapsible-group {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row m-0 p-0 mb-2 ">
+        <div class="col-12 m-0 p-0">
+            <div class="card glass-card">
+                <div class="card-body p-2">
+                    <div class=" align-items-center justify-content-between  w-100 d-flex">
+                        <div class="">
+                            <h4 class="mb-0">
+                                <i id="home" class="fa-sharp fa-solid fa-house"></i>
+                                Hệ Thống Quản Lý Kho
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="warehouse-container">
+        <div>
+            <div class="d-flex justify-content-start gap-2">
+                <div class="input-group mb-2" id="search-khachhang">
+                    <input type="text"
+                           class="form-control"
+                           id="txtSearchKhachHang"
+                           placeholder="Tìm kiếm theo tên khách hàng">
+                    <span class="input-group-text" id="boxSearch">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                </div>
+                <div class="d-flex gap-3 justify-content-start align-items-start checkbox-group pb-2 pb-md-0">
+
+                    <div class="checkbox-item">
+                        <span>Khách Hàng</span>
+                        <input type="checkbox" id="cbShowKH">
+                    </div>
+
+                    <div class="checkbox-item">
+                        <span>Mã Hàng</span>
+                        <input type="checkbox" id="cbShowMH">
+                    </div>
+
+                    <div class="checkbox-item">
+                        <span>Item Code</span>
+                        <input type="checkbox" id="cbShowItemCode">
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div id="notifi-notfound" style=" display: none; font-size: 14px; margin-bottom: 4px; font-weight: 500; border-radius: 4px"></div>
+
+            <div class="main-layout">
+                <!-- KHU VỰC NGUYÊN LIỆU -->
+                <div class="section" style="min-width: 630px; min-height: 435px;overflow: auto">
+                    <div class="section-title align-items-center"
+                         style=" display: grid; grid-template-columns: 1fr auto 1fr;">
+                        <div></div>  <!-- cột trống bên trái -->
+                        <span>KHU VỰC NGUYÊN LIỆU</span>
+                        <div class="d-flex justify-content-end">
+                            <button data-module="1" class="btn btnXemChiTiet" style="font-size:12px">Xem Chi Tiết</button>
+                        </div>
+                    </div>
+                    <div data-walkwayid="2" data-module="1" class="asile-container-n walkway-horizontal mb-2  dropzone" style="height: 48px;border-bottom: 1px solid black !important; border-top: none !important ">
+                    </div>
+
+                    <div class="aisle-container" id="materialArea"></div>
+
+                    <div data-walkwayid="1" data-module="1" class="asile-container-n walkway-horizontal mt-2 dropzone" style="height:90px;">
+                    </div>
+                </div>
+
+                <!-- Lối đi và EXIT ở giữa -->
+                <div class="middle-section">
+                    <div class="middle-walkway"></div>
+                    <div class="middle-exit">EXIT</div>
+                </div>
+
+                <!-- Phần bên phải -->
+                <div class="section" style="flex: 1;min-width:800px">
+                    <!-- Hàng tiêu đề đầu tiên -->
+                    <div style="display: flex; gap: 0;">
+                        <div class="section-title" style="flex: 1.2;">BÀN LÀM VIỆC</div>
+                        <div class="section-title" style="flex: 0.8; font-size: 11px;">MAY<br>KIỂM VẢI</div>
+                        <div class="section-title" style="flex: 0.3;">PCCC</div>
+                        <div class="section-title shelf-revert" id="container-hangthanhpham" style="flex: 2;"></div>
+                        <div class="section-title" style="flex: 1.2;">XUẤT HÀNG</div>
+                    </div>
+
+                    <!-- Các kệ -->
+                    <div class="container-shelve-right">
+                        <div style="width: 100%; margin-right: 5px;">
+                            <div class="section-title align-items-center"
+                                 style="margin-bottom: 10px; display: grid; grid-template-columns: 1fr auto 1fr;">
+                                <div></div>  <!-- cột trống bên trái -->
+                                <span> KHU VỰC PHỤ LIỆU</span>
+                                <div class="d-flex justify-content-end">
+                                    <button data-module="2" class="btn btnXemChiTiet" style="font-size:12px">Xem Chi Tiết</button>
+                                </div>
+                            </div>
+                            <div id="container-khuvucphulieu" style=""></div>
+                            <div data-walkwayid="1" data-module="2" class="asile-container-n walkway-horizontal mt-2 dropzone" style="height:90px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="itemDetailModal" tabindex="-3" data-bs-backdrop="static"
+         data-bs-keyboard="false" style="z-index: 999999999; background: rgb(0, 0, 0, 0.5);">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content item-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalSlotTitle">
+                        <i class="bi bi-box"></i> Chi tiết ô kho
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h6>Thông tin ô</h6>
+                                    <div id="modalSlotInfo"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h6>Sức chứa</h6>
+                                    <div id="modalCapacityInfo"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h6>Danh sách vật tư trong ô:</h6>
+                    <div class="mb-3">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text"
+                                   class="form-control"
+                                   id="searchItemInput"
+                                   placeholder="Tìm kiếm theo Mã VT, Số Lô, PO Mua...">
+                            <button class="btn btn-outline-secondary"
+                                    type="button"
+                                    id="clearSearchBtn">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="item-list" id="modalItemList" style="overflow: auto; max-height: 450px;">
+                        <!-- Items will be populated here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle"></i> Đóng
+                    </button>
+                    <button type="button" class="btn btn-danger" id="btnReturnItems">
+                        <i class="bi bi-box-arrow-up"></i> Trả vật tư
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Chi Tiết Kệ -->
+    <div class="modal fade" id="shelfModal" tabindex="-2" aria-labelledby="shelfModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="shelfModalLabel">Chi Tiết Kệ</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="shelfModalBody">
+                    <!-- Nội dung sẽ được tạo động bởi JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Chi Tiết Tất Cả Kệ -->
+    <div class="modal fade" id="shelfDetailModal" tabindex="-2" aria-labelledby="shelfDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen p-0 p-md-2">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <div class="d-flex justify-content-between w-100">
+                        <div>
+                            <h5 class="modal-title" id="shelfModalLabel">Sơ Đồ Kho <span id="txtKeNPL"></span></h5>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <button class="btn btn-sm btn-light"
+                                    id="btnExportPDF"
+                                    title="Xuất PDF"
+                                    style="border-radius: 8px;">
+                                <i class="bi bi-file-earmark-pdf-fill text-danger"></i>
+                            </button>
+                            <div style="display:flex; align-items:center; background:white; border-radius:20px; padding:2px 6px; gap:2px;">
+                                <button id="btnZoomOut" title="Thu nhỏ" style="border:none; background:transparent; width:28px; height:28px; border-radius:50%; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; color:#444;">
+                                    −
+                                </button>
+                                <span id="zoomLabel" style="min-width:42px; text-align:center; font-size:13px; color:#444; font-weight:500;">55%</span>
+                                <button id="btnZoomIn" title="Phóng to" style="border:none; background:transparent; width:28px; height:28px; border-radius:50%; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; color:#444;">
+                                    +
+                                </button>
+                                <div style="width:1px; background:#ddd; height:18px; margin:0 4px;"></div>
+                                <button id="btnZoomReset" title="Reset" style="border: 1px solid #aaa; background:transparent; border-radius:12px; padding:2px 10px; font-size:12px; cursor:pointer; color:#444;">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="shelfBody">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999">
+        <div id="successToast" class="toast" role="alert">
+            <div class="toast-header bg-success text-white">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto">Thành công</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="successMessage"></div>
+        </div>
+        <div id="errorToast" class="toast" role="alert">
+            <div class="toast-header bg-danger text-white">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong class="me-auto">Lỗi</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="errorMessage"></div>
+        </div>
+        <div id="warningToast" class="toast" role="alert">
+            <div class="toast-header bg-warning text-dark">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong class="me-auto">Cảnh báo</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="warningMessage"></div>
+        </div>
+    </div>
+
+    <!-- Tooltip -->
+    <div id="tooltip"></div>
+    <script src="~/Scripts/sodokho/jquery.js"></script>
+    <script src="~/Scripts/TongHopNPL/bootstrap5.3.bundle.min.js"></script>
+    <script>
+        var userName = '@ViewBag.userName';
+        var isNPL = 1
+        function showToast(type, message, delay = 2000) {
+            let toastId, messageId;
+
+            switch (type) {
+                case 'success':
+                    toastId = 'successToast';
+                    messageId = 'successMessage';
+                    break;
+                case 'error':
+                    toastId = 'errorToast';
+                    messageId = 'errorMessage';
+                    break;
+                case 'warning':
+                    toastId = 'warningToast';
+                    messageId = 'warningMessage';
+                    break;
+                default:
+                    console.error('Unknown toast type:', type);
+                    return;
+            }
+
+            $('#' + messageId).text(message);
+
+            const toastElement = $('#' + toastId)[0];
+            const toast = new bootstrap.Toast(toastElement, {
+                autohide: true,
+                delay: delay
+            });
+
+            toast.show();
+        }
+
+    </script>
+    <script src="~/Scripts/ViTriKho/html2canvas.js"></script>
+    <script src="~/Scripts/ViTriKho/jspdf.js"></script>
+    <script src="~/Scripts/ViTriKho/tongquankhonpl.js?version=2.3"></script>
+</body>
+
+</html>

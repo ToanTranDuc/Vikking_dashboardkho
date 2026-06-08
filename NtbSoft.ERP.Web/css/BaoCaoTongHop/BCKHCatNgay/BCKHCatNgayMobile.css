@@ -1,0 +1,36 @@
+﻿@media only screen and (min-width: 350px) and (max-width: 480px) {
+    .body {
+        padding: 5px;
+    }
+
+    .tbl-report {
+        padding: 10px;
+    }
+
+    .item-container {
+        padding: 10px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    /* Căn chỉnh lại các nút và phần tử khác nếu cần */
+    #fromdate, #todate {
+        height: 30px;
+        margin: 5px 0;
+    }
+
+    .btn-warning1 {
+        padding: 8px;
+        height: 30px;
+    }
+}

@@ -1,0 +1,248 @@
+﻿@{
+    ViewBag.Title = "Phê duyệt";
+    ViewBag.PageTitle = "PHÊ DUYỆT";
+    Layout = "~/Views/PheDuyet/Shared/_Layout.cshtml";
+
+}
+
+@section styles {
+    <link href="~/css/PheDuyet/PheDuyet.css" rel="stylesheet" />
+}
+
+@*@section headerButtons {
+    <div class="card-header ui-header d-flex align-items-center ms-auto border-0">
+        <div class="d-flex flex-wrap gap-2 group-btn-duyet" style="background: #00477f">
+            <button class="btn btn-sm px-3 d-none" id="btn-duyet-all">
+                <i class="fa-solid fa-circle-check me-1"></i>
+                Duyệt tất cả
+            </button>
+
+
+            <button class="btn btn-sm px-3" id="btn-duyet">
+                <i class="fa-solid fa-circle-check me-1"></i>
+                Duyệt
+            </button>
+
+
+            <button class="btn btn-sm px-3" id="btn-huy-duyet">
+                <i class="fa-solid fa-circle-xmark me-1"></i>
+                Hủy duyệt
+            </button>
+            <button class="btn btn-sm px-3" id="btn-refresh">
+                <i class="fa-solid fa-rotate-right me-1"></i>
+                Nạp lại
+            </button>
+
+            <button class="btn btn-sm px-3 d-none" id="btn-save">
+                <i class="fa-solid fa-floppy-disk me-1"></i>
+                Lưu
+            </button>
+
+
+            <button class="btn btn-sm px-3 d-none" id="btn-excel">
+                <i class="fa-solid fa-file-excel me-1"></i>
+                Excel
+            </button>
+
+
+            <button class="btn btn-sm px-3" id="btn-refresh">
+                <i class="fa-solid fa-rotate-right me-1"></i>
+                Nạp lại
+            </button>
+        </div>
+    </div>
+   
+}*@
+
+<div class="child-content">
+    <div id="dxMainTabs"></div>
+    <div class="content-area">
+        <div id="gridContainer"></div>
+        <div style="background: #f8f9fa; padding: 5px; border-left: 4px solid #007bff; border-radius: 4px;">
+            <strong class="infor-gridDetailContainer"> TT Chi tiết</strong>
+            <div id="gridDetailContainer"></div>
+        </div>
+
+    </div>
+</div>
+@**@
+<div id="Popup-SubDetail">
+
+</div>
+<div id="detailPopup" style="display:none">
+    <div id="sumary-detail" style="display:none"> </div>
+    <div id="detailGridContainer"></div>
+</div>
+@**@
+<div id="PopupDanhGia" style="display:none">
+
+    <div class="grid-contianer">
+
+        <div id="gridPhieuDanhGia">
+
+        </div>
+        <div class="container-danh-gia">
+            <table class="danhgia-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <div style="display: flex; justify-content: flex-start; align-items: center; gap: 20px;" class="xac-nhan-de-xuat">
+                                <div> Người đề xuất <br><strong> Ý kiến khác </strong></div>
+                                <div class="d-flex gap-3 align-items-center flex-shrink-0 kq-danh-gia">
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="result-nguoi-de-xuat" id="KQPass_NgDeXuat" value="pass">
+                                        <label class="form-check-label text-success font-weight-bold" for="KQPass_NgDeXuat">Đồng ý</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="result-nguoi-de-xuat" id="KQFail_NgDeXuat" value="fail">
+                                        <label class="form-check-label text-danger font-weight-bold" for="KQFail_NgDeXuat">Không đồng ý</label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </th>
+                        <th>
+
+                            <div style="display: flex; justify-content: flex-start; align-items: center; gap: 20px;" class="xac-nhan-soat-xet">
+                                <div> Soát xét <br><strong> Ý kiến khác </strong></div>
+                                <div class="d-flex gap-3 align-items-center flex-shrink-0 kq-danh-gia">
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="result-soat-xet" id="KQPass_SoatXet" value="pass">
+                                        <label class="form-check-label text-success font-weight-bold" for="KQPass_SoatXet">Đồng ý</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="result-soat-xet" id="KQFail_SoatXet" value="fail">
+                                        <label class="form-check-label text-danger font-weight-bold" for="KQFail_SoatXet">Không đồng ý</label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </th>
+
+                        <th>
+
+                            <div style="display: flex; justify-content: flex-start; align-items: center; gap: 20px;" class="xac-nhan-giam-doc">
+                                <div> Tổng giám đốc <br><strong> Ý kiến khác </strong></div>
+                                <div class="d-flex gap-3 align-items-center flex-shrink-0 kq-danh-gia">
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="result-tong-giam-doc" id="KQPass_TongGiamDoc" value="pass">
+                                        <label class="form-check-label text-success font-weight-bold" for="KQPass_TongGiamDoc">Đồng ý</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="result-tong-giam-doc" id="KQFail_TongGiamDoc" value="fail">
+                                        <label class="form-check-label text-danger font-weight-bold" for="KQFail_TongGiamDoc">Không đồng ý</label>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyXNKiem">
+                    <tr>
+                        <td>
+                            <div class="cell-content xac-nhan-de-xuat">
+                                <div>
+
+                                    <div>
+
+                                        <textarea class="danhgia-textarea" id="txtDG_QC"></textarea>
+                                    </div>
+
+                                </div>
+                                <div class="signature-wrapper">
+                                    <div class="content-sign">
+                                        <span class="signature-label">Ký Tên</span>
+                                        <div class="signature-controls">
+                                            <button class="btn btn-clear" onclick="clearSignature('signQC')">Xóa</button>
+
+                                        </div>
+                                    </div>
+                                    <div class="signature-pad-container">
+                                        <canvas class="signature-pad" id="signQC"></canvas>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content xac-nhan-soat-xet">
+                                <textarea class="danhgia-textarea" id="txtDG_Mer"></textarea>
+                                <div class="signature-wrapper">
+                                    <div class="content-sign">
+                                        <span class="signature-label">Ký Tên</span>
+                                        <div class="signature-controls">
+                                            <button class="btn btn-clear" onclick="clearSignature('signMer')">Xóa</button>
+
+                                        </div>
+                                    </div>
+                                    <div class="signature-pad-container">
+                                        <canvas class="signature-pad" id="signMer"></canvas>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="cell-content xac-nhan-giam-doc">
+                                <textarea class="danhgia-textarea" id="txtDG_KQ"></textarea>
+                                <div class="signature-wrapper">
+                                    <div class="content-sign">
+                                        <span class="signature-label">Ký Tên</span>
+                                        <div class="signature-controls">
+                                            <button class="btn btn-clear" onclick="clearSignature('signXN_KQ')">Xóa</button>
+
+                                        </div>
+                                    </div>
+                                    <div class="signature-pad-container">
+                                        <canvas class="signature-pad" id="signXN_KQ"></canvas>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@**@
+<div id="popupDHPO" style="display:none">
+    <div style="padding: 10px; height: 100%; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;">   
+        <div class="group-title" style="margin-bottom: 15px;">
+            <div style="background: #f8f9fa; padding: 5px; border-left: 4px solid #007bff; border-radius: 4px;">
+                <div id="headerInfo"></div>
+            </div>
+        </div>
+        <div style="background: #f8f9fa; padding: 5px; border-left: 4px solid #007bff; border-radius: 4px;">
+            <strong>TT PO-Lệnh Sản Xuất </strong>
+            <div id="gridLenhSX" style="margin-bottom: 20px;"></div>
+        </div>
+    
+        <div style="background: #f8f9fa; padding: 5px; border-left: 4px solid #007bff; border-radius: 4px;">
+            <strong>TT Cấp phát </strong>
+            <div id="gridCapPhat"></div>
+        </div>
+
+
+    </div>
+</div>
+@section scripts {
+
+
+
+
+}

@@ -1,0 +1,11 @@
+﻿@media only screen and (max-width: 600px) {
+	.action {
+		align-items: end !important;
+		margin-left: 0;
+		margin-bottom: 10px;
+	}
+
+	.box-action {
+		flex-wrap: wrap-reverse;
+	}
+}

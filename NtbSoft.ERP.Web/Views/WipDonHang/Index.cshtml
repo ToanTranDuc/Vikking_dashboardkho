@@ -1,0 +1,1995 @@
+﻿@{
+    ViewBag.Title = "WIP - Đơn hàng / Chuyền";
+    Layout = "~/Views/Shared/_LayoutBCTH.cshtml";
+    var isWinHost = ViewBag.IsWinHost != null && (bool)ViewBag.IsWinHost;
+}
+<link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+@*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+<link href="~/css/DevExtreme/dx.light.css" rel="stylesheet" />
+<link href="~/css/DevExtreme/dx.common.css" rel="stylesheet" />
+<link href="~/css/WipDonHang/popUp.css" rel="stylesheet" />
+<!-- ===== TOP BAR ===== -->
+<div class="wip-page-shell" style="margin-top: 0 !important; padding: 0px 15px">
+    <div class="topbar">
+        <!-- Left: Tabs -->
+        <div class="topbar-left">
+            <div id="lineTabs"></div>
+        </div>
+
+        <!-- Right: Actions -->
+        <div class="topbar-right">
+            <div id="btnToggleIsKetThuc"></div>
+            <div id="btnToggleUnassigned"></div>
+            @*<div id="btnAddRow"></div>*@
+            <div id="btnLoad"></div>
+            <div id="btnRecalcLine"></div>
+            <div id="btnExportWipExcel"></div>
+            <div id="btnSortMode"></div>
+            <div id="btnDateFilter"></div>
+            <div id="popDateFilter">
+                <div class="date-range-row">
+                    <div id="fromDate"></div>
+                    <div class="date-sep">|</div>
+                    <div id="toDate"></div>
+                </div>
+            </div>
+            <div id="btnLibraryWip"></div>
+            <div id="btnHeaderColorConfig"></div>
+        </div>
+    </div>
+
+    <div id="gridContainer" style="width: 100%;"></div>
+
+    <div id="unassignedWrap" class="unassigned-wrap is-collapsed">
+        <div class="subgrid-bar">
+            <div class="subgrid-title">Danh sách chưa chia kế hoạch</div>
+            <div class="subgrid-actions">
+                @*<div id="btnToggleUnassigned"></div>*@
+                <div id="btnReloadUnassigned"></div>
+                <div id="btnCrossMode"></div>
+            </div>
+        </div>
+
+        <div id="unassignedPanel" class="unassigned-panel">
+            <div id="gridContainerUnassigned" style="width: 100%;"></div>
+        </div>
+    </div>
+
+    <!-- ✅ Loading overlay -->
+    <div id="wipLoadPanel"></div>
+    <!-- Popup nhập liệu -->
+    <div id="popupEditor"></div>
+    <div id="popupEditCell"></div>
+    <div id="popupHeaderColor"></div>
+    <!-- Floating button -->
+    <div class="wip-fab-wrap">
+        <button type="button" class="wip-fab" onclick="openProductionPopup('DH_323','Daisy')">
+            <i class="fa fa-plus-square"></i> Chia Sản Xuất
+        </button>
+    </div>
+
+    <div id="modalProduction" class="wip-modal" aria-hidden="true">
+        <div class="wip-backdrop" onclick="closeProductionPopup()"></div>
+
+        <div class="wip-dialog" role="dialog" aria-modal="true">
+            <div class="wip-modal-header">
+                <div class="wip-modal-title">CHIA ĐƠN HÀNG SẢN XUẤT</div>
+                <button type="button" class="wip-close" onclick="closeProductionPopup()">&times;</button>
+            </div>
+
+            <div class="wip-modal-body">
+
+                <!-- ===== FILTER ===== -->
+                <div class="wip-filter">
+                    <div class="wip-row">
+                        <div class="wip-field wip-col-3">
+                            <label class="wip-label wip-label-red">Đơn hàng</label>
+                            <div id="txt_MaDH" class="wip-input"></div>
+                        </div>
+                        <div class="wip-field wip-col-2">
+                            <label class="wip-label wip-label-red">Mã hàng</label>
+                            <div id="txt_MaHang" class="wip-input"></div>
+                        </div>
+                        <div class="wip-field wip-col-3">
+                            <label class="wip-label wip-label-red">PO</label>
+                            <div id="sl_PO" class="wip-input"></div>
+                        </div>
+
+                        <div class="wip-field wip-col-2">
+                            <label class="wip-label wip-label-blue">Nhóm size</label>
+                            <div id="sl_InSeam" class="wip-input"></div>
+                        </div>
+
+                        <div class="wip-field wip-col-2 wip-check" style="display:none">
+                            <input type="checkbox" id="chk_AllData">
+                            <label for="chk_AllData">Chọn tất cả</label>
+                        </div>
+
+                        <div class="wip-field wip-col-6">
+                            <label class="wip-label wip-label-blue">Màu</label>
+                            <div id="sl_Mau" class="wip-input"></div>
+                        </div>
+
+                        <div class="wip-field wip-col-4">
+                            <label class="wip-label wip-label-blue">Size</label>
+                            <div id="sl_Size" class="wip-input"></div>
+                        </div>
+                        <div class="wip-field wip-col-2">
+                            <button id="btnXacNhan" type="button" class="wip-btn-confirm">
+                                <i class="fa fa-check"></i> Xác nhận
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== BLOCK TOP ===== -->
+                <div class="wip-block">
+                    <div class="wip-block-head">
+                        <i class="fa fa-list-alt"></i> Số lượng từ đơn hàng
+                    </div>
+
+                    <div id="gridDonHangContainer" style="max-height: calc(-130px + 40vh); min-height: calc(-120px + 35vh);" class="wip-grid-top"></div>
+
+                    <div class="wip-block-foot">
+                        @*<span>SLKH: <b id="lbl_SLKH">0</b></span>*@
+                        <span>Tổng: <b id="lbl_TotalTop">0</b></span>
+                    </div>
+                </div>
+
+                <!-- ===== BLOCK MAIN ===== -->
+                <div class="wip-block wip-block-main">
+                    <div class="wip-block-head wip-head-blue">
+                        <i class="fa fa-list-ul"></i> CHI TIẾT LỆNH SX
+                    </div>
+
+                    <div class="wip-toolbar">
+                        @*<div class="wip-toolbar-left">
+                                <button type="button" id="btnLayDuLieu" class="wip-btn wip-btn-primary">
+                                    <i class="fa fa-download"></i> Lấy dữ liệu
+                                </button>
+                                <button type="button" class="wip-btn wip-btn-danger">
+                                    <i class="fa fa-trash"></i> Xóa dòng
+                                </button>
+                            </div>*@
+
+                        @*<div class="wip-toolbar-sep"></div>*@
+
+                        <div class="wip-toolbar-field">
+                            <label>Mã SX(*)</label>
+                            <input id="txt_MaSX" class="wip-input wip-input-sm" value="419">
+                        </div>
+
+                        <div class="wip-toolbar-field">
+                            <label>Đợt SX(*)</label>
+                            <input id="txt_DotSX" type="text" class="wip-input wip-input-sm" value="SX_437-DOT-3">
+                        </div>
+
+                        <div class="wip-toolbar-field wip-toolbar-field-wide">
+                            <label>Chuyền(*)</label>
+                            <div id="txt_LineX" class="wip-dx wip-input-sm"></div>
+                        </div>
+
+                        <div class="wip-toolbar-field">
+                            <label>ĐV SX(*)</label>
+                            <div id="sl_DonViSX" class="wip-dx wip-input-sm"></div>
+                        </div>
+
+                        <div class="wip-toolbar-field wip-toolbar-note">
+                            <label>Ghi chú</label>
+                            <input type="text" class="wip-input wip-input-sm">
+                        </div>
+                        <div class="wip-toolbar-field wip-toolbar-mer">
+                            <label>MD(*)</label>
+                            <div id="sl_Mer" class="wip-dx wip-input-sm"></div>
+                        </div>
+                    </div>
+
+                    <div class="wip-split">
+                        <div class="wip-split-left">
+                            <div id="gridSanXuatContainer" style="max-height: calc(-55px + 35vh); " class="wip-grid-bottom"></div>
+                            <div class="wip-block-foot">
+                                <span>SLTH: <b id="lbl_SLTH">0</b></span>
+                                <span>Còn lại: <b id="lbl_Remain">0</b></span>
+                            </div>
+                        </div>
+
+                        <div class="wip-split-right">
+                            <div id="gridProcessContainer" class="wip-grid-right"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wip-modal-topbar">
+                    <button id="btnLuuTop" type="button" class="wip-topbtn wip-topbtn-save">
+                        <i class="fa fa-save"></i> Lưu
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="popupChangeLine"></div>
+@*<div id="popupSplitLine"></div>*@
+<div id="popupSplitLine" style="display:none">
+    <div class="split-wrap">
+        <div class="split-header">
+            <div class="split-form-grid" id="splitFormRoot">
+                <div class="f-item" style="display:none">
+                    <div class="f-label">Mã ĐH</div>
+                    <div id="sl_MaDH"></div>
+                </div>
+                <div class="f-item">
+                    <div class="f-label">Mã ĐH</div>
+                    <div id="sl_gopDH"></div>
+                </div>
+
+                <div class="f-item">
+                    <div class="f-label">Lệnh SX</div>
+                    <div id="sl_LenhSX"></div>
+                </div>
+
+                <div class="f-item">
+                    <div class="f-label">Chuyền gốc</div>
+                    <div id="sl_LineGocText"></div>
+                </div>
+
+                <div class="f-item">
+                    <div class="f-label">Chuyền cần chia <span class="req">*</span></div>
+                    <div id="sl_LineMoi"></div>
+                </div>
+
+                @*<div class="f-item f-actions">
+                        <button type="button" id="btnSplitLoad" class="btn-load-native">
+                            <i class="dx-icon dx-icon-refresh"></i>
+                            <span>Tải dữ liệu</span>
+                        </button>
+                    </div>*@
+            </div>
+        </div>
+
+        <div class="split-grids">
+            <div class="split-grid-top">
+                <div class="split-title">Chuyền hiện tại (gốc)</div>
+                <div id="gridSplitTop"></div>
+            </div>
+
+            <div class="split-grid-bottom">
+                <div class="split-title">Chuyền cần chia</div>
+                <div id="gridSplitBottom"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<img style="display:none" src="~/Content/Image/LOGOVIKING.png" />
+<div id="wipAuditPopup" class="wip-audit-popup" style="display:none">
+    <div class="wip-audit-popup__content">
+        <div id="wipAuditHeader" class="wip-audit-header"></div>
+        <div id="wipAuditGrid" class="wip-audit-grid"></div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        window.WIP_API = {
+            URL: "/api/",
+            GET: "/api/wip-donhang/get",
+            SAVE: "/api/wip-donhang/save",
+            GET_LINEX: "/api/wip-donhang/get-list-linex",
+            REORDER: "/api/wip-donhang/reorder",
+            LOADLINE: "/api/wip-donhang/loadline",
+            ASSIGN: "/api/wip-donhang/assign-to-line",
+            ASSIGN_OUTSOURCE: "/api/wip-donhang/assign-outsource",
+            UNASSIGN: "/api/wip-donhang/unassign-from-line",
+            SYNC_BY_MADH: "/api/wip-donhang/sync-by-madh",
+            HEADER_COLORS_GET: "/api/wip-donhang/header-colors",
+            HEADER_COLORS_UPDATE: "/api/wip-donhang/header-colors/update",
+        };
+    </script>
+    @*<script>
+            window.WIP_HEADER_COLOR_CONFIG = {
+                //"hdr-donhang": "#fff",
+                //"hdr-kh-ngay": "#FFEFD5",
+                //"hdr-tiendo-thucte": "#E8F5E9",
+                //"hdr-merchandiser": "#E3F2FD",
+                //"hdr-nangsuat": "#FCE4EC",
+                //"hdr-kythuat": "#F3E5F5",
+                //"hdr-ie": "#E0F7FA",
+                //"hdr-codien": "#FFF8E1"
+            };
+        </script>*@
+    <script>
+    // Dữ liệu từ DB sẽ được "in" thẳng vào HTML lúc render
+    window.WIP_HEADER_COLOR_CONFIG = @Html.Raw(ViewBag.ColorConfig ?? "{}");
+    </script>
+    <script>
+        window.WIP_HEADER_TEXT_COLOR_CONFIG = {
+            "grid-header-default-text": "#111827",
+            "hdr-donhang-text": "#111827",
+            "hdr-dongbo-intheu-text": "#111827",
+            "hdr-kh-ngay-text": "#111827",
+            "hdr-merchandiser-text": "#111827",
+            "hdr-qc-text": "#111827",
+            "hdr-ie-text": "#111827",
+            "hdr-codien-text": "#111827",
+            "hdr-nangsuat-text": "#111827",
+            "hdr-tinhtoan-nangsuat-text": "#111827",
+            "hdr-tiendo-thucte-text": "#111827",
+            "hdr-thoigian-text": "#111827",
+            "hdr-intheu-text": "#111827",
+            "hdr-kythuat-text": "#111827"
+        };
+        var userNameWin = '@ViewBag.userName';
+        if(window.CefSharp)
+            localStorage.setItem("username", userNameWin);
+    </script>
+    <script>
+        window.WIP_MANUAL_CELL_COLOR_CONFIG = {
+            Background: "#FFE8C2",
+            Border: "#FF9800",
+            Text: "#111827"
+        };
+    </script>
+    <script>
+        window.WIP_TT_BOM_STATUS_COLOR_CONFIG = {
+            0: "",
+            1: "#22C55E",
+            2: "#F97316",
+            3: "#EF4444"
+        };
+    </script>
+    <script src="~/css/DevExtreme/dx.all.js"></script>
+    <script src="~/css/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Scripts/XuatHangNPL/exceljs.min.js"></script>
+    @* SIGNALR *@
+    <script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="~/Scripts/Wip/core/Namespace.js"></script>
+    <script src="~/Scripts/Wip/core/Endpoints.js"></script>
+    <script src="~/Scripts/Wip/core/WipState.js"></script>
+    <script src="~/Scripts/Wip/core/LineState.js"></script>
+    <script src="~/Scripts/Wip/core/PublicApiAdapter.js"></script>
+    <script src="~/Scripts/Wip/utils/NotifyUtils.js"></script>
+    <script src="~/Scripts/Wip/utils/DateUtils.js"></script>
+    <script src="~/Scripts/Wip/utils/ResponseUtils.js"></script>
+    <script src="~/Scripts/Wip/utils/GridUtils.js"></script>
+    <script src="~/Scripts/Wip/utils/ImageUtils.js"></script>
+    <script src="~/Scripts/Wip/domain/RegistryDomain.js"></script>
+    <script src="~/Scripts/Wip/domain/DateFilterDomain.js"></script>
+    <script src="~/Scripts/Wip/domain/RowDomain.js"></script>
+    <script src="~/Scripts/Wip/domain/CalculationDomain.js"></script>
+    <script src="~/Scripts/Wip/domain/ValidationDomain.js"></script>
+    <script src="~/Scripts/Wip/grid/WipGridColumns.js"></script>
+    <script src="~/Scripts/Wip/grid/WipGridEvents.js"></script>
+    <script src="~/Scripts/Wip/grid/WipGridController.js"></script>
+    <script src="~/Scripts/Wip/grid/UnassignedGridController.js"></script>
+    <script src="~/Scripts/Wip/ui/ResponsiveController.js"></script>
+    <script src="~/Scripts/Wip/ui/ToolbarController.js"></script>
+    <script src="~/Scripts/Wip/ui/DateFilterController.js"></script>
+    <script src="~/Scripts/Wip/ui/HeaderColorPopupController.js"></script>
+    <script src="~/Scripts/Wip/ui/ColumnFilterPopupController.js"></script>
+    <script src="~/Scripts/Wip/ui/EditRowPopupController.js"></script>
+    <script src="~/Scripts/Wip/ui/FormEditorFactory.js"></script>
+    <script src="~/Scripts/Wip/ui/EditCellPopupController.js"></script>
+    <script src="~/Scripts/Wip/ui/AuditPopupController.js"></script>
+    <script src="~/Scripts/Wip/ui/LineTabsController.js"></script>
+    <script src="~/Scripts/Wip/api/AjaxClient.js"></script>
+    <script src="~/Scripts/Wip/api/WipDonHangApi.js"></script>
+    <script src="~/Scripts/Wip/services/PermissionService.js"></script>
+    <script src="~/Scripts/Wip/services/MetadataService.js"></script>
+    <script src="~/Scripts/Wip/services/LoadService.js"></script>
+    <script src="~/Scripts/Wip/services/WipLibraryService.js"></script>
+    <script src="~/Scripts/Wip/services/SaveService.js"></script>
+    <script src="~/Scripts/Wip/services/WipDataService.js"></script>
+    <script src="~/Scripts/Wip/services/RecalcService.js"></script>
+    <script src="~/Scripts/Wip/services/LineService.js"></script>
+    <script src="~/Scripts/Wip/services/SignalRService.js"></script>
+    <script src="~/Scripts/Wip/services/PoolService.js"></script>
+    <script src="~/Scripts/Wip/services/ExportExcelService.js"></script>
+    <script src="~/Scripts/Wip/core/WipDonHangPage.js"></script>
+    <script src="~/Scripts/Wip/core/WipRuntimeLegacyAdapter.js"></script>
+    <script src="~/Scripts/Wip/wip-donhang-chuyen.js"></script>
+    <script src="~/Scripts/Wip/index.js"></script>
+    <script src="~/Scripts/Wip/popUpChiaSXV2.js"></script>
+    <script src="~/Scripts/Wip/popUpChangeLine.js"></script>
+    <script src="~/Scripts/Wip/popupSplitLine.js"></script>
+
+    @*<script>
+            $(function () {
+                // tên hub JS tự sinh: wipHub (camelCase từ WipHub)
+                var hub = $.connection.wipHub;
+
+                hub.client.orderCreated = function (msg) {
+                    console.log("orderCreated:", msg);
+                    // msg.maDH => đây là cái bạn cần để sync pool theo MaDH
+                };
+
+                $.connection.hub.url = "/signalr"; // thường không cần nếu cùng host
+                $.connection.hub.start()
+                    .done(function () { console.log("SignalR connected", $.connection.hub.id); })
+                    .fail(function (err) { console.error("SignalR connect failed", err); });
+            });
+        </script>*@
+
+    <style>
+
+        :root {
+            --page-bg: #f3f4f6;
+            --bg-white: #fff;
+            --border-color: #e5e7eb;
+            --text-main: #111827;
+            --accent: #2563eb;
+            --accent-dark: #1d4ed8;
+            --grid-header-default-bg: #6EC2F7;
+            --grid-header-default-text: #111827;
+            --hdr-donhang-bg: #FFFF00;
+            --hdr-donhang-text: #111827;
+            --hdr-intheu-bg: #66D6D1;
+            --hdr-intheu-text: #111827;
+            --hdr-kh-ngay-bg: #FFFF00;
+            --hdr-kh-ngay-text: #111827;
+            --hdr-qc-bg: #FFD6A5;
+            --hdr-qc-text: #111827;
+            --hdr-merchandiser-bg: #FEFFCD;
+            --hdr-merchandiser-text: #111827;
+            --hdr-tinhtoan-nangsuat-bg: #FFFF00;
+            --hdr-tinhtoan-nangsuat-text: #111827;
+            --hdr-nangsuat-bg: #FFFF00;
+            --hdr-nangsuat-text: #111827;
+            --hdr-thoigian-bg: #FFFF00;
+            --hdr-thoigian-text: #111827;
+            --hdr-tiendo-thucte-bg: #66D6D1;
+            --hdr-tiendo-thucte-text: #111827;
+            --hdr-kythuat-bg: #C7B7FF;
+            --hdr-kythuat-text: #111827;
+            --hdr-ie-bg: #FFCC66;
+            --hdr-ie-text: #111827;
+            --hdr-codien-bg: #00FFCC;
+            --hdr-codien-text: #111827;
+            --hdr-dongbo-intheu-bg: #FFFF00;
+            --hdr-dongbo-intheu-text: #111827;
+            --tt-bom-status-1-bg: #22C55E;
+            --tt-bom-status-2-bg: #F97316;
+            --tt-bom-status-3-bg: #EF4444;
+            --manual-cell-bg: #FFE8C2;
+            --manual-cell-border: #FF9800;
+            --manual-cell-text: #111827;
+            --wip-grid-max-height: @(isWinHost ? "calc(100vh - 70px)" : "calc(100vh - 120px)");
+            --wip-unassigned-max-height: @(isWinHost ? "calc(70vh - 100px)" : "calc(70vh - 135px)");
+            --wip-grid-max-height-unassigned-open: @(isWinHost ? "calc(60vh - 115px)" : "calc(60vh - 150px)");
+            --wip-grid-max-height-tablet: @(isWinHost ? "calc(100vh - 135px)" : "calc(100vh - 170px)");
+            --wip-grid-max-height-mobile: @(isWinHost ? "calc(100vh - 175px)" : "calc(100vh - 210px)");
+            --wip-audit-grid-height-mobile: @(isWinHost ? "calc(100vh - 185px)" : "calc(100vh - 220px)");
+            --padding-top: @(isWinHost ? "0 !important" : "50px !important");
+        }
+        /* 1. CSS Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+
+        .split-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 100%;
+        }
+
+        .split-header {
+            padding: 6px 4px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .split-grids {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            gap: 12px;
+            height: calc(100% - 80px);
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .split-title {
+            font-weight: 600;
+            margin: 6px 0;
+        }
+
+        .split-grid-top, .split-grid-bottom {
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        #gridSplitTop, #gridSplitBottom {
+            flex: 1;
+            min-height: 0;
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .wip-split-popup-overlay .dx-popup-content {
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .wip-split-popup-overlay .split-wrap {
+            min-height: 100%;
+            height: auto !important;
+        }
+
+        #gridSplitTop .dx-datagrid,
+        #gridSplitBottom .dx-datagrid,
+        #gridSplitTop .dx-datagrid-rowsview,
+        #gridSplitBottom .dx-datagrid-rowsview {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        #gridSplitTop .dx-datagrid-nodata,
+        #gridSplitBottom .dx-datagrid-nodata {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Pager & Cell styles */
+        #gridSplitBottom .dx-datagrid-pager.dx-pager,
+        #gridSplitTop .dx-datagrid-pager.dx-pager {
+            padding: 2px 6px !important;
+            min-height: 26px !important;
+        }
+
+        #gridSplitTop .dx-datagrid-rowsview .dx-row > td,
+        #gridSplitBottom .dx-datagrid-rowsview .dx-row > td {
+            padding: 7px !important;
+            font-size: 12px !important;
+        }
+
+        #gridSplitTop .dx-texteditor-input,
+        #gridSplitBottom .dx-texteditor-input {
+            height: 17px !important;
+            padding: 0 4px !important;
+        }
+
+        .split-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1.2fr 180px; /* 4 field + nút */
+            gap: 10px;
+            align-items: end; /* nút dính dưới input */
+        }
+
+        .f-item .f-label {
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .f-actions {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .btn-load-native {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            height: 36px;
+            padding: 0 14px;
+            border-radius: 8px;
+            border: 1px solid #d0d7de;
+            background: #fff;
+            cursor: pointer;
+            background-color: #5cb85c;
+        }
+
+            .btn-load-native:hover {
+                filter: brightness(.98);
+            }
+
+        .req {
+            color: #d00;
+        }
+        /* 3. CUSTOM COMPACT SELECT (Ép kiểu cho DevExtreme SelectBox) */
+        /* Khung chứa input: cao đúng 28px (h-7) */
+        .custom-compact-select .dx-texteditor-container {
+            border-color: #9ca3af !important; /* Màu viền xám đậm hơn chút cho rõ */
+            border-radius: 3px !important;
+            background: white !important;
+        }
+
+        /* Input text bên trong: căn giữa, font chữ chuẩn */
+        .custom-compact-select .dx-texteditor-input {
+            padding: 0 8px !important;
+            font-size: 13px !important;
+            font-family: "Times New Roman", Times, serif !important;
+            min-height: 0 !important;
+            height: 26px !important; /* 28px trừ viền */
+            display: flex !important;
+            align-items: center !important;
+            margin-top: 0 !important;
+            color: #374151 !important; /* Màu chữ xám đậm */
+        }
+
+        /* Nút mũi tên xổ xuống */
+        .custom-compact-select .dx-dropdowneditor-button {
+            width: 28px !important;
+            min-width: 28px !important;
+            background: #f9fafb !important; /* Nền xám nhẹ cho nút mũi tên */
+        }
+
+        .custom-compact-select .dx-dropdowneditor-icon {
+            font-size: 10px !important;
+            line-height: 28px !important;
+        }
+
+        /* Style cho placeholder khi chưa chọn giá trị */
+        .dx-placeholder {
+            font-size: 13px !important;
+            font-style: italic !important;
+            top: 30% !important;
+            transform: translateY(-50%) !important;
+            margin-top: 0 !important;
+        }
+
+        /* Modal phải cao nhất */
+        #modalProduction {
+            z-index: 99999 !important;
+        }
+
+        /* Khóa scroll nền */
+        html.modal-open,
+        body.modal-open {
+            overflow: hidden !important;
+            height: 100% !important;
+        }
+
+        /* Tránh layout giật khi mất scrollbar (optional) */
+        body.modal-open {
+            padding-right: var(--sbw, 0px);
+        }
+
+            /* Nếu bạn muốn “ẩn hẳn layout / navbar” khi mở modal */
+            body.modal-open .navbar,
+            body.modal-open .top-nav,
+            body.modal-open header {
+                display: none !important;
+            }
+
+        .dx-field-item-label-location-top {
+            margin-top: 4px;
+        }
+
+        body {
+            font-family: Times New Roman, sans-serif;
+            background: var(--page-bg);
+            color: var(--text-main);
+            padding-top: var(--padding-top);
+        }
+
+        /* ===== Top bar (tabs + actions in one row) ===== */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 2px 6px;
+            margin: 4px 0;
+            background: var(--bg-white);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+        }
+
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        #lineTabs {
+            flex: 1;
+            min-width: 0;
+        }
+
+            #lineTabs .dx-tabs {
+                border: 1px solid #e5e7eb;
+                background: #fff;
+                border-radius: 10px;
+                padding: 4px;
+            }
+
+            #lineTabs .dx-tab {
+                background: transparent !important;
+                border: none !important;
+                color: #64748b;
+                font-weight: 600;
+                font-size: 11px;
+                padding: 6px 12px;
+                border-radius: 6px;
+                transition: all .15s ease;
+            }
+
+
+                #lineTabs .dx-tab:hover {
+                    background-color: #f1f5f9 !important;
+                    color: var(--text-main);
+                }
+
+                /* Tab đang được chọn (Active) */
+                #lineTabs .dx-tab.dx-tab-selected {
+                    background: #e0f2fe !important;
+                    color: var(--accent-dark) !important;
+                    font-weight: 700;
+                    position: relative;
+                }
+
+                    #lineTabs .dx-tab.dx-tab-selected::after {
+                        content: "";
+                        position: absolute;
+                        left: 10px;
+                        right: 10px;
+                        bottom: 2px;
+                        height: 2px;
+                        background: var(--accent-dark);
+                        border-radius: 2px;
+                    }
+
+        /* Ẩn đường kẻ focus mặc định xấu xí của DevExtreme */
+        .dx-tab.dx-state-focused::before {
+            border: none !important;
+        }
+
+        /* ===== CẢI THIỆN BUTTONS (dxButton) ===== */
+
+        /* 1. Button Load/Refresh (Style nhẹ nhàng) */
+        #btnLoad .dx-button {
+            background-color: #fff;
+            border: 1px solid #d1d5db;
+            color: #374151;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+
+            #btnLoad .dx-button:hover {
+                background-color: #f9fafb;
+                border-color: #9ca3af;
+            }
+
+        #btnLoad .dx-icon {
+            color: #6b7280; /* Icon màu xám */
+        }
+
+        #btnRecalcLine .dx-button {
+            min-width: 34px;
+            width: 34px;
+            height: 34px;
+            padding: 0 !important;
+            background: #2563eb;
+            border: 1px solid #1d4ed8;
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.28);
+        }
+
+            #btnRecalcLine .dx-button:hover {
+                background: #1d4ed8;
+                border-color: #1e40af;
+            }
+
+        #btnRecalcLine .dx-icon {
+            color: #fff !important;
+            font-size: 16px;
+        }
+
+        #btnDateFilter .dx-icon {
+            color: #fff;
+        }
+        /* 2. Button Thêm mới (Style Nổi bật) */
+        #btnAddRow .dx-button {
+            background-color: var(--accent);
+            border: none;
+            color: white;
+            box-shadow: 0 6px 14px rgba(37, 99, 235, 0.22);
+        }
+
+            #btnAddRow .dx-button:hover {
+                background-color: var(--accent-dark);
+            }
+
+        #btnAddRow .dx-icon {
+            color: white !important; /* Icon chắc chắn màu trắng */
+        }
+
+        #btnSortMode .dx-button {
+            background: #fff;
+            border: 1px solid #d1d5db;
+            color: #111827;
+        }
+
+            #btnSortMode .dx-button:hover {
+                background: #f9fafb;
+            }
+
+        .line-tabs-actions {
+            flex: 0 0 auto;
+        }
+
+        .topbar-right {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex: 0 0 auto;
+        }
+
+            .topbar-right .dx-button,
+            .topbar-right .dx-button .dx-button-content {
+                font-size: 10px;
+            }
+
+            .topbar-right .dx-button {
+                height: 30px;
+                min-height: 30px;
+                border-radius: 8px;
+            }
+
+                .topbar-right .dx-button .dx-button-content {
+                    padding: 0 8px;
+                }
+
+            /* icon nhỏ lại */
+            .topbar-right .dx-icon {
+                font-size: 12px;
+            }
+        /* ===== Grid ===== */
+        /* ✅ font Times New Roman cho khu vực WIP (topbar + grid) */
+        .topbar, #gridContainer {
+            font-family: "Times New Roman", Times, serif;
+        }
+
+            /*            #gridContainer .dx-datagrid-headers .dx-header-row > td {
+                font-size: 15px;
+                font-weight: 700;
+            }
+
+            #gridContainer .dx-datagrid-rowsview .dx-row > td {
+                font-size: 13px;
+                font-weight: 400;
+            }*/
+
+            /* text gọn hơn */
+            #gridContainer .dx-datagrid-text-content {
+                line-height: 1.3;
+            }
+
+        #gridContainer {
+            margin-top: 0;
+            background: var(--bg-white);
+            border-radius: 10px;
+            /*            border: 1px solid var(--border-color);*/
+            overflow: hidden;
+            max-height: var(--wip-grid-max-height);
+        }
+
+            #gridContainer .dx-scrollable-content {
+                padding-bottom: 20px !important;
+            }
+
+        .dx-datagrid {
+            font-size: 11px;
+            background: var(--bg-white);
+        }
+
+        /* header cells */
+        .dx-datagrid-headers .dx-datagrid-table .dx-row > td {
+            white-space: normal !important;
+            vertical-align: middle !important;
+            text-align: center !important;
+            padding: 1px 1px !important;
+            font-size: 13px !important;
+            background-color: var(--grid-header-default-bg) !important;
+            color: var(--grid-header-default-text) !important;
+            font-weight: 600;
+            border-bottom: 0.5px solid var(--accent);
+        }
+
+            .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-nangsuat {
+                background: var(--hdr-nangsuat-bg) !important;
+                color: var(--hdr-nangsuat-text) !important;
+                border-bottom: 1px solid #000 !important;
+            }
+
+                .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-nangsuat.group-end {
+                    border-right: 1px solid #000 !important;
+                }
+
+            .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-tinhtoan-nangsuat {
+                background: var(--hdr-tinhtoan-nangsuat-bg) !important;
+                color: var(--hdr-tinhtoan-nangsuat-text) !important;
+                border-bottom: 1px solid #000 !important;
+            }
+
+                .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-tinhtoan-nangsuat.group-end {
+                    border-right: 1px solid #000 !important;
+                }
+
+            .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-tiendo-thucte {
+                background: var(--hdr-tiendo-thucte-bg) !important;
+                color: var(--hdr-tiendo-thucte-text) !important;
+                border-bottom: 1px solid #000 !important;
+            }
+
+                .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-tiendo-thucte.group-end {
+                    border-right: 1px solid #000 !important;
+                }
+
+            .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-thoigian {
+                background: var(--hdr-thoigian-bg) !important;
+                color: var(--hdr-thoigian-text) !important;
+                border-bottom: 1px solid #000 !important;
+            }
+
+                .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-thoigian.group-end {
+                    border-right: 1px solid #000 !important;
+                }
+
+            .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-intheu {
+                background: var(--hdr-intheu-bg) !important;
+                color: var(--hdr-intheu-text) !important;
+                border-bottom: 1px solid #000 !important;
+            }
+
+                .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-intheu.group-end {
+                    border-right: 1px solid #000 !important;
+                }
+
+            .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-kythuat {
+                background: var(--hdr-kythuat-bg) !important;
+                color: var(--hdr-kythuat-text) !important;
+                border-bottom: 1px solid #000 !important;
+            }
+
+                .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-kythuat.group-end {
+                    border-right: 1px solid #000 !important;
+                }
+
+        .dx-datagrid .dx-row > td.txt-red-bold {
+            color: red !important; /* Hoặc mã màu hex như #ff0000 */
+            font-weight: bold !important;
+        }
+        /*.dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-merchandiser1 {*/
+        /*                background: #FFB6C1 !important;
+                border-bottom: 1.5px solid #FFB6C1 !important;*/
+        /*background: #D4C9FF !important;
+                border-bottom: 1px solid #B5A2F2 !important;
+            }
+
+                .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-merchandiser1.group-end {
+                    border-right: 1px solid #B5A2F2 !important;
+                }*/
+
+        .dx-datagrid-headers .dx-column-indicators {
+            display: none !important;
+        }
+
+        .dx-datagrid-rowsview .dx-row > td {
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+            vertical-align: middle !important;
+        }
+
+        #gridContainer .dx-datagrid-rowsview .dx-data-row > td {
+            height: 28px !important;
+        }
+
+        #gridContainer .dx-datagrid-rowsview .dx-data-row > td.dx-editor-cell {
+            height: 28px !important;
+        }
+
+        #gridContainer .dx-datagrid-rowsview .dx-data-row > td.dx-editor-cell .dx-texteditor,
+        #gridContainer .dx-datagrid-rowsview .dx-data-row > td.dx-editor-cell .dx-texteditor-container,
+        #gridContainer .dx-datagrid-rowsview .dx-data-row > td.dx-editor-cell .dx-dropdowneditor-input-wrapper {
+            height: 24px !important;
+            min-height: 24px !important;
+            max-height: 24px !important;
+        }
+
+        #gridContainer .dx-datagrid-rowsview .dx-data-row > td.dx-editor-cell .dx-texteditor-input {
+            height: 24px !important;
+            min-height: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+
+        #gridContainer .dx-datagrid-rowsview .dx-data-row > td.dx-editor-cell .dx-dropdowneditor-button {
+            height: 24px !important;
+            min-height: 24px !important;
+        }
+
+        .dx-datagrid .dx-row > td {
+            border-bottom: 1px solid var(--border-color);
+            padding: 5px 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dx-datagrid .dx-row-alt > td {
+            background-color: #f0f4f8 !important;
+        }
+
+        .dx-datagrid .dx-data-row:hover > td {
+            background-color: #cfe2fa !important;
+        }
+
+        /* group end line */
+        .group-end {
+            border-right: 1px solid #000 !important;
+        }
+
+        /* Popup container */
+        .dx-popup-wrapper .dx-popup-normal {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.18);
+        }
+
+        /* Header popup */
+        .dx-popup-title {
+            background: linear-gradient(90deg, #e0ecff, #f5f9ff);
+            color: #1e3a8a;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 10px 16px;
+            border-bottom: 1px solid #dbeafe;
+        }
+
+        .dx-popup-content {
+            overflow: hidden !important;
+            background: #f8fbff;
+        }
+
+        .wip-column-filter-overlay {
+            display: flex !important;
+            flex-direction: column !important;
+        }
+
+        .wip-column-filter-overlay .dx-popup-title,
+        .wip-column-filter-overlay .dx-popup-bottom {
+            flex: 0 0 auto !important;
+        }
+
+        .wip-column-filter-overlay .dx-popup-content {
+            flex: 1 1 auto !important;
+            min-height: 0 !important;
+        }
+
+        .wip-column-filter-overlay .dx-popup-bottom {
+            position: relative !important;
+            z-index: 3 !important;
+            pointer-events: auto !important;
+            background: #f8fbff;
+        }
+
+        .wip-column-filter-overlay .dx-popup-bottom .dx-button,
+        .wip-column-filter-overlay .dx-popup-bottom .dx-button-content {
+            pointer-events: auto !important;
+        }
+
+        .wip-column-filter-overlay .wip-column-filter-popup,
+        .wip-column-filter-overlay #treeColumnFilter {
+            height: 100% !important;
+            min-height: 0 !important;
+        }
+
+        @@media (max-width: 767.98px), (pointer: coarse) {
+            .wip-column-filter-overlay {
+                height: 100dvh !important;
+                max-height: 100dvh !important;
+            }
+
+            .wip-column-filter-overlay .dx-popup-content {
+                overflow: hidden !important;
+            }
+
+            .wip-column-filter-overlay .dx-popup-bottom {
+                min-height: 54px !important;
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+
+            .wip-column-filter-overlay .dx-popup-bottom .dx-toolbar-items-container {
+                min-height: 46px !important;
+            }
+        }
+
+        .dx-form-group-with-caption > .dx-form-group-content {
+            padding: 0px;
+            margin-top: 0px;
+            padding-bottom: 0px;
+        }
+
+        .col-green.col-end {
+            border-right: 1px solid #53AFAB !important;
+        }
+
+        .col-lavender.group-end {
+            border-right: 1px solid #A895F0 !important;
+        }
+
+        .col-lavender2.group-end {
+            border-right: 1px solid #B5A2F2 !important;
+        }
+
+        .col-info, .col-yellow, .col-green, .col-cyan, .col-lavender, .col-lavender2 {
+            background: #fff !important;
+        }
+        /* chỉ highlight trong form add */
+        .wip-form-add .wip-editor-input .dx-texteditor-input,
+        .wip-form-add .wip-editor-input .dx-numberbox input,
+        .wip-form-add .wip-editor-input .dx-checkbox-container {
+            background: #fff7ed !important;
+        }
+
+        .sort-hint {
+            margin: 6px 0 6px;
+            padding: 8px 10px;
+            border: 1px dashed #93c5fd;
+            background: #eff6ff;
+            color: #1e3a8a;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+            .sort-hint b {
+                font-weight: 700;
+            }
+
+        .subgrid-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 6px 10px;
+            margin-top: 8px;
+            background: var(--bg-white);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+        }
+
+        .subgrid-title {
+            font-weight: 700;
+            color: #111827;
+            font-size: 15px;
+        }
+
+        #gridContainerUnassigned {
+            margin-top: 6px;
+            background: var(--bg-white);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            max-height: var(--wip-unassigned-max-height);
+        }
+
+            #gridContainerUnassigned .dx-datagrid-headers .dx-datagrid-table .dx-row:not(.dx-datagrid-filter-row) > td {
+                white-space: normal !important;
+                vertical-align: middle !important;
+                text-align: center !important;
+                padding: 6px 4px !important;
+                font-size: 13.5px !important;
+                background-color: var(--grid-header-default-bg) !important;
+                color: var(--grid-header-default-text) !important;
+                font-weight: 600;
+                border-bottom: 0.5px solid var(--accent);
+            }
+
+            #gridContainerUnassigned .dx-datagrid-filter-row > td {
+                padding-top: 1px !important;
+                padding-bottom: 1px !important;
+            }
+
+            #gridContainerUnassigned .dx-datagrid-filter-row .dx-editor-with-menu,
+            #gridContainerUnassigned .dx-datagrid-filter-row .dx-texteditor {
+                height: 26px !important;
+                min-height: 26px !important;
+            }
+
+            #gridContainerUnassigned .dx-datagrid-filter-row .dx-texteditor-input {
+                min-height: 24px !important;
+                padding-top: 2px !important;
+                padding-bottom: 2px !important;
+                font-size: 11px !important;
+            }
+
+            #gridContainerUnassigned .dx-datagrid-headers .dx-column-indicators {
+                display: none !important;
+            }
+
+            #gridContainerUnassigned .dx-datagrid-rowsview .dx-row > td {
+                /*                padding-top: 0px !important;
+                padding-bottom: 0px !important;*/
+                padding-top: 7px !important;
+                padding-bottom: 7px !important;
+                font-size: 13px !important;
+                vertical-align: middle !important;
+            }
+
+        .subgrid-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex: 0 0 auto;
+        }
+
+            /* font nhỏ 12px */
+            .subgrid-actions .dx-button,
+            .subgrid-actions .dx-button .dx-button-content {
+                font-size: 12px !important;
+            }
+
+            /* chiều cao + bo góc */
+            .subgrid-actions .dx-button {
+                height: 30px;
+                min-height: 30px;
+                border-radius: 8px;
+            }
+
+                /* padding nội dung */
+                .subgrid-actions .dx-button .dx-button-content {
+                    padding: 0 10px;
+                }
+
+            /* icon nhỏ */
+            .subgrid-actions .dx-icon {
+                font-size: 14px;
+            }
+        /* highlight input hint */
+        .wip-editor-input.dx-texteditor,
+        .wip-editor-input.dx-textbox,
+        .wip-editor-input.dx-numberbox,
+        .wip-editor-input.dx-datebox {
+            background: #fff7ed !important;
+        }
+        /* ẩn hiện grid unassign */
+        .unassigned-wrap.is-collapsed .subgrid-bar,
+        .unassigned-wrap.is-collapsed #unassignedPanel {
+            display: none;
+        }
+
+        .unassigned-wrap.is-expanded .subgrid-bar {
+            display: flex; /* vì subgrid-bar dùng flex */
+        }
+
+        .unassigned-wrap.is-expanded #unassignedPanel {
+            display: block;
+        }
+
+        /* khi mở panel dưới -> làm grid trên thấp lại */
+        body.unassigned-open #gridContainer {
+            max-height: var(--wip-grid-max-height-unassigned-open);
+        }
+        /*PopUp change Line*/
+        .popup-change-line .dx-popup-title {
+            font-weight: 600;
+        }
+
+        .popup-change-line .form-label-green .dx-field-item-label-text,
+        .popup-change-line .dx-form-group-caption {
+            color: #0a8a2a; /* xanh */
+            font-weight: 700;
+        }
+
+        .popup-change-line .dx-texteditor-input[readonly] {
+            background: #f7f7f7;
+        }
+
+        .popup-change-line .dx-form-group-caption {
+            margin-bottom: 6px;
+        }
+
+        .popup-change-line .dx-form {
+            padding-top: 6px;
+        }
+
+        .popup-change-line .dx-popup-content {
+            padding: 14px 14px 8px;
+        }
+        /*.cell-manual {
+            background: #ffedd5 !important;*/ /* cam nhạt */
+        /*border-color: #fb923c !important;*/ /* cam */
+        /*}*/
+        .dx-datagrid .dx-row > td.cell-manual {
+            background: var(--manual-cell-bg) !important;
+            color: var(--manual-cell-text) !important;
+            box-shadow: inset 0 0 0 1px var(--manual-cell-border) !important;
+            border-color: inherit !important; /* giữ border gốc của grid */
+        }
+
+        .dx-datagrid .dx-row > td.tt-bom-status-1 {
+            background: var(--tt-bom-status-1-bg) !important;
+            color: #111827 !important;
+            font-weight: 700;
+        }
+
+        .dx-datagrid .dx-row > td.tt-bom-status-2 {
+            background: var(--tt-bom-status-2-bg) !important;
+            color: #111827 !important;
+            font-weight: 700;
+        }
+
+        .dx-datagrid .dx-row > td.tt-bom-status-3 {
+            background: var(--tt-bom-status-3-bg) !important;
+            color: #111827 !important;
+            font-weight: 700;
+        }
+
+        #btnDateFilter {
+            background-color: #296293;
+            color: white;
+        }
+
+            #btnDateFilter.is-filter-active .dx-button-content::after {
+                content: "";
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                display: inline-block;
+                background: #1e88e5;
+                vertical-align: middle;
+            }
+
+        .date-range-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .date-sep {
+            color: #8a8a8a;
+            font-weight: 600;
+            user-select: none;
+        }
+
+        .date-range-row .dx-texteditor {
+            flex: 1;
+        }
+
+        .wip-color-popup {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding: 6px 4px;
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        .wip-color-popup__section {
+            border: 1px solid #dbe5f0;
+            border-radius: 10px;
+            background: #ffffff;
+            padding: 12px;
+        }
+
+        .wip-color-popup__full {
+            margin-bottom: 10px;
+        }
+
+        .wip-color-popup__grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .wip-color-popup__grid--3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .wip-color-popup__label {
+            margin-bottom: 6px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .wip-color-popup__body {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+        }
+
+        .wip-color-popup__col {
+            flex: 1;
+            min-width: 0;
+            padding: 10px;
+            border: 1px solid #dbe5f0;
+            border-radius: 8px;
+            background: #ffffff;
+        }
+
+        .wip-color-popup__title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1e3a8a;
+        }
+
+        .wip-color-preview-box {
+            width: 72px;
+            height: 72px;
+            border: 1px solid #9ca3af;
+            border-radius: 6px;
+            background: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .wip-color-preview-code {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #e5e7eb;
+            background: #f9fafb;
+            font-weight: 700;
+        }
+
+        .wip-color-popup__editor {
+            margin-bottom: 10px;
+        }
+
+        #gridContainer .dx-datagrid-headers .dx-row > td {
+            border-right: 0.5px solid #2f2525 !important;
+        }
+
+        @@media (max-width: 768px) {
+            .wip-color-popup__body {
+                flex-direction: column;
+            }
+
+            .wip-color-popup__grid,
+            .wip-color-popup__grid--3 {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* ===== HEADER: Đơn hàng (VÀNG) ===== */
+        .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-donhang {
+            background: var(--hdr-donhang-bg) !important;
+            color: var(--hdr-donhang-text) !important;
+            border-bottom: 0.5px solid #000 !important;
+        }
+
+            /* nếu ô header có group-end thì kẻ vạch ngăn nhóm bằng đen */
+            .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-donhang.group-end {
+                border-right: 1px solid #000 !important;
+            }
+
+        .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-dongbo-intheu {
+            background: var(--hdr-dongbo-intheu-bg) !important;
+            color: var(--hdr-dongbo-intheu-text) !important;
+            border-bottom: 0.5px solid #000 !important;
+        }
+
+            .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-dongbo-intheu.group-end {
+                border-right: 1px solid #000 !important;
+            }
+
+        .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-kh-ngay {
+            background: var(--hdr-kh-ngay-bg) !important;
+            color: var(--hdr-kh-ngay-text) !important;
+            border-bottom: 0.5px solid #000 !important;
+        }
+
+            .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-kh-ngay.group-end {
+                border-right: 1px solid #000 !important;
+            }
+
+        .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-merchandiser {
+            background: var(--hdr-merchandiser-bg) !important;
+            color: var(--hdr-merchandiser-text) !important;
+            border-bottom: 0.5px solid #000 !important;
+        }
+
+            .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-merchandiser.group-end {
+                border-right: 1px solid #000 !important;
+            }
+
+        .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-qc {
+            background: var(--hdr-qc-bg) !important;
+            color: var(--hdr-qc-text) !important;
+            border-bottom: 0.5px solid #000 !important;
+        }
+
+            .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-qc.group-end {
+                border-right: 1px solid #000 !important;
+            }
+
+        .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-ie,
+        .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-IE {
+            background: var(--hdr-ie-bg) !important;
+            color: var(--hdr-ie-text) !important;
+            border-bottom: 0.5px solid #000 !important;
+        }
+
+            .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-ie.group-end,
+            .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-IE.group-end {
+                border-right: 1px solid #000 !important;
+            }
+
+        .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-codien {
+            background: var(--hdr-codien-bg) !important;
+            color: var(--hdr-codien-text) !important;
+            border-bottom: 0.5px solid #000 !important;
+        }
+
+            .dx-datagrid-headers .dx-datagrid-table .dx-row > td.hdr-codien.group-end {
+                border-right: 1px solid #000 !important;
+            }
+        /* Tô đỏ khi thiếu chọn loại in thêu */
+        .dx-datagrid .dx-row > td.cell-error-intheu {
+            background-color: #ff5349 !important; /* Nền đỏ nhạt */
+            /*            box-shadow: inset 0 0 0 1px #ffebee !important;*/
+        }
+
+        .dx-datagrid-borders > .dx-datagrid-header-panel {
+            display: none !important;
+        }
+
+        .dx-datagrid-filter-row .dx-editor-cell .dx-editor-with-menu .dx-placeholder::before, .dx-datagrid-filter-row .dx-editor-cell .dx-editor-with-menu .dx-texteditor-input {
+            font-size: 12px !important;
+        }
+
+        #btnLoad .dx-icon {
+            color: #fff !important;
+        }
+
+        #btnRecalcLine .dx-icon {
+            color: #fff !important;
+        }
+
+        .wip-audit-popup__content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 100%;
+            padding: 4px;
+            box-sizing: border-box;
+        }
+
+        .wip-audit-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 2px 0;
+        }
+
+        .wip-audit-header__item {
+            position: relative;
+            min-width: 150px;
+            flex: 1 1 200px;
+            padding: 9px 12px;
+            min-height: 56px;
+            border-radius: 12px;
+            border: 1px solid #dbe5f0;
+            background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+            overflow: hidden;
+        }
+
+            .wip-audit-header__item::before {
+                content: "";
+                position: absolute;
+                inset: 0 auto 0 0;
+                width: 3px;
+                background: linear-gradient(180deg, #2563eb 0%, #0ea5e9 100%);
+            }
+
+        .wip-audit-header__body {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+
+        .wip-audit-header__label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #64748b;
+            line-height: 1.2;
+        }
+
+        .wip-audit-header__value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .wip-audit-grid {
+            flex: 1;
+            min-height: 320px;
+        }
+
+        .wip-audit-grid__table .dx-datagrid-headers .dx-header-row > td,
+        .wip-audit-grid__table .dx-datagrid-rowsview .dx-row > td {
+            font-size: 14px;
+        }
+
+        .wip-audit-grid__table .dx-datagrid-headers .dx-header-row > td {
+            font-weight: 700;
+        }
+
+        .wip-audit-old-value {
+            color: #c62828;
+            font-weight: 600;
+        }
+
+        .wip-audit-new-value {
+            color: #1b8f3b;
+            font-weight: 700;
+        }
+
+        #wipMobileActionSheet .dx-action-sheet-item {
+            min-height: 46px;
+        }
+
+            #wipMobileActionSheet .dx-action-sheet-item .dx-button-text {
+                font-weight: 700;
+            }
+
+        #btnWipMoreActions {
+            display: none;
+        }
+
+            #btnWipMoreActions .dx-button {
+                width: 100%;
+            }
+
+            #btnWipMoreActions .dx-button-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            #btnWipMoreActions .dx-icon {
+                margin: 0 !important;
+            }
+
+        #wipMoreActionSheet .dx-action-sheet-item {
+            min-height: 46px;
+        }
+
+            #wipMoreActionSheet .dx-action-sheet-item .dx-button-text {
+                font-weight: 700;
+            }
+
+        .wip-audit-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            justify-content: end;
+        }
+
+        .wip-audit-filter__date {
+            width: 150px;
+        }
+
+        @@media (max-width: 992px) {
+            body.wip-compact-actions #tittleBC,
+            body.wip-compact-actions #Title {
+                display: none !important;
+            }
+
+            .wip-page-shell {
+                padding: 0 10px !important;
+            }
+
+            #btnAddRow,
+            #btnExportWipExcel,
+            #btnSortMode,
+            #btnDateFilter,
+            #btnLibraryWip,
+            #btnHeaderColorConfig,
+            #btnColumnFilter {
+                display: none !important;
+            }
+
+            #btnWipMoreActions {
+                display: block;
+            }
+
+            .topbar {
+                flex-wrap: wrap;
+            }
+
+            .topbar-left,
+            .topbar-right {
+                width: 100%;
+            }
+
+            .topbar-right {
+                display: grid;
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+                gap: 6px;
+                justify-content: stretch;
+                flex-wrap: nowrap;
+            }
+
+                .topbar-right > div {
+                    min-width: 0;
+                }
+
+                .topbar-right .dx-button {
+                    width: 100%;
+                    height: 32px;
+                    min-height: 32px;
+                }
+
+                    .topbar-right .dx-button .dx-button-content {
+                        min-width: 0;
+                        padding: 0 4px;
+                    }
+
+                    .topbar-right .dx-button .dx-button-text {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+
+            #btnRecalcLine .dx-button {
+                width: 100%;
+                min-width: 0;
+            }
+
+            #gridContainer {
+                max-height: var(--wip-grid-max-height-tablet);
+            }
+
+            .split-form-grid {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 8px !important;
+                align-items: start !important;
+            }
+
+            .split-grids {
+                height: auto !important;
+                grid-template-rows: auto auto !important;
+                gap: 10px !important;
+                overflow: visible !important;
+            }
+
+            .wip-split-popup-overlay .split-grids {
+                height: auto !important;
+                overflow: visible !important;
+            }
+
+            #gridSplitTop,
+            #gridSplitBottom {
+                min-height: 240px !important;
+            }
+
+                #gridSplitTop .dx-datagrid-content .dx-datagrid-table,
+                #gridSplitBottom .dx-datagrid-content .dx-datagrid-table {
+                    min-width: 760px;
+                }
+
+            #wipAuditPopup .dx-popup-content {
+                overflow: auto !important;
+            }
+
+            .wip-audit-grid {
+                min-height: 220px !important;
+                height: 58vh !important;
+            }
+
+            .wip-audit-header__value {
+                white-space: normal;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .wip-page-shell {
+                padding: 0 6px !important;
+            }
+
+            .topbar {
+                padding: 8px;
+                gap: 8px;
+                border-radius: 10px;
+            }
+
+            .topbar-right {
+                display: grid;
+                grid-template-columns: repeat(6, minmax(0, 1fr));
+                gap: 6px;
+            }
+
+                .topbar-right > div {
+                    min-width: 0;
+                }
+
+                .topbar-right > #btnToggleIsKetThuc,
+                .topbar-right > #btnToggleUnassigned,
+                .topbar-right > #btnLoad {
+                    grid-column: span 2;
+                }
+
+                .topbar-right > #btnRecalcLine,
+                .topbar-right > #btnWipMoreActions {
+                    grid-column: span 3;
+                }
+
+                .topbar-right .dx-button {
+                    width: 100%;
+                    height: 36px;
+                    min-height: 36px;
+                }
+
+                    .topbar-right .dx-button .dx-button-content {
+                        padding: 0 6px;
+                    }
+
+                    .topbar-right .dx-button .dx-button-text {
+                        overflow: visible;
+                        text-overflow: clip;
+                        white-space: nowrap;
+                    }
+
+            #lineTabs .dx-tab {
+                padding: 6px 8px;
+                font-size: 10px;
+            }
+
+            #gridContainer {
+                border-radius: 8px;
+                max-height: var(--wip-grid-max-height-mobile);
+            }
+
+                #gridContainer .dx-datagrid-headers .dx-datagrid-table .dx-row > td {
+                    font-size: 11px !important;
+                    padding: 2px 3px !important;
+                }
+
+                #gridContainer .dx-datagrid-rowsview .dx-row > td {
+                    font-size: 11px !important;
+                    padding: 6px 4px !important;
+                }
+
+            .wip-fab-wrap {
+                right: 10px;
+                bottom: 12px;
+            }
+
+            .wip-fab {
+                height: 38px;
+                padding: 0 12px;
+                font-size: 13px;
+            }
+
+            #modalProduction .wip-dialog {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                min-height: 100vh;
+                border-radius: 0;
+            }
+
+            #modalProduction .wip-modal-body {
+                padding: 10px;
+            }
+
+            #modalProduction .wip-row,
+            #modalProduction .wip-toolbar {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            #modalProduction .wip-col-2,
+            #modalProduction .wip-col-3,
+            #modalProduction .wip-col-4,
+            #modalProduction .wip-col-6 {
+                width: 100% !important;
+                max-width: 100% !important;
+                flex: 0 0 100% !important;
+            }
+
+            #modalProduction .wip-split {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            #modalProduction .wip-grid-right {
+                min-height: 220px;
+            }
+
+            .split-form-grid {
+                grid-template-columns: 1fr 1fr !important;
+            }
+
+            .split-grids {
+                height: auto !important;
+                grid-template-rows: auto auto !important;
+                gap: 10px !important;
+                overflow: visible !important;
+            }
+
+            .wip-split-popup-overlay .split-grids {
+                height: auto !important;
+                overflow: visible !important;
+            }
+
+            #gridSplitTop,
+            #gridSplitBottom {
+                min-height: 240px !important;
+            }
+
+                #gridSplitTop .dx-datagrid-content .dx-datagrid-table,
+                #gridSplitBottom .dx-datagrid-content .dx-datagrid-table {
+                    min-width: 680px;
+                }
+
+            .wip-audit-header__value {
+                white-space: normal;
+            }
+
+            .wip-audit-grid {
+                min-height: 0 !important;
+                height: var(--wip-audit-grid-height-mobile) !important;
+            }
+
+            .wip-audit-grid__table .dx-datagrid-headers .dx-header-row > td,
+            .wip-audit-grid__table .dx-datagrid-rowsview .dx-row > td {
+                font-size: 12px !important;
+            }
+        }
+
+        .date-filter-popover .dx-popup-title .dx-toolbar-label > div {
+            font-size: 14px;
+        }
+
+        @@media (max-width: 992px) and (orientation: landscape) {
+            .wip-audit-grid {
+                height: 42vh !important;
+                min-height: 170px !important;
+            }
+
+            #gridSplitTop,
+            #gridSplitBottom {
+                min-height: 180px !important;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .wip-audit-header__item {
+                flex-basis: 100%;
+                min-width: 0;
+            }
+
+            .wip-audit-filter__date {
+                width: calc(50% - 4px);
+            }
+        }
+    </style>
+}

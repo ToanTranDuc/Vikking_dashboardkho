@@ -1,0 +1,75 @@
+﻿table, tr, th, td {
+  /*  border: 1px solid black;*/
+}
+.div-TongQuan-tbody-tr {
+    outline: 1px solid black;
+}
+.div-TongQuan-tbody-tr td {
+    outline: 1px solid black;
+}
+#table-DS-KetQua-tbody tr {
+    outline: 1px solid black;
+}
+#table-DS-KetQua-tbody td {
+    outline: 1px solid black;
+}
+table {
+    background-color: white;
+}
+table, thead, tbody,tfoot,tr{
+    width: 100%;
+}
+thead {
+    top: 0;
+    position: sticky;
+    z-index: 1;
+}
+th {
+    text-align: center;
+    align-items: center;
+    background-color: #ffd684;
+    color: #737373;
+    outline:1px solid black;
+}
+#icondSearch svg path{
+    fill:red;
+}
+input {
+    max-width: 100vw;
+}
+.trActionClass{
+    background-color:antiquewhite;
+}
+
+main-baocao {
+    overflow: auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+}
+
+main-baocao::-webkit-scrollbar {
+    width: 0 !important;
+    display: none;
+}
+/*css lo*/
+th {
+    background-color: #5da566 !important;
+    color: white !important;
+    font-family: 'roboto' !important;
+
+    outline: 1px solid black !important;
+}
+
+thead td {
+    background-color: #5da566 !important;
+    color: white !important;
+    font-family: 'roboto' !important;
+    outline: 1px solid black !important;
+}
+
+td {
+    font-family: 'roboto';
+    outline: 1px solid black !important;
+    font-weight: 400 !important;
+    padding: 0.45rem !important;
+}

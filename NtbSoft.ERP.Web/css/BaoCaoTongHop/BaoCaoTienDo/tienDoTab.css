@@ -1,0 +1,37 @@
+﻿@media (min-width: 581px) and (max-width: 1180px) {
+    .tieude {
+        flex-direction: row; /* Maintain horizontal layout */
+        justify-content: space-between; /* Space out label and button */
+        padding: 8px 15px; /* Adjust padding for medium screens */
+    }
+
+    button.ex {
+        padding: 8px 16px; /* Adjust button padding */
+        font-size: 13px; /* Slightly smaller font size */
+        margin-left: auto; /* Keep the button on the right */
+    }
+
+        button.ex i {
+            margin-right: 6px; /* Adjust space between icon and text */
+        }
+
+    .table-responsive {
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+        .table-responsive table {
+            width: 100%; /* Maintain 100% width */
+            font-size: 13px; /* Adjust font size */
+        }
+
+    thead td, tbody td, tfoot td {
+        padding: 8px; /* Adjust padding for medium screens */
+        min-width: 50px; /* Adjusted minimum width */
+    }
+
+    /* Additional adjustments for elements in this range */
+    label {
+        font-size: 14px; /* Adjust font size for labels */
+    }
+}

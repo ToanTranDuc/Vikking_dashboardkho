@@ -1,0 +1,51 @@
+﻿@media (min-width: 1199px) {
+    .header--l {
+        max-width: 40% !important;
+        flex: 0 0 40% !important;
+    }
+
+    .header--c {
+        max-width: 30% !important;
+    }
+
+    .header--r {
+        max-width: 30% !important;
+    }
+}
+
+
+@media (min-width: 992px) {
+
+    .header--l {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .header--c {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .header--r {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+
+/*.----------------------------Statistical----------------------------------*/
+
+
+
+
+
+.nav-item :hover {
+    opacity: 0.9;
+}
+
+#rpmyCanvas {
+    border: 1px solid #dedee9 !important;
+}

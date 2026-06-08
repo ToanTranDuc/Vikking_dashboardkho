@@ -1,0 +1,150 @@
+﻿#table1 thead tr th {
+    width: calc(100% / 47);
+    padding: 2px;
+    border-left: 1px solid #dee2e6;
+    text-align: center;
+    background-color: #ffb74d;
+    min-width: 50px;
+    box-shadow: inset 0 1px 0 #dee2e6, inset 0 0px 0 #dee2e6;
+}
+
+#table1 tbody tr td {
+    width: calc(100% / 47);
+    padding: 2px;
+    border-left: 1px solid #dee2e6;
+    text-align: center;
+    background-color: #fff;
+    min-width: 50px;
+    box-shadow: inset 0 1px 0 #dee2e6, inset 0 0px 0 #dee2e6;
+    height: 25px;
+}
+
+#table1 tbody tr:last-child {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.btn-action {
+    margin-right: 100px;
+}
+
+    .btn-action > #btnSave, .btn-action > #btnReset {
+        border-radius: 5px;
+        border: 1px solid #dee2e6;
+        min-width: 120px;
+        height: 30px;
+    }
+
+.btn-action > #btnSave {
+    background-color: #009cff63;
+}
+
+.btn-action > #btnReset {
+    background-color: #ffa4a4;
+}
+
+.chitiet {
+    display: flex;
+    align-items: center;
+}
+
+.chitiet_info lable {
+    margin-right: 30px;
+}
+
+.chitiet_info .color1 {
+    color: #000;
+}
+
+.chitiet_info .color2 {
+    color: blue;
+}
+
+.chitiet_info .color3 {
+    color: rgba(0, 192, 0);
+}
+
+.chitiet_info .color4 {
+    color: red;
+}
+
+.table-scroll-x {
+
+}
+
+#table1 thead {
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+
+.box-congdoan {
+    position: absolute;
+    top: 50%;
+    padding: 20px;
+    border: 1px solid;
+    display: none;
+    background-color: #fff;
+}
+
+.box-congdoan__inner {
+    display: flex;
+    align-items: center;
+    gap: 0 10px;
+}
+
+.close_congdoan {
+    border: unset;
+    border-radius: 5px;
+    width: 35px;
+    height: 30px;
+}
+
+#btn_submitCongDoan {
+    border: 1px solid;
+    border-radius: 7px;
+}
+
+.back-link {
+    
+}
+
+    .back-link img {
+        width: 63px;
+        height: 30px;
+        background: #dbffdb;
+    }
+@media screen and (max-width: 991px) {
+    .chitiet {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+
+    #table1 {
+        display: block;
+        overflow-x: auto;
+        /*white-space: nowrap;*/
+    }
+
+    .kcs-chitiet {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    #table1 thead tr th {
+        padding: 5px;
+    }
+
+    #table1 tbody tr td {
+        padding: 5px;
+    }
+
+    .btn-action {
+        margin-bottom: 15px;
+    }
+
+    .chitiet_info >div {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}

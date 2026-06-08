@@ -1,0 +1,350 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: roboto
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+.table {
+    margin: 0
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 0px
+}
+
+.content {
+    background: #70baed;
+    margin: 3px;
+    padding: 0px 5px;
+    border-radius: 5px;
+}
+
+.lst_DonHang {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    width: 200px;
+}
+
+.lst_ngay {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    width: 150px;
+}
+
+.item_select {
+    font-size: 13px;
+    text-align: center;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 25px;
+    font-family: roboto;
+    padding: 0 5px;
+}
+
+.item_lable {
+    font-size: 16px;
+    margin-bottom: 0;
+    font-family: roboto;
+    margin-left: 2px;
+}
+
+.item_ngaychon {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 2px 5px;
+}
+
+#Update, #delete, #hoanthanh {
+    height: 30px;
+    outline: none;
+    margin-right: 5px
+}
+
+.item_total {
+    margin: 0 10px;
+}
+
+    .item_total p {
+        margin: 0 10px;
+    }
+
+.task-item {
+    display: flex;
+    max-height: calc(100vh - 600px);
+    margin: 10px 3px 0;
+    border: 1px solid #ccc;
+    padding: 2px;
+    border-radius: 5px;
+    margin-top: 4px;
+    width: 99.8%;
+    min-height: 100px;
+}
+
+
+    .task-item .item-table {
+        overflow: auto;
+        width: 100%;
+    }
+
+        .task-item .item-table .table thead {
+            position: sticky;
+            top: 0;
+            z-index: 3
+        }
+
+            .task-item .item-table .table thead tr {
+                border: 1px solid #ccc;
+                position: sticky;
+                top: 0;
+            }
+
+                .task-item .item-table .table thead tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-weight: bold;
+                    color: #fff;
+                    vertical-align: middle;
+                    background: #5da566;
+                    outline: none;
+                    font-family: 'Roboto';
+                    min-width: 60px;
+                    padding: 4px 2px;
+                }
+
+
+
+        .task-item .item-table .table tbody {
+        }
+
+            .task-item .item-table .table tbody tr {
+                border: 1px solid #ccc;
+            }
+
+                .task-item .item-table .table tbody tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: bold;
+                    font-family: serif;
+                    vertical-align: middle;
+                    font-family: 'Roboto';
+                    padding: 4px 2px;
+                }
+
+        .task-item .item-table .table tfoot {
+            position: sticky;
+            bottom: 0;
+            background: #fff;
+            outline: 1px solid #ccc;
+        }
+
+            .task-item .item-table .table tfoot tr {
+                border: 1px solid #ccc;
+            }
+
+                .task-item .item-table .table tfoot tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: bold;
+                    font-family: serif;
+                    vertical-align: middle;
+                    font-family: 'Roboto';
+                    color: red;
+                }
+/*view thongketong*/
+.task-itemTong {
+    display: flex;
+    max-height: calc(100vh - 250px);
+    margin: 10px 3px 0;
+    border: 1px solid #ccc;
+    padding: 2px;
+    border-radius: 5px;
+    margin-top: 4px;
+    width: 99.8%;
+}
+
+
+    .task-itemTong .item-tableTong {
+        overflow: auto;
+        width: 100%;
+    }
+
+        .task-itemTong .item-tableTong .table thead {
+            position: sticky;
+            top: 0;
+            z-index: 3
+        }
+
+            .task-itemTong .item-tableTong .table thead tr {
+                border: 1px solid #ccc;
+                position: sticky;
+                top: 0;
+            }
+
+                .task-itemTong .item-tableTong .table thead tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-weight: bold;
+                    color: #fff;
+                    vertical-align: middle;
+                    background: #5da566;
+                    outline: none;
+                    font-family: 'Roboto';
+                    padding: 4px 2px;
+                }
+
+
+
+        .task-itemTong .item-tableTong .table tbody {
+        }
+
+            .task-itemTong .item-tableTong .table tbody tr {
+                border: 1px solid #ccc;
+            }
+
+                .task-itemTong .item-tableTong .table tbody tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: bold;
+                    font-family: serif;
+                    vertical-align: middle;
+                    font-family: 'Roboto';
+                    padding: 4px 2px;
+                }
+
+        .task-itemTong .item-tableTong .table tfoot {
+            position: sticky;
+            bottom: 0;
+            background: #fff;
+            outline: 1px solid #ccc;
+        }
+
+            .task-itemTong .item-tableTong .table tfoot tr {
+                border: 1px solid #ccc;
+            }
+
+                .task-itemTong .item-tableTong .table tfoot tr td {
+                    border: 1px solid #ccc;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: bold;
+                    font-family: serif;
+                    vertical-align: middle;
+                    font-family: 'Roboto';
+                    color: red;
+                }
+
+.active1 {
+    background: #e2ebf1 !important
+}
+
+/* Kiệt */
+
+.select2-container .select2-selection--single {
+    font-size: 12px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 28px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 24px !important;
+}
+
+.select2-container--default .select2-results > .select2-results__options {
+    font-size: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid rgb(216, 223, 232);
+    border-radius: 4px;
+}
+
+.dx-header-row .col-header {
+    background: #5da566;
+    color: #fff;
+    text-align: center !important;
+    vertical-align: middle !important
+}
+
+.dx-data-row .col-header {
+    text-align: center !important;
+    font-size: 13px !important;
+    vertical-align: middle !important
+}
+
+.dx-data-row .checkboxTD {
+    display: flex;
+    justify-content: center
+}
+
+.dx-footer-row .col-header .dx-datagrid-text-content {
+    text-align: center !important;
+    color: red !important
+}
+
+.dx-datagrid-summary-item {
+    text-align: center !important;
+    color: red !important
+}
+
+#tblDataBodyLS {
+    max-width: 100% !important
+}
+
+.dx-datagrid-filter-row {
+    background: #fff !important;
+}
+
+.dx-selection.dx-row > td {
+    background-color: #dee6eab5 !important;
+    color: #000 !important;
+}
+
+.dx-row.dx-freespace-row.dx-column-lines {
+    display: none !important
+}
+
+.txtselected {
+    font-size: 12px;
+    font-weight: 500 !important;
+    margin-bottom: 0px;
+    margin-top: 2px;
+}
+
+.tempus-dominus-widget {
+    width: 24rem;
+}
+
+input[type="radio"], input[type="checkbox"] {
+     margin: 0px 0 0; 
+    margin-top: 1px \9;
+    line-height: normal;
+}
+.dx-widget, .dx-widget *, .dx-widget ::after, .dx-widget ::before, .dx-widget::after, .dx-widget::before {
+    font-size: 13px;
+    box-sizing: border-box;
+}

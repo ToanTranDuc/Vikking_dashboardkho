@@ -1,0 +1,100 @@
+﻿.signature-canvas {
+    border: 2px dashed #dee2e6;
+    border-radius: 8px;
+    background: #ffffff;
+    cursor: crosshair;
+    touch-action: none;
+    width: 100%;
+    display: block;
+    max-width: 100%;
+}
+
+.modal-content {
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.btn-tool {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+    .btn-tool:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+.color-picker {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    border: 2px solid #dee2e6;
+    cursor: pointer;
+}
+
+.pen-size-selector {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.pen-size-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid #dee2e6;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+    .pen-size-btn.active {
+        border-color: #667eea;
+        background: #f0f4ff;
+    }
+
+    .pen-size-btn:hover {
+        transform: scale(1.1);
+    }
+
+.signature-preview {
+    max-width: 100%;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 20px;
+    }
+
+    .modal-dialog {
+        margin: 10px;
+    }
+
+    .signature-canvas {
+        height: 250px !important;
+    }
+
+    .btn-tool,
+    .color-picker,
+    .pen-size-btn {
+        width: 40px;
+        height: 40px;
+    }
+}

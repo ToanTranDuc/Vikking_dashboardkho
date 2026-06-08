@@ -1,0 +1,1483 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Nhập vị trí Thành Phẩm";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/css/QRCode/toastr.minM.css" rel="stylesheet" />
+    <link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+    <link href="~/css/ViTriKhoNPL/nhapvitri.css" rel="stylesheet" />
+    <link href="~/css/ViTriKhoNPL/ScanQrCodeMobile.css" rel="stylesheet" />
+    <style>
+        tr:nth-child(even) {
+            background-color: #ececec;
+        }
+
+        .dx-header-row .col-header {
+            background: #5da566;
+            color: #fff;
+            text-align: center !important;
+            vertical-align: middle !important
+        }
+
+        .dx-data-row .col-header {
+            text-align: center !important;
+            font-size: 13px !important;
+            vertical-align: middle !important
+        }
+
+        .dx-data-row .checkboxTD {
+            display: flex;
+            justify-content: center
+        }
+
+        .dx-footer-row .col-header .dx-datagrid-text-content {
+            text-align: center !important;
+            color: red !important
+        }
+
+        .dx-datagrid-summary-item {
+            text-align: center !important;
+            color: red !important
+        }
+
+        .dx-datagrid-filter-row {
+            background: #fff !important;
+        }
+
+        .select2-container--default .select2-dropdown {
+            border: 1px solid #ced4da;
+            min-width: 100px;
+            overflow-wrap: break-word;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 26px;
+            position: absolute;
+            top: 5px;
+            right: 1px;
+            width: 20px;
+        }
+
+        .select2-results__option[aria-selected] {
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            font-size: 14px;
+            padding-top: 2px;
+        }
+
+        .editcbm {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            color: #d15555;
+        }
+
+        .checknhapkho {
+            background: #91e1ff;
+        }
+
+        #headerRect th, #headerCylinder th {
+            background: #5DA566 !important;
+            font-weight: unset;
+            color: #fff;
+            text-align: center;
+        }
+
+        .item-add {
+            position: absolute;
+            top: 11px;
+            left: 11px;
+            padding: 0px 5px;
+            background: #fff;
+            color: #000;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 9999;
+            cursor: pointer;
+        }
+
+        /* Global Search Styles */
+        .search-result-item {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(13, 110, 253, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+            .search-result-item:hover {
+                background: rgba(13, 110, 253, 0.1);
+                border-color: rgba(13, 110, 253, 0.5);
+            }
+
+        .item-location-badge {
+            background: linear-gradient(45deg, #198754, #20c997);
+            color: white;
+            font-size: 0.85rem;
+            padding: 4px 8px;
+            border-radius: 15px;
+        }
+
+        .item-info {
+            font-size: 0.9rem;
+        }
+
+        .view-detail-btn {
+            background: linear-gradient(45deg, #0d6efd, #6610f2);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+            .view-detail-btn:hover {
+                box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+            }
+
+        .txtselected {
+            margin-bottom: 5px;
+        }
+
+        .changeVT {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            background: #492FF6;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 20px;
+            height: 34px;
+            margin-top: 29px;
+        }
+
+        .modal-xxl {
+            max-width: 1400px !important;
+        }
+
+        .suggest-card {
+            border-left: 4px solid #0d6efd;
+            transition: all 0.3s ease;
+        }
+
+            .suggest-card:hover {
+                transform: translateX(5px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+
+        .priority-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ffc107;
+            color: #000;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .same-type-section {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .empty-section {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .slot-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .cbm-progress {
+            height: 8px;
+            border-radius: 4px;
+        }
+
+        .select-btn {
+            transition: all 0.2s;
+        }
+
+            .select-btn:hover {
+                transform: scale(1.05);
+            }
+
+        .no-data-placeholder {
+            text-align: center;
+            color: #6c757d;
+        }
+
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .section-title i {
+                font-size: 24px;
+            }
+
+        .combination-badge {
+            background: #17a2b8;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        .slot-group {
+            border: 2px dashed #6c757d;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .collapsible-group {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .group-header {
+            background: #357c97;
+            color: white;
+            padding: 4px 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+
+            .group-header h4 {
+                margin: 0;
+                font-size: 18px;
+                font-weight: 600;
+            }
+
+        .toggle-icon {
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .group-header[aria-expanded="true"] .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .group-body {
+            padding: 20px;
+        }
+
+        .child-item {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+            .child-item:hover {
+                background: #e9ecef;
+                transform: translateX(5px);
+            }
+
+            .child-item:last-child {
+                margin-bottom: 0;
+            }
+
+            .child-item h5 {
+                color: #667eea;
+                font-size: 16px;
+                margin-bottom: 8px;
+            }
+
+            .child-item p {
+                margin: 0;
+                color: #6c757d;
+            }
+
+        /*Kiệt*/
+        .item-thung hr {
+            margin: 0px !important;
+            color: inherit;
+            border-top: var(--bs-border-width) solid;
+        }
+
+        .item-thung-base {
+            text-align: center;
+            width: 60px;
+            max-height: 55px;
+            padding: 0px 2px;
+            background: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+            .item-thung-base h6 {
+                margin: 2px 0px;
+                font-size: 9px;
+            }
+
+            .item-thung-base hr {
+                margin: 0 !important;
+                border-top: var(--bs-border-width) solid;
+            }
+
+        .item-thung {
+            border: 2px solid #ff7b2a;
+        }
+
+        .item-thung-exist {
+            border: 2px solid #492FF6;
+        }
+
+        .item-thung-move {
+            border: 2px solid rgba(var(--bs-primary-rgb));
+        }
+
+        .item-thung-to {
+            border: 2px solid var(--bs-success);
+        }
+        .item-thung:hover {
+            background-color: #fffbf8;
+            border-color: #d45100;
+        }
+
+        .item-thung-exist:hover {
+            background-color: #eeebff;
+            border-color: #1600ab;
+        }
+
+        .item-thung-move:hover {
+            background-color: #ecf4ff;
+            border-color: #004eba;
+        }
+
+        .item-thung-to:hover {
+            background-color: #edfff7;
+            border-color: #076237;
+        }
+
+        .tooltip-inner {
+            text-align: left !important;
+        }
+
+        .suggest-card.slot-removed {
+            pointer-events: none;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+
+            .suggest-card.slot-removed .select-btn {
+                background-color: #6c757d !important;
+                cursor: not-allowed;
+            }
+
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid main-container py-1 px-1">
+        <!-- Header -->
+        <div class="row m-0 p-0 mb-2 ">
+            <div class="col-12 m-0 p-0" style="position: fixed; top: 0px; z-index: 999;">
+                <div class="card glass-card">
+                    <div class="card-body p-2">
+                        <div class=" align-items-center justify-content-between  w-100 d-flex">
+                            <div class="">
+                                <h4 class="mb-0">
+                                    <i id="home" class="fa-sharp fa-solid fa-house"></i>
+                                    Hệ Thống Quản Lý Kho Thành phẩm
+                                </h4>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between flex-wrap " style="gap:10px">
+                                <div>
+                                    Tổng CBM:
+                                </div>
+                                <div>
+                                    <span class="tongCBM" style="padding: 8px 30px; border-radius: 5px; border: 1px solid #ccc; color: red; font-weight: 600;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section style="margin-top: 60px;">
+            <div class="container-fluid p-0 mb-2" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                <div class="card glass-card">
+                    <div class="card-body" style="padding :2px;margin-bottom:5px">
+                        <div class="">
+                            <div class="row p-0 m-0">
+                                <!-- Mã hàng -->
+                                <div class="col-6 col-md-4 col-lg-3 col-xl-2 px-1">
+                                    <div class="select2_item">
+                                        <label class="txtselected">Mã hàng</label>
+                                        <select class="select_2" id="mahangid">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- PO -->
+                                <div class="col-6 col-md-4 col-lg-2 col-xl-2 px-1">
+                                    <div class="select2_item">
+                                        <label class="txtselected">PO</label>
+                                        <select class="select_2" id="poid">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Mã PKL -->
+                                <div class="col-6 col-md-4 col-lg-1 col-xl-1 px-1">
+                                    <div class="select2_item">
+                                        <label class="txtselected">Mã PKL</label>
+                                        <select class="select_2" id="pklid">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Đầu size - Color -->
+                                <div class="col-6 col-md-4 col-lg-1 col-xl-1 px-1">
+                                    <div class="select2_item">
+                                        <label class="txtselected">Đầu size </label>
+                                        <select class="select_2" id="dausizeid">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-4 col-lg-2 col-xl-2 px-1">
+                                    <div class="select2_item">
+                                        <label class="txtselected">Tên màu</label>
+                                        <select class="select_2" id="colorid">
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Size -->
+                                <div class="col-6 col-md-4 col-lg-2 col-xl-1 px-1">
+                                    <div class="select2_item">
+                                        <label class="txtselected">Size</label>
+                                        <select class="select_2" id="sizeid">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Buttons -->
+                                <div class="col-6 col-md-4 col-lg-2 col-xl-2">
+                                    <div class="d-flex justify-content-start align-items-center flex-wrap">
+                                        <div class="d-flex flex-row align-items-center justify-content-start gap-2">
+                                            <div class="select2_item">
+                                                <label class="txtselected">Gợi ý</label>
+                                                <div onclick="Sugget()" class="icon_reload" style="background: #64f30a">
+                                                    <i class="fa-solid fa-lightbulb-on"></i>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-start align-items-center flex-wrap">
+                                                <div id="btnLocThung" class="d-none">
+                                                    <div class="select2_item">
+                                                        <label class="txtselected">Lọc thùng</label>
+                                                        <div onclick="FilterThung()" class="icon_reload" style="background: #64f30a">
+                                                            <i class="fa-solid fa-filter"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Buttons -->
+                                <div class="col-6 col-md-4 col-lg-1 col-xl-1 px-0">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="collapsible-group">
+            <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group1" aria-expanded="true">
+                <h4><i class="fa-solid fa-tag"></i> Thông tin thùng</h4>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapse show" id="group1">
+                <section style="padding: 5px 10px;">
+                    <!-- Thông tin thùng-->
+                    <div class="gap-3 row p-0 m-0" id="lstDongThung"></div>
+                </section>
+            </div>
+        </div>
+
+
+        <div class="collapsible-group">
+            <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group2" aria-expanded="false">
+                <h4> <i class="fa-solid fa-table"></i> Thông tin chuyển ô</h4>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapse" id="group2">
+                <div class="input-group" style="padding: 5px 10px;">
+                    <div class="row w-100">
+                        <div class="col-5 col-md-5 col-lg-4 col-xl-2">
+                            <div class="select2_item ">
+                                <label class="txtselected">Ô cần chuyển</label>
+                                <select onchange="" class="select_2" id="vattuchuyen">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-5 col-md-5 col-lg-4 col-xl-2 ">
+                            <div class="select2_item ">
+                                <label class="txtselected">Ô nhận thùng</label>
+                                <select onchange="" class="select_2" id="vattuden">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-2 col-md-2 col-lg-2 col-xl-2 ">
+                            <div class="select2_item ">
+                                <label class="txtselected d-none">Chuyển thùng</label>
+                                <div onclick="ToFromVT()" class="changeVT">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="collapsible-group">
+            <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group3" aria-expanded="false">
+                <h4> <i class="bi bi-search"></i> Tìm kiếm</h4>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapse" id="group3">
+                <div class="position-relative" style="padding: 5px 10px;">
+                    <div class="row w-100">
+
+                        <div class="col-12 col-lg-6">
+                            <h5 class="mb-2">
+                                Tìm kiếm ô trong kho
+                            </h5>
+                            <div class="input-group">
+                                <span class="input-group-text bg-success text-white">
+                                    <i class="bi bi-box-seam"></i>
+                                </span>
+                                <input type="text" class="form-control" id="globalSearchInput"
+                                       placeholder="Nhập tên ô để tìm kiếm ">
+                                <button class="btn btn-success clearSearch" type="button" id="clearSearch">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 ">
+                            <h5 class="mb-2">
+                                Tìm kiếm thùng trong kho
+                            </h5>
+                            <div class="input-group">
+                                <span class="input-group-text bg-success text-white">
+                                    <i style="height: 26px; display: flex; justify-content: center; align-items: center;" class="bi bi-box-seam"></i>
+                                </span>
+                                <input type="text" class="form-control" id="globalBarcode"
+                                       placeholder="Quét hoặc nhập barcode để tìm kiếm ">
+                                <button class="btn btn-success clearSearch" type="button" id="">
+                                    <i class="fa-solid fa-magnifying-glass enterbarcode"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keyboard shortcut hint -->
+                    <small class="text-muted mt-1 d-block">
+                        <i class="bi bi-keyboard"></i>
+                        Nhấn <kbd>Ctrl+K</kbd> để tìm kiếm nhanh | <kbd>ESC</kbd> để đóng kết quả
+                    </small>
+
+                    <!-- Search Results Dropdown -->
+                    <div class=" w-100 mt-1" style="z-index: 1000;">
+                        <div id="searchLable">
+
+                        </div>
+                        <div id="searchResults" class="list-group shadow"
+                             style="display: none; max-height: 400px; overflow-y: auto;">
+                            <!-- Search results will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="collapsible-group">
+            <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group5" aria-expanded="false">
+                <h4><i class="fa-solid fa-notes-medical"></i> Chú thích</h4>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapse" id="group5">
+                <section style="padding: 5px 10px;">
+                    <div class="row m-0 p-0 mb-4 ">
+
+                        <div class="col-lg-8 mb-2  m-0 p-0 pe-lg-2">
+                            <div class="card glass-card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3 col-6 mb-2">
+                                            <div class="d-flex align-items-center">
+                                                <div class="capacity-empty rounded-circle me-2" style="width: 20px; height: 20px;">
+                                                </div>
+                                                <small>= 0% (Đầy)</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-6 mb-2">
+                                            <div class="d-flex align-items-center">
+                                                <div class="capacity-low rounded-circle me-2" style="width: 20px; height: 20px;">
+                                                </div>
+                                                <small>&lt; 50% (Sắp đầy)</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-6 mb-2">
+                                            <div class="d-flex align-items-center">
+                                                <div class="capacity-medium rounded-circle me-2" style="width: 20px; height: 20px;">
+                                                </div>
+                                                <small>50% - 80%</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-6 mb-2">
+                                            <div class="d-flex align-items-center">
+                                                <div class="capacity-high rounded-circle me-2" style="width: 20px; height: 20px;">
+                                                </div>
+                                                <small>&gt; 80% (Còn nhiều)</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4  m-0 p-0 ps-lg-2">
+                            <div class="card stats-card">
+                                <div class="card-body text-center">
+                                    <h6>Thống kê</h6>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="stat-number" id="totalSlots">0</div>
+                                            <small>Tổng ô</small>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="stat-number" id="availableSlots">0</div>
+                                            <small>Còn nhiều chỗ</small>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="stat-number" id="occupiedSlots">0</div>
+                                            <small>Đã đầy</small>
+                                        </div>
+                                        <div class="col-6 mt-2 d-none">
+                                            <div class="stat-number" id="utilizationRate">0%</div>
+                                            <small>Tỷ lệ cảnh báo</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- Legend & Stats -->
+        <!-- Warehouse Map -->
+        <div class="row  m-0 p-0">
+            <div class="col-12  m-0 p-0">
+                <div class="card warehouse-container">
+                    <div class="card-body">
+                        <h2 class="text-center warehouse-title mb-4">
+                            <i class="bi bi-diagram-3"></i> SƠ ĐỒ KHO
+                        </h2>
+
+                        <div class="row" id="warehouseAisles">
+                            <!-- Aisles will be generated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tooltip -->
+    <div class="tooltip-custom" id="tooltip"></div>
+
+    <div class="modal fade" id="itemDetailModal" tabindex="-1" data-bs-backdrop="static"
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content item-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalSlotTitle">
+                        <i class="bi bi-box"></i> Chi tiết ô kho
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Thêm phần tìm kiếm barcode -->
+                    <div class="card mb-3" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <div class="card-body">
+                            <div class="row g-2">
+                                <!-- Tìm kiếm bên trái -->
+                                <div class="col-md-7">
+                                    <label class="text-white small mb-1">
+                                        <i class="bi bi-upc-scan"></i> Quét/Nhập barcode (Ô cần tìm)
+                                    </label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text"
+                                               class="form-control"
+                                               id="barcodeInput"
+                                               placeholder="Quét hoặc nhập barcode...">
+                                        <button type="button"
+                                                class="btn btn-light"
+                                                id="searchBarcodeBtn"
+                                                data-side="left">
+                                            <i class="bi bi-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 d-flex align-items-end justify-content-start">
+                                    <button id="openScannerBtnMove" class="alt-button-2">
+                                        <span class="icon">
+                                            <i class="fa-solid fa-camera"></i>
+                                        </span>
+                                        <span>Mở máy quét</span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h6>Thông tin ô</h6>
+                                    <div id="modalSlotInfo"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h6>Sức chứa</h6>
+                                    <div id="modalCapacityInfo"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h6>Danh sách thùng trong ô:</h6>
+                    <div class="item-list gap-2 row p-0 m-0" id="modalItemList" style="overflow: auto; max-height: 450px;">
+                        <!-- Items will be populated here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="scannerModal" tabindex="-1" data-bs-backdrop="static"
+         data-bs-keyboard="false" style="z-index: 99999;background:rgb(0,0,0,0.45)">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">📷 Quét Barcode</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="scanner-container" style="max-width: 100%;">
+                        <div class="video-container" style="position: relative; width: 100%; height: 400px; background: #000; border-radius: 10px; overflow: hidden;">
+                            <video id="video-preview" playsinline muted style="width: 100%; height: 100%; object-fit: cover;"></video>
+                            <!-- Overlay khung quét -->
+                            <div class="scan-region-highlight" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 250px; height: 250px; box-shadow: 0 0 0 9999px rgba(0,0,0,0.5);">
+                                <div class="scan-line" style="position: absolute; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #00ff00, transparent); animation: scan 2s linear infinite;"></div>
+                                <div class="scan-corner corner-tl" style="position: absolute; top: -2px; left: -2px; width: 20px; height: 20px; border-top: 2px solid #00ff00; border-left: 2px solid #00ff00;"></div>
+                                <div class="scan-corner corner-tr" style="position: absolute; top: -2px; right: -2px; width: 20px; height: 20px; border-top: 2px solid #00ff00; border-right: 2px solid #00ff00; "></div>
+                                <div class="scan-corner corner-bl" style="position: absolute; bottom: -2px; left: -2px; width: 20px; height: 20px; border-bottom: 2px solid #00ff00; border-left: 2px solid #00ff00; "></div>
+                                <div class="scan-corner corner-br" style="position: absolute; bottom: -2px; right: -2px; width: 20px; height: 20px; border-bottom: 2px solid #00ff00; border-right: 2px solid #00ff00; "></div>
+                            </div>
+                        </div>
+                        <div class="controls text-center mt-3">
+                            <button class="btn btn-success" id="startScanBtn">
+                                <i class="bi bi-play-circle"></i> Bắt đầu quét
+                            </button>
+                            <button class="btn btn-danger" id="stopScanBtn" style="display: none;">
+                                <i class="bi bi-stop-circle"></i> Dừng quét
+                            </button>
+                        </div>
+                        <div class="status text-center mt-2 d-none" id="scanStatus"></div>
+                        <!--Thông tin quét-->
+                        <div class="collapsible-group">
+                            <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group-thongtinquet" aria-expanded="true">
+                                <h6 class="m-0"><i class="fa-solid fa-clock-rotate-left " style="margin-right: 6px"></i>Thông tin quét</h6>
+                                <span class="toggle-icon">▼</span>
+                            </div>
+                            <div class="collapse show" id="group-thongtinquet">
+                                <section style="padding: 5px 5px;">
+                                    <div class="row g-1">
+                                        <div class="col-4">
+                                            <label>STT:</label>
+                                            <div class="itemScan" id="txtStt"></div>
+                                        </div>
+                                        <div class="col-4">
+                                            <label>ĐH:</label>
+                                            <div class="itemScan" id="txtDH"></div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <label>PO:</label>
+                                            <div class="itemScan" id="txtPO"></div>
+                                        </div>
+                                        <div class="col-4">
+                                            <label>MaPKL:</label>
+                                            <div class="itemScan" id="txtMaPKL"></div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <label>SLSP:</label>
+                                            <div class="itemScan" id="txtSLSP"></div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <!-- Lịch sử quét -->
+                        <div class="collapsible-group">
+                            <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group-lichsuquet" aria-expanded="true">
+                                <h6 class="m-0"><i class="fa-solid fa-clock-rotate-left" style="margin-right: 6px"></i>Lịch sử quét</h6>
+                                <span class="toggle-icon">▼</span>
+                            </div>
+                            <div class="collapse" id="group-lichsuquet">
+                                <section style="padding: 5px 5px;">
+                                    <div id="dxLichSuQuet" style="max-height: 260px;"></div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="cbmModal" tabindex="-1" aria-labelledby="cbmModalLabel" aria-hidden="true" data-bs-backdrop="static"
+         data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cbmModalLabel">Nhập Thông Tin CBM</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="renderCheckFalse()" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Radio chọn dạng nhập -->
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="typeCBM" id="typeRect" value="rect" checked>
+                            <label class="form-check-label" for="typeRect">Dài - Rộng - Cao</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="typeCBM" id="typeCylinder" value="cylinder">
+                            <label class="form-check-label" for="typeCylinder">Chiều dài & Đường kính</label>
+                        </div>
+                    </div>
+
+                    <!-- Bảng nhập -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle">
+                            <thead class="">
+                                <!-- Header Hình hộp -->
+                                <tr id="headerRect">
+                                    <th>Dài (m)</th>
+                                    <th>Rộng (m)</th>
+                                    <th>Cao (m)</th>
+                                    <th>CBM</th>
+                                </tr>
+                                <!-- Header Hình trụ -->
+                                <tr id="headerCylinder" class="d-none">
+                                    <th>Chiều dài (m)</th>
+                                    <th>Đường kính (m)</th>
+                                    <th colspan="2">CBM</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <!-- Dạng hình hộp -->
+                                    <td class="cell-rect"><input type="number" step="0.01" class="form-control cbm-input input-length"></td>
+                                    <td class="cell-rect"><input type="number" step="0.01" class="form-control cbm-input input-width"></td>
+                                    <td class="cell-rect"><input type="number" step="0.01" class="form-control cbm-input input-height"></td>
+
+                                    <!-- Dạng hình trụ -->
+                                    <td class="cell-cylinder d-none"><input type="number" step="0.01" class="form-control cbm-input input-cylinder-length"></td>
+                                    <td class="cell-cylinder d-none"><input type="number" step="0.01" class="form-control cbm-input input-cylinder-diameter"></td>
+
+                                    <!-- CBM -->
+                                    <td class="cbm-value text-center" id="cbmResult">0.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button onclick="renderCheckFalse()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="btnSaveCBM">Lưu CBM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="moveItemModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-xxl">
+            <div class="modal-content item-modal">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-arrow-left-right"></i> Di chuyển thùng giữa các ô
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- PHẦN MỚI: Tìm kiếm barcode -->
+                    <div class="card mb-3" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <div class="card-body py-2">
+                            <div class="row g-2">
+                                <!-- Tìm kiếm bên trái -->
+                                <div class="col-md-8">
+                                    <label class="text-white small mb-1">
+                                        <i class="bi bi-upc-scan"></i> Quét/Nhập barcode (Ô cần chuyển)
+                                    </label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text"
+                                               class="form-control"
+                                               id="moveBarcodeInputLeft"
+                                               placeholder="Quét hoặc nhập barcode...">
+                                        <button type="button"
+                                                class="btn btn-light"
+                                                id="searchMoveBarcodeBtnLeft"
+                                                data-side="left">
+                                            <i class="bi bi-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end justify-content-start">
+                                    <button id="openScannerBtn" class="alt-button-2">
+                                        <span class="icon">
+                                            <i class="fa-solid fa-camera"></i>
+                                        </span>
+                                        <span>Mở máy quét</span>
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Ô cần chuyển -->
+                        <div class="col-md-5">
+                            <div class="card">
+                                <div class="card-header bg-light d-flex justify-content-between align-items-center fw-bold text-primary">
+                                    <div>
+                                        <div>Ô cần chuyển: <span id="fromSlotName"></span></div>
+                                        <div class="mt-2">Tổng CBMSD: <span id="totalCBM"></span></div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            CBM còn lại: <span id="fromSlotNameCBM"></span>
+                                        </div>
+
+                                        <div class="mt-2">CBMĐC: <span id="totalCBMDC">0</span></div>
+                                    </div>
+
+                                </div>
+                                <div class="card-body gap-3 row p-3 m-0" id="fromSlotItems" style="max-height: 500px; overflow: auto;">
+                                    <!-- Danh sách thùng -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Khu vực nút chuyển -->
+                        <div class="col-md-2 d-flex flex-column align-items-center justify-content-center text-center mt-3 mt-md-0">
+                            <button class="btn btn-success mb-3" id="btnMoveToRight">
+                                <i class="bi bi-arrow-right-circle"></i>
+                            </button>
+
+                        </div>
+
+                        <!-- Ô được chuyển -->
+                        <div class="col-md-5">
+                            <div class="card">
+                                <div class="card-header bg-light fw-bold text-success d-flex justify-content-between align-items-start fw-bold text-primary">
+                                    <div>
+                                        <div>
+                                            Ô nhận thùng: <span id="toSlotName"></span>
+                                        </div>
+                                        <div class="mt-2">CBMSD: <span id="totalToCBMDC">0</span></div>
+                                    </div>
+                                    <div> CBM còn lại: <span id="toSlotNameCBM"></span></div>
+                                </div>
+                                <div class="card-body gap-3 row p-2 m-0" id="toSlotItems" style="max-height: 500px; overflow: auto;">
+                                    <!-- Danh sách thùng -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Đóng
+                    </button>
+                    <button type="button" class="btn btn-primary d-none" id="btnConfirmMove">
+                        <i class="bi bi-check-circle"></i> Xác nhận di chuyển
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index:99999999">
+        <div id="successToast" class="toast" role="alert">
+            <div class="toast-header bg-success text-white">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto">Thành công</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="successMessage"></div>
+        </div>
+        <div id="errorToast" class="toast" role="alert">
+            <div class="toast-header bg-danger text-white">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong class="me-auto">Lỗi</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="errorMessage"></div>
+        </div>
+        <div id="warningToast" class="toast" role="alert">
+            <div class="toast-header bg-warning text-dark">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong class="me-auto">Cảnh báo</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="warningMessage"></div>
+        </div>
+    </div>
+
+    @*sugget*@
+    <div class="modal fade" id="suggestionModal" tabindex="-1" aria-labelledby="suggestionModalLabel"
+         aria-hidden="true" data-bs-backdrop="static"
+         data-bs-keyboard="false">
+        <div class="modal-dialog modal-xxl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="suggestionModalLabel">
+                        <i class="fa-solid fa-lightbulb-on"></i> Gợi Ý Vị Trí Lưu Trữ Thông Minh
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Thông tin tổng quan -->
+                    <div class="alert alert-info mb-4">
+                        <i class="bi bi-info-circle"></i>
+                        <strong>Tổng CBM cần lưu:</strong> <span id="totalCBMNeed" class="fw-bold">0</span> CBM
+                        | <strong>Số thùng:</strong> <span id="totalRolls" class="fw-bold">0</span>
+                    </div>
+
+                    <!-- Phần 1: Ô đã chứa cùng loại thùng -->
+                    <div class="same-type-section">
+                        <div class="section-title text-primary">
+                            <i class="bi bi-stars"></i>
+                            <span>Ưu Tiên: Ô Đã Chứa Cùng Loại thùng</span>
+                        </div>
+                        <div id="sameTypeSlots">
+                            <!-- Dynamic content -->
+                        </div>
+                    </div>
+
+                    <!-- Phần 2: Ô trống có đủ CBM -->
+                    <div class="empty-section">
+                        <div class="section-title text-purple">
+                            <i class="bi bi-inbox"></i>
+                            <span>Ô Trống - Phân Bổ Tối Ưu</span>
+                        </div>
+                        <div id="emptySlots">
+                            <!-- Dynamic content -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle"></i> Đóng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Filter*@
+    <div class="modal fade" id="filterThungModal" tabindex="-1" aria-labelledby="filterThungModalLabel"
+         aria-hidden="true" data-bs-backdrop="static"
+         data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cbmModalLabel">Lọc thông tin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="renderCheckFalse()" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Lọc -->
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="input-group">
+                                <span class="input-group-text">Từ</span>
+                                <input type="number" id="startThung" class="form-control"
+                                       placeholder="Số thùng bắt đầu" min="1" step="1">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="input-group">
+                                <span class="input-group-text">Đến</span>
+                                <input type="number" id="endThung" class="form-control"
+                                       placeholder="Số thùng kết thúc" min="1" step="1">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" id="btnSaveFilterThung">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <audio id="beepSound" controls="controls" style="display:none">
+        <source src="/css/QRCode/successSound.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="beepSoundError" controls="controls" style="display:none">
+        <source src="/css/QRCode/errorSound.mp3" type="audio/mpeg" />
+    </audio>
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Scripts/ViTriKho/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/select2.js"></script>
+    <link href="~/css/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.light.css" rel="stylesheet" />
+    <script src="~/css/DevExtreme/dx.all.js"></script>
+    <script src="~/css/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.js"></script>
+    <script src="~/Scripts/ViTriKho/NhapViTriThanhPham.js?version=2.1"></script>
+    <script>
+        var userName = '@ViewBag.userName';
+    </script>
+    <script type="module">
+
+        import QrScanner from '/Scripts/qrcodenew.js';
+        let qrScanner;
+        let isProcessing = false;
+        let lastScannedTime = 0;
+        let lastScannedCode = '';
+
+
+        // Khởi tạo scanner khi mở modal
+        $('#scannerModal').on('shown.bs.modal', function () {
+            initScanner();
+        });
+
+        // Dừng scanner khi đóng modal
+        $('#scannerModal').on('hidden.bs.modal', function () {
+            if (qrScanner) {
+                qrScanner.stop();
+                $('#startScanBtn').show();
+                $('#stopScanBtn').hide();
+                $('#scanResultContainer').hide();
+                lastScannedCode = '';
+            }
+        });
+
+        function initScanner() {
+            const videoElem = document.getElementById('video-preview');
+            QrScanner.WORKER_PATH = '/Scripts/qr-scanner-worker.min.js';
+
+            qrScanner = new QrScanner(
+                videoElem,
+                result => onScanSuccess(result),
+                {
+                    returnDetailedScanResult: true,
+                    highlightScanRegion: false,
+                    highlightCodeOutline: false,
+                    maxScansPerSecond: 10,
+                    preferredCamera: 'environment'
+                }
+            );
+        }
+
+        function onScanSuccess(result) {
+            const currentTime = Date.now();
+            const timeDiff = currentTime - lastScannedTime;
+            const barcode = result.data;
+
+            if (isProcessing || timeDiff < 1000 || barcode === lastScannedCode) {
+                return;
+            }
+
+            isProcessing = true;
+            lastScannedTime = currentTime;
+            lastScannedCode = barcode;
+
+            $('#scanResult').text(barcode);
+            $('#scanResultContainer').show();
+
+            playSuccessSound();
+            if (navigator.vibrate) {
+                navigator.vibrate(200);
+            }
+            const isModal1Visible = $('#itemDetailModal').is(':visible');
+            const isModal2Visible = $('#moveItemModal').is(':visible');
+            if (isModal1Visible) {
+                searchBarcode(barcode).then(() => {
+                    setTimeout(() => {
+                        isProcessing = false;
+                        //    showScanStatus('🔍 Đang quét... Đưa mã barcode vào khung', 'info');
+                    }, 1000);
+                });
+            }
+            // Ngược lại nếu modal2 đang ẨN → điều kiện 2
+            else if (isModal2Visible) {
+                searchBarcodeInMoveModal(barcode, "left").then(() => {
+                    setTimeout(() => {
+                        isProcessing = false;
+                    }, 1000);
+                });
+            }
+
+        }
+
+        function showScanStatus(message, type) {
+            const statusElement = $('#scanStatus');
+            statusElement.text(message);
+            statusElement.removeClass().addClass(`status text-${type === 'success' ? 'success' : type === 'error' ? 'danger' : 'info'}`);
+        }
+
+
+
+        // Bắt đầu quét
+        $('#startScanBtn').on('click', async function () {
+            try {
+                $(this).prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Đang khởi động...');
+                await qrScanner.start();
+                $(this).hide();
+                $('#stopScanBtn').show();
+                $(this).prop('disabled', false).html('<i class="bi bi-play-circle"></i> Bắt đầu quét');
+                lastScannedCode = '';
+            } catch (err) {
+                $(this).prop('disabled', false).html('<i class="bi bi-play-circle"></i> Bắt đầu quét');
+                console.error('Lỗi camera:', err);
+            }
+        });
+
+        // Dừng quét
+        $('#stopScanBtn').on('click', function () {
+            qrScanner.stop();
+            $(this).hide();
+            $('#startScanBtn').show();
+            lastScannedCode = '';
+        });
+
+        // Mở modal scanner
+        $('#openScannerBtn,#openScannerBtnMove').on('click', function () {
+            const scannerModal = new bootstrap.Modal($('#scannerModal')[0]);
+            scannerModal.show();
+        });
+
+        // Xử lý tìm kiếm barcode từ button
+        $('#searchBarcodeBtn').on('click', function () {
+            const barcode = $('#barcodeInput').val().trim();
+            if (barcode) {
+
+                searchBarcode(barcode);
+                $('#barcodeInput').val("")
+
+            } else {
+                showToast('warning', 'Vui lòng nhập mã barcode!');
+            }
+        });
+
+        // Xử lý Enter trong ô input
+        $('#barcodeInput').on('keypress', function (e) {
+            if (e.which === 13) {
+                const barcode = $(this).val().trim();
+                if (barcode) {
+                    searchBarcode(barcode);
+                    $('#barcodeInput').val("")
+                }
+            }
+        });
+
+        // Hàm tìm kiếm barcode và kiểm tra CBM
+        async function searchBarcode(barcode) {
+
+            const id = Number(barcode);
+            if (!barcode) {
+                const message = `⚠ CẢNH BÁO: barcode "${barcode}" không hợp lệ`;
+                showToast('warning', message, 3000);
+                PlayAudioError();
+                return;
+            }
+
+            try {
+                const dataSave = await GetRollNK(barcode)
+                const foundItem = dataSave.Table1[0].qrscan;
+                const cbmSearch = dataSave.Table1[0].CBM;
+                const soThung = dataSave.Table1[0].SttThung;
+                if (foundItem == null || foundItem == "") {
+                    showToast('warning', ' Không tìm thấy barcode trong danh sách!');
+                    PlayAudioError();
+                    return false;
+                }
+
+                // Kiểm tra CBM
+                const itemCBM = parseFloat(cbmSearch) || 0;
+                const sucChuaConLai = parseFloat(window.succhuaOCL || 0);
+                if (itemCBM == 0) {
+                    showToast('warning', '❌ Vui lòng nhập CBM cho roll này!!');
+                    PlayAudioError();
+                    return false;
+                }
+
+                console.log("itemCBM: ", itemCBM)
+                console.log("sucChuaConLai: ", sucChuaConLai)
+
+
+                if (itemCBM > sucChuaConLai) {
+                    const message = `⚠ CẢNH BÁO: Thùng "${soThung}" có CBM ${itemCBM.toFixed(2)}  > Sức chứa còn lại ${sucChuaConLai.toFixed(2)} . Không đủ chỗ chứa!`;
+                    showToast('warning', message, 3000);
+                    PlayAudioError();
+                    return false;
+                } else {
+                    if (dataSave.Table.length > 0) {
+                        showToast('warning', `⚠ Thùng này đã được nhập vào ô ${dataSave.Table[0].MaONPL} !!`);
+                        PlayAudioError();
+                    } else {
+                        SaveCBMNPL(dataSave.Table1[0])
+                    }
+
+                    $("#txtStt").text(dataSave.Table1[0].SttThung);
+                    $("#txtDH").text(dataSave.Table1[0].MaDH);
+                    $("#txtPO").text(dataSave.Table1[0].POID);
+                    $("#txtMaPKL").text(dataSave.Table1[0].MaPKL);
+                    $("#txtSLSP").text(dataSave.Table1[0].SLSP);
+                    lstDataLichSuQuet.push(dataSave.Table1[0]);
+
+                    // ===== UPDATE GRID NGAY =====
+                    dxGridLichSuQuet.beginUpdate();
+                    dxGridLichSuQuet.option("dataSource", lstDataLichSuQuet);
+                    dxGridLichSuQuet.endUpdate();
+                    return true;
+                }
+
+            } catch (error) {
+                showToast('warning', "Lỗi khi kiểm tra barcode");
+                PlayAudioError();
+                return false;
+            }
+        }
+        async function GetRollNK(barcode) {
+            const url = `/api/KeHoachXuatHangThanhPham/GetThanhPham?action=GetRollNK&para1=${barcode}`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`Response status: ${response.status} `);
+
+                const data = await response.json();
+                return data
+
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
+        async function SaveCBMNPL(data) {
+            var arr = []
+            let object = {
+                MaDH: data.MaDH,
+                MaGop: data.MaGop,
+                MaPKL: data.MaPKL,
+                PO: data.PO,
+                POID: data.POID,
+                ColorID: data.ColorID,
+                TenMau: data.TenMau,
+                DauSize: data.DauSize,
+                DauSizeID: data.DauSizeID,
+                SLSP: data.SLSP,
+                SttThung: data.SttThung,
+                CBM: data.CBM,
+                MaONPL: solotIDBarCode,
+                qrscan:1
+            };
+            arr.push(object)
+            await SaveONPLThanhPham(arr, solotIDBarCode)
+            PlayAudio()
+            await GetOSugget()
+            await loadVTKho()
+        }
+        $(document).on('click', '#itemDetailModal .btn-close', function (e) {
+
+            $("#txtStt").empty()
+            $("#txtDH").empty()
+            $("#txtPO").empty()
+            $("#txtMaPKL").empty()
+            $("#txtSLSP").empty()
+
+            lstDataLichSuQuet = []
+            dxGridLichSuQuet.beginUpdate();
+            dxGridLichSuQuet.option("dataSource", lstDataLichSuQuet);
+            dxGridLichSuQuet.endUpdate();
+        });
+
+
+    </script>
+
+</body>
+</html>
+
+
+
+

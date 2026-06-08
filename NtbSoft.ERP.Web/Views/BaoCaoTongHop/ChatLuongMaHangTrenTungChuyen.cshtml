@@ -1,0 +1,304 @@
+﻿
+@{
+    ViewBag.Title = "ChatLuongMaHangTrenTungChuyen";
+    Layout = "~/Views/Shared/_LayoutBCTH.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "Chất lượng mã hàng trên từng chuyền may";
+}
+
+
+<link href="~/Libs/UIUX/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link href="~/css/BaoCaoTongHop/BaoCaoChatLuong/ChatLuongMaHangTrenTungChuyen.css" rel="stylesheet" />
+<style>
+    ::-webkit-scrollbar {
+        width: 0px;
+        height: 0px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #dfb3b3;
+        border-radius: 10px;
+    }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b30000;
+        }
+
+    .form-group {
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        flex-direction: column
+    }
+
+    .list_item {
+        display: flex;
+        column-gap: 20px;
+        padding: 5px 0;
+        flex-wrap: wrap;
+        row-gap: 10px;
+    }
+
+    .form-control {
+        padding: 1px;
+        font-size: 17px !important;
+        min-width: 130px;
+        height: 30px;
+        text-align: center;
+        font-family: roboto;
+        color: #016b69;
+    }
+
+    .item-active {
+        display: flex
+    }
+
+        .item-active.active {
+            display: none
+        }
+
+    .task-item {
+        display: flex;
+        max-height: calc(100vh - 207px);
+        background: #fff;
+    }
+
+
+        .task-item .item-table {
+            overflow: auto;
+            width: 100%;
+        }
+
+            .task-item .item-table .table thead {
+                position: sticky;
+                top: 0;
+                z-index: 3
+            }
+
+                .task-item .item-table .table thead tr {
+                    border: 1px solid #ccc;
+                    position: sticky;
+                    top: 0;
+                }
+
+                    .task-item .item-table .table thead tr td {
+                        border: 1px solid #ccc;
+                        text-align: center;
+                        font-weight: bold;
+                        color: #fff;
+                        vertical-align: middle;
+                        background: #5da566;
+                        outline: none;
+                        font-family: 'Roboto';
+                        min-width: 60px;
+                        font-size: 14px;
+                    }
+
+
+
+            .task-item .item-table .table tbody {
+            }
+
+                .task-item .item-table .table tbody tr {
+                    border: 1px solid #ccc;
+                }
+
+                    .task-item .item-table .table tbody tr td {
+                        border: 1px solid #ccc;
+                        text-align: center;
+                        font-size: 13px;
+                        font-weight: bold;
+                        vertical-align: middle;
+                        font-family: 'Roboto';
+                        color: #016b69;
+                    }
+
+            .task-item .item-table .table tfoot {
+                position: sticky;
+                bottom: 0;
+                background: #fff;
+                outline: 1px solid #ccc;
+            }
+
+                .task-item .item-table .table tfoot tr {
+                    border: 1px solid #ccc;
+                }
+
+                    .task-item .item-table .table tfoot tr td {
+                        border: 1px solid #ccc;
+                        text-align: center;
+                        font-size: 13px;
+                        font-weight: bold;
+                        font-family: serif;
+                        vertical-align: middle;
+                        font-family: 'Roboto';
+                        color: red;
+                    }
+
+    .table, table {
+        margin: 0
+    }
+
+    .highcharts-title {
+        font-size: 15px !important;
+        font-family: roboto;
+        color: #016b69 !important
+    }
+
+    .highcharts-credits {
+        display: none
+    }
+</style>
+
+
+<div class="container-fluid bg-white">
+    <div class="list_item" style=" margin-bottom: 5px; padding-bottom: 5px; ">
+        <div class="form-group display ">
+            <label class="col-form-label item_label" style="color:#17a2b8">Chất lượng</label>
+            <select class="form-control inputEnLine" id="locIsQC">
+                <option value="0">QA</option>
+                <option value="1">QC</option>
+                <option value="2">TQC</option>
+            </select>
+
+        </div>
+        <div class="form-group display ">
+            <label class="col-form-label item_label" style="color:#17a2b8">Lọc thời gian</label>
+            <select class="form-control inputEnLine" id="loctheo">
+                <option value="ngay">Ngày</option>
+                <option value="thang">Tháng</option>
+            </select>
+
+        </div>
+        <div class="form-group display item-active item_ngay">
+            <label class="col-form-label item_label" style="color:#17a2b8">Ngày</label>
+            <input type="date" name="name" value="" id="todate">
+        </div>
+        <div class="form-group display item-active active item_listThang">
+            <label class="col-form-label item_label" style="color:#17a2b8">Tháng</label>
+            <select id="byMonth">
+                <option value="01">Tháng 1</option>
+                <option value="02">Tháng 2</option>
+                <option value="03">Tháng 3</option>
+                <option value="04">Tháng 4</option>
+                <option value="05">Tháng 5</option>
+                <option value="06">Tháng 6</option>
+                <option value="07">Tháng 7</option>
+                <option value="08">Tháng 8</option>
+                <option value="09">Tháng 9</option>
+                <option value="10">Tháng 10</option>
+                <option value="11">Tháng 11</option>
+                <option value="12">Tháng 12</option>
+            </select>
+        </div>
+        <div class="form-group display item-active active item_listThang">
+            <label class="col-form-label item_label" style="color:#17a2b8">Năm</label>
+            <select id="byYear">
+            </select>
+        </div>
+        <div class="div-btn-find-data">
+            <button class="btn-find-data" id="btnFind">
+                <i class="fa fa-search"></i>
+                <p>Tìm</p>
+            </button>
+        </div>
+        <div class="div-btn-export-excel">
+            <button class="btn-export-file-excel" id="btn-XuatExcel">
+                <i class="fa-sharp fa-solid fa-file-excel "></i>
+                <p>Xuất Excel</p>
+            </button>
+        </div>
+    </div>
+
+</div>
+<div class="container-fluid  bg-white py-2">
+    <div class="row">
+        <div class="col-lg-12 col-xl-5">
+            <section class="solieunhap" style=" margin-bottom: 10px;">
+                <div class="main-item" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+                    <div class="task-item">
+                        <div class="item-table">
+                            <table class="table" style="position: relative">
+                                <thead class="thead-list">
+                                    <tr id="thead" style="position:relative">
+                                        <td style="position: sticky; top: 0;">Tổ</td>
+                                        <td style="position: sticky; top: 0;">Mã lệnh</td>
+                                        <td style="position: sticky; top: 0;">Mã hàng</td>
+                                        <td style="position: sticky; top: 0;">Trước ủi</td>
+                                        <td style="position: sticky; top: 0;">Sau ủi</td>
+                                        <td style="position: sticky; top: 0;">Lỗi hư nổi cộm</td>
+                                        <td style="position: sticky; top: 0;">Kết quả</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="bodyContent">
+                                </tbody>
+                                <tfoot id="footContent">
+
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-12 col-xl-7">
+            <section class="list-highchar" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; margin-bottom: 10px; height: calc(100vh - 207px); display: flex;">
+                <div id="container" style="width: 100%;">
+
+                </div>
+            </section>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+
+
+</div>
+
+
+<script>
+    let brainChoose = sessionStorage.getItem("BranchName");
+    //if (brainChoose == null)
+    //    location.href = "../../../../danh-sach-bao-cao";
+    $('#tittleBC').text(`${brainChoose} - Báo cáo chất lượng từng mã hàng trên chuyền`);
+    $('#home').on('click', function () {
+        location.href = "../../../danh-sach-bao-cao";
+    });
+
+    $('#date').on('click', function () {
+        $('#byMonth').css({ 'display': 'none' });
+        $('#byYear').css({ 'display': 'none' });
+
+        $('#todate').css({ 'display': 'block' });
+    });
+    $('#month').on('click', function () {
+        $('#byMonth').css({ 'display': 'block' });
+        $('#byYear').css({ 'display': 'block' });
+
+        $('#todate').css({ 'display': 'none' });
+    });
+    $(".btn-warning1").on("click", function () {
+        $(".btn-warning1").removeClass("active");
+        $(this).addClass("active");
+    })
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="~/Scripts/BaoCaoTongHop/BaoCaoChatLuong/BCChatLuongMaHangTrenTungChuyen.js"></script>
+
+

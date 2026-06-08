@@ -1,0 +1,446 @@
+﻿/*body {
+    margin: 0;
+    padding: 0;
+}
+*/
+
+table thead th, table tbody td, tfoot tr td {
+    outline: 1px solid #000;
+}
+
+table thead th {
+    position: relative;
+}
+
+    table thead th:before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #000;
+    }
+/*
+button.ex {
+    align-items: center;
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    margin-left: auto;
+}
+
+    button.ex i {
+        margin-right: 8px;
+    }
+
+    button.ex:hover {
+        background-color: #45a049;
+    }
+
+    button.ex p {
+        margin: 0;
+        font-size: 14px;
+    }*/
+
+table {
+    border-collapse: collapse;
+    width: 100vw;
+}
+
+    table thead {
+        background-color: #5da566;
+        position: sticky;
+        top: 0;
+        z-index: 9;
+        font-size: 16px;
+        color: #fff;
+        text-align: center;
+    }
+
+#tbodyContent {
+    color: #016b69;
+}
+
+#slc_lsx, #fromdate, #todate {
+    height: 25px;
+    /* align-items: center; */
+    /* justify-content: space-between; */
+    padding: 0 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 10px;
+    border: 2px solid #fff;
+    outline: none;
+}
+
+
+
+.action {
+    display:flex;
+    gap:10px;
+    position: sticky;
+    top: 0;
+    z-index: 9;
+    width: 100%;
+    background-color: #1b81c9;
+    border-radius: 5px;
+    padding: 5px 10px 5px 10px;
+    margin: 0px 0px 5px 0px;
+}
+
+.canva {
+    padding: 15px 5px;
+    display: flex;
+    justify-content: space-between;
+    /*  margin-top: 10px;*/
+    overflow: hidden;
+}
+
+.box-table {
+    max-height: 70vh;
+    overflow-y: scroll;
+    /*padding: 0 5px;*/
+    background-color: white;
+}
+
+.canva .left, .canva .right {
+    width: calc(50% - 8px);
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    /*border: 1px solid #000;*/
+}
+
+    .canva .left canvas, .canva .right canvas {
+        width: 400px;
+        height: 400px;
+    }
+
+#tbodyContent .center {
+    text-align: center;
+}
+
+#tbodyContent .right {
+    text-align: center;
+}
+
+tfoot {
+    position: sticky;
+    bottom: -1px;
+    left: 0;
+    z-index: 9;
+    background: #fb8122;
+    color: #fff;
+    font-weight: 700;
+}
+
+.t-right {
+    text-align: center;
+}
+
+.highcharts-credits, .highcharts-button {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px hsl(0deg 0% 0% / 55%);
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: hsl(0deg 0% 0% / 45%);
+    border-radius: 10px;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #b30000c2;
+    }
+
+.action > div {
+    display: inline;
+}
+
+.action label {
+    color: #fff;
+    font-weight: 700;
+}
+
+.action input, .action select {
+    font-weight: 500;
+    text-align: center;
+}
+
+/*.color1 {
+    color: #df6060;
+}
+.color2 {
+    color: #FFD700;
+}
+.color3 {
+    color: #00C000;
+}
+.color4 {
+    color: #0000FF;
+}*/
+
+.table, .kt-section {
+    margin-bottom: 0 !important;
+}
+
+#tbodyContent tr td:nth-child(1), #tbodyContent tr td:nth-child(2), #tbodyContent tr td:nth-child(3) {
+    position: sticky;
+    background: #fff;
+}
+
+.box-table thead tr:nth-child(1) th:nth-child(1), .box-table thead tr:nth-child(1) th:nth-child(2), .box-table thead tr:nth-child(1) th:nth-child(3) {
+    position: sticky;
+    background: #5da566;
+    z-index: 10;
+}
+
+.box-table thead tr:nth-child(1) th:nth-child(1), #tbodyContent tr td:nth-child(1) {
+    left: 0;
+    max-width: 35px;
+    min-width: 35px;
+}
+
+.box-table thead tr:nth-child(1) th:nth-child(2), #tbodyContent tr td:nth-child(2) {
+    left: 34px;
+    max-width: 100px;
+    min-width: 100px;
+}
+
+.box-table thead tr:nth-child(1) th:nth-child(3), #tbodyContent tr td:nth-child(3) {
+    left: 133px;
+    max-width: 40px;
+    min-width: 45px;
+}
+
+tfoot tr td:nth-child(1) {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    /* background: #ffd700; */
+    z-index: 9;
+}
+
+.canva #pieChart, .canva #pieChart1 {
+    overflow: visible !important;
+}
+
+
+@media only screen and (max-width: 802px) {
+    .canva {
+        flex-wrap: wrap;
+    }
+
+        .canva .left, .canva .right {
+            width: 100%;
+        }
+
+    #slc_lsx, #fromdate, #todate {
+        padding: 0 10px;
+    }
+
+    .action {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+        right: 0;
+    }
+
+    .canva .highcharts-container {
+        width: 390px !important;
+    }
+
+    .top {
+        flex-wrap: wrap;
+    }
+
+        .top .back, .top .action {
+            width: 100%;
+        }
+
+    table thead {
+        font-size: 13px;
+    }
+
+    .box-table tr th, .box-table tr td {
+        padding: 2px;
+    }
+
+    table thead {
+        font-size: 13px;
+    }
+}
+
+
+
+@media only screen and (min-width: 581px) and (max-width: 1182px) {
+    .canva .left canvas,
+    .canva .right canvas {
+        width: 500px;
+        height: 400px;
+    }
+
+    table thead {
+        font-size: 13px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .canva {
+        flex-wrap: wrap;
+    }
+
+        .canva .left,
+        .canva .right {
+            width: 100%;
+        }
+
+            .canva .left canvas,
+            .canva .right canvas {
+                width: 100%;
+                height: auto;
+            }
+
+
+        .canva .highcharts-container {
+            width: 100% !important;
+        }
+
+    table thead {
+        font-size: 13px;
+    }
+}
+
+/**/
+.chart-layout {
+    background-color: #3876e766 !important;
+    padding-bottom: 10px;
+}
+
+.tbl-layout {
+    padding-bottom: 10px;
+}
+/*css lo*/
+th {
+    background-color: #5da566 !important;
+    color: white !important;
+    font-family: 'roboto' !important;
+    border: 1px solid black !important;
+    outline: 1px solid black !important;
+}
+
+thead td {
+    background-color: #5da566 !important;
+    color: white !important;
+    font-family: 'roboto' !important;
+    border: 1px solid black !important;
+    outline: 1px solid black !important;
+}
+
+td {
+    font-family: 'roboto';
+    border: 1px solid black !important;
+    outline: 1px solid black !important;
+    font-weight: 400 !important;
+    padding: 0.45rem !important;
+}
+
+/*BC Hao Phí Excel*/
+/*layout*/
+.btn-groups {
+    margin-left: auto;
+    margin-top: auto;
+}
+/*btn*/
+/*.btn-excel {
+    appearance: none;
+    background-color: #2ea44f;
+    border: 1px solid rgba(27, 31, 35, .15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 6px 20px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+    .btn-excel:focus:not(:focus-visible):not(.focus-visible) {
+        box-shadow: none;
+        outline: none;
+    }
+
+    .btn-excel:hover {
+        background-color: #2c974b;
+    }
+
+    .btn-excel:focus {
+        box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+        outline: none;
+    }
+
+    .btn-excel:disabled {
+        background-color: #94d3a2;
+        border-color: rgba(27, 31, 35, .1);
+        color: rgba(255, 255, 255, .8);
+        cursor: default;
+    }
+
+    .btn-excel:active {
+        background-color: #298e46;
+        box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+    }*/
+
+/*
+
+
+/*modify 27-09-24*/
+/*layout*/
+#tuNgay, #denNgay {
+    border-radius:5px;
+}
+
+
+
+body {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 16px;
+}
+
+input {
+    min-height: 25px;
+    font-size: 16px;
+}

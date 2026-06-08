@@ -1,0 +1,103 @@
+﻿@media only screen and (min-width: 481px) and (max-width: 850px) {
+    .chart-flex {
+        flex-direction: column;
+    }
+
+    .chart-content-cricle {
+        flex-direction: column-reverse
+    }
+
+    .chart-content {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .data-time {
+        flex-direction: column;
+    }
+
+    .action {
+        flex-direction: row;
+        /* margin: 5px 10px; */
+    }
+
+        .action div {
+            display: flex;
+            flex-direction: column;
+            white-space: nowrap;
+        }
+
+    .pass {
+        display: table;
+        width: 80% !important;
+        margin: 0 auto;
+    }
+
+    table {
+        max-height: auto;
+        overflow-y: none;
+    }
+
+    .chart-content-cricle .tbl-woker {
+        width: 100%
+    }
+
+    div#container6 {
+        width: 100%;
+    }
+
+    .tbl-woker {
+        background-color: #fff;
+        padding: 3% 0;
+    }
+
+    .option-dat {
+        justify-content: flex-start;
+    }
+}
+
+
+/* Responsive cho màn hình từ 769px đến 1180px */
+@media only screen and (min-width: 851px) and (max-width: 1180px) {
+    .chart-flex {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .chart-content {
+        width: 48%;
+        margin-bottom: 20px;
+    }
+
+    .data-time {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .action div {
+        display: flex;
+        white-space: pre-wrap;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+    }
+
+    div#highcharts-g9j9iga-65 {
+        height: 400px !important;
+    }
+
+    .tbl-woker th {
+        font-size: 15px;
+    }
+
+    .pass {
+        display: table;
+        width: 80% !important;
+        margin: 0 auto;
+    }
+
+    .tbl-woker {
+        background-color: #fff;
+        padding: 3% 0;
+    }
+}

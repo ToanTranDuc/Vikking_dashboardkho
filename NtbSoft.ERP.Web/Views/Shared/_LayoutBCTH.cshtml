@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+@{
+    var isWinHost = ViewBag.IsWinHost != null && (bool)ViewBag.IsWinHost;
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @RenderSection("css", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link href="~/Content/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link href="/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/sweetalert2.min-11.6.0.css" rel="stylesheet" />
+    <link href="~/css/roboto.css" rel="stylesheet" />
+    <link href="~/Lib/LoadingPage/LoadingPage.css" rel="stylesheet" />
+    <style>
+        .is-active {
+            background: blue;
+            color: white;
+        }
+
+        .card-header {
+            padding: 0.25rem 0.75rem !important
+        }
+
+        body {
+            min-height: fit-content !important;
+        }
+
+        .main-header .nav-link {
+            height: 0 !important;
+            position: relative;
+        }
+
+        .btn-timkiem {
+            color: #212529 !important;
+            text-decoration: none;
+            border: 2px solid #196208 !important;
+            background-color: #b0e8b0 !important;
+            font-weight: 600 !important;
+        }
+
+        .div-btn-find-data {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-find-data {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffad48;
+            padding: 3px 15px;
+            font-size: 14px;
+            border-radius: 5px;
+            color: #212121;
+            font-weight: bold;
+        }
+
+            .btn-find-data:hover {
+            }
+
+            .btn-find-data i {
+                margin-right: 2px;
+            }
+
+            .btn-find-data p {
+                margin-left: 2px;
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+
+
+        .div-btn-export-excel {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .btn-export-file-excel {
+            display: flex;
+            align-items: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            margin-left: auto;
+        }
+
+            .btn-export-file-excel:hover {
+            }
+
+            .btn-export-file-excel i {
+                margin-right: 2px;
+            }
+
+            .btn-export-file-excel p {
+                margin-left: 2px;
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+    </style>
+    <script src="~/Lib/JS/jquery3_7_1.js"></script>
+    <script src="~/Lib/JS/ajax3.6.0.js"></script>
+    <script src="~/Lib/LoadingPage/LoadingPage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    @if (!(ViewBag.SkipLayoutHighcharts != null && (bool)ViewBag.SkipLayoutHighcharts))
+    {
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+    }
+    <script src="~/Scripts/BaoCaoTongHop/Public/GetKeyWebConfig.js"></script>
+    <script src="~/Scripts/BaoCaoTongHop/Public/ShortSQLQuery.js"></script>
+    <script src="~/Scripts/BaoCaoTongHop/Public/XuLiNgay.js"></script>
+    <script src="~/Scripts/sweetalert2.min-11.6.0.js"></script>
+</head>
+<body>
+    <div id="dvsx_temp" style="display:none;"></div>
+    <div class="loading">
+        <div class="book">
+            <div class="book__pg-shadow"></div>
+            <div class="book__pg"></div>
+            <div class="book__pg book__pg--2"></div>
+            <div class="book__pg book__pg--3"></div>
+            <div class="book__pg book__pg--4"></div>
+            <div class="book__pg book__pg--5"></div>
+        </div>
+        <span class="loading-title">Đang Chờ Lấy Dữ Liệu...</span>
+    </div>
+    @if (!isWinHost)
+    {
+        <div class="container" style="min-width:100vw!important;">
+            <div id="toast"></div>
+
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-left: 0px !important;height: 35px; padding: 0rem 0.2rem; position: fixed; z-index: 999; top: 0px; right: 0px; left: 0px; background-color: #00477f">
+                <ul style="margin-top: -26px; font-size: 16px;" id="BarMenu" class="navbar-nav">
+                    <li class="nav-item" style="color:white">
+                        <a class="nav-link" data-widget="pushmenu" href="/Home/Dashboard" id="ClickNav">
+                            <i id="home" style="font-size: 21px; cursor: pointer; color:white;" class="fa-sharp fa-solid fa-house"></i>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul style="margin-top: -26px; font-size: 16px;" class="navbar-nav">
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link"><strong id="tittleBC" style="color: white; line-height: 25px; cursor: pointer; font-size: 1.8rem">PRODUCTION MANAGEMENT SYSTEM</strong><strong id="Title" style="color:white;cursor:pointer;font-size:0.8rem;line-height:1.6rem"></strong></a>
+                    </li>
+                </ul>
+
+                <ul style="margin-top: -26px; font-size: 16px;" class="navbar-nav ml-auto">
+                    <li class="nav-item" style="margin-right:25px !important">
+                        <a style="display: flex;" class="nav-link" onclick="Toggle()">
+                            <i class="fas fa-user-circle" style="color: white; cursor: pointer; line-height: 25px" id="UserLogin"></i>
+                            <p style="margin-left: 5px; color: #fff; margin-top: 2px;" class="user"></p>
+                        </a>
+                        <div id="DangXuat" class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="display:none;left: inherit; right: 0px; min-width:110px">
+                            <a href="~/Login/Index" class="dropdown-item dropdown-header">Đăng xuất</a>
+                            <div class="dropdown-divider"></div>
+                        </div>
+                    </li>
+                </ul>
+
+            </nav>
+        </div>
+    }
+    <div id="renderBodyHere" class="" @*style="margin-top:50px;"*@>
+        @RenderBody()
+    </div>
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+        $(".toggle_input input").removeAttr("disabled");
+        $(".toggle_input input").prop("readonly", true);
+        //Trong ví dụ trên, document.querySelectorAll(".toggle_input input") chọn tất cả các thẻ input trong các phần tử có class toggle_input.Sau đó, sử dụng.forEach() để lặp qua mỗi thẻ input và sử dụng setAttribute("disabled", "disabled") để vô hiệu hóa chúng.
+        $(".toggle_input2 input").removeAttr("disabled");
+        $(".toggle_input2 input").prop("readonly", true);
+        $(".toggle_input1 input").removeAttr("disabled");
+        $(".toggle_input1 input").prop("readonly", true);
+        flatpickr("#todate", {
+            dateFormat: "d-m-Y", // Định dạng ngày/tháng/năm
+            defaultDate: "today" // Ngày mặc định là hôm nay
+        });
+        function Toggle() {
+            var x = document.getElementById("DangXuat");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+        function setBranchIdAndUser(branchid, brandName, user) {
+            sessionStorage.setItem('BranchId', branchid);
+            sessionStorage.setItem("BranchName", brandName);
+            sessionStorage.setItem("IsCefShap", "true");
+            localStorage.setItem('username1', user);
+            console.log(sessionStorage.getItem('BranchId') + '-' + sessionStorage.getItem("BranchName") + '-' + localStorage.getItem('username1'))
+            console.log("FULL_RELOAD");
+
+        }
+        $(document).ready(function () {
+            let user = localStorage.getItem('username1');
+            $(".user").text(user);
+            localStorage.setItem('isCheckDN', 'true');
+
+
+            $("#DangXuat").on("click", function () {
+                localStorage.removeItem('username1');
+                localStorage.removeItem('isCheckDN');
+                localStorage.removeItem('password1');
+            });
+
+            function getUser() {
+                $.ajax({
+                    url: "/api/Login/GetUser?&Para1=" + user,
+                    type: 'Get',
+                    success: function (data) {
+
+                    },
+
+                });
+            }
+            getUser();
+        });
+
+    </script>
+
+</body>
+</html>

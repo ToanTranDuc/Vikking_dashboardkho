@@ -1,0 +1,79 @@
+﻿.stats-header {
+    display: grid !important;
+    grid-template-columns: repeat(4, auto) !important;
+    gap: 10px !important;
+    justify-content: end !important;
+    align-items: center !important;
+}
+
+.stat-card {
+    background: #f5f5f5;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.stat-value {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.stat-bar {
+    height: 3px;
+    border-radius: 2px;
+    margin-top: 6px;
+}
+
+.stat-card.total .stat-value {
+    color: #185FA5;
+}
+
+.stat-card.total .stat-bar {
+    background: #185FA5;
+}
+
+.stat-card.pass .stat-value {
+    color: #3B6D11;
+}
+
+.stat-card.pass .stat-bar {
+    background: #3B6D11;
+}
+
+.stat-card.fail .stat-value {
+    color: #A32D2D;
+}
+
+.stat-card.fail .stat-bar {
+    background: #A32D2D;
+}
+
+.stat-card.percent .stat-value {
+    color: #BA7517;
+}
+
+.stat-card.percent .stat-bar {
+    background: #BA7517;
+}
+
+.stat-label {
+    font-weight: 700;
+    color: black;
+    font-size: 13px;
+}
+.form-control, .cell-view-textarea {
+    min-height: 30px !important;
+    height: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    font-size:12px !important;
+}

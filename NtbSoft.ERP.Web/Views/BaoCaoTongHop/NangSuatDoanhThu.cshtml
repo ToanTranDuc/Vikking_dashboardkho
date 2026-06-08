@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "NangSuatDoanhThu";
+    Layout = "~/Views/Shared/_LayoutBCTH.cshtml";
+}
+<link href="~/css/BaoCaoTongHop/NangXuatDoanhThu/NangSuatDoanhThu.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="kt-portlet">
+        <div class="kt-widget24 d-flex align-items-center justify-content-between box-action">
+            <div class="action d-flex align-items-center" style="flex-wrap: wrap; gap: 10px 0;">
+                <div style=" display: flex; justify-content: center; align-items: center;">
+                    <input type="radio" name="date" value="" checked id="date" />
+                    <label for="date">Theo ngày&nbsp;</label>
+                    <input type="date" name="name" value="" id="todate">
+                </div>
+                <div style=" display: flex; justify-content: center; align-items: center;">
+                    <input type="radio" name="date" value="" id="month" />
+                    <label for="month">Theo tháng&nbsp;</label>
+                    <select id="byMonth" style="display:none;">
+                        <option value="01">Tháng 1</option>
+                        <option value="02">Tháng 2</option>
+                        <option value="03">Tháng 3</option>
+                        <option value="04">Tháng 4</option>
+                        <option value="05">Tháng 5</option>
+                        <option value="06">Tháng 6</option>
+                        <option value="07">Tháng 7</option>
+                        <option value="08">Tháng 8</option>
+                        <option value="09">Tháng 9</option>
+                        <option value="10">Tháng 10</option>
+                        <option value="11">Tháng 11</option>
+                        <option value="12">Tháng 12</option>
+                    </select>
+                    <select id="byYear" style="display:none;">
+                        <option value="2022">2022</option>
+                        <option value="2023" selected>2023</option>
+                        <option value="2024">2024</option>
+                    </select>
+                </div>
+
+                <div class="div-btn-find-data">
+                    <button class="btn-find-data" id="btnFind">
+                        <i class="fa fa-search"></i>
+                        <p>Tìm</p>
+                    </button>
+                </div>
+                <div class="div-btn-export-excel">
+                    <button class="btn-export-file-excel" id="btnXuatExcel">
+                        <i class="fa-sharp fa-solid fa-file-excel "></i>
+                        <p>Xuất Excel</p>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="kt-portlet">
+        <div class="kt-portlet__body">
+            <div class="kt-section">
+                <div class="kt-section__content">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Chuyền</th>
+                                <th rowspan="2">SL<br />Đạt</th>
+                                <th rowspan="2">Sl<br />Lỗi</th>
+                                <th rowspan="2">Tỉ lệ<br />Lỗi</th>
+                                <th colspan="3">Ủi</th>
+                                <th colspan="3">Đóng Gói</th>
+                                <th colspan="2">Doanh Thu</th>
+                            </tr>
+                            <tr>
+                                <th>TH</th>
+                                <th>LK</th>
+                                <th>Ứ ủi</th>
+                                <th>TH</th>
+                                <th>LK</th>
+                                <th>Tồn TPHT</th>
+                                <th>TH</th>
+                                <th>LK</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodyContent">
+                        </tbody>
+                        <tfoot id="footContent">
+
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <!--end::Section-->
+        </div>
+        <!--end::Form-->
+    </div>
+    <div class="row">
+        <div class="col-xl-6 col-lg-12 order-lg- order-xl-1">
+            <div class="kt-portlet">
+
+                <div id="container">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-lg-12 order-lg-6 order-xl-1">
+            <div class="kt-portlet">
+                <div id="container1">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script>
+    let brainChoose = sessionStorage.getItem("BranchName");
+    //if (brainChoose == null)
+    //    location.href = "../../../../danh-sach-bao-cao";
+    $('#tittleBC').text(`${brainChoose} - Báo cáo năng xuất, doanh thu`);
+    $('#home').on('click', function () {
+        location.href = "../../../../danh-sach-bao-cao";
+    });
+    $('#date').on('click', function () {
+        $('#byMonth').css({ 'display': 'none' });
+        $('#byYear').css({ 'display': 'none' });
+
+        $('#todate').css({ 'display': 'block' });
+    });
+    $('#month').on('click', function () {
+        $('#byMonth').css({ 'display': 'block' });
+        $('#byYear').css({ 'display': 'block' });
+
+        $('#todate').css({ 'display': 'none' });
+    });
+    $(".btn-warning1").on("click", function () {
+        $(".btn-warning1").removeClass("active");
+        $(this).addClass("active");
+    })
+</script>
+<script src="~/Scripts/BaoCaoTongHop/NangSuatDoanhThu/BCNangXuatVaDoanhThu.js"></script>

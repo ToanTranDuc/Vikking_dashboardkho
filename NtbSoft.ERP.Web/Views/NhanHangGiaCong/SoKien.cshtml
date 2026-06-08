@@ -1,0 +1,308 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Nhận hàng gia công kiện ";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <link href="~/css/TheoDoiHangXuat/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/toastr.min.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="~/Scripts/NhanHangGiaCong/flatpickr-min.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/sokien.css" rel="stylesheet" />
+</head>
+
+<body>
+    <section style="display: none; width: 99.8%; justify-content: space-between; height: 40px; background: #70baed; margin: 5px 2px; padding: 0px 10px; align-items: center; border-radius: 5px; position: sticky; top: 2px; z-index: 10; ">
+
+        <div class="list_phieu">
+            @*<i id="home" style="font-size: 21px; cursor: pointer; " class="fa-sharp fa-solid fa-house"></i>*@
+            <button id="creatDot">Nhập liệu gia công</button>
+            <button id="viewDot">Thống kê</button>
+        </div>
+        <div class="list_phieu" style="margin-left: auto; margin-right:10px">
+            <button class="btn_soKien">Ẩn số kiện</button>
+            <i id="eye-hideSL" style="font-size: 21px; cursor: pointer; border: 1px solid; padding: 0 5px; background: #fff; border-radius: 5px; outline: none; " class="fa-solid fa-eye-slash"></i>
+        </div>
+    </section>
+    <section class="content" style=" ">
+        <div class="" style="width: 100%; display: flex; padding: 0 5px; justify-content: space-between; flex-wrap: wrap;">
+            <div style="display: flex; width: 100%; flex-wrap: wrap;">
+                <i id="home" style="font-size: 21px; cursor: pointer; display: flex; justify-content: center; align-items: center; " class="fa-sharp fa-solid fa-house"></i>
+                <div class=" lst_DonHang">
+                    <label class="col-form-label item_lable" style="color: white">Tên ĐVSX</label>
+                    <select class="item_select dvsx">
+                    </select>
+                </div>
+                <div class=" lst_DonHang">
+                    <label class="col-form-label item_lable" style="color: white">Đơn hàng</label>
+                    <select class="item_select donhang">
+                    </select>
+                </div>
+                <div class="lst_DonHang">
+                    <label class="col-form-label item_lable" style="color: white">Đợt SX</label>
+                    <select class="item_select dotSX">
+                    </select>
+                </div>
+                <div class=" lst_PO">
+                    <label class="col-form-label item_lable" style="color: white">PO</label>
+                    <select class="item_select po">
+                    </select>
+                </div>
+                <div class="lst_DauSize">
+                    <label class="col-form-label item_lable" style="color: white">Mã PKL</label>
+                    <select class="item_select maPKL">
+                    </select>
+                </div>
+                <div class="lst_DauSize">
+                    <label class="col-form-label item_lable" style="color: white">ĐVSX hoàn thành</label>
+                    <select class="item_select madvsxht">
+                    </select>
+                </div>
+                <div class="lst_DonHang">
+                    <label class="col-form-label item_lable" style="color: white">Chọn kho</label>
+                    <select class="item_select makho">
+                    </select>
+                </div>
+                <div class="btn_list">
+                    <button style="background: #ff3155; white-space: nowrap; color: #fff; " class="clearInRowCheck inRow">Hủy tất cả</button>
+                    <button style="background: #cdffc7; white-space: nowrap; color: #000;" class="saveInRowCheck inRow">Nhận tất cả</button>
+                    <button style="background: #dde924; white-space: nowrap;color:#000 " class="btn btn-success" id="hoanthanh"><i class="fa-sharp fa-solid fa-check-to-slot"></i> Hoàn thành</button>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section>
+        <div class="nav_dongthungall">
+            <div class="list_tabIndex">
+                <button data-tab="tab-1" class="page1 active"> Chi tiết  </button>
+                <button data-tab="tab-2" class="page2"> Lịch sử HT </button>
+            </div>
+            <div class="nav_dongthung" style="margin-left: auto;">
+                <button class="saveViTri inViTri">Nhận theo vị trí</button>
+                <button style="display:none" class="clearViTri inViTri">Hủy nhận theo vị trí</button>
+            </div>
+
+        </div>
+    </section>
+    <section id="tab-1" class="lstTotal tab-content active">
+        <div class="main-item">
+            <div class="task-itemTong" style="max-height: calc(100vh - 160px);">
+                <div class="item-tableTong">
+                    <table class="table" style="position: relative">
+                        <thead id="theadTotal" class="thead-list">
+
+
+                        </thead>
+                        <tbody id="tbodyTotal">
+                        </tbody>
+                        <tfoot id="tfootTotal">
+
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section id="tab-2" class="tab-content">
+        <div class="main-itemTong">
+            <div class="task-itemTong">
+                <div class="item-tableTong">
+                    <table class="table" style="position: relative">
+                        <thead class="thead-list">
+                            <tr id="thead" style="position:relative">
+                                <td style="position: sticky; top: 0;">Ngày HT</td>
+                                <td style="position: sticky; top: 0;">Tên hàng</td>
+                                <td style="position: sticky; top: 0;">Khách hàng</td>
+                                <td style="position: sticky; top: 0;">PO</td>
+                                <td style="position: sticky; top: 0;">Đầu size</td>
+                                <td style=" position: sticky; top: 0;"> Màu</td>
+                                <td style=" position: sticky; top: 0;">SL Thùng </td>
+                                <td style=" position: sticky; top: 0;"> SLSP  </td>
+                                <td style="position: sticky; top: 0;">Đợt</td>
+                            </tr>
+
+                        </thead>
+                        <tbody id="tbodyTong">
+                        </tbody>
+                        <tfoot id="tfootTong">
+
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="main-itemDot">
+            <div class="task-itemDot">
+                <div class="item-tableDot">
+                    <table class="table" style="position: relative">
+                        <thead id="theadHistory" class="thead-list">
+
+
+                        </thead>
+                        <tbody id="tbodyHistory">
+                        </tbody>
+                        <tfoot id="tfootHistory">
+
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="popup">
+            <div class="list-popup">
+                <div style="border-bottom: 1px solid #333; padding-bottom: 0px; margin-bottom: 5px; font-weight: bolder; font-size: 18px; color: #db2612; display: flex; justify-content: space-between;">
+                    <div class="tieude">
+                        Nhập số lượng theo vị trí
+                    </div>
+                    <div class="checkItem" style="display:flex">
+                        <input class="checkTotal" style="width: 19px; height: 19px; margin: 0;" type="checkbox" />
+                        <label class="col-form-label item_lable" style="margin-top: 0px; margin-right: 10px;">Check</label>
+
+                    </div>
+                </div>
+                <div class="display">
+
+                </div>
+                <div class="text">
+                    <div class="tuthung_SoKien">
+                        <label class="col-form-label item_lable" style="margin-top: 5px; margin-right: 10px;">Từ Thùng </label>
+                        <input class="item_tuthung" type="number" name="name" value="" autocomplete="off" />
+                    </div>
+                    <div class="denthung_SoKien">
+                        <label class="col-form-label item_lable" style="margin-top: 5px; margin-right: 10px;">Đến thùng</label>
+                        <input class="item_denthung" type="number" name="name" value="" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="save_cancel">
+                    <div class="arrowList">
+                        <i class="fa-solid fa-circle-arrow-up arrow_left" style="color: #ccb51e;"></i>
+                        <i class="fa-solid fa-circle-arrow-down arrow_right"></i>
+                    </div>
+                    <div style="display: flex; margin-left: auto;">
+                        <div class="cancel_list">
+                            <button>Đóng</button>
+                        </div>
+                        <div class="save_list">
+                            <button>Xác nhận</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="popupTextarea" style=" width: 100%; height: 100vh; position: fixed; top: 0; background: rgba(0, 0, 0, 0.34);display:none;z-index:4">
+        <div id="popup1" class="popup1">
+            <span id="closePopupBtn" style="float:right;cursor:pointer;font-size: 35px;height: 34px;margin-top: -20px;color: red;">×</span>
+            <label style="font-size: 14px; color: red; font-family: 'Roboto'; margin-right: 10px; padding-bottom: 4px; border-bottom: 1px solid; margin-bottom: 14px;">Nhập liệu </label>
+            <div class="text_chitiet">
+
+            </div>
+            <div class="display1">
+
+            </div>
+            <div style="border-bottom: 1px solid #ccc; margin-bottom: 10px;">
+                <label>Số kiện:  </label>
+                <input class="nhapLieu" type="number" name="name" value="" autocomplete="off" />
+            </div>
+
+            <div style="display: flex; justify-content: space-between">
+                <div class="arrowList">
+                    <i class="fa-solid fa-circle-arrow-up arrow_up" style="color: #ccb51e;"></i>
+                    <i class="fa-solid fa-circle-arrow-down arrow_down"></i>
+                </div>
+                <div style="display: flex; ">
+                    <div class="cancel">
+                        <i style="padding-left: 3px;" class="fa-duotone fa-eraser"></i>
+                        <button style="border: none; background: transparent; font-weight: bold;" id="cancel">Hủy nhận kiện</button>
+                    </div>
+                    <div class="result">
+                        <i style="padding-left: 3px;" class="fa-duotone fa-floppy-disk"></i>
+                        <button style="border: none; background: transparent; font-weight: bold;" id="result">Nhận số kiện</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Danh sách thùng</h4>
+                </div>
+                <div class="modal-body">
+                    <label>Các thùng nhập</label>
+                    <div class="item_sizeDN">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+   
+    <div class="popup4">
+        <div class="list-popup">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 5px; border-bottom: 1px solid #ccc;">
+                <div class="tieude" style="font-size: 16px; font-weight: bold; color: #779557;">
+                    Ngày nhập kho
+                </div>
+                <div class="hide_popup1">
+                    <i class="fa-sharp fa-solid fa-xmark"></i>
+                </div>
+            </div>
+            <div style="margin-bottom: 5px; padding: 5px; border-bottom: 1px solid #ccc;">
+                <div class="lst_ngay" style="width: auto; min-width: 100px">
+                    <div class="item_ngaychon">
+                        <input style="outline: none; border: none; text-align: center;" type="text" class="datepicker datepicker3 ">
+                    </div>
+                </div>
+
+            </div>
+            <div style="display: flex; justify-content: end; align-items: center;"> 
+                <button style="padding: 5px 10px; background: #c5f11b; font-size: 14px; font-weight: bold; outline: none; " type="button" class="btn btn-default dateNhapKho" >Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/toastr.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/plugins/select2/js/select2.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/sweetalert2.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="~/Scripts/NhanHangGiaCong/flatpickr.js"></script>
+    <script>
+        var data = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+    </script>
+    <script src="~/Scripts/NhanHangGiaCong/sokien.js"></script>
+
+
+</body>
+</html>
+
+
+

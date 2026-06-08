@@ -1,0 +1,58 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Sơ Đồ Kho";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <link href="~/Css/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/Css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Css/roboto.css" rel="stylesheet" />
+    <link href="~/css/NhanHangGiaCong/sweetalert2.min.css" rel="stylesheet" />
+    <link href="~/Css/khuvuc.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="title">
+        <p>
+            Nhà máy Sơ Đồ Kho
+        </p>
+    </div>
+    <div class="khuvuchang">
+        <div class="list_hang">
+            @*<div class="item_hang">
+                    <i class="fa-sharp fa-solid fa-warehouse"></i>
+                    <p>Nhà máy 1</p>
+                </div>
+                <div class="item_hang">
+                    <i class="fa-sharp fa-solid fa-warehouse"></i>
+                    <p>Nhà máy 2</p>
+                </div>
+                <div class="item_hang">
+                    <i class="fa-sharp fa-solid fa-warehouse"></i>
+                    <p>Nhà máy 3</p>
+                </div>*@
+        </div>
+        <div class="container hangton">
+            <div class="item_hangton">
+                <i class="fa-solid fa-shelves"></i>
+                <p>Hàng tồn</p>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/ThongKeDongThung/sweetalert2.js"></script>
+    <script src="~/Scripts/sodokho/jquery.js"></script>
+    <script src="~/Scripts/sodokho/khuvuc.js"></script>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,1103 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đóng thùng</title>
+    <link href="/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/fontawesome-6.5.1.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.light.css" rel="stylesheet" />
+    <link href="~/css/DevExtreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/dongthungV2.css?version=1.0" rel="stylesheet" />
+    <link href="~/css/XuatHangNPL/xuathangnpl.css" rel="stylesheet" />
+<link href="~/Scripts/ViTriKho/bootstrap5.3.min.css" rel="stylesheet" />
+    <link href="~/css/tippy-animation.css" rel="stylesheet" />
+
+    <link href="~/css/ViTriKhoNPL/ScanQrCodeMobile.css" rel="stylesheet" />
+
+    <style>
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 23px !important;
+            /*margin-top: -1px;*/
+        }
+
+        .sec-action .item {
+            margin-right: 10px;
+            border: none;
+        }
+        .sec-action {
+            border: 1px solid #5DA566;
+            display: flex;
+            justify-content: start;
+            align-items: end;
+            gap: 4px;
+            flex-wrap: wrap;
+            border-radius: 6px;
+            padding: 4px 7px;
+            margin: 0 8px;
+        }
+        body {
+            font-size: 12px
+        }
+
+        .select-pkl {
+            flex-direction: column;
+            display: flex;
+        }
+
+        .labelTitle {
+            font-weight: bold;
+            color: green;
+            font-size: 15px !important;
+        }
+
+        #reader {
+            width: 500px;
+            position: fixed !important;
+            padding: 0px;
+            border: none;
+            left: 50%;
+            top: 170px;
+            transform: translate(-50%, -0%);
+        }
+
+        #reader2 {
+            width: 600px;
+            position: fixed !important;
+            padding: 0px;
+            border: none;
+            left: 50%;
+            top: 144px;
+            transform: translate(-50%, -0%);
+            background: #fff;
+            height: 422px;
+            z-index: 99;
+        }
+
+        #reader.active {
+            z-index: 999;
+        }
+
+        .lableValue {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .dx-header-row .col-header {
+            background: #5da566;
+            color: #fff;
+            text-align: center !important;
+            vertical-align: middle !important;
+            white-space: nowrap
+        }
+
+        .dx-data-row .col-header {
+            text-align: center !important;
+            font-size: 13px !important;
+            vertical-align: middle !important
+        }
+
+        .dx-footer-row .col-header .dx-datagrid-text-content {
+            text-align: center !important;
+            color: red !important
+        }
+
+        #dxTable1 .activeT {
+            background: #cff2f3 !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            margin-top: -2px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__clear {
+            font-size: 18px;
+            cursor: pointer;
+            float: right;
+            font-weight: bold;
+        }
+
+        .custom-select {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px;
+            padding: 0 !important
+        }
+
+            .custom-select.open .select-options {
+                top: 32px;
+            }
+        .list-item {
+            margin-bottom: 5px;
+        }
+        .collapsible-group {
+
+            margin: 0 5px;
+        }
+        svg {
+            margin-right: 3px;
+            margin-top: -1px;
+            width: 25px;
+        }
+     /* Modal Customization */
+        .modal-content {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        /* Single Image Section */
+        .single-image {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+            .single-image img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                max-height: 250px;
+            }
+
+        /* Carousel Container - Slide Effect */
+        .carousel-container-slide {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            min-height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+            will-change: transform;
+            height: 100%;
+        }
+
+        .carousel-slide-item {
+            min-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .carousel-slide-item img {
+            max-height: 300px;
+            max-width: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        /* Navigation Controls */
+        .carousel-control-prev,
+        .carousel-control-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: translateY(-50%) scale(1.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .carousel-control-prev:active,
+        .carousel-control-next:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .carousel-control-prev {
+            left: 15px;
+        }
+
+        .carousel-control-next {
+            right: 15px;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            display: none;
+        }
+
+        /* Custom Indicators */
+        .carousel-indicators-custom {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+        }
+
+        .carousel-indicators-custom button {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            padding: 0;
+            position: relative;
+        }
+
+        .carousel-indicators-custom button:hover {
+            background: rgba(255, 255, 255, 0.7);
+            transform: scale(1.2);
+        }
+
+        .carousel-indicators-custom button.active {
+            background: #fff;
+            width: 30px;
+            border-radius: 5px;
+            transform: scale(1);
+        }
+
+        /* Slide Counter */
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 10;
+            letter-spacing: 1px;
+        }
+
+        /* Loading Animation */
+        .carousel-slide-item img {
+            animation: fadeInImage 0.5s ease-in-out;
+        }
+
+        @@keyframes fadeInImage {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* No Image Section */
+        #noImageSection {
+            padding: 80px 20px;
+        }
+
+        #noImageSection i {
+            font-size: 64px;
+            color: #dee2e6;
+            margin-bottom: 20px;
+        }
+
+        /* Section Headers */
+        .modal-body h6 {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+            font-size:16px
+        }
+
+        /* Responsive */
+        @@media (max-width: 768px) {
+            .carousel-container-slide {
+                min-height: 300px;
+            }
+
+            .carousel-slide-item img {
+                max-height: 300px;
+            }
+
+            .carousel-control-prev,
+            .carousel-control-next {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .carousel-control-prev {
+                left: 10px;
+            }
+
+            .carousel-control-next {
+                right: 10px;
+            }
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            margin-top: 3px !important;
+        }
+        .modal-content, .modal-content .btn{
+            font-size: 15px
+        }
+        #handleFast, #btn-hide {
+            background: #5acde7;
+            font-size: 15px;
+            padding: 0px 16px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="title" style="background: #0b5477 ">
+            <div style="display: flex; align-items: center; width: 100%; ">
+                <div style="display: flex; justify-content: center; align-items: center; gap: 6px;">
+                    <i id="home" class="fa-sharp fa-solid fa-house text-white"></i>
+                    <span style="margin-top: 2px;color:white">Kế Hoạch Đóng Thùng</span>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div>
+        <div class="container-fluid">
+            <section>
+                <div class="row mb-2 align-items-end row-gap-2 mt-2">
+                    <div class="col-6 col-md-4 col-lg-4 col-xl-2">
+                        <div class="select-pkl ">
+                            <label class="txtSelected">Mã Hàng: </label>
+                            <select name="DH_PKL" id="DH_PKL">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-4 col-xl-2">
+                        <div class="select-pkl">
+                            <label class="txtSelected">PO:</label>
+                            <select name="PO_PKL" id="PO_PKL">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-4 col-xl-2">
+                        <div class="select-pkl">
+                            <label class="txtSelected">PKL:</label>
+                            <select name="DVSX_PKL" id="DVSX_PKL">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-4 col-lg-4 col-xl-2">
+                        <label class="text-black-small txtSelected">
+                            <i class="bi bi-upc-scan"></i> Quét/Nhập barcode
+                        </label>
+                        <div class="input-group input-group-sm">
+                            <input style="height: 31px; font-size: 12px" type="text"
+                                   class="form-control"
+                                   id="QRScan"
+                                   placeholder="">
+                            <button style="border: 1px solid #ccc;" type="button"
+                                    class="btn btn-light enterbarcode"
+                                    id="btnSearch"
+                                    data-side="left">
+                                <i class="fas fa-search" style="font-size:12px"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-2 col-xl-2" style="width: 140px;">
+                        <button id="" class=" openScannerBtn1 btn btn-secondary d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-camera mr-2"></i>
+                            <span style="font-size:12px">Mở máy quét</span>
+                        </button>
+                    </div>
+                    <div class="col-7 col-md-4 col-lg-6 col-xl-2 d-flex justify-content-start gap-2">
+                        <div class="ck-pkl d-flex flex-column d-none" style="min-width: 80px">
+                            <label for="c1-13" style="font-size: 12px; margin-bottom: 2px;">PKL đã nhập</label>
+                            <input style="width: 32px; height: 28px;" id="c1-13" type="checkbox">
+                        </div>
+                        <div class="ck-pkl d-flex flex-column d-none" style="min-width: 80px">
+                            <label for="checkHangPhoi" style="font-size: 12px; margin-bottom: 2px;">Hàng Phối</label>
+                            <input style="width: 32px; height: 28px;" id="checkHangPhoi" type="checkbox">
+                        </div>
+                        <div style="display: flex; justify-content: center; white-space: nowrap;">
+                            <button id="openModalBtn" style="background: #227bd7; color: #fff; height: 33px; font-size: 14px; margin-top: 15px;" class="btn btn-dark btn-sm ms-2">
+                                <i class="fas fa-dolly"></i> Shipping Mark
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        <section style="padding: 0px 5px">
+            <div class="collapsible-group m-0" style=" background: white;overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); border-radius: 12px 12px 0px 0px">
+                <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group2" aria-expanded="true" style="background-color: #196b8a">
+                    <div class="d-flex flex-row gap-4 align-items-center">
+                        <p class="item-list" style=" margin: 0px; background-color: transparent">
+                            Thông Tin Mã Hàng
+                        </p>
+                    </div>
+                    <span class="toggle-icon">▼</span>
+                </div>
+            </div>
+            <div class="collapse show" id="group2">
+                <div class="dongthung mt-0 p-0" style=" padding: 0 2px !important; ">
+                    <div>
+                        @*<div class="option-pkl d-flex justify-content-start mt-2 mb-2">
+                                <div class="search-box">
+                                    <button class="btn-search"><i class="fas fa-search"></i></button>
+                                    <input id="search" type="text" class="input-search" draggable="false" placeholder="Tìm Kiếm...">
+                                </div>
+                                <div style="margin-left: auto; margin-right: 5px; margin-bottom: 5px;">
+                                    <button class="btn" id="btn-hide" style=" max-height: 28px;">Ẩn</button>
+                                    <button class="btn" id="btn-refresh" style=" max-height: 28px;">Nạp lại</button>
+                                </div>
+                            </div>*@
+                    </div>
+                    <div class="list-item">
+                        <table id="tbl_DS_KHDT">
+                            <thead>
+                                <tr>
+                                    <th class="mw-2 d-none">Mã ĐH</th>
+                                    <th class="mw-2">Mã Hàng</th>
+                                    <th class="mw-2">PO</th>
+                                    <th class="mw-2">Tên DVSX</th>
+                                    <th class="mw-2">Màu</th>
+
+                                    <th class="minw-2">InSeam</th>
+                                    <th class="mw-2">Size</th>
+                                    <th class="diadiem hide">Từ Kho</th>
+                                    <th class="diadiem hide">Đến kho</th>
+                                    <th class="minw-2">Thùng</th>
+                                    <th class="minw-1">Đã Nhập/Tổng Thùng</th>
+                                    <th class="minw-2">Ngày Lập KH</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+                <div id="dxTable1" style="max-height: calc(100vh - 395px);"></div>
+            </div>
+        </section>
+
+        <div class="sec-action" style="margin-top:4px">
+            <div class="custom-select item" id="customSelect" style="background: no-repeat;">
+                <div class="select-selected">
+                    Tất cả
+                </div>
+                <div class="select-options item" wfd-invisible="true">
+                    <div class="option" data-action="0">Chưa đóng</div>
+                    <div class="option" data-action="1">Đã đóng</div>
+                    <div class="option active" data-action="2">Tất cả</div>
+                </div>
+            </div>
+            <button class="btn item d-none" id="handleByQuantity">Đóng số lượng</button>
+            <button class="btn item" id="handleFast">Đóng tất cả</button>
+            <button class="btn btn-orange" id="handleDongThung">Đóng thùng</button>
+        </div>
+        <div class="collapsible-group mt-2">
+            <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group1" aria-expanded="true" style="background-color: #196b8a">
+                <p class="item-list m-0" style="background-color:transparent">
+                    Thông Tin Thùng
+                </p>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="collapse show" id="group1">
+                <section style="padding: 5px 10px;">
+                    <div>
+                        <div class="PSM" id="dsThung">
+                        </div>
+                        <div class="PSM1 " style="display:none">
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </div>
+    @*<div class="modal fade" id="exampleModal" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Đóng theo vị trí</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <label>Từ thùng</label>
+                            <input type="number" name="name" value="" id="ViTriBD" min="1" />
+                        </div>
+                        <div>
+                            <label>Đến thùng</label>
+                            <input type="number" name="name" value="" id="ViTriKT" min="1" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnViTriXacNhan" class="btn btn-primary" data-dismiss="modal">Đồng ý</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+    <div class="modal fade" id="scannerModal" tabindex="-1" data-bs-backdrop="static"
+         data-bs-keyboard="false" style="z-index: 1054;background:rgb(0,0,0,0.45)">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="font-size:18px">📷 Quét Barcode</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="scanner-container" style="max-width: 100%;">
+                        <div class="video-container" style="position: relative; width: 100%; height: 400px; background: #000; border-radius: 10px; overflow: hidden;">
+                            <video id="video-preview" playsinline muted style="width: 100%; height: 100%; object-fit: cover;"></video>
+                            <!-- Overlay khung quét -->
+                            <div class="scan-region-highlight" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 250px; height: 250px; box-shadow: 0 0 0 9999px rgba(0,0,0,0.5);">
+                                <div class="scan-line" style="position: absolute; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #00ff00, transparent); animation: scan 2s linear infinite;"></div>
+                                <div class="scan-corner corner-tl" style="position: absolute; top: -2px; left: -2px; width: 20px; height: 20px; border-top: 2px solid #00ff00; border-left: 2px solid #00ff00;"></div>
+                                <div class="scan-corner corner-tr" style="position: absolute; top: -2px; right: -2px; width: 20px; height: 20px; border-top: 2px solid #00ff00; border-right: 2px solid #00ff00;"></div>
+                                <div class="scan-corner corner-bl" style="position: absolute; bottom: -2px; left: -2px; width: 20px; height: 20px; border-bottom: 2px solid #00ff00; border-left: 2px solid #00ff00;"></div>
+                                <div class="scan-corner corner-br" style="position: absolute; bottom: -2px; right: -2px; width: 20px; height: 20px; border-bottom: 2px solid #00ff00; border-right: 2px solid #00ff00;"></div>
+                            </div>
+                        </div>
+                        <div class="controls text-center mt-3">
+                            <button class="btn btn-success" id="startScanBtn" style="background-color: #157347;color:white ">
+                                <i class="bi bi-play-circle"></i> Bắt đầu quét
+                            </button>
+                            <button class="btn btn-danger" id="stopScanBtn" style="display: none;">
+                                <i class="bi bi-stop-circle"></i> Dừng quét
+                            </button>
+                        </div>
+                        <div class="status text-center mt-2 d-none" id="scanStatus"></div>
+                        @*<div class="result-container mt-3" id="scanResultContainer" style="display: none;">
+                                <div class="alert alert-success">
+                                    <div class="result-label"><strong>✅ Kết quả quét:</strong></div>
+                                    <div class="result-text" id="scanResult" style="font-size: 1.2rem; font-weight: bold;"></div>
+                                </div>
+                            </div>*@
+                        <!--Thông tin quét-->
+                        <div class="collapsible-group">
+                            <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group-thongtinquet" aria-expanded="true">
+                                <h4><i class="fa-solid fa-tag"></i>Thông tin thùng</h4>
+                                <span class="toggle-icon">▼</span>
+                            </div>
+                            <div class="collapse show" id="group-thongtinquet">
+                                <section style="padding: 5px 10px;">
+                                    <div class="row g-2">
+                                        <div class="col-4">
+                                            <label class="fw-bold">PO:</label>
+                                            <div class="itemScan" id="txtPO">—</div>
+                                        </div>
+                                        <div class="col-4">
+                                            <label class="fw-bold">STT Thùng:</label>
+                                            <div class="itemScan" id="txtSTT">—</div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <label class="fw-bold">Màu:</label>
+                                            <div class="itemScan" id="txtMauVT">—</div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <label class="fw-bold">Đầu Size:</label>
+                                            <div class="itemScan" id="txtDauSize">—</div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <label class="fw-bold">Size:</label>
+                                            <div class="itemScan" id="txtSize">—</div>
+                                        </div>
+                                        <div class="col-4">
+                                            <label class="fw-bold">SL Sản Phẩm:</label>
+                                            <div class="itemScan" id="txtSLSP">—</div>
+                                        </div>
+
+                                    </div>
+
+                                </section>
+                            </div>
+                        </div>
+                        <!-- Lịch sử quét -->
+                        <div class="collapsible-group">
+                            <div class="group-header" data-bs-toggle="collapse" data-bs-target="#group-lichsuquet" aria-expanded="true">
+                                <h4><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử quét đóng thùng</h4>
+                                <span class="toggle-icon">▼</span>
+                            </div>
+                            <div class="collapse show" id="group-lichsuquet">
+                                <section style="padding: 5px 10px;">
+                                    <div id="dxLichSuQuetDongThung" style="max-height:350px;"></div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <select id="select-LstVideo" style="display:none">
+    </select>
+    <div id="reader-container">
+        @*<div id="reader2">
+                Quét mã vạch
+            </div>*@
+        <div id="reader"></div>  <!-- Canvas cho quét mã QR -->
+        <div id="shaded-region"></div> <!-- Vùng tối bao quanh chỉ vùng quét -->
+    </div>
+
+    <audio id="beepSound" controls="controls" style="display:none">
+        <source src="~/css/QRCode/successSound.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="beepSoundError" controls="controls" style="display:none">
+        <source src="~/css/QRCode/errorSound.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999">
+        <div id="successToast" class="toast" role="alert">
+            <div class="toast-header bg-success text-white">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto">Thành công</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div style="font-size:13px" class="toast-body" id="successMessage"></div>
+        </div>
+        <div id="errorToast" class="toast" role="alert">
+            <div class="toast-header bg-danger text-white">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong class="me-auto">Lỗi</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+            </div>
+            <div style="font-size:13px" class="toast-body" id="errorMessage"></div>
+        </div>
+        <div id="warningToast" class="toast" role="alert">
+            <div class="toast-header bg-warning text-dark">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong class="me-auto">Cảnh báo</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div style="font-size:13px" class="toast-body" id="warningMessage"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">
+                        <i class="fas fa-images"></i> Hình Ảnh
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Mục 1: Hình ảnh đơn -->
+                    <div id="singleImageSection" class="mb-4" style="display: none;">
+                        <h6><i class="fas fa-image"></i> Hình Ảnh Chính</h6>
+                        <div class="single-image">
+                            <img id="singleImage" src="" alt="Hình ảnh chính">
+                        </div>
+                    </div>
+
+                    <!-- Mục 2: Danh sách hình ảnh (Carousel) -->
+                    <div id="imageListSection" style="display: none;">
+                        <h6><i class="fas fa-layer-group"></i> Danh Sách Hình Ảnh</h6>
+                        <div class="position-relative">
+                            <!-- Main Image Display with Slide Effect -->
+                            <div class="carousel-container-slide">
+                                <div class="carousel-track" id="carouselTrack">
+                                    <!-- Images will be inserted here -->
+                                </div>
+
+                                <!-- Navigation Controls -->
+                                <button style="color:#000" class="carousel-control-prev" type="button" id="prevBtn">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button style="color:#000" class="carousel-control-next" type="button" id="nextBtn">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+
+                                <!-- Indicators -->
+                                <div class="carousel-indicators-custom" id="customIndicators"></div>
+
+                                <!-- Counter -->
+                                <div class="slide-counter" id="slideCounter">1 / 1</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thông báo khi không có hình -->
+                    <div id="noImageSection" class="text-center" style="display: none;">
+                        <i class="fas fa-image-slash"></i>
+                        <p class="text-muted mt-3">Không có hình ảnh để hiển thị</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModalSwitchVT" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Header -->
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title" id="myModalLabelSwitchVT">
+                        <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                        Xác nhận chuyển
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body p-4">
+                    <p class="text-muted mb-4">Bạn đang quét mã khách với mã hiện tại khác nhau</p>
+
+                    <!-- Current Info -->
+                    <div class="mb-4">
+                        <h6 class="text-uppercase text-muted mb-3" style="font-size: 12px; font-weight: 600;">Thông tin hiện tại</h6>
+                        <div class="p-3 bg-light rounded">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Đơn hàng:</span>
+                                <strong id="currentVTDH" class="text-primary">-</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>PO:</span>
+                                <strong id="currentVTPO" class="text-primary">-</strong>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Mã PKL:</span>
+                                <strong id="currentVTPKL" class="text-primary">-</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center my-3">
+                        <i class="fas fa-arrow-down text-muted"></i>
+                    </div>
+
+                    <!-- New Info -->
+                    <div class="mb-4">
+                        <h6 class="text-uppercase text-muted mb-3" style="font-size: 12px; font-weight: 600;">Vật tư mới</h6>
+                        <div class="p-3 bg-light rounded border-start border-danger border-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Đơn hàng:</span>
+                                <strong id="newVTDH" class="text-danger">-</strong>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>PO:</span>
+                                <strong id="newVTPO" class="text-danger">-</strong>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Mã PKL:</span>
+                                <strong id="newVTPKL" class="text-danger">-</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning mb-0">
+                        <i class="fas fa-question-circle me-2"></i>
+                        Bạn có chắc chắn muốn chuyển?
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="modal-footer border-top bg-light">
+                    <button type="button" class="btn btn-secondary" id="btnCancelSwitchVT">
+                        <i class="fas fa-times me-1"></i> Hủy
+                    </button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmSwitchVT">
+                        <i class="fas fa-check me-1"></i> Xác nhận
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmCloseBoxModal" tabindex="-1" aria-labelledby="confirmCloseBoxModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success bg-opacity-10 border-success">
+                    <h5 class="modal-title fw-bold" id="confirmCloseBoxModalLabel">
+                        <i class="bi bi-box-seam text-success me-2"></i>
+                        Xác nhận đóng thùng toàn bộ
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-4">
+                        <i class="bi bi-box-seam-fill text-success" style="font-size: 4rem;"></i>
+                    </div>
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        Bạn có chắc chắn muốn <strong>đóng thùng toàn bộ</strong> các sản phẩm không?
+                    </div>
+                   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i> Hủy bỏ
+                    </button>
+                    <button type="button" class="btn btn-success" id="confirmDT">
+                        <i class="bi bi-check-circle me-1"></i> Xác nhận đóng thùng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Xác nhận HỦY ĐÓNG THÙNG -->
+    <div class="modal fade" id="confirmCancelBoxModal" tabindex="-1" aria-labelledby="confirmCancelBoxModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger bg-opacity-10 border-danger">
+                    <h5 class="modal-title fw-bold" id="confirmCancelBoxModalLabel">
+                        <i class="bi bi-x-octagon text-danger me-2"></i>
+                        Xác nhận hủy đóng thùng toàn bộ
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-4">
+                        <i class="bi bi-box-seam text-danger" style="font-size: 4rem;"></i>
+                    </div>
+                    <div class="alert alert-warning" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        Bạn có chắc chắn muốn <strong>hủy đóng thùng toàn bộ</strong> không?
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i> Hủy bỏ
+                    </button>
+                    <button type="button" class="btn btn-danger" id="confirmHDT" >
+                        <i class="bi bi-check-circle me-1"></i> Xác nhận hủy đóng thùng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery.min-3.6.1.js"></script>
+    <script src="~/Scripts/popperjs.min.js"></script>
+    <script src="~/Scripts/tippy.min.js"></script>
+    <link href="~/Content/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <script src="~/Content/plugins/select2/js/select2.min.js"></script>
+    <script src="~/Scripts/login.js"></script>
+    <script src="~/Content/Date/bootstrap5.3.bundle.min.js"></script>
+    <script src="~/Scripts/ScanQR/html5-qrcode.js"></script>
+    <script src="~/css/DevExtreme/dx.all.js"></script>
+    <script src="~/css/DevExtreme/knockout-latest.min.js"></script>
+    <script src="~/Scripts/ScanQR/toastM.js"></script>
+    <script src="~/Scripts/sweetalert2.min-11.6.0.js"></script>
+    <script src="~/Scripts/BienBanMoKien/Moment.js"></script>
+    <script>
+        $("#home").on("click", function () {
+            window.location.href = '/Home/Dashboard'
+        })
+        var userName = '@ViewBag.userName';
+        var barcodeLocal = ""
+        var isScannedFromModal = ""
+        function showToast(type, message, delay = 2000) {
+            let toastId, messageId;
+
+            switch (type) {
+                case 'success':
+                    toastId = 'successToast';
+                    messageId = 'successMessage';
+                    break;
+                case 'error':
+                    toastId = 'errorToast';
+                    messageId = 'errorMessage';
+                    break;
+                case 'warning':
+                    toastId = 'warningToast';
+                    messageId = 'warningMessage';
+                    break;
+                default:
+                    console.error('Unknown toast type:', type);
+                    return;
+            }
+
+            $('#' + messageId).text(message);
+
+            const toastElement = $('#' + toastId)[0];
+            const toast = new bootstrap.Toast(toastElement, {
+                autohide: true,
+                delay: delay
+            });
+
+            toast.show();
+        }
+    </script>
+    <script type="module">
+
+        import QrScanner from '/Scripts/qrcodenew.js';
+        let qrScanner;
+        let isProcessing = false;
+        let lastScannedTime = 0;
+        let lastScannedCode = '';
+
+
+        // Khởi tạo scanner khi mở modal
+        $('#scannerModal').on('shown.bs.modal', function () {
+            initScanner();
+        });
+
+        // Dừng scanner khi đóng modal
+        $('#scannerModal').on('hidden.bs.modal', function () {
+            if (qrScanner) {
+                qrScanner.stop();
+                $('#startScanBtn').show();
+                $('#stopScanBtn').hide();
+                $('#scanResultContainer').hide();
+                lastScannedCode = '';
+            }
+        });
+
+        function initScanner() {
+            const videoElem = document.getElementById('video-preview');
+            QrScanner.WORKER_PATH = '/Scripts/qr-scanner-worker.min.js';
+
+            qrScanner = new QrScanner(
+                videoElem,
+                result => onScanSuccess(result),
+                {
+                    returnDetailedScanResult: true,
+                    highlightScanRegion: false,
+                    highlightCodeOutline: false,
+                    maxScansPerSecond: 10,
+                    preferredCamera: 'environment'
+                }
+            );
+        }
+
+        function onScanSuccess(result) {
+            const currentTime = Date.now();
+            const timeDiff = currentTime - lastScannedTime;
+            const barcode = result.data;
+            if (isProcessing || (barcode == barcodeLocal) || timeDiff < 1000) {
+                return;
+            }
+
+            isProcessing = true;
+            lastScannedTime = currentTime;
+            lastScannedCode = barcode;
+
+            $('#scanResult').text(barcode);
+            barcodeLocal = barcode;
+            $('#scanResultContainer').show();
+            //showScanStatus('✅ Quét thành công! Đang kiểm tra...', 'success');
+
+            if (navigator.vibrate) {
+                navigator.vibrate(200);
+            }
+            isScannedFromModal = true;
+
+            barcodeInput()
+                .then(() => {
+                    isProcessing = false;
+                })
+                .catch((error) => {
+                    isProcessing = false;
+                    isScannedFromModal = false;
+                });
+
+        }
+
+
+        function showScanStatus(message, type) {
+            const statusElement = $('#scanStatus');
+            statusElement.text(message);
+            statusElement.removeClass().addClass(`status text-${type === 'success' ? 'success' : type === 'error' ? 'danger' : 'info'}`);
+        }
+
+
+
+        // Bắt đầu quét
+        $('#startScanBtn').on('click', async function () {
+            try {
+                $(this).prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Đang khởi động...');
+                await qrScanner.start();
+                $(this).hide();
+                $('#stopScanBtn').show();
+                $(this).prop('disabled', false).html('<i class="bi bi-play-circle"></i> Bắt đầu quét');
+                showScanStatus('🔍 Đang quét... Đưa mã barcode vào khung', 'info');
+                lastScannedCode = '';
+            } catch (err) {
+                $(this).prop('disabled', false).html('<i class="bi bi-play-circle"></i> Bắt đầu quét');
+                showScanStatus('❌ Không thể truy cập camera. Vui lòng cho phép quyền!', 'error');
+                console.error('Lỗi camera:', err);
+            }
+        });
+
+        // Dừng quét
+        $('#stopScanBtn').on('click', function () {
+            qrScanner.stop();
+            $(this).hide();
+            $('#startScanBtn').show();
+            showScanStatus('⏸️ Đã dừng quét', 'error');
+            lastScannedCode = '';
+        });
+
+        // Mở modal scanner
+        $('.openScannerBtn1').on('click', function () {
+            const scannerModal = new bootstrap.Modal($('#scannerModal')[0]);
+            scannerModal.show();
+        });
+
+
+    </script>
+    <script src="~/Scripts/DongThung/dongthungV2.js?version=1.1"></script>
+
+</body>
+</html>
+

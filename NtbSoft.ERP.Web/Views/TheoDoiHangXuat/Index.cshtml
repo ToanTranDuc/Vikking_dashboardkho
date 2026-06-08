@@ -1,0 +1,294 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Theo dỗi hàng xuất ";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/TheoDoiHangXuat/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/toastr.min.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="~/css/TheoDoiHangXuat/theodoihangxuat.css" rel="stylesheet" />
+</head>
+
+<body>
+    <i id="home" style="font-size: 21px; cursor: pointer; position: absolute; left: 15px;" class="fa-sharp fa-solid fa-house"></i>
+    <section>
+        <div class="title">Hồ sơ theo dõi hàng xuất</div>
+        <p> CONTAINER/LCL LOADING RECORD </p>
+    </section>
+    <section>
+        <div class="row" style="display:flex;margin: 10px;width: 100%;">
+            <div style="display: flex; width: 70%; margin-left: 56px; justify-content: center; align-items: center;">
+                <div style="display:flex;">
+                    <input class="xeCont" disabled type="checkbox" name="name" value="" style="width: 32px; margin-left: 36px; outline: none; border: 1px solid; margin-right: 5px;">
+                    <p> Container</p>
+                </div>
+                <div style="display:flex">
+                    <input class="xeTai" disabled type="checkbox" name="name" value="" style=" width: 30px; margin-left: 36px; outline: none; border: 1px solid; margin-right: 5px;">
+                    <p style="white-space: nowrap;">Xe tải (LCL)</p>
+                </div>
+                <div style="display:flex">
+                    <input class="xeRoMoc" disabled type="checkbox" name="name" value="" style=" width: 30px; margin-left: 36px; outline: none; border: 1px solid; margin-right: 5px;">
+                    <p style="white-space: nowrap;">Xe Rơ Móc</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="search">
+        <div style="margin: 5px; display: none; ">
+            <div class="" style="margin-right:10px">
+                <label style="display: block;" for="from">Từ ngày:</label>
+                <input style="width: 240px; outline: none; border: 1px solid; height: 26px;text-align: center;font-size: 15px;" type="text" id="from" name="from">
+            </div>
+            <div class="">
+                <label style="display: block;" for="to">Đến ngày:</label>
+                <input style="width: 240px;outline: none;border: 1px solid;height: 26px;text-align: center;font-size: 15px;" type="text" id="to" name="to">
+            </div>
+        </div>
+        <div style="margin: 5px; display: flex; justify-content: space-between; width: 100%; ">
+            <div class="lookup-container" style="display: flex; justify-content: center; align-items: center;">
+                <label style="margin-right: 5px; font-size: 15px; font-family: 'Roboto';">Tên phiếu</label>
+                <input style="width: auto;" type="text" class="lookup-input" placeholder="Search...">
+                <div class="ultitle" style="display:flex;justify-content:space-between">
+                    <p class="ultile_p1">Khách hàng</p>
+                    <p class="ultile_p1">Mã Phiếu</p>
+                    <p class="ultile_p1">Số xe</p>
+                    <p class="ultile_p1">Số cont</p>
+                    <p class="ultile_p1">Số Booking</p>
+                </div>
+                <ul class="lookup-results">
+                </ul>
+            </div>
+            <div style="margin: 10px 0px;margin-right:5px">
+                @*<button class="btn_search" id="Update"> <i class="fa-sharp fa-solid fa-floppy-disk"></i> Lưu</button>*@
+                @*<button style="background: #d9534f; color: #fff; border: 1px solid #000;" class="btn_search" id="UpdateHT"><i style="color:#333" class="fa-sharp fa-solid fa-check-to-slot"></i>  Hoàn thành</button>*@
+                <button style="background: #dde924; white-space: nowrap; " class="btn_search" id="xuatEX">Xuất EX</button>
+            </div>
+        </div>
+
+    </section>
+    <section style="margin: 10px 10px; width:98% ">
+        <div>
+            <div class="item">
+                <div class="row " style="display: flex; flex-wrap: wrap;">
+                    <div class=" list_item">
+                        <p>Khách hàng</p>
+                        <div class="item_input">
+                            <input class="khachhang" type="text" name="name" value="" disabled />
+
+                        </div>
+
+                    </div>
+                    <div class=" list_item">
+                        <p>Mã hàng</p>
+                        <div class="item_input">
+                            <input class="mahang" type="text" value="" disabled />
+
+                        </div>
+                    </div>
+                    <div class=" list_item">
+                        <p>PO số</p>
+                        <div class="item_input">
+                            <input class="Po" type="text" name="name" value="" disabled />
+                        </div>
+                    </div>
+
+                    <div class=" list_item">
+                        <p>Số lượng</p>
+                        <div class="item_input">
+                            <input class="Soluong" type="text" value="" disabled />
+                        </div>
+
+                    </div>
+                    <div class=" list_item">
+                        <p>Ngày giờ đóng</p>
+                        <div class="item_input">
+                            <span class="creatDate dateimeformat"></span>
+                        </div>
+                    </div>
+                    <div class=" list_item">
+                        <p>Ngày giờ kết thúc</p>
+                        <div class="item_input">
+                            <span class="finishDate dateimeformat"></span>
+                        </div>
+                    </div>
+
+                    <div class=" list_item">
+                        <p>Số xe</p>
+                        <div class="item_input">
+                            <input class="banSo" type="text" value="" disabled />
+                        </div>
+
+                    </div>
+                    <div class=" list_item inputcontainer">
+                        <p>Số container</p>
+                        <div class="item_input">
+                            <input class="container" type="text" value="" disabled />
+                        </div>
+                    </div>
+                    <div class=" list_item inputromoc">
+                        <p>Số rơ móc</p>
+                        <div class="item_input">
+                            <input class="romoc" type="text" value="" disabled />
+                        </div>
+                    </div>
+
+                    <div class=" list_item">
+                        <p>Tên tài xế</p>
+                        <div class="item_input">
+                            <input class="nameTX" type="text" value="" disabled />
+                        </div>
+
+                    </div>
+                    <div class=" list_item">
+                        <p>CMND</p>
+                        <div class="item_input">
+                            <input class="CMND" type="text" value="" disabled />
+                        </div>
+                    </div>
+                    <div class=" list_item">
+                        <p>Công ty</p>
+                        <div class="item_input">
+                            <input class="congty" type="text" value="" disabled />
+                        </div>
+                    </div>
+                    <div class=" list_item">
+                        <p> Cảng đến</p>
+                        <div class="item_input">
+                            <input class="cangden" type="text" value="" disabled />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="list_image">
+            <div class="row item_image">
+                <div class="imageCo5">
+                    <p>
+                        1.Hình ảnh lúc chưa chất hàng
+                    </p>
+                    <div class="image " id="image0" style="border: 1px solid; margin-right: 20px;">
+
+                    </div>
+                </div>
+                <div class="imageCo2">
+                    <p>
+                        2.Hình độ ẩm
+                    </p>
+                    <div class="image " id="imageDoAm" style="border: 1px solid; margin-right: 20px;">
+
+                    </div>
+                </div>
+                <div class="imageCo5">
+                    <p>
+                        3.Hình ảnh chất được 25%
+                    </p>
+                    <div class="image " id="image25" style="border: 1px solid;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_image">
+            <div class="row item_image">
+                <div class="imageCo5">
+                    <p>
+                        4.Hình ảnh chất được 50%
+                    </p>
+                    <div class="image " id="image50" style="border: 1px solid; margin-right: 20px;">
+
+                    </div>
+                </div>
+                <div class="imageCo2">
+
+                </div>
+                <div class="imageCo5">
+                    <p>
+                        5.Hình ảnh chất được 75%
+                    </p>
+                    <div class="image " id="image75" style="border: 1px solid;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="list_image">
+            <div class="row item_image">
+                <div class="imageCo5">
+                    <p>
+                        6.Hình ảnh chất được 100%
+                    </p>
+                    <div class="image " id="image100" style="border: 1px solid; margin-right: 20px;">
+
+                    </div>
+                </div>
+                <div class="imageCo2">
+
+                </div>
+                <div class="imageCo5">
+                    <p>
+                        7.Hình khi đã đóng cửa phương tiện
+                    </p>
+                    <div class="image " id="imageDongCua" style="border: 1px solid;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list_image tablet">
+            <div class="row item_image">
+                <div class="imageCo5">
+                    <p>
+                        8.Hình kiểm tra seal trước chốt
+                    </p>
+                    <div class="image imageTruocChot" id="imageTruocChot" style="border: 1px solid; margin-right: 20px;">
+
+                    </div>
+                </div>
+                <div class="imageCo2" style="display: flex; justify-content: end; align-items: center;">
+                    <span class="seal"></span>
+                </div>
+                <div class="imageCo5">
+
+                    <p>
+                        9.Hình seal đã chốt an toàn
+                    </p>
+                    <div class="image imageChotAT" id="imageChotAT" onclick="CloseCamera()" data-dismiss="modal" data-target="#ModalImage" style="border: 1px solid;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class=" item_addImage">
+
+
+        </div>
+    </section>
+ 
+    <script src="~/Scripts/TheoDoiHangXuat/WebCam.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/toastr.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/theodoihangxuat.js"></script>
+</body>
+</html>
+
+
+

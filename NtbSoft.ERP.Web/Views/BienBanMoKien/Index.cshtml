@@ -1,0 +1,465 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Biên bản mở kiện ";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <link href="~/Content/plugins/select2/css/select2.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/fontawesome.pro.6.0.0.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/toastr.min.css" rel="stylesheet" />
+    <link href="~/css/TheoDoiHangXuat/roboto.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link href="~/css/QRCode/toastr.minM.css" rel="stylesheet" />
+    <link href="~/css/BienBanMoKien/flatpickr-min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/css/BienBanMoKien/BienBanMoKien.css" rel="stylesheet" />
+</head>
+
+<body>
+    <section>
+        <div class="title">
+            <div style="display: flex; align-items: center; width: 100%; flex-wrap: wrap; ">
+                <div style="display: flex; justify-content: center; align-items: center; gap: 6px;">
+                    <i id="home" class="fa-sharp fa-solid fa-house"></i>
+                    <span style="margin-top: 2px;">Biên bản mở kiện nguyên liệu</span>
+                </div>
+                <div class="d-flex" style="margin-left: auto;">
+                    <button type="button"
+                            class="save-buttonShare btn-add btn btn-primary d-flex align-items-center gap-2 ">
+                        <i class="fa-solid fa-plus"></i>
+                        Thêm kiện
+                    </button>
+                    <button type="button" style="background: #3466b3; color: #fff;"
+                            class="save-buttonShare btn-huy btn btn-primary d-flex align-items-center gap-2 ">
+                        <i class="fa-solid fa-xmark"></i>
+                        Hủy nhận
+                    </button>
+                    <button type="button" style="background: #ffe216; color: #000;"
+                            class="save-buttonShare btn-save btn btn-primary d-flex align-items-center gap-2 ">
+                        <i class="fa-solid fa-floppy-disk-circle-arrow-right"></i>
+                        Nhận kiện
+                    </button>
+                    <button type="button" style="background: #438945; color: #fff;"
+                            class="save-buttonShare btn btn-primary d-flex align-items-center gap-2 btn-excel">
+                        <i class="fa-solid fa-file-excel"></i>
+                        Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section>
+        <div class="container-fluid p-0" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+            <div class="card-body" style="padding :2px;margin-bottom:5px">
+                <div class="">
+                    <div class="row p-0 m-0">
+                        <div class="col-12 col-md-12 col-lg-12 col-xl-7">
+                            <div class="row p-0 m-0">
+                                <div class="col-3 col-md-3 col-lg-3 col-xl-2 ">
+                                    <div class="select2_item ">
+                                        <label class="txtselected">Mã hàng</label>
+                                        <select onchange="GetVatTu()" class="select_2" id="mahangid">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-md-4 col-lg-5 col-xl-7 p-0">
+
+                                    <div class="select2_item">
+                                        <label class="txtselected">Vật tư </label>
+                                        <select onchange=" GetSoLo()" class="select_2" id="cayvai">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-3 col-md-2 col-lg-2 col-xl-2 ">
+                                    <div class="select2_item ">
+                                        <label class="txtselected">Số lô </label>
+                                        <select onchange="GetPhieuNK()" class="select_2" id="soloid">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2 col-md-2 col-lg-2 col-xl-1">
+                                    <div class="select2_item">
+                                        <label class="txtselected">Nhập xong</label>
+                                        <input onchange="returnVatTu()" class="checkNhapThung" type="checkbox" style="width: 28px; height: 28px; margin-top: 1px;
+">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-12 col-xl-5 mt-2" style="width: auto;min-width: 100px;">
+                            <div style="display: flex; justify-content: end; align-items: center; height: 100%; gap: 10px; ">
+                                <div>
+                                    <input class="item_inputsearchA" style="width: 150px; text-align: center; height: 30px; border: 1px solid #ccc !important; border-radius: 4px; cursor: pointer; outline: none; "
+                                           type="text" name="name" value="" autocomplete="off" placeholder="Tìm kiện " />
+                                </div>
+                                <div>
+                                    <input class="item_inputsearch" style="width:150px; text-align: center; height: 30px; border: 1px solid #ccc !important; border-radius: 4px; cursor: pointer; outline: none; "
+                                           type="text" name="name" value="" autocomplete="off" placeholder="Tìm kiếm" />
+                                </div>
+                                <div class="icon_reload">
+                                    <i class="fa-solid fa-arrows-rotate"></i>
+                                </div>
+                                <button onclick="inbarcode()" class="btn  bg-warning" id="printBarCode" style="font-size: 15px; width: 105px; height: 30px; display: flex; justify-content: center; align-items: center; background: #68ff1b;"> In barcode </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="main-item">
+            <div class="task-item">
+                <div class="item-table">
+                    <table class="table" style="position: relative;margin-bottom:0px">
+                        <thead class="thead-list">
+                            <tr id="thead" style="position:relative">
+                                <td style="position: sticky; top: 0;">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <input style=" width: 18px; height: 18px;" type="checkbox" class="checkAllNK" />
+                                    </div>
+                                </td>
+                                <td style="position: sticky; top: 0;">STT</td>
+
+                                <td style="position: sticky; top: 0;">Số LOT</td>
+                                <td style="position: sticky; top: 0;">Vật tư</td>
+                                <td style="position: sticky; top: 0;">Khổ/Size</td>
+                                <td style=" position: sticky; top: 0;"> Đơn vị</td>
+                                <td style="position: sticky; top: 0;">Cây vải</td>
+                                <td style=" position: sticky; top: 0;">Theo CT </td>
+                                <td style=" position: sticky; top: 0;"> Thực nhập  <i style="position: absolute; top: 0; right: 4px; font-size: 16px; cursor: pointer;" class="fas fa-minus-square"></i></td>
+                                <td style="position: sticky; top: 0;">Đơn giá</td>
+                                <td style="position: sticky; top: 0;">Thành tiền</td>
+                                <td style="position: sticky; top: 0;">Barcode</td>
+                                <td style="position: sticky; top: 0;">
+                                    In BarCode
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <input style=" width: 18px; height: 18px;" type="checkbox" class="checkAllBC" />
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </thead>
+                        <tbody id="tbody">
+                        </tbody>
+                        <tfoot id="tfoot">
+
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title" id="myModalLabel">Thêm kiện</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-2">
+                    <div class="row mb-2  pb-2" style="border-bottom: 1px solid #E9ECEF;">
+                        <div class="col-4 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Số lô:</span>
+                            <span class="soloMDA" style="font-size: 16px; color: red; font-weight: 700;"></span>
+                        </div>
+                        <div class="col-8 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Vật tư:</span>
+                            <span class="vattuMDA" style="font-size: 16px; color: red; font-weight: 700;"></span>
+                        </div>
+
+                        <div class="col-4 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Khổ size:</span>
+                            <span class="khosizeMDA" style="font-size: 16px; color: red; font-weight: 700;"></span>
+                        </div>
+                        <div class="col-4 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Đơn vị:</span>
+                            <span class="donviMDA" style="font-size: 16px; color: red; font-weight: 700;"></span>
+                        </div>
+                        <div class="col-4 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Đơn giá:</span>
+                            <span class="dongiaMDTextA" style="font-size: 16px; color: red; font-weight: 700;"></span>
+                        </div>
+
+                    </div>
+                    <div class="row ">
+                        <div class="col-6 py-1">
+                            <div style="display: flex; gap: 2px;">
+                                <span style="font-size: 16px; color: black; font-weight: 500; white-space: nowrap; width: 125px;"> Cây vải thêm:</span>
+                                <input class="sokienMD addKienInput" value="" />
+                            </div>
+                        </div>
+                        <div class="col-6 py-1">
+                            <div style="display: flex; gap: 2px;">
+                                <span style="font-size: 16px; color: black; font-weight: 500; white-space: nowrap; width: 125px;"> Thực nhập:</span>
+                                <input class="thucnhapMD addKienInput" type="number" value="" />
+                            </div>
+                        </div>
+                        <div class="col-6 py-1">
+                            <div style="display: flex; gap: 2px;">
+                                <span style="font-size: 16px; color: black; font-weight: 500; white-space: nowrap; width: 125px;"> Tên LOT</span>
+                                <input class="tenlotMD addKienInput" type="text" value="" />
+                            </div>
+                        </div>
+                        <div class="col-6 py-1 d-none">
+                            <div style="display: flex; gap: 2px;">
+                                <span style="font-size: 16px; color: black; font-weight: 500; white-space: nowrap; width: 125px;"> Đơn giá:</span>
+                                <input class="dongiaMDA addKienInput" type="text" value="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary saveKien">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModalN" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title" id="myModalLabelN">Chọn ngày</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-2">
+                    <div class="row ">
+                        <div class="col-6 py-1">
+                            <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                                <span style="font-size: 16px; color: black; font-weight: 500;"> Ngày:</span>
+                                <div class="item_ngaychon">
+                                    <input style="outline: none; border: 1px solid #ccc; border-radius: 5px; height: 30px; font-size: 14px; text-align: center;" type="text" class="datepicker">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-6 py-1">
+                            <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                                <span style="font-size: 16px; color: black; font-weight: 500;"> Palet:</span>
+                                <input class="paletMD addKienInput" type="text" value="" style="height: 30px; color: #000; text-transform: uppercase;" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary saveTable">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModalIn" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog" style="width: 80%; max-width: 80%;">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title" id="myModalLabeIN">In barcode</h5>
+                    <button type="button" class="close closebtn" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-2">
+                    <div id="labelContainerB">
+                        <div class="row lablebarcodeB">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="window.print()">In barcode</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal4" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title" id="myModalLabel">Thực xuất</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-2">
+                    <div class="row mb-2  pb-2" style="border-bottom: 1px solid #E9ECEF;">
+                        <div class="col-4 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Số lô:</span>
+                            <span class="soloMD" style="font-size: 16px; color: red; font-weight: 700;"></span>
+                        </div>
+                        <div class="col-8 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Vật tư:</span>
+                            <span class="vattuMD" style="font-size: 16px; color: red; font-weight: 700;"></span>
+                        </div>
+
+                        <div class="col-4 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Số kiện:</span>
+                            <span class="sokienS4" style="font-size: 16px; color: red; font-weight: 700;"></span>
+                        </div>
+                        <div class="col-4 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Số LOT:</span>
+                            <span class="solotS4" style="font-size: 16px; color: red; font-weight: 700;"></span>
+                        </div>
+                        <div class="col-4 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Theo CT:</span>
+                            <span class="theoCTS4" style="font-size: 16px; color: red; font-weight: 700;"></span>
+                        </div>
+
+                        <div class="col-4 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Khổ size:</span>
+                            <span class="khosizeMD" style="font-size: 16px; color: red; font-weight: 700;"></span>
+                        </div>
+                        <div class="col-4 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Đơn vị:</span>
+                            <span class="donviMD" style="font-size: 16px; color: red; font-weight: 700;"></span>
+                        </div>
+                        <div class="col-4 py-1">
+                            <span style="font-size: 16px; color: black; font-weight: 500;"> Đơn giá:</span>
+                            <span class="dongiaMDText" style="font-size: 16px; color: red; font-weight: 700;"></span>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-12 py-1">
+                            <div style="display: flex; gap: 2px;">
+                                <span style="font-size: 16px; color: black; font-weight: 500; white-space: nowrap; width: ;"> Thực nhập:</span>
+                                <input style="width:50%" class="SuaTNInput addKienInput" type="number" value="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btnXacNhanSuaTN">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModalD" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title" id="myModalLabelD">Reset thực nhập</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-2">
+                    <p class="mb-0" style="font-size:16px;">Bạn muốn reset thực nhập từng kiện ? </p>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="ResetThucNhap()" type="button" class="btn btn-primary" id="btnHuyThuCNhap">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModalH" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title" id="myModalLabelD">Hủy nhận</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-2">
+                    <p class="mb-0" style="font-size:16px;">Bạn muốn hủy nhận những kiện này ? </p>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="HuyNhan()" type="button" class="btn btn-primary" id="btnHuyThuCNhap">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="barcodein" style="display:none;">
+        <div id="labelContainer" style="opacity:0">
+            <div class="lablebarcode">
+            </div>
+        </div>
+    </div>
+    @*modal Xuất Excel*@
+    <div class="modal fade" id="modal-excel" tabindex="-1" aria-labelledby="modalExcelLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content shadow-lg">
+
+                <div class="modal-body px-4 py-3">
+                    <!-- Ngày -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Từ ngày</label>
+                            <input type="text" class="form-control excel-from-date" id="toDate" placeholder="Chọn từ ngày">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Đến ngày</label>
+                            <input type="text" class="form-control excel-to-date" id="fromDate" placeholder="Chọn đến ngày">
+                        </div>
+                    </div>
+
+
+                    <!-- Số lô -->
+                    <div class="mb-3">
+                        <label class="form-label">Chọn số lô</label>
+                        <select multiple class="form-select excel-lot-select" id="SoLo_Export">
+                        </select>
+                    </div>
+
+                    <!-- Loại xuất -->
+                    <div class="mb-2">
+                        <label class="form-label d-block mb-2">Xuất theo:</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input excel-radio" type="radio" name="excelExportType" id="xuatHQ" value="HaiQuan" checked>
+                            <label class="form-check-label" for="xuatHQ">Hải Quan</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input excel-radio" type="radio" name="excelExportType" id="xuatTT" value="ThucTe">
+                            <label class="form-check-label" for="xuatTT">Thực Tế</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between px-4 pb-3">
+                    <button type="button" class="btn btn-outline-secondary btn-cancel-export" data-dismiss="modal">
+                        <i class="fa-solid fa-ban" style="margin-right:5px"></i> Hủy
+                    </button>
+                    <button type="button" class="btn btn-success btn-confirm-excel">
+                        <span class="spinner-border spinner-border-sm d-none me-2" role="status"></span>
+                        <i class="fa-solid fa-file-export me-1" style="margin-right:5px"></i>Xuất Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/Scripts/TheoDoiHangXuat/jquery.js"></script>
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/Scripts/TheoDoiHangXuat/toastr.min.js"></script>
+    <script src="~/Scripts/BienBanMoKien/qrcode.min.js"></script>
+
+    <script src="~/Content/plugins/select2/js/select2.js"></script>
+    <script src="~/Scripts/ScanQR/toastM.js"></script>
+    <script src="~/Scripts/ThongKeDongThung/moment.min.js"></script>
+    <script src="~/Scripts/BienBanMoKien/flatpickr.js"></script>
+    <script>
+        var userName = '@ViewBag.userName';
+        var isNPL = 1
+    </script>
+    <script src="~/Scripts/BienBanMoKien/BienBanMoKien.js"></script>
+
+</body>
+</html>
+
+
+
+

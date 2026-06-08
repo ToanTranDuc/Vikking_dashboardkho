@@ -1,0 +1,300 @@
+﻿.dx-header-row .col-header {
+    background: #5da566;
+    color: #fff;
+    text-align: center !important;
+    vertical-align: middle !important;
+    white-space: nowrap
+}
+
+.dx-data-row .col-header {
+    text-align: center !important;
+    font-size: 13px !important;
+    vertical-align: middle !important
+}
+
+.dx-footer-row .col-header .dx-datagrid-text-content {
+    text-align: center !important;
+    color: red !important
+}
+
+.dx-row.dx-freespace-row.dx-column-lines {
+    display: none !important
+}
+
+/* Set chiều cao cho tất cả các row */
+#dxDataGridDangKyVatTu, #dxDataGridDanhSachDangKy .dx-datagrid-rowsview .dx-row {
+    height: 50px !important;
+    min-height: 50px !important;
+}
+
+/* Set chiều cao cho header */
+#dxDataGridDangKyVatTu, #dxDataGridDanhSachDangKy .dx-datagrid-headers .dx-row {
+    height: 45px !important;
+}
+
+/* Set chiều cao cho cell */
+#dxDataGridDangKyVatTu, #dxDataGridDanhSachDangKy .dx-datagrid-rowsview .dx-data-row > td {
+    padding: 8px !important;
+    vertical-align: middle !important;
+}
+
+#txtSoPhieu:disabled {
+    background-color: transparent
+}
+
+.form-group {
+    margin: 0rem 0rem 0rem 0rem !important;
+}
+
+.labelHeader {
+    color: black !important;
+    font-size: 0.8rem !important;
+    margin-bottom: 0.1rem !important;
+}
+
+.input-box {
+    width: 100%;
+    padding: 7px 6px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    background: white;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+    .input-box:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+
+.dropdown-list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid #007bff;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: -2px;
+}
+
+    .dropdown-list.show {
+        display: block;
+    }
+
+.dropdown-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+    .dropdown-item:hover {
+        background: #f8f9fa;
+    }
+
+    .dropdown-item:last-child {
+        border-bottom: none;
+    }
+
+    .dropdown-item input[type="checkbox"] {
+        margin-right: 10px;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    .dropdown-item label {
+        cursor: pointer;
+        flex: 1;
+        user-select: none;
+        font-weight: unset !important
+    }
+
+.check-all {
+    background: #f0f0f0;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+}
+
+.search-box {
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+    .search-box input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 13px;
+    }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+.form-control {
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.select2-container .select2-selection--single {
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    padding-top: 10px;
+    height: 36px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 31px;
+    right: 8px;
+    top: 4px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+#txtPhieu:disabled {
+    background-color: transparent;
+    cursor: default;
+}
+
+.modal-fullscreen .modal-content {
+    height: 80%;
+    border: 0;
+    border-radius: 0;
+}
+
+#modalComfimrtDeleteVT {
+    z-index: 1060 !important;
+}
+
+    #modalComfimrtDeleteVT + .modal-backdrop {
+        z-index: 1055 !important;
+    }
+
+.modal-backdrop.show:nth-of-type(2) {
+    z-index: 1055 !important;
+}
+
+/* Style cho mobile */
+@media (max-width: 768px) {
+    .btn-mobile {
+        padding: 0.4rem 0.5rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+
+        .btn-mobile .btn-text {
+            font-size: 0.75rem;
+        }
+
+        .btn-mobile i {
+            font-size: 0.875rem;
+        }
+}
+
+/* Style cho tablet */
+@media (min-width: 768px) and (max-width: 991px) {
+    .btn-mobile {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Style cho desktop */
+@media (min-width: 992px) {
+    .btn-mobile {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+}
+
+#modalEditDKVT #dxDataGridEditVatTu {
+    width: 100% !important;
+}
+
+#modalEditDKVT .dx-datagrid {
+    width: 100% !important;
+}
+
+#signatureModal .modal-content {
+    width: 76% !important
+}
+
+#signatureModal .modal-dialog-centered {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - var(--bs-modal-margin) * 2);
+}
+
+.modal .btn,
+.title .btn,
+button.btn {
+    font-size: 13px !important;
+}
+
+#modalTimNhanh .modal-dialog {
+    margin: auto;
+    max-width: 70%;
+}
+
+.dx-datagrid-summary-item {
+    text-align: center !important;
+    color: red !important
+}
+
+.title {
+    background: #357C97;
+    color: #fff;
+    font-size: 14px
+}
+
+.txtselected {
+    font-size: 14px !important;
+}
+
+.btnSignature .btn-outline-secondary {
+    color: #6c757d !important;
+    border-color: #6c757d !important;
+}
+
+.btnSignature .btn-outline-primary {
+    color: #0d6efd !important;
+    border-color: #0d6efd !important;
+}
+
+.btnSignature .btn-outline-secondary:hover {
+    background-color: #6c757d !important;
+    color: white !important;
+}
+
+.btnSignature .btn-outline-primary:hover {
+    background-color: #0d6efd !important;
+    color: white !important;
+}
