@@ -1,4 +1,4 @@
-﻿ //UserID = localStorage.getItem("username1");
+ //UserID = localStorage.getItem("username1");
 var modulesData = [];
 var renderedTabs = [];
 var arrCountPhieuChuaDuyet = [];

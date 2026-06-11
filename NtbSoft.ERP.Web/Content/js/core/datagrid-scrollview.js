@@ -1,4 +1,4 @@
-﻿var scrollView = function () {
+var scrollView = function () {
     var scrollview = $.extend(true,{}, $.fn.datagrid.defaults.view, {
         render: function (target, container, frozen) {
             var state = $.data(target, 'datagrid');

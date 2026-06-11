@@ -1,4 +1,4 @@
-﻿/// <reference path="utils.js" />
+/// <reference path="utils.js" />
 
 /**
 * Module name：Common script

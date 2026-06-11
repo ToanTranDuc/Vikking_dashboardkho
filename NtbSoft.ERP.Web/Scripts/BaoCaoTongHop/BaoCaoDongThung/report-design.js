@@ -1,4 +1,4 @@
-﻿
+
 var urlDonHang, lstMaHang, lstMaLenh;
 var chooseMaLenh, choosePO;
 // main

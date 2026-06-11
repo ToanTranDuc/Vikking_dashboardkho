@@ -1,4 +1,4 @@
-﻿/// VARIABLE
+/// VARIABLE
 let dxDanhSachVatTuKiemKe;
 let dxPhieuDanhSachVatTuKiemKe;
 let dxDanhSachItemCode;

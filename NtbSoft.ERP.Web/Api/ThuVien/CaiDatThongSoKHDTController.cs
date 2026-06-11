@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using NtbSoft.ERP.Model.ThuVien;
 using System;
 using System.Collections.Generic;

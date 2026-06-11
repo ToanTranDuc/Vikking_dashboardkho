@@ -1,4 +1,4 @@
-﻿let scanner = null;
+let scanner = null;
 let isScanConsecutive = false;
 let camList = $("#cam-list");
 let _idCam = '';

@@ -1,4 +1,4 @@
-﻿using NtbSoft.ERP.Web.Models;
+using NtbSoft.ERP.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

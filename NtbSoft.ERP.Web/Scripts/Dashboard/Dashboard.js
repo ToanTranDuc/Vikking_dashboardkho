@@ -1,4 +1,4 @@
-﻿function updateClock() {
+function updateClock() {
     const now = new Date();
     const el = document.getElementById('clock-display');
     if (el) el.textContent = now.toLocaleDateString('vi-VN', {

@@ -113,6 +113,8 @@
             var stopReconnectingTimeout,
                 onReconnectTimeout;
 
+            // Check if this connection has already been configured to stop reconnecting after a specified timeout.
+            // Without this check if a connection is stopped then started events will be bound multiple times.
             if (!connection._.configuredStopReconnectingTimeout) {
                 onReconnectTimeout = function (connection) {
                     var message = signalR._.format(signalR.resources.reconnectTimeout, connection.disconnectTimeout);
@@ -124,6 +126,7 @@
                 connection.reconnecting(function () {
                     var connection = this;
 
+                    // Guard against state changing in a previous user defined even handler
                     if (connection.state === signalR.connectionState.reconnecting) {
                         stopReconnectingTimeout = window.setTimeout(function () { onReconnectTimeout(connection); }, connection.disconnectTimeout);
                     }
@@ -141,7 +144,17 @@
         };
 
     signalR = function (url, qs, logging) {
-   
+        /// <summary>Creates a new SignalR connection for the given url</summary>
+        /// <param name="url" type="String">The URL of the long polling endpoint</param>
+        /// <param name="qs" type="Object">
+        ///     [Optional] Custom querystring parameters to add to the connection URL.
+        ///     If an object, every non-function member will be added to the querystring.
+        ///     If a string, it's added to the QS as specified.
+        /// </param>
+        /// <param name="logging" type="Boolean">
+        ///     [Optional] A flag indicating whether connection logging is enabled to the browser
+        ///     console/log. Defaults to false.
+        /// </param>
 
         return new signalR.fn.init(url, qs, logging);
     };
@@ -154,6 +167,7 @@
                 matches;
 
             if (window.navigator.appName === 'Microsoft Internet Explorer') {
+                // Check if the user agent has the pattern "MSIE (one or more numbers).(one or more numbers)";
                 matches = /MSIE ([0-9]+\.[0-9]+)/.exec(window.navigator.userAgent);
 
                 if (matches) {
@@ -161,6 +175,7 @@
                 }
             }
 
+            // undefined value means not IE
             return version;
         })(),
 
@@ -247,6 +262,10 @@
     }
 
     function validateTransport(requestedTransport, connection) {
+        /// <summary>Validates the requested transport by cross checking it with the pre-defined signalR.transports</summary>
+        /// <param name="requestedTransport" type="Object">The designated transports that the user has specified.</param>
+        /// <param name="connection" type="signalR">The connection that will be using the requested transports.  Used for logging purposes.</param>
+        /// <returns type="Object" />
 
         if ($.isArray(requestedTransport)) {
             // Go through transport array and remove an "invalid" tranports
@@ -284,6 +303,8 @@
     }
 
     function addDefaultPort(protocol, url) {
+        // Remove ports  from url.  We have to check if there's a / or end of line
+        // following the port in order to avoid removing ports such as 8080.
         if (url.match(/:\d+$/)) {
             return url;
         } else {
@@ -306,6 +327,7 @@
         };
 
         that.drain = function () {
+            // Ensure that the connection is connected when we drain (do not want to drain while a connection is not active)
             if (connection.state === $.signalR.connectionState.connected) {
                 while (buffer.length > 0) {
                     drainCallback(buffer.shift());
@@ -332,9 +354,9 @@
                 }),
                 lastMessageAt: new Date().getTime(),
                 lastActiveAt: new Date().getTime(),
-                beatInterval: 5000, 
+                beatInterval: 5000, // Default value, will only be overridden if keep alive is enabled,
                 beatHandle: null,
-                totalTransportConnectTimeout: 0, 
+                totalTransportConnectTimeout: 0, // This will be the sum of the TransportConnectTimeout sent in response to negotiate and connection.transportConnectTimeout
                 redirectQs: null
             };
             if (typeof (logging) === "boolean") {
@@ -359,7 +381,12 @@
         json: window.JSON,
 
         isCrossDomain: function (url, against) {
-      
+            /// <summary>Checks if url is cross domain</summary>
+            /// <param name="url" type="String">The base URL</param>
+            /// <param name="against" type="Object">
+            ///     An optional argument to compare the URL against, if not specified it will be set to window.location.
+            ///     If specified it must contain a protocol and a host property.
+            /// </param>
             var link;
 
             url = $.trim(url);
@@ -370,9 +397,11 @@
                 return false;
             }
 
+            // Create an anchor tag.
             link = window.document.createElement("a");
             link.href = url;
 
+            // When checking for cross domain we have to special case port 80 because the window.location will remove the
             return link.protocol + addDefaultPort(link.protocol, link.host) !== against.protocol + addDefaultPort(against.protocol, against.host);
         },
 
@@ -386,6 +415,11 @@
 
         clientProtocol: "2.1",
 
+        // We want to support older servers since the 2.0 change is to support redirection results, which isn't
+        // really breaking in the protocol. So if a user updates their client to 2.0 protocol version there's
+        // no reason they can't still connect to a 1.5 server. The 2.1 protocol is sent by the client so the SignalR
+        // service knows the client will use they query string returned via the RedirectUrl for subsequent requests.
+        // It doesn't matter whether the server reflects back 2.1 or continues using 2.0 as the protocol version.
         supportedProtocols: ["1.5", "2.0", "2.1"],
 
         negotiateRedirectSupportedProtocols: ["2.0", "2.1"],
@@ -522,7 +556,10 @@
 
             configureStopReconnectingTimeout(connection);
 
-            
+            // If jsonp with no/auto transport is specified, then set the transport to long polling
+            // since that is the only transport for which jsonp really makes sense.
+            // Some developers might actually choose to specify jsonp for same origin requests
+            // as demonstrated by Issue #623.
             if (config.transport === "auto" && config.jsonp === true) {
                 config.transport = "longPolling";
             }
@@ -708,6 +745,9 @@
                             return;
                         }
 
+                        // Check for a redirect response (which must have a ProtocolVersion of 2.0 or greater)
+                        // ProtocolVersion 2.1 is the highest supported by the client, so we can just check for 2.0 or 2.1 for now
+                        // instead of trying to do proper version string comparison in JavaScript.
                         if (connection.negotiateRedirectSupportedProtocols.indexOf(res.ProtocolVersion) !== -1) {
                             if (res.Error) {
                                 protocolError = signalR._.error(signalR._.format(resources.errorFromServer, res.Error));
@@ -1045,7 +1085,11 @@
     $.connection = $.signalR = signalR;
 
 }(window.jQuery, window));
+/* jquery.signalR.transports.common.js */
+// Copyright (c) .NET Foundation. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+/*global window:false */
 /// <reference path="jquery.signalR.core.js" />
 
 (function ($, window, undefined) {
@@ -1468,7 +1512,9 @@
                 },
                 error: function (error, textStatus) {
                     if (textStatus === "abort" || textStatus === "parsererror") {
-               
+                        // The parsererror happens for sends that don't return any data, and hence
+                        // don't write the jsonp callback to the response. This is harder to fix on the server
+                        // so just hack around it on the client for now.
                         return;
                     }
 
@@ -1502,13 +1548,14 @@
                 });
             }
             else { 
+                // fetch is not available - fallback to $.ajax
                 transportLogic.ajax(connection, {
                     url: url,
                     async: async,
                     timeout: 1000,
                     type: "POST",
                     headers: requestHeaders,
-                    dataType: "text" 
+                    dataType: "text" // We don't want to use JSONP here even when JSONP is enabled
                 });
             }
 
@@ -1558,7 +1605,8 @@
                             signalR.resources.errorDuringStartRequest,
                             error, xhr));
                     } else {
-                      
+                        // Stop has been called, no need to trigger the error handler
+                        // or stop the connection again with onStartError
                         connection.log("The start request aborted because connection.stop() was called.");
                         rejectDeferred(signalR._.error(
                             signalR.resources.stoppedDuringStartRequest,
@@ -1570,6 +1618,7 @@
 
         tryAbortStartRequest: function (connection) {
             if (connection._.startRequest) {
+                // If the start request has already completed this will noop.
                 connection._.startRequest.abort(startAbortText);
                 delete connection._.startRequest;
             }

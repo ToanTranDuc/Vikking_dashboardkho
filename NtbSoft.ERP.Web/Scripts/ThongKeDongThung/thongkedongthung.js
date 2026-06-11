@@ -1,4 +1,4 @@
-﻿let user = localStorage.getItem("username1")
+let user = localStorage.getItem("username1")
 $(".selectDs").select2()
 function renderDonHang() {
     $.ajax({

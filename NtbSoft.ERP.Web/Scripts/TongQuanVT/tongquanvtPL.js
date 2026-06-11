@@ -1,4 +1,4 @@
-﻿var userNameSave = localStorage.getItem("username1")
+var userNameSave = localStorage.getItem("username1")
 let timeoutId2;
 var barcodeLocal;
 var selectSoLo;

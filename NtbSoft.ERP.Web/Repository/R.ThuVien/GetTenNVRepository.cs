@@ -1,4 +1,4 @@
-﻿using NtbSoft.ERP.Model.ThuVien;
+using NtbSoft.ERP.Model.ThuVien;
 using System;
 using System.Collections.Generic;
 using System.Data;

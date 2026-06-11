@@ -1,4 +1,4 @@
-﻿var shelfData = [];
+var shelfData = [];
 var shelfDataPL = [];
 var detailData = [];
 var dataDanhSachKe = []

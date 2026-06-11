@@ -1,4 +1,4 @@
-﻿
+
 $(document).ready(function () {
     const today = new Date();
 

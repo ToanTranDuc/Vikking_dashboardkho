@@ -1,4 +1,4 @@
-﻿using System.Data;
+using System.Data;
 using System.Web.Http;
 using NtbSoft.ERP.Model.ThuVien;
 

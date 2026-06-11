@@ -1,4 +1,4 @@
-﻿var arrayError = {};
+var arrayError = {};
 var arrayXY = Array();
 var lstNhomLoi, lstNhomLoiCT;
 var StatusKiemLai = "0";

@@ -1,4 +1,4 @@
-﻿$(function () {
+$(function () {
     initHistoryFeature();
     initTabPanel();
     $("#Layer_1").click();

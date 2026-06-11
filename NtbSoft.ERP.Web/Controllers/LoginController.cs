@@ -1,4 +1,4 @@
-﻿
+
 using NtbSoft.ERP.Entity.SYSTEM;
 using NtbSoft.ERP.Model.SYSTEM;
 

@@ -1,4 +1,4 @@
-﻿/**
+/**
 * Module name：easyui Method modification
 * Program name: easyui.fix.js
 * Copyright(c) 2018-2050

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using NtbSoft.ERP.Model.ThuVien;
 using System.Data;
 using System.Web.Http;

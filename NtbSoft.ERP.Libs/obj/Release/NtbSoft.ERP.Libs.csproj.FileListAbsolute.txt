@@ -1,0 +1,67 @@
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Libs\bin\Release\NtbSoft.ERP.Libs.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Libs\bin\Release\NtbSoft.ERP.Libs.pdb
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Libs\bin\Release\Newtonsoft.Json.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Libs\bin\Release\Newtonsoft.Json.xml
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.AssemblyReference.cache
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.CoreCompileInputs.cache
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.CopyComplete
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Libs\bin\Release\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Libs\bin\Release\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Libs\bin\Release\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Libs\bin\Release\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.CopyComplete
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Libs\bin\Release\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Libs\bin\Release\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Libs\bin\Release\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Libs\bin\Release\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.CopyComplete
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.pdb
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Libs\bin\Release\NtbSoft.ERP.Libs.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Libs\bin\Release\NtbSoft.ERP.Libs.pdb
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Libs\bin\Release\Newtonsoft.Json.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Libs\bin\Release\Newtonsoft.Json.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.AssemblyReference.cache
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.CoreCompileInputs.cache
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.CopyComplete
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Libs\bin\Release\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Libs\bin\Release\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Libs\bin\Release\Newtonsoft.Json.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Libs\bin\Release\Newtonsoft.Json.xml
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.CopyComplete
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Libs\bin\Release\NtbSoft.ERP.Libs.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Libs\bin\Release\NtbSoft.ERP.Libs.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Libs\bin\Release\Ghostscript.NET.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Libs\bin\Release\Newtonsoft.Json.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Libs\bin\Release\Ghostscript.NET.xml
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Libs\bin\Release\Newtonsoft.Json.xml
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.AssemblyReference.cache
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.CoreCompileInputs.cache
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.CopyComplete
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Libs\bin\Release\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Libs\bin\Release\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Libs\bin\Release\Ghostscript.NET.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Libs\bin\Release\Newtonsoft.Json.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Libs\bin\Release\Ghostscript.NET.xml
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Libs\bin\Release\Newtonsoft.Json.xml
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.csproj.CopyComplete
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Libs\obj\Release\NtbSoft.ERP.Libs.pdb

@@ -1,4 +1,4 @@
-﻿
+
 var userNameSave = localStorage.getItem("username1")
 var MaNPLBarCode = ""
 var SoLoBarCode = ""

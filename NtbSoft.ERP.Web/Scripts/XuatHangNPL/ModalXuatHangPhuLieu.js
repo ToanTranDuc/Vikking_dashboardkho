@@ -1,4 +1,4 @@
-﻿// ========== CACHE LAYER ==========
+// ========== CACHE LAYER ==========
 const _apiCache = {};
 
 function getCacheKey(action, params) {

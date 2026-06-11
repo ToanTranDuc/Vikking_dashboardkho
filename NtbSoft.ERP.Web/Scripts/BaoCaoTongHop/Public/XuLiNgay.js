@@ -1,4 +1,4 @@
-﻿// trả ngày về chuỗi yyyy-MM-dd
+// trả ngày về chuỗi yyyy-MM-dd
 function formatDateYMD(currentDate) {
     let year = currentDate.getFullYear();
     let month = String(currentDate.getMonth() + 1).padStart(2, '0');

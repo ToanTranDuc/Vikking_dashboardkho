@@ -1,4 +1,4 @@
-﻿@media (min-width: 481px) and (max-width: 580px) {
+@media (min-width: 481px) and (max-width: 580px) {
     .tieude {
         /*flex-direction: column;*/ /* Stack label and button vertically */
         align-items: flex-start; /* Align label to the start */

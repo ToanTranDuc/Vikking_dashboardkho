@@ -1,4 +1,4 @@
-﻿
+
 var selectedOption1 = "";
 var selectedOption2 = "";
 

@@ -1,4 +1,4 @@
-﻿@media (min-width: 581px) and (max-width: 1180px) {
+@media (min-width: 581px) and (max-width: 1180px) {
     .tieude {
         flex-direction: row; /* Maintain horizontal layout */
         justify-content: space-between; /* Space out label and button */

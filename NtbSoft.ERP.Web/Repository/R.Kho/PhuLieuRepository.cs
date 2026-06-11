@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using NtbSoft.ERP.Model.Kho;
 using System.Collections.Generic;
 using System.Linq;

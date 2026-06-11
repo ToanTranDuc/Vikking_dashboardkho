@@ -1,4 +1,4 @@
-﻿$(function () {
+$(function () {
     let _Mahang = '';
     let _MaLenh = '';
     let _MaKH = '';

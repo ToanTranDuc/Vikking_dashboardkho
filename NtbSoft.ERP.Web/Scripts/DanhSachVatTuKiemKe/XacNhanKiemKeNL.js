@@ -1,4 +1,4 @@
-﻿/// VARIABLE
+/// VARIABLE
 var userNameSave = localStorage.getItem("username1")
 let dxDataGridKiemKe;
 let dxDataPhieuDKVT;

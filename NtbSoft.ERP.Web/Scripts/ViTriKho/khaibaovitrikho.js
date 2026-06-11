@@ -1,4 +1,4 @@
-﻿
+
 
 // Dữ liệu lưu trữ với cấu trúc phân cấp
 var trEditTang;

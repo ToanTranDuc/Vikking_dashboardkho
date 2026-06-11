@@ -1,4 +1,4 @@
-﻿document.getElementById('groupSelect').addEventListener('change', initializeTop5)
+document.getElementById('groupSelect').addEventListener('change', initializeTop5)
 document.getElementById('groupSelect').addEventListener('change', initializeTop5min)
 document.getElementById('MaHangSelect').addEventListener('change', loadNPLTheoKHMH)
 document.getElementById('itemSelect').addEventListener('change', loadSoLo)
