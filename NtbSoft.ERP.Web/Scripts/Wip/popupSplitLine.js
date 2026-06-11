@@ -1,4 +1,4 @@
-﻿// popupSplitLine.js
+// popupSplitLine.js
 (function () {
     window.WIP = window.WIP || {};
 

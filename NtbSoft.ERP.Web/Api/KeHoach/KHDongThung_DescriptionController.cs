@@ -1,4 +1,4 @@
-﻿using Ghostscript.NET;
+using Ghostscript.NET;
 using Ghostscript.NET.Rasterizer;
 using NtbSoft.ERP.Model.KeHoach;
 using System;

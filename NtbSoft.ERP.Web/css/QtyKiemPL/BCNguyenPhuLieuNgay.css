@@ -1,4 +1,4 @@
-﻿.stats-header {
+.stats-header {
     display: grid !important;
     grid-template-columns: repeat(4, auto) !important;
     gap: 10px !important;

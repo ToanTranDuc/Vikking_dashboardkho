@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
     localStorage.removeItem('MaHang');
     localStorage.removeItem('MaLenh');
     localStorage.removeItem('MaKH');

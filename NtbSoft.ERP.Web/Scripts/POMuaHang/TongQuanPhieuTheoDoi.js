@@ -1,4 +1,4 @@
-﻿let arrChungLoaiVT = [];
+let arrChungLoaiVT = [];
 let arrDiemDanhGia = [];
 let arrNhaCungCap = [];
 

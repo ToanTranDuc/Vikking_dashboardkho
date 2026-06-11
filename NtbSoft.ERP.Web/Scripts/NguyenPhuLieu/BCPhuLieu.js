@@ -1,4 +1,4 @@
-﻿var userName = "";
+var userName = "";
 var fromdate = '', todate = '';
 var year = 2025;
 $(document).ready(function () {

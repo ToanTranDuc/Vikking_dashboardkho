@@ -1,4 +1,4 @@
-﻿using NtbSoft.ERP.Model.SYSTEM;
+using NtbSoft.ERP.Model.SYSTEM;
 using NtbSoft.ERP.Web.Models.SYSTEM;
 using NtbSoft.ERP.Web.Repository.R.SYSTEM;
 using System;

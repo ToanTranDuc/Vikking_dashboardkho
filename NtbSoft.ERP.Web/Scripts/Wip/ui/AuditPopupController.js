@@ -1,4 +1,4 @@
-﻿(function (window, $) {
+(function (window, $) {
     "use strict";
 
     var WIP = window.WIP = window.WIP || {};

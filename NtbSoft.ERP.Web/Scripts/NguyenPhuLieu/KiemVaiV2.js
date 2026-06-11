@@ -1,4 +1,4 @@
-﻿
+
 var userName = "";
 var maKHSoLo = ""
 var IDError = "";

@@ -1,4 +1,4 @@
-﻿
+
 var batchData;
 var dataKiem;
 var dataErrorPoint;

@@ -1,4 +1,4 @@
-﻿let currentStream = null;
+let currentStream = null;
 let currentContainer = null;
 let currentFacingMode = 'environment'; // 'environment' (sau) hoặc 'user' (trước)
 let imageData = {};

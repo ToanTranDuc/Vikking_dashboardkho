@@ -1,4 +1,4 @@
-﻿using NtbSoft.ERP.Api.Models.SYSTEM;
+using NtbSoft.ERP.Api.Models.SYSTEM;
 using System;
 using System.Collections.Generic;
 using System.Linq;

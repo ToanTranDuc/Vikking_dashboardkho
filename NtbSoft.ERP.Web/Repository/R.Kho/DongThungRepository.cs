@@ -1,4 +1,4 @@
-﻿using NtbSoft.ERP.Model.Kho;
+using NtbSoft.ERP.Model.Kho;
 using System;
 using System.Collections.Generic;
 using System.Data;

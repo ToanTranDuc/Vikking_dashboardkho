@@ -1,4 +1,4 @@
-﻿using NtbSoft.ERP.Entity.POMuaHang;
+using NtbSoft.ERP.Entity.POMuaHang;
 using System;
 using System.Collections.Generic;
 using System.Data;

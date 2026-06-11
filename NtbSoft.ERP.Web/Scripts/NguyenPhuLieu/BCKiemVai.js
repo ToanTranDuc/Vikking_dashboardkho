@@ -1,4 +1,4 @@
-﻿var lstDataMaHang = [];
+var lstDataMaHang = [];
 var fromdate = '', todate = '';
 var year = 2025;
 var uerName = ""

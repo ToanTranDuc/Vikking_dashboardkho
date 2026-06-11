@@ -1,4 +1,4 @@
-﻿using NtbSoft.ERP.Model.KeHoach;
+using NtbSoft.ERP.Model.KeHoach;
 using System;
 using System.Collections.Generic;
 using System.Data;

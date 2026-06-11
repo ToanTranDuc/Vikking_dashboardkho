@@ -1,4 +1,4 @@
-﻿using BaoCaoTongHop.Models.GetData;
+using BaoCaoTongHop.Models.GetData;
 using BaoCaoTongHop.Service;
 using Newtonsoft.Json;
 using NtbSoft.ERP.Web.Models;

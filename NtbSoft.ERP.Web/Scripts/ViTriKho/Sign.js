@@ -1,4 +1,4 @@
-﻿var canvas, ctx;
+var canvas, ctx;
 var isDrawing = false;
 var penColor = '#000000';
 var penSize = 2;

@@ -1,4 +1,4 @@
-﻿const API_BASE = "/api/CanDoiDonHangTong";
+const API_BASE = "/api/CanDoiDonHangTong";
 //không init lặp
 let _wipPopupInited = false;
 let _autoConfirmPending = false;

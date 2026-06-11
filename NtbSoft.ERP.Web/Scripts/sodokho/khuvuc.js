@@ -1,4 +1,4 @@
-﻿$(function () {
+$(function () {
     let user = localStorage.getItem("username1")
     let nhaKho = function () {
         let url = '/api/ViTriKho/GetNhaMay?para1=' + user;

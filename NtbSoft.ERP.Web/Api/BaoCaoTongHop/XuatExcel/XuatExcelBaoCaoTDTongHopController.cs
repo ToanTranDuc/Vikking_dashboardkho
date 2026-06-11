@@ -1,4 +1,4 @@
-﻿using BaoCaoTongHop.Service;
+using BaoCaoTongHop.Service;
 using Newtonsoft.Json;
 using NtbSoft.ERP.Web.Models;
 using OfficeOpenXml;

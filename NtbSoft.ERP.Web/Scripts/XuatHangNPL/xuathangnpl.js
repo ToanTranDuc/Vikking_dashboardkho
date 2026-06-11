@@ -1,4 +1,4 @@
-﻿var userNameSave = localStorage.getItem("username1")
+var userNameSave = localStorage.getItem("username1")
 
 var kiengocAttr = ""
 var soluonggoc = ""

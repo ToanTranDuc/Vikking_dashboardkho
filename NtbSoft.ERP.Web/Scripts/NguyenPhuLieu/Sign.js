@@ -1,4 +1,4 @@
-﻿const canvas = document.querySelector("canvas"),
+const canvas = document.querySelector("canvas"),
     toolBtns = document.querySelectorAll(".tool"),
     sizeSlider = document.querySelector("#size-slider"),
     colorBtns = document.querySelectorAll(".colors .option"),

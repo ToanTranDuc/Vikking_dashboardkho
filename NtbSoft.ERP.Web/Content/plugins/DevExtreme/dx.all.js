@@ -1,4 +1,4 @@
-﻿/*!
+/*!
 * DevExtreme (dx.all.js)
 * Version: 24.2.3
 * Build date: Fri Dec 06 2024

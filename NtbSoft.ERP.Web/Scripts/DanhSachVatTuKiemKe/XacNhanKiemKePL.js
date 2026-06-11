@@ -1,4 +1,4 @@
-﻿/// VARIABLE
+/// VARIABLE
 var userNameSave = localStorage.getItem("username1")
 var dxDataGridKiemKePL;
 var checkIndexPL = 0;

@@ -1,4 +1,4 @@
-﻿//coding by Dat
+//coding by Dat
 //start
 
 const input = $(".toggle_input input");

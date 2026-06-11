@@ -1,4 +1,4 @@
-﻿// KHDKXuatHangController.cs
+// KHDKXuatHangController.cs
 using NtbSoft.ERP.Model.KeHoach;
 using System.Data;
 using System.Web.Http;

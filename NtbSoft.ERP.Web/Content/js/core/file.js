@@ -1,4 +1,4 @@
-﻿/**
+/**
 Upload and download files
 
 //1 download datagrid treegrid data  Take the data as $("grid").zdata().ajax();

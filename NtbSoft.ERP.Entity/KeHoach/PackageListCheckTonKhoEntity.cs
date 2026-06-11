@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace NtbSoft.ERP.Entity.KeHoach
 {

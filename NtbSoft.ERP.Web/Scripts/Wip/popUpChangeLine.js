@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     window.WIP = window.WIP || {};
 
     var popup, form, ctx = {};

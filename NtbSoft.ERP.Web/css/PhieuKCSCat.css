@@ -1,4 +1,4 @@
-﻿/*------------------------------------------------------------
+/*------------------------------------------------------------
     Reset
 ------------------------------------------------------------*/
 html,
@@ -76,6 +76,7 @@ video {
 .odd {
     background-color: #b2bd6c;
 }
+
 .even {
     background-color: #edeadd
 }
@@ -128,12 +129,13 @@ fieldset {
     text-align: center;
 }
 
-.table-hover > tbody > tr:hover > td,
-.table-hover > tbody > tr:hover > th {
+.table-hover>tbody>tr:hover>td,
+.table-hover>tbody>tr:hover>th {
     background-color: #CFF5FF;
 }
 
-th, td {
+th,
+td {
     border: 1px solid black;
     font-size: 13px;
 }
@@ -179,9 +181,9 @@ th, td {
     gap: 10px 0;
 }
 
-    .form-row label {
-        min-width: 85px;
-    }
+.form-row label {
+    min-width: 85px;
+}
 
 #title-border {
     padding: 15px 15px 15px 20px;
@@ -247,10 +249,10 @@ label {
     }
 
     .dslenhsx .fixed-table-container.fixed-height {
-        height0px !important;
+        height: 0px !important;
     }
 }
-  
+
 
 @media screen and (max-width: 991px) {
     .m-bt15-sp {
@@ -267,10 +269,11 @@ select {
     appearance: none;
     /*    font-size: 25px;*/
 }
-    /*for IE10+*/
-    select::-ms-expand {
-        display: none;
-    }
+
+/*for IE10+*/
+select::-ms-expand {
+    display: none;
+}
 
 .styled-select {
     border: 1px solid;

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
 using NtbSoft.ERP.Entity.QuanLyDonHang;
 using NtbSoft.ERP.Model.QuanLyDonHang;

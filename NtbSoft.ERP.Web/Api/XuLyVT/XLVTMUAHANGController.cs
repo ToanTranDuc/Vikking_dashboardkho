@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using NtbSoft.ERP.Entity.XuLyVT;
 using NtbSoft.ERP.Model.XuLyVT;
 using System;
