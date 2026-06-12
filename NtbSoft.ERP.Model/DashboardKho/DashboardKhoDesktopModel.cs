@@ -966,7 +966,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 return ExecuteQuery(@"
                     SELECT 
                         ROW_NUMBER() OVER (ORDER BY ct.NgayNhapKho DESC) AS STT,
-                        ISNULL(nk.PINCC, '') AS PINCC,
+                        ISNULL(nk.SoLo, '') AS PINCC,
                         ISNULL(ct.POMua, '') AS PO,
                         ISNULL(ct.MaVTID, '') AS ItemCode,
                         ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 2), '') AS MaMauVT,

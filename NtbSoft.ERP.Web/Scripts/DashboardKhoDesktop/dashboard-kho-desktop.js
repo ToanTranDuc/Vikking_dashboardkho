@@ -3390,11 +3390,10 @@
     function colsPlanned() {
         return [
             { key: "STT", label: "STT", number: 0, center: true, width: "5%" },
-            { key: "SoLo", label: "Số lô", center: true, width: "15%" },
-            { key: "PO", label: "POMUA", center: true, width: "12%" },
-            { key: "MaKH", label: "Mã KH", center: true, width: "10%" },
-            { key: "TenKH", label: "Khách hàng", center: true, width: "25%" },
-            { key: "SoLuongDuKien", label: "Số lượng dự kiến", number: 0, center: true, width: "18%" },
+            { key: "SoLo", label: "PI NCC", center: true, width: "20%" },
+            { key: "PO", label: "POMUA", center: true, width: "15%" },
+            { key: "TenKH", label: "Khách hàng", center: true, width: "30%" },
+            { key: "SoLuongDuKien", label: "Số lượng dự kiến", number: 0, center: true, width: "15%" },
             { key: "NgayNKDuKien", label: "Ngày dự kiến", date: true, center: true, width: "15%" }
         ];
     }
