@@ -272,8 +272,11 @@
     }
 
     function requestJson(url) {
+        // Luôn luôn băm cache (cache bust) để ngăn chặn trình duyệt cache API GET
+        var cacheBustUrl = url + (url.indexOf("?") !== -1 ? "&" : "?") + "_t=" + new Date().getTime();
+
         if (window.fetch) {
-            return window.fetch(url, {
+            return window.fetch(cacheBustUrl, {
                 method: "GET",
                 cache: "no-store",
                 headers: { "Accept": "application/json" }
@@ -299,7 +302,7 @@
 
         return new Promise(function (resolve, reject) {
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", url, true);
+            xhr.open("GET", cacheBustUrl, true);
             xhr.setRequestHeader("Accept", "application/json");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState !== 4) return;
@@ -358,13 +361,31 @@
 
         var skeletonNodes = ["chartCapacityRing", "chartCustomerPie", "chartFlowTrend",
             "chartCapacityBar", "chartTop5MaxNL", "chartTop5MaxPL",
-            "chartAgeStock", "chartActivityCalendarMonthly"];
+            "chartAgeStock", "chartActivityCalendarMonthly",
+            "chartVolumePie", "chartTrendLine", "chartLoadBar",
+            "lpcpDetailAssignments", "lpcpDetailPickOrders", "lpcpDetailWarnings"];
+
+        var textMetrics = [
+            "metricTonDauKy", "metricTongNhap", "metricTongXuat", "metricTonKho",
+            "metricPOChuanBiVe", "metricPODangTre", "metricGiaTriTonKho",
+            "metricTongNhapDelta", "metricTongXuatDelta", "metricTonKhoDelta", "metricGiaTriTonKhoDelta"
+        ];
+        var tableBodies = ["customersBody", "racksBody"];
+
         if (loading) {
             for (var i = 0; i < skeletonNodes.length; i++) {
                 var n = byId(skeletonNodes[i]);
-                if (n && !n.innerHTML.trim()) {
+                if (n) {
                     n.innerHTML = "<div class=\"dk-skeleton\"><div class=\"dk-skeleton-shimmer\"></div></div>";
                 }
+            }
+            for (var j = 0; j < textMetrics.length; j++) {
+                var tm = byId(textMetrics[j]);
+                if (tm) tm.innerHTML = "<div class=\"dk-skeleton\" style=\"width:60%; height:20px; display:inline-block;\"><div class=\"dk-skeleton-shimmer\"></div></div>";
+            }
+            for (var k = 0; k < tableBodies.length; k++) {
+                var tb = byId(tableBodies[k]);
+                if (tb) tb.innerHTML = "<tr><td colspan=\"10\"><div class=\"dk-skeleton\" style=\"height:30px;\"><div class=\"dk-skeleton-shimmer\"></div></div></td></tr>";
             }
         }
         var button = byId(ids.refreshButton);
@@ -389,20 +410,33 @@
 
         // 1) Tồn đầu kỳ
         if (state.kpiTonDauKy) setText("metricTonDauKy", formatNumber(toNumber(state.kpiTonDauKy.Value), 0));
+        else setText("metricTonDauKy", "0");
+
         // 2) Tổng nhập
         if (state.kpiTongNhap) {
             setText("metricTongNhap", formatNumber(toNumber(state.kpiTongNhap.Value), 0));
             setHtml("metricTongNhapDelta", formatDelta(state.kpiTongNhap.Delta));
+        } else {
+            setText("metricTongNhap", "0");
+            setHtml("metricTongNhapDelta", "");
         }
+
         // 3) Tổng xuất
         if (state.kpiTongXuat) {
             setText("metricTongXuat", formatNumber(toNumber(state.kpiTongXuat.Value), 0));
             setHtml("metricTongXuatDelta", formatDelta(state.kpiTongXuat.Delta));
+        } else {
+            setText("metricTongXuat", "0");
+            setHtml("metricTongXuatDelta", "");
         }
+
         // 4) Tồn kho
         if (state.kpiTonKho) {
             setText("metricTonKho", formatNumber(toNumber(state.kpiTonKho.Value), 0));
             setHtml("metricTonKhoDelta", formatDelta(state.kpiTonKho.Delta));
+        } else {
+            setText("metricTonKho", "0");
+            setHtml("metricTonKhoDelta", "");
         }
         // 5) PO chuẩn bị về
         setText("metricInboundReady", formatNumber(state.inbound.length, 0));
@@ -411,18 +445,29 @@
         if (state.kpiPODangTre) {
             setText("metricPODangTre", formatNumber(toNumber(state.kpiPODangTre.SoPO), 0));
             setHtml("metricPODangTreHint", '<i class="fa-solid fa-fire dk-text-danger"></i> ' + toNumber(state.kpiPODangTre.SoPOChuaKiem) + " PO chưa kiểm");
+        } else {
+            setText("metricPODangTre", "0");
+            setHtml("metricPODangTreHint", "");
         }
+
         // 7) Giá trị tồn kho
         var thanhGiaEl = byId("metricThanhGia");
         if (thanhGiaEl) {
-            var tg = state.kpiGiaTriTon ? toNumber(state.kpiGiaTriTon.Value) : (state.thanhGia ? toNumber(state.thanhGia.ThanhGia) : 0);
-            var formatted;
-            if (tg >= 1e9) formatted = (tg / 1e9).toFixed(3).replace(/\.?0+$/, "") + " tỷ";
-            else if (tg >= 1e6) formatted = (tg / 1e6).toFixed(1).replace(/\.0$/, "") + " tr";
-            else if (tg > 0) formatted = formatNumber(tg, 0);
-            else formatted = "--";
-            thanhGiaEl.textContent = formatted;
-            if (state.kpiGiaTriTon) setHtml("metricGiaTriTonDelta", formatDelta(state.kpiGiaTriTon.Delta));
+            var tg = state.kpiGiaTriTon ? toNumber(state.kpiGiaTriTon.Value) : (state.thanhGia ? toNumber(state.thanhGia.ThanhGia || state.thanhGia.TongTien) : 0);
+            if (tg > 0) {
+                var formatted;
+                if (tg >= 1e9) formatted = (tg / 1e9).toFixed(3).replace(/\.?0+$/, "") + " tỷ";
+                else if (tg >= 1e6) formatted = (tg / 1e6).toFixed(1).replace(/\.0$/, "") + " tr";
+                else formatted = formatNumber(tg, 0);
+                thanhGiaEl.textContent = formatted;
+            } else {
+                thanhGiaEl.textContent = "0";
+            }
+        }
+        if (state.kpiGiaTriTon) {
+            setHtml("metricGiaTriTonDelta", formatDelta(state.kpiGiaTriTon.Delta));
+        } else {
+            setHtml("metricGiaTriTonDelta", "");
         }
     }
 
@@ -1734,7 +1779,7 @@
         if (titleEl) {
             var monthNames = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
                 "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
-            if (calRangeFrom && calRangeTo && (calRangeFrom.getMonth() !== calRangeTo.getMonth() || calRangeFrom.getFullYear() !== calRangeTo.getFullYear())) {
+            if (calRangeFrom && calRangeTo) {
                 titleEl.textContent = "Từ: " + formatDateShort(calRangeFrom) + " - " + formatDateShort(calRangeTo);
             } else {
                 titleEl.textContent = monthNames[calMonthDate.getMonth()] + " " + calMonthDate.getFullYear();
@@ -2136,21 +2181,8 @@
             "<div class=\"dk-empty\" style=\"padding:30px\">Đang tải chi tiết...</div>";
         modal.classList.add("open");
 
-        // v2.3.43 — Nếu calendar đang ở chế độ RANGE (calRangeFrom set) → fetch aggregate cho toàn bộ range
-        // Nếu không → chỉ fetch 1 ngày
-        var url;
-        var inRangeMode = !!(calRangeFrom && calRangeTo);
-        if (inRangeMode) {
-            url = "/api/DashboardKhoDesktop/GetActivityRangeDetail?tuNgay=" +
-                asIsoDate(calRangeFrom) + "&denNgay=" + asIsoDate(calRangeTo);
-            // Update title + meta để rõ là TỔNG range
-            if (modalTitle) {
-                modalTitle.textContent = "Hoạt động kho từ " +
-                    formatDateShort(calRangeFrom) + " → " + formatDateShort(calRangeTo);
-            }
-        } else {
-            url = "/api/DashboardKhoDesktop/GetActivityDayDetail?ngay=" + dateKey;
-        }
+        var url = "/api/DashboardKhoDesktop/GetActivityDayDetail?ngay=" + dateKey;
+        var inRangeMode = false; // Luôn hiển thị 1 ngày duy nhất khi click vào ô ngày, dù đang bật filter range
         console.log("[Dashboard Kho] Fetching:", url);
         requestJson(url).then(function (data) {
             console.log("[Dashboard Kho] Day detail response:", data);
@@ -2159,6 +2191,9 @@
             var xuatRows = normalizeArray(d.Xuat);
             var kiemKeRows = normalizeArray(d.KiemKe);
 
+            for (var i = 0; i < nhapRows.length; i++) {
+                if (!nhapRows[i].NgayNhap && !nhapRows[i].NgayNhapKho) nhapRows[i].NgayNhapKho = inRangeMode ? (nhapRows[i].NgayNhapDen || nhapRows[i].NgayNhapTu || "") : dateKey;
+            }
             for (var i = 0; i < xuatRows.length; i++) {
                 if (!xuatRows[i].NgayXuat) xuatRows[i].NgayXuat = inRangeMode ? (xuatRows[i].NgayXuatDen || xuatRows[i].NgayXuatTu || "") : dateKey;
             }
@@ -2242,7 +2277,7 @@
         var groups = {};
         for (var i = 0; i < rows.length; i++) {
             var r = rows[i];
-            var rawDate = r[dateField] || r.NgayNhap || r.NgayXuat || r.NgayKiemKe || r.NgayNKDuKien || "";
+            var rawDate = r[dateField] || r.NgayNhapKho || r.NgayNhap || r.NgayXuat || r.NgayKiemKe || r.NgayNKDuKien || "";
             var dateStr = "";
             if (rawDate) {
                 var d = new Date(rawDate);
@@ -3196,9 +3231,17 @@
         var pickOrders = lpcpData.PickOrders || [];
         var total = assignments.length + pickOrders.length;
 
+        var isDark = document.body.classList.contains("dark-theme");
         var TT_LABELS = ["Chờ thực hiện", "Đang thực hiện", "Hoàn thành", "Chưa hoàn thành"];
-        var TT_COLORS = ["#d97706", "#2563eb", "#059669", "#ef4444"];
-        var TT_BG = ["#fffbeb", "#f0f9ff", "#f0fdf4", "#fef2f2"];
+        var TT_COLORS = ["#d97706", "#3b82f6", "#10b981", "#ef4444"]; // Adjusted colors slightly for better contrast
+        var TT_BG = isDark
+            ? ["rgba(217,119,6,0.15)", "rgba(59,130,246,0.15)", "rgba(16,185,129,0.15)", "rgba(239,68,68,0.15)"]
+            : ["#fffbeb", "#eff6ff", "#f0fdf4", "#fef2f2"];
+
+        var cardBg = isDark ? "rgba(255,255,255,0.05)" : "#f8fafc";
+        var borderColor = isDark ? "rgba(255,255,255,0.1)" : "#e2e8f0";
+        var textColor = isDark ? "#f8fafc" : "#1a2332";
+        var subColor = isDark ? "#94a3b8" : "#64748b";
 
         function ttBadge(tt) {
             return "<span style=\"display:inline-flex;align-items:center;gap:4px;" +
@@ -3229,10 +3272,10 @@
         html += "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;\">";
 
         html += "<div>";
-        html += "<div style=\"font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;" +
+        html += "<div style=\"font-size:10px;font-weight:700;color:" + subColor + ";text-transform:uppercase;" +
             "letter-spacing:.05em;margin-bottom:8px;\">Phân công công việc</div>";
         if (assignments.length === 0) {
-            html += "<div style=\"color:#94a3b8;font-size:12px;text-align:center;padding:20px 0;\">Không có phân công</div>";
+            html += "<div style=\"color:" + subColor + ";font-size:12px;text-align:center;padding:20px 0;\">Không có phân công</div>";
         } else {
             assignments.forEach(function (a, i) {
                 var name = escapeHtml(a.TenNV || a.MaNV || "");
@@ -3240,13 +3283,13 @@
                 var bgColors = ["#3b82f6", "#a855f7", "#14b8a6", "#f97316", "#22c55e", "#ef4444"];
                 var bg = bgColors[(name.charCodeAt(0) || 0) % bgColors.length];
                 html += "<div style=\"display:flex;align-items:center;gap:8px;padding:6px 10px;" +
-                    "background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;margin-bottom:6px;\">" +
+                    "background:" + cardBg + ";border-radius:8px;border:1px solid " + borderColor + ";margin-bottom:6px;\">" +
                     "<span style=\"width:28px;height:28px;border-radius:50%;background:" + bg + ";" +
                     "display:inline-flex;align-items:center;justify-content:center;color:#fff;" +
                     "font-size:11px;font-weight:700;flex-shrink:0;\">" + initials + "</span>" +
                     "<div style=\"flex:1;overflow:hidden;\">" +
-                    "<div style=\"font-size:12px;font-weight:600;color:#1a2332;\">" + name + "</div>" +
-                    "<div style=\"font-size:10px;color:#64748b;\">" + escapeHtml(a.MoTaCongViec || "") + "</div>" +
+                    "<div style=\"font-size:12px;font-weight:600;color:" + textColor + ";\">" + name + "</div>" +
+                    "<div style=\"font-size:10px;color:" + subColor + ";\">" + escapeHtml(a.MoTaCongViec || "") + "</div>" +
                     "</div>" +
                     ttBadge(a.TrangThai || 0) +
                     "</div>";
@@ -3256,10 +3299,10 @@
 
         // Right: Phụ liệu soạn hàng
         html += "<div>";
-        html += "<div style=\"font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;" +
+        html += "<div style=\"font-size:10px;font-weight:700;color:" + subColor + ";text-transform:uppercase;" +
             "letter-spacing:.05em;margin-bottom:8px;\">Phụ liệu — Soạn hàng</div>";
         if (pickOrders.length === 0) {
-            html += "<div style=\"color:#94a3b8;font-size:12px;text-align:center;padding:20px 0;\">Không có lệnh soạn hàng</div>";
+            html += "<div style=\"color:" + subColor + ";font-size:12px;text-align:center;padding:20px 0;\">Không có lệnh soạn hàng</div>";
         } else {
             pickOrders.forEach(function (po) {
                 var gioNgay = (po.GioSoan ? po.GioSoan + " " : "") +
@@ -3269,13 +3312,13 @@
                 var bgColors = ["#3b82f6", "#a855f7", "#14b8a6", "#f97316", "#22c55e", "#ef4444"];
                 var bg2 = bgColors[(name.charCodeAt(0) || 0) % bgColors.length];
                 html += "<div style=\"display:flex;align-items:center;gap:8px;padding:6px 10px;" +
-                    "background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0;margin-bottom:6px;\">" +
+                    "background:" + cardBg + ";border-radius:8px;border:1px solid " + borderColor + ";margin-bottom:6px;\">" +
                     "<div style=\"flex:1;overflow:hidden;\">" +
                     "<div style=\"font-size:12px;\">" +
                     "<span style=\"font-weight:600;color:#3b82f6;\">Lệnh " + escapeHtml(po.MaLenhSX || "") + "</span>" +
-                    "<span style=\"font-size:10px;color:#64748b;margin-left:5px;\">" + escapeHtml(po.TenBrand || po.MaKhachHang || "") + "</span>" +
+                    "<span style=\"font-size:10px;color:" + subColor + ";margin-left:5px;\">" + escapeHtml(po.TenBrand || po.MaKhachHang || "") + "</span>" +
                     "</div>" +
-                    "<div style=\"font-size:10px;color:#64748b;display:flex;align-items:center;gap:5px;margin-top:2px;\">" +
+                    "<div style=\"font-size:10px;color:" + subColor + ";display:flex;align-items:center;gap:5px;margin-top:2px;\">" +
                     "<span style=\"width:16px;height:16px;border-radius:50%;background:" + bg2 + ";" +
                     "display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:8px;font-weight:700;\">" + initials2 + "</span>" +
                     "<span>" + name + "</span><span>·</span><span>" + escapeHtml(gioNgay) + "</span>" +
@@ -3538,6 +3581,14 @@
                 pages[i].classList.remove("dk-page-active");
                 pages[i].style.display = "none";  // [FIX] Ép ẩn hoàn toàn trang khác
             }
+        }
+
+        // Hide global search bar on Page 3 (Bảng thống kê)
+        var gsInput = document.getElementById("dkGlobalSearch");
+        if (gsInput) {
+            var gsWrap = gsInput.closest ? gsInput.closest(".dk-topbar-search, .input-group, .dk-search-wrap") : gsInput.parentElement;
+            if (!gsWrap) gsWrap = gsInput.parentElement;
+            if (gsWrap) gsWrap.style.display = (pageNum === 3) ? "none" : "";
         }
         for (var j = 0; j < btns.length; j++) {
             var bn = parseInt(btns[j].getAttribute("data-page"), 10);
@@ -4717,6 +4768,7 @@
         if (searchBar) searchBar.style.display = "";
     }
 
+
     // ─── Feature 10: Full-screen Panel Mode ─────────────────────────────────────
     var fsBackdrop = null;
 
@@ -4789,10 +4841,14 @@
     function bindEvents() {
         // Refresh button (sidebar)
         function refreshWithClearCache() {
-            loadedPages = { 1: false, 2: false, 3: false };
+            sessionStorage.setItem("dk_restore_tab", currentPage);
             requestJson("/api/DashboardKhoDesktop/ClearCache")
-                .catch(function () { })
-                .finally(function () { loadData(); });
+                .then(function () {
+                    window.location.reload();
+                })
+                .catch(function () {
+                    window.location.reload();
+                });
         }
         var refreshButton = byId("btnRefresh");
         if (refreshButton) {
@@ -4929,6 +4985,9 @@
 
         // Monthly calendar navigation — fetch data when month changes (Issue 2)
         function reloadCalendarForMonth() {
+            var calNode = byId("chartActivityCalendarMonthly");
+            if (calNode) calNode.innerHTML = "<div class=\"dk-skeleton\"><div class=\"dk-skeleton-shimmer\"></div></div>";
+
             if (!calMonthDate) calMonthDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
             // Fetch a 3-month window centered on displayed month
             var from = new Date(calMonthDate.getFullYear(), calMonthDate.getMonth() - 1, 1);
@@ -4981,14 +5040,51 @@
                 var fromEl = byId("calFromDate");
                 var toEl = byId("calToDate");
                 if (fromEl && fromEl.value && toEl && toEl.value) {
+                    var calNode = byId("chartActivityCalendarMonthly");
+                    if (calNode) calNode.innerHTML = "<div class=\"dk-skeleton\"><div class=\"dk-skeleton-shimmer\"></div></div>";
+
                     calRangeFrom = new Date(fromEl.value + "T00:00:00");
                     calRangeTo = new Date(toEl.value + "T00:00:00");
                     calMonthDate = new Date(calRangeFrom.getFullYear(), calRangeFrom.getMonth(), 1);
-                    // Fetch exact range data
-                    var url = "/api/DashboardKhoDesktop/GetActivityCalendar?tuNgay=" +
-                        asIsoDate(calRangeFrom) + "&denNgay=" + asIsoDate(calRangeTo);
-                    requestJson(url).then(function (data) {
-                        state.activityCalendar = normalizeArray(data);
+
+                    var urlLichGoc = "/api/DashboardKhoDesktop/GetActivityCalendar?tuNgay=" + asIsoDate(calRangeFrom) + "&denNgay=" + asIsoDate(calRangeTo);
+                    var urlNKDK = "/api/DashboardKhoDesktop/GetNKDuKienByRange?tuNgay=" + asIsoDate(calRangeFrom) + "&denNgay=" + asIsoDate(calRangeTo);
+                    var urlLPCP = "/api/DashboardKhoDesktop/LichPhanCong_GetCalendarMonth?tuNgay=" + asIsoDate(calRangeFrom) + "&denNgay=" + asIsoDate(calRangeTo);
+
+                    Promise.all([
+                        requestJson(urlNKDK).catch(function () { return []; }),
+                        requestJson(urlLichGoc).catch(function () { return []; }),
+                        requestJson(urlLPCP).catch(function () { return []; })
+                    ]).then(function (results) {
+                        state.nkDuKien = normalizeArray(results[0]);
+
+                        var rLPCP = results[2] || {};
+                        var lpcpArr = normalizeArray(rLPCP.Tasks || rLPCP.data || rLPCP);
+                        var invArr = normalizeArray(rLPCP.Inventory || []);
+
+                        state.lpcpCalendar = {};
+                        lpcpArr.forEach(function (d) {
+                            var k = String(d.NgayLam || d.ngayLam || "").substring(0, 10);
+                            if (k) state.lpcpCalendar[k] = d;
+                        });
+
+                        if (invArr.length > 0) {
+                            state.activityCalendar = invArr.map(function (item) {
+                                var inQty = toNumber(item.SoLuongNhapKho || item.SoLuongNhap || item.TotalIn || item.totalIn || item.SLNhap || 0);
+                                var outQty = toNumber(item.SoLuongXuatHang || item.SoLuongXuat || item.TotalOut || item.totalOut || item.SLXuat || 0);
+                                var kkQty = toNumber(item.SoLuongKiemKe || item.SoLuongKK || item.TotalKiemKe || item.totalKiemKe || item.SLKiemKe || 0);
+                                return {
+                                    NgayHoatDong: item.Ngay || item.ngay || item.NgayHoatDong,
+                                    TotalIn: inQty,
+                                    TotalOut: outQty,
+                                    TotalKiemKe: kkQty,
+                                    TotalActivity: inQty + outQty + kkQty
+                                };
+                            });
+                        } else {
+                            state.activityCalendar = normalizeArray(results[1]);
+                        }
+
                         renderActivityCalendarMonthly();
                     }).catch(function () {
                         renderActivityCalendarMonthly();
@@ -5411,7 +5507,13 @@
 
         Promise.all([p1a, p1b, p1c, p1d, p1e, p1f, p1g, p1h, p1i, p1j, p1k, p1l, p1m, p1n, p1o, p1p, p1q, p1r, p1s, p1t, p1u, p1v, p1w, p1x, p1y, pLPCP, pActivity]).then(function () {
             state.lastUpdated = new Date();
-            setLoading(false);
+            if (!skipLoadingState) {
+                setLoading(false);
+            } else {
+                var button = byId(ids.refreshButton);
+                if (button) { button.disabled = false; button.textContent = "Làm mới"; }
+                state.loading = false;
+            }
 
             // Render lại lịch kho (Hàm này giờ sẽ có state.lpcpCalendar để vẽ chấm)
             renderActivityCalendarMonthly();
@@ -5427,18 +5529,24 @@
                 renderLpcpBottomCharts();
             }
 
-            if (currentPage === 2 || currentPage === 3) {
+            if ((currentPage === 2 || currentPage === 3) && !skipReloadCurrent) {
                 loadedPages[currentPage] = false;
                 loadPageData(currentPage);
             }
             setTimeout(injectMaximizeButtons, 60);
         }).catch(function (e) {
             console.error("loadData Promise.all error:", e);
-            setLoading(false);
+            if (!skipLoadingState) {
+                setLoading(false);
+            } else {
+                var button = byId(ids.refreshButton);
+                if (button) { button.disabled = false; button.textContent = "Làm mới"; }
+                state.loading = false;
+            }
         });
     }
     function loadPageData(pageNum) {
-        if (loadedPages[pageNum]) return;
+        if (loadedPages[pageNum]) return Promise.resolve();
         loadedPages[pageNum] = true;
 
         function safeJson(url) {
@@ -5450,12 +5558,13 @@
         var BASE = "/api/DashboardKhoDesktop/";
 
         if (pageNum === 2) {
-            safeJson(BASE + "GetRacks").then(function (r) {
+            var promises = [];
+            promises.push(safeJson(BASE + "GetRacks").then(function (r) {
                 state.racks = normalizeArray(r);
                 renderRacksTable();
                 // renderRacksHeatmap();
-            });
-            safeJson(BASE + "GetFlowTrend12T").then(function (r) {
+            }));
+            promises.push(safeJson(BASE + "GetFlowTrend12T").then(function (r) {
                 state.flowTrend12T = normalizeArray(r);
                 var fromEl = byId("flowFromDate"), toEl = byId("flowToDate");
                 if (fromEl && toEl) {
@@ -5467,41 +5576,42 @@
                 } else {
                     renderFlowTrendChart();
                 }
-            });
-            safeJson(BASE + "GetAgeStock").then(function (r) {
+            }));
+            promises.push(safeJson(BASE + "GetAgeStock").then(function (r) {
                 state.ageStock = normalizeArray(r);
                 renderAgeStockChart();
-            });
+            }));
             // Top 5 NL/PL charts — fire and render independently
             renderTop5MaxChart();
             renderTop5MinChart();
             // v2.7.2 FIX: Re-fetch alerts nếu chưa có data (khi navigate sang page 2 trước khi loadData hoàn thành)
             if (!state.alerts || state.alerts.length === 0) {
-                safeJson(BASE + "GetCanhBaoTonKho").then(function (r) {
+                promises.push(safeJson(BASE + "GetCanhBaoTonKho").then(function (r) {
                     state.alerts = normalizeArray(r);
                     renderAlertsList();
-                });
+                }));
             } else {
                 renderAlertsList();
             }
             // v2.7.1 FIX: Fetch hieuSuat nếu chưa có data (khi navigate sang page 2 trước khi loadData hoàn thành)
             if (!state.hieuSuat || state.hieuSuat.length === 0) {
                 var dfQS2 = "?tuNgay=" + encodeURIComponent(state.dateFilter.from) + "&denNgay=" + encodeURIComponent(state.dateFilter.to);
-                safeJson(BASE + "GetHieuSuatHoatDong" + dfQS2).then(function (r) {
+                promises.push(safeJson(BASE + "GetHieuSuatHoatDong" + dfQS2).then(function (r) {
                     state.hieuSuat = normalizeArray(r);
                     renderHieuSuatGauges();
-                });
+                }));
             } else {
                 renderHieuSuatGauges();
             }
             setTimeout(injectMaximizeButtons, 60);
+            return Promise.all(promises);
         }
 
         if (pageNum === 3) {
-            // Cố định phạm vi ngày tải dữ liệu
-            var now = new Date();
-            var from = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-            var to = new Date(now.getFullYear(), now.getMonth() + 2, 0);
+            // Sử dụng calMonthDate nếu có (để giữ nguyên tháng đang xem), nếu không thì dùng now
+            var baseMonth = (typeof calMonthDate !== "undefined" && calMonthDate) ? calMonthDate : new Date();
+            var from = new Date(baseMonth.getFullYear(), baseMonth.getMonth() - 1, 1);
+            var to = new Date(baseMonth.getFullYear(), baseMonth.getMonth() + 2, 0);
 
             var urlLichGoc = BASE + "GetActivityCalendar?tuNgay=" + asIsoDate(from) + "&denNgay=" + asIsoDate(to);
             var urlNKDK = BASE + "GetNKDuKienByRange?tuNgay=" + asIsoDate(from) + "&denNgay=" + asIsoDate(to);
@@ -5513,7 +5623,7 @@
             state.lpcpCalendar = {};
 
             // GỌI 3 API SONG SONG VÀ ĐỢI TẤT CẢ HOÀN TẤT
-            Promise.all([
+            return Promise.all([
                 safeJson(urlNKDK),
                 safeJson(urlLichGoc),
                 requestJson(urlLPCP).catch(function (e) {
@@ -5566,6 +5676,22 @@
             }).catch(function (e) {
                 console.warn("loadPageData page 3 error:", e);
             });
+        }
+
+        return Promise.resolve();
+    }
+
+    function triggerSequentialReload() {
+        if (currentPage === 2 || currentPage === 3) {
+            setLoading(true); // Hiển thị skeleton cho toàn bộ các tab
+            var p = loadPageData(currentPage);
+            if (p && p.then) {
+                p.then(function () { loadData(true, true); }).catch(function () { loadData(true, true); });
+            } else {
+                loadData();
+            }
+        } else {
+            loadData();
         }
     }
 
@@ -7901,7 +8027,7 @@
                 state.loading = false;
                 loadedPages = { 1: false, 2: false, 3: false };
                 showToast("Đang áp dụng filter " + f + " → " + t + "...", "info");
-                loadData();
+                triggerSequentialReload();
             });
         }
         // v2.5.0 — Quick range chip buttons
@@ -7931,7 +8057,7 @@
                     state.loading = false;
                     loadedPages = { 1: false, 2: false, 3: false };
                     showToast("Đang tải dữ liệu " + fromDate + " → " + toDate + "...", "info");
-                    loadData();
+                    triggerSequentialReload();
                 });
             })(chips[ci]);
         }
@@ -7939,10 +8065,14 @@
         var btnRefreshTop = byId("btnRefreshTop");
         if (btnRefreshTop) {
             btnRefreshTop.addEventListener("click", function () {
-                state.loading = false;
-                loadedPages = { 1: false, 2: false, 3: false };
-                showToast("Đang làm mới dữ liệu...", "info");
-                loadData();
+                sessionStorage.setItem("dk_restore_tab", currentPage);
+                requestJson("/api/DashboardKhoDesktop/ClearCache")
+                    .then(function () {
+                        window.location.reload();
+                    })
+                    .catch(function () {
+                        window.location.reload();
+                    });
             });
         }
     }
@@ -8213,6 +8343,36 @@
     }
 
     function init() {
+        var restoreTab = sessionStorage.getItem("dk_restore_tab");
+        if (restoreTab) {
+            sessionStorage.removeItem("dk_restore_tab");
+
+            // Defeat browser form auto-fill
+            var inputsToClear = ["flowFromDate", "flowToDate", "calFromDate", "calToDate", "searchAll"];
+            for (var i = 0; i < inputsToClear.length; i++) {
+                var el = document.getElementById(inputsToClear[i]);
+                if (el) el.value = "";
+            }
+            var selectsToClear = ["customerFilterSelect", "trendFilterSelect", "loadFilterSelect"];
+            for (var j = 0; j < selectsToClear.length; j++) {
+                var selEl = document.getElementById(selectsToClear[j]);
+                if (selEl && selEl.options && selEl.options.length > 0) {
+                    selEl.value = selEl.options[0].value;
+                }
+            }
+
+            var chksToClear = ["chkActIn", "chkActOut", "chkActKK", "chkActPlan"];
+            for (var k = 0; k < chksToClear.length; k++) {
+                var chkEl = document.getElementById(chksToClear[k]);
+                if (chkEl) chkEl.checked = true;
+            }
+
+            var tabId = parseInt(restoreTab, 10);
+            if (!isNaN(tabId) && tabId >= 1 && tabId <= 3) {
+                currentPage = tabId;
+            }
+        }
+
         bindEvents();
         bindPageNav();
         bindSidebarToggle();
