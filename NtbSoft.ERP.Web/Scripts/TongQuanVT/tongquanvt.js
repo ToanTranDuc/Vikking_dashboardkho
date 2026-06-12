@@ -1,4 +1,4 @@
-﻿let timeoutId2;
+let timeoutId2;
 var barcodeLocal;
 var selectSoLo;
 var checkChange;

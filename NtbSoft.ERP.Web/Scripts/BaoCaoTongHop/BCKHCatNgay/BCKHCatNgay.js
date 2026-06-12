@@ -1,4 +1,4 @@
-﻿let data = [];
+let data = [];
 let ArrDoanhThuMaLenh = []
 var fromDateValue = "", toDateValue = "";
 

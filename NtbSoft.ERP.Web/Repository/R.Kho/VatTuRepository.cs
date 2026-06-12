@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using NtbSoft.ERP.Model.Kho;
 using System;
 using System.Collections.Generic;

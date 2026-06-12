@@ -1,4 +1,4 @@
-﻿$(function () {
+$(function () {
     function GetData() {
         let ndung = sessionStorage.getItem('UserNameLogging');
         let url = `/api/XuatExcelBaoCaoTienDoTongHop/Get?userName=${ndung}`;

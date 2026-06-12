@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NtbSoft.ERP.Model</RootNamespace>
     <AssemblyName>NtbSoft.ERP.Model</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SccProjectName>Svn</SccProjectName>
@@ -94,6 +94,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Dynamic" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DashboardKho\DashboardKhoDesktopModel.cs" />
@@ -148,7 +149,7 @@
     <Compile Include="Kho\ViTriKhoNewModel.cs" />
     <Compile Include="Kho\ViTriKhoTongModel.cs" />
     <Compile Include="Kho\WriteLogThuVienModel.cs" />
-    <Compile Include="NguyenPhuLieu\QTYMaHangPhuLieuModel.cs" />
+        <Compile Include="NguyenPhuLieu\QTYMaHangPhuLieuModel.cs" />
     <Compile Include="POMAU\POMauModel.cs" />
     <Compile Include="POMH\CanDoiNPLModel.cs" />
     <Compile Include="POMH\DanhGiaNLVModel.cs" />
@@ -301,6 +302,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

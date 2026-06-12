@@ -1,4 +1,4 @@
-﻿
+
 // Sử lí đồng bộ
 /**
  * Lấy data từ API bằng cách viết trực tiếp câu truy vấn

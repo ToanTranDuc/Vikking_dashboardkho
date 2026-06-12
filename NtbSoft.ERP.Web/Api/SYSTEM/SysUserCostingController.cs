@@ -1,4 +1,4 @@
-﻿using NtbSoft.ERP.Entity.SYSTEM;
+using NtbSoft.ERP.Entity.SYSTEM;
 using NtbSoft.ERP.Web.Repository.R.SYSTEM;
 using System;
 using System.Collections.Generic;

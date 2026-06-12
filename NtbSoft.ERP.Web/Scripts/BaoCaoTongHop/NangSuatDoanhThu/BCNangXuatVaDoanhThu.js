@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
     localStorage.removeItem("ajax_data-1-meta");
     if (sessionStorage.getItem("BranchId") == null) { }
     else {

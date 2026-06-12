@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR;
 using NtbSoft.ERP.Model.POMH;
 using System.Data;
 using System.Threading.Tasks;

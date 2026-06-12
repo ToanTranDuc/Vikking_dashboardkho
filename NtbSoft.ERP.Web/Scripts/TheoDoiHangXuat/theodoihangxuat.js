@@ -1,4 +1,4 @@
-﻿toastr.options = {
+toastr.options = {
     "closeButton": true,
     "newestOnTop": false,
     "progressBar": true,

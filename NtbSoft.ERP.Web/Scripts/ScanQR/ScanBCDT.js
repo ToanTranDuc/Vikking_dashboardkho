@@ -1,4 +1,4 @@
-﻿
+
 
 let html5QrCode;
 let lastScanned = null;

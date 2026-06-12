@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
     var IsLogin = localStorage.getItem('IsLogin');
     if (IsLogin != "1") {
         window.location = "/Login/Index";

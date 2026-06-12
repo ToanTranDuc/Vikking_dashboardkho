@@ -1,4 +1,4 @@
-﻿using Ghostscript.NET;
+using Ghostscript.NET;
 using Ghostscript.NET.Rasterizer;
 using Newtonsoft.Json;
 using NtbSoft.ERP.Entity.ThuVien;

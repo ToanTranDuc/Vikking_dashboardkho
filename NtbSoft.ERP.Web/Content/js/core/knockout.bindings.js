@@ -1,4 +1,4 @@
-﻿/// <reference path="knockout-2.2.1.js" />
+/// <reference path="knockout-2.2.1.js" />
 /**
 * Module name：Common script
 * Program name: knockoutjs Custom binding

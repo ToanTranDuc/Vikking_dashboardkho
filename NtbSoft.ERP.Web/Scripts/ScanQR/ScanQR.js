@@ -1,4 +1,4 @@
-﻿var maPhieuXH = '';
+var maPhieuXH = '';
 var Cont = '';
 var BarCodeCheck = '',KhachHang='';
 var dtDataT=[],dtData = [],dtAlarm=[];

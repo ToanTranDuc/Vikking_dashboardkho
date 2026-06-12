@@ -1,4 +1,4 @@
-﻿function loadDataThuHoi(mahang, malenh, makh) {
+function loadDataThuHoi(mahang, malenh, makh) {
     const gridInstance = $("#grid-thu-hoi").dxDataGrid("instance");
 
     const startDate = $("#select-startdate").dxDateBox("instance").option("value");

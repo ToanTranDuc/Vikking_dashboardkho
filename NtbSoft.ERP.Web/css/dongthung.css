@@ -1,4 +1,4 @@
-﻿/*------------------------------------------------------------
+/*------------------------------------------------------------
     Reset
 ------------------------------------------------------------*/
 html,
@@ -162,11 +162,11 @@ a {
     text-decoration: none;
 }
 
-    a:hover,
-    a:hover img {
-        opacity: 0.8;
-        filter: alpha(opacity=80);
-    }
+a:hover,
+a:hover img {
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}
 
 img {
     max-width: 100%;
@@ -204,7 +204,8 @@ img {
 }
 
 
-.dongthung__right tr th:first-child, .dongthung__right tr td:first-child {
+.dongthung__right tr th:first-child,
+.dongthung__right tr td:first-child {
     position: sticky;
     left: 0;
     width: 80px;
@@ -236,7 +237,8 @@ img {
     /*        color: #fff;*/
 }
 
-.dongthung table tr th, .dongthung table tr td {
+.dongthung table tr th,
+.dongthung table tr td {
     padding: 8px 10px;
     -webkit-box-shadow: inset 0 1px 0 #000000, inset 0 0px 0 #938f8f;
     box-shadow: inset 0 1px 0 #938f8f, inset 0 0px 0 #938f8f;
@@ -259,36 +261,37 @@ img {
     overflow-y: scroll;
 }
 
-    .table td, .table th {
-        vertical-align: middle !important;
-    }
+.table td,
+.table th {
+    vertical-align: middle !important;
+}
 
-    .table thead {
-        /*        position: sticky;
+.table thead {
+    /*        position: sticky;
         top: 0;
         z-index: 99;*/
-    }
+}
 
-    .table tfoot {
-        position: sticky;
-        bottom: -1px;
-        z-index: 99;
-        background-color: #BEE9F6;
-        height: 40px;
-        font-weight: 700;
-    }
+.table tfoot {
+    position: sticky;
+    bottom: -1px;
+    z-index: 99;
+    background-color: #BEE9F6;
+    height: 40px;
+    font-weight: 700;
+}
 
-    .table.table1 {
-        height: 160px;
-    }
+.table.table1 {
+    height: 160px;
+}
 
-    .table.table2 {
-        height: 65vh;
-    }
+.table.table2 {
+    height: 65vh;
+}
 
-    .table.table3 {
-        height: 90vh;
-    }
+.table.table3 {
+    height: 90vh;
+}
 
 .box_toggle {
     position: absolute;
@@ -300,11 +303,11 @@ img {
     display: none;
 }
 
-    .box_toggle table thead {
-        position: sticky;
-        top: 0;
-        left: 0;
-    }
+.box_toggle table thead {
+    position: sticky;
+    top: 0;
+    left: 0;
+}
 
 ::-webkit-scrollbar {
     width: 0px;
@@ -322,13 +325,13 @@ img {
     background: #E1F0F4;
 }
 
-    .title h1 {
-        font-size: 32px;
-    }
+.title h1 {
+    font-size: 32px;
+}
 
-    .title .btn-action {
-        width: 130px;
-    }
+.title .btn-action {
+    width: 130px;
+}
 
 .table {
     margin-bottom: 0;
@@ -342,13 +345,13 @@ img {
     cursor: pointer;
 }
 
-    #slc_lenhsx tr:hover {
-        background: #d8ff00;
-    }
+#slc_lenhsx tr:hover {
+    background: #d8ff00;
+}
 
-    #slc_lenhsx tr.active {
-        background: #E6F2FB;
-    }
+#slc_lenhsx tr.active {
+    background: #E6F2FB;
+}
 
 .text {
     font-size: 20px;
@@ -360,46 +363,47 @@ img {
     align-items: center;
 }
 
-    .toggle_input input {
-        height: 100%;
-        border-radius: 10px;
-        padding: 5px 10px;
-    }
+.toggle_input input {
+    height: 100%;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
 
-    .toggle_input .text {
-        margin-right: 15px;
-    }
+.toggle_input .text {
+    margin-right: 15px;
+}
 
 td.status {
     text-align: center;
 }
 
-    td.status input {
-        width: 25px;
-        height: 15px;
-    }
+td.status input {
+    width: 25px;
+    height: 15px;
+}
 
 #KHDongThung tr {
     cursor: pointer;
 }
 
-    #KHDongThung tr.active {
-        background: #d1ffc3;
-    }
+#KHDongThung tr.active {
+    background: #d1ffc3;
+}
 
-.btn.btn1, .btn.btn2 {
+.btn.btn1,
+.btn.btn2 {
     border-radius: 15px;
     margin: 0 5px;
     box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
     outline: none;
     font-weight: 700;
-    background: linear-gradient(0deg, rgba(20,167,62,1) 0%, rgba(102,247,113,1) 100%);
+    background: linear-gradient(0deg, rgba(20, 167, 62, 1) 0%, rgba(102, 247, 113, 1) 100%);
     color: #fff;
     border: unset;
 }
 
 .btn.btn1 {
-    background: linear-gradient(0deg, rgba(20,167,62,1) 0%, rgba(102,247,113,1) 100%);
+    background: linear-gradient(0deg, rgba(20, 167, 62, 1) 0%, rgba(102, 247, 113, 1) 100%);
 }
 
 .btn.btn2 {
@@ -431,17 +435,17 @@ td.status {
     margin-top: 10px;
 }
 
-    .slc_chuyen span {
-        margin-right: 10px;
-        font-size: 16px;
-        font-weight: 700;
-    }
+.slc_chuyen span {
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: 700;
+}
 
-    .slc_chuyen select {
-        border-radius: 10px;
-        padding: 5px;
-        font-size: 16px;
-    }
+.slc_chuyen select {
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 16px;
+}
 
 
 
@@ -450,7 +454,8 @@ td.status {
         flex-direction: column;
     }
 
-    .dongthung__left, .dongthung__right {
+    .dongthung__left,
+    .dongthung__right {
         width: 100%;
         overflow-x: scroll;
     }
@@ -483,7 +488,7 @@ td.status {
     width: 100%;
 }
 
-.dongthung__right thead tr > th {
+.dongthung__right thead tr>th {
     background: #ffb74d;
     position: sticky;
     padding: .5rem;
@@ -491,14 +496,14 @@ td.status {
     top: 0;
 }
 
-.dongthung__right thead tr > :first-child {
+.dongthung__right thead tr> :first-child {
     /* z-index: 999; */
     /* left: 0; */
     /* top: 0; */
 }
 
 
-.dongthung__right tbody tr > :first-child {
+.dongthung__right tbody tr> :first-child {
     /*    background: #ddd;*/
     position: sticky;
     z-index: 1;
@@ -522,14 +527,15 @@ td.status {
     left: 50%;
     right: 50%;
     bottom: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     background: #A18276;
     width: 600px;
     height: 170px;
     z-index: 99;
     display: none;
 }
-.box-setvalue.is-active{
+
+.box-setvalue.is-active {
     display: flex;
 }
 
@@ -541,7 +547,7 @@ td.status {
 }
 
 .list-goiy li {
-/*    display: block;*/
+    /*    display: block;*/
     padding: 8px;
     background: #c1df4a;
     margin-bottom: 2px;
@@ -551,7 +557,7 @@ td.status {
 .btn-action button {
     width: 60px;
     height: auto;
-    outline: none; 
+    outline: none;
     border: none;
     border-radius: 8px;
     font-size: 16px;
@@ -563,9 +569,9 @@ td.status {
     border: none;
     width: 45px;
     height: 100%;
-    top:0;
+    top: 0;
     right: 0;
-    background : red;
+    background: red;
 }
 
 .setvalue.is-active {
@@ -587,11 +593,11 @@ td.status {
     display: none;
 }
 
-    .box_toggle table thead {
-        position: sticky;
-        top: 0;
-        left: 0;
-    }
+.box_toggle table thead {
+    position: sticky;
+    top: 0;
+    left: 0;
+}
 
 .box_toggle {
     position: absolute;
@@ -603,11 +609,11 @@ td.status {
     display: none;
 }
 
-    .box_toggle table thead {
-        position: sticky;
-        top: 0;
-        left: 0;
-    }
+.box_toggle table thead {
+    position: sticky;
+    top: 0;
+    left: 0;
+}
 
 #search_mahang {
     margin: 5px 10px;
@@ -625,29 +631,30 @@ td.status {
     border-right: 1px solid #CBCBCB;
 }
 
-    .box_toggle table thead {
-        background-color: #ffb74d;
-        text-align: center;
-    }
+.box_toggle table thead {
+    background-color: #ffb74d;
+    text-align: center;
+}
 
-    .box_toggle table tr th, .box_toggle table tr td {
-        padding: 6px 8px;
-        -webkit-box-shadow: inset 0 1px 0 #CBCBCB, inset 0 0px 0 #CBCBCB;
-        box-shadow: inset 0 1px 0 #CBCBCB, inset 0 0px 0 #CBCBCB;
-        border-left: 1px solid #CBCBCB;
-    }
+.box_toggle table tr th,
+.box_toggle table tr td {
+    padding: 6px 8px;
+    -webkit-box-shadow: inset 0 1px 0 #CBCBCB, inset 0 0px 0 #CBCBCB;
+    box-shadow: inset 0 1px 0 #CBCBCB, inset 0 0px 0 #CBCBCB;
+    border-left: 1px solid #CBCBCB;
+}
 
 #slc_lenhsx tr {
     cursor: pointer;
 }
 
-    #slc_lenhsx tr.active {
-        background: #d8ff00;
-    }
+#slc_lenhsx tr.active {
+    background: #d8ff00;
+}
 
-    #slc_lenhsx tr:hover {
-        background: #d8ff00;
-    }
+#slc_lenhsx tr:hover {
+    background: #d8ff00;
+}
 
 .toggle_input input {
     height: 100%;

@@ -1,4 +1,4 @@
-﻿var lstDataVai = [];
+var lstDataVai = [];
 var arrayError = {};
 var arrayXY = Array();
 var DiemLoi;

@@ -1,0 +1,1274 @@
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\PM Lập lịch chạy video\CCDC Source Total 2006\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PM Lập lịch chạy video\CCDC Source Total 2006\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PM Lập lịch chạy video\CCDC Source Total 2006\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PM Lập lịch chạy video\CCDC Source Total 2006\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PM Lập lịch chạy video\CCDC Source Total 2006\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PM Lập lịch chạy video\CCDC Source Total 2006\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PM Lập lịch chạy video\CCDC Source Total 2006\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PM Lập lịch chạy video\CCDC Source Total 2006\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PM Lập lịch chạy video\CCDC Source Total 2006\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PM Lập lịch chạy video\CCDC Source Total 2006\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PM Lập lịch chạy video\CCDC Source Total 2006\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+C:\Users\PC\Downloads\ScheduleVideos\ScheduleVideos\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+C:\Users\PC\Downloads\ScheduleVideos\ScheduleVideos\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+C:\Users\PC\Downloads\ScheduleVideos\ScheduleVideos\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+C:\Users\PC\Downloads\ScheduleVideos\ScheduleVideos\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+C:\Users\PC\Downloads\ScheduleVideos\ScheduleVideos\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+C:\Users\PC\Downloads\ScheduleVideos\ScheduleVideos\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+C:\Users\PC\Downloads\ScheduleVideos\ScheduleVideos\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+C:\Users\PC\Downloads\ScheduleVideos\ScheduleVideos\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+C:\Users\PC\Downloads\ScheduleVideos\ScheduleVideos\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+C:\Users\PC\Downloads\ScheduleVideos\ScheduleVideos\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+C:\Users\PC\Downloads\ScheduleVideos\ScheduleVideos\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang\File winrar\20240410\Quan Ly Don Hang 20240410\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang\File winrar\20240410\Quan Ly Don Hang 20240410\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang\File winrar\20240410\Quan Ly Don Hang 20240410\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quan ly don hang\File winrar\20240410\Quan Ly Don Hang 20240410\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quan ly don hang\File winrar\20240410\Quan Ly Don Hang 20240410\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quan ly don hang\File winrar\20240410\Quan Ly Don Hang 20240410\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quan ly don hang\File winrar\20240410\Quan Ly Don Hang 20240410\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quan ly don hang\File winrar\20240410\Quan Ly Don Hang 20240410\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quan ly don hang\File winrar\20240410\Quan Ly Don Hang 20240410\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quan ly don hang\File winrar\20240410\Quan Ly Don Hang 20240410\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang\File winrar\20240410\Quan Ly Don Hang 20240410\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang TG\File All\File winrar\20240506\Quan Ly Don Hang 20240506\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang TG\File All\File winrar\20240506\Quan Ly Don Hang 20240506\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang TG\File All\File winrar\20240506\Quan Ly Don Hang 20240506\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quan ly don hang TG\File All\File winrar\20240506\Quan Ly Don Hang 20240506\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quan ly don hang TG\File All\File winrar\20240506\Quan Ly Don Hang 20240506\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quan ly don hang TG\File All\File winrar\20240506\Quan Ly Don Hang 20240506\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quan ly don hang TG\File All\File winrar\20240506\Quan Ly Don Hang 20240506\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quan ly don hang TG\File All\File winrar\20240506\Quan Ly Don Hang 20240506\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quan ly don hang TG\File All\File winrar\20240506\Quan Ly Don Hang 20240506\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quan ly don hang TG\File All\File winrar\20240506\Quan Ly Don Hang 20240506\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang TG\File All\File winrar\20240506\Quan Ly Don Hang 20240506\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Work\MayDongNai\DonHang_MayDongNai\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+C:\Quan_NTB_1811\Bản src TEST\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250613\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\Source\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Code\ViKing\VIKING_20251129\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Code\ViKing\VIKING_Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\POMH\SourceQLDH_20251229\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+C:\Users\Luan98\Desktop\SrcPOMHDemo\SourceQLDH_20251229\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Code\ViKing\Viking_Chuan_20251230\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.xml
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.xml
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.xml
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.xml
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\1.Projects\DonHang\ViKing\QLDH_Viking_03022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_03022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.xml
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Code\ViKing\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.xml
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260401\VIKING_CHUAN_20260312\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.xml
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.xml
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CopyComplete
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+C:\D\VIKING_CHUAN\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll.config
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Model.pdb
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.pdb
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.pdb
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\Ghostscript.NET.xml
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\Newtonsoft.Json.xml
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Net.Http.Formatting.xml
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Helpers.xml
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Http.xml
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Mvc.xml
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.Razor.xml
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.xml
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.dll
+D:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.pdb
+d:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Entity.dll.config
+d:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\bin\Debug\NtbSoft.ERP.Libs.dll.config
+d:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.AssemblyReference.cache
+d:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\obj\Debug\NtbSoft.ERP.Model.csproj.CoreCompileInputs.cache
+d:\Thực_Tập\VIKING_CHUAN\NtbSoft.ERP.Model\obj\Debug\NtbSoft..1F95461F.Up2Date

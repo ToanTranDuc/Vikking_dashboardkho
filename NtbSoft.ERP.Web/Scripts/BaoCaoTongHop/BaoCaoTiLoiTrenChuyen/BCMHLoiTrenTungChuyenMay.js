@@ -1,4 +1,4 @@
-﻿let data = [];
+let data = [];
 var fromDateValue = "", toDateValue = "";
 
 function Chart(data, containerId, title) {

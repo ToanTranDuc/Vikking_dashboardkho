@@ -1,4 +1,4 @@
-﻿function GetKeyValueWebConfig(keyValue) {
+function GetKeyValueWebConfig(keyValue) {
     let dataResult;
     let DataJS = {
         query: keyValue,

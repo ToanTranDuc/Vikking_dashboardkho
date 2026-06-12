@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     "use strict";
 
     var api = window.WIP_HIGHCHARTS_GANTT_API || {};

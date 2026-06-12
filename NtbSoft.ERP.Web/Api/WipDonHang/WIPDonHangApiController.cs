@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NtbSoft.ERP.Model.WipDonHang;
 using NtbSoft.ERP.Web.Models.WipDonHang;
@@ -834,30 +834,30 @@ namespace NtbSoft.ERP.Web.Api.WipDonHang
         // =========================
         // GET: api/linemap/get-list-linex
         // =========================
-        #region GetLineName
-        [HttpGet]
-        [Route("get-list-linex")]
-        public IHttpActionResult GetName()
-        {
-            var parameters = new SqlParameter[]
+            #region GetLineName
+            [HttpGet]
+            [Route("get-list-linex")]
+            public IHttpActionResult GetName()
             {
-    new SqlParameter("@Action", "GetLineX"),
-            };
-
-            DataTable dt = WipDonHangModel.ExecStoredProcedure("SP_WIP_DonHang_Chuyen", parameters);
-
-            var list = new List<LineMapListViewModel>();
-
-            foreach (DataRow row in dt.Rows)
-            {
-                list.Add(new LineMapListViewModel
+                var parameters = new SqlParameter[]
                 {
-                    Id = Convert.ToInt32(row["ID"]),
-                    Name = row["Name"].ToString(),
-                });
+        new SqlParameter("@Action", "GetLineX"),
+                };
+
+                DataTable dt = WipDonHangModel.ExecStoredProcedure("SP_WIP_DonHang_Chuyen", parameters);
+
+                var list = new List<LineMapListViewModel>();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    list.Add(new LineMapListViewModel
+                    {
+                        Id = Convert.ToInt32(row["ID"]),
+                        Name = row["Name"].ToString(),
+                    });
+                }
+                return Ok(list);
             }
-            return Ok(list);
-        }
         #endregion
 
         // =========================

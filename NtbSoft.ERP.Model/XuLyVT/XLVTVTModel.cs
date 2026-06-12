@@ -1,4 +1,4 @@
-﻿using NtbSoft.ERP.Entity.XuLyVT;
+using NtbSoft.ERP.Entity.XuLyVT;
 using System;
 using System.Collections.Generic;
 using System.Data;

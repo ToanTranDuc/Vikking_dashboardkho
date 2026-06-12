@@ -10,7 +10,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
 
     public static class DashboardKhoDesktopModel
     {
-        private const int CACHE_MINUTES = 0;
+        private const int CACHE_MINUTES = 5;
         private static readonly Dictionary<string, CachedEntry> _cache = new Dictionary<string, CachedEntry>();
         private static readonly object _cacheLock = new object();
 
@@ -18,27 +18,75 @@ namespace NtbSoft.ERP.Model.DashboardKho
         {
             public DataTable Data;
             public DateTime ExpiresAt;
+            public bool IsRefreshing;
         }
 
         private static DataTable GetOrCache(string key, Func<DataTable> producer)
         {
+            DataTable staleData = null;
+            bool needsRefresh = false;
+
             lock (_cacheLock)
             {
                 CachedEntry entry;
-                if (_cache.TryGetValue(key, out entry) && entry.ExpiresAt > DateTime.UtcNow)
+                if (_cache.TryGetValue(key, out entry))
                 {
-                    return entry.Data;
+                    if (entry.ExpiresAt > DateTime.UtcNow)
+                    {
+                        return entry.Data;
+                    }
+                    else
+                    {
+                        staleData = entry.Data;
+                        if (!entry.IsRefreshing)
+                        {
+                            entry.IsRefreshing = true;
+                            needsRefresh = true;
+                        }
+                    }
                 }
             }
 
-            var dt = producer();
+            if (staleData != null)
+            {
+                if (needsRefresh)
+                {
+                    System.Threading.Tasks.Task.Run(() =>
+                    {
+                        try
+                        {
+                            var newDt = producer();
+                            lock (_cacheLock)
+                            {
+                                _cache[key] = new CachedEntry
+                                {
+                                    Data = newDt,
+                                    ExpiresAt = DateTime.UtcNow.AddMinutes(CACHE_MINUTES),
+                                    IsRefreshing = false
+                                };
+                            }
+                        }
+                        catch
+                        {
+                            lock (_cacheLock)
+                            {
+                                if (_cache.ContainsKey(key))
+                                    _cache[key].IsRefreshing = false;
+                            }
+                        }
+                    });
+                }
+                return staleData;
+            }
 
+            var dt = producer();
             lock (_cacheLock)
             {
                 _cache[key] = new CachedEntry
                 {
                     Data = dt,
-                    ExpiresAt = DateTime.UtcNow.AddMinutes(CACHE_MINUTES)
+                    ExpiresAt = DateTime.UtcNow.AddMinutes(CACHE_MINUTES),
+                    IsRefreshing = false
                 };
             }
             return dt;
@@ -383,10 +431,6 @@ namespace NtbSoft.ERP.Model.DashboardKho
             return ExecuteSP("GetTop5KhachHangTonKho");
         }
 
-        /// <summary>
-        /// v2.8 — Hàng tồn kho lâu nhất: sắp xếp theo số ngày tồn (GETDATE() - NgayNhapKho) DESC.
-        /// Hiển thị TOP 5 lô hàng cũ nhất đang tồn trong kho.
-        /// </summary>
         public static DataTable GetVatTuSapHetHan()
         {
             return ExecuteQuery(@"
@@ -420,7 +464,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
         }
 
         // ════════════════════════════════════════════════════════════════
-        //  Chi tiết công việc chờ xử lý: 
+        // v2.5.0 — Chi tiết công việc chờ xử lý: SQL thật
         // ════════════════════════════════════════════════════════════════
 
         public static DataTable GetTodoDetail(string type)
@@ -555,9 +599,6 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 });
         }
 
-        /// <summary>
-        /// v2.8 — Chi tiết hàng tồn kho lâu nhất: sắp xếp theo số ngày tồn DESC.
-        /// </summary>
         public static DataTable GetVatTuSapHetHanChiTiet()
         {
             return ExecuteQuery(@"
@@ -593,7 +634,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
 
         // ════════════════════════════════════════════════════════════════
         // v2.4.6 — STUB cho dải KPI mới + filter ngày + Page 2 widget mới.
-        //
+        // TODO: thay bằng SQL thật khi nghiệp vụ sẵn sàng.
         // ════════════════════════════════════════════════════════════════
 
         public static DataTable GetTongNhap(DateTime tuNgay, DateTime denNgay)
@@ -605,13 +646,13 @@ namespace NtbSoft.ERP.Model.DashboardKho
 
                 DECLARE @Val INT, @PrevVal INT;
 
-                SELECT @Val = COUNT(DISTINCT ISNULL(PARSENAME(REPLACE(MaNPL, '@', '.'), 3), MaNPL))
-                FROM dbo.ERP_ChiTietNhapKhoNPL
-                WHERE NgayNhapKho >= @TuNgay AND NgayNhapKho < DATEADD(DAY, 1, @DenNgay);
+                SELECT @Val = COUNT(DISTINCT ct.MaVTID)
+                FROM dbo.ERP_ChiTietNhapKhoNPL ct
+                WHERE ct.NgayNhapKho >= @TuNgay AND ct.NgayNhapKho < DATEADD(DAY, 1, @DenNgay);
 
-                SELECT @PrevVal = COUNT(DISTINCT ISNULL(PARSENAME(REPLACE(MaNPL, '@', '.'), 3), MaNPL))
-                FROM dbo.ERP_ChiTietNhapKhoNPL
-                WHERE NgayNhapKho >= @PrevTuNgay AND NgayNhapKho < DATEADD(DAY, 1, @PrevDenNgay);
+                SELECT @PrevVal = COUNT(DISTINCT ct.MaVTID)
+                FROM dbo.ERP_ChiTietNhapKhoNPL ct
+                WHERE ct.NgayNhapKho >= @PrevTuNgay AND ct.NgayNhapKho < DATEADD(DAY, 1, @PrevDenNgay);
 
                 SELECT 
                     ISNULL(@Val, 0) AS Value,
@@ -631,13 +672,13 @@ namespace NtbSoft.ERP.Model.DashboardKho
 
                 DECLARE @Val INT, @PrevVal INT;
 
-                SELECT @Val = COUNT(DISTINCT ISNULL(PARSENAME(REPLACE(MaNPL, '@', '.'), 3), MaNPL))
-                FROM dbo.PhieuXuatHang
-                WHERE ModuleXH = 1 AND NgayXuatHang >= @TuNgay AND NgayXuatHang < DATEADD(DAY, 1, @DenNgay);
+                SELECT @Val = COUNT(DISTINCT xh.MaVTID)
+                FROM dbo.PhieuXuatHang xh
+                WHERE xh.ModuleXH = 1 AND xh.NgayXuatHang >= @TuNgay AND xh.NgayXuatHang < DATEADD(DAY, 1, @DenNgay);
 
-                SELECT @PrevVal = COUNT(DISTINCT ISNULL(PARSENAME(REPLACE(MaNPL, '@', '.'), 3), MaNPL))
-                FROM dbo.PhieuXuatHang
-                WHERE ModuleXH = 1 AND NgayXuatHang >= @PrevTuNgay AND NgayXuatHang < DATEADD(DAY, 1, @PrevDenNgay);
+                SELECT @PrevVal = COUNT(DISTINCT xh.MaVTID)
+                FROM dbo.PhieuXuatHang xh
+                WHERE xh.ModuleXH = 1 AND xh.NgayXuatHang >= @PrevTuNgay AND xh.NgayXuatHang < DATEADD(DAY, 1, @PrevDenNgay);
 
                 SELECT 
                     ISNULL(@Val, 0) AS Value,
@@ -652,59 +693,59 @@ namespace NtbSoft.ERP.Model.DashboardKho
         {
             return ExecuteQuery(@"
                 -- Calculate @Val (current distinct count)
-                SELECT ct.MaNPL, SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS SLNhap
+                SELECT ct.MaVTID, SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS SLNhap
                 INTO #tempNhap_Val
                 FROM dbo.ERP_ChiTietNhapKhoNPL ct
                 WHERE ct.NgayNhapKho < DATEADD(DAY, 1, @DenNgay)
-                GROUP BY ct.MaNPL;
+                GROUP BY ct.MaVTID;
 
-                SELECT xh.MaNPL, SUM(ISNULL(xh.SLNhap, 0)) AS SLXuat
+                SELECT xh.MaVTID, SUM(ISNULL(xh.SLNhap, 0)) AS SLXuat
                 INTO #tempXuat_Val
                 FROM dbo.PhieuXuatHang xh
                 WHERE xh.ModuleXH = 1 AND xh.NgayXuatHang < DATEADD(DAY, 1, @DenNgay)
-                GROUP BY xh.MaNPL;
+                GROUP BY xh.MaVTID;
 
-                SELECT xh.MaNPL, SUM(ISNULL(th.ThuHoi, 0)) AS SLThu
+                SELECT xh.MaVTID, SUM(ISNULL(th.ThuHoi, 0)) AS SLThu
                 INTO #tempThu_Val
                 FROM dbo.PhieuThuHoiNPL th
                 INNER JOIN dbo.PhieuXuatHang xh ON th.BarCode = xh.BarCode
                 WHERE th.NgayTH < DATEADD(DAY, 1, @DenNgay)
-                GROUP BY xh.MaNPL;
+                GROUP BY xh.MaVTID;
 
                 DECLARE @Val INT;
-                SELECT @Val = COUNT(DISTINCT ISNULL(PARSENAME(REPLACE(n.MaNPL, '@', '.'), 3), n.MaNPL))
+                SELECT @Val = COUNT(DISTINCT n.MaVTID)
                 FROM #tempNhap_Val n
-                LEFT JOIN #tempXuat_Val x ON n.MaNPL = x.MaNPL
-                LEFT JOIN #tempThu_Val t ON n.MaNPL = t.MaNPL
+                LEFT JOIN #tempXuat_Val x ON n.MaVTID = x.MaVTID
+                LEFT JOIN #tempThu_Val t ON n.MaVTID = t.MaVTID
                 WHERE (ISNULL(n.SLNhap,0) - ISNULL(x.SLXuat,0) + ISNULL(t.SLThu,0)) > 0;
 
                 -- Calculate @PrevVal (prev distinct count 30 days ago)
                 DECLARE @PrevDate DATETIME = DATEADD(DAY, -30, @DenNgay);
 
-                SELECT ct.MaNPL, SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS SLNhap
+                SELECT ct.MaVTID, SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS SLNhap
                 INTO #tempNhap_Prev
                 FROM dbo.ERP_ChiTietNhapKhoNPL ct
                 WHERE ct.NgayNhapKho < DATEADD(DAY, 1, @PrevDate)
-                GROUP BY ct.MaNPL;
+                GROUP BY ct.MaVTID;
 
-                SELECT xh.MaNPL, SUM(ISNULL(xh.SLNhap, 0)) AS SLXuat
+                SELECT xh.MaVTID, SUM(ISNULL(xh.SLNhap, 0)) AS SLXuat
                 INTO #tempXuat_Prev
                 FROM dbo.PhieuXuatHang xh
                 WHERE xh.ModuleXH = 1 AND xh.NgayXuatHang < DATEADD(DAY, 1, @PrevDate)
-                GROUP BY xh.MaNPL;
+                GROUP BY xh.MaVTID;
 
-                SELECT xh.MaNPL, SUM(ISNULL(th.ThuHoi, 0)) AS SLThu
+                SELECT xh.MaVTID, SUM(ISNULL(th.ThuHoi, 0)) AS SLThu
                 INTO #tempThu_Prev
                 FROM dbo.PhieuThuHoiNPL th
                 INNER JOIN dbo.PhieuXuatHang xh ON th.BarCode = xh.BarCode
                 WHERE th.NgayTH < DATEADD(DAY, 1, @PrevDate)
-                GROUP BY xh.MaNPL;
+                GROUP BY xh.MaVTID;
 
                 DECLARE @PrevVal INT;
-                SELECT @PrevVal = COUNT(DISTINCT ISNULL(PARSENAME(REPLACE(n.MaNPL, '@', '.'), 3), n.MaNPL))
+                SELECT @PrevVal = COUNT(DISTINCT n.MaVTID)
                 FROM #tempNhap_Prev n
-                LEFT JOIN #tempXuat_Prev x ON n.MaNPL = x.MaNPL
-                LEFT JOIN #tempThu_Prev t ON n.MaNPL = t.MaNPL
+                LEFT JOIN #tempXuat_Prev x ON n.MaVTID = x.MaVTID
+                LEFT JOIN #tempThu_Prev t ON n.MaVTID = t.MaVTID
                 WHERE (ISNULL(n.SLNhap,0) - ISNULL(x.SLXuat,0) + ISNULL(t.SLThu,0)) > 0;
 
                 SELECT 
@@ -719,29 +760,29 @@ namespace NtbSoft.ERP.Model.DashboardKho
         public static DataTable GetTonDauKy(DateTime tuNgay)
         {
             return ExecuteQuery(@"
-                SELECT ct.MaNPL, SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS SLNhapDK
+                SELECT ct.MaVTID, SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS SLNhapDK
                 INTO #tempNhap_TDK
                 FROM dbo.ERP_ChiTietNhapKhoNPL ct
                 WHERE ct.NgayNhapKho < @TuNgay
-                GROUP BY ct.MaNPL;
+                GROUP BY ct.MaVTID;
 
-                SELECT xh.MaNPL, SUM(ISNULL(xh.SLNhap, 0)) AS SLXuatDK
+                SELECT xh.MaVTID, SUM(ISNULL(xh.SLNhap, 0)) AS SLXuatDK
                 INTO #tempXuat_TDK
                 FROM dbo.PhieuXuatHang xh
                 WHERE xh.ModuleXH = 1 AND xh.NgayXuatHang < @TuNgay
-                GROUP BY xh.MaNPL;
+                GROUP BY xh.MaVTID;
 
-                SELECT xh.MaNPL, SUM(ISNULL(th.ThuHoi, 0)) AS SLThuDK
+                SELECT xh.MaVTID, SUM(ISNULL(th.ThuHoi, 0)) AS SLThuDK
                 INTO #tempThu_TDK
                 FROM dbo.PhieuThuHoiNPL th
                 INNER JOIN dbo.PhieuXuatHang xh ON th.BarCode = xh.BarCode
                 WHERE th.NgayTH < @TuNgay
-                GROUP BY xh.MaNPL;
+                GROUP BY xh.MaVTID;
 
-                SELECT COUNT(DISTINCT ISNULL(PARSENAME(REPLACE(n.MaNPL, '@', '.'), 3), n.MaNPL)) AS Value
+                SELECT COUNT(DISTINCT n.MaVTID) AS Value
                 FROM #tempNhap_TDK n
-                LEFT JOIN #tempXuat_TDK x ON n.MaNPL = x.MaNPL
-                LEFT JOIN #tempThu_TDK t ON n.MaNPL = t.MaNPL
+                LEFT JOIN #tempXuat_TDK x ON n.MaVTID = x.MaVTID
+                LEFT JOIN #tempThu_TDK t ON n.MaVTID = t.MaVTID
                 WHERE (ISNULL(n.SLNhapDK,0) - ISNULL(x.SLXuatDK,0) + ISNULL(t.SLThuDK,0)) > 0;
 
                 DROP TABLE #tempNhap_TDK; DROP TABLE #tempXuat_TDK; DROP TABLE #tempThu_TDK;",
@@ -778,32 +819,33 @@ namespace NtbSoft.ERP.Model.DashboardKho
         {
             return ExecuteQuery(@"
                 DECLARE @Val DECIMAL(28,4), @PrevVal DECIMAL(28,4);
+                DECLARE @PrevDate DATETIME = DATEADD(DAY, -30, @DenNgay);
+                DECLARE @LimitDate DATETIME = DATEADD(DAY, 1, @DenNgay);
+                DECLARE @LimitPrevDate DATETIME = DATEADD(DAY, 1, @PrevDate);
 
+                ;WITH xh AS (SELECT BarCodeGoc, SUM(SLNhap) AS TotalXuat FROM dbo.PhieuXuatHang WHERE NgayXuatHang < @LimitDate GROUP BY BarCodeGoc),
+                      th AS (SELECT BarCode, SUM(ThuHoi) AS TotalThuHoi FROM dbo.PhieuThuHoiNPL WHERE NgayTH < @LimitDate GROUP BY BarCode)
                 SELECT @Val = SUM(t.TonKho * t.DonGia) FROM (
                     SELECT 
                         ct.DonGia,
-                        (
-                            SUM(ISNULL(ct.SoLuongThucTeBanDau, 0))
-                            - ISNULL((SELECT SUM(xh.SLNhap) FROM dbo.PhieuXuatHang xh WHERE xh.BarCodeGoc = ct.BarCode AND xh.NgayXuatHang < DATEADD(DAY, 1, @DenNgay)), 0)
-                            + ISNULL((SELECT SUM(th.ThuHoi) FROM dbo.PhieuThuHoiNPL th WHERE th.BarCode = ct.BarCode AND th.NgayTH < DATEADD(DAY, 1, @DenNgay)), 0)
-                        ) AS TonKho
+                        SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) - ISNULL(MAX(xh.TotalXuat), 0) + ISNULL(MAX(th.TotalThuHoi), 0) AS TonKho
                     FROM dbo.ERP_ChiTietNhapKhoNPL ct
-                    WHERE ct.NgayNhapKho < DATEADD(DAY, 1, @DenNgay)
+                    LEFT JOIN xh ON xh.BarCodeGoc = ct.BarCode
+                    LEFT JOIN th ON th.BarCode = ct.BarCode
+                    WHERE ct.NgayNhapKho < @LimitDate
                     GROUP BY ct.BarCode, ct.DonGia
                 ) t WHERE t.TonKho > 0;
 
-                DECLARE @PrevDate DATETIME = DATEADD(DAY, -30, @DenNgay);
-
+                ;WITH xh2 AS (SELECT BarCodeGoc, SUM(SLNhap) AS TotalXuat FROM dbo.PhieuXuatHang WHERE NgayXuatHang < @LimitPrevDate GROUP BY BarCodeGoc),
+                      th2 AS (SELECT BarCode, SUM(ThuHoi) AS TotalThuHoi FROM dbo.PhieuThuHoiNPL WHERE NgayTH < @LimitPrevDate GROUP BY BarCode)
                 SELECT @PrevVal = SUM(t.TonKho * t.DonGia) FROM (
                     SELECT 
                         ct.DonGia,
-                        (
-                            SUM(ISNULL(ct.SoLuongThucTeBanDau, 0))
-                            - ISNULL((SELECT SUM(xh.SLNhap) FROM dbo.PhieuXuatHang xh WHERE xh.BarCodeGoc = ct.BarCode AND xh.NgayXuatHang < DATEADD(DAY, 1, @PrevDate)), 0)
-                            + ISNULL((SELECT SUM(th.ThuHoi) FROM dbo.PhieuThuHoiNPL th WHERE th.BarCode = ct.BarCode AND th.NgayTH < DATEADD(DAY, 1, @PrevDate)), 0)
-                        ) AS TonKho
+                        SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) - ISNULL(MAX(xh2.TotalXuat), 0) + ISNULL(MAX(th2.TotalThuHoi), 0) AS TonKho
                     FROM dbo.ERP_ChiTietNhapKhoNPL ct
-                    WHERE ct.NgayNhapKho < DATEADD(DAY, 1, @PrevDate)
+                    LEFT JOIN xh2 ON xh2.BarCodeGoc = ct.BarCode
+                    LEFT JOIN th2 ON th2.BarCode = ct.BarCode
+                    WHERE ct.NgayNhapKho < @LimitPrevDate
                     GROUP BY ct.BarCode, ct.DonGia
                 ) t WHERE t.TonKho > 0;
 
@@ -813,10 +855,6 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 cmd => cmd.Parameters.AddWithValue("@DenNgay", denNgay));
         }
 
-        /// <summary>
-        /// v2.8 — Cảnh báo tồn kho: dùng ERP_VatTuMinmax.TonToiDa thay vì hardcode 5000.
-        /// Nếu bảng ERP_VatTuMinmax không tồn tại, fallback về 0 (không cảnh báo TonVuot).
-        /// </summary>
         public static DataTable GetCanhBaoTonKho()
         {
             return ExecuteQuery(@"
@@ -942,7 +980,36 @@ namespace NtbSoft.ERP.Model.DashboardKho
         public static DataTable GetTongNhapChiTiet(DateTime tuNgay, DateTime denNgay, string groupBy)
         {
             var gb = (groupBy ?? "date").ToLowerInvariant();
-            if (gb == "date")
+            if (gb == "all")
+            {
+                return ExecuteQuery(@"
+                    SELECT 
+                        ROW_NUMBER() OVER (ORDER BY ct.NgayNhapKho DESC) AS STT,
+                        ISNULL(nk.PINCC, '') AS PINCC,
+                        ISNULL(ct.POMua, '') AS PO,
+                        ISNULL(ct.MaVTID, '') AS ItemCode,
+                        ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 2), '') AS MaMauVT,
+                        ISNULL(vt.ChiTiet, '') AS MauVT,
+                        ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 3), '') AS WidthSize,
+                        ISNULL(dv.TenDVVT, '') AS DonViVT,
+                        ISNULL(kh.TenKH, '') AS TenKH,
+                        ISNULL(ct.SoLuongThucTeBanDau, 0) AS SoLuong,
+                        ISNULL(ct.SoBarCode, 0) AS SoBarCode,
+                        ct.NgayNhapKho
+                    FROM dbo.ERP_ChiTietNhapKhoNPL ct
+                    LEFT JOIN dbo.ERP_NhapKhoNPL nk ON ct.SoLoID = nk.SoLoID
+                    LEFT JOIN dbo.KhachHang kh ON nk.MaKH = kh.MaKH
+                    LEFT JOIN dbo.ERP_VatTuTV vt ON ct.MaVTID = vt.MaVTID
+                    LEFT JOIN dbo.ERP_KhoVai kv ON ct.KhoVaiID = kv.KhoVaiID
+                    LEFT JOIN dbo.ERP_DonViVT dv ON kv.MaDVVT = dv.MaDVVT
+                    WHERE ct.NgayNhapKho >= @TuNgay AND ct.NgayNhapKho < DATEADD(DAY, 1, @DenNgay)
+                    ORDER BY ct.NgayNhapKho DESC;",
+                    cmd => {
+                        cmd.Parameters.AddWithValue("@TuNgay", tuNgay);
+                        cmd.Parameters.AddWithValue("@DenNgay", denNgay);
+                    });
+            }
+            else if (gb == "date")
             {
                 return ExecuteQuery(@"
                     SELECT 
@@ -1036,7 +1103,29 @@ namespace NtbSoft.ERP.Model.DashboardKho
         public static DataTable GetTongXuatChiTiet(DateTime tuNgay, DateTime denNgay, string groupBy)
         {
             var gb = (groupBy ?? "date").ToLowerInvariant();
-            if (gb == "date")
+            if (gb == "all")
+            {
+                return ExecuteQuery(@"
+                    SELECT 
+                        ROW_NUMBER() OVER (ORDER BY xh.NgayXuatHang DESC) AS STT,
+                        ISNULL(xh.MaGop, '') AS MaLenh,
+                        ISNULL(xh.ItemCode, ISNULL(xh.TenVT, '')) AS TenHang,
+                        ISNULL(xh.MaKH, '') AS MaKH,
+                        ISNULL(kh.TenKH, ISNULL(xh.TenKhachHang, '')) AS TenKH,
+                        ISNULL(xh.LoaiKho, '') AS LoaiKho,
+                        ISNULL(xh.SLNhap, 0) AS SoLuong,
+                        0 AS SoBarCode,
+                        xh.NgayXuatHang
+                    FROM dbo.PhieuXuatHang xh
+                    LEFT JOIN dbo.KhachHang kh ON xh.MaKH = kh.MaKH
+                    WHERE xh.ModuleXH = 1 AND xh.NgayXuatHang >= @TuNgay AND xh.NgayXuatHang < DATEADD(DAY, 1, @DenNgay)
+                    ORDER BY xh.NgayXuatHang DESC;",
+                    cmd => {
+                        cmd.Parameters.AddWithValue("@TuNgay", tuNgay);
+                        cmd.Parameters.AddWithValue("@DenNgay", denNgay);
+                    });
+            }
+            else if (gb == "date")
             {
                 return ExecuteQuery(@"
                     SELECT 
@@ -1319,10 +1408,6 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 ORDER BY nk.NgayNKDuKien;");
         }
 
-        /// <summary>
-        /// v2.8 — Chi tiết tồn vượt định mức: join ERP_VatTuMinmax để lấy TonToiDa thực tế.
-        /// Nếu vật tư không có định mức → bỏ qua (chỉ cảnh báo khi có định mức được khai báo).
-        /// </summary>
         public static DataTable GetTonVuotDinhMucChiTiet()
         {
             return ExecuteQuery(@"

@@ -1,4 +1,4 @@
-﻿using NtbSoft.ERP.Model.KeHoach;
+using NtbSoft.ERP.Model.KeHoach;
 using NtbSoft.ERP.Model.ThuVien;
 using System;
 using System.Data;

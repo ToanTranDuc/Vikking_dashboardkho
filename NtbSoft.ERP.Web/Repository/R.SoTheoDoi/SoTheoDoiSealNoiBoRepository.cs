@@ -1,4 +1,4 @@
-﻿using NtbSoft.ERP.Model.SoTheoDoi;
+using NtbSoft.ERP.Model.SoTheoDoi;
 using System;
 using System.Collections.Generic;
 using System.Data;

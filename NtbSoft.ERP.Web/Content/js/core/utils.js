@@ -1,4 +1,4 @@
-﻿/**
+/**
 * Module name：Common script
 * Program name: Common tool functions
 * Copyright(c) 2013-2015 

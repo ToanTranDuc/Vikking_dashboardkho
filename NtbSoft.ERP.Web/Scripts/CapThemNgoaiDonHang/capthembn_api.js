@@ -1,4 +1,4 @@
-﻿/// API
+/// API
 const API = {
     async Get(action, para = {}, textSuccess = '') {
         const paraConvert = Object.entries(para || {})

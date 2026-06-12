@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using NtbSoft.ERP.Entity.SoTheoDoi;
 using System;
 using System.Collections.Generic;

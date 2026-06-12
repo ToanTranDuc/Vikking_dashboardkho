@@ -1,4 +1,4 @@
-﻿@media only screen and (min-width: 481px) and (max-width: 850px) {
+@media only screen and (min-width: 481px) and (max-width: 850px) {
     .chart-flex {
         flex-direction: column;
     }

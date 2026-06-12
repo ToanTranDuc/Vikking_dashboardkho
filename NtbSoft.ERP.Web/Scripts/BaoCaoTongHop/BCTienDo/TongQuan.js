@@ -1,4 +1,4 @@
-﻿$(function () {
+$(function () {
     if (sessionStorage.getItem("BranchId") == null) {
        
     } else {

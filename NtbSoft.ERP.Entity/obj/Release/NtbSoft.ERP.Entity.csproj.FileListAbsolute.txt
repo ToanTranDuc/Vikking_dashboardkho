@@ -1,0 +1,202 @@
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2904\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 1306\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\PM Công cụ dụng cụ\CCDC Source Total 2006\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quan ly don hang\Quan ly don hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quan ly don hang\File Host server\Quan Ly Don Hang 20240405\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quan ly don hang TG\File winrar\20240415\Quan Ly Don Hang 20240415 chuan\Quan Ly Don Hang 20240415\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quan ly don hang TG\Quan Ly Don Hang\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\QuanlydonhangTG\Source\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\1.Projects\DonHang\Source_QLDH_20241121\Source\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\File\DonHang_MayDongNai\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\New\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Code\MayDongNai\MDN_25_6_13_NEWEST\Win_MDN_20250616\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Chuan\Chuan_V1\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quanlysanxuat\MayDongNai\Source\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Phan mem Cty\Quanlysanxuat\Viking\SourceQLDH\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\SourceQLDH\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\VIKING_Chuan\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\POMH\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\Chuan\CHUAN_Win\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanNew\CHUAN_20260111\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.xml
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CopyComplete
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Code\ViKing\VIKING_CHUAN_20260117_TOI\CHUAN_20260117Viking\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.xml
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CopyComplete
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\Chuan\Chuan\ChuanMoiNhat\VIKING_CHUAN_20260119\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.xml
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CopyComplete
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Code\ViKing\VIKING_CHUAN_20260130\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.xml
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CopyComplete
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\SourceVikingChuan\Sourceup\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.xml
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CopyComplete
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\VikingUp\QLDH_Viking_06022026\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.xml
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CopyComplete
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Vikingupdatechuan\VIKING_CHUAN_20260302\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.xml
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CopyComplete
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\Code\ViKing\VIKING_CHUAN_20260312\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Entity\bin\Release\NtbSoft.ERP.Entity.pdb
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Entity\bin\Release\Ghostscript.NET.xml
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.AssemblyReference.cache
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CoreCompileInputs.cache
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.csproj.CopyComplete
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.dll
+D:\PhamMemCongTy\Viking\Chuan\NtbSoft.ERP.Entity\obj\Release\NtbSoft.ERP.Entity.pdb
