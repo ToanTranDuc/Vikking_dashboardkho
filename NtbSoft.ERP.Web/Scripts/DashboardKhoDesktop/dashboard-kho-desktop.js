@@ -1,4 +1,7 @@
-﻿(function (global, factory) {
+﻿/* flatpickr v4.6.13,, @license MIT */
+!function (e, n) { "object" == typeof exports && "undefined" != typeof module ? module.exports = n() : "function" == typeof define && define.amd ? define(n) : (e = "undefined" != typeof globalThis ? globalThis : e || self).flatpickr = n() }(this, (function () { "use strict"; var e = function () { return (e = Object.assign || function (e) { for (var n, t = 1, a = arguments.length; t < a; t++)for (var i in n = arguments[t]) Object.prototype.hasOwnProperty.call(n, i) && (e[i] = n[i]); return e }).apply(this, arguments) }; function n() { for (var e = 0, n = 0, t = arguments.length; n < t; n++)e += arguments[n].length; var a = Array(e), i = 0; for (n = 0; n < t; n++)for (var o = arguments[n], r = 0, l = o.length; r < l; r++, i++)a[i] = o[r]; return a } var t = ["onChange", "onClose", "onDayCreate", "onDestroy", "onKeyDown", "onMonthChange", "onOpen", "onParseConfig", "onReady", "onValueUpdate", "onYearChange", "onPreCalendarPosition"], a = { _disable: [], allowInput: !1, allowInvalidPreload: !1, altFormat: "F j, Y", altInput: !1, altInputClass: "form-control input", animate: "object" == typeof window && -1 === window.navigator.userAgent.indexOf("MSIE"), ariaDateFormat: "F j, Y", autoFillDefaultTime: !0, clickOpens: !0, closeOnSelect: !0, conjunction: ", ", dateFormat: "Y-m-d", defaultHour: 12, defaultMinute: 0, defaultSeconds: 0, disable: [], disableMobile: !1, enableSeconds: !1, enableTime: !1, errorHandler: function (e) { return "undefined" != typeof console && console.warn(e) }, getWeek: function (e) { var n = new Date(e.getTime()); n.setHours(0, 0, 0, 0), n.setDate(n.getDate() + 3 - (n.getDay() + 6) % 7); var t = new Date(n.getFullYear(), 0, 4); return 1 + Math.round(((n.getTime() - t.getTime()) / 864e5 - 3 + (t.getDay() + 6) % 7) / 7) }, hourIncrement: 1, ignoredFocusElements: [], inline: !1, locale: "default", minuteIncrement: 5, mode: "single", monthSelectorType: "dropdown", nextArrow: "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 17 17'><g></g><path d='M13.207 8.472l-7.854 7.854-0.707-0.707 7.146-7.146-7.146-7.148 0.707-0.707 7.854 7.854z' /></svg>", noCalendar: !1, now: new Date, onChange: [], onClose: [], onDayCreate: [], onDestroy: [], onKeyDown: [], onMonthChange: [], onOpen: [], onParseConfig: [], onReady: [], onValueUpdate: [], onYearChange: [], onPreCalendarPosition: [], plugins: [], position: "auto", positionElement: void 0, prevArrow: "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 17 17'><g></g><path d='M5.207 8.471l7.146 7.147-0.707 0.707-7.853-7.854 7.854-7.853 0.707 0.707-7.147 7.146z' /></svg>", shorthandCurrentMonth: !1, showMonths: 1, static: !1, time_24hr: !1, weekNumbers: !1, wrap: !1 }, i = { weekdays: { shorthand: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], longhand: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] }, months: { shorthand: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], longhand: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] }, daysInMonth: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31], firstDayOfWeek: 0, ordinal: function (e) { var n = e % 100; if (n > 3 && n < 21) return "th"; switch (n % 10) { case 1: return "st"; case 2: return "nd"; case 3: return "rd"; default: return "th" } }, rangeSeparator: " to ", weekAbbreviation: "Wk", scrollTitle: "Scroll to increment", toggleTitle: "Click to toggle", amPM: ["AM", "PM"], yearAriaLabel: "Year", monthAriaLabel: "Month", hourAriaLabel: "Hour", minuteAriaLabel: "Minute", time_24hr: !1 }, o = function (e, n) { return void 0 === n && (n = 2), ("000" + e).slice(-1 * n) }, r = function (e) { return !0 === e ? 1 : 0 }; function l(e, n) { var t; return function () { var a = this, i = arguments; clearTimeout(t), t = setTimeout((function () { return e.apply(a, i) }), n) } } var c = function (e) { return e instanceof Array ? e : [e] }; function s(e, n, t) { if (!0 === t) return e.classList.add(n); e.classList.remove(n) } function d(e, n, t) { var a = window.document.createElement(e); return n = n || "", t = t || "", a.className = n, void 0 !== t && (a.textContent = t), a } function u(e) { for (; e.firstChild;)e.removeChild(e.firstChild) } function f(e, n) { return n(e) ? e : e.parentNode ? f(e.parentNode, n) : void 0 } function m(e, n) { var t = d("div", "numInputWrapper"), a = d("input", "numInput " + e), i = d("span", "arrowUp"), o = d("span", "arrowDown"); if (-1 === navigator.userAgent.indexOf("MSIE 9.0") ? a.type = "number" : (a.type = "text", a.pattern = "\\d*"), void 0 !== n) for (var r in n) a.setAttribute(r, n[r]); return t.appendChild(a), t.appendChild(i), t.appendChild(o), t } function g(e) { try { return "function" == typeof e.composedPath ? e.composedPath()[0] : e.target } catch (n) { return e.target } } var p = function () { }, h = function (e, n, t) { return t.months[n ? "shorthand" : "longhand"][e] }, v = { D: p, F: function (e, n, t) { e.setMonth(t.months.longhand.indexOf(n)) }, G: function (e, n) { e.setHours((e.getHours() >= 12 ? 12 : 0) + parseFloat(n)) }, H: function (e, n) { e.setHours(parseFloat(n)) }, J: function (e, n) { e.setDate(parseFloat(n)) }, K: function (e, n, t) { e.setHours(e.getHours() % 12 + 12 * r(new RegExp(t.amPM[1], "i").test(n))) }, M: function (e, n, t) { e.setMonth(t.months.shorthand.indexOf(n)) }, S: function (e, n) { e.setSeconds(parseFloat(n)) }, U: function (e, n) { return new Date(1e3 * parseFloat(n)) }, W: function (e, n, t) { var a = parseInt(n), i = new Date(e.getFullYear(), 0, 2 + 7 * (a - 1), 0, 0, 0, 0); return i.setDate(i.getDate() - i.getDay() + t.firstDayOfWeek), i }, Y: function (e, n) { e.setFullYear(parseFloat(n)) }, Z: function (e, n) { return new Date(n) }, d: function (e, n) { e.setDate(parseFloat(n)) }, h: function (e, n) { e.setHours((e.getHours() >= 12 ? 12 : 0) + parseFloat(n)) }, i: function (e, n) { e.setMinutes(parseFloat(n)) }, j: function (e, n) { e.setDate(parseFloat(n)) }, l: p, m: function (e, n) { e.setMonth(parseFloat(n) - 1) }, n: function (e, n) { e.setMonth(parseFloat(n) - 1) }, s: function (e, n) { e.setSeconds(parseFloat(n)) }, u: function (e, n) { return new Date(parseFloat(n)) }, w: p, y: function (e, n) { e.setFullYear(2e3 + parseFloat(n)) } }, D = { D: "", F: "", G: "(\\d\\d|\\d)", H: "(\\d\\d|\\d)", J: "(\\d\\d|\\d)\\w+", K: "", M: "", S: "(\\d\\d|\\d)", U: "(.+)", W: "(\\d\\d|\\d)", Y: "(\\d{4})", Z: "(.+)", d: "(\\d\\d|\\d)", h: "(\\d\\d|\\d)", i: "(\\d\\d|\\d)", j: "(\\d\\d|\\d)", l: "", m: "(\\d\\d|\\d)", n: "(\\d\\d|\\d)", s: "(\\d\\d|\\d)", u: "(.+)", w: "(\\d\\d|\\d)", y: "(\\d{2})" }, w = { Z: function (e) { return e.toISOString() }, D: function (e, n, t) { return n.weekdays.shorthand[w.w(e, n, t)] }, F: function (e, n, t) { return h(w.n(e, n, t) - 1, !1, n) }, G: function (e, n, t) { return o(w.h(e, n, t)) }, H: function (e) { return o(e.getHours()) }, J: function (e, n) { return void 0 !== n.ordinal ? e.getDate() + n.ordinal(e.getDate()) : e.getDate() }, K: function (e, n) { return n.amPM[r(e.getHours() > 11)] }, M: function (e, n) { return h(e.getMonth(), !0, n) }, S: function (e) { return o(e.getSeconds()) }, U: function (e) { return e.getTime() / 1e3 }, W: function (e, n, t) { return t.getWeek(e) }, Y: function (e) { return o(e.getFullYear(), 4) }, d: function (e) { return o(e.getDate()) }, h: function (e) { return e.getHours() % 12 ? e.getHours() % 12 : 12 }, i: function (e) { return o(e.getMinutes()) }, j: function (e) { return e.getDate() }, l: function (e, n) { return n.weekdays.longhand[e.getDay()] }, m: function (e) { return o(e.getMonth() + 1) }, n: function (e) { return e.getMonth() + 1 }, s: function (e) { return e.getSeconds() }, u: function (e) { return e.getTime() }, w: function (e) { return e.getDay() }, y: function (e) { return String(e.getFullYear()).substring(2) } }, b = function (e) { var n = e.config, t = void 0 === n ? a : n, o = e.l10n, r = void 0 === o ? i : o, l = e.isMobile, c = void 0 !== l && l; return function (e, n, a) { var i = a || r; return void 0 === t.formatDate || c ? n.split("").map((function (n, a, o) { return w[n] && "\\" !== o[a - 1] ? w[n](e, i, t) : "\\" !== n ? n : "" })).join("") : t.formatDate(e, n, i) } }, C = function (e) { var n = e.config, t = void 0 === n ? a : n, o = e.l10n, r = void 0 === o ? i : o; return function (e, n, i, o) { if (0 === e || e) { var l, c = o || r, s = e; if (e instanceof Date) l = new Date(e.getTime()); else if ("string" != typeof e && void 0 !== e.toFixed) l = new Date(e); else if ("string" == typeof e) { var d = n || (t || a).dateFormat, u = String(e).trim(); if ("today" === u) l = new Date, i = !0; else if (t && t.parseDate) l = t.parseDate(e, d); else if (/Z$/.test(u) || /GMT$/.test(u)) l = new Date(e); else { for (var f = void 0, m = [], g = 0, p = 0, h = ""; g < d.length; g++) { var w = d[g], b = "\\" === w, C = "\\" === d[g - 1] || b; if (D[w] && !C) { h += D[w]; var M = new RegExp(h).exec(e); M && (f = !0) && m["Y" !== w ? "push" : "unshift"]({ fn: v[w], val: M[++p] }) } else b || (h += ".") } l = t && t.noCalendar ? new Date((new Date).setHours(0, 0, 0, 0)) : new Date((new Date).getFullYear(), 0, 1, 0, 0, 0, 0), m.forEach((function (e) { var n = e.fn, t = e.val; return l = n(l, t, c) || l })), l = f ? l : void 0 } } if (l instanceof Date && !isNaN(l.getTime())) return !0 === i && l.setHours(0, 0, 0, 0), l; t.errorHandler(new Error("Invalid date provided: " + s)) } } }; function M(e, n, t) { return void 0 === t && (t = !0), !1 !== t ? new Date(e.getTime()).setHours(0, 0, 0, 0) - new Date(n.getTime()).setHours(0, 0, 0, 0) : e.getTime() - n.getTime() } var y = function (e, n, t) { return 3600 * e + 60 * n + t }, x = 864e5; function E(e) { var n = e.defaultHour, t = e.defaultMinute, a = e.defaultSeconds; if (void 0 !== e.minDate) { var i = e.minDate.getHours(), o = e.minDate.getMinutes(), r = e.minDate.getSeconds(); n < i && (n = i), n === i && t < o && (t = o), n === i && t === o && a < r && (a = e.minDate.getSeconds()) } if (void 0 !== e.maxDate) { var l = e.maxDate.getHours(), c = e.maxDate.getMinutes(); (n = Math.min(n, l)) === l && (t = Math.min(c, t)), n === l && t === c && (a = e.maxDate.getSeconds()) } return { hours: n, minutes: t, seconds: a } } "function" != typeof Object.assign && (Object.assign = function (e) { for (var n = [], t = 1; t < arguments.length; t++)n[t - 1] = arguments[t]; if (!e) throw TypeError("Cannot convert undefined or null to object"); for (var a = function (n) { n && Object.keys(n).forEach((function (t) { return e[t] = n[t] })) }, i = 0, o = n; i < o.length; i++) { var r = o[i]; a(r) } return e }); function k(p, v) { var w = { config: e(e({}, a), I.defaultConfig), l10n: i }; function k() { var e; return (null === (e = w.calendarContainer) || void 0 === e ? void 0 : e.getRootNode()).activeElement || document.activeElement } function T(e) { return e.bind(w) } function S() { var e = w.config; !1 === e.weekNumbers && 1 === e.showMonths || !0 !== e.noCalendar && window.requestAnimationFrame((function () { if (void 0 !== w.calendarContainer && (w.calendarContainer.style.visibility = "hidden", w.calendarContainer.style.display = "block"), void 0 !== w.daysContainer) { var n = (w.days.offsetWidth + 1) * e.showMonths; w.daysContainer.style.width = n + "px", w.calendarContainer.style.width = n + (void 0 !== w.weekWrapper ? w.weekWrapper.offsetWidth : 0) + "px", w.calendarContainer.style.removeProperty("visibility"), w.calendarContainer.style.removeProperty("display") } })) } function _(e) { if (0 === w.selectedDates.length) { var n = void 0 === w.config.minDate || M(new Date, w.config.minDate) >= 0 ? new Date : new Date(w.config.minDate.getTime()), t = E(w.config); n.setHours(t.hours, t.minutes, t.seconds, n.getMilliseconds()), w.selectedDates = [n], w.latestSelectedDateObj = n } void 0 !== e && "blur" !== e.type && function (e) { e.preventDefault(); var n = "keydown" === e.type, t = g(e), a = t; void 0 !== w.amPM && t === w.amPM && (w.amPM.textContent = w.l10n.amPM[r(w.amPM.textContent === w.l10n.amPM[0])]); var i = parseFloat(a.getAttribute("min")), l = parseFloat(a.getAttribute("max")), c = parseFloat(a.getAttribute("step")), s = parseInt(a.value, 10), d = e.delta || (n ? 38 === e.which ? 1 : -1 : 0), u = s + c * d; if (void 0 !== a.value && 2 === a.value.length) { var f = a === w.hourElement, m = a === w.minuteElement; u < i ? (u = l + u + r(!f) + (r(f) && r(!w.amPM)), m && L(void 0, -1, w.hourElement)) : u > l && (u = a === w.hourElement ? u - l - r(!w.amPM) : i, m && L(void 0, 1, w.hourElement)), w.amPM && f && (1 === c ? u + s === 23 : Math.abs(u - s) > c) && (w.amPM.textContent = w.l10n.amPM[r(w.amPM.textContent === w.l10n.amPM[0])]), a.value = o(u) } }(e); var a = w._input.value; O(), ye(), w._input.value !== a && w._debouncedChange() } function O() { if (void 0 !== w.hourElement && void 0 !== w.minuteElement) { var e, n, t = (parseInt(w.hourElement.value.slice(-2), 10) || 0) % 24, a = (parseInt(w.minuteElement.value, 10) || 0) % 60, i = void 0 !== w.secondElement ? (parseInt(w.secondElement.value, 10) || 0) % 60 : 0; void 0 !== w.amPM && (e = t, n = w.amPM.textContent, t = e % 12 + 12 * r(n === w.l10n.amPM[1])); var o = void 0 !== w.config.minTime || w.config.minDate && w.minDateHasTime && w.latestSelectedDateObj && 0 === M(w.latestSelectedDateObj, w.config.minDate, !0), l = void 0 !== w.config.maxTime || w.config.maxDate && w.maxDateHasTime && w.latestSelectedDateObj && 0 === M(w.latestSelectedDateObj, w.config.maxDate, !0); if (void 0 !== w.config.maxTime && void 0 !== w.config.minTime && w.config.minTime > w.config.maxTime) { var c = y(w.config.minTime.getHours(), w.config.minTime.getMinutes(), w.config.minTime.getSeconds()), s = y(w.config.maxTime.getHours(), w.config.maxTime.getMinutes(), w.config.maxTime.getSeconds()), d = y(t, a, i); if (d > s && d < c) { var u = function (e) { var n = Math.floor(e / 3600), t = (e - 3600 * n) / 60; return [n, t, e - 3600 * n - 60 * t] }(c); t = u[0], a = u[1], i = u[2] } } else { if (l) { var f = void 0 !== w.config.maxTime ? w.config.maxTime : w.config.maxDate; (t = Math.min(t, f.getHours())) === f.getHours() && (a = Math.min(a, f.getMinutes())), a === f.getMinutes() && (i = Math.min(i, f.getSeconds())) } if (o) { var m = void 0 !== w.config.minTime ? w.config.minTime : w.config.minDate; (t = Math.max(t, m.getHours())) === m.getHours() && a < m.getMinutes() && (a = m.getMinutes()), a === m.getMinutes() && (i = Math.max(i, m.getSeconds())) } } A(t, a, i) } } function F(e) { var n = e || w.latestSelectedDateObj; n && n instanceof Date && A(n.getHours(), n.getMinutes(), n.getSeconds()) } function A(e, n, t) { void 0 !== w.latestSelectedDateObj && w.latestSelectedDateObj.setHours(e % 24, n, t || 0, 0), w.hourElement && w.minuteElement && !w.isMobile && (w.hourElement.value = o(w.config.time_24hr ? e : (12 + e) % 12 + 12 * r(e % 12 == 0)), w.minuteElement.value = o(n), void 0 !== w.amPM && (w.amPM.textContent = w.l10n.amPM[r(e >= 12)]), void 0 !== w.secondElement && (w.secondElement.value = o(t))) } function N(e) { var n = g(e), t = parseInt(n.value) + (e.delta || 0); (t / 1e3 > 1 || "Enter" === e.key && !/[^\d]/.test(t.toString())) && ee(t) } function P(e, n, t, a) { return n instanceof Array ? n.forEach((function (n) { return P(e, n, t, a) })) : e instanceof Array ? e.forEach((function (e) { return P(e, n, t, a) })) : (e.addEventListener(n, t, a), void w._handlers.push({ remove: function () { return e.removeEventListener(n, t, a) } })) } function Y() { De("onChange") } function j(e, n) { var t = void 0 !== e ? w.parseDate(e) : w.latestSelectedDateObj || (w.config.minDate && w.config.minDate > w.now ? w.config.minDate : w.config.maxDate && w.config.maxDate < w.now ? w.config.maxDate : w.now), a = w.currentYear, i = w.currentMonth; try { void 0 !== t && (w.currentYear = t.getFullYear(), w.currentMonth = t.getMonth()) } catch (e) { e.message = "Invalid date supplied: " + t, w.config.errorHandler(e) } n && w.currentYear !== a && (De("onYearChange"), q()), !n || w.currentYear === a && w.currentMonth === i || De("onMonthChange"), w.redraw() } function H(e) { var n = g(e); ~n.className.indexOf("arrow") && L(e, n.classList.contains("arrowUp") ? 1 : -1) } function L(e, n, t) { var a = e && g(e), i = t || a && a.parentNode && a.parentNode.firstChild, o = we("increment"); o.delta = n, i && i.dispatchEvent(o) } function R(e, n, t, a) { var i = ne(n, !0), o = d("span", e, n.getDate().toString()); return o.dateObj = n, o.$i = a, o.setAttribute("aria-label", w.formatDate(n, w.config.ariaDateFormat)), -1 === e.indexOf("hidden") && 0 === M(n, w.now) && (w.todayDateElem = o, o.classList.add("today"), o.setAttribute("aria-current", "date")), i ? (o.tabIndex = -1, be(n) && (o.classList.add("selected"), w.selectedDateElem = o, "range" === w.config.mode && (s(o, "startRange", w.selectedDates[0] && 0 === M(n, w.selectedDates[0], !0)), s(o, "endRange", w.selectedDates[1] && 0 === M(n, w.selectedDates[1], !0)), "nextMonthDay" === e && o.classList.add("inRange")))) : o.classList.add("flatpickr-disabled"), "range" === w.config.mode && function (e) { return !("range" !== w.config.mode || w.selectedDates.length < 2) && (M(e, w.selectedDates[0]) >= 0 && M(e, w.selectedDates[1]) <= 0) }(n) && !be(n) && o.classList.add("inRange"), w.weekNumbers && 1 === w.config.showMonths && "prevMonthDay" !== e && a % 7 == 6 && w.weekNumbers.insertAdjacentHTML("beforeend", "<span class='flatpickr-day'>" + w.config.getWeek(n) + "</span>"), De("onDayCreate", o), o } function W(e) { e.focus(), "range" === w.config.mode && oe(e) } function B(e) { for (var n = e > 0 ? 0 : w.config.showMonths - 1, t = e > 0 ? w.config.showMonths : -1, a = n; a != t; a += e)for (var i = w.daysContainer.children[a], o = e > 0 ? 0 : i.children.length - 1, r = e > 0 ? i.children.length : -1, l = o; l != r; l += e) { var c = i.children[l]; if (-1 === c.className.indexOf("hidden") && ne(c.dateObj)) return c } } function J(e, n) { var t = k(), a = te(t || document.body), i = void 0 !== e ? e : a ? t : void 0 !== w.selectedDateElem && te(w.selectedDateElem) ? w.selectedDateElem : void 0 !== w.todayDateElem && te(w.todayDateElem) ? w.todayDateElem : B(n > 0 ? 1 : -1); void 0 === i ? w._input.focus() : a ? function (e, n) { for (var t = -1 === e.className.indexOf("Month") ? e.dateObj.getMonth() : w.currentMonth, a = n > 0 ? w.config.showMonths : -1, i = n > 0 ? 1 : -1, o = t - w.currentMonth; o != a; o += i)for (var r = w.daysContainer.children[o], l = t - w.currentMonth === o ? e.$i + n : n < 0 ? r.children.length - 1 : 0, c = r.children.length, s = l; s >= 0 && s < c && s != (n > 0 ? c : -1); s += i) { var d = r.children[s]; if (-1 === d.className.indexOf("hidden") && ne(d.dateObj) && Math.abs(e.$i - s) >= Math.abs(n)) return W(d) } w.changeMonth(i), J(B(i), 0) }(i, n) : W(i) } function K(e, n) { for (var t = (new Date(e, n, 1).getDay() - w.l10n.firstDayOfWeek + 7) % 7, a = w.utils.getDaysInMonth((n - 1 + 12) % 12, e), i = w.utils.getDaysInMonth(n, e), o = window.document.createDocumentFragment(), r = w.config.showMonths > 1, l = r ? "prevMonthDay hidden" : "prevMonthDay", c = r ? "nextMonthDay hidden" : "nextMonthDay", s = a + 1 - t, u = 0; s <= a; s++, u++)o.appendChild(R("flatpickr-day " + l, new Date(e, n - 1, s), 0, u)); for (s = 1; s <= i; s++, u++)o.appendChild(R("flatpickr-day", new Date(e, n, s), 0, u)); for (var f = i + 1; f <= 42 - t && (1 === w.config.showMonths || u % 7 != 0); f++, u++)o.appendChild(R("flatpickr-day " + c, new Date(e, n + 1, f % i), 0, u)); var m = d("div", "dayContainer"); return m.appendChild(o), m } function U() { if (void 0 !== w.daysContainer) { u(w.daysContainer), w.weekNumbers && u(w.weekNumbers); for (var e = document.createDocumentFragment(), n = 0; n < w.config.showMonths; n++) { var t = new Date(w.currentYear, w.currentMonth, 1); t.setMonth(w.currentMonth + n), e.appendChild(K(t.getFullYear(), t.getMonth())) } w.daysContainer.appendChild(e), w.days = w.daysContainer.firstChild, "range" === w.config.mode && 1 === w.selectedDates.length && oe() } } function q() { if (!(w.config.showMonths > 1 || "dropdown" !== w.config.monthSelectorType)) { var e = function (e) { return !(void 0 !== w.config.minDate && w.currentYear === w.config.minDate.getFullYear() && e < w.config.minDate.getMonth()) && !(void 0 !== w.config.maxDate && w.currentYear === w.config.maxDate.getFullYear() && e > w.config.maxDate.getMonth()) }; w.monthsDropdownContainer.tabIndex = -1, w.monthsDropdownContainer.innerHTML = ""; for (var n = 0; n < 12; n++)if (e(n)) { var t = d("option", "flatpickr-monthDropdown-month"); t.value = new Date(w.currentYear, n).getMonth().toString(), t.textContent = h(n, w.config.shorthandCurrentMonth, w.l10n), t.tabIndex = -1, w.currentMonth === n && (t.selected = !0), w.monthsDropdownContainer.appendChild(t) } } } function $() { var e, n = d("div", "flatpickr-month"), t = window.document.createDocumentFragment(); w.config.showMonths > 1 || "static" === w.config.monthSelectorType ? e = d("span", "cur-month") : (w.monthsDropdownContainer = d("select", "flatpickr-monthDropdown-months"), w.monthsDropdownContainer.setAttribute("aria-label", w.l10n.monthAriaLabel), P(w.monthsDropdownContainer, "change", (function (e) { var n = g(e), t = parseInt(n.value, 10); w.changeMonth(t - w.currentMonth), De("onMonthChange") })), q(), e = w.monthsDropdownContainer); var a = m("cur-year", { tabindex: "-1" }), i = a.getElementsByTagName("input")[0]; i.setAttribute("aria-label", w.l10n.yearAriaLabel), w.config.minDate && i.setAttribute("min", w.config.minDate.getFullYear().toString()), w.config.maxDate && (i.setAttribute("max", w.config.maxDate.getFullYear().toString()), i.disabled = !!w.config.minDate && w.config.minDate.getFullYear() === w.config.maxDate.getFullYear()); var o = d("div", "flatpickr-current-month"); return o.appendChild(e), o.appendChild(a), t.appendChild(o), n.appendChild(t), { container: n, yearElement: i, monthElement: e } } function V() { u(w.monthNav), w.monthNav.appendChild(w.prevMonthNav), w.config.showMonths && (w.yearElements = [], w.monthElements = []); for (var e = w.config.showMonths; e--;) { var n = $(); w.yearElements.push(n.yearElement), w.monthElements.push(n.monthElement), w.monthNav.appendChild(n.container) } w.monthNav.appendChild(w.nextMonthNav) } function z() { w.weekdayContainer ? u(w.weekdayContainer) : w.weekdayContainer = d("div", "flatpickr-weekdays"); for (var e = w.config.showMonths; e--;) { var n = d("div", "flatpickr-weekdaycontainer"); w.weekdayContainer.appendChild(n) } return G(), w.weekdayContainer } function G() { if (w.weekdayContainer) { var e = w.l10n.firstDayOfWeek, t = n(w.l10n.weekdays.shorthand); e > 0 && e < t.length && (t = n(t.splice(e, t.length), t.splice(0, e))); for (var a = w.config.showMonths; a--;)w.weekdayContainer.children[a].innerHTML = "\n      <span class='flatpickr-weekday'>\n        " + t.join("</span><span class='flatpickr-weekday'>") + "\n      </span>\n      " } } function Z(e, n) { void 0 === n && (n = !0); var t = n ? e : e - w.currentMonth; t < 0 && !0 === w._hidePrevMonthArrow || t > 0 && !0 === w._hideNextMonthArrow || (w.currentMonth += t, (w.currentMonth < 0 || w.currentMonth > 11) && (w.currentYear += w.currentMonth > 11 ? 1 : -1, w.currentMonth = (w.currentMonth + 12) % 12, De("onYearChange"), q()), U(), De("onMonthChange"), Ce()) } function Q(e) { return w.calendarContainer.contains(e) } function X(e) { if (w.isOpen && !w.config.inline) { var n = g(e), t = Q(n), a = !(n === w.input || n === w.altInput || w.element.contains(n) || e.path && e.path.indexOf && (~e.path.indexOf(w.input) || ~e.path.indexOf(w.altInput))) && !t && !Q(e.relatedTarget), i = !w.config.ignoredFocusElements.some((function (e) { return e.contains(n) })); a && i && (w.config.allowInput && w.setDate(w._input.value, !1, w.config.altInput ? w.config.altFormat : w.config.dateFormat), void 0 !== w.timeContainer && void 0 !== w.minuteElement && void 0 !== w.hourElement && "" !== w.input.value && void 0 !== w.input.value && _(), w.close(), w.config && "range" === w.config.mode && 1 === w.selectedDates.length && w.clear(!1)) } } function ee(e) { if (!(!e || w.config.minDate && e < w.config.minDate.getFullYear() || w.config.maxDate && e > w.config.maxDate.getFullYear())) { var n = e, t = w.currentYear !== n; w.currentYear = n || w.currentYear, w.config.maxDate && w.currentYear === w.config.maxDate.getFullYear() ? w.currentMonth = Math.min(w.config.maxDate.getMonth(), w.currentMonth) : w.config.minDate && w.currentYear === w.config.minDate.getFullYear() && (w.currentMonth = Math.max(w.config.minDate.getMonth(), w.currentMonth)), t && (w.redraw(), De("onYearChange"), q()) } } function ne(e, n) { var t; void 0 === n && (n = !0); var a = w.parseDate(e, void 0, n); if (w.config.minDate && a && M(a, w.config.minDate, void 0 !== n ? n : !w.minDateHasTime) < 0 || w.config.maxDate && a && M(a, w.config.maxDate, void 0 !== n ? n : !w.maxDateHasTime) > 0) return !1; if (!w.config.enable && 0 === w.config.disable.length) return !0; if (void 0 === a) return !1; for (var i = !!w.config.enable, o = null !== (t = w.config.enable) && void 0 !== t ? t : w.config.disable, r = 0, l = void 0; r < o.length; r++) { if ("function" == typeof (l = o[r]) && l(a)) return i; if (l instanceof Date && void 0 !== a && l.getTime() === a.getTime()) return i; if ("string" == typeof l) { var c = w.parseDate(l, void 0, !0); return c && c.getTime() === a.getTime() ? i : !i } if ("object" == typeof l && void 0 !== a && l.from && l.to && a.getTime() >= l.from.getTime() && a.getTime() <= l.to.getTime()) return i } return !i } function te(e) { return void 0 !== w.daysContainer && (-1 === e.className.indexOf("hidden") && -1 === e.className.indexOf("flatpickr-disabled") && w.daysContainer.contains(e)) } function ae(e) { var n = e.target === w._input, t = w._input.value.trimEnd() !== Me(); !n || !t || e.relatedTarget && Q(e.relatedTarget) || w.setDate(w._input.value, !0, e.target === w.altInput ? w.config.altFormat : w.config.dateFormat) } function ie(e) { var n = g(e), t = w.config.wrap ? p.contains(n) : n === w._input, a = w.config.allowInput, i = w.isOpen && (!a || !t), o = w.config.inline && t && !a; if (13 === e.keyCode && t) { if (a) return w.setDate(w._input.value, !0, n === w.altInput ? w.config.altFormat : w.config.dateFormat), w.close(), n.blur(); w.open() } else if (Q(n) || i || o) { var r = !!w.timeContainer && w.timeContainer.contains(n); switch (e.keyCode) { case 13: r ? (e.preventDefault(), _(), fe()) : me(e); break; case 27: e.preventDefault(), fe(); break; case 8: case 46: t && !w.config.allowInput && (e.preventDefault(), w.clear()); break; case 37: case 39: if (r || t) w.hourElement && w.hourElement.focus(); else { e.preventDefault(); var l = k(); if (void 0 !== w.daysContainer && (!1 === a || l && te(l))) { var c = 39 === e.keyCode ? 1 : -1; e.ctrlKey ? (e.stopPropagation(), Z(c), J(B(1), 0)) : J(void 0, c) } } break; case 38: case 40: e.preventDefault(); var s = 40 === e.keyCode ? 1 : -1; w.daysContainer && void 0 !== n.$i || n === w.input || n === w.altInput ? e.ctrlKey ? (e.stopPropagation(), ee(w.currentYear - s), J(B(1), 0)) : r || J(void 0, 7 * s) : n === w.currentYearElement ? ee(w.currentYear - s) : w.config.enableTime && (!r && w.hourElement && w.hourElement.focus(), _(e), w._debouncedChange()); break; case 9: if (r) { var d = [w.hourElement, w.minuteElement, w.secondElement, w.amPM].concat(w.pluginElements).filter((function (e) { return e })), u = d.indexOf(n); if (-1 !== u) { var f = d[u + (e.shiftKey ? -1 : 1)]; e.preventDefault(), (f || w._input).focus() } } else !w.config.noCalendar && w.daysContainer && w.daysContainer.contains(n) && e.shiftKey && (e.preventDefault(), w._input.focus()) } } if (void 0 !== w.amPM && n === w.amPM) switch (e.key) { case w.l10n.amPM[0].charAt(0): case w.l10n.amPM[0].charAt(0).toLowerCase(): w.amPM.textContent = w.l10n.amPM[0], O(), ye(); break; case w.l10n.amPM[1].charAt(0): case w.l10n.amPM[1].charAt(0).toLowerCase(): w.amPM.textContent = w.l10n.amPM[1], O(), ye() }(t || Q(n)) && De("onKeyDown", e) } function oe(e, n) { if (void 0 === n && (n = "flatpickr-day"), 1 === w.selectedDates.length && (!e || e.classList.contains(n) && !e.classList.contains("flatpickr-disabled"))) { for (var t = e ? e.dateObj.getTime() : w.days.firstElementChild.dateObj.getTime(), a = w.parseDate(w.selectedDates[0], void 0, !0).getTime(), i = Math.min(t, w.selectedDates[0].getTime()), o = Math.max(t, w.selectedDates[0].getTime()), r = !1, l = 0, c = 0, s = i; s < o; s += x)ne(new Date(s), !0) || (r = r || s > i && s < o, s < a && (!l || s > l) ? l = s : s > a && (!c || s < c) && (c = s)); Array.from(w.rContainer.querySelectorAll("*:nth-child(-n+" + w.config.showMonths + ") > ." + n)).forEach((function (n) { var i, o, s, d = n.dateObj.getTime(), u = l > 0 && d < l || c > 0 && d > c; if (u) return n.classList.add("notAllowed"), void ["inRange", "startRange", "endRange"].forEach((function (e) { n.classList.remove(e) })); r && !u || (["startRange", "inRange", "endRange", "notAllowed"].forEach((function (e) { n.classList.remove(e) })), void 0 !== e && (e.classList.add(t <= w.selectedDates[0].getTime() ? "startRange" : "endRange"), a < t && d === a ? n.classList.add("startRange") : a > t && d === a && n.classList.add("endRange"), d >= l && (0 === c || d <= c) && (o = a, s = t, (i = d) > Math.min(o, s) && i < Math.max(o, s)) && n.classList.add("inRange"))) })) } } function re() { !w.isOpen || w.config.static || w.config.inline || de() } function le(e) { return function (n) { var t = w.config["_" + e + "Date"] = w.parseDate(n, w.config.dateFormat), a = w.config["_" + ("min" === e ? "max" : "min") + "Date"]; void 0 !== t && (w["min" === e ? "minDateHasTime" : "maxDateHasTime"] = t.getHours() > 0 || t.getMinutes() > 0 || t.getSeconds() > 0), w.selectedDates && (w.selectedDates = w.selectedDates.filter((function (e) { return ne(e) })), w.selectedDates.length || "min" !== e || F(t), ye()), w.daysContainer && (ue(), void 0 !== t ? w.currentYearElement[e] = t.getFullYear().toString() : w.currentYearElement.removeAttribute(e), w.currentYearElement.disabled = !!a && void 0 !== t && a.getFullYear() === t.getFullYear()) } } function ce() { return w.config.wrap ? p.querySelector("[data-input]") : p } function se() { "object" != typeof w.config.locale && void 0 === I.l10ns[w.config.locale] && w.config.errorHandler(new Error("flatpickr: invalid locale " + w.config.locale)), w.l10n = e(e({}, I.l10ns.default), "object" == typeof w.config.locale ? w.config.locale : "default" !== w.config.locale ? I.l10ns[w.config.locale] : void 0), D.D = "(" + w.l10n.weekdays.shorthand.join("|") + ")", D.l = "(" + w.l10n.weekdays.longhand.join("|") + ")", D.M = "(" + w.l10n.months.shorthand.join("|") + ")", D.F = "(" + w.l10n.months.longhand.join("|") + ")", D.K = "(" + w.l10n.amPM[0] + "|" + w.l10n.amPM[1] + "|" + w.l10n.amPM[0].toLowerCase() + "|" + w.l10n.amPM[1].toLowerCase() + ")", void 0 === e(e({}, v), JSON.parse(JSON.stringify(p.dataset || {}))).time_24hr && void 0 === I.defaultConfig.time_24hr && (w.config.time_24hr = w.l10n.time_24hr), w.formatDate = b(w), w.parseDate = C({ config: w.config, l10n: w.l10n }) } function de(e) { if ("function" != typeof w.config.position) { if (void 0 !== w.calendarContainer) { De("onPreCalendarPosition"); var n = e || w._positionElement, t = Array.prototype.reduce.call(w.calendarContainer.children, (function (e, n) { return e + n.offsetHeight }), 0), a = w.calendarContainer.offsetWidth, i = w.config.position.split(" "), o = i[0], r = i.length > 1 ? i[1] : null, l = n.getBoundingClientRect(), c = window.innerHeight - l.bottom, d = "above" === o || "below" !== o && c < t && l.top > t, u = window.pageYOffset + l.top + (d ? -t - 2 : n.offsetHeight + 2); if (s(w.calendarContainer, "arrowTop", !d), s(w.calendarContainer, "arrowBottom", d), !w.config.inline) { var f = window.pageXOffset + l.left, m = !1, g = !1; "center" === r ? (f -= (a - l.width) / 2, m = !0) : "right" === r && (f -= a - l.width, g = !0), s(w.calendarContainer, "arrowLeft", !m && !g), s(w.calendarContainer, "arrowCenter", m), s(w.calendarContainer, "arrowRight", g); var p = window.document.body.offsetWidth - (window.pageXOffset + l.right), h = f + a > window.document.body.offsetWidth, v = p + a > window.document.body.offsetWidth; if (s(w.calendarContainer, "rightMost", h), !w.config.static) if (w.calendarContainer.style.top = u + "px", h) if (v) { var D = function () { for (var e = null, n = 0; n < document.styleSheets.length; n++) { var t = document.styleSheets[n]; if (t.cssRules) { try { t.cssRules } catch (e) { continue } e = t; break } } return null != e ? e : (a = document.createElement("style"), document.head.appendChild(a), a.sheet); var a }(); if (void 0 === D) return; var b = window.document.body.offsetWidth, C = Math.max(0, b / 2 - a / 2), M = D.cssRules.length, y = "{left:" + l.left + "px;right:auto;}"; s(w.calendarContainer, "rightMost", !1), s(w.calendarContainer, "centerMost", !0), D.insertRule(".flatpickr-calendar.centerMost:before,.flatpickr-calendar.centerMost:after" + y, M), w.calendarContainer.style.left = C + "px", w.calendarContainer.style.right = "auto" } else w.calendarContainer.style.left = "auto", w.calendarContainer.style.right = p + "px"; else w.calendarContainer.style.left = f + "px", w.calendarContainer.style.right = "auto" } } } else w.config.position(w, e) } function ue() { w.config.noCalendar || w.isMobile || (q(), Ce(), U()) } function fe() { w._input.focus(), -1 !== window.navigator.userAgent.indexOf("MSIE") || void 0 !== navigator.msMaxTouchPoints ? setTimeout(w.close, 0) : w.close() } function me(e) { e.preventDefault(), e.stopPropagation(); var n = f(g(e), (function (e) { return e.classList && e.classList.contains("flatpickr-day") && !e.classList.contains("flatpickr-disabled") && !e.classList.contains("notAllowed") })); if (void 0 !== n) { var t = n, a = w.latestSelectedDateObj = new Date(t.dateObj.getTime()), i = (a.getMonth() < w.currentMonth || a.getMonth() > w.currentMonth + w.config.showMonths - 1) && "range" !== w.config.mode; if (w.selectedDateElem = t, "single" === w.config.mode) w.selectedDates = [a]; else if ("multiple" === w.config.mode) { var o = be(a); o ? w.selectedDates.splice(parseInt(o), 1) : w.selectedDates.push(a) } else "range" === w.config.mode && (2 === w.selectedDates.length && w.clear(!1, !1), w.latestSelectedDateObj = a, w.selectedDates.push(a), 0 !== M(a, w.selectedDates[0], !0) && w.selectedDates.sort((function (e, n) { return e.getTime() - n.getTime() }))); if (O(), i) { var r = w.currentYear !== a.getFullYear(); w.currentYear = a.getFullYear(), w.currentMonth = a.getMonth(), r && (De("onYearChange"), q()), De("onMonthChange") } if (Ce(), U(), ye(), i || "range" === w.config.mode || 1 !== w.config.showMonths ? void 0 !== w.selectedDateElem && void 0 === w.hourElement && w.selectedDateElem && w.selectedDateElem.focus() : W(t), void 0 !== w.hourElement && void 0 !== w.hourElement && w.hourElement.focus(), w.config.closeOnSelect) { var l = "single" === w.config.mode && !w.config.enableTime, c = "range" === w.config.mode && 2 === w.selectedDates.length && !w.config.enableTime; (l || c) && fe() } Y() } } w.parseDate = C({ config: w.config, l10n: w.l10n }), w._handlers = [], w.pluginElements = [], w.loadedPlugins = [], w._bind = P, w._setHoursFromDate = F, w._positionCalendar = de, w.changeMonth = Z, w.changeYear = ee, w.clear = function (e, n) { void 0 === e && (e = !0); void 0 === n && (n = !0); w.input.value = "", void 0 !== w.altInput && (w.altInput.value = ""); void 0 !== w.mobileInput && (w.mobileInput.value = ""); w.selectedDates = [], w.latestSelectedDateObj = void 0, !0 === n && (w.currentYear = w._initialDate.getFullYear(), w.currentMonth = w._initialDate.getMonth()); if (!0 === w.config.enableTime) { var t = E(w.config), a = t.hours, i = t.minutes, o = t.seconds; A(a, i, o) } w.redraw(), e && De("onChange") }, w.close = function () { w.isOpen = !1, w.isMobile || (void 0 !== w.calendarContainer && w.calendarContainer.classList.remove("open"), void 0 !== w._input && w._input.classList.remove("active")); De("onClose") }, w.onMouseOver = oe, w._createElement = d, w.createDay = R, w.destroy = function () { void 0 !== w.config && De("onDestroy"); for (var e = w._handlers.length; e--;)w._handlers[e].remove(); if (w._handlers = [], w.mobileInput) w.mobileInput.parentNode && w.mobileInput.parentNode.removeChild(w.mobileInput), w.mobileInput = void 0; else if (w.calendarContainer && w.calendarContainer.parentNode) if (w.config.static && w.calendarContainer.parentNode) { var n = w.calendarContainer.parentNode; if (n.lastChild && n.removeChild(n.lastChild), n.parentNode) { for (; n.firstChild;)n.parentNode.insertBefore(n.firstChild, n); n.parentNode.removeChild(n) } } else w.calendarContainer.parentNode.removeChild(w.calendarContainer); w.altInput && (w.input.type = "text", w.altInput.parentNode && w.altInput.parentNode.removeChild(w.altInput), delete w.altInput); w.input && (w.input.type = w.input._type, w.input.classList.remove("flatpickr-input"), w.input.removeAttribute("readonly"));["_showTimeInput", "latestSelectedDateObj", "_hideNextMonthArrow", "_hidePrevMonthArrow", "__hideNextMonthArrow", "__hidePrevMonthArrow", "isMobile", "isOpen", "selectedDateElem", "minDateHasTime", "maxDateHasTime", "days", "daysContainer", "_input", "_positionElement", "innerContainer", "rContainer", "monthNav", "todayDateElem", "calendarContainer", "weekdayContainer", "prevMonthNav", "nextMonthNav", "monthsDropdownContainer", "currentMonthElement", "currentYearElement", "navigationCurrentMonth", "selectedDateElem", "config"].forEach((function (e) { try { delete w[e] } catch (e) { } })) }, w.isEnabled = ne, w.jumpToDate = j, w.updateValue = ye, w.open = function (e, n) { void 0 === n && (n = w._positionElement); if (!0 === w.isMobile) { if (e) { e.preventDefault(); var t = g(e); t && t.blur() } return void 0 !== w.mobileInput && (w.mobileInput.focus(), w.mobileInput.click()), void De("onOpen") } if (w._input.disabled || w.config.inline) return; var a = w.isOpen; w.isOpen = !0, a || (w.calendarContainer.classList.add("open"), w._input.classList.add("active"), De("onOpen"), de(n)); !0 === w.config.enableTime && !0 === w.config.noCalendar && (!1 !== w.config.allowInput || void 0 !== e && w.timeContainer.contains(e.relatedTarget) || setTimeout((function () { return w.hourElement.select() }), 50)) }, w.redraw = ue, w.set = function (e, n) { if (null !== e && "object" == typeof e) for (var a in Object.assign(w.config, e), e) void 0 !== ge[a] && ge[a].forEach((function (e) { return e() })); else w.config[e] = n, void 0 !== ge[e] ? ge[e].forEach((function (e) { return e() })) : t.indexOf(e) > -1 && (w.config[e] = c(n)); w.redraw(), ye(!0) }, w.setDate = function (e, n, t) { void 0 === n && (n = !1); void 0 === t && (t = w.config.dateFormat); if (0 !== e && !e || e instanceof Array && 0 === e.length) return w.clear(n); pe(e, t), w.latestSelectedDateObj = w.selectedDates[w.selectedDates.length - 1], w.redraw(), j(void 0, n), F(), 0 === w.selectedDates.length && w.clear(!1); ye(n), n && De("onChange") }, w.toggle = function (e) { if (!0 === w.isOpen) return w.close(); w.open(e) }; var ge = { locale: [se, G], showMonths: [V, S, z], minDate: [j], maxDate: [j], positionElement: [ve], clickOpens: [function () { !0 === w.config.clickOpens ? (P(w._input, "focus", w.open), P(w._input, "click", w.open)) : (w._input.removeEventListener("focus", w.open), w._input.removeEventListener("click", w.open)) }] }; function pe(e, n) { var t = []; if (e instanceof Array) t = e.map((function (e) { return w.parseDate(e, n) })); else if (e instanceof Date || "number" == typeof e) t = [w.parseDate(e, n)]; else if ("string" == typeof e) switch (w.config.mode) { case "single": case "time": t = [w.parseDate(e, n)]; break; case "multiple": t = e.split(w.config.conjunction).map((function (e) { return w.parseDate(e, n) })); break; case "range": t = e.split(w.l10n.rangeSeparator).map((function (e) { return w.parseDate(e, n) })) } else w.config.errorHandler(new Error("Invalid date supplied: " + JSON.stringify(e))); w.selectedDates = w.config.allowInvalidPreload ? t : t.filter((function (e) { return e instanceof Date && ne(e, !1) })), "range" === w.config.mode && w.selectedDates.sort((function (e, n) { return e.getTime() - n.getTime() })) } function he(e) { return e.slice().map((function (e) { return "string" == typeof e || "number" == typeof e || e instanceof Date ? w.parseDate(e, void 0, !0) : e && "object" == typeof e && e.from && e.to ? { from: w.parseDate(e.from, void 0), to: w.parseDate(e.to, void 0) } : e })).filter((function (e) { return e })) } function ve() { w._positionElement = w.config.positionElement || w._input } function De(e, n) { if (void 0 !== w.config) { var t = w.config[e]; if (void 0 !== t && t.length > 0) for (var a = 0; t[a] && a < t.length; a++)t[a](w.selectedDates, w.input.value, w, n); "onChange" === e && (w.input.dispatchEvent(we("change")), w.input.dispatchEvent(we("input"))) } } function we(e) { var n = document.createEvent("Event"); return n.initEvent(e, !0, !0), n } function be(e) { for (var n = 0; n < w.selectedDates.length; n++) { var t = w.selectedDates[n]; if (t instanceof Date && 0 === M(t, e)) return "" + n } return !1 } function Ce() { w.config.noCalendar || w.isMobile || !w.monthNav || (w.yearElements.forEach((function (e, n) { var t = new Date(w.currentYear, w.currentMonth, 1); t.setMonth(w.currentMonth + n), w.config.showMonths > 1 || "static" === w.config.monthSelectorType ? w.monthElements[n].textContent = h(t.getMonth(), w.config.shorthandCurrentMonth, w.l10n) + " " : w.monthsDropdownContainer.value = t.getMonth().toString(), e.value = t.getFullYear().toString() })), w._hidePrevMonthArrow = void 0 !== w.config.minDate && (w.currentYear === w.config.minDate.getFullYear() ? w.currentMonth <= w.config.minDate.getMonth() : w.currentYear < w.config.minDate.getFullYear()), w._hideNextMonthArrow = void 0 !== w.config.maxDate && (w.currentYear === w.config.maxDate.getFullYear() ? w.currentMonth + 1 > w.config.maxDate.getMonth() : w.currentYear > w.config.maxDate.getFullYear())) } function Me(e) { var n = e || (w.config.altInput ? w.config.altFormat : w.config.dateFormat); return w.selectedDates.map((function (e) { return w.formatDate(e, n) })).filter((function (e, n, t) { return "range" !== w.config.mode || w.config.enableTime || t.indexOf(e) === n })).join("range" !== w.config.mode ? w.config.conjunction : w.l10n.rangeSeparator) } function ye(e) { void 0 === e && (e = !0), void 0 !== w.mobileInput && w.mobileFormatStr && (w.mobileInput.value = void 0 !== w.latestSelectedDateObj ? w.formatDate(w.latestSelectedDateObj, w.mobileFormatStr) : ""), w.input.value = Me(w.config.dateFormat), void 0 !== w.altInput && (w.altInput.value = Me(w.config.altFormat)), !1 !== e && De("onValueUpdate") } function xe(e) { var n = g(e), t = w.prevMonthNav.contains(n), a = w.nextMonthNav.contains(n); t || a ? Z(t ? -1 : 1) : w.yearElements.indexOf(n) >= 0 ? n.select() : n.classList.contains("arrowUp") ? w.changeYear(w.currentYear + 1) : n.classList.contains("arrowDown") && w.changeYear(w.currentYear - 1) } return function () { w.element = w.input = p, w.isOpen = !1, function () { var n = ["wrap", "weekNumbers", "allowInput", "allowInvalidPreload", "clickOpens", "time_24hr", "enableTime", "noCalendar", "altInput", "shorthandCurrentMonth", "inline", "static", "enableSeconds", "disableMobile"], i = e(e({}, JSON.parse(JSON.stringify(p.dataset || {}))), v), o = {}; w.config.parseDate = i.parseDate, w.config.formatDate = i.formatDate, Object.defineProperty(w.config, "enable", { get: function () { return w.config._enable }, set: function (e) { w.config._enable = he(e) } }), Object.defineProperty(w.config, "disable", { get: function () { return w.config._disable }, set: function (e) { w.config._disable = he(e) } }); var r = "time" === i.mode; if (!i.dateFormat && (i.enableTime || r)) { var l = I.defaultConfig.dateFormat || a.dateFormat; o.dateFormat = i.noCalendar || r ? "H:i" + (i.enableSeconds ? ":S" : "") : l + " H:i" + (i.enableSeconds ? ":S" : "") } if (i.altInput && (i.enableTime || r) && !i.altFormat) { var s = I.defaultConfig.altFormat || a.altFormat; o.altFormat = i.noCalendar || r ? "h:i" + (i.enableSeconds ? ":S K" : " K") : s + " h:i" + (i.enableSeconds ? ":S" : "") + " K" } Object.defineProperty(w.config, "minDate", { get: function () { return w.config._minDate }, set: le("min") }), Object.defineProperty(w.config, "maxDate", { get: function () { return w.config._maxDate }, set: le("max") }); var d = function (e) { return function (n) { w.config["min" === e ? "_minTime" : "_maxTime"] = w.parseDate(n, "H:i:S") } }; Object.defineProperty(w.config, "minTime", { get: function () { return w.config._minTime }, set: d("min") }), Object.defineProperty(w.config, "maxTime", { get: function () { return w.config._maxTime }, set: d("max") }), "time" === i.mode && (w.config.noCalendar = !0, w.config.enableTime = !0); Object.assign(w.config, o, i); for (var u = 0; u < n.length; u++)w.config[n[u]] = !0 === w.config[n[u]] || "true" === w.config[n[u]]; t.filter((function (e) { return void 0 !== w.config[e] })).forEach((function (e) { w.config[e] = c(w.config[e] || []).map(T) })), w.isMobile = !w.config.disableMobile && !w.config.inline && "single" === w.config.mode && !w.config.disable.length && !w.config.enable && !w.config.weekNumbers && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent); for (u = 0; u < w.config.plugins.length; u++) { var f = w.config.plugins[u](w) || {}; for (var m in f) t.indexOf(m) > -1 ? w.config[m] = c(f[m]).map(T).concat(w.config[m]) : void 0 === i[m] && (w.config[m] = f[m]) } i.altInputClass || (w.config.altInputClass = ce().className + " " + w.config.altInputClass); De("onParseConfig") }(), se(), function () { if (w.input = ce(), !w.input) return void w.config.errorHandler(new Error("Invalid input element specified")); w.input._type = w.input.type, w.input.type = "text", w.input.classList.add("flatpickr-input"), w._input = w.input, w.config.altInput && (w.altInput = d(w.input.nodeName, w.config.altInputClass), w._input = w.altInput, w.altInput.placeholder = w.input.placeholder, w.altInput.disabled = w.input.disabled, w.altInput.required = w.input.required, w.altInput.tabIndex = w.input.tabIndex, w.altInput.type = "text", w.input.setAttribute("type", "hidden"), !w.config.static && w.input.parentNode && w.input.parentNode.insertBefore(w.altInput, w.input.nextSibling)); w.config.allowInput || w._input.setAttribute("readonly", "readonly"); ve() }(), function () { w.selectedDates = [], w.now = w.parseDate(w.config.now) || new Date; var e = w.config.defaultDate || ("INPUT" !== w.input.nodeName && "TEXTAREA" !== w.input.nodeName || !w.input.placeholder || w.input.value !== w.input.placeholder ? w.input.value : null); e && pe(e, w.config.dateFormat); w._initialDate = w.selectedDates.length > 0 ? w.selectedDates[0] : w.config.minDate && w.config.minDate.getTime() > w.now.getTime() ? w.config.minDate : w.config.maxDate && w.config.maxDate.getTime() < w.now.getTime() ? w.config.maxDate : w.now, w.currentYear = w._initialDate.getFullYear(), w.currentMonth = w._initialDate.getMonth(), w.selectedDates.length > 0 && (w.latestSelectedDateObj = w.selectedDates[0]); void 0 !== w.config.minTime && (w.config.minTime = w.parseDate(w.config.minTime, "H:i")); void 0 !== w.config.maxTime && (w.config.maxTime = w.parseDate(w.config.maxTime, "H:i")); w.minDateHasTime = !!w.config.minDate && (w.config.minDate.getHours() > 0 || w.config.minDate.getMinutes() > 0 || w.config.minDate.getSeconds() > 0), w.maxDateHasTime = !!w.config.maxDate && (w.config.maxDate.getHours() > 0 || w.config.maxDate.getMinutes() > 0 || w.config.maxDate.getSeconds() > 0) }(), w.utils = { getDaysInMonth: function (e, n) { return void 0 === e && (e = w.currentMonth), void 0 === n && (n = w.currentYear), 1 === e && (n % 4 == 0 && n % 100 != 0 || n % 400 == 0) ? 29 : w.l10n.daysInMonth[e] } }, w.isMobile || function () { var e = window.document.createDocumentFragment(); if (w.calendarContainer = d("div", "flatpickr-calendar"), w.calendarContainer.tabIndex = -1, !w.config.noCalendar) { if (e.appendChild((w.monthNav = d("div", "flatpickr-months"), w.yearElements = [], w.monthElements = [], w.prevMonthNav = d("span", "flatpickr-prev-month"), w.prevMonthNav.innerHTML = w.config.prevArrow, w.nextMonthNav = d("span", "flatpickr-next-month"), w.nextMonthNav.innerHTML = w.config.nextArrow, V(), Object.defineProperty(w, "_hidePrevMonthArrow", { get: function () { return w.__hidePrevMonthArrow }, set: function (e) { w.__hidePrevMonthArrow !== e && (s(w.prevMonthNav, "flatpickr-disabled", e), w.__hidePrevMonthArrow = e) } }), Object.defineProperty(w, "_hideNextMonthArrow", { get: function () { return w.__hideNextMonthArrow }, set: function (e) { w.__hideNextMonthArrow !== e && (s(w.nextMonthNav, "flatpickr-disabled", e), w.__hideNextMonthArrow = e) } }), w.currentYearElement = w.yearElements[0], Ce(), w.monthNav)), w.innerContainer = d("div", "flatpickr-innerContainer"), w.config.weekNumbers) { var n = function () { w.calendarContainer.classList.add("hasWeeks"); var e = d("div", "flatpickr-weekwrapper"); e.appendChild(d("span", "flatpickr-weekday", w.l10n.weekAbbreviation)); var n = d("div", "flatpickr-weeks"); return e.appendChild(n), { weekWrapper: e, weekNumbers: n } }(), t = n.weekWrapper, a = n.weekNumbers; w.innerContainer.appendChild(t), w.weekNumbers = a, w.weekWrapper = t } w.rContainer = d("div", "flatpickr-rContainer"), w.rContainer.appendChild(z()), w.daysContainer || (w.daysContainer = d("div", "flatpickr-days"), w.daysContainer.tabIndex = -1), U(), w.rContainer.appendChild(w.daysContainer), w.innerContainer.appendChild(w.rContainer), e.appendChild(w.innerContainer) } w.config.enableTime && e.appendChild(function () { w.calendarContainer.classList.add("hasTime"), w.config.noCalendar && w.calendarContainer.classList.add("noCalendar"); var e = E(w.config); w.timeContainer = d("div", "flatpickr-time"), w.timeContainer.tabIndex = -1; var n = d("span", "flatpickr-time-separator", ":"), t = m("flatpickr-hour", { "aria-label": w.l10n.hourAriaLabel }); w.hourElement = t.getElementsByTagName("input")[0]; var a = m("flatpickr-minute", { "aria-label": w.l10n.minuteAriaLabel }); w.minuteElement = a.getElementsByTagName("input")[0], w.hourElement.tabIndex = w.minuteElement.tabIndex = -1, w.hourElement.value = o(w.latestSelectedDateObj ? w.latestSelectedDateObj.getHours() : w.config.time_24hr ? e.hours : function (e) { switch (e % 24) { case 0: case 12: return 12; default: return e % 12 } }(e.hours)), w.minuteElement.value = o(w.latestSelectedDateObj ? w.latestSelectedDateObj.getMinutes() : e.minutes), w.hourElement.setAttribute("step", w.config.hourIncrement.toString()), w.minuteElement.setAttribute("step", w.config.minuteIncrement.toString()), w.hourElement.setAttribute("min", w.config.time_24hr ? "0" : "1"), w.hourElement.setAttribute("max", w.config.time_24hr ? "23" : "12"), w.hourElement.setAttribute("maxlength", "2"), w.minuteElement.setAttribute("min", "0"), w.minuteElement.setAttribute("max", "59"), w.minuteElement.setAttribute("maxlength", "2"), w.timeContainer.appendChild(t), w.timeContainer.appendChild(n), w.timeContainer.appendChild(a), w.config.time_24hr && w.timeContainer.classList.add("time24hr"); if (w.config.enableSeconds) { w.timeContainer.classList.add("hasSeconds"); var i = m("flatpickr-second"); w.secondElement = i.getElementsByTagName("input")[0], w.secondElement.value = o(w.latestSelectedDateObj ? w.latestSelectedDateObj.getSeconds() : e.seconds), w.secondElement.setAttribute("step", w.minuteElement.getAttribute("step")), w.secondElement.setAttribute("min", "0"), w.secondElement.setAttribute("max", "59"), w.secondElement.setAttribute("maxlength", "2"), w.timeContainer.appendChild(d("span", "flatpickr-time-separator", ":")), w.timeContainer.appendChild(i) } w.config.time_24hr || (w.amPM = d("span", "flatpickr-am-pm", w.l10n.amPM[r((w.latestSelectedDateObj ? w.hourElement.value : w.config.defaultHour) > 11)]), w.amPM.title = w.l10n.toggleTitle, w.amPM.tabIndex = -1, w.timeContainer.appendChild(w.amPM)); return w.timeContainer }()); s(w.calendarContainer, "rangeMode", "range" === w.config.mode), s(w.calendarContainer, "animate", !0 === w.config.animate), s(w.calendarContainer, "multiMonth", w.config.showMonths > 1), w.calendarContainer.appendChild(e); var i = void 0 !== w.config.appendTo && void 0 !== w.config.appendTo.nodeType; if ((w.config.inline || w.config.static) && (w.calendarContainer.classList.add(w.config.inline ? "inline" : "static"), w.config.inline && (!i && w.element.parentNode ? w.element.parentNode.insertBefore(w.calendarContainer, w._input.nextSibling) : void 0 !== w.config.appendTo && w.config.appendTo.appendChild(w.calendarContainer)), w.config.static)) { var l = d("div", "flatpickr-wrapper"); w.element.parentNode && w.element.parentNode.insertBefore(l, w.element), l.appendChild(w.element), w.altInput && l.appendChild(w.altInput), l.appendChild(w.calendarContainer) } w.config.static || w.config.inline || (void 0 !== w.config.appendTo ? w.config.appendTo : window.document.body).appendChild(w.calendarContainer) }(), function () { w.config.wrap && ["open", "close", "toggle", "clear"].forEach((function (e) { Array.prototype.forEach.call(w.element.querySelectorAll("[data-" + e + "]"), (function (n) { return P(n, "click", w[e]) })) })); if (w.isMobile) return void function () { var e = w.config.enableTime ? w.config.noCalendar ? "time" : "datetime-local" : "date"; w.mobileInput = d("input", w.input.className + " flatpickr-mobile"), w.mobileInput.tabIndex = 1, w.mobileInput.type = e, w.mobileInput.disabled = w.input.disabled, w.mobileInput.required = w.input.required, w.mobileInput.placeholder = w.input.placeholder, w.mobileFormatStr = "datetime-local" === e ? "Y-m-d\\TH:i:S" : "date" === e ? "Y-m-d" : "H:i:S", w.selectedDates.length > 0 && (w.mobileInput.defaultValue = w.mobileInput.value = w.formatDate(w.selectedDates[0], w.mobileFormatStr)); w.config.minDate && (w.mobileInput.min = w.formatDate(w.config.minDate, "Y-m-d")); w.config.maxDate && (w.mobileInput.max = w.formatDate(w.config.maxDate, "Y-m-d")); w.input.getAttribute("step") && (w.mobileInput.step = String(w.input.getAttribute("step"))); w.input.type = "hidden", void 0 !== w.altInput && (w.altInput.type = "hidden"); try { w.input.parentNode && w.input.parentNode.insertBefore(w.mobileInput, w.input.nextSibling) } catch (e) { } P(w.mobileInput, "change", (function (e) { w.setDate(g(e).value, !1, w.mobileFormatStr), De("onChange"), De("onClose") })) }(); var e = l(re, 50); w._debouncedChange = l(Y, 300), w.daysContainer && !/iPhone|iPad|iPod/i.test(navigator.userAgent) && P(w.daysContainer, "mouseover", (function (e) { "range" === w.config.mode && oe(g(e)) })); P(w._input, "keydown", ie), void 0 !== w.calendarContainer && P(w.calendarContainer, "keydown", ie); w.config.inline || w.config.static || P(window, "resize", e); void 0 !== window.ontouchstart ? P(window.document, "touchstart", X) : P(window.document, "mousedown", X); P(window.document, "focus", X, { capture: !0 }), !0 === w.config.clickOpens && (P(w._input, "focus", w.open), P(w._input, "click", w.open)); void 0 !== w.daysContainer && (P(w.monthNav, "click", xe), P(w.monthNav, ["keyup", "increment"], N), P(w.daysContainer, "click", me)); if (void 0 !== w.timeContainer && void 0 !== w.minuteElement && void 0 !== w.hourElement) { var n = function (e) { return g(e).select() }; P(w.timeContainer, ["increment"], _), P(w.timeContainer, "blur", _, { capture: !0 }), P(w.timeContainer, "click", H), P([w.hourElement, w.minuteElement], ["focus", "click"], n), void 0 !== w.secondElement && P(w.secondElement, "focus", (function () { return w.secondElement && w.secondElement.select() })), void 0 !== w.amPM && P(w.amPM, "click", (function (e) { _(e) })) } w.config.allowInput && P(w._input, "blur", ae) }(), (w.selectedDates.length || w.config.noCalendar) && (w.config.enableTime && F(w.config.noCalendar ? w.latestSelectedDateObj : void 0), ye(!1)), S(); var n = /^((?!chrome|android).)*safari/i.test(navigator.userAgent); !w.isMobile && n && de(), De("onReady") }(), w } function T(e, n) { for (var t = Array.prototype.slice.call(e).filter((function (e) { return e instanceof HTMLElement })), a = [], i = 0; i < t.length; i++) { var o = t[i]; try { if (null !== o.getAttribute("data-fp-omit")) continue; void 0 !== o._flatpickr && (o._flatpickr.destroy(), o._flatpickr = void 0), o._flatpickr = k(o, n || {}), a.push(o._flatpickr) } catch (e) { console.error(e) } } return 1 === a.length ? a[0] : a } "undefined" != typeof HTMLElement && "undefined" != typeof HTMLCollection && "undefined" != typeof NodeList && (HTMLCollection.prototype.flatpickr = NodeList.prototype.flatpickr = function (e) { return T(this, e) }, HTMLElement.prototype.flatpickr = function (e) { return T([this], e) }); var I = function (e, n) { return "string" == typeof e ? T(window.document.querySelectorAll(e), n) : e instanceof Node ? T([e], n) : T(e, n) }; return I.defaultConfig = {}, I.l10ns = { en: e({}, i), default: e({}, i) }, I.localize = function (n) { I.l10ns.default = e(e({}, I.l10ns.default), n) }, I.setDefaults = function (n) { I.defaultConfig = e(e({}, I.defaultConfig), n) }, I.parseDate = C({}), I.formatDate = b({}), I.compareDates = M, "undefined" != typeof jQuery && void 0 !== jQuery.fn && (jQuery.fn.flatpickr = function (e) { return T(this, e) }), Date.prototype.fp_incr = function (e) { return new Date(this.getFullYear(), this.getMonth(), this.getDate() + ("string" == typeof e ? parseInt(e, 10) : e)) }, "undefined" != typeof window && (window.flatpickr = I), I }));
+
+(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
         typeof define === 'function' && define.amd ? define(['exports'], factory) :
             (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.vn = {}));
@@ -66,7 +69,6 @@
 
 })));
 
-
 (function () {
     "use strict";
 
@@ -101,7 +103,6 @@
         loading: false
     };
     var activeCustomerFilter = "";
-    // v2.4.6 — Filter ngày global cho dashboard
     state.dateFilter = (function () {
         var to = new Date();
         var from = new Date(); from.setDate(to.getDate() - 30);
@@ -207,7 +208,6 @@
         var dateNode = byId(ids.currentDate);
         if (timeNode) timeNode.textContent = now.toLocaleTimeString("vi-VN", { hour12: false });
         if (dateNode) dateNode.textContent = now.toLocaleDateString("vi-VN", { weekday: "long", year: "numeric", month: "2-digit", day: "2-digit" });
-        // v2.5.0 — Also update topbar clock
         var tbTime = byId("topbarTime");
         var tbDate = byId("topbarDate");
         if (tbTime) tbTime.textContent = now.toLocaleTimeString("vi-VN", { hour12: false });
@@ -253,7 +253,6 @@
     }
 
     function requestJson(url) {
-        // Luôn luôn băm cache (cache bust) để ngăn chặn trình duyệt cache API GET
         var cacheBustUrl = url + (url.indexOf("?") !== -1 ? "&" : "?") + "_t=" + new Date().getTime();
 
         if (window.fetch) {
@@ -310,7 +309,6 @@
 
     function buildDateRange() {
         var now = new Date();
-        // Lấy 12 tháng cho biểu đồ xuất nhập tồn
         var from = new Date(now.getFullYear(), now.getMonth() - 11, 1);
         var to = new Date(now.getFullYear(), now.getMonth() + 1, 0);
         return {
@@ -387,11 +385,9 @@
         function setText(id, val) { var el = byId(id); if (el) el.textContent = val; }
         function setHtml(id, val) { var el = byId(id); if (el) el.innerHTML = val; }
 
-        // 1) Tồn đầu kỳ
         if (state.kpiTonDauKy) setText("metricTonDauKy", formatNumber(toNumber(state.kpiTonDauKy.Value), 0));
         else setText("metricTonDauKy", "0");
 
-        // 2) Tổng nhập
         if (state.kpiTongNhap) {
             setText("metricTongNhap", formatNumber(toNumber(state.kpiTongNhap.Value), 0));
             setHtml("metricTongNhapDelta", formatDelta(state.kpiTongNhap.Delta));
@@ -400,7 +396,6 @@
             setHtml("metricTongNhapDelta", "");
         }
 
-        // 3) Tổng xuất
         if (state.kpiTongXuat) {
             setText("metricTongXuat", formatNumber(toNumber(state.kpiTongXuat.Value), 0));
             setHtml("metricTongXuatDelta", formatDelta(state.kpiTongXuat.Delta));
@@ -409,7 +404,6 @@
             setHtml("metricTongXuatDelta", "");
         }
 
-        // 4) Tồn kho
         if (state.kpiTonKho) {
             setText("metricTonKho", formatNumber(toNumber(state.kpiTonKho.Value), 0));
             setHtml("metricTonKhoDelta", formatDelta(state.kpiTonKho.Delta));
@@ -417,10 +411,8 @@
             setText("metricTonKho", "0");
             setHtml("metricTonKhoDelta", "");
         }
-        // 5) PO chuẩn bị về
         setText("metricInboundReady", formatNumber(state.inbound.length, 0));
         setHtml("metricInboundReadyHint", state.inbound.length > 0 ? '<i class="fa-solid fa-fire dk-text-warn"></i> ' + state.inbound.length + " PO" : "");
-        // 6) PO đang trễ
         if (state.kpiPODangTre) {
             setText("metricPODangTre", formatNumber(toNumber(state.kpiPODangTre.SoPO), 0));
             setHtml("metricPODangTreHint", '<i class="fa-solid fa-fire dk-text-danger"></i> ' + toNumber(state.kpiPODangTre.SoPOChuaKiem) + " PO chưa kiểm");
@@ -429,7 +421,6 @@
             setHtml("metricPODangTreHint", "");
         }
 
-        // 7) Giá trị tồn kho
         var thanhGiaEl = byId("metricThanhGia");
         if (thanhGiaEl) {
             var tg = state.kpiGiaTriTon ? toNumber(state.kpiGiaTriTon.Value) : (state.thanhGia ? toNumber(state.thanhGia.ThanhGia || state.thanhGia.TongTien) : 0);
@@ -642,17 +633,13 @@
 
         var overall = state.overall.length > 0 ? state.overall[0] : {};
 
-        //  Use pre-calculated per-warehouse percentages
-        // PercentNPL = UsedNPL/CapacityNPL*100, PercentPL = UsedPL/CapacityPL*100
         var usedNpl = Math.max(0, toNumber(overall.UsedNPL));
         var usedPl = Math.max(0, toNumber(overall.UsedPL));
         var totalCapacity = Math.max(0, toNumber(overall.TotalCapacity));
         var capNpl = Math.max(0, toNumber(overall.CapacityNPL));
         var capPl = Math.max(0, toNumber(overall.CapacityPL));
         var totalUsed = usedNpl + usedPl;
-        // Ring segments: proportion of TOTAL capacity (for donut visual)
         var segNpl, segPl, segFree, pctTotal;
-        // Per-kho fill % (for legend labels, matching gauge)
         var fillNpl, fillPl;
         if (totalCapacity > 0) {
             segNpl = (usedNpl / totalCapacity) * 100;
@@ -671,7 +658,6 @@
             return;
         }
 
-        //  Segment màu sáng hơn ở dark (NL/PL/Còn trống)
         var _darkSeg = dkIsDark();
         var colNL = _darkSeg ? "#60a5fa" : "#0b5bf0";
         var colPL = _darkSeg ? "#fbbf24" : "#f5a623";
@@ -850,7 +836,6 @@
 
         var filterActive = activeCustomerFilter !== "";
 
-        // Hiện TẤT CẢ khách hàng
         var data = buildCustomerDetailRows();
         var total = data.reduce(function (sum, row) { return sum + row.CBMSDTrongKho; }, 0);
         if (total <= 0) {
@@ -879,7 +864,6 @@
         var defs = [];
         var anchors = [];
 
-        // Add shadow filter
         defs.push("<filter id=\"pieShadow\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"6\" stdDeviation=\"8\" flood-color=\"#10283f\" flood-opacity=\"0.15\" /></filter>");
 
         for (var i = 0; i < data.length; i++) {
@@ -1231,7 +1215,6 @@
         renderAgeStockChart();
     }
 
-
     function dkIsDark() {
         return document.body.classList.contains("dark-theme");
     }
@@ -1291,7 +1274,6 @@
             }
         });
 
-        // Update all existing charts without reloading data
         if (Highcharts.charts) {
             Highcharts.charts.forEach(function (chart) {
                 if (chart) {
@@ -1519,7 +1501,6 @@
         });
     }
 
-    // ─── Feature 7: MoM Comparison Strip ────────────────────────────────────────
     function renderMoMStrip() {
         var strip = byId("momStrip");
         if (!strip) return;
@@ -1663,14 +1644,12 @@
         }
         monthRowHtml += "</div>";
 
-        // Day-label column
         var dayLabelHtml = "<div class=\"dk-cal-day-labels\">";
         for (var dl = 0; dl < DAY_LABELS.length; dl++) {
             dayLabelHtml += "<div class=\"dk-cal-day-label\">" + DAY_LABELS[dl] + "</div>";
         }
         dayLabelHtml += "</div>";
 
-        // Week columns
         var weeksHtml = "";
         for (var wi2 = 0; wi2 < weeks.length; wi2++) {
             weeksHtml += "<div class=\"dk-cal-week\">";
@@ -1692,7 +1671,6 @@
             "</div>";
     }
 
-    // v2.3.23 — Fetch NK dự kiến từ ERP_NhapKhoNPL (full range, không bị giới hạn 14 ngày như GetChuanBiVe)
     function loadNKDuKienForCalendar(callback) {
         if (!calMonthDate) calMonthDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
         var from = new Date(calMonthDate.getFullYear(), calMonthDate.getMonth() - 1, 1);
@@ -1715,13 +1693,11 @@
         if (!node) return;
         var data = state.activityCalendar || [];
 
-        // Init calMonthDate to current month if not set
         if (!calMonthDate) {
             var now = new Date();
             calMonthDate = new Date(now.getFullYear(), now.getMonth(), 1);
         }
 
-        // Update month title
         var titleEl = byId("calMonthTitle");
         if (titleEl) {
             var monthNames = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
@@ -1733,7 +1709,6 @@
             }
         }
 
-        // Build dayMap from state.activityCalendar
         var dayMap = {};
         for (var di = 0; di < data.length; di++) {
             var d = data[di];
@@ -1746,7 +1721,6 @@
             };
         }
 
-        // Build planned inbound dates
         var plannedDates = {};
         var plannedSource = (state.nkDuKien && state.nkDuKien.length > 0) ? state.nkDuKien : state.inbound;
         for (var pi = 0; pi < plannedSource.length; pi++) {
@@ -1759,7 +1733,6 @@
             }
         }
 
-        // Determine display range
         var dispFrom, dispTo;
         if (calRangeFrom && calRangeTo) {
             dispFrom = new Date(calRangeFrom);
@@ -1775,7 +1748,6 @@
                 String(dt.getDate()).padStart(2, "0");
         }
 
-        // Build calendar grid for the display range
         var gridStart = new Date(dispFrom);
         var dow = (gridStart.getDay() + 6) % 7; // 0=Mon
         gridStart.setDate(gridStart.getDate() - dow);
@@ -1789,14 +1761,12 @@
 
         var html = "";
 
-        // Day-of-week header
         html += "<div class=\"dk-cal-monthly-header\">";
         for (var dh = 0; dh < 7; dh++) {
             html += "<div class=\"dk-cal-monthly-dow\">" + DAY_NAMES[dh] + "</div>";
         }
         html += "</div>";
 
-        // Weeks
         html += "<div class=\"dk-cal-monthly-grid\">";
         var cur = new Date(gridStart);
         while (cur <= gridEnd) {
@@ -1842,9 +1812,6 @@
                 var kkVal = toNumber(info.totalKK);
                 var planVal = toNumber(planned);
 
-                // ==========================================
-                // XỬ LÝ GIAO DIỆN LPCP
-                // ==========================================
                 var lpcpDay = state.lpcpCalendar ? state.lpcpCalendar[dk] : null;
                 var warnCount = 0, taskCount = 0, pickCount = 0;
                 if (lpcpDay) {
@@ -1908,7 +1875,6 @@
                     (kkVal ? " KK: " + formatNumber(kkVal, 0) : "") +
                     (planVal ? " NK DK: " + planVal + " l\u00f4" : "");
 
-                // Gộp chung 1 cell top
                 var cellTop = "<div class=\"dk-cell-top\" style=\"width: 100%; display: flex; flex-direction: column; align-items: center;\">" +
                     "<div class=\"dk-cal-day-num\" style=\"font-size: 22px; text-align: center; width: 100%; margin: 0 auto;\">" + cur.getDate() + "</div>" +
                     slots +
@@ -1925,7 +1891,6 @@
 
         node.innerHTML = html;
 
-        // Bind day click: phần trên (bars) → modal, phần dưới (tasks) → sidebar
         var cells = node.querySelectorAll(".dk-cal-monthly-cell[data-date]");
         for (var ci = 0; ci < cells.length; ci++) {
             (function (cell) {
@@ -1934,13 +1899,10 @@
                 var cellInfo = dayMap[dt] || { totalIn: 0, totalOut: 0, totalKK: 0, total: 0 };
                 var plCount = plannedDates[dt] || 0;
 
-                // Chỉ cần bind 1 sự kiện click duy nhất cho toàn bộ ô lịch (gộp lại)
                 cell.style.cursor = "pointer";
                 cell.addEventListener("click", function () {
-                    // Luôn cho phép click mở Modal để người dùng không tưởng là bị lỗi (unclickable)
                     showCalDayDetail(dt, cellInfo, plCount);
 
-                    // Luôn cập nhật Sidebar (phần dưới)
                     if (currentPage === 3) {
                         showLpcpInlineDetail(dt);
                     }
@@ -1955,7 +1917,6 @@
             fromD = calRangeFrom; toD = calRangeTo;
             titleSuffix = "từ " + formatDateShort(fromD) + " → " + formatDateShort(toD);
         } else {
-            // fallback: tháng đang hiển thị
             var base = calMonthDate || new Date(new Date().getFullYear(), new Date().getMonth(), 1);
             fromD = new Date(base.getFullYear(), base.getMonth(), 1);
             toD = new Date(base.getFullYear(), base.getMonth() + 1, 0);
@@ -1998,7 +1959,6 @@
                 if (!kiemKeRows[i].NgayKiemKe) kiemKeRows[i].NgayKiemKe = kiemKeRows[i].NgayKKDen || kiemKeRows[i].NgayKKTu || "";
             }
 
-            // NK dự kiến: lọc state.nkDuKien theo range
             var nkSrc = (state.nkDuKien && state.nkDuKien.length > 0) ? state.nkDuKien : (state.inbound || []);
             var plannedRows = nkSrc.filter(function (r) {
                 var dt = parseDate(r.NgayNKDuKien);
@@ -2006,7 +1966,6 @@
                 return dt >= fromD && dt <= toD;
             });
 
-            // Tính tổng cho header meta
             var sumIn = 0, sumOut = 0, sumKK = 0;
             for (var i = 0; i < nhapRows.length; i++) sumIn += toNumber(nhapRows[i].SoLuong);
             for (var j = 0; j < xuatRows.length; j++) sumOut += toNumber(xuatRows[j].SoLuong);
@@ -2029,8 +1988,6 @@
         });
     }
 
-
-    // v2.3.46 — Render kết quả global search Itemcode
     function renderGlobalSearchResult(container, code, row) {
         if (!container) return;
         if (!row || !row.MaVTID) {
@@ -2068,18 +2025,15 @@
         html += "</div>";
         container.innerHTML = html;
 
-        // Bind click → switch page + open detail
         var cards = container.querySelectorAll(".dk-gs-card.clickable");
         for (var c = 0; c < cards.length; c++) {
             cards[c].addEventListener("click", function () {
                 var page = this.getAttribute("data-page");
                 var go = this.getAttribute("data-goto");
-                // Switch page (sidebar nav)
                 if (page) {
                     var nav = document.querySelector(".dk-page-btn[data-page=\"" + page + "\"]");
                     if (nav) nav.click();
                 }
-                // Open detail modal if specified
                 if (go) {
                     setTimeout(function () {
                         var trigger = document.querySelector(".js-open-detail[data-detail=\"" + go + "\"]");
@@ -2090,7 +2044,6 @@
         }
     }
 
-    // v2.3.7 — modal chi tiết hoạt động ngày với 4 tab record-level data
     function showCalDayDetail(dateKey, info, plannedCount) {
         var modalTitle = byId(ids.detailModalTitle);
         var modalMeta = byId(ids.detailModalMeta);
@@ -2098,7 +2051,6 @@
         var modal = byId(ids.detailModal);
         if (!modal) return;
 
-        // Format dateKey for display (yyyy-MM-dd → dd/MM/yyyy)
         var displayDate = dateKey;
         var parts = String(dateKey).split("-");
         if (parts.length === 3) displayDate = parts[2] + "/" + parts[1] + "/" + parts[0];
@@ -2112,7 +2064,6 @@
                 " &nbsp;·&nbsp; <span style=\"color:#8b5cf6;font-weight:700\">NK dự kiến: " + plannedCount + " lô</span>";
         }
 
-        // v2.3.9 — KEEP search bar visible so user có thể lọc record trong tab đang hiện
         var searchBar = document.querySelector(".dk-modal-search-bar");
         if (searchBar) searchBar.style.display = "";
         var searchInputEl = byId("detailSearchInput");
@@ -2123,7 +2074,6 @@
         var searchCountEl = byId("detailSearchCount");
         if (searchCountEl) searchCountEl.textContent = "";
 
-        // Show loading state
         if (modalContent) modalContent.innerHTML =
             "<div class=\"dk-empty\" style=\"padding:30px\">Đang tải chi tiết...</div>";
         modal.classList.add("open");
@@ -2148,7 +2098,6 @@
                 if (!kiemKeRows[i].NgayKiemKe) kiemKeRows[i].NgayKiemKe = inRangeMode ? (kiemKeRows[i].NgayKKDen || kiemKeRows[i].NgayKKTu || "") : dateKey;
             }
 
-            // v2.3.43 — NK dự kiến: nếu range mode thì lọc theo range; nếu không thì 1 ngày
             var nkSrc = (state.nkDuKien && state.nkDuKien.length > 0) ? state.nkDuKien : (state.inbound || []);
             var plannedRows = nkSrc.filter(function (r) {
                 var dt = parseDate(r.NgayNKDuKien);
@@ -2161,7 +2110,6 @@
 
             renderDayDetailTabs(modalContent, nhapRows, xuatRows, kiemKeRows, plannedRows);
 
-            // v2.3.54 — Append Lịch Phân Công tab sau 4 tabs kho
             if (!inRangeMode) {
                 requestJson("/api/DashboardKhoDesktop/LichPhanCong_GetDayDetail?ngay=" + dateKey)
                     .then(function (lpcpRes) {
@@ -2172,7 +2120,6 @@
             }
         }).catch(function (err) {
             console.error("[Dashboard Kho] Day detail API error:", err);
-            // v2.3.8.2 — Silent fallback: dùng data sẵn có (không hiện banner cảnh báo)
             var plannedRows = (state.inbound || []).filter(function (r) {
                 var dt = parseDate(r.NgayNKDuKien);
                 if (!dt) return false;
@@ -2196,8 +2143,6 @@
             }
         });
     }
-
-    // v2.3.48 — Tabs cho Tổng quát khoảng ngày: nhập dùng grouped table (date+PINCC), còn lại giữ flat
 
     window.dkToggleGroup = function (btn) {
         var groupKey = btn.getAttribute("data-group");
@@ -2244,7 +2189,6 @@
             groups[dateStr].push(r);
         }
 
-        // Sort groups by date descending
         var sortedDates = Object.keys(groups).sort(function (a, b) {
             if (a === "Không có ngày") return 1;
             if (b === "Không có ngày") return -1;
@@ -2269,7 +2213,6 @@
             var groupRows = groups[gDate];
             var groupKey = "g_" + gi;
 
-            // Tính tổng
             var hasSoLuong = false;
             var dayTotal = 0;
             for (var ck = 0; ck < cols.length; ck++) if (cols[ck].key === "SoLuong" || cols[ck].key === "SoLuongDuKien") hasSoLuong = true;
@@ -2280,7 +2223,6 @@
                 }
             }
 
-            // Group header
             var dark = document.body.classList.contains("dark-theme");
             var headBg = dark ? "#1e3a8a" : "#dbeafe"; // Nền xanh dương đặc màu (không dùng rgba)
             var headBorder = dark ? "#1d4ed8" : "#bfdbfe"; // Viền trên/dưới
@@ -2319,7 +2261,6 @@
             }
             html += "</tr>";
 
-            // Group rows
             for (var ri = 0; ri < groupRows.length; ri++) {
                 var row = groupRows[ri];
                 html += "<tr data-group='" + groupKey + "'>";
@@ -2495,32 +2436,24 @@
         }
     }
 
-    // // v2.3.60 — Tải stats LPCP cho đúng tháng đang hiển thị trên lịch (Đã sửa để gọi render biểu đồ mới)
     function loadLpcpStatsForMonth(baseDate) {
-        // Stats strip was removed, but we still trigger the bottom charts rendering here
         renderLpcpBottomCharts();
     }
 
     function renderLpcpStatsPage3() {
-        // Disabled since stats strip is removed
     }
 
     function bindLpcpStatsClick() {
-        // Disabled since stats strip is removed
     }
 
-    // Biểu đồ mới phần Lịch phân công
-    // Biểu đồ mới phần Lịch phân công
     function renderLpcpBottomCharts() {
         var isDark = document.body.classList.contains("dark-theme");
         var textColor = isDark ? "#f8fafc" : "#1e293b"; // Đậm hơn ở light mode, sáng hơn ở dark mode
         var gridColor = isDark ? "rgba(255,255,255,0.05)" : "#e2e8f0";
         var bgColor = isDark ? "#1e293b" : "#ffffff";
 
-        // Hàm tiện ích
         function _asIso(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
 
-        // --- Data cho Biểu đồ 1: Khối lượng theo loại hoạt động (Dữ liệu đang xem) ---
         var sumIn = 0, sumOut = 0, sumKiemKe = 0;
         var curMonth = calMonthDate || new Date();
         var targetYear = curMonth.getFullYear();
@@ -2603,12 +2536,10 @@
             });
         }
 
-        // --- Biểu đồ 2 & 3: Lấy trực tiếp từ SQL API theo range được chọn ---
         var now = new Date();
         var trendDays = document.getElementById("trendFilterSelect") ? parseInt(document.getElementById("trendFilterSelect").value) : 30;
         var loadDays = document.getElementById("loadFilterSelect") ? parseInt(document.getElementById("loadFilterSelect").value) : 30;
 
-        // Range: bỏ hôm nay, lùi N ngày kể từ hôm qua
         function buildRange(nDays) {
             var to = new Date(now); to.setDate(to.getDate() - 1);
             var from = new Date(now); from.setDate(from.getDate() - nDays);
@@ -2618,7 +2549,6 @@
             return typeof requestJson === 'function' ? requestJson(url) : fetch(url).then(function (r) { return r.json(); });
         }
 
-        // ── Biểu đồ 2: Xu hướng Nhập-Xuất ─────────────────────────────────────────
         if (document.getElementById("chartTrendLine")) {
             var rTrend = buildRange(trendDays);
             var urlTrend = "/api/DashboardKhoDesktop/GetFlowTrendByRange?tuNgay=" + rTrend.from + "&denNgay=" + rTrend.to;
@@ -2660,7 +2590,6 @@
             });
         }
 
-        // ── Biểu đồ 3: Tồn kho theo ngày (GetFlowTrendByRange → TotalStock) ────────
         if (document.getElementById("chartLoadBar")) {
             var rLoad = buildRange(loadDays);
             var urlLoad = "/api/DashboardKhoDesktop/GetFlowTrendByRange?tuNgay=" + rLoad.from + "&denNgay=" + rLoad.to;
@@ -2741,7 +2670,6 @@
         if (modalContent) modalContent.innerHTML = "<div class=\"dk-empty\" style=\"padding:30px\">Đang tải dữ liệu...</div>";
         modal.classList.add("open");
 
-        // Hide search bar for simplicity in this view
         var searchBar = document.querySelector(".dk-modal-search-bar");
         if (searchBar) searchBar.style.display = "none";
 
@@ -2824,7 +2752,6 @@
         });
     }
 
-    // v2.3.60 — Render LPCP detail inline (sidebar phải page 3) khi click vào ô ngày
     function showLpcpInlineDetail(dateKey) {
         var dateEl = document.getElementById("lpcpDetailDate");
         var badgeEl = document.getElementById("lpcpDetailBadge");
@@ -2832,7 +2759,6 @@
         var pickEl = document.getElementById("lpcpDetailPickOrders");
         var warnEl = document.getElementById("lpcpDetailWarnings");
 
-        // Format date display — "Thứ Tư, 27/05/2026"
         var parts = String(dateKey).split("-");
         var DOW_NAMES = ["Ch\u1ee7 Nh\u1eadt", "Th\u1ee9 Hai", "Th\u1ee9 Ba", "Th\u1ee9 T\u01b0", "Th\u1ee9 N\u0103m", "Th\u1ee9 S\u00e1u", "Th\u1ee9 B\u1ea3y"];
         var displayDate = dateKey;
@@ -2841,7 +2767,6 @@
             displayDate = dow + ", " + parts[2] + "/" + parts[1] + "/" + parts[0];
         }
 
-        // Highlight selected cell
         var cells = document.querySelectorAll(".dk-cal-monthly-cell");
         for (var ci = 0; ci < cells.length; ci++) {
             cells[ci].classList.remove("is-selected");
@@ -2850,11 +2775,9 @@
             }
         }
 
-        // Mở sidebar
         if (window.dkOpenSidebar) {
             window.dkOpenSidebar();
 
-            // Match side panel height to calendar height so it doesn't stretch the page
             setTimeout(function () {
                 var calPanel = document.querySelector('.dk-cal-monthly-panel');
                 var sidePanel = document.getElementById('lpcpDetailPanel');
@@ -2864,17 +2787,14 @@
             }, 50);
         }
 
-        // Update header
         if (dateEl) dateEl.textContent = displayDate;
         if (badgeEl) badgeEl.textContent = "\u0110ang t\u1ea3i...";
 
-        // Spinners
         var SPIN = "<div class='dk-lpcp-placeholder'><svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><circle cx='12' cy='12' r='10'/><polyline points='12 6 12 12 16 14'/></svg>\u0110ang t\u1ea3i...</div>";
         if (assignEl) assignEl.innerHTML = SPIN;
         if (pickEl) pickEl.innerHTML = SPIN;
         if (warnEl) warnEl.innerHTML = SPIN;
 
-        // Reset badge counts
         ["lpcpWarnCount", "lpcpTaskCount", "lpcpPickCount"].forEach(function (id) {
             var el = document.getElementById(id);
             if (el) { el.style.display = "none"; el.textContent = ""; }
@@ -2906,7 +2826,6 @@
                 var assignments = data.Assignments || [];
                 var pickOrders = data.PickOrders || [];
 
-                // Tự tổng hợp PickOrders nếu SP chưa trả ResultSet 2
                 if (pickOrders.length === 0 && assignments.length > 0) {
                     var lenhMap = {}, lenhOrder = [];
                     assignments.forEach(function (a) {
@@ -2924,7 +2843,6 @@
                     lenhOrder.forEach(function (ma) { pickOrders.push(lenhMap[ma]); });
                 }
 
-                // ── Xây dựng cảnh báo từ dữ liệu ──────────────────────────────────
                 var warnings = [];
                 var thieuNPL = [], chuaHT = [], choTH = [], thieuPO = [], tongThieu = 0;
                 assignments.forEach(function (a) {
@@ -2940,13 +2858,11 @@
                 if (chuaHT.length) warnings.push({ level: "caution", name: "Ch\u01b0a ho\u00e0n th\u00e0nh \u0111\u00fang h\u1ea1n", cnt: chuaHT.length + " task", desc: "C\u1ea7n theo d\u00f5i v\u00e0 x\u1eed l\u00fd ngay" });
                 if (choTH.length) warnings.push({ level: "info", name: "Ch\u1edd b\u1eaft \u0111\u1ea7u TH", cnt: choTH.length + " task", desc: "Ch\u01b0a tri\u1ec3n khai trong ng\u00e0y" });
 
-                // Badge counts
                 setBadge("lpcpWarnCount", warnings.length);
                 setBadge("lpcpTaskCount", assignments.length);
                 setBadge("lpcpPickCount", pickOrders.length);
                 if (badgeEl) badgeEl.textContent = assignments.length + " task \u00b7 " + pickOrders.length + " l\u1ec7nh so\u1ea1n";
 
-                // ── BẢNG 1: CẢNH BÁO ──────────────────────────────────────────────
                 var wHtml = "";
                 if (warnings.length === 0) {
                     wHtml = "<div class='dk-lpcp-empty' style='text-align:center;padding:16px 0;'>" +
@@ -2970,7 +2886,6 @@
                 }
                 if (warnEl) warnEl.innerHTML = wHtml;
 
-                // ── BẢNG 2: TASK PENDING (Assignments) ────────────────────────────
                 var aHtml = "";
                 if (assignments.length === 0) {
                     aHtml = "<div class='dk-lpcp-empty'>Kh\u00f4ng c\u00f3 ph\u00e2n c\u00f4ng</div>";
@@ -2992,7 +2907,6 @@
                 }
                 if (assignEl) assignEl.innerHTML = aHtml;
 
-                // ── BẢNG 3: PHỤ LIỆU — SOẠN HÀNG (Pick Orders) ───────────────────
                 var pHtml = "";
                 if (pickOrders.length === 0) {
                     pHtml = "<div class='dk-lpcp-empty'>Kh\u00f4ng c\u00f3 l\u1ec7nh so\u1ea1n h\u00e0ng</div>";
@@ -3022,7 +2936,6 @@
                 }
                 if (pickEl) pickEl.innerHTML = pHtml;
 
-                // ── Bind "Xem chi tiết" buttons ───────────────────────────────────
                 (function () {
                     var _warnings = warnings;
                     var _assignments = assignments;
@@ -3032,7 +2945,6 @@
                     function bindDetailBtn(btnId, section) {
                         var btn = document.getElementById(btnId);
                         if (!btn) return;
-                        // Clone to remove any previous listener
                         var fresh = btn.cloneNode(true);
                         btn.parentNode.replaceChild(fresh, btn);
                         fresh.addEventListener("click", function () {
@@ -3052,7 +2964,6 @@
             });
     }
 
-    // ── v2.3.61 — Chi tiết từng mục trong sidebar (Cảnh báo / Task / Pick) ──────
     function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLabel) {
         var modal = document.getElementById("detailModal");
         var titleEl = document.getElementById("detailModalTitle");
@@ -3061,11 +2972,9 @@
         var headEl = modal ? modal.querySelector(".dk-modal-head") : null;
         if (!modal || !contentEl) return;
 
-        // Hide search bar (not used here)
         var searchBar = document.querySelector(".dk-modal-search-bar");
         if (searchBar) searchBar.style.display = "none";
 
-        // Apply section-specific header class
         if (headEl) {
             headEl.classList.remove("section-warn", "section-task", "section-pick");
             headEl.classList.add("section-" + section);
@@ -3171,7 +3080,6 @@
         return days[date.getDay()] || "";
     }
 
-    // v2.3.54 — Append "Phân công PL" tab vào modal sau 4 tabs kho
     function appendLpcpTab(container, lpcpData) {
         if (!container) return;
         var assignments = lpcpData.Assignments || [];
@@ -3198,7 +3106,6 @@
                 escapeHtml(TT_LABELS[tt] || "") + "</span>";
         }
 
-        // Build tab button
         var tabBar = container.querySelector(".dk-day-tabs");
         if (!tabBar) return;
         var tabBtn = document.createElement("button");
@@ -3212,10 +3119,8 @@
             " <span class=\"dk-day-tab-count\">" + total + "</span>";
         tabBar.appendChild(tabBtn);
 
-        // Build panel HTML
         var html = "";
 
-        // Left: Phân công nhân viên
         html += "<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;\">";
 
         html += "<div>";
@@ -3244,7 +3149,6 @@
         }
         html += "</div>";
 
-        // Right: Phụ liệu soạn hàng
         html += "<div>";
         html += "<div style=\"font-size:10px;font-weight:700;color:" + subColor + ";text-transform:uppercase;" +
             "letter-spacing:.05em;margin-bottom:8px;\">Phụ liệu — Soạn hàng</div>";
@@ -3277,7 +3181,6 @@
         }
         html += "</div></div>"; // grid end
 
-        // Create panel div
         var panel = document.createElement("div");
         panel.className = "dk-day-panel";
         panel.setAttribute("data-tabkey", "lpcp");
@@ -3285,7 +3188,6 @@
         panel.innerHTML = html;
         container.appendChild(panel);
 
-        // Bind click for new tab button (re-use existing tab logic)
         tabBtn.addEventListener("click", function () {
             var allBtns = container.querySelectorAll(".dk-day-tab");
             for (var k = 0; k < allBtns.length; k++) allBtns[k].classList.remove("active");
@@ -3315,12 +3217,14 @@
     }
     function colsXuat() {
         return [
-            { key: "STT", label: "STT", number: 0, center: true, width: "5%" },
-            { key: "MaLenh", label: "Mã lệnh", center: true, width: "15%" },
-            { key: "TenHang", label: "Tên hàng", center: true, width: "30%" },
-            { key: "TenKH", label: "Khách hàng", center: true, width: "25%" },
-            { key: "SoLuong", label: "Số lượng", number: 2, center: true, width: "12%" },
-            { key: "SoBarCode", label: "Số BarCode", number: 0, center: true, width: "13%" }
+            { key: "STT", label: "STT", number: 0, center: true, width: "4%" },
+            { key: "MaLenh", label: "Mã lệnh", center: true, width: "13%" },
+            { key: "TenHang", label: "Tên hàng", width: "28%" },
+            { key: "TenKH", label: "Khách hàng", width: "22%" },
+            { key: "SoLuong", label: "Số lượng", number: 2, center: true, width: "10%" },
+            { key: "NgayXuat", label: "Ngày xuất", date: true, center: true, width: "10%" },
+            { key: "LoaiKho", label: "Loại kho", center: true, width: "8%" },
+            { key: "GiaTri", label: "Giá trị", number: 0, width: "10%" }
         ];
     }
     function colsKiemKe() {
@@ -3353,14 +3257,10 @@
         renderCharts();
         renderCustomersTable();
         renderRacksTable();
-        // renderRacksHeatmap();
         renderActivityCalendar();
         renderActivityCalendarMonthly();
         setTimeout(injectMaximizeButtons, 80);
 
-        // v2.3.6 — Sau khi render lần đầu (có thể state.activityCalendar
-        // rỗng do API lỗi hoặc khoảng ngày mặc định không cover được tháng
-        // hiện tại), thử gọi lại API với khoảng ngày tường minh cho ±1 tháng.
         if (!isDemoMode && (!state.activityCalendar || state.activityCalendar.length === 0)) {
             var now = new Date();
             var from = new Date(now.getFullYear(), now.getMonth() - 1, 1);
@@ -3384,7 +3284,6 @@
 
         var modules = {};
         var moduleOrder = [];
-        // NL (1) trước, PL (2) sau
         for (var i = 0; i < state.racks.length; i++) {
             var r = state.racks[i];
             var mod = toNumber(r.Module);
@@ -3403,7 +3302,6 @@
             var racks = modObj.racks;
 
             racks.sort(function (a, b) {
-                // Sắp xếp theo dãy trước, rồi theo % sử dụng
                 var dayA = (a.item.TenDay || "").toLowerCase();
                 var dayB = (b.item.TenDay || "").toLowerCase();
                 if (dayA !== dayB) return dayA < dayB ? -1 : 1;
@@ -3414,7 +3312,6 @@
                 return pB - pA;
             });
 
-            // Thống kê module
             var totalRacks = racks.length;
             var under50 = 0, between50and85 = 0, above85 = 0, over100 = 0;
             var totalUsed = 0, totalCap = 0;
@@ -3441,7 +3338,6 @@
                 over100 + " kệ &gt;100%" +
                 "</span></div>";
 
-            // Nhóm theo dãy
             var dayGroups = {};
             var dayOrder = [];
             for (var j2 = 0; j2 < racks.length; j2++) {
@@ -3450,7 +3346,6 @@
                 if (!dayGroups[dayName]) { dayGroups[dayName] = []; dayOrder.push(dayName); }
                 dayGroups[dayName].push(rk);
             }
-            // Remove duplicates in dayOrder
             var seenDays = {};
             dayOrder = dayOrder.filter(function (d) { return seenDays[d] ? false : (seenDays[d] = true); });
 
@@ -3485,7 +3380,6 @@
                         "Vật tư: " + formatNumber(slVatTu, 0) + " mã"
                     ].join("\n");
 
-                    // v2.4.16 — Tile với fill animation từ dưới lên
                     var fillH = Math.min(100, Math.max(0, pct));
                     var staggerDelay = (j * 40);
                     html += "<div class=\"dk-wh-tile " + tileClass + " js-open-detail\" data-detail=\"rackRow\" data-index=\"" + rIndex + "\" data-pct=\"" + fillH.toFixed(1) + "\" title=\"" + escapeHtml(tooltipText) + "\" style=\"animation-delay:" + staggerDelay + "ms\">";
@@ -3507,17 +3401,14 @@
         container.innerHTML = html;
     }
 
-    // ─── Pagination System ────────────────────────────────────────────────────
     var currentPage = 1;
     var autoRotateTimer = null;
     var AUTO_ROTATE_INTERVAL = 15000; // 15 giây
 
     function switchPage(pageNum) {
         currentPage = pageNum;
-        // v2.3.8 — lazy load data for page being shown (Page 2/3 chỉ fetch khi vào)
         try { loadPageData(pageNum); } catch (e) { }
         var pages = document.querySelectorAll(".dk-page");
-        // v2.6.0 — Support both old .dk-page-btn and new .dk-topbar-nav-btn
         var btns = document.querySelectorAll(".dk-page-btn, .dk-topbar-nav-btn");
         for (var i = 0; i < pages.length; i++) {
             var pn = parseInt(pages[i].getAttribute("data-page"), 10);
@@ -3530,7 +3421,6 @@
             }
         }
 
-        // Hide global search bar on Page 3 (Bảng thống kê)
         var gsInput = document.getElementById("dkGlobalSearch");
         if (gsInput) {
             var gsWrap = gsInput.closest ? gsInput.closest(".dk-topbar-search, .input-group, .dk-search-wrap") : gsInput.parentElement;
@@ -3593,7 +3483,6 @@
         var nav = byId("pageNav");
         if (!nav) return;
         nav.addEventListener("click", function (e) {
-            // v2.6.0 — Match both old sidebar buttons and new topbar nav buttons
             var btn = e.target.closest(".dk-page-btn, .dk-topbar-nav-btn");
             if (!btn) return;
             var page = parseInt(btn.getAttribute("data-page"), 10);
@@ -3620,7 +3509,6 @@
             FreePercent: toNumber(overall.FreePercent)
         };
 
-        // Chi tiết tổng sức chứa: hiện tất cả kệ, NL trước rồi PL
         var racksForCapDetail = state.racks.slice().sort(function (a, b) {
             var mA = toNumber(a.Module), mB = toNumber(b.Module);
             if (mA !== mB) return mA - mB;
@@ -3705,7 +3593,6 @@
             matCountDrill_codes: {
                 title: "Danh sách tất cả mã vật tư đang tồn kho",
                 rows: [],
-                // v2.4.0 — Cột mới: STT, Loại, ItemCode, Chi tiết, Màu(mã+tên), Khổ vải(+đv), Tồn kho, Số kiện/roll
                 columns: [
                     { key: "STT", label: "STT", number: 0, center: true, width: 50 },
                     { key: "LoaiKho", label: "Loại", center: true, width: 70 },
@@ -3718,7 +3605,6 @@
                 ],
                 customAsync: "allMaterials"
             },
-            // v2.4.4 — 6 modal "Xem chi tiết" mới: shell + customAsync dispatcher
             hieuSuatHoatDongAll: { title: "Hiệu suất hoạt động", rows: [], columns: [], customAsync: "hieuSuatHoatDongAll" },
             todoDetail: { title: "Công việc chờ xử lý", rows: [], columns: [], customAsync: "todoDetail" },
             top5VTAll: { title: "Toàn bộ vật tư theo dung tích", rows: [], columns: [], customAsync: "top5VTAll" },
@@ -3726,13 +3612,11 @@
             hetHanAll: { title: "Vật tư sắp hết hạn", rows: [], columns: [], customAsync: "hetHanAll" },
             giaTriNhomAll: { title: "Chi tiết giá trị tồn theo nhóm", rows: [], columns: [], customAsync: "giaTriNhomAll" },
             kiemKeAll: { title: "Chi tiết kiểm kê", rows: [], columns: [], customAsync: "kiemKeAll" },
-            // v2.4.15 — 5 modal KPI header
             tonDauKyDetail: { title: "Tồn đầu kỳ", rows: [], columns: [], customAsync: "tonDauKyDetail" },
             tongNhapDetail: { title: "Chi tiết nhập kho", rows: [], columns: [], customAsync: "tongNhapDetail" },
             tongXuatDetail: { title: "Chi tiết xuất kho", rows: [], columns: [], customAsync: "tongXuatDetail" },
             tonKhoDetail: { title: "Chi tiết tồn kho", rows: [], columns: [], customAsync: "tonKhoDetail" },
             poTreDetail: { title: "PO đang trễ", rows: [], columns: [], customAsync: "poTreDetail" },
-            // v2.4.16 — chi tiết cảnh báo tồn kho (theo MaCB)
             alertDetail: { title: "Chi tiết cảnh báo", rows: [], columns: [], customAsync: "alertDetail" },
             matCountDrill_allRacks: (function () {
                 var rows = state.racks.map(function (r, i) {
@@ -3910,7 +3794,6 @@
                 rows: state.outboundReady.map(function (r, i) { return Object.assign({ STT: i + 1 }, r); }),
                 columns: [
                     { key: "STT", label: "STT", number: 0, center: true, width: 50 },
-                    // v2.3.31 — Chỉ giữ "Mã lệnh SX" = MaLenh từ CanDoiDonViSanXuat, bỏ cột nội bộ
                     { key: "MaLenh", label: "Mã lệnh SX", center: true, width: 120 },
                     { key: "KhachHang", label: "Khách hàng", width: 180 },
                     { key: "TenHang", label: "Tên hàng", width: 250 },
@@ -3924,7 +3807,6 @@
                 rows: state.outboundRunning.map(function (r, i) { return Object.assign({ STT: i + 1 }, r); }),
                 columns: [
                     { key: "STT", label: "STT", number: 0, center: true, width: 50 },
-                    // v2.3.46 — MaLenh = PhieuXuatHang.MaLenh (integer như 539), header giữ "Mã lệnh SX"
                     { key: "MaLenh", label: "Mã lệnh SX", center: true, width: 110 },
                     { key: "PhieuDK", label: "Phiếu ĐK", center: true, width: 110 },
                     { key: "MaGop", label: "Mã gộp", center: true, width: 110 },
@@ -4180,7 +4062,6 @@
                     ]
                 };
             })(),
-            // v2.3.36 — Thành giá hàng tồn kho
             thanhGiaDetail: (function () {
                 var tg = state.thanhGia || {};
                 var thanhGia = toNumber(tg.ThanhGia);
@@ -4213,7 +4094,6 @@
         };
 
         if (detail === "customerRow") {
-            // v2.3.25 — Customer drill: hiện hàng của khách ở đâu (dãy/kệ/ô)
             var customerItem = buildCustomerDetailRows().filter(function (row) {
                 return row.sourceIndex === index;
             })[0];
@@ -4226,7 +4106,6 @@
         }
 
         if (detail === "rackRow") {
-            // v2.3.26 — Rack drill: hiện những vật tư trong kệ đó
             var rackItem = state.racks[index];
             return {
                 title: "Chi tiết kệ: " + (rackItem ? (rackItem.TenKe || "") : ""),
@@ -4279,9 +4158,7 @@
             return "<p class=\"dk-empty\">Không có dữ liệu chi tiết.</p>";
         }
 
-        // v2.3.27 — Cột text dài cần wrap (left align). MaNPL/DanhSachKH/DanhSachMaNPL có thể rất dài
         var TEXT_LEFT_KEYS = { TenKH: 1, KhachHang: 1, TenKe: 1, TenDay: 1, TenHang: 1, MaVT: 1, ChiTiet: 1, MaGop: 1, MaDH: 1, MaHang: 1, MaLenh: 1, MaDVSX: 1, MaNPL: 1, DanhSachKH: 1, DanhSachMaNPL: 1, ChiSo: 1, ItemCode: 1, TenVT: 1, MaPhieu: 1 };
-        // v2.4.0 — Cột code dùng monospace + tabular alignment
         var MONO_KEYS = { ItemCode: 1, MaVT: 1, MaNPL: 1, MaGop: 1, MaLenh: 1, MaPhieu: 1 };
 
         var headHtml = columns.map(function (column) {
@@ -4293,7 +4170,6 @@
             } else if (TEXT_LEFT_KEYS[column.key]) {
                 styles.push("text-align:left");
             }
-            // v2.3.39 - Width hint từng cột (compact tables)
             if (column.width) {
                 var w = column.width + (typeof column.width === "number" ? "px" : "");
                 styles.push("width:" + w + ";min-width:" + w);
@@ -4308,7 +4184,6 @@
             var cols = columns.map(function (column) {
                 var value = row[column.key];
                 var cellStyle = "";
-                // v2.3.21 — raw:true → render HTML thẳng (cho link drill)
                 if (column.raw) {
                     var rawAlign = column.center ? "center" : "left";
                     return "<td style=\"text-align:" + rawAlign + "\">" + (value || "") + "</td>";
@@ -4350,14 +4225,10 @@
         return "<div class=\"dk-detail-table-wrap\"><table class=\"dk-detail-table\"><thead><tr>" + headHtml + "</tr></thead><tbody>" + bodyHtml + "</tbody></table></div>";
     }
 
-    // v2.3.27 — Modal navigation stack: drill có nút "← Quay lại"
     var _detailStack = [];
     function openDetail(detail, index) {
-        // Push parent state lên stack nếu modal đang mở (= drilling)
         var modal = byId(ids.detailModal);
         if (modal && modal.classList.contains("open") && _detailStack.length === 0) {
-            // First-time push: lưu lại detail HIỆN TẠI (parent)
-            // (chỉ push 1 lần, không nested deeper)
         }
         if (modal && modal.classList.contains("open") && _currentDetail) {
             _detailStack.push({ detail: _currentDetail, index: _currentDetailIndex });
@@ -4372,31 +4243,26 @@
     function renderDetailModal(detail, index) {
         var model;
         try { model = getDetailData(detail, index); } catch (e) { model = { title: detail, rows: [], columns: [], isWarehouseMap: false, customAsync: detail }; }
-        // Update title with back button if stack non-empty
         var titleEl = byId(ids.detailModalTitle);
         if (_detailStack.length > 0) {
             titleEl.innerHTML = "<button type=\"button\" class=\"dk-back-btn js-modal-back\" title=\"Quay lại\">← Quay lại</button> " + escapeHtml(model.title);
         } else {
             titleEl.textContent = model.title;
         }
-        // v2.3.20 — Meta header chỉ hiện model.meta (nếu có), tổng dòng dời xuống footer
         byId(ids.detailModalMeta).textContent = model.meta || "";
         if (!model.meta) byId(ids.detailModalMeta).style.display = "none";
         else byId(ids.detailModalMeta).style.display = "";
-        // Update footer row count
         var rowCountEl = byId("detailModalRowCount");
         if (rowCountEl) {
             rowCountEl.textContent = "Tổng số dòng: " + formatNumber((model.rows || []).length, 0);
         }
 
-        // Reset search
         var searchInput = byId("detailSearchInput");
         if (searchInput) { searchInput.value = ""; }
         var searchCount = byId("detailSearchCount");
         if (searchCount) { searchCount.textContent = ""; }
 
         var rowCount = (model.rows || []).length;
-        // v2.3.17 — detail có ít dòng → ẩn search bar
         var noSearchDetails = { capacitySummary: 1, materialCount: 1 };
         var searchBar = document.querySelector(".dk-modal-search-bar");
         if (searchBar) {
@@ -4414,7 +4280,6 @@
             wrapHtml += "<div class=\"dk-modal-wh-stat\"><div class=\"dk-modal-wh-stat-label\">Kho PL</div><div class=\"dk-modal-wh-stat-value dk-text-warn\">" + formatNumber(toNumber(overall.UsedPL), 2) + " / " + formatNumber(toNumber(overall.CapacityPL), 2) + " CBM</div><div class=\"dk-modal-wh-stat-sub\">" + formatNumber(toNumber(overall.PercentPL), 1) + "% lấp đầy</div></div>";
             wrapHtml += "</div>";
 
-            // Sơ đồ tile map
             wrapHtml += "<div style=\"margin-bottom:14px\">";
             wrapHtml += "<b style=\"font-size:13px\">Sơ đồ lấp đầy kệ</b>";
             wrapHtml += "<div style=\"display:flex;gap:10px;font-size:11px;font-weight:700;margin:6px 0;\">";
@@ -4424,7 +4289,6 @@
             wrapHtml += "<span><i style=\"display:inline-block;width:12px;height:12px;background:#e11d48;border:1px solid #be123c;border-radius:2px;vertical-align:middle\"></i> &gt;100%</span>";
             wrapHtml += "</div>";
 
-            // Build inline heatmap
             var racksSorted = state.racks.slice().sort(function (a, b) {
                 var mA = toNumber(a.Module), mB = toNumber(b.Module);
                 if (mA !== mB) return mA - mB;
@@ -4449,7 +4313,6 @@
                     var grCap = toNumber(grItem.TongCBMTrongKe);
                     var grPct = grCap > 0 ? (grUsed / grCap) * 100 : 0;
                     var grClass = grPct > 100 ? "dk-wh-over" : (grPct >= 85 ? "dk-wh-full" : (grPct >= 50 ? "dk-wh-warn" : "dk-wh-safe"));
-                    // v2.4.16 — Tile fill animation
                     var grFillH = Math.min(100, Math.max(0, grPct));
                     wrapHtml += "<div class=\"dk-wh-tile " + grClass + "\" data-pct=\"" + grFillH.toFixed(1) + "\" title=\"" + escapeHtml((grItem.TenKe || "") + " | " + (grItem.TenDay || "") + " | " + formatNumber(grPct, 1) + "%") + "\" style=\"cursor:default;animation-delay:" + (gr * 40) + "ms\">";
                     wrapHtml += "<span class=\"dk-wh-tile-fill\" style=\"height:" + grFillH.toFixed(1) + "%\"></span>";
@@ -4462,7 +4325,6 @@
             }
             wrapHtml += "</div>";
 
-            // Table bên dưới (v2.7.1 — bỏ label "NL trước → PL")
             wrapHtml += renderDetailTable(model.columns, model.rows);
             wrapHtml += "</div>";
 
@@ -4473,18 +4335,15 @@
 
         byId(ids.detailModal).classList.add("open");
 
-        // v2.3.9 — Sau khi mở modal totalCapacity → fetch chi tiết theo Ô + append
         if (model.isWarehouseMap) {
             loadRackSlotDetailIntoModal();
         }
 
-        // v2.3.30 — Async load cho drill "Mã vật tư" (toàn bộ ~2348 mã)
         if (model.customAsync === "allMaterials") {
             var contentEl = byId(ids.detailModalContent);
             if (contentEl) contentEl.innerHTML = "<div class=\"dk-empty\" style=\"padding:30px\">Đang tải tất cả mã vật tư trong kho (có thể mất 5-15 giây)...</div>";
             requestJson("/api/DashboardKhoDesktop/GetAllMaterialsInStock").then(function (data) {
                 var rows = normalizeArray(data).map(function (r, i) {
-                    // v2.4.0 — Compose Màu = "Mã màu — Tên màu" + swatch; Khổ vải kèm đơn vị; alias MaVT → ItemCode
                     var maMau = r.MaMauVT ? String(r.MaMauVT).trim() : "";
                     var tenMau = r.Mau ? String(r.Mau).trim() : "";
                     var mauText = "";
@@ -4511,11 +4370,9 @@
                 } else {
                     contentEl.innerHTML = renderDetailTable(model.columns, rows);
                 }
-                // Update footer row count
                 var rcEl = byId("detailModalRowCount");
                 if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(rows.length, 0);
             }).catch(function (err) {
-                // v2.3.35 — Hiện rõ lỗi để debug, không chỉ "Lỗi tải" chung chung
                 console.error("[Dashboard Kho] AllMaterials error:", err);
                 var msg = (err && err.message) ? err.message : "Lỗi không rõ";
                 contentEl.innerHTML =
@@ -4532,7 +4389,6 @@
             });
         }
 
-        // v2.4.4 — Dispatcher cho 6 modal "Xem chi tiết" mới
         if (model.customAsync === "hieuSuatHoatDongAll") { renderHieuSuatHoatDongAllModal(); }
         if (model.customAsync === "todoDetail") { renderTodoDetailModal(); }
         if (model.customAsync === "top5VTAll") { renderTop5VTAllModal(); }
@@ -4540,7 +4396,6 @@
         if (model.customAsync === "hetHanAll") { renderHetHanAllModal(); }
         if (model.customAsync === "giaTriNhomAll") { renderGiaTriNhomAllModal(); }
         if (model.customAsync === "kiemKeAll") { renderKiemKeAllModal(); }
-        // v2.4.15 — Dispatcher cho 5 modal KPI header
         if (model.customAsync === "tonDauKyDetail") { renderTonDauKyDetailModal(); }
         if (model.customAsync === "tongNhapDetail") { renderTongNhapDetailModal(); }
         if (model.customAsync === "tongXuatDetail") { renderTongXuatDetailModal(); }
@@ -4563,7 +4418,6 @@
             });
         }
 
-        // v2.3.26 — Rack drill: fetch GetRackSlotDetail và filter theo TenKe
         if (model.customDrillRack) {
             loadSlotDrillIntoModal({
                 filterFn: function (r) {
@@ -4575,7 +4429,6 @@
         }
     }
 
-    // v2.3.25 + v2.3.26 — Fetch GetRackSlotDetail rồi filter + append vào modal
     function loadSlotDrillIntoModal(opts) {
         var content = byId(ids.detailModalContent);
         if (!content) return;
@@ -4615,12 +4468,10 @@
         });
     }
 
-    // v2.3.9 — Tải chi tiết cấp Ô và chèn vào cuối modal Tổng sức chứa
     function loadRackSlotDetailIntoModal() {
         var content = byId(ids.detailModalContent);
         if (!content) return;
 
-        // Placeholder section
         var section = document.createElement("div");
         section.style.cssText = "margin-top:18px;padding-top:14px;border-top:2px solid #e2e8f0";
         section.innerHTML =
@@ -4642,7 +4493,6 @@
                 return;
             }
 
-            // v2.9 — Cols: bỏ cột Dãy (TenDay) và Mã màu (MaMauVT), thêm Số KH
             var cols = [
                 { key: "STT", label: "STT", number: 0, center: true, width: 46 },
                 { key: "TenKe", label: "Kệ", center: true, width: 80 },
@@ -4655,7 +4505,6 @@
                 { key: "TongCBM", label: "CBM", number: 4, center: true, width: 80 }
             ];
 
-            // v2.3.41 — Tách NL và PL
             var nlRows = rows.filter(function (r) { return toNumber(r.Module) === 1; })
                 .map(function (r, i) { return Object.assign({ STT: i + 1 }, r); });
             var plRows = rows.filter(function (r) { return toNumber(r.Module) === 2; })
@@ -4671,7 +4520,6 @@
                 "<span class=\"dk-text-muted\">Tổng barcode: " + formatNumber(totalBC, 0) + "</span>" +
                 "</div>";
 
-            // Section NL
             if (nlRows.length > 0) {
                 html += "<div class=\"dk-slot-section\">" +
                     "<div class=\"dk-slot-section-head dk-slot-nl\">" +
@@ -4682,7 +4530,6 @@
                     renderDetailTable(cols, nlRows) +
                     "</div>";
             }
-            // Section PL
             if (plRows.length > 0) {
                 html += "<div class=\"dk-slot-section\" style=\"margin-top:16px\">" +
                     "<div class=\"dk-slot-section-head dk-slot-pl\">" +
@@ -4707,18 +4554,14 @@
         modal.classList.remove("open");
         modal.style.display = "";  // clear any inline style from older code paths
 
-        // v2.3.27 — Reset drill stack khi đóng modal hoàn toàn
         _detailStack = [];
         _currentDetail = null;
         _currentDetailIndex = -1;
 
-        // Restore search bar visibility (calendar-day modal hides it)
         var searchBar = document.querySelector(".dk-modal-search-bar");
         if (searchBar) searchBar.style.display = "";
     }
 
-
-    // ─── Feature 10: Full-screen Panel Mode ─────────────────────────────────────
     var fsBackdrop = null;
 
     function injectMaximizeButtons() {
@@ -4748,7 +4591,6 @@
                 maxBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>';
             }
         } else {
-            // Remove any existing fullscreen
             var existing = document.querySelector(".dk-panel-fullscreen");
             if (existing) {
                 existing.classList.remove("dk-panel-fullscreen");
@@ -4788,7 +4630,6 @@
     }
 
     function bindEvents() {
-        // Refresh button (sidebar)
         function refreshWithClearCache() {
             sessionStorage.setItem("dk_restore_tab", currentPage);
             requestJson("/api/DashboardKhoDesktop/ClearCache")
@@ -4812,7 +4653,6 @@
             var target = event.target;
             if (!target) return;
 
-            // Feature 10: maximize button
             var maxBtn = target;
             while (maxBtn && maxBtn !== document) {
                 if (maxBtn.classList && maxBtn.classList.contains("dk-maximize-btn")) break;
@@ -4832,14 +4672,11 @@
 
             var detailNode = findDetailNode(target);
             if (detailNode) {
-                // v2.3.21 — Prevent default anchor jump
                 if (event.preventDefault) event.preventDefault();
                 var detail = detailNode.getAttribute("data-detail");
                 var index = parseInt(detailNode.getAttribute("data-index"), 10);
-                // v2.4.7 — Lưu data-todo-type để renderTodoDetailModal mở đúng tab
                 var todoType = detailNode.getAttribute("data-todo-type");
                 window.__dkPendingTodoType = todoType || null;
-                // v2.4.16 — Lưu data-alert-code + name để renderAlertDetailModal đọc
                 var alertCode = detailNode.getAttribute("data-alert-code");
                 var alertName = detailNode.getAttribute("data-alert-name");
                 window.__dkPendingAlertCode = alertCode || null;
@@ -4848,7 +4685,6 @@
                 return;
             }
 
-            // v2.3.27 — Back button trong modal drill: pop stack thay vì close
             var backNode = target.closest ? target.closest(".js-modal-back") : null;
             if (!backNode) {
                 var t2 = target;
@@ -4863,7 +4699,32 @@
                     var parent = _detailStack.pop();
                     _currentDetail = parent.detail;
                     _currentDetailIndex = parent.index;
-                    renderDetailModal(parent.detail, parent.index);
+                    if (parent.savedHtml != null) {
+                        var titleEl2 = byId(ids.detailModalTitle);
+                        if (titleEl2) {
+                            if (_detailStack.length > 0) {
+                                titleEl2.innerHTML = "<button type=\"button\" class=\"dk-back-btn js-modal-back\" title=\"Quay lại\">← Quay lại</button> " + escapeHtml(parent.savedTitle || parent.detail);
+                            } else {
+                                titleEl2.textContent = parent.savedTitle || parent.detail;
+                            }
+                        }
+                        var contentEl2 = byId(ids.detailModalContent);
+                        if (contentEl2) contentEl2.innerHTML = parent.savedHtml;
+                        var rcEl2 = byId("detailModalRowCount");
+                        if (rcEl2 && parent.savedRowCount != null) rcEl2.textContent = parent.savedRowCount;
+                        var metaEl2 = byId(ids.detailModalMeta);
+                        if (metaEl2) {
+                            metaEl2.textContent = parent.savedMeta || "";
+                            metaEl2.style.display = parent.savedMeta ? "" : "none";
+                        }
+                        var sb2 = document.querySelector(".dk-modal-search-bar");
+                        if (sb2) sb2.style.display = parent.savedSearchBar ? "" : "none";
+                        if (_currentDetail === "top5KHAll") {
+                            rewireTop5KHRowClicks();
+                        }
+                    } else {
+                        renderDetailModal(parent.detail, parent.index);
+                    }
                 } else {
                     closeDetailModal();
                 }
@@ -4872,7 +4733,6 @@
 
             var closeNode = findCloseNode(target);
             if (closeNode) {
-                // v2.3.27 — Nếu có stack thì X cũng quay lại parent (giống back)
                 if (_detailStack.length > 0) {
                     var p = _detailStack.pop();
                     _currentDetail = p.detail;
@@ -4886,14 +4746,12 @@
 
         document.addEventListener("keydown", function (event) {
             if (event.key === "Escape") {
-                // Close fullscreen first, then modal
                 var fsPanel = document.querySelector(".dk-panel-fullscreen");
                 if (fsPanel) { togglePanelFullscreen(fsPanel); return; }
                 closeDetailModal();
             }
         });
 
-        // Feature 11: Customer filter dropdown
         var custFilter = byId("customerFilterSelect");
         if (custFilter) {
             custFilter.addEventListener("change", function () {
@@ -4903,7 +4761,6 @@
             });
         }
 
-        // Feature 6: Activity calendar week-count selector
         var actWeekSel = byId("activityWeeksSelect");
         if (actWeekSel) {
             actWeekSel.addEventListener("change", function () {
@@ -4912,7 +4769,6 @@
             });
         }
 
-        // Event listeners for trend and load filter selects
         var trendFilter = byId("trendFilterSelect");
         if (trendFilter) {
             trendFilter.addEventListener("change", function () {
@@ -4927,24 +4783,20 @@
             });
         }
 
-        // v2.3.60 — Tải stats LPCP cho đúng tháng đang hiển thị trên lịch
         function loadLpcpStatsForMonth(baseDate) {
             renderLpcpBottomCharts();
         }
 
-        // Monthly calendar navigation — fetch data when month changes (Issue 2)
         function reloadCalendarForMonth() {
             var calNode = byId("chartActivityCalendarMonthly");
             if (calNode) calNode.innerHTML = "<div class=\"dk-skeleton\"><div class=\"dk-skeleton-shimmer\"></div></div>";
 
             if (!calMonthDate) calMonthDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
-            // Fetch a 3-month window centered on displayed month
             var from = new Date(calMonthDate.getFullYear(), calMonthDate.getMonth() - 1, 1);
             var to = new Date(calMonthDate.getFullYear(), calMonthDate.getMonth() + 2, 0);
             var url = "/api/DashboardKhoDesktop/GetActivityCalendar?tuNgay=" +
                 asIsoDate(from) + "&denNgay=" + asIsoDate(to);
 
-            // v2.3.60 — Reload LPCP calendar + stats cho tháng mới
             var urlLPCP = "/api/DashboardKhoDesktop/LichPhanCong_GetCalendarMonth?tuNgay=" +
                 asIsoDate(from) + "&denNgay=" + asIsoDate(to);
 
@@ -5042,7 +4894,6 @@
             });
         }
 
-        // v2.3.46 — "Tổng quát" button: mở modal aggregate cho toàn bộ range
         var calOverview = byId("calOpenOverview");
         if (calOverview) {
             calOverview.addEventListener("click", function () {
@@ -5050,7 +4901,6 @@
             });
         }
 
-        // v2.3.46 — Global Itemcode search
         var gsInput = byId("globalKhoSearch");
         var gsBtn = byId("globalKhoSearchBtn");
         var gsClear = byId("globalKhoSearchClear");
@@ -5064,7 +4914,6 @@
                 gsResult.innerHTML = "";
                 return;
             }
-            // debounce
             if (!immediate) {
                 if (gsDebounceTimer) clearTimeout(gsDebounceTimer);
                 gsDebounceTimer = setTimeout(function () { runGlobalSearch(true); }, 300);
@@ -5097,7 +4946,6 @@
             });
         }
 
-        // v2.3.33 — Legend toggle filter (click để bật/tắt hiển thị từng loại)
         var calLegend = byId("calActLegend");
         if (calLegend) {
             calLegend.addEventListener("click", function (e) {
@@ -5112,15 +4960,12 @@
                 if (!btn) return;
                 var act = btn.getAttribute("data-act");
                 if (!act) return;
-                // Toggle filter state
                 state.calActFilter[act] = !state.calActFilter[act];
                 btn.classList.toggle("is-active", state.calActFilter[act]);
-                // Re-render calendar
                 renderActivityCalendarMonthly();
             });
         }
 
-        // Modal search filter
         var searchInput = byId("detailSearchInput");
         if (searchInput) {
             searchInput.addEventListener("input", function () {
@@ -5133,12 +4978,9 @@
         var content = byId(ids.detailModalContent);
         if (!content) return;
 
-        // v2.3.9 — Nếu có tabbed UI (modal ngày calendar), chỉ filter tab đang hiện;
-        // ngược lại filter tất cả tbody trong modal.
         var visiblePanels = content.querySelectorAll(".dk-day-panel");
         var tbodies;
         if (visiblePanels.length > 0) {
-            // Chỉ lấy tbody của panel đang visible
             tbodies = [];
             for (var p = 0; p < visiblePanels.length; p++) {
                 if (visiblePanels[p].style.display !== "none") {
@@ -5283,7 +5125,7 @@
 
     var loadedPages = { 1: false, 2: false, 3: false };
 
-    function loadData() {
+    function loadData(skipLoadingState, skipReloadCurrent) {
         if (state.loading) return;
         if (isDemoMode) {
             loadDemoData();
@@ -5305,7 +5147,6 @@
         }
 
         var BASE = "/api/DashboardKhoDesktop/";
-        // v2.4.6 — Query string filter ngày global
         var dfFrom = state.dateFilter && state.dateFilter.from ? state.dateFilter.from : "";
         var dfTo = state.dateFilter && state.dateFilter.to ? state.dateFilter.to : "";
         var dfQS = (dfFrom && dfTo) ? "?tuNgay=" + encodeURIComponent(dfFrom) + "&denNgay=" + encodeURIComponent(dfTo) : "";
@@ -5315,7 +5156,6 @@
         function _isoDate(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
         var LPCP_URL = "/api/DashboardKhoDesktop/LichPhanCong_GetCalendarMonth?tuNgay=" + encodeURIComponent(_isoDate(lpcpFrom)) + "&denNgay=" + encodeURIComponent(_isoDate(lpcpTo));
 
-        // === PAGE 1 priority — load + render NGAY (user thấy ngay khi vào) ===
         loadedPages[1] = true;
         var p1a = safeJson(BASE + "GetOverallCapacity").then(function (r) {
             state.overall = normalizeArray(r);
@@ -5368,7 +5208,6 @@
             renderMetricCards();
         });
 
-        // v2.4.0 — 6 section mới của Tổng quan (stub API)
         var p1l = safeJson(BASE + "GetCongViecChoXuLy").then(function (r) {
             state.todoList = normalizeArray(r);
             renderTodoList();
@@ -5395,7 +5234,6 @@
             renderKiemKeBox();
         });
 
-        // v2.4.6 — 6 KPI mới (filter ngày) + alerts + hieusuat
         var p1r = safeJson(BASE + "GetTongNhap" + dfQS).then(function (r) {
             var arr = normalizeArray(r); state.kpiTongNhap = arr[0] || null; renderMetricCards();
         });
@@ -5414,7 +5252,6 @@
         var p1w = safeJson(BASE + "GetGiaTriTon" + (dfTo ? "?denNgay=" + encodeURIComponent(dfTo) : "")).then(function (r) {
             var arr = normalizeArray(r); state.kpiGiaTriTon = arr[0] || null; renderMetricCards();
         });
-        // Page 2 widget mới — load lazy nhưng đặt vào Promise.all để re-fetch khi Áp dụng
         var p1x = safeJson(BASE + "GetCanhBaoTonKho").then(function (r) {
             state.alerts = normalizeArray(r); renderAlertsList();
         });
@@ -5422,7 +5259,6 @@
             state.hieuSuat = normalizeArray(r); renderHieuSuatGauges();
         });
         var pLPCP = requestJson(LPCP_URL).then(function (res) {
-            // Đọc Tasks và Inventory từ cấu trúc API mới
             var lpcpArr = normalizeArray(res.Tasks || res.data || res);
             var invArr = normalizeArray(res.Inventory || []);
 
@@ -5431,7 +5267,6 @@
                 if (k) state.lpcpCalendar[k] = d;
             });
 
-            // Ánh xạ dữ liệu Inventory mới gán đè vào activityCalendar
             if (invArr.length > 0) {
                 state.activityCalendar = invArr.map(function (item) {
                     var inQty = toNumber(item.SoLuongNhapKho);
@@ -5451,7 +5286,6 @@
             return [];
         });
 
-        // Bỏ gọi API GetActivityCalendar cũ để không bị ghi đè dữ liệu
         var pActivity = Promise.resolve([]);
 
         Promise.all([p1a, p1b, p1c, p1d, p1e, p1f, p1g, p1h, p1i, p1j, p1k, p1l, p1m, p1n, p1o, p1p, p1q, p1r, p1s, p1t, p1u, p1v, p1w, p1x, p1y, pLPCP, pActivity]).then(function () {
@@ -5464,16 +5298,13 @@
                 state.loading = false;
             }
 
-            // Render lại lịch kho (Hàm này giờ sẽ có state.lpcpCalendar để vẽ chấm)
             renderActivityCalendarMonthly();
 
-            // Tự động load nội dung của ngày hôm nay
             var today = new Date();
             if (typeof showLpcpInlineDetail === 'function') {
                 showLpcpInlineDetail(_isoDate(today));
             }
 
-            // Render 3 biểu đồ mới ở cuối trang với dữ liệu thực tế
             if (typeof renderLpcpBottomCharts === 'function') {
                 renderLpcpBottomCharts();
             }
@@ -5511,7 +5342,6 @@
             promises.push(safeJson(BASE + "GetRacks").then(function (r) {
                 state.racks = normalizeArray(r);
                 renderRacksTable();
-                // renderRacksHeatmap();
             }));
             promises.push(safeJson(BASE + "GetFlowTrend12T").then(function (r) {
                 state.flowTrend12T = normalizeArray(r);
@@ -5530,10 +5360,8 @@
                 state.ageStock = normalizeArray(r);
                 renderAgeStockChart();
             }));
-            // Top 5 NL/PL charts — fire and render independently
             renderTop5MaxChart();
             renderTop5MinChart();
-            // v2.7.2 FIX: Re-fetch alerts nếu chưa có data (khi navigate sang page 2 trước khi loadData hoàn thành)
             if (!state.alerts || state.alerts.length === 0) {
                 promises.push(safeJson(BASE + "GetCanhBaoTonKho").then(function (r) {
                     state.alerts = normalizeArray(r);
@@ -5542,7 +5370,6 @@
             } else {
                 renderAlertsList();
             }
-            // v2.7.1 FIX: Fetch hieuSuat nếu chưa có data (khi navigate sang page 2 trước khi loadData hoàn thành)
             if (!state.hieuSuat || state.hieuSuat.length === 0) {
                 var dfQS2 = "?tuNgay=" + encodeURIComponent(state.dateFilter.from) + "&denNgay=" + encodeURIComponent(state.dateFilter.to);
                 promises.push(safeJson(BASE + "GetHieuSuatHoatDong" + dfQS2).then(function (r) {
@@ -5557,7 +5384,6 @@
         }
 
         if (pageNum === 3) {
-            // Sử dụng calMonthDate nếu có (để giữ nguyên tháng đang xem), nếu không thì dùng now
             var baseMonth = (typeof calMonthDate !== "undefined" && calMonthDate) ? calMonthDate : new Date();
             var from = new Date(baseMonth.getFullYear(), baseMonth.getMonth() - 1, 1);
             var to = new Date(baseMonth.getFullYear(), baseMonth.getMonth() + 2, 0);
@@ -5566,12 +5392,10 @@
             var urlNKDK = BASE + "GetNKDuKienByRange?tuNgay=" + asIsoDate(from) + "&denNgay=" + asIsoDate(to);
             var urlLPCP = "/api/DashboardKhoDesktop/LichPhanCong_GetCalendarMonth?tuNgay=" + asIsoDate(from) + "&denNgay=" + asIsoDate(to);
 
-            // Khởi tạo state rỗng
             state.nkDuKien = [];
             state.activityCalendar = [];
             state.lpcpCalendar = {};
 
-            // GỌI 3 API SONG SONG VÀ ĐỢI TẤT CẢ HOÀN TẤT
             return Promise.all([
                 safeJson(urlNKDK),
                 safeJson(urlLichGoc),
@@ -5582,7 +5406,6 @@
             ]).then(function (results) {
                 state.nkDuKien = normalizeArray(results[0]);
 
-                // Xử lý dữ liệu LPCP và Inventory mới từ kết quả API
                 var rLPCP = results[2] || {};
                 var lpcpArr = normalizeArray(rLPCP.Tasks || rLPCP.data || rLPCP);
                 var invArr = normalizeArray(rLPCP.Inventory || []);
@@ -5592,7 +5415,6 @@
                     if (k) state.lpcpCalendar[k] = d;
                 });
 
-                // [FIX] Cập nhật Inventory cho Lịch — ưu tiên từ API LPCP, fallback API cũ
                 if (invArr.length > 0) {
                     state.activityCalendar = invArr.map(function (item) {
                         var inQty = toNumber(item.SoLuongNhapKho || item.SoLuongNhap || item.TotalIn || item.totalIn || item.SLNhap || 0);
@@ -5607,18 +5429,15 @@
                         };
                     });
                 } else {
-                    // Fallback: dùng dữ liệu từ GetActivityCalendar (API cũ)
+
                     state.activityCalendar = normalizeArray(results[1]);
                 }
 
-                // RENDER LỊCH 1 LẦN DUY NHẤT SAU KHI ĐÃ CÓ FULL DỮ LIỆU
                 renderActivityCalendarMonthly();
                 setTimeout(injectMaximizeButtons, 60);
 
-                // Load LPCP stats after data is ready
                 loadLpcpStatsForMonth(calMonthDate || now);
 
-                // Tự động load chi tiết ngày hiện tại cho sidebar
                 if (typeof showLpcpInlineDetail === 'function') {
                     showLpcpInlineDetail(asIsoDate(new Date()));
                 }
@@ -5644,7 +5463,6 @@
         }
     }
 
-    // ─── Sidebar Toggle ─────────────────────────────────────────────────────────
     function bindSidebarToggle() {
         var sidebar = byId("dkSidebar");
         if (!sidebar) return;
@@ -5684,7 +5502,6 @@
         var applyBtn = byId("flowApplyRange");
         if (!fromEl || !toEl || !applyBtn) return;
 
-        // Default range: 30 days back → today
         var today = new Date();
         var startDefault = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 30);
         fromEl.value = asIsoDate(startDefault);
@@ -5724,7 +5541,6 @@
                     outbound.push(toNumber(arr[i].TotalOut));
                     stock.push(toNumber(arr[i].TotalStock));
                 }
-                // Lưu lại vào state để "Xem chi tiết" có thể đọc
                 state.flowTrendRangeRaw = arr;
                 renderFlowTrendCustom({ labels: labels, inbound: inbound, outbound: outbound, stock: stock });
             })
@@ -5767,7 +5583,6 @@
     }
 
     function renderFlowTrendYear() {
-        // Gộp 12 tháng thành từng năm
         if (!state.flowTrend12T || state.flowTrend12T.length === 0) {
             renderFlowTrendChart(); return;
         }
@@ -5813,7 +5628,6 @@
             .catch(function () { renderFlowTrendChart(); });
     }
 
-    // Hàm vẽ biểu đồ flow với dữ liệu tùy chỉnh 
     function renderFlowTrendCustom(series) {
         var node = byId(ids.chartFlowTrend);
         if (!node) return;
@@ -5853,7 +5667,6 @@
         function yScaleBars(v) { return T + (1 - v / maxBars) * plotH; }
         function yScaleStock(v) { return T + (1 - v / maxStock) * plotH; }
 
-        // Bar width auto-shrinks with density; ≥60 points → use line for bars too.
         var groupStep = N > 1 ? (plotW / (N - 1)) : plotW;
         var useBars = N <= 45;
         var barW = useBars ? Math.max(2, Math.min(20, groupStep * 0.32)) : 0;
@@ -5865,7 +5678,6 @@
             "<filter id=\"bsf2\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2\" stdDeviation=\"2\" flood-color=\"#0f172a\" flood-opacity=\"0.12\"/></filter>" +
             "</defs>";
 
-        // Grid + LEFT axis labels (bars)
         var grid = "";
         for (var g = 0; g <= 4; g++) {
             var gv = (maxBars / 4) * g;
@@ -5873,14 +5685,12 @@
             grid += "<line x1=\"" + L + "\" y1=\"" + gy + "\" x2=\"" + (W - R) + "\" y2=\"" + gy + "\" stroke=\"#e2eaf4\" stroke-dasharray=\"4 3\" stroke-width=\"1\"/>";
             grid += "<text x=\"" + (L - 6) + "\" y=\"" + (gy + 4) + "\" text-anchor=\"end\" class=\"dk-flow-label\" style=\"font-size:10px;fill:#3d9de8;font-weight:700\">" + formatNumber(gv, 0) + "</text>";
         }
-        // RIGHT axis labels (stock)
         for (var gs = 0; gs <= 4; gs++) {
             var gvS = (maxStock / 4) * gs;
             var gyS = yScaleStock(gvS);
             grid += "<text x=\"" + (W - R + 6) + "\" y=\"" + (gyS + 4) + "\" text-anchor=\"start\" class=\"dk-flow-label\" style=\"font-size:10px;fill:#f97316;font-weight:700\">" + formatNumber(gvS, 0) + "</text>";
         }
         grid += "<line x1=\"" + L + "\" y1=\"" + axisY + "\" x2=\"" + (W - R) + "\" y2=\"" + axisY + "\" stroke=\"#b0c4d8\" stroke-width=\"1.5\"/>";
-        // axis titles
         var axisTitles = "<text x=\"" + (L - 6) + "\" y=\"" + (T - 8) + "\" text-anchor=\"end\"   class=\"dk-flow-axis-title\" style=\"font-size:10px;fill:#3d9de8;font-weight:800\">Nhập/Xuất</text>" +
             "<text x=\"" + (W - R + 6) + "\" y=\"" + (T - 8) + "\" text-anchor=\"start\" class=\"dk-flow-axis-title\" style=\"font-size:10px;fill:#f97316;font-weight:800\">Tồn kho</text>";
 
@@ -5947,7 +5757,6 @@
             "</svg>";
     }
 
-    // ─── Biểu đồ đồng hồ đo lấp đầy NL/PL (Feature 4) ─────────────────────────
     function renderCapacityBarChart() {
         var node = byId("chartCapacityBar");
         if (!node) return;
@@ -5972,13 +5781,11 @@
 
         function semiArcPath(cx, cy, R, pct, stroke) {
             var bg = "M " + (cx - R) + " " + cy + " A " + R + " " + R + " 0 0 1 " + (cx + R) + " " + cy;
-            // Guard: NaN, negative, or zero
             if (!isFinite(pct) || pct <= 0) return { bg: bg, fill: null };
             var ratio = Math.max(0, Math.min(pct / 100, 0.9999));   // tránh ratio = 1 → arc endpoint trùng start
             var theta = Math.PI * ratio;
             var ex = cx - R * Math.cos(theta);
             var ey = cy - R * Math.sin(theta);
-            // Safety: nếu ex/ey không phải number → bỏ fill
             if (!isFinite(ex) || !isFinite(ey)) return { bg: bg, fill: null };
             var large = ratio > 0.5 ? 1 : 0;
             var fill = "M " + (cx - R) + " " + cy + " A " + R + " " + R + " 0 " + large + " 1 " + ex.toFixed(3) + " " + ey.toFixed(3);
@@ -5992,13 +5799,11 @@
             var col = gaugeColor(pct);
             var col2 = pct >= 100 ? "#dc2626" : pct >= 80 ? "#ea580c" : pct >= 60 ? "#ca8a04" : "#16a34a";
             var strokeW = Math.round(R * 0.18);
-            // v2.4.3 — theme-aware track + subtitle text + tag opacity
             var _darkG = dkIsDark();
             var trackColor = _darkG ? "#1e3a6b" : "#e8eef7";
             var subTxt = _darkG ? "#cbd5e1" : "#64748b";
             var tagOpac = _darkG ? "0.28" : "0.14";
             var html = "";
-            // Gradient defs
             html += "<defs>" +
                 "<linearGradient id=\"" + gradId + "\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"0\">" +
                 "<stop offset=\"0%\"  stop-color=\"" + col + "\"/>" +
@@ -6009,16 +5814,12 @@
                 "<feMerge><feMergeNode in=\"b\"/><feMergeNode in=\"SourceGraphic\"/></feMerge>" +
                 "</filter>" +
                 "</defs>";
-            // background arc with subtle shadow
             html += "<path d=\"" + arc.bg + "\" fill=\"none\" stroke=\"" + trackColor + "\" stroke-width=\"" + strokeW + "\" stroke-linecap=\"round\"/>";
-            // fill arc — gradient + glow, animated draw-in
             if (arc.fill) {
-                // pathLength: 1000 normalize → CSS animate stroke-dashoffset 1000 → 0
                 html += "<path class=\"dk-gauge-fill\" d=\"" + arc.fill + "\" fill=\"none\" " +
                     "stroke=\"url(#" + gradId + ")\" stroke-width=\"" + strokeW + "\" stroke-linecap=\"round\" " +
                     "pathLength=\"1000\" stroke-dasharray=\"1000\" filter=\"url(#" + gradId + "_glow)\"/>";
             }
-            // 85% warning tick (dashed red)
             var warnAngle = Math.PI * 0.85;
             var nxIn = cx - (R - strokeW / 2 - 2) * Math.cos(warnAngle);
             var nyIn = cy - (R - strokeW / 2 - 2) * Math.sin(warnAngle);
@@ -6049,14 +5850,10 @@
             "</div>";
     }
 
-    // ════════════════════════════════════════════════════════════════
-    // v2.4.6 — Render bảng Todo group-by-PO (header row + sub-rows)
-    // ════════════════════════════════════════════════════════════════
     function renderTodoGroupedTable(cols, rows, isTraHang) {
         if (!rows || rows.length === 0) {
             return "<div class=\"dk-empty\" style=\"padding:20px\">Không có dữ liệu</div>";
         }
-        // Group by POMua
         var groups = {};
         var poOrder = [];
         for (var i = 0; i < rows.length; i++) {
@@ -6064,7 +5861,6 @@
             if (!groups[po]) { groups[po] = []; poOrder.push(po); }
             groups[po].push(rows[i]);
         }
-        // Header
         var headHtml = "";
         for (var c = 0; c < cols.length; c++) {
             var col = cols[c];
@@ -6074,7 +5870,6 @@
             if (col.width) styles.push("width:" + col.width + "px");
             headHtml += "<th" + (styles.length ? ' style="' + styles.join(";") + '"' : "") + ">" + escapeHtml(col.label) + "</th>";
         }
-        // Body
         var bodyHtml = "";
         for (var pi = 0; pi < poOrder.length; pi++) {
             var po = poOrder[pi];
@@ -6123,10 +5918,6 @@
         return '<table class="dk-detail-table dk-todo-table"><thead><tr>' + headHtml + '</tr></thead><tbody>' + bodyHtml + '</tbody></table>';
     }
 
-    // ════════════════════════════════════════════════════════════════
-    // v2.4.6 — Page 2 widget mới: Cảnh báo tồn kho + Hiệu suất hoạt động
-    // ════════════════════════════════════════════════════════════════
-
     function renderAlertsList() {
         var node = byId("alertsList");
         if (!node) return;
@@ -6143,7 +5934,6 @@
         node.innerHTML = rows.map(function (a) {
             var mucDo = (a.MucDo || "info").toLowerCase();
             var icon = iconMap[mucDo] || iconMap.info;
-            // v2.4.16 — click 1 alert-item → mở modal alertDetail với code tương ứng
             return "" +
                 "<div class=\"dk-alert-item dk-alert-" + mucDo + " js-open-detail\" data-detail=\"alertDetail\" data-alert-code=\"" + escapeHtml(a.MaCB || "") + "\" data-alert-name=\"" + escapeHtml(a.TenCB || "") + "\" title=\"Click để xem chi tiết\" role=\"button\" tabindex=\"0\">" +
                 "<span class=\"dk-alert-icon\"><i class=\"fa-solid " + icon + "\"></i></span>" +
@@ -6165,7 +5955,6 @@
         if (rows.length === 0) return;
         applyHighchartsTheme();
         var dark = dkIsDark();
-        // v2.4.7 — Mapping accent + icon FA cho từng chỉ số
         var meta = {
             "hoan_thanh_nhap": { accent: "#3b82f6", accent2: "#60a5fa", icon: "fa-cloud-arrow-down", short: "Hoàn thành nhập" },
             "hoan_thanh_xuat": { accent: "#f97316", accent2: "#fb923c", icon: "fa-truck-fast", short: "Hoàn thành xuất" },
@@ -6190,7 +5979,6 @@
                 '<div class="dk-perf-delta-row">' + formatDelta(delta) + '</div>';
             var gaugeEl = cell.querySelector(".dk-perf-gauge");
             var trackCol = dark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.05)";
-            // Gradient stroke: light → accent đậm
             var gradId = "perfGrad_" + r.MaChiSo;
             Highcharts.chart(gaugeEl, {
                 chart: { type: "solidgauge", backgroundColor: "transparent", spacing: [4, 4, 4, 4], margin: [0, 0, 0, 0] },
@@ -6240,8 +6028,6 @@
         });
     }
 
-    // ─── Theme Toggle (light/dark) ─────────────────────────────────────────────
-    // v2.6.0 — Theme Toggle: sidebar removed, only topbar button
     function bindThemeToggle() {
         var btn = byId("btnThemeToggle");
         var btnTop = byId("btnThemeToggleTop");
@@ -6274,9 +6060,6 @@
         if (btnTop) btnTop.addEventListener("click", doThemeToggle);
     }
 
-    // ════════════════════════════════════════════════════════════════
-    // v2.4.0 — Render 6 section mới ở Page 1 (Tổng quan)
-    // ════════════════════════════════════════════════════════════════
     function renderTodoList() {
         var node = byId("todoList");
         if (!node) return;
@@ -6300,7 +6083,6 @@
         node.innerHTML = items.map(function (it, idx) {
             var iconCls = iconMap[it.Icon] || "fa-circle-exclamation";
             var col = colorMap[idx % colorMap.length];
-            // v2.4.7 — Click 1 todo-item → mở modal todoDetail với tab type tương ứng
             return '' +
                 '<div class="dk-todo-item js-open-detail" data-detail="todoDetail" data-todo-type="' + escapeHtml(it.MaCV || "") + '" role="button" tabindex="0">' +
                 '<span class="dk-todo-icon" style="background:' + col.bg + ';color:' + col.color + '">' +
@@ -6377,7 +6159,7 @@
             return "<tr>" +
                 "<td class=\"dk-cell-mono\">" + (maVT ? escapeHtml(maVT) : "<span style='color:#aaa'>—</span>") + "</td>" +
                 "<td class=\"dk-table-truncate\" title=\"" + escapeHtml(tenVT) + "\">" + (tenVT ? escapeHtml(tenVT) : "<span style='color:#aaa;font-style:italic'>Chưa có tên</span>") + "</td>" +
-                "<td class=\"text-center " + dateCls + "\">" + dateStr + "<br><small class='dk-text-muted'>" + days + " ngày</small></td>" +
+                "<td class=\"text-center " + dateCls + "\">" + dateStr + "<br><small class='dk-text-muted'>" + (dt ? daysLeft + " ngày" : "") + "</small></td>" +
                 "<td class=\"text-end dk-cell-num\">" + formatNumber(toNumber(r.TonKho), 1) + donVi + "</td>" +
                 "</tr>";
         }).join("");
@@ -6406,7 +6188,7 @@
 
         node.innerHTML = "";
         node.classList.add("dk-donut-shadow");
-        // v2.4.16 — Append icon SAU chart (DOM order = stacking order); align qua events
+
         var centerEl = document.createElement("div");
         centerEl.className = "dk-nhom-center-icon";
         centerEl.innerHTML = '<i class="fa-solid fa-sack-dollar"></i>';
@@ -6467,7 +6249,7 @@
                 slicedOffset: 8
             }]
         });
-        // v2.4.16 — Append icon SAU khi chart render xong → stacking order trên SVG
+
         node.appendChild(centerEl);
         var totalEl = document.createElement("div");
         totalEl.className = "dk-nhom-total";
@@ -6525,11 +6307,9 @@
             '</div>' +
             '</div>' +
             '</div>';
-        // Trigger counter-up
         animateCountUp(node);
     }
 
-    // v2.4.10 — Counter-up helper (chạy 1 lần per element)
     function animateCountUp(scope) {
         var els = (scope || document).querySelectorAll(".dk-count-up:not([data-counted])");
         for (var i = 0; i < els.length; i++) {
@@ -6549,9 +6329,6 @@
         }
     }
 
-    // ════════════════════════════════════════════════════════════════
-    // v2.4.4 — TOAST helper
-    // ════════════════════════════════════════════════════════════════
     function showToast(msg, kind) {
         var cont = byId("dkToastContainer");
         if (!cont) return;
@@ -6569,7 +6346,9 @@
     }
     window.dkShowToast = showToast;
     function renderSummaryStrip(items) {
-        var html = '<div class="dk-modal-summary-strip">';
+        var colClass = items.length >= 4 ? " dk-modal-summary-strip--4col" :
+            (items.length === 3 ? " dk-modal-summary-strip--3col" : "");
+        var html = '<div class="dk-modal-summary-strip' + colClass + '">';
         for (var i = 0; i < items.length; i++) {
             var it = items[i];
             var kindCls = " dk-sum-" + (it.kind || "neutral");
@@ -6721,12 +6500,9 @@
                         _ChenhLech: chenhHtml
                     });
                 });
-                // v2.4.6 — Group rows by POMua → render với group header row có thể collapse
                 body.innerHTML = searchBar + '<div id="todoTableWrap">' + renderTodoGroupedTable(cols, rowsView, false) + '</div>';
-                // v2.7.1 — Cập nhật tổng số dòng ở footer modal
                 var rcEl = byId("detailModalRowCount");
                 if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(rows.length, 0);
-                // Bind search
                 var searchInput = byId("todoSearch");
                 var searchCount = byId("todoSearchCount");
                 if (searchInput) {
@@ -6749,7 +6525,6 @@
                     var ev = new Event("input"); searchInput.dispatchEvent(ev);
                     searchInput.focus();
                 };
-
 
             }
             body.classList.remove("fade-out");
@@ -6819,7 +6594,6 @@
             wireSortableTable(byId("top5VTBodyTbl"), cols, rows, { highlightTopN: 5 });
             var rcEl = byId("detailModalRowCount");
             if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(rows.length, 0);
-            // Click cell MaVT → drill về popup ItemCode 
             content.querySelectorAll("[data-mavt-drill]").forEach(function (el) {
                 el.addEventListener("click", function (e) {
                     e.preventDefault();
@@ -6829,9 +6603,6 @@
         }).catch(function (err) { content.innerHTML = modalErrorBox(err && err.message); });
     }
 
-    // ════════════════════════════════════════════════════════════════
-    //  — Modal: Top 5 KH 
-    // ════════════════════════════════════════════════════════════════
     function renderTop5KHAllModal() {
         var content = byId(ids.detailModalContent);
         if (!content) return;
@@ -6854,19 +6625,18 @@
                 { label: "Tổng SL tồn", value: formatNumber(tongSL, 0), sub: "Đơn vị tính", kind: "success" },
                 { label: "Khách trống (VND)", value: formatNumber(ktThanhTien, 0), sub: "Thành tiền", kind: "warn" }
             ]);
-            // Tìm max ty trong for pct bar
             var maxPct = 0;
             for (var j = 0; j < rows.length; j++) { if (toNumber(rows[j].TyTrong) > maxPct) maxPct = toNumber(rows[j].TyTrong); }
             var tableHtml = '<div class="dk-detail-table-wrap"><table class="dk-detail-table dk-top5kh-table"><thead><tr>' +
                 '<th style="width:40px;text-align:center">#</th>' +
-                '<th style="max-width:250px">Khách hàng</th>' +
-                '<th style="width:90px">Mã KH</th>' +
+                '<th>Khách hàng</th>' +
+                '<th style="width:100px;text-align:center">Mã KH</th>' +
                 '<th style="width:80px;text-align:right">Số mã VT</th>' +
                 '<th style="width:80px;text-align:right">Số roll</th>' +
-                '<th style="width:90px;text-align:right">Tổng CBM</th>' +
-                '<th style="width:110px;text-align:right">SL tồn</th>' +
-                '<th style="width:130px;text-align:right">Thành tiền (VND)</th>' +
-                '<th style="width:160px">Tỷ trọng</th>' +
+                '<th style="width:100px;text-align:right">Tổng CBM</th>' +
+                '<th style="width:120px;text-align:right">SL tồn</th>' +
+                '<th style="width:150px;text-align:right">Thành tiền (VND)</th>' +
+                '<th style="width:180px">Tỷ trọng</th>' +
                 '</tr></thead><tbody>';
             for (var k = 0; k < rows.length; k++) {
                 var r = rows[k];
@@ -6891,7 +6661,20 @@
             content.querySelectorAll(".dk-row-kh").forEach(function (tr) {
                 tr.addEventListener("click", function () {
                     var customerItem = { MaKH: this.getAttribute("data-makh"), TenKH: this.getAttribute("data-tenkh") };
-                    _detailStack.push({ detail: _currentDetail, index: _currentDetailIndex });
+                    var contentEl = byId(ids.detailModalContent);
+                    var titleEl = byId(ids.detailModalTitle);
+                    var rcEl = byId("detailModalRowCount");
+                    var metaEl = byId(ids.detailModalMeta);
+                    var sb = document.querySelector(".dk-modal-search-bar");
+                    _detailStack.push({
+                        detail: _currentDetail,
+                        index: _currentDetailIndex,
+                        savedHtml: contentEl ? contentEl.innerHTML : null,
+                        savedTitle: titleEl ? (titleEl.textContent || titleEl.innerText || "Toàn bộ khách hàng theo giá trị tồn") : "Toàn bộ khách hàng theo giá trị tồn",
+                        savedRowCount: rcEl ? rcEl.textContent : null,
+                        savedMeta: metaEl ? metaEl.textContent : null,
+                        savedSearchBar: sb ? sb.style.display !== "none" : true
+                    });
                     _currentDetail = "_customerRow_drill";
                     _currentDetailIndex = -1;
                     renderDetailModalDirect({
@@ -6902,6 +6685,39 @@
                 });
             });
         }).catch(function (err) { content.innerHTML = modalErrorBox(err && err.message); });
+    }
+
+    function rewireTop5KHRowClicks() {
+        var content = byId(ids.detailModalContent);
+        if (!content) return;
+        content.querySelectorAll(".dk-row-kh").forEach(function (tr) {
+            var newTr = tr.cloneNode(true);
+            tr.parentNode.replaceChild(newTr, tr);
+            newTr.addEventListener("click", function () {
+                var customerItem = { MaKH: this.getAttribute("data-makh"), TenKH: this.getAttribute("data-tenkh") };
+                var contentEl = byId(ids.detailModalContent);
+                var titleEl = byId(ids.detailModalTitle);
+                var rcEl = byId("detailModalRowCount");
+                var metaEl = byId(ids.detailModalMeta);
+                var sb = document.querySelector(".dk-modal-search-bar");
+                _detailStack.push({
+                    detail: _currentDetail,
+                    index: _currentDetailIndex,
+                    savedHtml: contentEl ? contentEl.innerHTML : null,
+                    savedTitle: titleEl ? (titleEl.textContent || titleEl.innerText || "Toàn bộ khách hàng theo giá trị tồn") : "Toàn bộ khách hàng theo giá trị tồn",
+                    savedRowCount: rcEl ? rcEl.textContent : null,
+                    savedMeta: metaEl ? metaEl.textContent : null,
+                    savedSearchBar: sb ? sb.style.display !== "none" : true
+                });
+                _currentDetail = "_customerRow_drill";
+                _currentDetailIndex = -1;
+                renderDetailModalDirect({
+                    title: "Vị trí kệ — " + (customerItem.TenKH || customerItem.MaKH),
+                    rows: [], columns: [],
+                    customDrillCustomer: customerItem
+                });
+            });
+        });
     }
 
     function loadCustomerMaterialDetail(customerItem) {
@@ -6979,9 +6795,6 @@
         }
     }
 
-    // ════════════════════════════════════════════════════════════════
-    // Modal: Vật tư sắp hết hạn
-    // ════════════════════════════════════════════════════════════════
     function renderHetHanAllModal() {
         var content = byId(ids.detailModalContent);
         if (!content) return;
@@ -7017,6 +6830,7 @@
                 '</select>' +
                 '</div>';
             var tableHtml = '<table class="dk-detail-table"><thead><tr>' +
+                '<th style="width:50px;text-align:center">STT</th>' +
                 '<th style="width:110px">Mã VT</th><th>Tên vật tư</th>' +
                 '<th style="width:50px;text-align:center">Loại</th>' +
                 '<th style="width:80px">Lô</th>' +
@@ -7048,12 +6862,13 @@
         }).catch(function (err) { content.innerHTML = modalErrorBox(err && err.message); });
     }
     function hetHanRowsHtml(rows) {
-        if (rows.length === 0) return '<tr><td colspan="10" class="dk-empty">Không có vật tư phù hợp bộ lọc</td></tr>';
-        return rows.map(function (r) {
+        if (rows.length === 0) return '<tr><td colspan="11" class="dk-empty">Không có vật tư phù hợp bộ lọc</td></tr>';
+        return rows.map(function (r, idx) {
             var cl = r._ConLai;
             var cls = cl <= 0 ? "dk-conlai-overdue" : cl <= 7 ? "dk-conlai-urgent" : cl <= 30 ? "dk-conlai-warn" : "dk-conlai-soft";
             var icon = cl <= 0 ? '<i class="fa-solid fa-triangle-exclamation"></i> ' : "";
             return '<tr>' +
+                '<td class="text-center">' + (idx + 1) + '</td>' +
                 '<td class="dk-cell-mono">' + escapeHtml(r.MaVT || "") + '</td>' +
                 '<td>' + escapeHtml(r.TenVT || "") + '</td>' +
                 '<td class="text-center">' + escapeHtml(r.LoaiKho || "") + '</td>' +
@@ -7068,9 +6883,6 @@
         }).join("");
     }
 
-    // ════════════════════════════════════════════════════════════════
-    // Modal: Giá trị nhóm 
-    // ════════════════════════════════════════════════════════════════
     function renderGiaTriNhomAllModal() {
         var content = byId(ids.detailModalContent);
         if (!content) return;
@@ -7078,101 +6890,69 @@
         requestJson("/api/DashboardKhoDesktop/GetGiaTriNhomChiTiet").then(function (data) {
             var rows = normalizeArray(data);
             var groups = rows.filter(function (r) { return toNumber(r.IsGroup) === 1; });
-            var subs = rows.filter(function (r) { return toNumber(r.IsGroup) === 0; });
-            var byParent = {};
-            subs.forEach(function (s) {
-                var p = s.ParentNhom;
-                if (!byParent[p]) byParent[p] = [];
-                byParent[p].push(s);
-            });
-            var html = '<div id="giaTriNhomDonut" class="dk-nhom-donut-modal" style="min-height:500px; height:500px; margin-bottom:30px; overflow:visible;"></div>';
-            html += '<table class="dk-detail-table dk-tree-table"><thead><tr>' +
-                '<th style="width:36px"></th>' +
-                '<th style="width:40px">STT</th>' +
-                '<th>Nhóm</th>' +
-                '<th style="width:90px;text-align:right">Số mã VT</th>' +
-                '<th style="width:100px;text-align:right">Tổng CBM</th>' +
-                '<th style="width:140px;text-align:right">Giá trị</th>' +
-                '<th style="width:100px;text-align:right">Tỷ trọng</th>' +
-                '</tr></thead><tbody>';
+            var tongGiaTri = 0, tongCBM = 0, tongMaVT = 0;
             for (var i = 0; i < groups.length; i++) {
-                var g = groups[i];
-                var subList = byParent[g.Nhom] || [];
-                html += '<tr class="dk-tree-row dk-tree-group" data-nhom="' + escapeHtml(g.Nhom) + '">' +
-                    '<td class="text-center"><button type="button" class="dk-tree-toggle" data-nhom-toggle="' + escapeHtml(g.Nhom) + '"><i class="fa-solid fa-chevron-right"></i></button></td>' +
-                    '<td class="text-center">' + g.STT + '</td>' +
-                    '<td><b>' + escapeHtml(g.Nhom) + '</b></td>' +
-                    '<td class="text-end dk-cell-num">' + formatNumber(toNumber(g.SoMaVT), 0) + '</td>' +
-                    '<td class="text-end dk-cell-num">' + formatNumber(toNumber(g.TongCBM), 4) + '</td>' +
-                    '<td class="text-end dk-cell-num">' + formatNumber(toNumber(g.GiaTri), 0) + '</td>' +
-                    '<td class="text-end dk-cell-num">' + formatNumber(toNumber(g.TyTrong), 1) + '%</td>' +
-                    '</tr>';
-                if (subList.length > 0) {
-                    html += '<tr class="dk-tree-sub-wrap" data-nhom-sub="' + escapeHtml(g.Nhom) + '" style="display:none"><td colspan="7">' +
-                        '<table class="dk-tree-sub-table"><thead><tr>' +
-                        '<th style="width:120px">Mã VT</th>' +
-                        '<th style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">Tên vật tư</th>' +
-                        '<th style="width:80px">Mã màu VT</th>' +
-                        '<th style="width:100px">Màu VT</th>' +
-                        '<th style="width:80px">Width/Size</th>' +
-                        '<th style="width:50px;text-align:center">Đơn vị</th>' +
-                        '<th style="width:80px;text-align:right">CBM</th>' +
-                        '<th style="width:120px;text-align:right">Giá trị</th>' +
-                        '</tr></thead><tbody>';
-                    for (var j = 0; j < subList.length; j++) {
-                        var s = subList[j];
-                        html += '<tr>' +
-                            '<td class="dk-cell-mono">' + escapeHtml(s.MaVT || "") + '</td>' +
-                            '<td style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap" title="' + escapeHtml(s.Nhom || "") + '">' + escapeHtml(s.Nhom || "") + '</td>' +
-                            '<td>' + escapeHtml(s.MaMauVT || "") + '</td>' +
-                            '<td>' + escapeHtml(s.MauVT || "") + '</td>' +
-                            '<td>' + escapeHtml(s.WidthSize || "") + '</td>' +
-                            '<td class="text-center">' + escapeHtml(s.DonVi || "") + '</td>' +
-                            '<td class="text-end dk-cell-num">' + formatNumber(toNumber(s.TongCBM), 4) + '</td>' +
-                            '<td class="text-end dk-cell-num">' + formatNumber(toNumber(s.GiaTri), 0) + '</td>' +
-                            '</tr>';
-                    }
-                    html += '</tbody></table></td></tr>';
-                }
+                tongGiaTri += toNumber(groups[i].GiaTri);
+                tongCBM += toNumber(groups[i].TongCBM);
+                tongMaVT += toNumber(groups[i].SoMaVT);
             }
-            html += '</tbody></table>';
+            var sumHtml = renderSummaryStrip([
+                { label: "Tổng giá trị (VND)", value: formatNumber(tongGiaTri, 0), sub: groups.length + " nhóm" },
+                { label: "Tổng CBM", value: formatNumber(tongCBM, 2), sub: "m³", kind: "primary" },
+                { label: "Số mã vật tư", value: formatNumber(tongMaVT, 0), sub: "mã", kind: "success" }
+            ]);
+            var html = sumHtml + '<div id="giaTriNhomDonut" class="dk-nhom-donut-modal" style="min-height:520px; height:520px; overflow:visible;"></div>';
             content.innerHTML = html;
             var rcEl = byId("detailModalRowCount");
-            if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(groups.length, 0);
-            // Render donut Highcharts
+            if (rcEl) rcEl.textContent = "Số nhóm: " + formatNumber(groups.length, 0);
             if (typeof Highcharts !== "undefined" && groups.length > 0) {
                 applyHighchartsTheme();
                 Highcharts.chart("giaTriNhomDonut", {
-                    chart: { type: "pie", backgroundColor: "transparent", height: 460 },
-                    title: { text: null }, credits: { enabled: false },
-                    tooltip: { useHTML: true, pointFormat: '<b>{point.name}</b><br/>Giá trị: <b>{point.y:,.0f} VND</b><br/>Tỷ trọng: <b>{point.pct:.1f}%</b>' },
-                    plotOptions: { pie: { innerSize: "55%", borderWidth: 2, showInLegend: true, dataLabels: { enabled: true, distance: 15, allowOverlap: true, format: "{point.name}<br/>{point.pct:.1f}%", style: { fontSize: "10px", textOutline: "none" } } } },
-                    legend: { enabled: true, layout: 'horizontal', align: 'center', verticalAlign: 'bottom', itemStyle: { fontSize: '11px', fontWeight: '500' } },
-                    series: [{ name: "Giá trị", colorByPoint: true, data: groups.map(function (g) { return { name: g.Nhom, y: toNumber(g.GiaTri), pct: toNumber(g.TyTrong) }; }) }]
+                    chart: { type: "pie", backgroundColor: "transparent", height: 500 },
+                    title: { text: null },
+                    credits: { enabled: false },
+                    tooltip: {
+                        useHTML: true,
+                        pointFormat: '<b>{point.name}</b><br/>Giá trị: <b>{point.y:,.0f} VND</b><br/>Tỷ trọng: <b>{point.pct:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            innerSize: "50%",
+                            borderWidth: 2,
+                            showInLegend: true,
+                            dataLabels: {
+                                enabled: true,
+                                distance: 20,
+                                allowOverlap: false,
+                                format: "<b>{point.name}</b><br/>{point.pct:.1f}%",
+                                style: { fontSize: "11px", textOutline: "none", fontWeight: "600" }
+                            }
+                        }
+                    },
+                    legend: {
+                        enabled: true,
+                        layout: "horizontal",
+                        align: "center",
+                        verticalAlign: "bottom",
+                        itemStyle: { fontSize: "12px", fontWeight: "600" },
+                        itemMarginTop: 4,
+                        itemMarginBottom: 4,
+                        labelFormatter: function () {
+                            return this.name + " <span style=\"font-weight:400;color:#666\">(" + formatNumber(this.y, 0) + " VND — " + this.pct.toFixed(1) + "%)</span>";
+                        }
+                    },
+                    series: [{
+                        name: "Giá trị",
+                        colorByPoint: true,
+                        data: groups.map(function (g) {
+                            return { name: g.Nhom, y: toNumber(g.GiaTri), pct: toNumber(g.TyTrong) };
+                        })
+                    }]
                 });
             }
-            content.querySelectorAll(".dk-tree-toggle").forEach(function (btn) {
-                btn.addEventListener("click", function (e) {
-                    e.stopPropagation();
-                    var nhom = this.getAttribute("data-nhom-toggle");
-                    var sub = content.querySelector('[data-nhom-sub="' + nhom + '"]');
-                    if (!sub) return;
-                    var icon = this.querySelector("i");
-                    if (sub.style.display === "none") {
-                        sub.style.display = "";
-                        if (icon) icon.classList.replace("fa-chevron-right", "fa-chevron-down");
-                    } else {
-                        sub.style.display = "none";
-                        if (icon) icon.classList.replace("fa-chevron-down", "fa-chevron-right");
-                    }
-                });
-            });
         }).catch(function (err) { content.innerHTML = modalErrorBox(err && err.message); });
     }
 
-    // ════════════════════════════════════════════════════════════════
-    //  Modal: Kiểm kê 
-    // ════════════════════════════════════════════════════════════════
     function renderKiemKeAllModal() {
         var content = byId(ids.detailModalContent);
         if (!content) return;
@@ -7277,13 +7057,7 @@
         }).catch(function (err) { content.innerHTML = modalErrorBox(err && err.message); });
     }
 
-    // ════════════════════════════════════════════════════════════════
-    // v2.4.15 — 5 modal chi tiết KPI header
-    // ════════════════════════════════════════════════════════════════
-
-    // Helper chung: render summary strip
     function renderKpiSummaryStrip(items, extraClass) {
-        // v2.7.1 — Auto-fit column class to prevent wrapping
         var colClass = items.length >= 4 ? " dk-modal-summary-strip--4col" :
             (items.length === 3 ? " dk-modal-summary-strip--3col" : "");
         var cls = "dk-modal-summary-strip" + colClass + (extraClass ? " " + extraClass : "");
@@ -7299,7 +7073,6 @@
         return html + '</div>';
     }
 
-    // Helper chung: render sub-tab pills
     function renderKpiSubtabs(tabs, activeKey) {
         var html = '<div class="dk-kk-subtabs">';
         for (var i = 0; i < tabs.length; i++) {
@@ -7310,7 +7083,6 @@
         return html + '</div>';
     }
 
-    // Helper chung: render filter bar
     function renderKpiFilterBar(placeholder, opts) {
         opts = opts || {};
         var html = '<div class="dk-modal-filter-bar">' +
@@ -7321,7 +7093,6 @@
         return html;
     }
 
-    // Helper chung: bind search live
     function bindKpiSearch(scope, refilterFn) {
         var input = byId("kpiSearch");
         if (!input) return;
@@ -7329,7 +7100,6 @@
         input.addEventListener("input", function () { refilterFn(); });
     }
 
-    // Helper chung: format VND tỷ
     function formatVNDShort(v) {
         var n = toNumber(v);
         if (n >= 1e9) return (n / 1e9).toFixed(2).replace(/\.?0+$/, "") + " tỷ";
@@ -7337,7 +7107,6 @@
         return formatNumber(n, 0);
     }
 
-    // ─── #0 Tồn đầu kỳ ────────────────────────────────────────────────
     function renderTonDauKyDetailModal() {
         var content = byId(ids.detailModalContent);
         if (!content) return;
@@ -7423,7 +7192,6 @@
             }
             html += '</tbody></table>';
             tbody.innerHTML = html;
-            // Bind click
             var trs = tbody.querySelectorAll("tr[data-tdk-idx]");
             for (var j = 0; j < trs.length; j++) {
                 (function (tr) {
@@ -7437,7 +7205,6 @@
                     });
                 })(trs[j]);
             }
-            // Auto-select first row or persist selection
             if (rows.length > 0) {
                 var autoIdx = (selectedIdx >= 0 && selectedIdx < rows.length) ? selectedIdx : 0;
                 selectedIdx = autoIdx;
@@ -7508,7 +7275,6 @@
                 });
         }
 
-
         function bindResizer() {
             var resizer = byId("tdkResizer");
             var container = byId("tdkMasterDetail");
@@ -7568,7 +7334,6 @@
         var sb = document.querySelector(".dk-modal-search-bar"); if (sb) sb.style.display = "none";
     }
 
-    // ─── #1 Tổng nhập ────────────────────────────────────────────────
     function renderTongNhapDetailModal() {
         var content = byId(ids.detailModalContent);
         if (!content) return;
@@ -7586,7 +7351,7 @@
         function paint() {
             var sumSL = 0, sumGT = 0;
             allRows.forEach(function (r) {
-                sumSL += toNumber(r.SLNhap || r.SL);
+                sumSL += toNumber(r.SoLuong || r.SLNhap || r.SL);
                 sumGT += toNumber(r.GiaTri);
             });
             content.innerHTML =
@@ -7681,7 +7446,6 @@
         var sb = document.querySelector(".dk-modal-search-bar"); if (sb) sb.style.display = "none";
     }
 
-    // ─── #2 Tổng xuất (similar to Tổng nhập) ──────────────────────────
     function renderTongXuatDetailModal() {
         var content = byId(ids.detailModalContent);
         if (!content) return;
@@ -7698,7 +7462,7 @@
         var allRows = [];
         function paint() {
             var sumSL = 0, sumGT = 0;
-            allRows.forEach(function (r) { sumSL += toNumber(r.SLXuat || r.SL); sumGT += toNumber(r.GiaTri); });
+            allRows.forEach(function (r) { sumSL += toNumber(r.SoLuong || r.SLXuat || r.SL); sumGT += toNumber(r.GiaTri); });
             content.innerHTML =
                 renderKpiSummaryStrip([
                     { label: "Tổng SL xuất", value: formatNumber(sumSL, 0), sub: "đơn vị", cls: "good" },
@@ -7790,7 +7554,6 @@
         var sb = document.querySelector(".dk-modal-search-bar"); if (sb) sb.style.display = "none";
     }
 
-    // ─── #3 Tồn kho ──────────────────────────────────────────────────
     function renderTonKhoDetailModal() {
         var content = byId(ids.detailModalContent);
         if (!content) return;
@@ -7884,7 +7647,6 @@
         var sb = document.querySelector(".dk-modal-search-bar"); if (sb) sb.style.display = "none";
     }
 
-    // ─── #5 PO đang trễ ──────────────────────────────────────────────
     function renderPOTreDetailModal() {
         var content = byId(ids.detailModalContent);
         if (!content) return;
@@ -7974,9 +7736,6 @@
         var sb = document.querySelector(".dk-modal-search-bar"); if (sb) sb.style.display = "none";
     }
 
-    // ════════════════════════════════════════════════════════════════
-    // v2.4.16 — Alert detail modal (dispatcher theo MaCB)
-    // ════════════════════════════════════════════════════════════════
     function renderAlertDetailModal() {
         var content = byId(ids.detailModalContent);
         if (!content) return;
@@ -7988,7 +7747,6 @@
         var titleEl = byId(ids.detailModalTitle);
         if (titleEl) titleEl.textContent = "Chi tiết cảnh báo — " + name;
 
-        // Map MaCB → endpoint + columns + cls
         var alertMap = {
             "po_tre": {
                 api: "/api/DashboardKhoDesktop/GetPODangTreChiTiet?groupBy=all",
@@ -8076,9 +7834,6 @@
         var sb = document.querySelector(".dk-modal-search-bar"); if (sb) sb.style.display = "none";
     }
 
-    // ════════════════════════════════════════════════════════════════
-    // v2.4.4 — Sortable table helper (cho Top5 VT)
-    // ════════════════════════════════════════════════════════════════
     function renderSortableTable(cols, rows, opts) {
         opts = opts || {};
         var head = "<thead><tr>";
@@ -8177,12 +7932,10 @@
                 triggerSequentialReload();
             });
         }
-        // v2.5.0 — Quick range chip buttons
         var chips = document.querySelectorAll(".dk-topbar-chip");
         for (var ci = 0; ci < chips.length; ci++) {
             (function (chip) {
                 chip.addEventListener("click", function () {
-                    // Clear active on all chips
                     for (var x = 0; x < chips.length; x++) chips[x].classList.remove("active");
                     chip.classList.add("active");
                     var range = chip.getAttribute("data-range");
@@ -8208,7 +7961,6 @@
                 });
             })(chips[ci]);
         }
-        // v2.5.0 — Topbar refresh button (tab-aware)
         var btnRefreshTop = byId("btnRefreshTop");
         if (btnRefreshTop) {
             btnRefreshTop.addEventListener("click", function () {
@@ -8273,7 +8025,6 @@
         });
     }
 
-    // v2.6.11 - Global Search All functionality
     function bindGlobalSearchAll() {
         var searchInput = document.getElementById("dkGlobalSearch");
         var searchDropdown = document.getElementById("dkSearchDropdown");
@@ -8309,13 +8060,10 @@
         ];
 
         function highlightElement(el) {
-            // Scroll to element
             el.scrollIntoView({ behavior: "smooth", block: "center" });
 
-            // Add highlight class with strong glow
             el.classList.add("dk-nav-highlight");
 
-            // Remove after animation completes
             setTimeout(function () {
                 el.classList.remove("dk-nav-highlight");
             }, 3500);
@@ -8323,7 +8071,6 @@
 
         function navigateToSection(section) {
             var targetPage = section.page || 1;
-            // Use switchPage directly
             if (typeof switchPage === "function") {
                 switchPage(targetPage);
             }
@@ -8584,7 +8331,6 @@
         if (restoreTab) {
             sessionStorage.removeItem("dk_restore_tab");
 
-            // Defeat browser form auto-fill
             var inputsToClear = ["flowFromDate", "flowToDate", "calFromDate", "calToDate", "searchAll"];
             for (var i = 0; i < inputsToClear.length; i++) {
                 var el = document.getElementById(inputsToClear[i]);
@@ -8634,17 +8380,4 @@
 
     init();
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
 

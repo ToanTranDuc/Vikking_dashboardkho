@@ -1,4 +1,4 @@
-@{
+﻿@{
     Layout = null;
     Response.ContentType = "text/html; charset=utf-8";
     Response.ContentEncoding = System.Text.Encoding.UTF8;
@@ -18,7 +18,7 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>Dashboard Kho - Desktop</title>
-    <link href="~/css/DashboardKhoDesktop/dashboard-kho-desktop.css?v=2.7.7&t=20260611_1610" rel="stylesheet" />
+    <link href="~/css/DashboardKhoDesktop/dashboard-kho-desktop.css?v=2.7.9&t=20260612_2255" rel="stylesheet" />
     </head>
 
 <body>
@@ -33,10 +33,10 @@
 </script>
 <div class="dk-shell">
 
-    <!-- ========== GLOBAL TOP BAR (v2.6.0 — No sidebar, horizontal nav) ========== -->
+    
     <header class="dk-topbar" id="dkTopbar">
         <div class="dk-topbar-left">
-            <!-- Page navigation tabs (moved from sidebar) -->
+            
             <nav class="dk-topbar-nav" id="pageNav">
                 <button type="button" class="dk-topbar-nav-btn active" data-page="1">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
@@ -89,17 +89,15 @@
         </div>
     </header>
 
-    <!-- ========== MAIN CONTENT (no sidebar, full width) ========== -->
+    
     <main class="dk-main dk-main-nosidebar" id="dkMain">
 
-
-
-        <!-- ========== PAGE 1: TỔNG QUAN ========== -->
+        
         <div class="dk-page dk-page-active" data-page="1">
 
-            <!-- v2.5.0 — Date filter moved to global topbar -->
+            
 
-            <!-- v2.4.6 — 7 KPI: Tồn đầu kỳ + 6 KPI mới -->
+            
             <section class="dk-metrics-grid dk-metrics-grid-7">
                 <button type="button" class="dk-metric-card dk-mc-slate dk-mc-tondauky js-open-detail" data-detail="tonDauKyDetail">
                     <span class="dk-mc-badge">★</span>
@@ -152,10 +150,10 @@
                 </button>
             </section>
 
-            <!-- MoM Comparison strip -->
+            
             <div id="momStrip" class="dk-mom-strip"></div>
 
-            <!-- Hàng 1: Capacity ring | Customer pie | Theo dõi công việc -->
+            
             <section class="dk-page1-row dk-page1-row-3col">
                 <article class="dk-panel dk-chart-panel">
                     <div class="dk-panel-head">
@@ -190,7 +188,7 @@
                 </article>
             </section>
 
-            <!-- Hàng 2: Gauge NL/PL | Tình hình kiểm kê -->
+            
             <section class="dk-page1-row dk-page1-row-2col-7-5">
                 <article class="dk-panel dk-chart-panel">
                     <div class="dk-panel-head">
@@ -210,7 +208,7 @@
                 </article>
             </section>
 
-            <!-- Hàng 3: Top5 VT | Top5 KH | Sắp hết hạn | Giá trị theo nhóm -->
+            
             <section class="dk-page1-row dk-page1-row-4col">
                 <article class="dk-panel">
                     <div class="dk-panel-head">
@@ -290,7 +288,7 @@
             </section>
         </div>
 
-        <!-- ========== PAGE 2: XUẤT - NHẬP - TỒN ========== -->
+        
         <div class="dk-page" data-page="2">
             <section class="dk-charts-grid dk-charts-grid-2col">
                 <article class="dk-panel dk-chart-panel">
@@ -332,7 +330,7 @@
                 </article>
             </section>
 
-            <!-- v2.4.6 — Row Top5 NL/PL + Cảnh báo tồn kho (3 col) -->
+            
             <section class="dk-page2-row dk-page2-row-3col">
                 <article class="dk-panel">
                     <div class="dk-panel-head">
@@ -361,7 +359,7 @@
                 </article>
             </section>
 
-            <!-- v2.4.6 — Row Tuổi tồn + Hiệu suất hoạt động (2 col) -->
+            
             <section class="dk-page2-row dk-page2-row-2col">
                 <article class="dk-panel dk-chart-panel" style="min-height:340px">
                     <div class="dk-panel-head">
@@ -386,10 +384,9 @@
                 </article>
             </section>
 
-
         </div>
 
-        <!-- ========== PAGE 3: LỊCH HOẠT ĐỘNG KHO ========== -->
+        
         <div class="dk-page" data-page="3">
             <div class="dk-page-content-grid" id="lpcpContentGrid">
                 <article class="dk-panel dk-chart-panel dk-cal-monthly-panel">
@@ -445,10 +442,10 @@
                     <div id="chartActivityCalendarMonthly" class="dk-activity-calendar-monthly"></div>
                 </article>
 
-                <!-- SIDEBAR PHẢI: 3 bảng dọc, mặc định ẩn -->
+                
                 <div class="dk-side-panel-wrap" id="lpcpSidePanelWrap">
                     <aside class="dk-lpcp-side-panel" id="lpcpDetailPanel">
-                        <!-- HEADER NGÀY -->
+                        
                         <div style="padding-bottom: 2px; padding-left: 4px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
                             <div class="dk-lpcp-detail-date">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -457,7 +454,7 @@
                             <span class="dk-side-badge-cnt" id="lpcpDetailBadge" style="display: none;">...</span>
                         </div>
 
-                        <!-- BẢNG 1: CẢNH BÁO -->
+                        
                         <div class="dk-side-card">
                             <div class="dk-side-card-header">
                                 <h3 class="dk-side-card-title warn">
@@ -473,7 +470,7 @@
                             <div id="lpcpDetailWarnings" class="dk-side-card-body"></div>
                         </div>
 
-                        <!-- BẢNG 2: TASK PENDING -->
+                        
                         <div class="dk-side-card">
                             <div class="dk-side-card-header">
                                 <h3 class="dk-side-card-title task">
@@ -489,7 +486,7 @@
                             <div id="lpcpDetailAssignments" class="dk-side-card-body"></div>
                         </div>
 
-                        <!-- BẢNG 3: PHỤ LIỆU - SOẠN HÀNG -->
+                        
                         <div class="dk-side-card">
                             <div class="dk-side-card-header">
                                 <h3 class="dk-side-card-title pick">
@@ -548,7 +545,6 @@
 
 </div>
 
-<!-- ========== DETAIL MODAL ========== -->
 <div id="detailModal" class="dk-modal" aria-hidden="true">
     <div class="dk-modal-backdrop js-close-modal"></div>
     <div class="dk-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="detailModalTitle">
@@ -569,16 +565,12 @@
     </div>
 </div>
 
-    <!-- v2.4.4 — Toast container (góc dưới phải) -->
+    
     <div id="dkToastContainer" class="dk-toast-container" aria-live="polite"></div>
 
-    <!-- Third-party Libraries -->
     <script src="~/Scripts/Highcharts/highcharts.js"></script>
     <script src="~/Scripts/Highcharts/highcharts-more.js"></script>
     <script src="~/Scripts/Highcharts/modules/solid-gauge.js"></script>
-    <script src="~/Scripts/DashboardKhoDesktop/flatpickr.js"></script>
-
-    <!-- Custom Dashboard Logic -->
-    <script src="~/Scripts/DashboardKhoDesktop/dashboard-kho-desktop.js?v=2.7.16&t=20260611"></script>
+    <script src="~/Scripts/DashboardKhoDesktop/dashboard-kho-desktop.js?v=2.7.21&t=20260613"></script>
 </body>
 </html>

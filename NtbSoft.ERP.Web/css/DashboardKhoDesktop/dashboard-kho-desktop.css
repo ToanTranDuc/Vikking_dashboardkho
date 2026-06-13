@@ -1,9 +1,5 @@
-﻿/* --- BOOTSTRAP 5.3 --- */
-@charset "UTF-8"; /*!
- * Bootstrap  v5.3.0 (https://getbootstrap.com/)
- * Copyright 2011-2023 The Bootstrap Authors
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
+﻿
+@charset "UTF-8"; 
 
 :root,
 [data-bs-theme=light] {
@@ -13880,15 +13876,6 @@ fieldset:disabled .btn {
     }
 }
 
-/*# sourceMappingURL=bootstrap.min.css.map */
-
-
-/* --- FONT AWESOME 6.2.1 --- */
-/*!
- * Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com
- * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
- * Copyright 2022 Fonticons, Inc.
- */
 .fa {
     font-family: var(--fa-style-family, "Font Awesome 6 Free");
     font-weight: var(--fa-style, 900)
@@ -22663,12 +22650,6 @@ fieldset:disabled .btn {
     unicode-range: u+f041, u+f047, u+f065-f066, u+f07d-f07e, u+f080, u+f08b, u+f08e, u+f090, u+f09a, u+f0ac, u+f0ae, u+f0b2, u+f0d0, u+f0d6, u+f0e4, u+f0ec, u+f10a-f10b, u+f123, u+f13e, u+f148-f149, u+f14c, u+f156, u+f15e, u+f160-f161, u+f163, u+f175-f178, u+f195, u+f1f8, u+f219, u+f27a
 }
 
-/* --- CUSTOM DASHBOARD CSS --- */
-/* Dashboard Kho Desktop - v2.6.0 */
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   LOADING SKELETON (v2.3.8)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-skeleton {
     width: 100%;
     height: 100%;
@@ -22716,7 +22697,7 @@ fieldset:disabled .btn {
     --dk-sb-width: 230px;
     --dk-sb-collapsed: 56px;
     --dk-radius: 12px;
-    /* v2.4.1 â€” Tokens theme-aware cho text-strong / body / muted-2 / bg-card-2 / bg-soft */
+    
     --dk-text-strong: #0f172a;
     --dk-text-body: #1e293b;
     --dk-text-muted-2: #64748b;
@@ -22725,7 +22706,6 @@ fieldset:disabled .btn {
     --dk-sb-text: #334155;
 }
 
-/* v2.4.1 â€” Khi dark theme: override 6 token trÃªn (khÃ´ng Ä‘á»¥ng selector dÃ¹ng var) */
 body.dark-theme {
     --dk-text-strong: #f1f5fb;
     --dk-text-body: #e2eaf5;
@@ -22755,9 +22735,6 @@ body {
     line-height: 1.4;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SHELL LAYOUT â€” v2.5.0: Column layout (topbar + content-area)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-shell {
     display: flex;
     flex-direction: column;
@@ -22774,9 +22751,6 @@ body {
     overflow: hidden;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SIDEBAR
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-sidebar {
     width: var(--dk-sb-width);
     flex-shrink: 0;
@@ -22791,7 +22765,6 @@ body {
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.35);
 }
 
-/* Subtle glow accent on sidebar edge */
 .dk-sidebar::after {
     content: "";
     position: absolute;
@@ -22807,7 +22780,6 @@ body {
     width: var(--dk-sb-collapsed);
 }
 
-/* Header */
 .dk-sidebar-header {
     display: flex;
     align-items: center;
@@ -22855,7 +22827,6 @@ body {
     width: 0;
 }
 
-/* Time block */
 .dk-sidebar-time {
     padding: 14px 16px 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.07);
@@ -22895,7 +22866,6 @@ body {
     letter-spacing: 0;
 }
 
-/* Nav */
 .dk-sidebar-nav {
     flex: 1;
     display: flex;
@@ -22975,7 +22945,6 @@ body {
     gap: 0;
 }
 
-/* Sidebar footer */
 .dk-sidebar-footer {
     padding: 8px;
     border-top: 1px solid rgba(255, 255, 255, 0.07);
@@ -23016,9 +22985,6 @@ body {
     display: none;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   MAIN AREA
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-main {
     flex: 1;
     overflow-y: auto;
@@ -23035,9 +23001,6 @@ body {
         linear-gradient(160deg, #eaf2ff 0%, #e8f0fb 50%, #edf6ff 100%);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   PAGE SYSTEM
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-page {
     display: none;
     flex-direction: column;
@@ -23050,13 +23013,10 @@ body {
     display: flex;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   METRIC CARDS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-metrics-grid {
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    /* v2.3.37 â€” 6 cards tráº£i Ä‘á»u */
+    
     gap: 10px;
     flex-shrink: 0;
 }
@@ -23106,7 +23066,6 @@ body {
     animation: dk-fade-up 0.4s ease both;
 }
 
-/* Shine sweep on hover */
 .dk-metric-card::after {
     content: "";
     position: absolute;
@@ -23123,7 +23082,6 @@ body {
     animation: dk-mc-shine 0.55s ease forwards;
 }
 
-/* Top accent bar */
 .dk-metric-card::before {
     content: "";
     position: absolute;
@@ -23134,7 +23092,6 @@ body {
     border-radius: 12px 12px 0 0;
 }
 
-/* Per-color backgrounds + accents */
 .dk-mc-blue {
     background: linear-gradient(160deg, #eff6ff 0%, #fff 55%);
     border-color: #bfdbfe;
@@ -23180,7 +23137,6 @@ body {
     background: linear-gradient(90deg, #b91c1c, #f87171);
 }
 
-/* Hover: lift + colored glow */
 .dk-mc-blue:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(37, 99, 235, 0.22);
@@ -23211,7 +23167,6 @@ body {
     border-color: #fca5a5;
 }
 
-/* Per-color icon tint */
 .dk-mc-blue .dk-mc-icon {
     color: #2563eb;
     opacity: 0.8;
@@ -23248,7 +23203,6 @@ body {
     letter-spacing: 0.01em;
 }
 
-/* Per-color metric value */
 .dk-mc-blue .dk-metric-value {
     color: #1d4ed8;
 }
@@ -23281,13 +23235,10 @@ body {
     color: #8a9cad;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   PAGE 1 CHARTS (3 col)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-page1-charts {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* v2.3.5 â€” Pie/Ring rows enlarged so charts have more room (Issue 4) */
+    
     grid-template-rows: minmax(420px, 1.85fr) minmax(240px, 1fr);
     gap: 8px;
     flex: 1;
@@ -23299,9 +23250,6 @@ body {
     grid-column: 1 / -1;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   PANELS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-panel {
     border: 1px solid var(--dk-line);
     background: linear-gradient(180deg, #ffffff 0%, #f6faff 100%);
@@ -23386,9 +23334,6 @@ body {
     grid-column: span 2;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   CAPACITY CHARTS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-capacity-chart-wrap {
     flex: 1;
     min-height: 0;
@@ -23399,10 +23344,9 @@ body {
 .dk-capacity-ring {
     flex: 1;
     min-height: 320px;
-    /* v2.3.5 â€” bigger ring (Issue 4) */
+    
 }
 
-/* v2.3.42 â€” Animated gauge fill (draw-in effect) */
 @keyframes dk-gauge-draw {
     from {
         stroke-dashoffset: 1000;
@@ -23427,7 +23371,6 @@ body {
     filter: brightness(1.05) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.12));
 }
 
-/* Pulse on percentage number */
 @keyframes dk-gauge-pct-pulse {
 
     0%,
@@ -23459,16 +23402,13 @@ body {
     min-height: 80px;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   CUSTOMER PIE
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-customer-pie {
     flex: 1;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     min-height: 360px;
-    /* v2.3.5 â€” bigger pie (Issue 4) */
+    
     overflow: hidden;
     position: relative;
 }
@@ -23479,9 +23419,6 @@ body {
     display: block;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   FLOW TREND
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-flow-trend {
     flex: 1;
     min-height: 0;
@@ -23494,9 +23431,6 @@ body {
     display: block;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   PERIOD SELECTOR
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-period-selector {
     display: flex;
     gap: 3px;
@@ -23530,9 +23464,6 @@ body {
     box-shadow: 0 2px 8px rgba(37, 99, 235, 0.40);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   FLOW TREND DATE RANGE PICKER (v2.3.5 - Issue 1)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-flow-range-wrap {
     display: flex;
     align-items: center;
@@ -23583,9 +23514,6 @@ body {
     filter: brightness(1.08);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   GRIDS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-charts-grid {
     display: grid;
     gap: 10px;
@@ -23609,9 +23537,6 @@ body {
     min-height: 0;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   TABLES
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-table-wrap {
     border: 1px solid #d8e8f4;
     border-radius: 10px;
@@ -23693,7 +23618,6 @@ body {
     text-align: right !important;
 }
 
-/* STT column */
 .dk-table td:first-child,
 .dk-table th:first-child {
     width: 42px;
@@ -23710,21 +23634,15 @@ body {
     background: #fff;
     box-shadow: 0 1px 0 #e6ecf3;
     border-radius: 10px;
-    overflow: hidden;
+    
 }
 
-/* ══════════════════════════════════════════════════════════════════════════════ 
-   TOP 5 CHART
-══════════════════════════════════════════════════════════════════════════════  */
 .dk-top5-chart {
     width: 100%;
     min-height: 280px;
     flex: 1;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   FLOW CHART LEGEND
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-flow-legend {
     display: flex;
     align-items: center;
@@ -23751,7 +23669,6 @@ body {
     flex-shrink: 0;
 }
 
-/* SVG text classes */
 .dk-capacity-center {
     text-anchor: middle;
     dominant-baseline: middle;
@@ -23781,9 +23698,6 @@ body {
     font-weight: 700;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   MODAL
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-modal {
     position: fixed;
     inset: 0;
@@ -23871,7 +23785,6 @@ body {
     color: var(--dk-danger);
 }
 
-/* Search bar in modal */
 .dk-modal-search-bar {
     display: flex;
     align-items: center;
@@ -23922,7 +23835,6 @@ body {
     padding: 0 0 12px;
 }
 
-/* v2.3.41 â€” Slot section group (NL / PL) */
 .dk-slot-section {
     border-radius: 10px;
     overflow: hidden;
@@ -23966,7 +23878,6 @@ body {
     font-size: 12px;
 }
 
-/* v2.3.27 â€” Back button trong modal drill */
 .dk-back-btn {
     border: 1px solid #93c5fd;
     background: #fff;
@@ -23985,7 +23896,6 @@ body {
     color: #fff;
 }
 
-/* v2.3.20 â€” Footer gÃ³c pháº£i dÆ°á»›i hiá»‡n sá»‘ dÃ²ng */
 .dk-modal-footer {
     flex-shrink: 0;
     padding: 8px 18px;
@@ -24002,9 +23912,6 @@ body {
     color: var(--dk-text-muted-2);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   DETAIL TABLE â€” v2.3.40 premium polished layout
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-detail-table {
     width: 100%;
     border-collapse: separate;
@@ -24014,7 +23921,7 @@ body {
     background: #fff;
     box-shadow: 0 1px 0 #e6ecf3;
     border-radius: 10px;
-    overflow: hidden;
+    
 }
 
 .dk-detail-table th,
@@ -24029,7 +23936,6 @@ body {
     transition: background-color 0.12s ease;
 }
 
-/* v2.3.40 â€” Premium header: gradient sang trá»ng, uppercase, sticky */
 .dk-detail-table thead th {
     color: #fff;
     font-weight: 800;
@@ -24054,12 +23960,10 @@ body {
     border-top-right-radius: 10px;
 }
 
-/* v2.3.40 â€” Cell padding & spacing Ä‘áº¹p hÆ¡n */
 .dk-detail-table tbody td {
     padding: 8px 12px;
 }
 
-/* v2.3.40 â€” Zebra vá»›i gradient subtle */
 .dk-detail-table tbody tr:nth-child(odd) {
     background: #ffffff;
 }
@@ -24068,7 +23972,6 @@ body {
     background: linear-gradient(90deg, #f5f9ff 0%, #f1f6ff 50%, #f5f9ff 100%);
 }
 
-/* Hover effect: cell highlight + left border indicator */
 .dk-detail-table tbody tr {
     position: relative;
 }
@@ -24091,19 +23994,16 @@ body {
     border-bottom: none;
 }
 
-/* Number columns: tabular-nums + slight bold */
 .dk-detail-table td[style*="text-align:right"] {
     font-variant-numeric: tabular-nums;
     font-weight: 700;
     color: var(--dk-text-strong);
 }
 
-/* Center cells fluffy */
 .dk-detail-table td[style*="text-align:center"] {
     font-weight: 600;
 }
 
-/* v2.3.40 â€” Row fade-in on render */
 @keyframes dk-row-fade-in {
     from {
         opacity: 0;
@@ -24120,7 +24020,6 @@ body {
     animation: dk-row-fade-in 0.2s ease both;
 }
 
-/* Stagger first 10 rows */
 .dk-detail-table tbody tr:nth-child(1) {
     animation-delay: 0.02s;
 }
@@ -24161,7 +24060,6 @@ body {
     animation-delay: 0.20s;
 }
 
-/* v2.3.17 â€” Cá»™t text dÃ i (TenKH/TenVT/ChiTiet/TenHang/TenNhom) cho phÃ©p wrap, max-width 280px */
 .dk-detail-table td[style*="text-align:left"] {
     white-space: normal;
     max-width: 280px;
@@ -24194,9 +24092,6 @@ body {
     display: none;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   WAREHOUSE MAP
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-warehouse-map {
     display: flex;
     flex-direction: column;
@@ -24398,9 +24293,6 @@ body {
     }
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   WAREHOUSE MAP IN MODAL
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-modal-wh-wrap {
     padding: 12px;
 }
@@ -24467,9 +24359,6 @@ body {
     color: var(--dk-muted);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   STATUS ITEMS
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-status-list {
     display: grid;
     gap: 8px;
@@ -24498,9 +24387,6 @@ body {
     background: #fef2f2;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   SCROLLBAR
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -24520,7 +24406,6 @@ body {
     background: linear-gradient(180deg, #60a5fa, #7c3aed);
 }
 
-/* Stagger animation for metric cards */
 .dk-metrics-grid .dk-metric-card:nth-child(1) {
     animation-delay: 0.05s;
 }
@@ -24541,7 +24426,6 @@ body {
     animation-delay: 0.25s;
 }
 
-/* Stagger for panels */
 .dk-page1-charts .dk-panel:nth-child(1) {
     animation-delay: 0.12s;
 }
@@ -24589,7 +24473,6 @@ body {
     background-clip: text;
 }
 
-/* â€” Metric card icon â€“ circular glow container â€” */
 .dk-mc-icon {
     width: 30px;
     height: 30px;
@@ -24626,7 +24509,6 @@ body {
     box-shadow: 0 0 16px rgba(220, 38, 38, 0.55);
 }
 
-/* â€” Metric card pop-bounce on load â€” */
 @keyframes dk-mc-pop {
     0% {
         opacity: 0;
@@ -24654,7 +24536,6 @@ body {
     animation-fill-mode: both;
 }
 
-/* â€” Panel heading animated underline on hover â€” */
 .dk-panel-head h2 {
     position: relative;
 }
@@ -24677,7 +24558,6 @@ body {
     transform: scaleX(1);
 }
 
-/* â€” Clock gradient text + pulse â€” */
 @keyframes dk-clock-tick {
 
     0%,
@@ -24700,7 +24580,6 @@ body {
     animation: dk-clock-tick 2s ease-in-out infinite;
 }
 
-/* â€” Table rows slide-in stagger â€” */
 @keyframes dk-row-slide {
     from {
         opacity: 0;
@@ -24765,7 +24644,6 @@ body {
     animation-delay: 0.36s;
 }
 
-/* â€” Active nav button ambient glow pulse â€” */
 @keyframes dk-nav-pulse {
 
     0%,
@@ -24782,7 +24660,6 @@ body {
     animation: dk-nav-pulse 2.8s ease-in-out infinite;
 }
 
-/* â€” Link button shimmer sweep on hover â€” */
 @keyframes dk-link-sweep {
     from {
         background-position: -200% center;
@@ -24801,7 +24678,6 @@ body {
     animation: dk-link-sweep 1.4s linear infinite;
 }
 
-/* â€” dk-period-btn active shimmer â€” */
 .dk-period-btn.active {
     background: linear-gradient(135deg, #2563eb, #7c3aed);
     position: relative;
@@ -24819,7 +24695,6 @@ body {
     animation: dk-mc-shine 2.5s ease-in-out infinite;
 }
 
-/* â€” Warehouse tile â€“ subtle lift on hover â€” */
 .dk-wh-tile {
     transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
@@ -24829,7 +24704,6 @@ body {
     z-index: 1;
 }
 
-/* â€” Modal dialog pop in (enhanced) â€” */
 @keyframes dk-modal-in {
     0% {
         opacity: 0;
@@ -24850,9 +24724,6 @@ body {
     animation: dk-modal-in 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   RESPONSIVE
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 @media (max-width: 1400px) {
     .dk-metrics-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -25314,14 +25185,13 @@ body {
     box-shadow: 0 1px 3px rgba(37, 99, 235, 0.18);
 }
 
-/* v2.3.19 â€” Highlight thá»© 7 / chá»§ nháº­t */
 .dk-cal-monthly-dow:nth-child(6) {
-    /* Thá»© 7 */
+    
     background: linear-gradient(180deg, #6ea4f1 0%, #4d83df 100%);
 }
 
 .dk-cal-monthly-dow:nth-child(7) {
-    /* Chá»§ nháº­t */
+    
     background: linear-gradient(180deg, #ef6a85 0%, #dc4660 100%);
 }
 
@@ -25337,7 +25207,7 @@ body {
     border-radius: 10px;
     padding: 8px 8px 8px;
     min-height: 120px;
-    /* v2.3.33 â€” Ä‘á»§ chá»— cho 4-slot grid + icon */
+    
     background: #fff;
     transition: border-color 0.15s, box-shadow 0.18s ease, transform 0.18s ease;
     display: flex;
@@ -25353,7 +25223,6 @@ body {
     position: relative;
 }
 
-/* v2.3.19 â€” Out-of-range thÃ¡ng Ä‘Æ°á»£c dim nháº¡t, váº«n nhÃ¬n tháº¥y data */
 .dk-cal-out-month {
     background: #f3f6fa;
     opacity: 0.45;
@@ -25396,8 +25265,6 @@ body {
     flex-shrink: 0;
 }
 
-/* v2.3.34 â€” Flex-wrap layout: slot rá»—ng skip hoÃ n toÃ n, cÃ¡c slot cÃ²n láº¡i tá»± chia Ä‘á»u
-   1 slot = full width Â· 2 slots = 50/50 Â· 3 = 2 trÃªn + 1 dÆ°á»›i Â· 4 = 2Ã—2 */
 .dk-cal-acts {
     display: flex;
     flex-wrap: wrap;
@@ -25414,7 +25281,7 @@ body {
 
 .dk-cal-act {
     flex: 1 1 calc(50% - 2px);
-    /* 2 per row max */
+    
     min-width: 0;
     min-height: 26px;
     display: flex;
@@ -25434,7 +25301,6 @@ body {
     backdrop-filter: blur(4px);
 }
 
-/* v2.3.34 â€” Slot full width khi chá»‰ cÃ³ 1 hoáº¡t Ä‘á»™ng trong ngÃ y */
 .dk-cal-slots-1 .dk-cal-act {
     flex-basis: 100%;
     min-height: 36px;
@@ -25455,8 +25321,6 @@ body {
 .dk-cal-slots-3 .dk-cal-act:nth-child(3) {
     flex-basis: 100%;
 }
-
-/* slot thá»© 3 chiáº¿m full hÃ ng dÆ°á»›i */
 
 .dk-cal-act::before {
     content: "";
@@ -25518,7 +25382,6 @@ body {
     white-space: nowrap;
 }
 
-/* MÃ u 4 hoáº¡t Ä‘á»™ng â€” gradient + shadow + glow */
 .dk-cal-act-in {
     background: linear-gradient(135deg, #dbeafe 0%, #93c5fd 100%);
     color: #1e40af;
@@ -25543,7 +25406,6 @@ body {
     box-shadow: 0 1px 3px rgba(139, 92, 246, 0.25);
 }
 
-/* v2.3.34 â€” Heat glow: Ã´ cÃ³ nhiá»u hoáº¡t Ä‘á»™ng cÃ³ "Ä‘á»™ nÃ³ng" cao â†’ glow rÃµ hÆ¡n */
 .dk-cal-heat-low {
     box-shadow: 0 1px 4px rgba(59, 130, 246, 0.08);
 }
@@ -25562,7 +25424,6 @@ body {
     border-color: #f87171 !important;
 }
 
-/* Pop-in stagger animation cho slots */
 @keyframes dk-act-pop-in {
     0% {
         opacity: 0;
@@ -25599,7 +25460,6 @@ body {
     animation-delay: 0.17s;
 }
 
-/* Cell entrance â€” staggered fade-up by row */
 @keyframes dk-cell-fade-up {
     from {
         opacity: 0;
@@ -25616,7 +25476,6 @@ body {
     animation: dk-cell-fade-up 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) both;
 }
 
-/* Today: glow + pulse + accent border */
 @keyframes dk-today-pulse {
 
     0%,
@@ -25635,14 +25494,12 @@ body {
     border-width: 2px !important;
 }
 
-/* v2.3.34 â€” Hover: lift hÆ¡n, glow xanh */
 .dk-cal-monthly-cell:not(.dk-cal-out-month):hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 8px 22px rgba(37, 99, 235, 0.18), 0 0 0 2px #3b82f6;
     z-index: 10;
 }
 
-/* v2.3.34 â€” Sparkle effect cho today */
 .dk-cal-today::before {
     content: "\f005";
     font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome";
@@ -25670,7 +25527,6 @@ body {
     }
 }
 
-/* Empty cell (no activity at all) â€” váº«n render vá»›i day number, khÃ´ng trá»‘ng tinh */
 .dk-cal-slots-0 .dk-cal-acts {
     display: none;
 }
@@ -25679,7 +25535,6 @@ body {
     color: #cbd5e1;
 }
 
-/* v2.3.33 â€” Legend toggle button (clickable filter) */
 .dk-cal-leg-toggle {
     background: #fff !important;
     border: 1.5px solid #e2e8f0 !important;
@@ -25718,7 +25573,6 @@ body {
     filter: grayscale(0.7);
 }
 
-/* Checkbox indicator */
 .dk-cal-leg-check {
     width: 14px;
     height: 14px;
@@ -25747,79 +25601,63 @@ body {
     transform: rotate(45deg);
 }
 
-/* v2.3.29 â€” 12 mÃ u pastel SIÃŠU NHáº T (chá»‰ lÃ  tint nháº¹ phÃ¢n biá»‡t thÃ¡ng) */
 .dk-cal-month-0 {
     background: #fffbeb;
 }
 
-/* T1  - vÃ ng siÃªu nháº¡t */
 .dk-cal-month-1 {
     background: #fdf2f8;
 }
 
-/* T2  - há»“ng siÃªu nháº¡t */
 .dk-cal-month-2 {
     background: #f5f3ff;
 }
 
-/* T3  - tÃ­m siÃªu nháº¡t  */
 .dk-cal-month-3 {
     background: #fefce8;
 }
 
-/* T4  - chanh siÃªu nháº¡t*/
 .dk-cal-month-4 {
     background: #ecfeff;
 }
 
-/* T5  - xanh lÆ¡ siÃªu nháº¡t */
 .dk-cal-month-5 {
     background: #f0fdf4;
 }
 
-/* T6  - xanh mint siÃªu nháº¡t */
 .dk-cal-month-6 {
     background: #fff7ed;
 }
 
-/* T7  - cam Ä‘Ã o siÃªu nháº¡t */
 .dk-cal-month-7 {
     background: #eff6ff;
 }
 
-/* T8  - xanh dÆ°Æ¡ng siÃªu nháº¡t */
 .dk-cal-month-8 {
     background: #fef2f2;
 }
 
-/* T9  - há»“ng cam siÃªu nháº¡t */
 .dk-cal-month-9 {
     background: #fff1f2;
 }
 
-/* T10 - Ä‘á» siÃªu nháº¡t */
 .dk-cal-month-10 {
     background: #f0fdfa;
 }
 
-/* T11 - teal siÃªu nháº¡t */
 .dk-cal-month-11 {
     background: #faf5ff;
 }
 
-/* T12 - lavender siÃªu nháº¡t */
-/* Khi out-of-range, override vá»›i ná»n xÃ¡m */
 .dk-cal-monthly-cell.dk-cal-out-month {
     background: #f3f6fa !important;
     opacity: 0.45;
 }
 
-/* Today váº«n ná»•i báº­t hÆ¡n mÃ u thÃ¡ng */
 .dk-cal-monthly-cell.dk-cal-today {
     background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%) !important;
 }
 
-/* â”€â”€â”€ Day Detail Tabs (v2.3.7) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .dk-day-tabs {
     display: flex;
     gap: 4px;
@@ -25880,7 +25718,6 @@ body {
     min-height: 100px;
 }
 
-/* Info tooltip icon for calendar */
 .dk-info-tip {
     position: relative;
     display: inline-flex;
@@ -25923,7 +25760,6 @@ body {
     opacity: 1;
 }
 
-/* Nav & controls */
 .dk-cal-nav {
     display: flex;
     align-items: center;
@@ -26013,9 +25849,6 @@ body {
     flex-shrink: 0;
 }
 
-/* ============================================================
-   v2.3.46 â€” Global search box + "Tá»•ng quÃ¡t" button + GS result cards
-   ============================================================ */
 .dk-global-search-wrap {
     margin: 0 0 16px 0;
     padding: 0 4px;
@@ -26171,7 +26004,6 @@ body {
     font-weight: 700;
 }
 
-/* "Tá»•ng quÃ¡t" button trong panel-head cá»§a lá»‹ch hoáº¡t Ä‘á»™ng */
 .dk-cal-overview-btn {
     background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
     color: #fff;
@@ -26193,9 +26025,6 @@ body {
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.45);
 }
 
-/* ============================================================
-   v2.3.47 â€” Global search box trong SIDEBAR (thay tháº¿ phiÃªn báº£n main content)
-   ============================================================ */
 .dk-sidebar-search {
     padding: 10px 12px;
     margin: 4px 0 8px 0;
@@ -26267,7 +26096,6 @@ body {
     box-shadow: 0 4px 10px rgba(37, 99, 235, 0.45);
 }
 
-/* Káº¿t quáº£ search hiá»‡n ngay trong sidebar, dáº¡ng list compact */
 .dk-sb-search-result {
     margin-top: 8px;
     background: rgba(15, 23, 42, 0.35);
@@ -26336,7 +26164,6 @@ body {
     text-align: center;
 }
 
-/* â”€â”€ Sidebar search: collapsed state â”€â”€ */
 .dk-sidebar.collapsed .dk-sidebar-search {
     padding: 4px 8px;
     margin: 2px 0 4px 0;
@@ -26365,7 +26192,6 @@ body {
     display: none !important;
 }
 
-/* â”€â”€ Grouped overview table: date header + total rows â”€â”€ */
 .dk-detail-table .dk-group-date-row td {
     background: #f1f5f9 !important;
     border-top: 2px solid #cbd5e1 !important;
@@ -26400,12 +26226,6 @@ body {
     color: #1e40af;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.3.49 â€” DARK THEME (opt-in via body.dark-theme)
-   Light theme = default. Toggle via #btnThemeToggle.
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* Tokens (only used when dark-theme is active) */
 :root {
     --dkk-bg-1: #0a1628;
     --dkk-bg-2: #0d1d35;
@@ -26432,7 +26252,6 @@ body.dark-theme .dk-main {
         linear-gradient(160deg, #0a1628 0%, #0d1d35 50%, #0a1628 100%) !important;
 }
 
-/* Panels */
 body.dark-theme .dk-panel {
     background: linear-gradient(180deg, var(--dkk-card) 0%, var(--dkk-card-2) 100%) !important;
     border-color: var(--dkk-border) !important;
@@ -26449,7 +26268,6 @@ body.dark-theme .dk-panel-head h2 {
     color: var(--dkk-title) !important;
 }
 
-/* Metric cards */
 body.dark-theme .dk-mc-blue,
 body.dark-theme .dk-mc-green,
 body.dark-theme .dk-mc-cyan,
@@ -26584,7 +26402,6 @@ body.dark-theme .dk-metric-sub {
     color: var(--dkk-text-muted) !important;
 }
 
-/* MoM strip */
 body.dark-theme .dk-mom-block {
     background: linear-gradient(135deg, var(--dkk-card) 0%, var(--dkk-card-2) 100%) !important;
     border-color: var(--dkk-border) !important;
@@ -26594,7 +26411,6 @@ body.dark-theme .dk-mom-block:hover {
     border-color: var(--dkk-border-strong) !important;
 }
 
-/* Period selector + filter chips */
 body.dark-theme .dk-period-selector {
     background: rgba(255, 255, 255, 0.05) !important;
     border: 1px solid var(--dkk-border) !important;
@@ -26609,7 +26425,6 @@ body.dark-theme .dk-period-btn:hover {
     color: #93c5fd !important;
 }
 
-/* Inputs */
 body.dark-theme .dk-filter-select,
 body.dark-theme .dk-flow-range-input,
 body.dark-theme .dk-cal-date-input {
@@ -26624,7 +26439,6 @@ body.dark-theme .dk-cal-range-wrap label {
     color: var(--dkk-text-dim) !important;
 }
 
-/* Link buttons */
 body.dark-theme .dk-link {
     background: rgba(96, 165, 250, 0.10) !important;
     color: #93c5fd !important;
@@ -26637,7 +26451,6 @@ body.dark-theme .dk-link:hover {
     border-color: var(--dkk-border-strong) !important;
 }
 
-/* Tables */
 body.dark-theme .dk-table-wrap {
     background: transparent !important;
 }
@@ -26679,7 +26492,6 @@ body.dark-theme .dk-empty {
     color: var(--dkk-text-muted) !important;
 }
 
-/* Skeletons */
 body.dark-theme .dk-skeleton {
     background: linear-gradient(135deg, #15294e 0%, #1a3460 100%) !important;
 }
@@ -26688,7 +26500,6 @@ body.dark-theme .dk-skeleton-shimmer {
     background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.15), transparent) !important;
 }
 
-/* Modal */
 body.dark-theme .dk-modal-backdrop {
     background: rgba(0, 0, 0, 0.75) !important;
 }
@@ -26760,7 +26571,6 @@ body.dark-theme .dk-back-btn:hover {
     color: #fff !important;
 }
 
-/* Detail tables */
 body.dark-theme .dk-detail-table {
     background: transparent !important;
     box-shadow: none !important;
@@ -26794,7 +26604,6 @@ body.dark-theme .dk-detail-table tbody tr:hover td:first-child {
     box-shadow: inset 5px 0 0 #60a5fa !important;
 }
 
-/* Grouped table (dark) */
 body.dark-theme .dk-detail-table .dk-group-date-row td {
     background: linear-gradient(90deg, rgba(30, 64, 175, .6) 0%, rgba(109, 40, 217, .4) 100%) !important;
     border-top: 2px solid rgba(96, 165, 250, .4) !important;
@@ -26816,7 +26625,6 @@ body.dark-theme .dk-detail-table .dk-group-total-row .dk-total-value {
     color: #93c5fd !important;
 }
 
-/* Day tabs */
 body.dark-theme .dk-day-tabs {
     border-bottom: 1px solid var(--dkk-border) !important;
 }
@@ -26843,7 +26651,6 @@ body.dark-theme .dk-day-tab-count {
     color: var(--dkk-text) !important;
 }
 
-/* WH summary stats */
 body.dark-theme .dk-modal-wh-summary .dk-modal-wh-stat {
     background: rgba(255, 255, 255, 0.04) !important;
     border: 1px solid var(--dkk-border) !important;
@@ -26869,7 +26676,6 @@ body.dark-theme .dk-wh-legend {
     color: var(--dkk-text-dim) !important;
 }
 
-/* Status items */
 body.dark-theme .dk-status-item {
     background: rgba(255, 255, 255, 0.04) !important;
     border: 1px solid var(--dkk-border) !important;
@@ -26891,7 +26697,6 @@ body.dark-theme .dk-status-item.bad {
     border-color: rgba(239, 68, 68, 0.35) !important;
 }
 
-/* Calendar */
 body.dark-theme .dk-cal-month-title {
     color: var(--dkk-title) !important;
 }
@@ -26927,7 +26732,6 @@ body.dark-theme .dk-cal-overview-btn {
     border: 1px solid var(--dkk-border-strong) !important;
 }
 
-/* SVG text */
 body.dark-theme .dk-capacity-center {
     fill: #f1f5fb !important;
 }
@@ -26943,13 +26747,11 @@ body.dark-theme .dk-customer-callout {
     fill: #cfe0ff !important;
 }
 
-/* Info tip */
 body.dark-theme .dk-info-tip {
     background: rgba(96, 165, 250, 0.15) !important;
     color: #93c5fd !important;
 }
 
-/* Scrollbar */
 body.dark-theme ::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.04) !important;
 }
@@ -26962,7 +26764,6 @@ body.dark-theme ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(180deg, #3b82f6, #8b5cf6) !important;
 }
 
-/* Theme toggle button â€” show appropriate icon based on current theme */
 .dk-theme-icon-dark {
     display: inline-block;
 }
@@ -26979,31 +26780,21 @@ body.dark-theme .dk-theme-icon-light {
     display: inline-block;
 }
 
-/* â”€â”€â”€ v2.3.52 â€” Dark theme: callout boxes + calendar + SVG fills â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-
-/* Callout box (rect) trong capacity ring + customer pie: dark fill */
 body.dark-theme .dk-callout-bg {
     fill: #1a2f54 !important;
     fill-opacity: 0.96 !important;
     stroke-width: 2.5px;
 }
 
-/* v2.4.3 â€” Donut segment trong dark: outer glow nháº¹ Ä‘á»ƒ pop khá»i ná»n tá»‘i */
 body.dark-theme .dk-capacity-ring svg circle[stroke-dasharray],
 body.dark-theme .dk-customer-pie svg circle[stroke-dasharray] {
     filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.10));
 }
 
-/* v2.4.3 â€” Gauge fill arc: tÄƒng nháº¹ saturation + glow á»Ÿ dark */
 body.dark-theme .dk-gauge-fill {
     filter: drop-shadow(0 0 5px rgba(96, 165, 250, 0.35));
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.4.4 â€” FIX dropdown <select> á»Ÿ dark + 8 cluster UI cho modal
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* 1. Dropdown <select> option panel á»Ÿ dark mode (option element khÃ´ng nháº­n CSS qua selector cha) */
 body.dark-theme .dk-filter-select option,
 body.dark-theme .dk-flow-range-input option,
 body.dark-theme .dk-filter-select-inline option {
@@ -27013,7 +26804,7 @@ body.dark-theme .dk-filter-select-inline option {
 
 body.dark-theme .dk-filter-select,
 body.dark-theme .dk-filter-select-inline {
-    /* Force native arrow theo theme */
+    
     background-image: linear-gradient(45deg, transparent 50%, var(--dkk-text-dim) 50%),
         linear-gradient(135deg, var(--dkk-text-dim) 50%, transparent 50%);
     background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
@@ -27024,7 +26815,6 @@ body.dark-theme .dk-filter-select-inline {
     -webkit-appearance: none;
 }
 
-/* 2. Toast container + items */
 .dk-toast-container {
     position: fixed;
     bottom: 24px;
@@ -27084,7 +26874,6 @@ body.dark-theme .dk-filter-select-inline {
     color: #f87171;
 }
 
-/* 3. Modal: Summary strip (4 Ã´ ngang) */
 .dk-modal-summary-strip {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -27092,12 +26881,10 @@ body.dark-theme .dk-filter-select-inline {
     margin: 0 0 14px 0;
 }
 
-/* v2.7.1 â€” Force 4 Ã´ trÃªn 1 hÃ ng khi cÃ³ Ä‘Ãºng 4 items */
 .dk-modal-summary-strip--4col {
     grid-template-columns: repeat(4, 1fr);
 }
 
-/* v2.7.1 â€” Force 3 Ã´ trÃªn 1 hÃ ng khi cÃ³ Ä‘Ãºng 3 items */
 .dk-modal-summary-strip--3col {
     grid-template-columns: repeat(3, 1fr);
 }
@@ -27168,7 +26955,6 @@ body.dark-theme .dk-sum-good .dk-sum-value {
     color: #6ee7b7;
 }
 
-/* 4. Todo modal: tab strip 4 mÃ u accent */
 .dk-todo-tab-strip {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -27307,7 +27093,6 @@ body.dark-theme .dk-todo-tab-badge {
     color: var(--dkk-text);
 }
 
-/* Todo fade transition between tabs */
 #todoTabBody {
     opacity: 1;
     transition: opacity 0.18s ease;
@@ -27321,7 +27106,6 @@ body.dark-theme .dk-todo-tab-badge {
     opacity: 1;
 }
 
-/* Todo search bar */
 .dk-todo-searchbar {
     display: flex;
     align-items: center;
@@ -27371,7 +27155,6 @@ body.dark-theme #todoSearch {
     color: var(--dkk-text);
 }
 
-/* Todo empty state */
 .dk-todo-empty {
     padding: 50px;
     text-align: center;
@@ -27385,7 +27168,6 @@ body.dark-theme #todoSearch {
     margin-bottom: 12px;
 }
 
-/* Mini action buttons */
 .dk-mini-btn {
     display: inline-flex;
     align-items: center;
@@ -27430,7 +27212,6 @@ body.dark-theme .dk-mini-btn-approve {
     color: #6ee7b7;
 }
 
-/* 5. Modal filter bar */
 .dk-modal-filter-bar {
     display: flex;
     align-items: center;
@@ -27487,7 +27268,6 @@ body.dark-theme .dk-kk-search {
     color: var(--dkk-text);
 }
 
-/* 6. Status chip + ngÃ y háº¿t háº¡n highlight */
 .dk-status-chip {
     display: inline-block;
     padding: 3px 10px;
@@ -27569,7 +27349,6 @@ body.dark-theme .dk-conlai-soft {
     color: #fde68a;
 }
 
-/* 7. Top 5 highlight + pct bar (Top5 KH) */
 .dk-page-active[data-page="1"],
 .dk-page-active[data-page="2"],
 .dk-page-active[data-page="3"] {
@@ -27627,7 +27406,6 @@ body.dark-theme .dk-pct-bar-label {
     color: var(--dkk-text);
 }
 
-/* 8. Sortable table + tree accordion */
 .dk-sortable-th {
     cursor: pointer;
     user-select: none;
@@ -27718,7 +27496,6 @@ body.dark-theme .dk-tree-sub-table td {
     border-bottom-color: rgba(96, 165, 250, 0.08);
 }
 
-/* Donut chart trong modal GiÃ¡ trá»‹ nhÃ³m: chiá»u cao cá»‘ Ä‘á»‹nh */
 .dk-nhom-donut-modal {
     min-height: 500px;
     margin-bottom: 40px;
@@ -27727,18 +27504,15 @@ body.dark-theme .dk-tree-sub-table td {
     overflow: visible;
 }
 
-/* Capacity center text "27,2%" + "Láº¥p Ä‘áº§y" + "11" + "KhÃ¡ch hÃ ng" */
 body.dark-theme .dk-capacity-center,
 body.dark-theme .dk-flow-label {
     fill: #e2eaf5 !important;
 }
 
-/* Customer pie center / sub-labels â€” Ä‘áº£m báº£o text trong svg luÃ´n sÃ¡ng */
 body.dark-theme .dk-panel svg text:not([class]):not([style*="fill"]) {
     fill: #cbd5e1 !important;
 }
 
-/* Calendar â€” monthly cells: dark version cho tá»«ng thÃ¡ng (tint nháº¹) */
 body.dark-theme .dk-cal-month-0 {
     background: #1f2a3e !important;
 }
@@ -27787,7 +27561,6 @@ body.dark-theme .dk-cal-month-11 {
     background: #251a2f !important;
 }
 
-/* Calendar cell text colors */
 body.dark-theme .dk-cal-monthly-cell {
     color: var(--dkk-text) !important;
 }
@@ -27819,7 +27592,6 @@ body.dark-theme .dk-cal-monthly-cell.dk-cal-today .dk-cal-day-num {
     color: #fff !important;
 }
 
-/* Calendar cell borders */
 body.dark-theme .dk-cal-cell,
 body.dark-theme .dk-cal-monthly-cell {
     border-color: rgba(96, 165, 250, 0.10) !important;
@@ -27831,7 +27603,6 @@ body.dark-theme .dk-cal-monthly-cell:hover {
     border-color: rgba(96, 165, 250, 0.35) !important;
 }
 
-/* Mom-strip details (delta chips) */
 body.dark-theme .dk-mom-delta.up {
     background: rgba(34, 197, 94, 0.18) !important;
     color: #6ee7b7 !important;
@@ -27852,7 +27623,6 @@ body.dark-theme .dk-mom-block .dk-mom-prev-label {
     color: var(--dkk-text-dim) !important;
 }
 
-/* v2.4.2 â€” TÃªn class thá»±c táº¿ cá»§a MoM strip: .dk-mom-label/.dk-mom-cur/.dk-mom-prev */
 body.dark-theme .dk-mom-block .dk-mom-label {
     color: var(--dkk-text-dim);
 }
@@ -27870,16 +27640,12 @@ body.dark-theme .dk-mom-icon {
     filter: drop-shadow(0 0 4px rgba(96, 165, 250, 0.4));
 }
 
-/* Ensure all SVG <text> in panels reads light (catch-all for hardcoded #5f758b etc.) */
 body.dark-theme .dk-panel svg .dk-flow-x-label,
 body.dark-theme .dk-panel svg .dk-flow-axis-title,
 body.dark-theme .dk-panel svg .dk-flow-label {
     fill: #9fb3d1 !important;
 }
 
-
-
-/* â€”â€” Layout grid Page 1, 2, 3 â€”â€” */
 .dk-page-active[data-page="1"],
 .dk-page-active[data-page="2"],
 .dk-page-active[data-page="3"] {
@@ -27971,7 +27737,6 @@ body.dark-theme .dk-panel svg .dk-flow-label {
     }
 }
 
-/* â€”â€” Metric card icon: dark mode glow nhá» FA â€”â€” */
 .dk-mc-icon i {
     font-size: 18px;
     line-height: 1;
@@ -28039,7 +27804,6 @@ body.dark-theme .dk-mc-icon i {
     box-shadow: 0 0 18px rgba(124, 58, 237, 0.6);
 }
 
-/* â€”â€” Theo dÃµi cÃ´ng viá»‡c cáº§n xá»­ lÃ½ â€”â€” */
 .dk-todo-panel .dk-panel-head {
     flex: 0 0 auto;
 }
@@ -28150,7 +27914,6 @@ body.dark-theme .dk-todo-icon {
     filter: drop-shadow(0 0 6px currentColor);
 }
 
-/* â€”â€” TÃ¬nh hÃ¬nh kiá»ƒm kÃª â€”â€” */
 .dk-kiemke-box {
     display: flex;
     flex-direction: column;
@@ -28317,7 +28080,6 @@ body.dark-theme .dk-kk-progress-label b {
     color: #6ee7b7 !important;
 }
 
-/* â€”â€” Compact tables (Top5 VT/KH, Háº¿t háº¡n) â€”â€” */
 .dk-table-compact {
     font-size: 12px;
 }
@@ -28431,7 +28193,6 @@ body.dark-theme .dk-date-warn {
     color: #fcd34d !important;
 }
 
-/* â€”â€” GiÃ¡ trá»‹ tá»“n kho theo nhÃ³m â€”â€” */
 .dk-nhom-donut {
     position: relative;
     flex: 1;
@@ -28459,7 +28220,6 @@ body.dark-theme .dk-nhom-total b {
     color: var(--dkk-title) !important;
 }
 
-/* â€”â€” Popup ItemCode: swatch mÃ u + monospace cell â€”â€” */
 .dk-mau-swatch {
     display: inline-block;
     width: 12px;
@@ -28479,7 +28239,6 @@ body.dark-theme .dk-mau-swatch {
     border-color: rgba(255, 255, 255, 0.18) !important;
 }
 
-/* â€”â€” Báº£ng chi tiáº¿t: alignment Ä‘á»“ng nháº¥t â€”â€” */
 .dk-detail-table th,
 .dk-detail-table td {
     padding: 6px 8px;
@@ -28494,7 +28253,6 @@ body.dark-theme .dk-mau-swatch {
     font-size: 12.5px;
 }
 
-/* â€”â€” Highcharts dark theme: Ã©p tooltip/axis/text khi Ä‘ang dark â€”â€” */
 body.dark-theme .highcharts-tooltip>span,
 body.dark-theme .highcharts-label>text,
 body.dark-theme .highcharts-data-label text {
@@ -28519,7 +28277,6 @@ body.dark-theme .highcharts-legend-item text {
     fill: #cbd5e1 !important;
 }
 
-/* â€”â€” Dark mode: thÃªm contrast cho cÃ¡c vÃ¹ng dá»… bá»‹ "tÃ ng hÃ¬nh" â€”â€” */
 body.dark-theme .dk-empty {
     color: var(--dkk-text-dim) !important;
 }
@@ -28541,7 +28298,6 @@ body.dark-theme .text-center {
     color: inherit;
 }
 
-/* â€”â€” Sidebar icons: glow nháº¹ á»Ÿ dark â€”â€” */
 body.dark-theme .dk-nav-icon {
     filter: drop-shadow(0 0 4px rgba(96, 165, 250, 0.4));
 }
@@ -28550,9 +28306,6 @@ body.dark-theme .dk-sidebar-action-btn .dk-nav-icon {
     color: #93c5fd !important;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.4.1 â€” UTILITY CLASSES (theme-aware) cho JS template strings
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-text-title {
     color: var(--dk-title);
 }
@@ -28657,18 +28410,15 @@ body.dark-theme .dk-sb-brand {
     color: var(--dk-sb-text);
 }
 
-/* A7 â€” Calendar future cell */
 body.dark-theme .dk-cal-future {
     background: rgba(255, 255, 255, 0.04);
 }
 
-/* A9 â€” Calendar legend check */
 body.dark-theme .dk-cal-leg-check {
     background: var(--dkk-card);
     border-color: var(--dkk-border);
 }
 
-/* A11 â€” Global Search cards */
 body.dark-theme .dk-gs-card {
     background: var(--dk-bg-card-2);
     border-color: var(--dkk-border);
@@ -28690,7 +28440,6 @@ body.dark-theme .dk-gs-found b {
     color: #93c5fd;
 }
 
-/* A12 â€” Tip-NL / chÃº thÃ­ch cuá»‘i panel */
 body.dark-theme .dk-panel .dk-note,
 body.dark-theme .dk-panel .dk-tip {
     color: var(--dkk-text-dim);
@@ -28814,7 +28563,6 @@ body.dark-theme .dk-date-filter-input::-webkit-calendar-picker-indicator {
     filter: invert(0.85);
 }
 
-/* â€”â€” KPI grid 7 cá»™t â€”â€” */
 .dk-metrics-grid-7 {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -28827,7 +28575,6 @@ body.dark-theme .dk-date-filter-input::-webkit-calendar-picker-indicator {
     }
 }
 
-/* Badge sá»‘ gÃ³c trÃªn trÃ¡i */
 .dk-mc-badge {
     position: absolute;
     top: 6px;
@@ -28878,7 +28625,6 @@ body.dark-theme .dk-date-filter-input::-webkit-calendar-picker-indicator {
     position: relative;
 }
 
-/* Tá»“n Ä‘áº§u ká»³ â€” variant slate Ä‘áº·c biá»‡t */
 .dk-mc-slate {
     background: linear-gradient(160deg, #f1f5f9 0%, #fff 55%);
     border: 1px solid #cbd5e1;
@@ -28912,7 +28658,6 @@ body.dark-theme .dk-mc-slate .dk-metric-value {
     background: none !important;
 }
 
-/* Delta chip */
 .dk-metric-delta,
 .dk-metric-delta-soft {
     font-size: 11px;
@@ -28953,7 +28698,6 @@ body.dark-theme .dk-metric-delta-soft {
     color: var(--dkk-text-dim);
 }
 
-/* Footer "CÃ”NG THá»¨C" trong card */
 .dk-mc-formula {
     margin-top: 8px;
     padding-top: 6px;
@@ -28987,7 +28731,6 @@ body.dark-theme .dk-mc-formula-tag {
     color: #93c5fd;
 }
 
-/* Card text-align: left khi cÃ³ formula */
 .dk-metrics-grid-7 .dk-metric-card {
     text-align: center;
     padding: 10px 12px;
@@ -29061,7 +28804,6 @@ body.dark-theme .dk-formula-tag {
     color: #93c5fd;
 }
 
-/* â€”â€” Page 2 row layout â€”â€” */
 .dk-page2-row {
     display: grid;
     gap: 12px;
@@ -29088,7 +28830,6 @@ body.dark-theme .dk-formula-tag {
     }
 }
 
-/* â€”â€” Cáº£nh bÃ¡o tá»“n kho â€”â€” */
 .dk-alerts-panel .dk-panel-head {
     flex: 0 0 auto;
 }
@@ -29369,14 +29110,12 @@ body.dark-theme .dk-date-filter-input option {
     min-height: 36px;
 }
 
-/* â€”â€” áº¨n formula náº¿u sÃ³t láº¡i (defensive) â€”â€” */
 .dk-mc-formula,
 .dk-formula-footer,
 .dk-alerts-foot {
     display: none !important;
 }
 
-/* â€”â€” KPI cards â€” polish sau khi bá» formula â€”â€” */
 .dk-metrics-grid-7 .dk-metric-card {
     text-align: center;
     align-items: center;
@@ -29418,7 +29157,6 @@ body.dark-theme .dk-date-filter-input option {
     letter-spacing: -0.01em;
 }
 
-/* Delta chip â€” pill ná»•i vá»›i background tint */
 .dk-metric-delta {
     display: inline-flex;
     align-items: center;
@@ -29472,7 +29210,6 @@ body.dark-theme .dk-metric-delta-soft {
     color: #fbbf24;
 }
 
-/* Hover card: lift + accent glow */
 .dk-metrics-grid-7 .dk-metric-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(15, 23, 42, 0.10);
@@ -29541,7 +29278,6 @@ body.dark-theme .dk-metrics-grid-7 .dk-mc-slate:hover {
     box-shadow: 0 8px 24px rgba(148, 163, 184, 0.45);
 }
 
-/* â€”â€” Todo item: cursor pointer + hover effect (Ä‘Ã£ cÃ³) â€”â€” */
 .dk-todo-item {
     cursor: pointer;
     transition: transform 0.15s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
@@ -29556,7 +29292,6 @@ body.dark-theme .dk-metrics-grid-7 .dk-mc-slate:hover {
     transform: translateX(0) scale(0.99);
 }
 
-/* â€”â€” Hiá»‡u suáº¥t hoáº¡t Ä‘á»™ng â€” REDESIGN v2.4.7 â€”â€” */
 .dk-perf-grid-4col {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -29675,7 +29410,6 @@ body.dark-theme .dk-metrics-grid-7 .dk-mc-slate:hover {
     font-weight: 700;
 }
 
-/* Dark mode */
 body.dark-theme .dk-perf-cell {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
     border-color: var(--dkk-border);
@@ -29755,9 +29489,17 @@ body.dark-theme .dk-cell-muted {
 
 .dk-modal-summary-strip {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 12px;
     margin-bottom: 14px;
+}
+
+.dk-modal-summary-strip.dk-modal-summary-strip--4col {
+    grid-template-columns: repeat(4, 1fr) !important;
+}
+
+.dk-modal-summary-strip.dk-modal-summary-strip--3col {
+    grid-template-columns: repeat(3, 1fr) !important;
 }
 
 .dk-sum-item {
@@ -29818,6 +29560,11 @@ body.dark-theme .dk-cell-muted {
     --sum-accent2: #60a5fa;
 }
 
+.dk-sum-info {
+    --sum-accent: #0ea5e9;
+    --sum-accent2: #38bdf8;
+}
+
 .dk-sum-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 18px color-mix(in srgb, var(--sum-accent) 25%, transparent);
@@ -29866,7 +29613,10 @@ body.dark-theme .dk-cell-muted {
     background: rgba(37, 99, 235, 0.18) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'/><polyline points='3.27 6.96 12 12.01 20.73 6.96'/><line x1='12' y1='22.08' x2='12' y2='12'/></svg>") center/16px no-repeat;
 }
 
-/* v2.9 — Dark mode: summary strip trong modal */
+.dk-sum-info::after {
+    background: rgba(14, 165, 233, 0.18) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230ea5e9' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><line x1='12' y1='16' x2='12' y2='12'/><line x1='12' y1='8' x2='12.01' y2='8'/></svg>") center/16px no-repeat;
+}
+
 body.dark-theme .dk-modal-summary-strip {
     background: rgba(10, 22, 40, 0.95) !important;
     border-bottom-color: var(--dkk-border) !important;
@@ -29897,12 +29647,15 @@ body.dark-theme .dk-sum-primary .dk-sum-value {
     color: #93c5fd;
 }
 
+body.dark-theme .dk-sum-info .dk-sum-value {
+    color: #7dd3fc;
+}
+
 body.dark-theme .dk-sum-label,
 body.dark-theme .dk-sum-sub {
     color: var(--dkk-text-dim);
 }
 
-/* â€”â€” B. Sub-tab strip filter â€”â€” */
 .dk-kk-subtabs {
     display: flex;
     gap: 8px;
@@ -29970,7 +29723,6 @@ body.dark-theme .dk-kk-subtab:hover {
     border-color: var(--dkk-border-strong);
 }
 
-/* â€”â€” C. Filter bar (search + dropdown + count) â€”â€” */
 .dk-modal-filter-bar {
     display: flex;
     align-items: center;
@@ -30040,7 +29792,6 @@ body.dark-theme .dk-filter-select-inline option {
     color: var(--dkk-text);
 }
 
-/* â€”â€” D. Status chip (ÄÃ£ / Äang / ChÆ°a) â€”â€” */
 .dk-status-chip {
     display: inline-flex;
     align-items: center;
@@ -30156,7 +29907,6 @@ body.dark-theme .dk-rack-pct-num {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
 }
 
-/* Module chip NL/PL */
 .dk-rack-module-chip {
     display: inline-block;
     padding: 2px 10px;
@@ -30190,7 +29940,6 @@ body.dark-theme .dk-rack-mod-pl {
     border-color: rgba(251, 191, 36, 0.40);
 }
 
-/* Top 3 row highlight */
 .dk-rack-row {
     transition: background 0.15s ease;
 }
@@ -30315,7 +30064,6 @@ body.dark-theme .dk-rack-row:hover {
     }
 }
 
-/* â•â•â• #1 â€” TÃ¬nh hÃ¬nh kiá»ƒm kÃª â•â•â• */
 .dk-kiemke-box {
     position: relative;
 }
@@ -30458,7 +30206,6 @@ body.dark-theme .dk-kk-progress-float::after {
     border-top-color: #10b981;
 }
 
-/* â•â•â• #2 â€” Theo dÃµi cÃ´ng viá»‡c â•â•â• */
 .dk-todo-list .dk-todo-item {
     animation: dk-fade-up-stagger 360ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
@@ -30483,7 +30230,6 @@ body.dark-theme .dk-kk-progress-float::after {
     animation-delay: 300ms;
 }
 
-/* Item cÃ³ badge >= 10 (ItemCode chá» NK 28, Kiá»ƒm kÃª 15, PO trá»… 12) â†’ pulse */
 .dk-todo-list .dk-todo-item:nth-child(1) .dk-todo-icon,
 .dk-todo-list .dk-todo-item:nth-child(2) .dk-todo-icon {
     animation: dk-pulse-soft 2.4s infinite;
@@ -30530,7 +30276,6 @@ body.dark-theme .dk-kk-progress-float::after {
     background: linear-gradient(180deg, #fcd34d, #f59e0b);
 }
 
-/* â•â•â• #3 â€” Láº¥p Ä‘áº§y theo loáº¡i kho â•â•â• */
 .dk-dual-gauge-wrap {
     position: relative;
     background:
@@ -30557,7 +30302,6 @@ body.dark-theme .dk-dual-gauge-wrap {
     filter: drop-shadow(0 4px 12px rgba(249, 115, 22, 0.25));
 }
 
-/* v2.4.11 â€” Bá» stroke draw-in (gÃ¢y arc bá»‹ káº¹t invisible). Giá»¯ hover + glow. */
 .dk-gauge-pct {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
@@ -30566,7 +30310,6 @@ body.dark-theme .dk-gauge-pct {
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
 }
 
-/* â•â•â• #4 â€” GiÃ¡ trá»‹ tá»“n kho theo nhÃ³m (donut) â•â•â• */
 .dk-donut-shadow {
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.10));
     transition: filter 0.25s ease;
@@ -30586,7 +30329,7 @@ body.dark-theme .dk-donut-shadow:hover {
 
 .dk-nhom-center-icon {
     position: absolute;
-    /* v2.4.13 â€” top/left set bá»Ÿi JS theo donut center tháº­t (Highcharts plotLeft + series.center) */
+    
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -30603,11 +30346,10 @@ body.dark-theme .dk-nhom-center-icon {
     opacity: 0.20;
 }
 
-/* â•â•â• #5 â€” Cáº£nh bÃ¡o tá»“n kho â•â•â• */
 .dk-alerts-list .dk-alert-item {
     animation: dk-fade-up-stagger 380ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
     transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.2s ease;
-    /* v2.4.11 â€” Bá» border-left + border-image (gÃ¢y lá»‡ch badge). DÃ¹ng ::after overlay */
+    
     position: relative;
     border-left: 0;
     padding-left: 14px;
@@ -30710,7 +30452,6 @@ body.dark-theme .dk-alert-info .dk-alert-num {
     box-shadow: inset 0 0 0 2px rgba(96, 165, 250, 0.45);
 }
 
-/* â•â•â• #6 â€” Biá»ƒu Ä‘á»“ xuáº¥t - nháº­p - tá»“n â•â•â• */
 .dk-flow-bar {
     animation: dk-bar-grow 0.9s cubic-bezier(0.4, 0, 0.2, 1) both;
     transition: filter 0.18s ease, transform 0.18s ease;
@@ -30742,7 +30483,6 @@ body.dark-theme .dk-alert-info .dk-alert-num {
     animation: dk-area-fade 0.4s ease both;
 }
 
-/* v2.4.14 â€” Flow trend legend text dark mode (Nháº­p/Xuáº¥t/Tá»“n kho) + grid line dark */
 body.dark-theme .dk-flow-legend {
     color: var(--dkk-text);
 }
@@ -30751,14 +30491,12 @@ body.dark-theme .dk-flow-legend-item {
     color: var(--dkk-text);
 }
 
-/* Inline fill trÃªn SVG text (x-label, axis number) â€” !important Ä‘á»ƒ Ä‘Ã¨ inline style */
 body.dark-theme .dk-flow-trend svg .dk-flow-label,
 body.dark-theme .dk-flow-trend svg .dk-flow-x-label,
 body.dark-theme .dk-flow-trend svg .dk-flow-axis-title {
     fill: #cbd5e1 !important;
 }
 
-/* Grid line stroke â€” Ä‘á»•i tá»« #e2eaf4 light â†’ navy */
 body.dark-theme .dk-flow-trend svg line[stroke="#e2eaf4"] {
     stroke: rgba(96, 165, 250, 0.20);
 }
@@ -30767,7 +30505,6 @@ body.dark-theme .dk-flow-trend svg line[stroke="#b0c4d8"] {
     stroke: rgba(96, 165, 250, 0.35);
 }
 
-/* v2.4.15 â€” Modal KPI: cell "sá»‘ giá» trá»…" highlight */
 .dk-cell-late-warn {
     background: rgba(245, 158, 11, 0.14);
     color: #b45309;
@@ -30794,7 +30531,6 @@ body.dark-theme .dk-cell-late-extreme {
     color: #fca5a5;
 }
 
-/* v2.4.15 â€” Sum item variant "neutral" cho summary 4 Ã´ */
 .dk-sum-neutral {
     --sum-accent: #64748b;
     --sum-accent2: #94a3b8;
@@ -30808,11 +30544,6 @@ body.dark-theme .dk-sum-neutral .dk-sum-value {
     color: #cbd5e1;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.4.16 â€” Polish: icon donut z-index, alerts pointer, warehouse tile fill
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* â€”â€” #1 Icon donut GiÃ¡ trá»‹ tá»“n kho theo nhÃ³m â€”â€” */
 .dk-nhom-center-icon {
     z-index: 5;
     opacity: 0.18;
@@ -30823,7 +30554,6 @@ body.dark-theme .dk-nhom-center-icon {
     color: #c4b5fd;
 }
 
-/* â€”â€” #2 Alert item: cursor pointer + transition Ä‘áº§y Ä‘á»§ â€”â€” */
 .dk-alerts-list .dk-alert-item {
     cursor: pointer;
     transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.2s ease;
@@ -30838,7 +30568,6 @@ body.dark-theme .dk-nhom-center-icon {
     transition: transform 0.18s ease;
 }
 
-/* â€”â€” #3 SÆ¡ Ä‘á»“ láº¥p Ä‘áº§y ká»‡: tile fill-up animation â€”â€” */
 .dk-wh-tile {
     position: relative;
     overflow: hidden;
@@ -30868,7 +30597,6 @@ body.dark-theme .dk-nhom-center-icon {
     z-index: 0;
 }
 
-/* Level fill colors */
 .dk-wh-tile.dk-wh-safe .dk-wh-tile-fill {
     background: linear-gradient(180deg, rgba(74, 222, 128, 0.55) 0%, rgba(22, 163, 74, 0.90) 100%);
 }
@@ -30953,7 +30681,6 @@ body.dark-theme .dk-nhom-center-icon {
     box-shadow: 0 6px 22px rgba(34, 197, 94, 0.40);
 }
 
-/* Dark mode */
 body.dark-theme .dk-wh-tile {
     background: linear-gradient(180deg, #142a4c 0%, #0d1d35 100%);
     border-color: var(--dkk-border);
@@ -30994,7 +30721,6 @@ body.dark-theme .dk-wh-tile.dk-wh-over .dk-wh-tile-fill {
     background: linear-gradient(180deg, rgba(248, 113, 113, 0.55) 0%, rgba(185, 28, 28, 0.90) 100%);
 }
 
-/* Module section title chip */
 .dk-wh-module-section {
     margin-bottom: 14px;
 }
@@ -31036,11 +30762,6 @@ body.dark-theme .dk-wh-module-stats {
     gap: 8px;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   LPCP indicators inside dk-cal-monthly-cell  â€” v2.3.54 (Cáº¬P NHáº¬T GIAO DIá»†N Má»šI)
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* SL row: â†“CanSoan / â†‘DaSoan */
 .dk-cal-lpcp-sl {
     display: flex;
     justify-content: space-between;
@@ -31081,7 +30802,6 @@ body.dark-theme .dk-wh-module-stats {
     display: block;
 }
 
-/* Status dots row */
 .dk-cal-lpcp-dots {
     display: flex;
     align-items: center;
@@ -31105,7 +30825,6 @@ body.dark-theme .dk-wh-module-stats {
     margin-left: 2px;
 }
 
-/* "N chá»" / "âœ“N" mini badges */
 .dk-cal-lpcp-badges {
     display: flex;
     flex-wrap: wrap;
@@ -31117,9 +30836,9 @@ body.dark-theme .dk-wh-module-stats {
     font-size: 10px;
     padding: 2px 6px;
     border-radius: 12px;
-    /* Bo trÃ²n Ä‘á»u */
+    
     color: #ffffff;
-    /* Chá»¯ mÃ u tráº¯ng */
+    
     font-weight: bold;
     line-height: 1.4;
     white-space: nowrap;
@@ -31127,15 +30846,14 @@ body.dark-theme .dk-wh-module-stats {
 
 .dk-cal-lpcp-badge.cho {
     background-color: #f97316;
-    /* Ná»n cam Ä‘áº­m */
+    
 }
 
 .dk-cal-lpcp-badge.done {
     background-color: #22c55e;
-    /* Ná»n xanh lÃ¡ Ä‘áº­m */
+    
 }
 
-/* TÄƒng chiá»u cao Ã´ calendar Ä‘á»ƒ vá»«a LPCP tasks */
 .dk-cal-monthly-cell {
     min-height: 160px !important;
     padding: 8px !important;
@@ -31150,37 +30868,28 @@ body.dark-theme .dk-wh-module-stats {
     z-index: 2 !important;
 }
 
-/* Hiá»‡u á»©ng hover giÃºp ngÆ°á»i dÃ¹ng biáº¿t Ã´ nÃ o Ä‘ang Ä‘Æ°á»£c chá»n */
 .dk-cal-monthly-cell:hover {
     border-color: #3b82f6 !important;
     transform: scale(1.02);
-    /* HÆ¡i phá»“ng nháº¹ khi di chuá»™t vÃ o */
+    
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2) !important;
 }
 
-/* Äáº£m báº£o vÃ¹ng chá»©a cÃ¡c cháº¥m hoáº¡t Ä‘á»™ng (dots) khÃ´ng bá»‹ Ä‘Ã¨ lÃªn sá»‘ */
 .dk-cal-lpcp-dots {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
     margin-top: 5px;
     min-height: 20px;
-    /* Äá»§ khÃ´ng gian Ä‘á»ƒ hiá»ƒn thá»‹ */
+    
 }
 
-/* LÃ m ná»•i báº­t Ã´ Ä‘ang Ä‘Æ°á»£c chá»n */
 .dk-cal-monthly-cell.is-selected {
     border-color: #2563eb !important;
     background-color: #dbeafe !important;
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25) !important;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.3.56 â€” FINAL FIX: LPCP task chip layout trong calendar cells
-   Táº¥t cáº£ dÃ¹ng !important Ä‘á»ƒ ghi Ä‘Ã¨ má»i rule cÅ©
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* Container chá»©a danh sÃ¡ch tasks */
 .dk-cal-lpcp-tasks {
     display: flex !important;
     flex-direction: column !important;
@@ -31191,7 +30900,6 @@ body.dark-theme .dk-wh-module-stats {
     overflow: hidden !important;
 }
 
-/* Má»—i task chip: 1 DÃ’NG â€” dot + tÃªn NV + brand inline */
 .dk-cal-lpcp-task {
     display: flex !important;
     flex-direction: row !important;
@@ -31223,7 +30931,6 @@ body.dark-theme .dk-wh-module-stats {
     background: rgba(5, 150, 105, 0.08) !important;
 }
 
-/* HÃ ng 1: [TÃªn NV] Â· [MÃ£ lá»‡nh] â€” inline, bá»‹ cáº¯t náº¿u quÃ¡ dÃ i */
 .dk-cal-lpcp-trow1 {
     display: flex !important;
     flex-direction: row !important;
@@ -31235,7 +30942,6 @@ body.dark-theme .dk-wh-module-stats {
     flex-shrink: 0 !important;
 }
 
-/* TÃªn nhÃ¢n viÃªn */
 .dk-cal-lpcp-tnv {
     font-size: 9.5px !important;
     font-weight: 700 !important;
@@ -31249,7 +30955,6 @@ body.dark-theme .dk-wh-module-stats {
     line-height: 1 !important;
 }
 
-/* Separator Â· */
 .dk-cal-lpcp-tsep {
     color: #94a3b8 !important;
     font-size: 9px !important;
@@ -31257,7 +30962,6 @@ body.dark-theme .dk-wh-module-stats {
     line-height: 1.4 !important;
 }
 
-/* MÃ£ lá»‡nh */
 .dk-cal-lpcp-tma {
     font-size: 9px !important;
     color: #5f748a !important;
@@ -31269,7 +30973,6 @@ body.dark-theme .dk-wh-module-stats {
     line-height: 1.4 !important;
 }
 
-/* HÃ ng 2: [Brand] [KhÃ¡ch hÃ ng] â€” áº©n náº¿u khÃ´ng cÃ³ */
 .dk-cal-lpcp-tsub {
     display: flex !important;
     flex-direction: row !important;
@@ -31281,7 +30984,6 @@ body.dark-theme .dk-wh-module-stats {
     line-height: 1.2 !important;
 }
 
-/* Brand tag â€” inline sau tÃªn NV */
 .dk-cal-lpcp-tbrand {
     font-size: 8px !important;
     font-weight: 700 !important;
@@ -31300,7 +31002,6 @@ body.dark-theme .dk-wh-module-stats {
     align-items: center !important;
 }
 
-/* KhÃ¡ch hÃ ng */
 .dk-cal-lpcp-tkh {
     font-size: 8.5px !important;
     color: #64748b !important;
@@ -31312,7 +31013,6 @@ body.dark-theme .dk-wh-module-stats {
     line-height: 1.5 !important;
 }
 
-/* "+N lá»‡nh" (legacy, giá»¯ láº¡i cho backward compat) */
 .dk-cal-lpcp-more {
     font-size: 9px !important;
     color: #94a3b8 !important;
@@ -31322,7 +31022,6 @@ body.dark-theme .dk-wh-module-stats {
     white-space: nowrap !important;
 }
 
-/* "â–³ Thiáº¿u NPL" badge (legacy) */
 .dk-cal-lpcp-npl {
     font-size: 9px !important;
     color: #dc2626 !important;
@@ -31338,7 +31037,6 @@ body.dark-theme .dk-wh-module-stats {
     line-height: 1.4 !important;
 }
 
-/* Footer dÃ²ng gá»n: "+N lá»‡nh â–³ NPL" trÃªn cÃ¹ng 1 hÃ ng */
 .dk-cal-lpcp-footer {
     display: flex !important;
     flex-direction: row !important;
@@ -31370,7 +31068,6 @@ body.dark-theme .dk-wh-module-stats {
     line-height: 14px !important;
 }
 
-/* â”€â”€ 3 icon badges: Cáº£nh bÃ¡o / Task / Soáº¡n hÃ ng â”€â”€ */
 .dk-cal-lpcp-3badges {
     display: flex !important;
     flex-direction: row !important;
@@ -31421,19 +31118,16 @@ body.dark-theme .dk-wh-module-stats {
     display: block !important;
 }
 
-/* Cáº£nh bÃ¡o â€” Ä‘á» */
 .dk-cal-3b-warn {
     color: #b91c1c !important;
     background: rgba(220, 38, 38, 0.08) !important;
 }
 
-/* Task / phÃ¢n cÃ´ng â€” xanh dÆ°Æ¡ng */
 .dk-cal-3b-task {
     color: #1d4ed8 !important;
     background: rgba(37, 99, 235, 0.08) !important;
 }
 
-/* Soáº¡n hÃ ng â€” xanh lÃ¡ */
 .dk-cal-3b-pick {
     color: #15803d !important;
     background: rgba(21, 128, 61, 0.08) !important;
@@ -31454,7 +31148,6 @@ body.dark-theme .dk-cal-3b-pick {
     background: #14532d !important;
 }
 
-/* â”€â”€ Dark theme â”€â”€ */
 body.dark-theme .dk-cal-lpcp-trow1 {
     color: var(--dkk-text) !important;
 }
@@ -31540,7 +31233,6 @@ body.dark-theme .dk-lpcp-detail-date {
     color: #f1f5f9;
 }
 
-/* â”€â”€ v2.3.57 â€” Task dot color by status â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .dk-cal-lpcp-task.t-cho .dk-cal-lpcp-dot {
     background: #f97316 !important;
 }
@@ -31553,12 +31245,6 @@ body.dark-theme .dk-lpcp-detail-date {
     background: #059669 !important;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.3.62 â€” LPCP SECTION MODAL: Cáº£nh BÃ¡o / Task Pending / Phá»¥ Liá»‡u
-   Äá»“ng bá»™ light + dark mode cho 3 panel "Xem chi tiáº¿t"
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* â”€â”€ Modal header accent theo tá»«ng section â”€â”€ */
 .dk-modal-head.section-warn {
     background: linear-gradient(135deg, #fef2f2 0%, #fff1ee 100%) !important;
     border-bottom-color: #fecaca !important;
@@ -31604,7 +31290,6 @@ body.dark-theme .dk-lpcp-detail-date {
     color: #14532d !important;
 }
 
-/* â”€â”€ Table header (thead row) â”€â”€ */
 .dk-lpcp-modal-thead {
     display: grid;
     gap: 0 10px;
@@ -31627,7 +31312,6 @@ body.dark-theme .dk-lpcp-detail-date {
     text-overflow: ellipsis;
 }
 
-/* â”€â”€ Table rows â”€â”€ */
 .dk-lpcp-modal-row {
     display: grid;
     gap: 0 10px;
@@ -31635,7 +31319,7 @@ body.dark-theme .dk-lpcp-detail-date {
     padding: 9px 16px;
     border-bottom: 1px solid #e9eef5;
     transition: background .12s;
-    /* prevent grid children from stretching full column height/width */
+    
     align-content: center;
 }
 
@@ -31647,7 +31331,6 @@ body.dark-theme .dk-lpcp-detail-date {
     background: #f8fafc;
 }
 
-/* â”€â”€ Column types â”€â”€ */
 .dk-lpcp-col-code {
     font-size: 12px;
     font-weight: 700;
@@ -31673,7 +31356,6 @@ body.dark-theme .dk-lpcp-detail-date {
     text-overflow: ellipsis;
 }
 
-/* â”€â”€ Status badges (class-driven, no inline color) â”€â”€ */
 .dk-lpcp-badge {
     display: inline-flex;
     align-items: center;
@@ -31684,7 +31366,7 @@ body.dark-theme .dk-lpcp-detail-date {
     font-weight: 600;
     white-space: nowrap;
     border: 1px solid transparent;
-    /* grid item: don't stretch, align left */
+    
     justify-self: start;
     align-self: center;
     width: fit-content;
@@ -31697,7 +31379,6 @@ body.dark-theme .dk-lpcp-detail-date {
     flex-shrink: 0;
 }
 
-/* Chá» TH */
 .dk-lpcp-badge--cho {
     background: #fff7ed;
     color: #c2410c;
@@ -31708,7 +31389,6 @@ body.dark-theme .dk-lpcp-detail-date {
     background: #f97316;
 }
 
-/* Äang TH */
 .dk-lpcp-badge--dang {
     background: #eff6ff;
     color: #1d4ed8;
@@ -31719,7 +31399,6 @@ body.dark-theme .dk-lpcp-detail-date {
     background: #3b82f6;
 }
 
-/* HoÃ n thÃ nh */
 .dk-lpcp-badge--done {
     background: #f0fdf4;
     color: #15803d;
@@ -31730,7 +31409,6 @@ body.dark-theme .dk-lpcp-detail-date {
     background: #22c55e;
 }
 
-/* ChÆ°a HT */
 .dk-lpcp-badge--chua {
     background: #fef2f2;
     color: #b91c1c;
@@ -31741,7 +31419,6 @@ body.dark-theme .dk-lpcp-detail-date {
     background: #ef4444;
 }
 
-/* â”€â”€ PL Thiáº¿u indicators â”€â”€ */
 .dk-lpcp-thieu-yes {
     display: inline-flex;
     align-items: center;
@@ -31765,7 +31442,6 @@ body.dark-theme .dk-lpcp-detail-date {
     align-self: center;
 }
 
-/* â”€â”€ Warning rows â”€â”€ */
 .dk-lpcp-warn-row {
     display: flex;
     align-items: stretch;
@@ -31866,11 +31542,6 @@ body.dark-theme .dk-lpcp-detail-date {
     line-height: 1.5;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   DARK THEME overrides for LPCP section modal
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* Modal header accent â€” dark */
 body.dark-theme .dk-modal-head.section-warn {
     background: linear-gradient(135deg, rgba(239, 68, 68, .15) 0%, rgba(220, 38, 38, .1) 100%) !important;
     border-bottom-color: rgba(239, 68, 68, .3) !important;
@@ -31901,7 +31572,6 @@ body.dark-theme .dk-modal-head.section-pick h3 {
     color: #86efac !important;
 }
 
-/* Table header â€” dark */
 body.dark-theme .dk-lpcp-modal-thead {
     background: rgba(255, 255, 255, .04) !important;
     border-bottom-color: var(--dkk-border) !important;
@@ -31911,7 +31581,6 @@ body.dark-theme .dk-lpcp-modal-thead>span {
     color: #a1a1aa !important;
 }
 
-/* Table rows â€” dark */
 body.dark-theme .dk-lpcp-modal-row {
     border-bottom-color: var(--dkk-border) !important;
 }
@@ -31933,7 +31602,6 @@ body.dark-theme .dk-lpcp-col-brand {
     color: #e2e8f0 !important;
 }
 
-/* Badges â€” dark: swap to darker translucent palette */
 body.dark-theme .dk-lpcp-badge--cho {
     background: rgba(249, 115, 22, .15) !important;
     color: #fdba74 !important;
@@ -31974,7 +31642,6 @@ body.dark-theme .dk-lpcp-badge--chua .dk-lpcp-badge-dot {
     background: #f87171 !important;
 }
 
-/* PL Thiáº¿u â€” dark */
 body.dark-theme .dk-lpcp-thieu-yes {
     background: rgba(249, 115, 22, .15) !important;
     color: #fdba74 !important;
@@ -31985,7 +31652,6 @@ body.dark-theme .dk-lpcp-thieu-no {
     color: #3f3f46 !important;
 }
 
-/* Warning rows â€” dark */
 body.dark-theme .dk-lpcp-warn-row {
     border-bottom-color: var(--dkk-border) !important;
 }
@@ -32026,30 +31692,21 @@ body.dark-theme .dk-lpcp-warn-desc {
     color: #71717a !important;
 }
 
-/* dk-modal-content padding fix (rows go edge-to-edge) */
 .dk-modal-content:has(.dk-lpcp-modal-thead),
 .dk-modal-content:has(.dk-lpcp-warn-row) {
     padding: 0 !important;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.3.63 â€” MODAL "HOáº T Äá»˜NG KHO": Dark mode tá»•ng thá»ƒ
-   Strengthen táº¥t cáº£ rules Ä‘á»ƒ Ä‘áº£m báº£o dark-theme tháº¯ng má»i light rule
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* â”€â”€ Modal content area â”€â”€ */
 body.dark-theme .dk-modal-content {
     background: transparent !important;
 }
 
-/* â”€â”€ Meta summary bar (Nháº­p / Xuáº¥t / Kiá»ƒm kÃª / NK dá»± kiáº¿n) â”€â”€ */
 body.dark-theme .dk-modal-meta {
     background: rgba(255, 255, 255, .03) !important;
     border-bottom: 1px solid var(--dkk-border) !important;
     color: var(--dkk-text-dim) !important;
 }
 
-/* â”€â”€ Search bar â”€â”€ */
 body.dark-theme .dk-modal-search-bar {
     background: rgba(255, 255, 255, .04) !important;
     border-bottom: 1px solid var(--dkk-border) !important;
@@ -32074,7 +31731,6 @@ body.dark-theme .dk-search-count {
     color: var(--dkk-text-muted) !important;
 }
 
-/* â”€â”€ Tab bar â”€â”€ */
 body.dark-theme .dk-day-tabs {
     background: transparent !important;
     border-bottom: 1px solid var(--dkk-border) !important;
@@ -32111,7 +31767,6 @@ body.dark-theme .dk-day-tab.active .dk-day-tab-count {
     color: #fff !important;
 }
 
-/* â”€â”€ Detail table: agressive override cho má»i light-mode rule â”€â”€ */
 body.dark-theme .dk-detail-table {
     background: transparent !important;
     box-shadow: none !important;
@@ -32152,7 +31807,6 @@ body.dark-theme .dk-detail-table tbody tr:hover td {
     box-shadow: inset 4px 0 0 #60a5fa !important;
 }
 
-/* Number columns trong dark */
 body.dark-theme .dk-detail-table td[style*="text-align:right"] {
     color: #93c5fd !important;
     font-weight: 700 !important;
@@ -32162,7 +31816,6 @@ body.dark-theme .dk-detail-table td[style*="text-align:center"] {
     color: #a1a1aa !important;
 }
 
-/* â”€â”€ Group date row (nháº­p theo ngÃ y) â”€â”€ */
 body.dark-theme .dk-detail-table .dk-group-date-row td {
     background: linear-gradient(90deg, rgba(30, 64, 175, .6) 0%, rgba(109, 40, 217, .4) 100%) !important;
     border-top: 2px solid rgba(96, 165, 250, .4) !important;
@@ -32174,7 +31827,6 @@ body.dark-theme .dk-group-date-badge {
     font-weight: 700 !important;
 }
 
-/* â”€â”€ Group total/subtotal row â”€â”€ */
 body.dark-theme .dk-detail-table .dk-group-total-row td {
     background: rgba(59, 130, 246, .12) !important;
     border-top: 2px solid rgba(96, 165, 250, .3) !important;
@@ -32187,7 +31839,6 @@ body.dark-theme .dk-detail-table .dk-group-total-row .dk-total-value {
     font-weight: 700 !important;
 }
 
-/* â”€â”€ Footer (row count) â”€â”€ */
 body.dark-theme .dk-modal-footer {
     background: rgba(0, 0, 0, .3) !important;
     border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -32201,11 +31852,6 @@ body.dark-theme .dk-empty {
     color: rgba(255, 255, 255, 0.5) !important;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.3.64 â€” DARK MODE: CSS variable overrides
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* â”€â”€ Ghi Ä‘Ã¨ --dk-* variables khi dark theme â”€â”€ */
 body.dark-theme {
     --dk-card: #1c1c1f;
     --dk-line: rgba(255, 255, 255, 0.09);
@@ -32218,7 +31864,6 @@ body.dark-theme {
     --dk-shadow-lg: 0 10px 36px rgba(0, 0, 0, 0.55);
 }
 
-/* â”€â”€ Stat cards: enhanced dark mode â”€â”€ */
 body.dark-theme .dk-lpcp-stats-strip {
     gap: 10px;
 }
@@ -32229,7 +31874,6 @@ body.dark-theme .dk-lpcp-stat {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* Glow accent tÆ°Æ¡ng á»©ng mÃ u */
 body.dark-theme .dk-lpcp-stat::after {
     content: '';
     position: absolute;
@@ -32259,7 +31903,6 @@ body.dark-theme .dk-lpcp-stat.dk-lpcp-orange {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(251, 191, 36, 0.12) !important;
 }
 
-/* Left bar accent thÃªm glow */
 body.dark-theme .dk-lpcp-stat::before {
     width: 4px !important;
     filter: brightness(1.2) !important;
@@ -32280,7 +31923,6 @@ body.dark-theme .dk-lpcp-stat-value {
     line-height: 1 !important;
 }
 
-/* MÃ u sá»‘ ná»•i báº­t hÆ¡n theo tá»«ng loáº¡i */
 body.dark-theme .dk-lpcp-stat.dk-lpcp-green .dk-lpcp-stat-value {
     color: #4ade80 !important;
     text-shadow: 0 0 20px rgba(74, 222, 128, 0.3) !important;
@@ -32302,7 +31944,6 @@ body.dark-theme .dk-lpcp-stat-sub {
     margin-top: 6px !important;
 }
 
-/* â”€â”€ Sidebar badge counts â€” dark mode â”€â”€ */
 body.dark-theme .warn .dk-side-badge-cnt {
     background: rgba(239, 68, 68, 0.2) !important;
     color: #f87171 !important;
@@ -32321,20 +31962,16 @@ body.dark-theme .pick .dk-side-badge-cnt {
     border: 1px solid rgba(34, 197, 94, 0.3) !important;
 }
 
-/* â”€â”€ Side card body: inline detail rows dark mode â”€â”€ */
 body.dark-theme .dk-side-card-body {
     scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
 }
 
-/* â”€â”€ Sidebar: cáº£nh bÃ¡o section inline rows â”€â”€ */
 body.dark-theme .dk-lpcp-warn-item,
 body.dark-theme .dk-side-card-body .dk-lpcp-warn-row,
 body.dark-theme .dk-side-card-body>div[style] {
     border-bottom-color: rgba(255, 255, 255, 0.07) !important;
 }
 
-/* Override inline style badge colors trong sidebar (ttBadge dÃ¹ng inline) */
-/* Chá» TH */
 body.dark-theme .dk-side-card-body span[style*="#fff7ed"],
 body.dark-theme .dk-side-card-body span[style*="#eff6ff"],
 body.dark-theme .dk-side-card-body span[style*="#f0fdf4"],
@@ -32363,15 +32000,11 @@ body.dark-theme .dk-side-card-body span[style*="color:#ef4444"] {
     color: #fca5a5 !important;
 }
 
-/* Fix chart height in fullscreen mode */
 .dk-panel-fullscreen [id^="chart"] {
     height: calc(100vh - 80px) !important;
 
 }
 
-/* ==========================================================
-   TÃ¬nh hÃ¬nh kiá»ƒm kÃª - Circular Progress Layout
-   ========================================================== */
 .dk-kk-dashboard-layout {
     display: flex;
     align-items: center;
@@ -32552,7 +32185,6 @@ body.dark-theme .dk-kk-info-bad .dk-kk-info-val {
     }
 }
 
-/* Dark theme legibility improvements for Stocktake Widget */
 body.dark-theme .dk-kk-info-lbl {
     color: rgba(255, 255, 255, 0.7) !important;
 }
@@ -32570,10 +32202,6 @@ body.dark-theme .dk-kk-circular-val .pct-lbl {
     color: rgba(255, 255, 255, 0.5) !important;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.5.0 â€” GLOBAL TOPBAR
-   Premium frosted-glass top navigation bar with date filter
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-topbar {
     display: flex;
     align-items: center;
@@ -32657,7 +32285,6 @@ body.dark-theme .dk-kk-circular-val .pct-lbl {
     justify-content: center;
 }
 
-/* Äá»‹nh dáº¡ng thanh tÃ¬m kiáº¿m khi áº©n thanh lá»c (cÄƒn giá»¯a tuyá»‡t Ä‘á»‘i vÃ  má»Ÿ rá»™ng kÃ­ch thÆ°á»›c) */
 @media (min-width: 769px) {
     .dk-topbar.filter-hidden .dk-topbar-filter-wrap { display: none; }
     .dk-topbar.filter-hidden .dk-topbar-center {
@@ -32675,7 +32302,6 @@ body.dark-theme .dk-kk-circular-val .pct-lbl {
     }
 }
 
-/* v2.6.11 â€” Global Search Bar in topbar */
 .dk-topbar-search {
     position: relative;
     display: flex;
@@ -32948,9 +32574,6 @@ body.dark-theme .dk-kk-circular-val .pct-lbl {
     white-space: nowrap;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.5.0 â€” FIX: Lap day theo loai kho bi lech (light mode)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-capacity-bar {
     flex: 1;
     min-height: 0;
@@ -32985,9 +32608,6 @@ body.dark-theme .dk-kk-circular-val .pct-lbl {
     display: block;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.5.0 â€” VIEW 3 DARK MODE: Less glaring, more readable
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 body.dark-theme .dk-lpcp-stat {
     background: linear-gradient(160deg, rgba(14, 30, 60, 0.92) 0%, rgba(10, 22, 40, 0.95) 100%) !important;
     border-color: rgba(96, 165, 250, 0.20) !important;
@@ -33078,11 +32698,6 @@ body.dark-theme .dk-lpcp-side-topbar {
     border-color: rgba(96, 165, 250, 0.18) !important;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.6.0 â€” NO SIDEBAR LAYOUT + HORIZONTAL NAV TABS IN TOPBAR
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-
-/* Remove sidebar, main takes full width */
 .dk-sidebar {
     display: none !important;
 }
@@ -33098,7 +32713,6 @@ body.dark-theme .dk-lpcp-side-topbar {
     overflow-y: auto;
 }
 
-/* Horizontal page nav tabs in topbar */
 .dk-topbar-nav {
     display: flex;
     align-items: center;
@@ -33152,19 +32766,14 @@ body.dark-theme .dk-lpcp-side-topbar {
     opacity: 1;
 }
 
-/* Remove sidebar toggle button from topbar since no sidebar */
 #sidebarToggleTop {
     display: none !important;
 }
 
-/* Remove chips section */
 .dk-topbar-chips {
     display: none !important;
 }
 
-
-
-/* v2.6.14 â€” Search section items styling */
 .dk-search-section .dk-search-item-title i {
     transition: transform 0.2s;
 }
@@ -33177,10 +32786,6 @@ body.dark-theme .dk-lpcp-side-topbar {
     font-style: italic;
 }
 
-
-
-
-/* v2.6.16 â€” Strong navigation highlight effect */
 @keyframes dk-nav-glow {
     0% {
         box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.8), 0 0 20px rgba(96, 165, 250, 0.4);
@@ -33227,12 +32832,6 @@ body.dark-theme .dk-lpcp-side-topbar {
     filter: brightness(1.08);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.6.1b â€” FIX: Modal meta stat cards â€” chá»¯ sá»‘ bá»‹ áº©n do
-   -webkit-text-fill-color: transparent tá»« gradient text rules
-   lan vÃ o inline-style divs bÃªn trong .dk-modal-meta
-   (Van's code â€” merged 2026-06-05)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-modal-meta * {
     -webkit-text-fill-color: unset !important;
     background-clip: unset !important;
@@ -33243,12 +32842,6 @@ body.dark-theme .dk-lpcp-side-topbar {
     -webkit-text-fill-color: inherit !important;
 }
 
-/* END v2.6.1b */
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.6.3 â€” FIX: Sticky thead + hiá»ƒn Ä‘áº§y Ä‘á»§ sá»‘ dÃ²ng trong báº£ng
-   (Van's code â€” merged 2026-06-05)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-modal-content {
     overflow: auto;
     flex: 1;
@@ -33267,7 +32860,9 @@ body.dark-theme .dk-lpcp-side-topbar {
 }
 
 .dk-detail-table-wrap {
-    overflow: clip;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
     border-radius: 10px;
     border: 1px solid #e2e8f0;
     box-shadow: 0 1px 6px rgba(37, 99, 235, 0.07);
@@ -33279,7 +32874,6 @@ body.dark-theme .dk-detail-table-wrap {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* v2.6.5 â€” Tabs bar: sticky â€” luÃ´n hiá»ƒn tháº¥y khi scroll */
 .dk-modal-content>.dk-day-tabs {
     position: sticky;
     top: 0;
@@ -33308,12 +32902,6 @@ body.dark-theme .dk-modal-content>.dk-day-tabs {
     z-index: 10 !important;
 }
 
-/* END v2.6.5 */
-
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   v2.6.6 â€” FIX: Rows "xuyÃªn tháº¥u" tab bar + thead khi scroll
-   (Van's code â€” merged 2026-06-05)
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 .dk-modal-content .dk-detail-table tbody tr {
     animation: none !important;
     transform: none !important;
@@ -33354,25 +32942,29 @@ body.dark-theme .dk-modal-content .dk-detail-table tbody tr:nth-child(even) td {
     background: #132848;
 }
 
-/* v2.7.5 — Fix table width & column stretching in 'Toàn bộ vật tư theo dung tích' detail modal */
 #top5VTBodyTbl .dk-detail-table-wrap {
     max-width: none;
     margin: 0 12px 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 #top5VTBodyTbl .dk-detail-table {
-    table-layout: fixed;
-    width: 100%;
+    table-layout: auto;
+    width: max-content;
     min-width: 1200px;
 }
+
 .dk-top5kh-table {
-    table-layout: fixed;
+    table-layout: auto;
     width: 100%;
-    min-width: 1100px;
+    min-width: 900px;
 }
 
-/* END v2.6.6 */
+.dk-detail-table-wrap:has(.dk-top5kh-table) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
 
-/* Page Loading Overlay (Van's code â€” merged 2026-06-05) */
 .dk-page-loading-overlay {
     display: none;
     position: absolute;
@@ -33424,7 +33016,6 @@ body.dark-theme .dk-page-loading-overlay span {
     color: #cbd5e1;
 }
 
-/* v2.6.2 - Fix chart container collapse during re-render causing scroll jump */
 #chartCapacityRing,
 #chartCustomerPie,
 #chartCapacityBar,
@@ -33439,7 +33030,6 @@ body.dark-theme .dk-page-loading-overlay span {
     min-height: 250px !important;
 }
 
-/* --- FLATPICKR MIN CSS --- */
 .flatpickr-calendar {
     background: transparent;
     opacity: 0;
@@ -33654,30 +33244,18 @@ body.dark-theme .dk-page-loading-overlay span {
 
 .flatpickr-months .flatpickr-prev-month.flatpickr-prev-month,
 .flatpickr-months .flatpickr-next-month.flatpickr-prev-month {
-    /*
-      /*rtl:begin:ignore*/
+    
     left: 0
-        /*
-      /*rtl:end:ignore*/
+        
 }
 
-/*
-      /*rtl:begin:ignore*/
-/*
-      /*rtl:end:ignore*/
 .flatpickr-months .flatpickr-prev-month.flatpickr-next-month,
 .flatpickr-months .flatpickr-next-month.flatpickr-next-month {
-    /*
-      /*rtl:begin:ignore*/
+    
     right: 0
-        /*
-      /*rtl:end:ignore*/
+        
 }
 
-/*
-      /*rtl:begin:ignore*/
-/*
-      /*rtl:end:ignore*/
 .flatpickr-months .flatpickr-prev-month:hover,
 .flatpickr-months .flatpickr-next-month:hover {
     color: #959ea9
@@ -34342,7 +33920,6 @@ span.flatpickr-weekday {
     }
 }
 
-/* --- FLATPICKR AIRBNB THEME CSS --- */
 .flatpickr-calendar {
     background: transparent;
     opacity: 0;
@@ -34557,38 +34134,22 @@ span.flatpickr-weekday {
 
 .flatpickr-months .flatpickr-prev-month.flatpickr-prev-month,
 .flatpickr-months .flatpickr-next-month.flatpickr-prev-month {
-    /*
-      /*rtl:begin:ignore*/
-    /*
-      */
+    
+    
     left: 0;
-    /*
-      /*rtl:end:ignore*/
-    /*
-      */
+    
+    
 }
 
-/*
-      /*rtl:begin:ignore*/
-/*
-      /*rtl:end:ignore*/
 .flatpickr-months .flatpickr-prev-month.flatpickr-next-month,
 .flatpickr-months .flatpickr-next-month.flatpickr-next-month {
-    /*
-      /*rtl:begin:ignore*/
-    /*
-      */
+    
+    
     right: 0;
-    /*
-      /*rtl:end:ignore*/
-    /*
-      */
+    
+    
 }
 
-/*
-      /*rtl:begin:ignore*/
-/*
-      /*rtl:end:ignore*/
 .flatpickr-months .flatpickr-prev-month:hover,
 .flatpickr-months .flatpickr-next-month:hover {
     color: #f64747;
@@ -35356,9 +34917,6 @@ span.flatpickr-day.nextMonthDay.selected {
     }
 }
 
-
-/* --- INLINE VIEW STYLES --- */
-
         .dk-cal-lpcp-sl {
             display: flex !important;
             justify-content: space-between !important;
@@ -35458,7 +35016,7 @@ span.flatpickr-day.nextMonthDay.selected {
             margin-top: 2px !important;
         }
 
-        /* Dark theme overrides */
+        
         body.dark-theme .dk-cal-lpcp-task.t-cho {
             border-left-color: #fb923c !important;
             background: rgba(249,115,22,0.18) !important;
@@ -35501,7 +35059,7 @@ span.flatpickr-day.nextMonthDay.selected {
         }
 
         body.dark-theme .dk-cal-monthly-cell.is-selected {
-            background-color: #1e3a8a !important; /* Dark Blue */
+            background-color: #1e3a8a !important; 
             border-color: #3b82f6 !important;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3) !important;
         }
@@ -35511,7 +35069,7 @@ span.flatpickr-day.nextMonthDay.selected {
             height: auto !important;
         }
 
-        /* 🟩🟩 LPCP Stats Strip (Page 3) 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 */
+        
         .dk-lpcp-stats-strip {
             display: flex;
             justify-content: center;
@@ -35613,11 +35171,11 @@ span.flatpickr-day.nextMonthDay.selected {
 
         body.dark-theme .dk-lpcp-stat-label,
         body.dark-theme .dk-lpcp-stat-sub {
-            color: #cbd5e1 !important; /* Force readable light gray in dark mode */
+            color: #cbd5e1 !important; 
             opacity: 1 !important;
         }
 
-        /* 🟩🟩 LPCP Inline Detail Panel (Page 3) 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 */
+        
         .dk-lpcp-detail-panel {
             margin-top: 12px;
         }
@@ -35768,7 +35326,7 @@ span.flatpickr-day.nextMonthDay.selected {
             padding: 20px 0;
         }
 
-        /* 🟩🟩 Pick Order item (rich layout) 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 */
+        
         .dk-lpcp-po-item {
             padding: 8px 10px;
             background: var(--dk-bg);
@@ -35824,7 +35382,7 @@ span.flatpickr-day.nextMonthDay.selected {
             gap: 5px;
         }
 
-        /* 🟩🟩 Colored pill tag 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 */
+        
         .dk-lpcp-pill {
             display: inline-flex;
             align-items: center;
@@ -35873,7 +35431,7 @@ span.flatpickr-day.nextMonthDay.selected {
             border-radius: 4px;
         }
 
-        /* Grid: Always show Calendar and Sidebar */
+        
         .dk-page-content-grid {
             display: grid;
             grid-template-columns: 1fr 380px;
@@ -35894,7 +35452,7 @@ span.flatpickr-day.nextMonthDay.selected {
             height: 100%;
         }
 
-        /* Bottom charts grid */
+        
         .dk-bottom-charts-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -35920,7 +35478,7 @@ span.flatpickr-day.nextMonthDay.selected {
             }
         }
 
-        /* Sidebar wrapper */
+        
         .dk-lpcp-side-panel {
             display: flex;
             flex-direction: column;
@@ -35928,7 +35486,7 @@ span.flatpickr-day.nextMonthDay.selected {
             height: 100%;
         }
 
-        /* Sidebar topbar */
+        
         .dk-lpcp-side-topbar {
             background: #fff;
             border: 1px solid #e4edf6;
@@ -35959,7 +35517,7 @@ span.flatpickr-day.nextMonthDay.selected {
             color: var(--dkk-text);
         }
 
-        /* Nút đóng sidebar */
+        
         .dk-side-close-btn {
             background: #f1f5f9;
             border: 1px solid #e2e8f0;
@@ -35987,7 +35545,7 @@ span.flatpickr-day.nextMonthDay.selected {
             color: var(--dkk-text-muted);
         }
 
-        /* 3 card bảng dọc */
+        
         .dk-side-card {
             background: #fff;
             border-radius: 8px;
@@ -36084,7 +35642,7 @@ span.flatpickr-day.nextMonthDay.selected {
             color: #15803d;
         }
 
-        /* Body scroll */
+        
         .dk-side-card-body {
             padding: 10px 12px;
             overflow-y: auto;
@@ -36095,7 +35653,7 @@ span.flatpickr-day.nextMonthDay.selected {
             scrollbar-color: #cbd5e1 transparent;
         }
 
-        /* Ô ngày chia 2 phần */
+        
         .dk-cal-monthly-cell .dk-cell-top {
             pointer-events: auto;
             cursor: pointer;
@@ -36117,7 +35675,7 @@ span.flatpickr-day.nextMonthDay.selected {
             border-top-color: rgba(255,255,255,0.1);
         }
 
-        /* "Xem chi tiết" button in card header */
+        
         .dk-side-detail-btn {
             margin-left: auto;
             background: none;
@@ -36149,7 +35707,7 @@ span.flatpickr-day.nextMonthDay.selected {
                 color: #bfdbfe;
             }
 
-        /* Dark mode: JS-rendered sidebar content rows */
+        
         body.dark-theme .dk-side-card-body {
             background: transparent;
             color: var(--dkk-text);
@@ -36167,14 +35725,14 @@ span.flatpickr-day.nextMonthDay.selected {
             color: var(--dkk-text-muted) !important;
         }
 
-        /* Fix: sticky sidebar - stretch to chart height without expanding it */
+        
         .dk-side-panel-wrap {
             display: block !important;
             position: relative;
-            align-self: start; /* Khong gian no theo lich */
-            height: 950px; /* Co dinh chieu cao bang dung lich 5 tuan */
+            align-self: start; 
+            height: 950px; 
         }
-        /* Override base height:100% - panel takes full wrap height and splits into 3 cards */
+        
         .dk-lpcp-side-panel {
             position: absolute;
             top: 0;
@@ -36184,7 +35742,7 @@ span.flatpickr-day.nextMonthDay.selected {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            overflow: hidden; /* Hide overflow, children will scroll */
+            overflow: hidden; 
         }
 
             .dk-lpcp-side-panel::-webkit-scrollbar {
@@ -36195,7 +35753,7 @@ span.flatpickr-day.nextMonthDay.selected {
                 background: #cbd5e1;
                 border-radius: 4px;
             }
-        /* Card body: scroll when content is long, never overflow card border */
+        
         .dk-side-card-body {
             flex: 1;
             min-height: 0;
@@ -36215,9 +35773,6 @@ span.flatpickr-day.nextMonthDay.selected {
                 border-radius: 4px;
             }
 
-/* ============================================================= */
-/* Tồn đầu kỳ — Master-Detail Layout                            */
-/* ============================================================= */
 .dk-tdk-master-detail {
     display: flex;
     gap: 16px;
@@ -36273,7 +35828,6 @@ body.dark-theme .dk-tdk-right {
     margin-bottom: 4px;
 }
 
-/* Active row highlight */
 .dk-tdk-row-active {
     background: rgba(59, 130, 246, 0.12) !important;
     box-shadow: inset 3px 0 0 #3b82f6;
@@ -36288,7 +35842,6 @@ body.dark-theme tr[data-tdk-idx]:hover {
     background: rgba(59, 130, 246, 0.1);
 }
 
-/* Right panel - Header */
 .dk-tdk-detail-header {
     padding: 16px 18px;
     border-bottom: 1px solid var(--dk-line, #e2e8f0);
@@ -36310,7 +35863,6 @@ body.dark-theme .dk-tdk-detail-header {
     line-height: 1.3;
 }
 
-/* Right panel - 4 metric cards */
 .dk-tdk-detail-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -36348,7 +35900,6 @@ body.dark-theme .dk-tdk-detail-card-value {
 .dk-text-warn { color: var(--dk-warn, #f59e0b) !important; }
 .dk-text-danger { color: var(--dk-danger, #ef4444) !important; }
 
-/* Right panel - Meta info */
 .dk-tdk-detail-meta {
     padding: 12px 18px;
     border-top: 1px solid var(--dk-line, #e2e8f0);
@@ -36369,7 +35920,6 @@ body.dark-theme .dk-tdk-detail-meta {
     display: inline-block;
 }
 
-/* ── Compact table columns ── */
 .dk-tdk-table { table-layout: fixed; width: 100%; }
 .dk-tdk-table th, .dk-tdk-table td { padding: 6px 8px; font-size: 12px; }
 .dk-tdk-col-stt  { width: 32px; text-align: center; }
@@ -36388,10 +35938,8 @@ body.dark-theme .dk-tdk-detail-meta {
     max-width: 0;
 }
 
-/* ── Row styles ── */
 .dk-tdk-row { cursor: pointer; transition: background 0.12s; }
 
-/* Active row — strong persistent highlight (override dk-detail-table base) */
 .dk-detail-table tbody tr.dk-tdk-row-active,
 .dk-detail-table tbody tr.dk-tdk-row-active:hover {
     background: #93c5fd !important;
@@ -36421,7 +35969,6 @@ body.dark-theme .dk-detail-table tbody tr.dk-tdk-row-active td:first-child {
     box-shadow: inset 4px 0 0 #60a5fa !important;
 }
 
-/* ── Roll detail table (right panel) ── */
 .dk-tdk-roll-summary {
     display: flex;
     gap: 14px;
@@ -36450,7 +35997,6 @@ body.dark-theme .dk-tdk-roll-summary {
 .dk-tdk-roll-tbl th { font-size: 11px; padding: 5px 7px; white-space: normal; }
 .dk-tdk-roll-tbl td { font-size: 11px; padding: 5px 7px; white-space: nowrap; }
 
-/* ── Resizer handle ── */
 .dk-tdk-resizer {
     flex: 0 0 6px;
     cursor: col-resize;
@@ -36484,7 +36030,7 @@ body.dark-theme .dk-tdk-resizer:hover,
 body.dark-theme .dk-tdk-resizer:active {
     background: #60a5fa;
 }
-/* Disable transitions during resize drag for performance */
+
 .dk-tdk-resizing .dk-tdk-left,
 .dk-tdk-resizing .dk-tdk-right {
     transition: none !important;

@@ -440,11 +440,13 @@ namespace NtbSoft.ERP.Model.DashboardKho
                     ct.NgayNhapKho AS NgayNhapKho,
                     DATEDIFF(DAY, ct.NgayNhapKho, GETDATE()) AS SoNgayTon,
                     SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS TonKho,
-                    ISNULL(dv.TenDVVT, '') AS DonVi
+                    ISNULL(dv.TenDVVT, '') AS DonVi,
+                    MAX(ts.NgayHetHan) AS NgayHetHan
                 FROM dbo.ERP_ChiTietNhapKhoNPL ct
                 LEFT JOIN dbo.ERP_VatTuTV vt ON ct.MaVTID = vt.MaVTID
                 LEFT JOIN dbo.ERP_KhoVai kv ON ct.KhoVaiID = kv.KhoVaiID
-                LEFT JOIN dbo.ERP_DonViVT dv ON kv.MaDVVT = dv.MaDVVT
+                LEFT JOIN dbo.ERP_DonViVT dv ON ct.MaDVVT = dv.MaDVVT
+                LEFT JOIN dbo.ERPThongSoVatTu ts ON ct.MaVTID = ts.MaVTID AND ct.MauVTID = ts.MauVTID
                 WHERE ct.NgayNhapKho IS NOT NULL
                   AND ISNULL(ct.SoLuongThucTeBanDau, 0) > 0
                   AND vt.MaVT IS NOT NULL
@@ -499,7 +501,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 LEFT JOIN dbo.ERP_VatTuTV vt ON ct.MaVTID = vt.MaVTID
                 LEFT JOIN dbo.ERP_MauVTTV m ON m.MauVTID = ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 2), '')
                 LEFT JOIN dbo.ERP_KhoVai k ON k.KhoVaiID = ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 1), '')
-                LEFT JOIN dbo.ERP_DonViVT d ON d.MaDVVT = k.MaDVVT
+                LEFT JOIN dbo.ERP_DonViVT d ON d.MaDVVT = ct.MaDVVT
                 WHERE v.MaONPL IS NOT NULL
                 GROUP BY 
                     vt.MaVT, 
@@ -580,7 +582,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
                     ROW_NUMBER() OVER (ORDER BY SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) DESC) AS STT,
                     vt.MaVT AS ItemCode,
                     ISNULL(vt.ChiTiet, '') AS TenVT,
-                    ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 2), '') AS Mau,
+                    ISNULL(m.MaMauVT, '') AS Mau,
                     ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 1), '') AS KhoVai,
                     SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS SoLuong,
                     ROUND(SUM(ISNULL(v.CBM, 0)), 4) AS TongCBM,
@@ -589,10 +591,11 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 INNER JOIN dbo.ERP_NhapKhoNPL nk ON ct.SoLoID = nk.SoLoID
                 LEFT JOIN dbo.ERP_VatTuTV vt ON ct.MaVTID = vt.MaVTID
                 LEFT JOIN dbo.ERP_VatTuCBM v ON ct.BarCode = v.Barcode
+                LEFT JOIN dbo.ERP_MauVTTV m ON m.MauVTID = ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 2), '')
                 LEFT JOIN dbo.KhachHang kh ON nk.MaKH = kh.MaKH OR nk.MaHang = kh.MaKH
                 WHERE (nk.MaKH = @MaKH OR kh.TenKH = @MaKH OR nk.KhachHang = @MaKH)
                   AND ISNULL(ct.SoLuongThucTeBanDau, 0) > 0
-                GROUP BY vt.MaVT, vt.ChiTiet, ct.MaNPL
+                GROUP BY vt.MaVT, vt.ChiTiet, ct.MaNPL, m.MaMauVT
                 ORDER BY SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) DESC;",
                 cmd => {
                     cmd.Parameters.AddWithValue("@MaKH", maKH ?? "");
@@ -609,6 +612,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
                     CASE WHEN ct.IsNPL = 1 THEN 'NL' ELSE 'PL' END AS LoaiKho,
                     nk.SoLo AS Lo,
                     ct.NgayNhapKho AS NgaySX,
+                    MAX(ts.NgayHetHan) AS NgayHetHan,
                     DATEDIFF(DAY, ct.NgayNhapKho, GETDATE()) AS SoNgayTon,
                     SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS TonKho,
                     ISNULL(dv.TenDVVT, '') AS DonVi,
@@ -618,7 +622,8 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 LEFT JOIN dbo.ERP_VatTuTV vt ON ct.MaVTID = vt.MaVTID
                 LEFT JOIN dbo.ERP_VatTuCBM cbm ON ct.BarCode = cbm.Barcode
                 LEFT JOIN dbo.ERP_KhoVai kv ON ct.KhoVaiID = kv.KhoVaiID
-                LEFT JOIN dbo.ERP_DonViVT dv ON kv.MaDVVT = dv.MaDVVT
+                LEFT JOIN dbo.ERP_DonViVT dv ON ct.MaDVVT = dv.MaDVVT
+                LEFT JOIN dbo.ERPThongSoVatTu ts ON ct.MaVTID = ts.MaVTID AND ct.MauVTID = ts.MauVTID
                 WHERE ct.NgayNhapKho IS NOT NULL
                   AND ISNULL(ct.SoLuongThucTeBanDau, 0) > 0
                   AND vt.MaVT IS NOT NULL
@@ -985,23 +990,25 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 return ExecuteQuery(@"
                     SELECT 
                         ROW_NUMBER() OVER (ORDER BY ct.NgayNhapKho DESC) AS STT,
-                        ISNULL(nk.PINCC, '') AS PINCC,
+                        ISNULL(nk.SoLo, '') AS PINCC,
                         ISNULL(ct.POMua, '') AS PO,
-                        ISNULL(ct.MaVTID, '') AS ItemCode,
-                        ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 2), '') AS MaMauVT,
-                        ISNULL(vt.ChiTiet, '') AS MauVT,
-                        ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 3), '') AS WidthSize,
+                        ISNULL(vt.MaVT, '') AS ItemCode,
+                        ISNULL(m.MaMauVT, '') AS MaMauVT,
+                        ISNULL(m.MauVT, '') AS MauVT,
+                        ISNULL(k.KhoVai, '') AS WidthSize,
                         ISNULL(dv.TenDVVT, '') AS DonViVT,
-                        ISNULL(kh.TenKH, '') AS TenKH,
+                        ISNULL(NULLIF(kh.TenKH, ''), N'Khách trống') AS TenKH,
                         ISNULL(ct.SoLuongThucTeBanDau, 0) AS SoLuong,
-                        ISNULL(ct.SoBarCode, 0) AS SoBarCode,
+                        1 AS SoBarCode,
+                        CAST(ISNULL(ct.SoLuongThucTeBanDau, 0) * ISNULL(ct.DonGia, 0) AS DECIMAL(18, 2)) AS GiaTri,
                         ct.NgayNhapKho
                     FROM dbo.ERP_ChiTietNhapKhoNPL ct
                     LEFT JOIN dbo.ERP_NhapKhoNPL nk ON ct.SoLoID = nk.SoLoID
                     LEFT JOIN dbo.KhachHang kh ON nk.MaKH = kh.MaKH
                     LEFT JOIN dbo.ERP_VatTuTV vt ON ct.MaVTID = vt.MaVTID
-                    LEFT JOIN dbo.ERP_KhoVai kv ON ct.KhoVaiID = kv.KhoVaiID
-                    LEFT JOIN dbo.ERP_DonViVT dv ON kv.MaDVVT = dv.MaDVVT
+                    LEFT JOIN dbo.ERP_MauVTTV m ON m.MauVTID = ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 2), '')
+                    LEFT JOIN dbo.ERP_KhoVai k ON k.KhoVaiID = ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 1), '')
+                    LEFT JOIN dbo.ERP_DonViVT dv ON ct.MaDVVT = dv.MaDVVT
                     WHERE ct.NgayNhapKho >= @TuNgay AND ct.NgayNhapKho < DATEADD(DAY, 1, @DenNgay)
                     ORDER BY ct.NgayNhapKho DESC;",
                     cmd => {
@@ -1035,7 +1042,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
                     SELECT 
                         ROW_NUMBER() OVER (ORDER BY SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) DESC) AS STT,
                         ct.POMua,
-                        ISNULL(kh.TenKH, '') AS NCC,
+                        ISNULL(NULLIF(kh.TenKH, ''), N'Khách trống') AS NCC,
                         COUNT(DISTINCT ct.MaNPL) AS SoVT,
                         SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS SL,
                         SUM(ISNULL(ct.SoLuongThucTeBanDau, 0) * ISNULL(ct.DonGia, 0)) AS GiaTri,
@@ -1056,7 +1063,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 return ExecuteQuery(@"
                     SELECT 
                         ROW_NUMBER() OVER (ORDER BY SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) DESC) AS STT,
-                        ISNULL(kh.TenKH, '') AS NCC,
+                        ISNULL(NULLIF(kh.TenKH, ''), N'Khách trống') AS NCC,
                         COUNT(DISTINCT ct.POMua) AS SoPO,
                         COUNT(DISTINCT ct.MaNPL) AS SoVT,
                         SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS SL,
@@ -1089,7 +1096,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
                     FROM dbo.ERP_ChiTietNhapKhoNPL ct
                     LEFT JOIN dbo.ERP_VatTuTV vt ON ct.MaVTID = vt.MaVTID
                     LEFT JOIN dbo.ERP_KhoVai kv ON ct.KhoVaiID = kv.KhoVaiID
-                    LEFT JOIN dbo.ERP_DonViVT dv ON kv.MaDVVT = dv.MaDVVT
+                    LEFT JOIN dbo.ERP_DonViVT dv ON ct.MaDVVT = dv.MaDVVT
                     WHERE ct.NgayNhapKho >= @TuNgay AND ct.NgayNhapKho < DATEADD(DAY, 1, @DenNgay)
                     GROUP BY vt.MaVT, vt.ChiTiet, ct.IsNPL, dv.TenDVVT
                     ORDER BY SLNhap DESC;",
@@ -1108,16 +1115,23 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 return ExecuteQuery(@"
                     SELECT 
                         ROW_NUMBER() OVER (ORDER BY xh.NgayXuatHang DESC) AS STT,
-                        ISNULL(xh.MaGop, '') AS MaLenh,
-                        ISNULL(xh.ItemCode, ISNULL(xh.TenVT, '')) AS TenHang,
+                        CASE WHEN ISNULL(xh.MaGop, '') = '' THEN N'(Trống)' ELSE xh.MaGop END AS MaLenh,
+                        CASE WHEN ISNULL(xh.TenHang, '') = '' THEN N'(Trống)' ELSE xh.TenHang END AS TenHang,
                         ISNULL(xh.MaKH, '') AS MaKH,
-                        ISNULL(kh.TenKH, ISNULL(xh.TenKhachHang, '')) AS TenKH,
-                        ISNULL(xh.LoaiKho, '') AS LoaiKho,
+                        CASE 
+                            WHEN ISNULL(kh.TenKH, '') <> '' THEN kh.TenKH
+                            WHEN ISNULL(xh.TenKH, '') <> '' THEN xh.TenKH
+                            WHEN ISNULL(xh.MaKH, '') <> '' THEN xh.MaKH
+                            ELSE N'(Khách trống)'
+                        END AS TenKH,
+                        CASE WHEN xh.NPL = 1 THEN 'NL' ELSE 'PL' END AS LoaiKho,
                         ISNULL(xh.SLNhap, 0) AS SoLuong,
                         0 AS SoBarCode,
-                        xh.NgayXuatHang
+                        CAST(ISNULL(xh.SLNhap, 0) * ISNULL(ct.DonGia, 0) AS DECIMAL(18, 2)) AS GiaTri,
+                        CAST(xh.NgayXuatHang AS DATE) AS NgayXuat
                     FROM dbo.PhieuXuatHang xh
                     LEFT JOIN dbo.KhachHang kh ON xh.MaKH = kh.MaKH
+                    LEFT JOIN dbo.ERP_ChiTietNhapKhoNPL ct ON xh.BarCodeGoc = ct.BarCode
                     WHERE xh.ModuleXH = 1 AND xh.NgayXuatHang >= @TuNgay AND xh.NgayXuatHang < DATEADD(DAY, 1, @DenNgay)
                     ORDER BY xh.NgayXuatHang DESC;",
                     cmd => {
@@ -1267,49 +1281,36 @@ namespace NtbSoft.ERP.Model.DashboardKho
                        OR (@Loai = 'pl' AND r.MaNPL NOT LIKE '%NL%')
                        OR @Loai = 'expired');
 
-                -- 2b. v2.7.2: Pre-compute metadata lookups (thay the 5 correlated subqueries per row)
+                -- 2b. v2.7.2: Pre-compute metadata lookups (thay the 5 correlated subqueries per row bang 2 combined OUTERS)
                 SELECT
                     p.MaNPL,
-                    ISNULL(vt1.MaONPL, N'Chua xep ke') AS ViTriKe,
-                    vt2.HanDung,
-                    ISNULL(vt3.POMua, '')               AS POMua,
-                    ISNULL(vt4.SoLo,  '')               AS SoLo,
-                    ISNULL(vt5.TenKH, '')               AS TenKH
+                    ISNULL(pos.MaONPL, N'Chua xep ke') AS ViTriKe,
+                    DATEADD(MONTH, 12, latest_ct.NgayNhapKho) AS HanDung,
+                    ISNULL(latest_ct.POMua, '')               AS POMua,
+                    ISNULL(latest_ct.SoLo,  '')               AS SoLo,
+                    ISNULL(latest_ct.TenKH, '')               AS TenKH,
+                    latest_ct.MaDVVT
                 INTO #tempMeta_TKC
                 FROM #tempParsed_TKC p
                 OUTER APPLY (
-                    SELECT TOP 1 v.MaONPL
+                    SELECT TOP 1 
+                        ct.NgayNhapKho,
+                        ct.POMua,
+                        nk.SoLo,
+                        kh.TenKH,
+                        ct.BarCode,
+                        ct.MaDVVT
                     FROM dbo.ERP_ChiTietNhapKhoNPL ct
-                    INNER JOIN dbo.ERP_VatTuCBM v ON ct.BarCode = v.Barcode
-                    WHERE ct.MaNPL = p.MaNPL AND v.MaONPL IS NOT NULL
-                    ORDER BY ct.NgayNhapKho DESC
-                ) vt1
-                OUTER APPLY (
-                    SELECT MAX(DATEADD(MONTH, 12, ct.NgayNhapKho)) AS HanDung
-                    FROM dbo.ERP_ChiTietNhapKhoNPL ct
-                    WHERE ct.MaNPL = p.MaNPL AND ct.NgayNhapKho IS NOT NULL
-                ) vt2
-                OUTER APPLY (
-                    SELECT TOP 1 ct.POMua
-                    FROM dbo.ERP_ChiTietNhapKhoNPL ct
-                    WHERE ct.MaNPL = p.MaNPL AND ct.POMua IS NOT NULL
-                    ORDER BY ct.NgayNhapKho DESC
-                ) vt3
-                OUTER APPLY (
-                    SELECT TOP 1 nk.SoLo
-                    FROM dbo.ERP_ChiTietNhapKhoNPL ct
-                    INNER JOIN dbo.ERP_NhapKhoNPL nk ON ct.SoLoID = nk.SoLoID
-                    WHERE ct.MaNPL = p.MaNPL
-                    ORDER BY ct.NgayNhapKho DESC
-                ) vt4
-                OUTER APPLY (
-                    SELECT TOP 1 kh.TenKH
-                    FROM dbo.ERP_ChiTietNhapKhoNPL ct
-                    INNER JOIN dbo.ERP_NhapKhoNPL nk ON ct.SoLoID = nk.SoLoID
+                    LEFT JOIN dbo.ERP_NhapKhoNPL nk ON ct.SoLoID = nk.SoLoID
                     LEFT JOIN dbo.KhachHang kh ON nk.MaKH = kh.MaKH
                     WHERE ct.MaNPL = p.MaNPL
                     ORDER BY ct.NgayNhapKho DESC
-                ) vt5;
+                ) latest_ct
+                OUTER APPLY (
+                    SELECT TOP 1 v.MaONPL
+                    FROM dbo.ERP_VatTuCBM v
+                    WHERE v.Barcode = latest_ct.BarCode AND v.MaONPL IS NOT NULL
+                ) pos;
 
                 -- 3. Join Metadata and Return
                 SELECT 
@@ -1329,8 +1330,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 FROM #tempParsed_TKC p
                 INNER JOIN #tempMeta_TKC m ON m.MaNPL = p.MaNPL
                 LEFT JOIN dbo.ERP_VatTuTV vt ON p.MaVTID = vt.MaVTID
-                LEFT JOIN dbo.ERP_KhoVai kv ON p.KhoVaiID = kv.KhoVaiID
-                LEFT JOIN dbo.ERP_DonViVT dv ON kv.MaDVVT = dv.MaDVVT
+                LEFT JOIN dbo.ERP_DonViVT dv ON m.MaDVVT = dv.MaDVVT
                 ORDER BY p.SLTon DESC;
 
                 DROP TABLE #tempResult_TKC; 
@@ -1433,7 +1433,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
                     LEFT JOIN dbo.ERP_VatTuTV vt ON ct.MaVTID = vt.MaVTID
                     LEFT JOIN dbo.ERP_VatTuCBM cbm ON ct.BarCode = cbm.Barcode
                     LEFT JOIN dbo.ERP_KhoVai kv ON ct.KhoVaiID = kv.KhoVaiID
-                    LEFT JOIN dbo.ERP_DonViVT dv ON kv.MaDVVT = dv.MaDVVT
+                    LEFT JOIN dbo.ERP_DonViVT dv ON ct.MaDVVT = dv.MaDVVT
                     LEFT JOIN dbo.ERP_VatTuMinmax mm ON mm.MaVTID = ct.MaVTID
                     WHERE ISNULL(mm.TonToiDa, 0) > 0
                     GROUP BY ct.MaVTID, vt.MaVT, vt.ChiTiet, dv.TenDVVT
