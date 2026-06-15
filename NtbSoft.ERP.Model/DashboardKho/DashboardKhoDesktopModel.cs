@@ -227,10 +227,10 @@ namespace NtbSoft.ERP.Model.DashboardKho
             });
         }
 
-        public static DataTable GetActivityCalendar()
+        public static DataTable GetActivityCalendar(string maNPL = "all", string soLoID = "all", string maHang = "all", string maKH = "all", string khoLoi = "0", string nhom = "all", int isNPL = 2)
         {
             DateTime today = DateTime.Today;
-            return GetActivityCalendar(today.AddDays(-90), today.AddDays(30));
+            return GetActivityCalendar(today.AddDays(-90), today.AddDays(30), maNPL, soLoID, maHang, maKH, khoLoi, nhom, isNPL);
         }
 
         /// <summary>
@@ -351,11 +351,18 @@ namespace NtbSoft.ERP.Model.DashboardKho
         /// v2.3.7 — dùng temp tables, ép kiểu DATE tường minh, fallback an toàn cho
         /// bảng/cột kiểm kê nếu môi trường không có (Issue 2 fix).
         /// </summary>
-        public static DataTable GetActivityCalendar(DateTime tuNgay, DateTime denNgay)
+        public static DataTable GetActivityCalendar(DateTime tuNgay, DateTime denNgay, string maNPL = "all", string soLoID = "all", string maHang = "all", string maKH = "all", string khoLoi = "0", string nhom = "all", int isNPL = 2)
         {
             return ExecuteSP("GetActivityCalendar", cmd => {
                 cmd.Parameters.AddWithValue("@TuNgay",  tuNgay);
                 cmd.Parameters.AddWithValue("@DenNgay", denNgay);
+                cmd.Parameters.AddWithValue("@MaNPL", maNPL);
+                cmd.Parameters.AddWithValue("@SoLoID", soLoID);
+                cmd.Parameters.AddWithValue("@MaHang", maHang);
+                cmd.Parameters.AddWithValue("@MaKH", maKH);
+                cmd.Parameters.AddWithValue("@KhoLoi", khoLoi);
+                cmd.Parameters.AddWithValue("@Nhom", nhom);
+                cmd.Parameters.AddWithValue("@IsNPL", isNPL);
             });
         }
 
@@ -363,11 +370,18 @@ namespace NtbSoft.ERP.Model.DashboardKho
         /// Xuất - Nhập - Tồn theo khoảng ngày tùy chọn (gộp theo ngày).
         /// v2.3.5 — Issue 1: thay thế period selector tuần/tháng/quý/năm.
         /// </summary>
-        public static DataTable GetFlowTrendByRange(DateTime tuNgay, DateTime denNgay)
+        public static DataTable GetFlowTrendByRange(DateTime tuNgay, DateTime denNgay, string maNPL = "all", string soLoID = "all", string maHang = "all", string maKH = "all", string khoLoi = "0", string nhom = "all", int isNPL = 2)
         {
             return ExecuteSP("GetFlowTrendByRange", cmd => {
                 cmd.Parameters.AddWithValue("@TuNgay",  tuNgay.Date);
                 cmd.Parameters.AddWithValue("@DenNgay", denNgay.Date);
+                cmd.Parameters.AddWithValue("@MaNPL", maNPL);
+                cmd.Parameters.AddWithValue("@SoLoID", soLoID);
+                cmd.Parameters.AddWithValue("@MaHang", maHang);
+                cmd.Parameters.AddWithValue("@MaKH", maKH);
+                cmd.Parameters.AddWithValue("@KhoLoi", khoLoi);
+                cmd.Parameters.AddWithValue("@Nhom", nhom);
+                cmd.Parameters.AddWithValue("@IsNPL", isNPL);
             });
         }
 

@@ -160,25 +160,25 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
 
         [HttpGet]
         [Route("GetActivityCalendar")]
-        public IHttpActionResult GetActivityCalendar(DateTime? tuNgay = null, DateTime? denNgay = null)
+        public IHttpActionResult GetActivityCalendar(DateTime? tuNgay = null, DateTime? denNgay = null, string maNPL = "all", string soLoID = "all", string maHang = "all", string maKH = "all", string khoLoi = "0", string nhom = "all", int isNPL = 2)
         {
             try
             {
                 if (tuNgay.HasValue && denNgay.HasValue)
-                    return Ok(ToList(DashboardKhoDesktopModel.GetActivityCalendar(tuNgay.Value, denNgay.Value)));
-                return Ok(ToList(DashboardKhoDesktopModel.GetActivityCalendar()));
+                    return Ok(ToList(DashboardKhoDesktopModel.GetActivityCalendar(tuNgay.Value, denNgay.Value, maNPL, soLoID, maHang, maKH, khoLoi, nhom, isNPL)));
+                return Ok(ToList(DashboardKhoDesktopModel.GetActivityCalendar(maNPL, soLoID, maHang, maKH, khoLoi, nhom, isNPL)));
             }
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
         [HttpGet]
         [Route("GetFlowTrendByRange")]
-        public IHttpActionResult GetFlowTrendByRange(DateTime? tuNgay = null, DateTime? denNgay = null)
+        public IHttpActionResult GetFlowTrendByRange(DateTime? tuNgay = null, DateTime? denNgay = null, string maNPL = "all", string soLoID = "all", string maHang = "all", string maKH = "all", string khoLoi = "0", string nhom = "all", int isNPL = 2)
         {
             try
             {
                 DateTime to   = (denNgay ?? DateTime.Today).Date;
                 DateTime from = (tuNgay  ?? to.AddDays(-30)).Date;
-                return Ok(ToList(DashboardKhoDesktopModel.GetFlowTrendByRange(from, to)));
+                return Ok(ToList(DashboardKhoDesktopModel.GetFlowTrendByRange(from, to, maNPL, soLoID, maHang, maKH, khoLoi, nhom, isNPL)));
             }
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }

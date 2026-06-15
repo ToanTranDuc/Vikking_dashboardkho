@@ -2054,7 +2054,7 @@
             // NK dự kiến: lọc state.nkDuKien theo range
             var nkSrc = (state.nkDuKien && state.nkDuKien.length > 0) ? state.nkDuKien : (state.inbound || []);
             var plannedRows = nkSrc.filter(function (r) {
-                var dt = parseDate(r.NgayNKDuKien);
+                var dt = parseDate(r.NgayNKDuKien || r.ngayNKDuKien);
                 if (!dt) return false;
                 return dt >= fromD && dt <= toD;
             });
@@ -2204,7 +2204,7 @@
             // v2.3.43 — NK dự kiến: nếu range mode thì lọc theo range; nếu không thì 1 ngày
             var nkSrc = (state.nkDuKien && state.nkDuKien.length > 0) ? state.nkDuKien : (state.inbound || []);
             var plannedRows = nkSrc.filter(function (r) {
-                var dt = parseDate(r.NgayNKDuKien);
+                var dt = parseDate(r.NgayNKDuKien || r.ngayNKDuKien);
                 if (!dt) return false;
                 if (inRangeMode) {
                     return dt >= calRangeFrom && dt <= calRangeTo;
@@ -2227,7 +2227,7 @@
             console.error("[Dashboard Kho] Day detail API error:", err);
             // v2.3.8.2 — Silent fallback: dùng data sẵn có (không hiện banner cảnh báo)
             var plannedRows = (state.inbound || []).filter(function (r) {
-                var dt = parseDate(r.NgayNKDuKien);
+                var dt = parseDate(r.NgayNKDuKien || r.ngayNKDuKien);
                 if (!dt) return false;
                 return asIsoDate(dt) === dateKey;
             });
@@ -2277,7 +2277,7 @@
         var groups = {};
         for (var i = 0; i < rows.length; i++) {
             var r = rows[i];
-            var rawDate = r[dateField] || r.NgayNhapKho || r.NgayNhap || r.NgayXuat || r.NgayKiemKe || r.NgayNKDuKien || "";
+            var rawDate = r[dateField] || r.NgayNhapKho || r.NgayNhap || r.NgayXuat || r.NgayKiemKe || r.NgayNKDuKien || r.ngayNKDuKien || "";
             var dateStr = "";
             if (rawDate) {
                 var d = new Date(rawDate);
@@ -2581,7 +2581,7 @@
 
         if (state.activityCalendar) {
             state.activityCalendar.forEach(function (d) {
-                var dDate = parseDate(d.NgayHoatDong || d.ngayHoatDong);
+                var dDate = parseDate(d.NgayHoatDong || d.ngayHoatDong || d.Ngay || d.ngay);
                 if (dDate && dDate.getFullYear() === targetYear && dDate.getMonth() === targetMonth) {
                     sumIn += toNumber(d.TotalIn || d.totalIn);
                     sumOut += toNumber(d.TotalOut || d.totalOut);
@@ -4997,13 +4997,18 @@
             // v2.3.60 — Reload LPCP calendar + stats cho tháng mới
             var urlLPCP = "/api/DashboardKhoDesktop/LichPhanCong_GetCalendarMonth?tuNgay=" +
                 asIsoDate(from) + "&denNgay=" + asIsoDate(to);
+            var urlTrendLich = "/api/DashboardKhoDesktop/GetFlowTrendByRange?tuNgay=" +
+                asIsoDate(from) + "&denNgay=" + asIsoDate(to);
+            var urlNKDK = "/api/DashboardKhoDesktop/GetNKDuKienByRange?tuNgay=" +
+                asIsoDate(from) + "&denNgay=" + asIsoDate(to);
 
             state.lpcpCalendar = {};
-            loadLpcpStatsForMonth(calMonthDate);
 
             Promise.all([
                 requestJson(url).catch(function () { return []; }),
-                requestJson(urlLPCP).catch(function () { return []; })
+                requestJson(urlLPCP).catch(function () { return []; }),
+                requestJson(urlTrendLich).catch(function () { return []; }),
+                requestJson(urlNKDK).catch(function () { return []; })
             ]).then(function (results) {
                 state.activityCalendar = normalizeArray(results[0]);
                 var lpcpArr = normalizeArray((results[1] && results[1].data) ? results[1].data : results[1]);
@@ -5011,7 +5016,11 @@
                     var k = String(d.NgayLam || d.ngayLam || "").substring(0, 10);
                     if (k) state.lpcpCalendar[k] = d;
                 });
+                state.flowTrendByRange = normalizeArray(results[2]);
+                state.nkDuKien = normalizeArray(results[3]);
+
                 renderActivityCalendarMonthly();
+                loadLpcpStatsForMonth(calMonthDate);
             });
         }
 
@@ -5333,7 +5342,7 @@
 
     var loadedPages = { 1: false, 2: false, 3: false };
 
-    function loadData() {
+    function loadData(skipLoadingState, skipReloadCurrent) {
         if (state.loading) return;
         if (isDemoMode) {
             loadDemoData();
@@ -5613,6 +5622,7 @@
             var to = new Date(baseMonth.getFullYear(), baseMonth.getMonth() + 2, 0);
 
             var urlLichGoc = BASE + "GetActivityCalendar?tuNgay=" + asIsoDate(from) + "&denNgay=" + asIsoDate(to);
+            var urlTrendLich = BASE + "GetFlowTrendByRange?tuNgay=" + asIsoDate(from) + "&denNgay=" + asIsoDate(to);
             var urlNKDK = BASE + "GetNKDuKienByRange?tuNgay=" + asIsoDate(from) + "&denNgay=" + asIsoDate(to);
             var urlLPCP = "/api/DashboardKhoDesktop/LichPhanCong_GetCalendarMonth?tuNgay=" + asIsoDate(from) + "&denNgay=" + asIsoDate(to);
 
@@ -5620,17 +5630,20 @@
             state.nkDuKien = [];
             state.activityCalendar = [];
             state.lpcpCalendar = {};
+            state.flowTrendByRange = [];
 
-            // GỌI 3 API SONG SONG VÀ ĐỢI TẤT CẢ HOÀN TẤT
+            // GỌI 4 API SONG SONG VÀ ĐỢI TẤT CẢ HOÀN TẤT
             return Promise.all([
                 safeJson(urlNKDK),
                 safeJson(urlLichGoc),
                 requestJson(urlLPCP).catch(function (e) {
                     console.warn("API LPCP lỗi, bỏ qua hiển thị:", e);
                     return [];
-                })
+                }),
+                safeJson(urlTrendLich)
             ]).then(function (results) {
                 state.nkDuKien = normalizeArray(results[0]);
+                state.flowTrendByRange = normalizeArray(results[3]);
 
                 // Xử lý dữ liệu LPCP và Inventory mới từ kết quả API
                 var rLPCP = results[2] || {};
