@@ -25262,6 +25262,8 @@ body {
     z-index: 5000 !important;
     border-radius: 0 !important;
     margin: 0 !important;
+    max-height: none !important;
+    max-width: none !important;
     animation: none !important;
     padding: 16px !important;
 }
@@ -25301,11 +25303,15 @@ body {
 }
 
 .dk-cal-monthly-panel {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     min-height: 0;
 }
 
 .dk-activity-calendar-monthly {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     min-height: 0;
     overflow-y: auto;
@@ -25346,7 +25352,9 @@ body {
 
 .dk-cal-monthly-grid {
     display: grid;
+    flex: 1;
     grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: 1fr;
     gap: 6px;
     padding: 0 4px;
 }

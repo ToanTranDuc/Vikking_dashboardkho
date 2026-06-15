@@ -1,4 +1,4 @@
-﻿IF OBJECT_ID('dbo.usp_DashboardKhoDesktop', 'P') IS NOT NULL
+IF OBJECT_ID('dbo.usp_DashboardKhoDesktop', 'P') IS NOT NULL
     DROP PROCEDURE dbo.usp_DashboardKhoDesktop;
 GO
 
@@ -1015,7 +1015,8 @@ BEGIN
             MIN(xh.NgayXuatHang)            AS NgayXuatTu,
             MAX(xh.NgayXuatHang)            AS NgayXuatDen
         FROM dbo.PhieuXuatHang xh
-        LEFT JOIN dbo.DonHangTong dh ON dh.MaDH   = xh.MaGop
+        LEFT JOIN dbo.GopDonHang  gd ON gd.MaGop  = xh.MaGop
+        LEFT JOIN dbo.DonHangTong dh ON dh.MaDH   = ISNULL(gd.MaDH, xh.MaGop)
         LEFT JOIN dbo.HangHoa    hh ON hh.MaHang  = dh.MaHang AND hh.MaKH = dh.MaKH
         LEFT JOIN dbo.KhachHang  kh ON kh.MaKH    = dh.MaKH
         WHERE xh.ModuleXH = 1
@@ -1049,38 +1050,40 @@ BEGIN
         IF @HasV2R = 2
         BEGIN
             SELECT TOP 2000
-                ISNULL(PhieuKiemKe, '')     AS PhieuKiemKe,
-                ISNULL(SoLo, '')            AS SoLo,
+                ISNULL(kk.PhieuKiemKe, '')     AS PhieuKiemKe,
+                ISNULL(kk.SoLo, '')            AS SoLo,
                 COUNT(*)                    AS SoBarCode,
-                SUM(ISNULL(SLKiemKe, 0))    AS SoLuong,
-                ISNULL(MAX(UserKK), '')     AS UserKK,
-                ISNULL(MAX(GhiChu), '')     AS GhiChu,
-                MIN(DateKiemKe)             AS NgayKKTu,
-                MAX(DateKiemKe)             AS NgayKKDen
-            FROM dbo.ERPPhieuKiemKe_NPLV2
-            WHERE DateKiemKe IS NOT NULL
-              AND DateKiemKe >= CAST(@TuNgay AS DATE)
-              AND DateKiemKe <  DATEADD(DAY, 1, CAST(@DenNgay AS DATE))
-            GROUP BY PhieuKiemKe, SoLo
-            ORDER BY SUM(SLKiemKe) DESC;
+                SUM(ISNULL(kk.SLKiemKe, 0))    AS SoLuong,
+                ISNULL(MAX(nv.Ten), ISNULL(MAX(kk.UserKK), '')) AS UserKK,
+                ISNULL(MAX(kk.GhiChu), '')     AS GhiChu,
+                MIN(kk.DateKiemKe)             AS NgayKKTu,
+                MAX(kk.DateKiemKe)             AS NgayKKDen
+            FROM dbo.ERPPhieuKiemKe_NPLV2 kk
+            LEFT JOIN dbo.SYS_NhanVien nv ON nv.UserID = kk.UserKK
+            WHERE kk.DateKiemKe IS NOT NULL
+              AND kk.DateKiemKe >= CAST(@TuNgay AS DATE)
+              AND kk.DateKiemKe <  DATEADD(DAY, 1, CAST(@DenNgay AS DATE))
+            GROUP BY kk.PhieuKiemKe, kk.SoLo
+            ORDER BY SUM(kk.SLKiemKe) DESC;
         END
         ELSE
         BEGIN
             SELECT TOP 2000
-                ISNULL(PhieuKiemKe, '')     AS PhieuKiemKe,
-                ISNULL(SoLo, '')            AS SoLo,
+                ISNULL(kk.PhieuKiemKe, '')     AS PhieuKiemKe,
+                ISNULL(kk.SoLo, '')            AS SoLo,
                 COUNT(*)                    AS SoBarCode,
-                SUM(ISNULL(SLKiemKe, 0))    AS SoLuong,
-                ISNULL(MAX(UserKK), '')     AS UserKK,
-                ISNULL(MAX(GhiChu), '')     AS GhiChu,
-                MIN(DateKiemKe)             AS NgayKKTu,
-                MAX(DateKiemKe)             AS NgayKKDen
-            FROM dbo.ERPPhieuKiemKe_NPL
-            WHERE DateKiemKe IS NOT NULL
-              AND DateKiemKe >= CAST(@TuNgay AS DATE)
-              AND DateKiemKe <  DATEADD(DAY, 1, CAST(@DenNgay AS DATE))
-            GROUP BY PhieuKiemKe, SoLo
-            ORDER BY SUM(SLKiemKe) DESC;
+                SUM(ISNULL(kk.SLKiemKe, 0))    AS SoLuong,
+                ISNULL(MAX(nv.Ten), ISNULL(MAX(kk.UserKK), '')) AS UserKK,
+                ISNULL(MAX(kk.GhiChu), '')     AS GhiChu,
+                MIN(kk.DateKiemKe)             AS NgayKKTu,
+                MAX(kk.DateKiemKe)             AS NgayKKDen
+            FROM dbo.ERPPhieuKiemKe_NPL kk
+            LEFT JOIN dbo.SYS_NhanVien nv ON nv.UserID = kk.UserKK
+            WHERE kk.DateKiemKe IS NOT NULL
+              AND kk.DateKiemKe >= CAST(@TuNgay AS DATE)
+              AND kk.DateKiemKe <  DATEADD(DAY, 1, CAST(@DenNgay AS DATE))
+            GROUP BY kk.PhieuKiemKe, kk.SoLo
+            ORDER BY SUM(kk.SLKiemKe) DESC;
         END
     END
 
@@ -1175,7 +1178,8 @@ BEGIN
             ISNULL(MAX(hh.TenHang), '')     AS TenHang,
             ISNULL(MAX(kh.TenKH), '')       AS TenKH
         FROM dbo.PhieuXuatHang xh
-        LEFT JOIN dbo.DonHangTong dh ON dh.MaDH   = xh.MaGop
+        LEFT JOIN dbo.GopDonHang  gd ON gd.MaGop  = xh.MaGop
+        LEFT JOIN dbo.DonHangTong dh ON dh.MaDH   = ISNULL(gd.MaDH, xh.MaGop)
         LEFT JOIN dbo.HangHoa    hh ON hh.MaHang  = dh.MaHang AND hh.MaKH = dh.MaKH
         LEFT JOIN dbo.KhachHang  kh ON kh.MaKH    = dh.MaKH
         WHERE xh.ModuleXH = 1
@@ -1206,32 +1210,34 @@ BEGIN
         IF @HasV2D = 2
         BEGIN
             SELECT TOP 500
-                ISNULL(PhieuKiemKe, '')     AS PhieuKiemKe,
-                ISNULL(SoLo, '')            AS SoLo,
+                ISNULL(kk.PhieuKiemKe, '')     AS PhieuKiemKe,
+                ISNULL(kk.SoLo, '')            AS SoLo,
                 COUNT(*)                    AS SoBarCode,
-                SUM(ISNULL(SLKiemKe, 0))    AS SoLuong,
-                ISNULL(MAX(UserKK), '')     AS UserKK,
-                ISNULL(MAX(GhiChu), '')     AS GhiChu
-            FROM dbo.ERPPhieuKiemKe_NPLV2
-            WHERE DateKiemKe IS NOT NULL
-              AND CAST(DateKiemKe AS DATE) = CAST(@Ngay AS DATE)
-            GROUP BY PhieuKiemKe, SoLo
-            ORDER BY SUM(SLKiemKe) DESC;
+                SUM(ISNULL(kk.SLKiemKe, 0))    AS SoLuong,
+                ISNULL(MAX(nv.Ten), ISNULL(MAX(kk.UserKK), '')) AS UserKK,
+                ISNULL(MAX(kk.GhiChu), '')     AS GhiChu
+            FROM dbo.ERPPhieuKiemKe_NPLV2 kk
+            LEFT JOIN dbo.SYS_NhanVien nv ON nv.UserID = kk.UserKK
+            WHERE kk.DateKiemKe IS NOT NULL
+              AND CAST(kk.DateKiemKe AS DATE) = CAST(@Ngay AS DATE)
+            GROUP BY kk.PhieuKiemKe, kk.SoLo
+            ORDER BY SUM(kk.SLKiemKe) DESC;
         END
         ELSE
         BEGIN
             SELECT TOP 500
-                ISNULL(PhieuKiemKe, '')     AS PhieuKiemKe,
-                ISNULL(SoLo, '')            AS SoLo,
+                ISNULL(kk.PhieuKiemKe, '')     AS PhieuKiemKe,
+                ISNULL(kk.SoLo, '')            AS SoLo,
                 COUNT(*)                    AS SoBarCode,
-                SUM(ISNULL(SLKiemKe, 0))    AS SoLuong,
-                ISNULL(MAX(UserKK), '')     AS UserKK,
-                ISNULL(MAX(GhiChu), '')     AS GhiChu
-            FROM dbo.ERPPhieuKiemKe_NPL
-            WHERE DateKiemKe IS NOT NULL
-              AND CAST(DateKiemKe AS DATE) = CAST(@Ngay AS DATE)
-            GROUP BY PhieuKiemKe, SoLo
-            ORDER BY SUM(SLKiemKe) DESC;
+                SUM(ISNULL(kk.SLKiemKe, 0))    AS SoLuong,
+                ISNULL(MAX(nv.Ten), ISNULL(MAX(kk.UserKK), '')) AS UserKK,
+                ISNULL(MAX(kk.GhiChu), '')     AS GhiChu
+            FROM dbo.ERPPhieuKiemKe_NPL kk
+            LEFT JOIN dbo.SYS_NhanVien nv ON nv.UserID = kk.UserKK
+            WHERE kk.DateKiemKe IS NOT NULL
+              AND CAST(kk.DateKiemKe AS DATE) = CAST(@Ngay AS DATE)
+            GROUP BY kk.PhieuKiemKe, kk.SoLo
+            ORDER BY SUM(kk.SLKiemKe) DESC;
         END
     END
 
