@@ -32342,7 +32342,11 @@ body.dark-theme .dk-side-card-body span[style*="color:#ef4444"] {
 /* Fix chart height in fullscreen mode */
 .dk-panel-fullscreen [id^="chart"] {
     height: calc(100vh - 80px) !important;
+}
 
+.dk-panel-fullscreen #chartVolumePie {
+    max-width: 100% !important;
+    height: calc(100vh - 100px) !important;
 }
 
 /* ==========================================================

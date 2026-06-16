@@ -508,9 +508,15 @@
             <div class="dk-bottom-charts-grid">
                 <article class="dk-panel dk-chart-panel" style="padding: 16px;">
                     <div class="dk-panel-head" style="margin-bottom:10px;">
-                        <h2 style="font-size: 13px; text-transform: uppercase;">Khối lượng theo loại hoạt động <span style="color:var(--dk-muted);text-transform:none;font-size:11px;font-weight:400;">(Tháng này)</span></h2>
+                        <h2 style="font-size: 13px; text-transform: uppercase;">Khối lượng theo loại hoạt động</h2>
+                        <select id="volumeFilterSelect" class="dk-filter-select" style="font-size:12px; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--dk-border); background: var(--dk-bg-panel); color: var(--dk-text); cursor: pointer; outline: none; transition: border-color 0.2s;">
+                            <option value="7">7 ngày gần đây</option>
+                            <option value="14">14 ngày gần đây</option>
+                            <option value="30" selected>30 ngày gần đây</option>
+                            <option value="60">60 ngày gần đây</option>
+                        </select>
                     </div>
-                    <div id="chartVolumePie" style="height: 300px;"></div>
+                    <div id="chartVolumePie" style="height: 300px; width: 100%; margin: 0 auto;"></div>
                 </article>
 
                 <article class="dk-panel dk-chart-panel" style="padding: 16px;">

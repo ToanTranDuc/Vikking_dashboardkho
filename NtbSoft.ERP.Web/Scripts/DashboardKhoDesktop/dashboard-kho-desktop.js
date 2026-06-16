@@ -1801,7 +1801,7 @@
 
         // Build planned inbound dates
         var plannedDates = {};
-        var plannedSource = (state.nkDuKien && state.nkDuKien.length > 0) ? state.nkDuKien : state.inbound;
+        var plannedSource = state.nkDuKien || [];
         for (var pi = 0; pi < plannedSource.length; pi++) {
             var pDate = parseDate(plannedSource[pi].NgayNKDuKien || plannedSource[pi].ngayNKDuKien);
             if (pDate) {
@@ -2052,7 +2052,7 @@
             }
 
             // NK dự kiến: lọc state.nkDuKien theo range
-            var nkSrc = (state.nkDuKien && state.nkDuKien.length > 0) ? state.nkDuKien : (state.inbound || []);
+            var nkSrc = state.nkDuKien || [];
             var plannedRows = nkSrc.filter(function (r) {
                 var dt = parseDate(r.NgayNKDuKien || r.ngayNKDuKien);
                 if (!dt) return false;
@@ -2202,7 +2202,7 @@
             }
 
             // v2.3.43 — NK dự kiến: nếu range mode thì lọc theo range; nếu không thì 1 ngày
-            var nkSrc = (state.nkDuKien && state.nkDuKien.length > 0) ? state.nkDuKien : (state.inbound || []);
+            var nkSrc = state.nkDuKien || [];
             var plannedRows = nkSrc.filter(function (r) {
                 var dt = parseDate(r.NgayNKDuKien || r.ngayNKDuKien);
                 if (!dt) return false;
@@ -2226,7 +2226,7 @@
         }).catch(function (err) {
             console.error("[Dashboard Kho] Day detail API error:", err);
             // v2.3.8.2 — Silent fallback: dùng data sẵn có (không hiện banner cảnh báo)
-            var plannedRows = (state.inbound || []).filter(function (r) {
+            var plannedRows = (state.nkDuKien || []).filter(function (r) {
                 var dt = parseDate(r.NgayNKDuKien || r.ngayNKDuKien);
                 if (!dt) return false;
                 return asIsoDate(dt) === dateKey;
@@ -2573,95 +2573,7 @@
         // Hàm tiện ích
         function _asIso(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
 
-        // --- Data cho Biểu đồ 1: Khối lượng theo loại hoạt động (Dữ liệu đang xem) ---
-        var sumIn = 0, sumOut = 0, sumKiemKe = 0;
-        var curMonth = calMonthDate || new Date();
-        var targetYear = curMonth.getFullYear();
-        var targetMonth = curMonth.getMonth();
-
-        if (state.activityCalendar) {
-            state.activityCalendar.forEach(function (d) {
-                var dDate = parseDate(d.NgayHoatDong || d.ngayHoatDong || d.Ngay || d.ngay);
-                if (dDate && dDate.getFullYear() === targetYear && dDate.getMonth() === targetMonth) {
-                    sumIn += toNumber(d.TotalIn || d.totalIn);
-                    sumOut += toNumber(d.TotalOut || d.totalOut);
-                    sumKiemKe += toNumber(d.TotalKiemKe || d.totalKiemKe);
-                }
-            });
-        }
-        var sumTotal = sumIn + sumOut + sumKiemKe;
-
-        var pieData = [
-            { name: 'Nhập kho', y: sumIn, color: '#3b82f6' },
-            { name: 'Xuất kho', y: sumOut, color: '#f97316' },
-            { name: 'Kiểm kê', y: sumKiemKe, color: '#8b5cf6' }
-        ];
-
-        var emptySeries = [];
-
-        if (document.getElementById("chartVolumePie")) {
-            Highcharts.chart("chartVolumePie", {
-                chart: {
-                    type: "pie",
-                    backgroundColor: bgColor,
-                    events: {
-                        render: function () {
-                            var chart = this;
-                            var series = chart.series[0];
-                            if (series && series.center) {
-                                var isDk = document.body.classList.contains("dark-theme");
-                                var txtCol = isDk ? "#f8fafc" : "#1e293b";
-                                var cx = chart.plotLeft + series.center[0];
-                                var cy = chart.plotTop + series.center[1];
-                                if (chart.centerLabel) {
-                                    chart.centerLabel.destroy();
-                                    chart.centerLabel = null;
-                                }
-                                chart.centerLabel = chart.renderer.text(
-                                    '<div style="text-align:center;font-size:14px;line-height:1.2;color:' + txtCol + ';">Tổng<br><span style="font-size:20px;font-weight:700;">' + Highcharts.numberFormat(sumTotal, 0, '.', '.') + '</span></div>',
-                                    cx, cy, true
-                                ).attr({ align: 'center', zIndex: 10 }).add();
-                                chart.centerLabel.attr({ x: cx, y: cy - 16 });
-                            }
-                        }
-                    }
-                },
-                title: { text: null },
-                credits: { enabled: false },
-                plotOptions: {
-                    pie: {
-                        innerSize: '75%', size: '85%', borderWidth: 0,
-                        dataLabels: { enabled: false }, showInLegend: true, center: ['35%', '50%']
-                    }
-                },
-                legend: {
-                    layout: 'vertical', align: 'right', verticalAlign: 'middle',
-                    itemStyle: { color: textColor, fontWeight: '600', fontSize: '14px' },
-                    useHTML: true,
-                    labelFormatter: function () {
-                        var isDk = document.body.classList.contains("dark-theme");
-                        var txtCol = isDk ? "#f8fafc" : "#1e293b";
-                        var pct = sumTotal > 0 ? (this.y / sumTotal * 100).toFixed(1) : 0;
-                        return '<span style="color:' + txtCol + ';">' + this.name + ': <b>' + pct + '%</b></span>';
-                    }
-                },
-                series: emptySeries.concat([{
-                    name: 'Khối lượng',
-                    data: pieData,
-                    showInLegend: true
-                }]),
-                tooltip: {
-                    pointFormat: '<b>{point.y:,.0f}</b> ({point.percentage:.1f}%)'
-                }
-            });
-        }
-
-        // --- Biểu đồ 2 & 3: Lấy trực tiếp từ SQL API theo range được chọn ---
         var now = new Date();
-        var trendDays = document.getElementById("trendFilterSelect") ? parseInt(document.getElementById("trendFilterSelect").value) : 30;
-        var loadDays = document.getElementById("loadFilterSelect") ? parseInt(document.getElementById("loadFilterSelect").value) : 30;
-
-        // Range: bỏ hôm nay, lùi N ngày kể từ hôm qua
         function buildRange(nDays) {
             var to = new Date(now); to.setDate(to.getDate() - 1);
             var from = new Date(now); from.setDate(from.getDate() - nDays);
@@ -2670,6 +2582,117 @@
         function doFetch(url) {
             return typeof requestJson === 'function' ? requestJson(url) : fetch(url).then(function (r) { return r.json(); });
         }
+
+        if (document.getElementById("chartVolumePie")) {
+            var volDays = document.getElementById("volumeFilterSelect") ? parseInt(document.getElementById("volumeFilterSelect").value) : 30;
+            var rVol = buildRange(volDays);
+            var urlAct = "/api/DashboardKhoDesktop/GetActivityCalendar?tuNgay=" + rVol.from + "&denNgay=" + rVol.to;
+            var urlNkdk = "/api/DashboardKhoDesktop/GetNKDuKienByRange?tuNgay=" + rVol.from + "&denNgay=" + rVol.to;
+
+            document.getElementById("chartVolumePie").innerHTML =
+                '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:' + textColor + ';font-size:12px;">Đang tải...</div>';
+
+            Promise.all([doFetch(urlAct), doFetch(urlNkdk)]).then(function(results) {
+                var actArr = Array.isArray(results[0]) ? results[0] : (results[0] && results[0].value ? results[0].value : (results[0] && results[0].data ? results[0].data : []));
+                var nkArr = Array.isArray(results[1]) ? results[1] : (results[1] && results[1].value ? results[1].value : (results[1] && results[1].data ? results[1].data : []));
+
+                var sumIn = 0, sumOut = 0, sumKiemKe = 0, sumPlan = 0;
+
+                actArr.forEach(function (d) {
+                    sumIn += toNumber(d.TotalIn || d.totalIn);
+                    sumOut += toNumber(d.TotalOut || d.totalOut);
+                    sumKiemKe += toNumber(d.TotalKiemKe || d.totalKiemKe);
+                });
+
+                nkArr.forEach(function (d) {
+                    sumPlan += toNumber(d.SoLuongDuKien || d.soLuongDuKien);
+                });
+
+                var sumTotal = sumIn + sumOut + sumKiemKe + sumPlan;
+
+                var pieData = [
+                    { name: 'Nhập kho', y: sumIn, color: '#3b82f6' },
+                    { name: 'Xuất kho', y: sumOut, color: '#f97316' },
+                    { name: 'Kiểm kê', y: sumKiemKe, color: '#10b981' },
+                    { name: 'NK dự kiến', y: sumPlan, color: '#8b5cf6' }
+                ];
+
+                if (!document.getElementById("chartVolumePie")) return;
+                var isFsOnLoad = !!document.getElementById("chartVolumePie").closest(".dk-panel-fullscreen");
+
+                Highcharts.chart("chartVolumePie", {
+                    chart: {
+                        type: "pie",
+                        backgroundColor: 'transparent',
+                        events: {
+                            render: function () {
+                                var chart = this;
+                                var series = chart.series[0];
+                                if (series && series.center) {
+                                    var isDk = document.body.classList.contains("dark-theme");
+                                    var txtCol = isDk ? "#f8fafc" : "#1e293b";
+                                    var cx = chart.plotLeft + series.center[0];
+                                    var cy = chart.plotTop + series.center[1];
+                                    if (chart.centerLabel) {
+                                        chart.centerLabel.destroy();
+                                        chart.centerLabel = null;
+                                    }
+                                    var isFs = !!document.getElementById("chartVolumePie").closest(".dk-panel-fullscreen");
+                                    var labelFontSize = isFs ? '30px' : '18px';
+                                    var valueFontSize = isFs ? '60px' : '26px';
+                                    var offset = isFs ? 40 : 20;
+                                    chart.centerLabel = chart.renderer.text(
+                                        '<div style="text-align:center;font-size:' + labelFontSize + ';line-height:1.2;color:' + txtCol + ';">Tổng<br><span style="font-size:' + valueFontSize + ';font-weight:700;">' + Highcharts.numberFormat(sumTotal, 0, '.', '.') + '</span></div>',
+                                        cx, cy, true
+                                    ).attr({ align: 'center', zIndex: 10 }).add();
+                                    chart.centerLabel.attr({ x: cx, y: cy - offset });
+                                }
+                            }
+                        }
+                    },
+                    title: { text: null },
+                    credits: { enabled: false },
+                    plotOptions: {
+                        pie: {
+                            innerSize: '75%', size: isFsOnLoad ? '95%' : '80%', borderWidth: 0,
+                            dataLabels: { enabled: false }, showInLegend: true,
+                            center: isFsOnLoad ? ['40%', '50%'] : ['35%', '50%']
+                        }
+                    },
+                    legend: {
+                        layout: 'vertical', 
+                        align: 'right', 
+                        x: 0,
+                        verticalAlign: 'middle', y: 0,
+                        itemStyle: { color: textColor, fontWeight: '600', fontSize: isFsOnLoad ? '26px' : '13px' },
+                        itemMarginTop: isFsOnLoad ? 10 : 0,
+                        itemMarginBottom: isFsOnLoad ? 10 : 0,
+                        useHTML: true,
+                        labelFormatter: function () {
+                            var isDk = document.body.classList.contains("dark-theme");
+                            var txtCol = isDk ? "#f8fafc" : "#1e293b";
+                            var pct = sumTotal > 0 ? (this.y / sumTotal * 100).toFixed(1) : 0;
+                            return '<span style="color:' + txtCol + ';">' + this.name + ': <b>' + pct + '%</b></span>';
+                        }
+                    },
+                    series: [{
+                        name: 'Khối lượng',
+                        data: pieData,
+                        showInLegend: true
+                    }],
+                    tooltip: {
+                        pointFormat: '<b>{point.y:,.0f}</b> ({point.percentage:.1f}%)'
+                    }
+                });
+            }).catch(function () {
+                var el = document.getElementById("chartVolumePie");
+                if (el) el.innerHTML = '<div style="padding:20px;color:' + textColor + ';">Không thể tải dữ liệu</div>';
+            });
+        }
+
+        // --- Biểu đồ 2 & 3: Lấy trực tiếp từ SQL API theo range được chọn ---
+        var trendDays = document.getElementById("trendFilterSelect") ? parseInt(document.getElementById("trendFilterSelect").value) : 30;
+        var loadDays = document.getElementById("loadFilterSelect") ? parseInt(document.getElementById("loadFilterSelect").value) : 30;
 
         // ── Biểu đồ 2: Xu hướng Nhập-Xuất ─────────────────────────────────────────
         if (document.getElementById("chartTrendLine")) {
@@ -4826,7 +4849,50 @@
             var charts = Highcharts.charts || [];
             for (var c = 0; c < charts.length; c++) {
                 if (!charts[c]) continue;
-                try { charts[c].reflow(); } catch (e) { }
+                try {
+                    var container = charts[c].renderTo;
+                    var isFsGeneral = false;
+                    var targetHeight = 300;
+                    if (container) {
+                        var p = container.closest(".dk-panel");
+                        if (p && p.classList.contains("dk-panel-fullscreen")) {
+                            isFsGeneral = true;
+                            targetHeight = window.innerHeight - 100;
+                            container.style.height = targetHeight + "px";
+                            if (container.id === "chartVolumePie") {
+                                container.style.maxWidth = "calc(100vh + 400px)";
+                            }
+                        } else {
+                            container.style.height = "300px";
+                            if (container.id === "chartVolumePie") {
+                                container.style.maxWidth = "100%";
+                            }
+                        }
+                    }
+                    var targetWidth = container ? container.clientWidth : null;
+                    charts[c].setSize(targetWidth, targetHeight, false);
+                    charts[c].reflow();
+                    if (container && container.id === "chartVolumePie") {
+                        var isFs = !!document.getElementById("chartVolumePie").closest(".dk-panel-fullscreen");
+                        charts[c].update({
+                            plotOptions: {
+                                pie: {
+                                    size: isFs ? '95%' : '80%',
+                                    center: isFs ? ['40%', '50%'] : ['35%', '50%']
+                                }
+                            },
+                            legend: {
+                                align: 'right',
+                                x: 0,
+                                itemStyle: {
+                                    fontSize: isFs ? '26px' : '13px'
+                                },
+                                itemMarginTop: isFs ? 10 : 0,
+                                itemMarginBottom: isFs ? 10 : 0
+                            }
+                        }, true);
+                    }
+                } catch (e) { }
             }
         }
         setTimeout(reflowAllHighcharts, 60);
@@ -4966,6 +5032,12 @@
         var trendFilter = byId("trendFilterSelect");
         if (trendFilter) {
             trendFilter.addEventListener("change", function () {
+                renderLpcpBottomCharts();
+            });
+        }
+        var volumeFilter = byId("volumeFilterSelect");
+        if (volumeFilter) {
+            volumeFilter.addEventListener("change", function () {
                 renderLpcpBottomCharts();
             });
         }
@@ -8365,7 +8437,7 @@
                 var el = document.getElementById(inputsToClear[i]);
                 if (el) el.value = "";
             }
-            var selectsToClear = ["customerFilterSelect", "trendFilterSelect", "loadFilterSelect"];
+            var selectsToClear = ["customerFilterSelect", "trendFilterSelect", "loadFilterSelect", "volumeFilterSelect"];
             for (var j = 0; j < selectsToClear.length; j++) {
                 var selEl = document.getElementById(selectsToClear[j]);
                 if (selEl && selEl.options && selEl.options.length > 0) {
