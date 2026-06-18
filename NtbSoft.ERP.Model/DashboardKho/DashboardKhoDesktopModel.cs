@@ -100,37 +100,71 @@ namespace NtbSoft.ERP.Model.DashboardKho
 
         private static DataTable ExecuteSP(string action, Action<SqlCommand> paramBinder = null)
         {
-            using (SqlConnection conn = NtbSoft.ERP.Libs.SqlHelper.GetConnection())
-            using (SqlCommand cmd = new SqlCommand("dbo.usp_DashboardKhoDesktop", conn))
+            string cacheKey = "dk_sp_" + action;
+            if (paramBinder != null)
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandTimeout = 300;
-                cmd.Parameters.Add("@Action", SqlDbType.VarChar, 100).Value = action;
-                if (paramBinder != null) paramBinder(cmd);
-                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                using (SqlCommand dummyCmd = new SqlCommand())
                 {
-                    DataTable dt = new DataTable();
-                    adt.Fill(dt);
-                    return dt;
+                    paramBinder(dummyCmd);
+                    foreach (SqlParameter p in dummyCmd.Parameters)
+                    {
+                        if (p.Value is DateTime) cacheKey += $"_{p.ParameterName}={((DateTime)p.Value):yyyyMMdd}";
+                        else cacheKey += $"_{p.ParameterName}={p.Value}";
+                    }
                 }
             }
+
+            return GetOrCache(cacheKey, () =>
+            {
+                using (SqlConnection conn = NtbSoft.ERP.Libs.SqlHelper.GetConnection())
+                using (SqlCommand cmd = new SqlCommand("dbo.usp_DashboardKhoDesktop", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = 300;
+                    cmd.Parameters.Add("@Action", SqlDbType.VarChar, 100).Value = action;
+                    if (paramBinder != null) paramBinder(cmd);
+                    using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adt.Fill(dt);
+                        return dt;
+                    }
+                }
+            });
         }
 
         private static DataTable ExecuteQuery(string query, Action<SqlCommand> paramBinder = null)
         {
-            using (SqlConnection conn = NtbSoft.ERP.Libs.SqlHelper.GetConnection())
-            using (SqlCommand cmd = new SqlCommand(query, conn))
+            string cacheKey = "dk_q_" + query.GetHashCode().ToString();
+            if (paramBinder != null)
             {
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandTimeout = 300;
-                if (paramBinder != null) paramBinder(cmd);
-                using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                using (SqlCommand dummyCmd = new SqlCommand())
                 {
-                    DataTable dt = new DataTable();
-                    adt.Fill(dt);
-                    return dt;
+                    paramBinder(dummyCmd);
+                    foreach (SqlParameter p in dummyCmd.Parameters)
+                    {
+                        if (p.Value is DateTime) cacheKey += $"_{p.ParameterName}={((DateTime)p.Value):yyyyMMdd}";
+                        else cacheKey += $"_{p.ParameterName}={p.Value}";
+                    }
                 }
             }
+
+            return GetOrCache(cacheKey, () =>
+            {
+                using (SqlConnection conn = NtbSoft.ERP.Libs.SqlHelper.GetConnection())
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandTimeout = 300;
+                    if (paramBinder != null) paramBinder(cmd);
+                    using (SqlDataAdapter adt = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        adt.Fill(dt);
+                        return dt;
+                    }
+                }
+            });
         }
 
         public static DataTable GetOverallCapacity()
