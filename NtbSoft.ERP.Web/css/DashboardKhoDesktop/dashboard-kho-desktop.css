@@ -1,4 +1,4 @@
-/* --- BOOTSTRAP 5.3 --- */
+﻿/* --- BOOTSTRAP 5.3 --- */
 @charset "UTF-8";
 /*!
  * Bootstrap  v5.3.0 (https://getbootstrap.com/)
@@ -23417,7 +23417,7 @@ body {
 
 .dk-capacity-ring {
     flex: 1;
-    min-height: 320px;
+    height: 320px;
     /* v2.3.5 â€” bigger ring (Issue 4) */
 }
 
@@ -23486,7 +23486,7 @@ body {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    min-height: 360px;
+    height: 360px;
     /* v2.3.5 â€” bigger pie (Issue 4) */
     overflow: hidden;
     position: relative;
@@ -28071,7 +28071,7 @@ body.dark-theme .dk-mc-icon i {
     flex: 0 0 auto;
 }
 
-.dk-todo-list {
+.dk-todo-list {`n    height: 360px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -36309,3 +36309,4 @@ body.dark-theme .dk-cal-month-10 {
 body.dark-theme .dk-cal-month-11 {
     background: rgba(236, 72, 153, 0.25) !important;
 }
+

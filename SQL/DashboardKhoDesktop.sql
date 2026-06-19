@@ -1,3 +1,8 @@
+﻿
+USE [PMS_QLDH_VIKING_2025];
+GO
+
+-- =======================================================
 IF OBJECT_ID('dbo.usp_DashboardKhoDesktop', 'P') IS NOT NULL
     DROP PROCEDURE dbo.usp_DashboardKhoDesktop;
 GO
@@ -21,6 +26,43 @@ CREATE PROCEDURE dbo.usp_DashboardKhoDesktop
 AS
 BEGIN
     SET NOCOUNT ON;
+
+        -- [OPTIMIZED] Common Temp Tables
+    IF OBJECT_ID('tempdb..#TempXuatChuaThuHoi') IS NOT NULL DROP TABLE #TempXuatChuaThuHoi;
+    CREATE TABLE #TempXuatChuaThuHoi (BarCode NVARCHAR(500));
+    CREATE NONCLUSTERED INDEX IX_TempXCTH_BarCode ON #TempXuatChuaThuHoi(BarCode);
+
+    IF OBJECT_ID('tempdb..#TempSoanHang') IS NOT NULL DROP TABLE #TempSoanHang;
+    CREATE TABLE #TempSoanHang (BarCode NVARCHAR(200));
+    CREATE NONCLUSTERED INDEX IX_TempSH_BarCode ON #TempSoanHang(BarCode);
+
+        -- Tối ưu: Bật công tắc an toàn, CHỈ TẢI Temp Tables cho đúng các Action cần dùng
+    IF @Action IN (
+        'GetOverallCapacity', 'GetDistinctMaterialCount', 'GetCustomers', 
+        'GetKiemKe', 'GetTop5', 'GetRackSlotDetail', 'GetThanhGiaHangTon',
+        'GetTop5KhachHangTonKho', 'GetKhachHangTonKhoChiTiet', 'GetGiaTriTonKhoTheoNhom', 
+        'GetGiaTriNhomChiTiet', 'GetKiemKeChiTiet', 'GetTonKhoTheoKy', 'GetAllMaterialsInStock'
+    )
+    BEGIN
+        INSERT INTO #TempXuatChuaThuHoi (BarCode)
+        SELECT DISTINCT CAST(BarCode AS NVARCHAR(500))
+        FROM PhieuXuatHang t1
+        WHERE NOT EXISTS (
+            SELECT 1 FROM PhieuThuHoiNPL t2
+            WHERE t2.MaLenh = t1.MaLenhSX
+              AND (t2.BarCode = t1.BarCode OR t2.BarCode = t1.BarCodeGoc)
+              AND t1.Dot = t2.Dot
+        );
+
+        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
+           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
+        BEGIN
+            INSERT INTO #TempSoanHang(BarCode)
+            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
+        END
+    END
+
+
 
     DECLARE @CapNPL FLOAT = 0, 
             @CapPL FLOAT = 0, 
@@ -85,32 +127,18 @@ BEGIN
         WHERE t1.Module <> 3
         GROUP BY t1.KeID, t1.TenKe, t1.Module;
 
-        SELECT BarCode INTO #TempXuatChuaThuHoi_OC
-        FROM PhieuXuatHang t1
-        WHERE NOT EXISTS (
-            SELECT 1 FROM PhieuThuHoiNPL t2
-            WHERE t2.MaLenh = t1.MaLenhSX
-              AND (t2.BarCode = t1.BarCode OR t2.BarCode = t1.BarCodeGoc)
-              AND t1.Dot = t2.Dot
-        );
+        
 
-        SELECT TOP (0) BarCode INTO #tempBarcodeSH_OC FROM ERP_SoanHangNPL_BarCode;
-        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
-           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
-        BEGIN
-            INSERT INTO #tempBarcodeSH_OC(BarCode)
-            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode
-                WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
-        END
+        
 
         SELECT DISTINCT t1.MaONPL, t2.KeID, ROUND(SUM(t1.CBM),4) AS TongCBMTrongO, COUNT(*) AS SLVatTu
         INTO #tempCBMO_OC
         FROM ERP_VatTuCBM t1
         LEFT JOIN ERP_ONPL t2 ON t1.MaONPL = t2.TenO
         WHERE t1.MaONPL IS NOT NULL
-          AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi_OC x WHERE x.BarCode = t1.Barcode)
+          AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi x WHERE x.BarCode = t1.Barcode)
           AND EXISTS     (SELECT 1 FROM ERP_ChiTietNhapKhoNPL c WHERE c.BarCode = t1.Barcode)
-          AND NOT EXISTS (SELECT 1 FROM #tempBarcodeSH_OC s WHERE s.BarCode = t1.Barcode)
+          AND NOT EXISTS (SELECT 1 FROM #TempSoanHang s WHERE s.BarCode = t1.Barcode)
         GROUP BY t1.MaONPL, t2.KeID;
 
         SELECT t1.DayID, t4.TenDay, t1.KeID, t1.TenKe, t1.Module,
@@ -155,7 +183,7 @@ BEGIN
                  ELSE 100 END AS FreePercent;
 
         DROP TABLE #tempCBMO_OC; DROP TABLE #tempCBMKe_OC;
-        DROP TABLE #TempXuatChuaThuHoi_OC; DROP TABLE #tempBarcodeSH_OC; DROP TABLE #tempBaseResult_OC;
+          DROP TABLE #tempBaseResult_OC;
     END
 
     ELSE IF @Action = 'GetDistinctMaterialCount'
@@ -166,44 +194,26 @@ BEGIN
             RETURN;
         END
 
-        SELECT BarCode
-        INTO #TempXCTH_DMC
-        FROM PhieuXuatHang t1
-        WHERE NOT EXISTS (
-            SELECT 1 FROM PhieuThuHoiNPL t2
-            WHERE t2.MaLenh = t1.MaLenhSX
-              AND (t2.BarCode = t1.BarCode OR t2.BarCode = t1.BarCodeGoc)
-              AND t1.Dot = t2.Dot
-        );
+        
 
-        SELECT TOP (0) BarCode INTO #TempSH_DMC FROM ERP_SoanHangNPL_BarCode;
-        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
-           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
-        BEGIN
-            INSERT INTO #TempSH_DMC(BarCode)
-            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode
-                WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
-        END
+        
 
         SELECT COUNT(DISTINCT ct.MaNPL) AS SoMaVatTu
         FROM dbo.ERP_VatTuCBM v
         INNER JOIN dbo.ERP_ChiTietNhapKhoNPL ct ON ct.BarCode = v.Barcode
         WHERE v.MaONPL IS NOT NULL
-          AND NOT EXISTS (SELECT 1 FROM #TempXCTH_DMC t WHERE t.BarCode = v.Barcode)
-          AND NOT EXISTS (SELECT 1 FROM #TempSH_DMC  t WHERE t.BarCode = v.Barcode);
+          AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi t WHERE t.BarCode = v.Barcode)
+          AND NOT EXISTS (SELECT 1 FROM #TempSoanHang  t WHERE t.BarCode = v.Barcode);
 
-        DROP TABLE #TempXCTH_DMC;
-        DROP TABLE #TempSH_DMC;
+        
+        
     END
 
     ELSE IF @Action = 'GetCustomers'
     BEGIN
-        SELECT BarCode INTO #TempXCTH_Cust FROM PhieuXuatHang t1
-        WHERE NOT EXISTS (SELECT 1 FROM PhieuThuHoiNPL t2
-            WHERE t2.MaLenh=t1.MaLenhSX AND (t2.BarCode=t1.BarCode OR t2.BarCode=t1.BarCodeGoc) AND t1.Dot=t2.Dot);
+        
 
-        SELECT BarCode INTO #tempSH_Cust FROM ERP_SoanHangNPL_BarCode
-        WHERE SLSoanHang_TK - SLSoanHang_BC = 0;
+        
 
         SELECT MaNPL, SoLoID, SUM(CBM) AS CBM
         INTO #tempBarcodeCBM_Cust
@@ -215,9 +225,9 @@ BEGIN
           AND LOWER(t3.TenDay) NOT LIKE '%co%'
           AND LOWER(t3.TenDay) NOT LIKE N'%lỗi%'
           AND LOWER(t3.TenDay) NOT LIKE N'%n%'
-          AND NOT EXISTS (SELECT 1 FROM #TempXCTH_Cust x WHERE x.BarCode = t1.Barcode)
+          AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi x WHERE x.BarCode = t1.Barcode)
           AND EXISTS     (SELECT 1 FROM ERP_ChiTietNhapKhoNPL t6 WHERE t1.Barcode = t6.BarCode)
-          AND NOT EXISTS (SELECT 1 FROM #tempSH_Cust t7 WHERE t1.Barcode = t7.BarCode)
+          AND NOT EXISTS (SELECT 1 FROM #TempSoanHang t7 WHERE t1.Barcode = t7.BarCode)
         GROUP BY MaNPL, SoLoID;
 
         SELECT @TotalSKUInWarehouse = CAST(COUNT(DISTINCT CASE WHEN ISNULL(MaNPL,'') <> '' THEN CONCAT(MaNPL,'|',SoLoID) END) AS FLOAT)
@@ -240,7 +250,7 @@ BEGIN
         GROUP BY ISNULL(t3.MaKH, ''), ISNULL(t5.TenKH, '')
         ORDER BY SLVatTu DESC;
 
-        DROP TABLE #tempBarcodeCBM_Cust; DROP TABLE #tempSH_Cust; DROP TABLE #TempXCTH_Cust;
+        DROP TABLE #tempBarcodeCBM_Cust;  
     END
 
     ELSE IF @Action = 'GetRacks'
@@ -249,26 +259,17 @@ BEGIN
         INTO #tempCBMKe_Racks FROM ERP_KeNPL t1 LEFT JOIN ERP_ONPL t2 ON t1.KeID=t2.KeID
         WHERE t1.Module<>3 GROUP BY t1.KeID, t1.TenKe, t1.Module;
 
-        SELECT BarCode INTO #TempXCTH_Racks FROM PhieuXuatHang t1
-        WHERE NOT EXISTS (SELECT 1 FROM PhieuThuHoiNPL t2
-            WHERE t2.MaLenh=t1.MaLenhSX AND (t2.BarCode=t1.BarCode OR t2.BarCode=t1.BarCodeGoc) AND t1.Dot=t2.Dot);
+        
 
-        SELECT TOP (0) BarCode INTO #tempSH_Racks FROM ERP_SoanHangNPL_BarCode;
-        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
-           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
-        BEGIN
-            INSERT INTO #tempSH_Racks(BarCode)
-            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode
-                WHERE ISNULL(SLSoanHang_TK,0)-ISNULL(SLSoanHang_BC,0)=0;';
-        END
+        
 
         SELECT DISTINCT t1.MaONPL, t2.KeID, ROUND(SUM(t1.CBM),4) AS TongCBMTrongO, COUNT(*) AS SLVatTu
         INTO #tempCBMO_Racks
         FROM ERP_VatTuCBM t1 LEFT JOIN ERP_ONPL t2 ON t1.MaONPL=t2.TenO
         WHERE t1.MaONPL IS NOT NULL
-          AND NOT EXISTS (SELECT 1 FROM #TempXCTH_Racks x WHERE x.BarCode=t1.Barcode)
+          AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi x WHERE x.BarCode=t1.Barcode)
           AND EXISTS     (SELECT 1 FROM ERP_ChiTietNhapKhoNPL c WHERE c.BarCode=t1.Barcode)
-          AND NOT EXISTS (SELECT 1 FROM #tempSH_Racks s WHERE s.BarCode=t1.Barcode)
+          AND NOT EXISTS (SELECT 1 FROM #TempSoanHang s WHERE s.BarCode=t1.Barcode)
         GROUP BY t1.MaONPL, t2.KeID;
 
         SELECT t1.DayID, t4.TenDay, t1.KeID, t1.TenKe, t1.Module,
@@ -286,7 +287,7 @@ BEGIN
         GROUP BY t1.DayID, t4.TenDay, t1.KeID, t1.TenKe, t1.Module, t3.TongCBMTrongKe
         ORDER BY t1.Module, t1.TenKe;
 
-        DROP TABLE #tempCBMO_Racks; DROP TABLE #tempCBMKe_Racks; DROP TABLE #TempXCTH_Racks; DROP TABLE #tempSH_Racks;
+        DROP TABLE #tempCBMO_Racks; DROP TABLE #tempCBMKe_Racks;  
     END
 
     ELSE IF @Action = 'GetChuanBiVe'
@@ -739,22 +740,9 @@ BEGIN
             RETURN;
         END
 
-        SELECT BarCode INTO #tmpXCTH_AMIS FROM PhieuXuatHang t1
-        WHERE NOT EXISTS (
-            SELECT 1 FROM PhieuThuHoiNPL t2
-            WHERE t2.MaLenh = t1.MaLenhSX
-              AND (t2.BarCode = t1.BarCode OR t2.BarCode = t1.BarCodeGoc)
-              AND t1.Dot = t2.Dot
-        );
+        
 
-        SELECT TOP (0) BarCode INTO #tmpSH_AMIS FROM ERP_SoanHangNPL_BarCode;
-        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
-           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
-        BEGIN
-            INSERT INTO #tmpSH_AMIS(BarCode)
-            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode
-                WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
-        END
+        
 
         IF OBJECT_ID('tempdb..#MatRaw_AMIS') IS NOT NULL DROP TABLE #MatRaw_AMIS;
         SELECT
@@ -768,8 +756,8 @@ BEGIN
         INNER JOIN dbo.ERP_ONPL    o ON o.TenO     = v.MaONPL
         WHERE v.MaONPL IS NOT NULL
           AND o.Module IN (1, 2)
-          AND NOT EXISTS (SELECT 1 FROM #tmpXCTH_AMIS t WHERE t.BarCode = v.Barcode)
-          AND NOT EXISTS (SELECT 1 FROM #tmpSH_AMIS   t WHERE t.BarCode = v.Barcode)
+          AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi t WHERE t.BarCode = v.Barcode)
+          AND NOT EXISTS (SELECT 1 FROM #TempSoanHang   t WHERE t.BarCode = v.Barcode)
         GROUP BY ct.MaNPL, o.Module
         HAVING SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) > 0;
 
@@ -855,20 +843,15 @@ BEGIN
         DROP TABLE #MatRaw_AMIS;
         DROP TABLE #MatParsed_AMIS;
         DROP TABLE #MatFinal_AMIS;
-        DROP TABLE #tmpXCTH_AMIS;
-        DROP TABLE #tmpSH_AMIS;
+        
+        
     END
 
     ELSE IF @Action = 'GetThanhGiaHangTon'
     BEGIN
-        SELECT BarCode INTO #tmpXTH_TGHT FROM PhieuXuatHang t1
-        WHERE NOT EXISTS (SELECT 1 FROM PhieuThuHoiNPL t2
-            WHERE t2.MaLenh=t1.MaLenhSX AND (t2.BarCode=t1.BarCode OR t2.BarCode=t1.BarCodeGoc) AND t1.Dot=t2.Dot);
+        
 
-        SELECT TOP (0) BarCode INTO #tmpSH_TGHT FROM ERP_SoanHangNPL_BarCode;
-        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
-            INSERT INTO #tmpSH_TGHT(BarCode)
-            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode WHERE ISNULL(SLSoanHang_TK,0)-ISNULL(SLSoanHang_BC,0)=0;';
+        
 
         SET @ThanhGia = 0; SET @TongMa = 0; SET @SoMaCoGia = 0; SET @SoMaKhongGia = 0; SET @TongSL = 0;
 
@@ -884,8 +867,8 @@ BEGIN
                 INNER JOIN dbo.ERP_VatTuCBM v ON v.Barcode = ct.BarCode
                 INNER JOIN dbo.ERP_ONPL    o ON o.TenO     = v.MaONPL
                 WHERE v.MaONPL IS NOT NULL AND o.Module IN (1,2)
-                  AND NOT EXISTS (SELECT 1 FROM #tmpXTH_TGHT t WHERE t.BarCode = v.Barcode)
-                  AND NOT EXISTS (SELECT 1 FROM #tmpSH_TGHT  t WHERE t.BarCode = v.Barcode)
+                  AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi t WHERE t.BarCode = v.Barcode)
+                  AND NOT EXISTS (SELECT 1 FROM #TempSoanHang  t WHERE t.BarCode = v.Barcode)
             ),
             ByMa AS (
                 SELECT MaNPL,
@@ -911,8 +894,8 @@ BEGIN
                @SoMaKhongGia AS SoMaKhongGia,
                @TongSL   AS TongSoLuong;
 
-        DROP TABLE #tmpXTH_TGHT;
-        DROP TABLE #tmpSH_TGHT;
+        
+        
     END
 
     ELSE IF @Action = 'GetNKDuKienByRange'
@@ -1250,22 +1233,9 @@ BEGIN
 
     ELSE IF @Action = 'GetRackSlotDetail'
     BEGIN
-        SELECT BarCode INTO #tmpXuat_RSD FROM PhieuXuatHang t1
-        WHERE NOT EXISTS (
-            SELECT 1 FROM PhieuThuHoiNPL t2
-            WHERE t2.MaLenh = t1.MaLenhSX
-              AND (t2.BarCode = t1.BarCode OR t2.BarCode = t1.BarCodeGoc)
-              AND t1.Dot = t2.Dot
-        );
+        
 
-        SELECT TOP (0) BarCode INTO #tmpSoanHang_RSD FROM ERP_SoanHangNPL_BarCode;
-        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
-           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
-        BEGIN
-            INSERT INTO #tmpSoanHang_RSD(BarCode)
-            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode
-                WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
-        END
+        
 
         SELECT
             ke.Module,
@@ -1293,8 +1263,8 @@ BEGIN
           AND LOWER(ISNULL(d.TenDay, N'')) NOT LIKE '%co%'
           AND LOWER(ISNULL(d.TenDay, N'')) NOT LIKE N'%lỗi%'
           AND LOWER(ISNULL(d.TenDay, N'')) NOT LIKE N'%n%'
-          AND NOT EXISTS (SELECT 1 FROM #tmpXuat_RSD tx WHERE tx.BarCode = vt.Barcode)
-          AND NOT EXISTS (SELECT 1 FROM #tmpSoanHang_RSD ts WHERE ts.BarCode = vt.Barcode);
+          AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi tx WHERE tx.BarCode = vt.Barcode)
+          AND NOT EXISTS (SELECT 1 FROM #TempSoanHang ts WHERE ts.BarCode = vt.Barcode);
 
         IF OBJECT_ID('tempdb..#SlotAgg_RSD') IS NOT NULL DROP TABLE #SlotAgg_RSD;
         SELECT
@@ -1351,8 +1321,8 @@ BEGIN
 
         DROP TABLE #SlotAgg_RSD;
         DROP TABLE #tmpSlot_RSD;
-        DROP TABLE #tmpXuat_RSD;
-        DROP TABLE #tmpSoanHang_RSD;
+        
+        
     END
 
     ELSE IF @Action = 'GetActivityCalendar'
@@ -1446,7 +1416,7 @@ BEGIN
         IF @TotalDaysRange < 1 SET @TotalDaysRange = 1;
         IF @TotalDaysRange > 400 SET @TotalDaysRange = 400;
 
-        -- 1. X�Y D?NG L�I D? LI?U CHU?N (Core Logic)
+        -- 1. X�Y D?NG L�I D? LI?U CHU?N (Core Logic)
         DECLARE @IsNPL_Check NVARCHAR(200);
         SELECT TOP 1 @IsNPL_Check = IsNPL FROM ERP_ChiTietNhapKhoNPL WHERE MaNPL = @MaNPL;
 
@@ -1488,7 +1458,7 @@ BEGIN
           AND ((@KhoLoi = '1' AND EXISTS (SELECT 1 FROM #tblVTLoi vtl WHERE t1.BarCode = vtl.Barcode))
             OR (@KhoLoi = '0' AND NOT EXISTS (SELECT 1 FROM #tblVTLoi vtl WHERE t1.BarCode = vtl.Barcode)));
 
-        -- 2. T�NH T?N �?U K?
+        -- 2. T�NH T?N �?U K?
         DECLARE @TonDauKy DECIMAL(18,4) = 0;
         DECLARE @TonNhapDK DECIMAL(18,4) = 0;
         DECLARE @TonXuatDK DECIMAL(18,4) = 0;
@@ -1519,7 +1489,7 @@ BEGIN
 
         SET @TonDauKy = ISNULL(@TonNhapDK, 0) - ISNULL(@TonXuatDK, 0) + ISNULL(@TonThuDK, 0) - ISNULL(@TonChenhDK, 0);
 
-        -- 3. TRONG K? THEO NG�Y
+        -- 3. TRONG K? THEO NG�Y
         IF OBJECT_ID('tempdb..#tempChenhLechTK') IS NOT NULL DROP TABLE #tempChenhLechTK;
         SELECT CONVERT(DATE, DateDuyetKK) AS Ngay, ROUND(SUM(ISNULL(SLKiemKeBanDau,0) - ISNULL(SLKiemKeEdit,0)), 4) AS SLChenhLenhTK
         INTO #tempChenhLechTK FROM ERPPhieuKiemKe_NPL t1
@@ -1550,7 +1520,7 @@ BEGIN
           AND EXISTS (SELECT 1 FROM #tempTKho t3 WHERE t2.BarCodeGoc = t3.BarCode)
         GROUP BY CONVERT(DATE, t1.NgayTH);
 
-        -- 4. T?NG H?P RA BI?U �?
+        -- 4. T?NG H?P RA BI?U �?
         ;WITH Days AS (
             SELECT TOP (@TotalDaysRange)
                 CAST(DATEADD(DAY, number, @StartDateRange) AS DATE) AS Ngay
@@ -1624,38 +1594,6 @@ BEGIN
 
     ELSE IF @Action = 'GetTop5'
     BEGIN
-        CREATE TABLE #tmpXuatChuaThuHoi_T5 (
-            BarCode NVARCHAR(500) NOT NULL PRIMARY KEY
-        );
-        INSERT INTO #tmpXuatChuaThuHoi_T5 (BarCode)
-        SELECT DISTINCT t1.BarCode
-        FROM PhieuXuatHang t1
-        WHERE t1.BarCode IS NOT NULL
-          AND EXISTS (SELECT 1 FROM dbo.ERP_VatTuCBM v WHERE v.Barcode = t1.BarCode)
-          AND NOT EXISTS (
-            SELECT 1 FROM PhieuThuHoiNPL t2
-            WHERE t2.MaLenh = t1.MaLenhSX
-              AND t2.BarCode = t1.BarCode
-              AND t1.Dot = t2.Dot
-          )
-          AND NOT EXISTS (
-            SELECT 1 FROM PhieuThuHoiNPL t2
-            WHERE t2.MaLenh = t1.MaLenhSX
-              AND t2.BarCode = t1.BarCodeGoc
-              AND t1.Dot = t2.Dot
-          );
-
-        CREATE TABLE #tmpSH_T5 (
-            BarCode NVARCHAR(500) NOT NULL PRIMARY KEY
-        );
-        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
-           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
-        BEGIN
-            INSERT INTO #tmpSH_T5(BarCode)
-            EXEC sp_executesql N'SELECT DISTINCT BarCode FROM ERP_SoanHangNPL_BarCode
-                WHERE BarCode IS NOT NULL AND ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
-        END
-
         IF OBJECT_ID('tempdb..#TopRaw_T5') IS NOT NULL DROP TABLE #TopRaw_T5;
         SELECT
             ct.MaNPL,
@@ -1668,8 +1606,8 @@ BEGIN
         WHERE v.MaONPL IS NOT NULL
           AND o.Module IN (1, 2)
           AND (@LoaiNPL = 0 OR o.Module = @LoaiNPL)
-          AND NOT EXISTS (SELECT 1 FROM #tmpXuatChuaThuHoi_T5 t WHERE t.BarCode = v.Barcode)
-          AND NOT EXISTS (SELECT 1 FROM #tmpSH_T5       t WHERE t.BarCode = v.Barcode)
+          AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi t WHERE t.BarCode = v.Barcode)
+          AND NOT EXISTS (SELECT 1 FROM #TempSoanHang       t WHERE t.BarCode = v.Barcode)
         GROUP BY ct.MaNPL, o.Module
         HAVING SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) > 0;
 
@@ -1757,8 +1695,8 @@ BEGIN
         DROP TABLE #TopRaw_T5;
         DROP TABLE #TopParsed_T5;
         DROP TABLE #TopFinal_T5;
-        DROP TABLE #tmpXuatChuaThuHoi_T5;
-        DROP TABLE #tmpSH_T5;
+        
+        
     END
 
     ELSE IF @Action = 'GetCongViecChoXuLy'
@@ -1968,22 +1906,9 @@ BEGIN
 
     ELSE IF @Action = 'GetTop5KhachHangTonKho'
     BEGIN
-        SELECT BarCode INTO #TempXCTH_T5KH FROM PhieuXuatHang t1
-        WHERE NOT EXISTS (
-            SELECT 1 FROM PhieuThuHoiNPL t2
-            WHERE t2.MaLenh = t1.MaLenhSX
-              AND (t2.BarCode = t1.BarCode OR t2.BarCode = t1.BarCodeGoc)
-              AND t1.Dot = t2.Dot
-        );
+        
 
-        SELECT TOP (0) BarCode INTO #tmpSH_T5KH FROM ERP_SoanHangNPL_BarCode;
-        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
-           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
-        BEGIN
-            INSERT INTO #tmpSH_T5KH(BarCode)
-            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode
-                WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
-        END
+        
 
         ;WITH CTE AS (
             SELECT 
@@ -1993,8 +1918,8 @@ BEGIN
             INNER JOIN ERP_NhapKhoNPL nk ON ct.SoLoID = nk.SoLoID
             LEFT JOIN KhachHang kh ON nk.MaKH = kh.MaKH
             WHERE ISNULL(ct.SoLuongThucTeBanDau, 0) > 0
-              AND NOT EXISTS (SELECT 1 FROM #TempXCTH_T5KH x WHERE x.BarCode = ct.BarCode)
-              AND NOT EXISTS (SELECT 1 FROM #tmpSH_T5KH   s WHERE s.BarCode = ct.BarCode)
+              AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi x WHERE x.BarCode = ct.BarCode)
+              AND NOT EXISTS (SELECT 1 FROM #TempSoanHang   s WHERE s.BarCode = ct.BarCode)
             GROUP BY ISNULL(kh.TenKH, ISNULL(nk.KhachHang, N'Khách trống'))
         ),
         TotalCTE AS (
@@ -2009,28 +1934,15 @@ BEGIN
         CROSS JOIN TotalCTE t
         ORDER BY c.GiaTriTon DESC;
 
-        DROP TABLE #TempXCTH_T5KH;
-        DROP TABLE #tmpSH_T5KH;
+        
+        
     END
 
     ELSE IF @Action = 'GetKhachHangTonKhoChiTiet'
     BEGIN
-        SELECT BarCode INTO #TempXCTH_KHTKCT FROM PhieuXuatHang t1
-        WHERE NOT EXISTS (
-            SELECT 1 FROM PhieuThuHoiNPL t2
-            WHERE t2.MaLenh = t1.MaLenhSX
-              AND (t2.BarCode = t1.BarCode OR t2.BarCode = t1.BarCodeGoc)
-              AND t1.Dot = t2.Dot
-        );
+        
 
-        SELECT TOP (0) BarCode INTO #tmpSH_KHTKCT FROM ERP_SoanHangNPL_BarCode;
-        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
-           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
-        BEGIN
-            INSERT INTO #tmpSH_KHTKCT(BarCode)
-            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode
-                WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
-        END
+        
 
         ;WITH CTE AS (
             SELECT 
@@ -2045,8 +1957,8 @@ BEGIN
             LEFT JOIN (SELECT Barcode, MAX(ISNULL(CBM, 0)) AS CBM FROM ERP_VatTuCBM WHERE MaONPL IS NOT NULL GROUP BY Barcode) cbm_agg
                    ON ct.BarCode = cbm_agg.Barcode
             WHERE ISNULL(ct.SoLuongThucTeBanDau, 0) > 0
-              AND NOT EXISTS (SELECT 1 FROM #TempXCTH_KHTKCT x WHERE x.BarCode = ct.BarCode)
-              AND NOT EXISTS (SELECT 1 FROM #tmpSH_KHTKCT   s WHERE s.BarCode = ct.BarCode)
+              AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi x WHERE x.BarCode = ct.BarCode)
+              AND NOT EXISTS (SELECT 1 FROM #TempSoanHang   s WHERE s.BarCode = ct.BarCode)
             GROUP BY ISNULL(nk.MaKH, ''), ISNULL(kh.TenKH, ISNULL(nk.KhachHang, N'Khách trống'))
         ),
         TotalCTE AS (
@@ -2064,28 +1976,15 @@ BEGIN
         CROSS JOIN TotalCTE t
         ORDER BY c.GiaTri DESC;
 
-        DROP TABLE #TempXCTH_KHTKCT;
-        DROP TABLE #tmpSH_KHTKCT;
+        
+        
     END
 
     ELSE IF @Action = 'GetGiaTriTonKhoTheoNhom'
     BEGIN
-        SELECT BarCode INTO #TempXCTH_GTTK FROM PhieuXuatHang t1
-        WHERE NOT EXISTS (
-            SELECT 1 FROM PhieuThuHoiNPL t2
-            WHERE t2.MaLenh = t1.MaLenhSX
-              AND (t2.BarCode = t1.BarCode OR t2.BarCode = t1.BarCodeGoc)
-              AND t1.Dot = t2.Dot
-        );
+        
 
-        SELECT TOP (0) BarCode INTO #tmpSH_GTTK FROM ERP_SoanHangNPL_BarCode;
-        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
-           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
-        BEGIN
-            INSERT INTO #tmpSH_GTTK(BarCode)
-            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode
-                WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
-        END
+        
 
         ;WITH BaseData AS (
             SELECT 
@@ -2094,8 +1993,8 @@ BEGIN
             FROM ERP_ChiTietNhapKhoNPL ct 
             LEFT JOIN (SELECT MaCLVT, MAX(TenNhom) AS TenNhom FROM NhomNguyenPhuLieu GROUP BY MaCLVT) nh ON ct.MaNhom = nh.MaCLVT
             WHERE ISNULL(ct.SoLuongThucTeBanDau, 0) > 0 
-              AND NOT EXISTS (SELECT 1 FROM #TempXCTH_GTTK x WHERE x.BarCode = ct.BarCode)
-              AND NOT EXISTS (SELECT 1 FROM #tmpSH_GTTK   s WHERE s.BarCode = ct.BarCode)
+              AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi x WHERE x.BarCode = ct.BarCode)
+              AND NOT EXISTS (SELECT 1 FROM #TempSoanHang   s WHERE s.BarCode = ct.BarCode)
             GROUP BY ISNULL(nh.TenNhom, N'Khác')
         ),
         RankedData AS (
@@ -2122,28 +2021,15 @@ BEGIN
         CROSS JOIN TotalCTE t
         ORDER BY CASE WHEN c.Nhom = N'Khác' THEN 1 ELSE 0 END, c.GiaTri DESC;
 
-        DROP TABLE #TempXCTH_GTTK;
-        DROP TABLE #tmpSH_GTTK;
+        
+        
     END
 
     ELSE IF @Action = 'GetGiaTriNhomChiTiet'
     BEGIN
-        SELECT BarCode INTO #TempXCTH_GTNCT FROM PhieuXuatHang t1
-        WHERE NOT EXISTS (
-            SELECT 1 FROM PhieuThuHoiNPL t2
-            WHERE t2.MaLenh = t1.MaLenhSX
-              AND (t2.BarCode = t1.BarCode OR t2.BarCode = t1.BarCodeGoc)
-              AND t1.Dot = t2.Dot
-        );
+        
 
-        SELECT TOP (0) BarCode INTO #tmpSH_GTNCT FROM ERP_SoanHangNPL_BarCode;
-        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
-           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
-        BEGIN
-            INSERT INTO #tmpSH_GTNCT(BarCode)
-            EXEC sp_executesql N'SELECT BarCode FROM ERP_SoanHangNPL_BarCode
-                WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
-        END
+        
 
         SELECT 
             ISNULL(nh.TenNhom, N'Khác') AS ParentNhom,
@@ -2165,8 +2051,8 @@ BEGIN
         LEFT JOIN ERP_KhoVai k ON k.KhoVaiID = ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 1), '')
         LEFT JOIN ERP_DonViVT d ON d.MaDVVT = k.MaDVVT
         WHERE ISNULL(ct.SoLuongThucTeBanDau, 0) > 0 
-          AND NOT EXISTS (SELECT 1 FROM #TempXCTH_GTNCT x WHERE x.BarCode = ct.BarCode)
-          AND NOT EXISTS (SELECT 1 FROM #tmpSH_GTNCT   s WHERE s.BarCode = ct.BarCode)
+          AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi x WHERE x.BarCode = ct.BarCode)
+          AND NOT EXISTS (SELECT 1 FROM #TempSoanHang   s WHERE s.BarCode = ct.BarCode)
         GROUP BY 
             ISNULL(nh.TenNhom, N'Khác'), 
             vt.MaVT, 
@@ -2225,8 +2111,8 @@ BEGIN
         )
         ORDER BY IsGroup DESC, STT ASC, ParentNhom ASC, GiaTri DESC;
 
-        DROP TABLE #TempXCTH_GTNCT;
-        DROP TABLE #tmpSH_GTNCT;
+        
+        
         DROP TABLE #RawDetails;
         DROP TABLE #RawGroups;
     END
@@ -2298,23 +2184,6 @@ BEGIN
         DECLARE @ParaTu   DATE = ISNULL(TRY_CONVERT(DATE, @TuNgay),  '1900-01-01');
         DECLARE @ParaDen  DATE = ISNULL(TRY_CONVERT(DATE, @DenNgay), '2900-01-01');
 
-        SELECT DISTINCT t1.BarCode INTO #tmpXuatTK FROM dbo.PhieuXuatHang t1
-        WHERE NOT EXISTS (
-            SELECT 1 FROM dbo.PhieuThuHoiNPL t2
-            WHERE t2.MaLenh = t1.MaLenhSX
-              AND (t2.BarCode = t1.BarCode OR t2.BarCode = t1.BarCodeGoc)
-              AND t1.Dot = t2.Dot
-        );
-
-        SELECT TOP (0) BarCode INTO #tmpSHanTK FROM dbo.ERP_SoanHangNPL_BarCode;
-        IF COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_TK') IS NOT NULL
-           AND COL_LENGTH('dbo.ERP_SoanHangNPL_BarCode','SLSoanHang_BC') IS NOT NULL
-        BEGIN
-            INSERT INTO #tmpSHanTK(BarCode)
-            EXEC sp_executesql N'SELECT BarCode FROM dbo.ERP_SoanHangNPL_BarCode
-                WHERE ISNULL(SLSoanHang_TK,0) - ISNULL(SLSoanHang_BC,0) = 0;';
-        END
-
         SELECT DISTINCT
             ct.MaNPL,
             ct.SoLoID,
@@ -2330,8 +2199,8 @@ BEGIN
           AND (ISNULL(@LoaiNPL, 0) = 0 OR o.Module = @LoaiNPL)
           AND (ISNULL(@Itemcode, '') = '' OR ct.MaNPL LIKE '%' + @Itemcode + '%')
           AND ct.SoLuongThucTeBanDau > 0
-          AND NOT EXISTS (SELECT 1 FROM #tmpXuatTK x WHERE x.BarCode = ct.BarCode)
-          AND NOT EXISTS (SELECT 1 FROM #tmpSHanTK s WHERE s.BarCode = ct.BarCode);
+          AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi x WHERE x.BarCode = ct.BarCode)
+          AND NOT EXISTS (SELECT 1 FROM #TempSoanHang s WHERE s.BarCode = ct.BarCode);
 
         SELECT t1.SoLoID, t1.BarCode,
                ISNULL(t1.SLKiemKeBanDau, 0) - ISNULL(t1.SLKiemKeEdit, ISNULL(t1.SLKiemKe, 0)) AS SLChenhLech
@@ -2455,7 +2324,7 @@ BEGIN
         DROP TABLE #NhapDK_TK; DROP TABLE #XuatDK_TK; DROP TABLE #ThuDK_TK;
         DROP TABLE #NhapTK_TK; DROP TABLE #XuatTK_TK; DROP TABLE #ThuTK_TK;
         DROP TABLE #SoanHang_TK;    DROP TABLE #Loi_TK;
-        DROP TABLE #tmpXuatTK;      DROP TABLE #tmpSHanTK;
+        
     END
 
     ELSE IF @Action = 'GetTonDauKyChiTiet'
@@ -2920,6 +2789,10 @@ BEGIN
     SELECT 'Unknown action: ' + ISNULL(@Action, 'NULL') AS [Error];
 END
 GO
+
+
+
+
 
 
 

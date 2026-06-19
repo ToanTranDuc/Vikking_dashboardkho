@@ -13,6 +13,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
         private const int CACHE_MINUTES = 5;
         private static readonly Dictionary<string, CachedEntry> _cache = new Dictionary<string, CachedEntry>();
         private static readonly object _cacheLock = new object();
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, object> _keyLocks = new System.Collections.Concurrent.ConcurrentDictionary<string, object>();
 
         private class CachedEntry
         {
@@ -79,20 +80,37 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 return staleData;
             }
 
-            var dt = producer();
-            lock (_cacheLock)
+            // [FIX] Chống Cache Stampede cho lần nạp đầu tiên
+            object keyLock = _keyLocks.GetOrAdd(key, k => new object());
+            lock (keyLock)
             {
-                _cache[key] = new CachedEntry
+                // Double-check lock
+                lock (_cacheLock)
                 {
-                    Data = dt,
-                    ExpiresAt = DateTime.UtcNow.AddMinutes(CACHE_MINUTES),
-                    IsRefreshing = false
-                };
+                    if (_cache.TryGetValue(key, out CachedEntry e) && e.Data != null)
+                    {
+                        return e.Data;
+                    }
+                }
+
+                var dt = producer();
+                lock (_cacheLock)
+                {
+                    _cache[key] = new CachedEntry
+                    {
+                        Data = dt,
+                        ExpiresAt = DateTime.UtcNow.AddMinutes(CACHE_MINUTES),
+                        IsRefreshing = false
+                    };
+                }
+                return dt;
             }
-            return dt;
         }
 
         
+        #endregion
+
+        #region SYSTEM UTILS
         public static void ClearCache()
         {
             lock (_cacheLock) { _cache.Clear(); }
@@ -177,6 +195,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
             return ExecuteSP("GetDistinctMaterialCount");
         }
 
+        #endregion
+
+        #region BÁO CÁO CHI TIẾT
         public static DataTable GetCustomers()
         {
             return GetOrCache("dk_Customers", () => ExecuteSP("GetCustomers"));
@@ -1656,5 +1677,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
         public string MaLenhSX { get; set; }
     }
 }
+
+
 
 
