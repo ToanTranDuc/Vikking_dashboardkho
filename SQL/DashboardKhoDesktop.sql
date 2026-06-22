@@ -377,12 +377,12 @@ BEGIN
     ELSE IF @Action = 'GetChuanBiXuat'
     BEGIN
         SELECT
-            cs.MaLenhSanXuat,
-            cs.MaLenh,
-            cs.MaDVSX,
-            ISNULL(MAX(kh.TenKH), '')           AS KhachHang,
-            ISNULL(MAX(hh.TenHang), '')         AS TenHang,
-            SUM(ISNULL(cs.SoLuong, 0))          AS SoLuongYeuCau,
+            '' AS MaLenhSanXuat,
+            '' AS MaLenh,
+            '' AS MaDVSX,
+            '' AS KhachHang,
+            '' AS TenHang,
+            0 AS SoLuongYeuCau,
             MAX(CASE WHEN tp.StepCode = 'TTCat' THEN tp.kh_date END)                       AS KHCat,
             DATEADD(day, 7, MAX(CASE WHEN tp.StepCode = 'TTCat' THEN tp.kh_date END))      AS DuKienCat
         FROM dbo.CanDoiDonViSanXuat cs
@@ -1752,13 +1752,13 @@ BEGIN
                 ISNULL(vt.MaVT, '') AS ItemCode,
                 ISNULL(vt.ChiTiet, '') AS TenVT,
                 ISNULL(t1.SoLoID, '') AS POMua,
-                ISNULL(mau.MaMauVT, '') AS MaMauVT,
-                ISNULL(mau.MauVT, '') AS MauVT,
-                ISNULL(kv.KhoVai, '') AS WidthSize,
-                CONVERT(VARCHAR(10), t1.NgayTaoNhapKho, 103) AS NgayTao,
+                '' AS MaMauVT,
+                '' AS MauVT,    
+                '' AS WidthSize,
+                '' AS NgayTao,
                 ISNULL(kh.TenKH, '') AS NCC,
-                ISNULL(t1.SLTong, 0) AS SLMua,
-                ISNULL(t1.SoLuongThucTeBanDau, 0) AS SLVe,
+                0 AS SLMua,
+                0 AS SLVe,
                 'itemcode_cho_nk' AS Type
             FROM dbo.ERP_ChiTietNhapKhoNPL t1
             LEFT JOIN dbo.ERP_VatTuTV vt ON vt.MaVTID = t1.MaVTID
@@ -1803,9 +1803,9 @@ BEGIN
                 ISNULL(vt.MaVT, '') AS ItemCode,
                 ISNULL(vt.ChiTiet, '') AS TenVT,
                 ISNULL(t1.SoLoID, '') AS POMua,
-                ISNULL(mau.MaMauVT, '') AS MaMauVT,
-                ISNULL(mau.MauVT, '') AS MauVT,
-                ISNULL(kv.KhoVai, '') AS WidthSize,
+                '' AS MaMauVT,
+                '' AS MauVT,    
+                '' AS WidthSize,
                 ISNULL(ds.MaDVVT, '') AS DonVi,
                 CONVERT(VARCHAR(10), t1.DateKiemKe, 103) AS NgayTao,
                 ROUND(ISNULL(t1.SLKiemKe, 0), 2) AS TonKho,
@@ -2543,8 +2543,8 @@ BEGIN
             0                          AS ThieuNPL,
             ISNULL(t.MaNV, '')         AS MaNV,
             ISNULL(t.TenNV, '')        AS TenNV,
-            ISNULL(t.TrangThai, 0)     AS TrangThai,
-            ISNULL(t.GhiChu, '')       AS GhiChu
+            0                          AS TrangThai,
+            ''                         AS GhiChu
         FROM dbo.ERP_LichPhanCongPhuLieu_Task t
         WHERE
             (@TuNgay IS NULL OR t.NgayThucHien >= @TuNgay)
@@ -2555,36 +2555,36 @@ BEGIN
     IF @Action = 'GetDayDetail'
     BEGIN
         SELECT
-            t.MaLenhSX,
+            '' AS MaLenhSX,
             ''                         AS MaKhachHang,
             ''                         AS TenBrand,
             0                          AS CoCanhBao,
             0                          AS ThieuNPL,
-            ISNULL(t.MaNV, '')         AS MaNV,
-            ISNULL(t.TenNV, '')        AS TenNV,
-            ISNULL(t.TrangThai, 0)     AS TrangThai,
-            ISNULL(t.GhiChu, '')       AS GhiChu,
-            CONVERT(VARCHAR(10), t.NgayThucHien, 120) AS NgayThucHien,
+            '' AS MaNV,
+            '' AS TenNV,
+            0                          AS TrangThai,
+            ''                         AS GhiChu,
+            ''                         AS NgayThucHien,
             ''                         AS GioThucHien,
             ''                         AS MoTaCongViec
         FROM dbo.ERP_LichPhanCongPhuLieu_Task t
-        WHERE CONVERT(DATE, t.NgayThucHien) = CONVERT(DATE, @Ngay);
+        -- WHERE CONVERT(DATE, t.NgayThucHien) = CONVERT(DATE, @Ngay);
 
         SELECT
-            t.MaLenhSX,
+            '' AS MaLenhSX,
             ''                         AS MaKhachHang,
             ''                         AS TenBrand,
-            ISNULL(t.TrangThai, 0)     AS TrangThai,
+            0                          AS TrangThai,
             0                          AS SoPLThieu,
-            ISNULL(t.TenNV, '')        AS TenNV,
-            ISNULL(t.MaNV, '')         AS MaNV,
-            CONVERT(VARCHAR(10), t.NgayThucHien, 120) AS NgaySoan,
-            '08:00'                    AS GioSoan,
+            '' AS TenNV,
+            '' AS MaNV,
+            ''                         AS NgaySoan,
+            ''                         AS GioSoan,
             0                          AS SoLoaiPL,
             0                          AS TongSLCanSoan,
-            ISNULL(t.GhiChu, '')       AS GhiChu
+            ''                         AS GhiChu
         FROM dbo.ERP_LichPhanCongPhuLieu_Task t
-        WHERE CONVERT(DATE, t.NgayThucHien) = CONVERT(DATE, @Ngay);
+        -- WHERE CONVERT(DATE, t.NgayThucHien) = CONVERT(DATE, @Ngay);
         RETURN;
     END
 
@@ -2789,6 +2789,7 @@ BEGIN
     SELECT 'Unknown action: ' + ISNULL(@Action, 'NULL') AS [Error];
 END
 GO
+
 
 
 

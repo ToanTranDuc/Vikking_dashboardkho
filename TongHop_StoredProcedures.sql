@@ -4495,7 +4495,7 @@ ELSE IF @Action = 'GET_OVERALL_CAPACITY'
             SUM(CapPhat) AS SoMet,
             MaHang,
             TenKH AS KhachHang,
-            CONCAT(t1.MaLenhSanXuat, ' | ', t2.MaDH) AS Display,
+            '' AS Display,
             IsNPL AS NPL,
             t7.SoLuong SoLuong,
             GiaCong,
@@ -4546,7 +4546,7 @@ ELSE IF @Action = 'GET_OVERALL_CAPACITY'
             t1.MaDVSX,
             t1.MaHang AS TenHang,
             t1.KhachHang,
-            t1.MaLenhSanXuat AS Display,
+            '' AS Display,
             COALESCE(
                 MAX(CASE WHEN UPPER(t5.StepCode) = 'TTCAT' THEN t5.KH_Date END),
                 MAX(CASE WHEN UPPER(t5.StepCode) = 'TT_BOM' THEN t5.KH_Date END),
@@ -5010,15 +5010,15 @@ BEGIN
     BEGIN
         SELECT 
             CONVERT(VARCHAR(10), t.NgayThucHien, 120) AS NgayLam,
-            t.MaLenhSX,
-            ISNULL(p.MaKhachHang, '') AS MaKhachHang,
-            ISNULL(p.TenBrand, '') AS TenBrand,
+            '' AS MaLenhSX,
+            '' AS MaKhachHang,
+            '' AS TenBrand,
             0 AS CoCanhBao,
             0 AS ThieuNPL,
-            ISNULL(t.MaNV, '') AS MaNV,
-            ISNULL(t.TenNV, '') AS TenNV,
-            ISNULL(t.TrangThai, 0) AS TrangThai,
-            ISNULL(t.GhiChu, '') AS GhiChu
+            '' AS MaNV,
+            '' AS TenNV,
+            0                          AS TrangThai,
+            ''                         AS GhiChu
         FROM ERP_LichPhanCongPhuLieu_Task t
         LEFT JOIN ERP_ThongTinChungLenhSanXuat p ON t.MaLenhSX = p.MaLenhSX
         WHERE 
@@ -5031,35 +5031,35 @@ BEGIN
     BEGIN
         -- Result 1: Assignments
         SELECT 
-            t.MaLenhSX,
-            ISNULL(p.MaKhachHang, '') AS MaKhachHang,
-            ISNULL(p.TenBrand, '') AS TenBrand,
+            '' AS MaLenhSX,
+            '' AS MaKhachHang,
+            '' AS TenBrand,
             0 AS CoCanhBao,
             0 AS ThieuNPL,
-            ISNULL(t.MaNV, '') AS MaNV,
-            ISNULL(t.TenNV, '') AS TenNV,
-            ISNULL(t.TrangThai, 0) AS TrangThai,
-            ISNULL(t.GhiChu, '') AS GhiChu
+            '' AS MaNV,
+            '' AS TenNV,
+            0                          AS TrangThai,
+            ''                         AS GhiChu
         FROM ERP_LichPhanCongPhuLieu_Task t
         LEFT JOIN ERP_ThongTinChungLenhSanXuat p ON t.MaLenhSX = p.MaLenhSX
-        WHERE CONVERT(DATE, t.NgayThucHien) = CONVERT(DATE, @Ngay);
+        -- WHERE CONVERT(DATE, t.NgayThucHien) = CONVERT(DATE, @Ngay);
 
         -- Result 2: PickOrders
         SELECT 
-            t.MaLenhSX,
-            ISNULL(p.MaKhachHang, '') AS MaKhachHang,
-            ISNULL(p.TenBrand, '') AS TenBrand,
-            ISNULL(t.TrangThai, 0) AS TrangThai,
+            '' AS MaLenhSX,
+            '' AS MaKhachHang,
+            '' AS TenBrand,
+            0                          AS TrangThai,
             0 AS SoPLThieu,
-            ISNULL(t.TenNV, '') AS TenNV,
-            ISNULL(t.MaNV, '') AS MaNV,
-            CONVERT(VARCHAR(10), t.NgayThucHien, 120) AS NgaySoan,
-            '08:00' AS GioSoan,
+            '' AS TenNV,
+            '' AS MaNV,
+            ''                         AS NgaySoan,
+            ''                         AS GioSoan,
             0 AS SoLoaiPL,
             0 AS TongSLCanSoan
         FROM ERP_LichPhanCongPhuLieu_Task t
         LEFT JOIN ERP_ThongTinChungLenhSanXuat p ON t.MaLenhSX = p.MaLenhSX
-        WHERE CONVERT(DATE, t.NgayThucHien) = CONVERT(DATE, @Ngay);
+        -- WHERE CONVERT(DATE, t.NgayThucHien) = CONVERT(DATE, @Ngay);
         RETURN;
     END
 
@@ -7342,4 +7342,5 @@ BEGIN
         SELECT 'Unknown action: ' + ISNULL(@Action, 'NULL') AS Error;
     END
 END
+
 
