@@ -4478,7 +4478,7 @@ function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
             var tabsHeight = tabs.offsetHeight;
             var ths = container.querySelectorAll(".dk-detail-table thead th");
             for (var i = 0; i < ths.length; i++) {
-                ths[i].style.top = tabsHeight + "px";
+                ths[i].style.top = "0px";
             }
         }
     }, 10);
@@ -4613,7 +4613,7 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned) {
             var tabsHeight = tabs.offsetHeight;
             var ths = container.querySelectorAll(".dk-detail-table thead th");
             for (var i = 0; i < ths.length; i++) {
-                ths[i].style.top = tabsHeight + "px";
+                ths[i].style.top = "0px";
             }
         }
     }, 10);
