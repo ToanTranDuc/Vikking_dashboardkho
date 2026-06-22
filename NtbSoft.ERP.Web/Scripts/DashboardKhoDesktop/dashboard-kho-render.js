@@ -4356,8 +4356,8 @@ window.dkGoDetailPg = function(tabKey, dir) {
     if (totalPages > 1) {
         var btnPrev = d.page > 1 ? '<button class="dk-btn dk-btn-outline" style="margin-right:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', -1)">&#8592; Trang trước</button>' : '';
         var btnNext = d.page < totalPages ? '<button class="dk-btn dk-btn-outline" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', 1)">Trang sau &#8594;</button>' : '';
-        html += '<div style="text-align:center; padding: 15px; background: #fff; border-top: 1px solid #e2e8f0; position: sticky; bottom: -1px; z-index: 10;">' + 
-                btnPrev + '<span style="font-weight:600; margin: 0 10px;">Trang ' + d.page + ' / ' + totalPages + ' (' + formatNumber(d.rows.length, 0) + ' dòng)</span>' + btnNext + 
+        html += '<div class="dk-detail-pagination">' + 
+                btnPrev + '<span>Trang ' + d.page + ' / ' + totalPages + ' (' + formatNumber(d.rows.length, 0) + ' dòng)</span>' + btnNext + 
                 '</div>';
     }
     var panel = document.getElementById(d.panelId);
@@ -4461,8 +4461,8 @@ function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
             var totalPages = Math.ceil(tp.rows.length / 500);
             if (totalPages > 1) {
                 var btnNext = '<button class="dk-btn dk-btn-outline" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tp.key + '\', 1)">Trang sau &#8594;</button>';
-                html += '<div style="text-align:center; padding: 15px; background: #fff; border-top: 1px solid #e2e8f0; position: sticky; bottom: -1px; z-index: 10;">' + 
-                        '<span style="font-weight:600; margin: 0 10px;">Trang 1 / ' + totalPages + ' (' + formatNumber(tp.rows.length, 0) + ' dòng)</span>' + btnNext + 
+                html += '<div class="dk-detail-pagination">' + 
+                        '<span>Trang 1 / ' + totalPages + ' (' + formatNumber(tp.rows.length, 0) + ' dòng)</span>' + btnNext + 
                         '</div>';
             }
             panels += html;
@@ -4596,8 +4596,8 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned) {
             var totalPages = Math.ceil(tp.rows.length / 500);
             if (totalPages > 1) {
                 var btnNext = '<button class="dk-btn dk-btn-outline" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tp.key + '\', 1)">Trang sau &#8594;</button>';
-                html += '<div style="text-align:center; padding: 15px; background: #fff; border-top: 1px solid #e2e8f0; position: sticky; bottom: -1px; z-index: 10;">' + 
-                        '<span style="font-weight:600; margin: 0 10px;">Trang 1 / ' + totalPages + ' (' + formatNumber(tp.rows.length, 0) + ' dòng)</span>' + btnNext + 
+                html += '<div class="dk-detail-pagination">' + 
+                        '<span>Trang 1 / ' + totalPages + ' (' + formatNumber(tp.rows.length, 0) + ' dòng)</span>' + btnNext + 
                         '</div>';
             }
             panels += html;
