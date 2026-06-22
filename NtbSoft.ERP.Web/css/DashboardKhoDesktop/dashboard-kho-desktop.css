@@ -36314,7 +36314,7 @@ body.dark-theme .dk-cal-month-11 {
 /* Pagination Styles */
 .dk-detail-pagination {
     text-align: center;
-    padding: 15px;
+    padding: 6px 15px;
     background: var(--dk-card, #fff);
     border-top: 1px solid var(--dk-line, #e2e8f0);
     position: sticky;
@@ -36339,10 +36339,10 @@ body.dark-theme .dk-detail-pagination {
     background: var(--dk-card, #fff);
     border: 1px solid var(--dk-line, #e2e8f0);
     color: var(--dk-text, #1f3347);
-    padding: 6px 16px;
-    border-radius: 6px;
+    padding: 3px 12px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     transition: all 0.2s;
 }
