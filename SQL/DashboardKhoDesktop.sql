@@ -1771,7 +1771,22 @@ BEGIN
                 ORDER BY nk.SoLoID
             ) nk_top
             LEFT JOIN dbo.ERP_KhachHangNK kh ON nk_top.NhaCungCap = kh.MaNhaCC
-            WHERE ISNULL(t1.IsDuyetNK, 0) <> 1;
+            WHERE ISNULL(t1.IsDuyetNK, 0) <> 1
+              AND (
+                  EXISTS (
+                      SELECT 1 FROM dbo.QTY_KiemVaiV2 kv2
+                      INNER JOIN dbo.QTY_KiemVaiV2_XacNhan kx
+                          ON kv2.SoLoID = kx.SoLoID AND kv2.MaNPL = kx.MaNPL
+                      WHERE kv2.SoLoID = t1.SoLoID AND kv2.MaNPL = t1.MaNPL
+                        AND kv2.DuyetQC = 1
+                  )
+                  OR EXISTS (
+                      SELECT 1 FROM dbo.Qty_KiemPL_XacNhan kp
+                      WHERE kp.SoLoID = t1.SoLoID AND kp.MaNPL = t1.MaNPL
+                        AND kp.Is_XN_SoLo = 1
+                  )
+              )
+            ORDER BY t1.SoLoID, t1.MaNPL;
         END
         ELSE IF @TodoType = 'kk_cho_duyet'
         BEGIN
