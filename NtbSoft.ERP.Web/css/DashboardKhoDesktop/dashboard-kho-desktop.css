@@ -36313,6 +36313,9 @@ body.dark-theme .dk-cal-month-11 {
 
 /* Pagination Styles */
 .dk-detail-pagination {
+    position: sticky;
+    bottom: -12px;
+    z-index: 25;
     margin-top: 10px;
     text-align: center;
     padding: 6px 15px;
