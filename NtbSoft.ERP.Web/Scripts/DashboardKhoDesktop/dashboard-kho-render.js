@@ -4367,7 +4367,7 @@ window.dkGoDetailPg = function(tabKey, dir) {
     }
 
     setTimeout(function() {
-        var container = document.getElementById('overviewDetailBody') || document.getElementById('dayDetailBody');
+        var container = document.getElementById('detailModalContent');
         if (!container) return;
         var tabs = container.querySelector(".dk-day-tabs");
         if (tabs) {
@@ -4487,7 +4487,7 @@ function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
     container.innerHTML = tabBar + panels;
 
     setTimeout(function() {
-        var container = document.getElementById('overviewDetailBody') || document.getElementById('dayDetailBody');
+        var container = document.getElementById('detailModalContent');
         if (!container) return;
         var tabs = container.querySelector(".dk-day-tabs");
         if (tabs) {
@@ -4500,16 +4500,7 @@ function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
     }, 10);
 
 
-    setTimeout(function () {
-        var tabs = container.querySelector(".dk-day-tabs");
-        if (tabs) {
-            var tabsHeight = tabs.offsetHeight;
-            var ths = container.querySelectorAll(".dk-detail-table thead th");
-            for (var i = 0; i < ths.length; i++) {
-                ths[i].style.top = "0px";
-            }
-        }
-    }, 10);
+    
 
     var tabBtns = container.querySelectorAll(".dk-day-tab");
     for (var bi = 0; bi < tabBtns.length; bi++) {
@@ -4636,7 +4627,7 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned) {
     container.innerHTML = tabBar + panels;
 
     setTimeout(function() {
-        var container = document.getElementById('overviewDetailBody') || document.getElementById('dayDetailBody');
+        var container = document.getElementById('detailModalContent');
         if (!container) return;
         var tabs = container.querySelector(".dk-day-tabs");
         if (tabs) {
@@ -4649,16 +4640,7 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned) {
     }, 10);
 
 
-    setTimeout(function () {
-        var tabs = container.querySelector(".dk-day-tabs");
-        if (tabs) {
-            var tabsHeight = tabs.offsetHeight;
-            var ths = container.querySelectorAll(".dk-detail-table thead th");
-            for (var i = 0; i < ths.length; i++) {
-                ths[i].style.top = "0px";
-            }
-        }
-    }, 10);
+    
 
     var tabBtns = container.querySelectorAll(".dk-day-tab");
     for (var bi = 0; bi < tabBtns.length; bi++) {

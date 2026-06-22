@@ -10,7 +10,7 @@ try {
         "%c[Dashboard Kho Desktop] v" + DK_VERSION + " loaded",
         "background:#2563eb;color:#fff;padding:4px 10px;border-radius:4px;font-weight:700;font-size:13px",
     );
-} catch (e) {}
+} catch (e) { }
 window.__DK_VERSION__ = DK_VERSION;
 
 var state = {

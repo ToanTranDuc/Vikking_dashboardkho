@@ -36361,3 +36361,9 @@ body.dark-theme .dk-btn-page {
 body.dark-theme .dk-btn-page:hover {
     background: rgba(96, 165, 250, 0.1);
 }
+
+
+/* Fix sticky header by allowing it to stick to modal-content instead of table-wrap */
+.dk-modal-content .dk-table-wrap {
+    overflow: visible !important;
+}
