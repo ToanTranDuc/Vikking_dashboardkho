@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file dashboard-kho-modals.js
  * @description Quản lý toàn bộ logic đóng/mở và vẽ nội dung cho các cửa sổ Popup (Modals).
  * @version 2.7.26

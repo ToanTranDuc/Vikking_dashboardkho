@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file dashboard-kho-render.js
  * @description Xử lý logic vẽ giao diện chính (Bảng, Biểu đồ Highcharts, Lịch trình).
  * @version 2.7.26

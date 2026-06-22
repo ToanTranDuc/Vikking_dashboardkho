@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file dashboard-kho-state.js
  * @description Chứa các biến trạng thái toàn cục (State) dùng chung cho toàn bộ Dashboard.
  * @version 2.7.26

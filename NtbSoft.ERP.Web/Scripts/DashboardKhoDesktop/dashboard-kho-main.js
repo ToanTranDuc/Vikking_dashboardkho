@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file dashboard-kho-main.js
  * @description Điểm khởi đầu của ứng dụng. Khởi tạo dữ liệu và gán các sự kiện (Events) toàn cục.
  * @version 2.7.26
