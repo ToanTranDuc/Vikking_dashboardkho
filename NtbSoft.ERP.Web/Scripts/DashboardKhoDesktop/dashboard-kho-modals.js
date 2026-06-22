@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @file dashboard-kho-modals.js
  * @description Quản lý toàn bộ logic đóng/mở và vẽ nội dung cho các cửa sổ Popup (Modals).
  * @version 2.7.26
@@ -1166,7 +1166,7 @@ function renderTodoDetailModal() {
                 cols = commonHead.concat([{ key: "DonVi", label: "ĐV", center: true, width: 50 }], commonTail);
             }
             function fmtSL(val, unit, extraCls) {
-                if (val == null || val === "") return "";
+                if (val == null || val === "" || val === 0 || val === "0") return "";
                 var cls = "dk-cell-num" + (extraCls ? " " + extraCls : "");
                 return (
                     '<span class="' +

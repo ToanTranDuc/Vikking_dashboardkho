@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @file dashboard-kho-render.js
  * @description Xử lý logic vẽ giao diện chính (Bảng, Biểu đồ Highcharts, Lịch trình).
  * @version 2.7.26
@@ -4896,6 +4896,7 @@ function showLpcpInlineDetail(dateKey) {
 
     function ttBadge(tt) {
         var i = tt || 0;
+        if (i === 0) return "";
         return (
             "<span style='display:inline-flex;align-items:center;gap:4px;" +
             "background:" +
@@ -5371,6 +5372,7 @@ function appendLpcpTab(container, lpcpData) {
     var subColor = isDark ? "#94a3b8" : "#64748b";
 
     function ttBadge(tt) {
+        if (!tt || tt === 0 || tt === "0") return "";
         return (
             '<span style="display:inline-flex;align-items:center;gap:4px;' +
             "background:" +
