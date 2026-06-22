@@ -4354,8 +4354,8 @@ window.dkGoDetailPg = function(tabKey, dir) {
     var html = renderGroupedDetailTable(d.cols, pagedRows, d.dateField);
     
     if (totalPages > 1) {
-        var btnPrev = d.page > 1 ? '<button class="dk-btn dk-btn-outline" style="margin-right:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', -1)">&#8592; Trang trước</button>' : '';
-        var btnNext = d.page < totalPages ? '<button class="dk-btn dk-btn-outline" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', 1)">Trang sau &#8594;</button>' : '';
+        var btnPrev = d.page > 1 ? '<button class="dk-btn-page" style="margin-right:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', -1)">&#8592; Trang trước</button>' : '';
+        var btnNext = d.page < totalPages ? '<button class="dk-btn-page" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', 1)">Trang sau &#8594;</button>' : '';
         html += '<div class="dk-detail-pagination">' + 
                 btnPrev + '<span>Trang ' + d.page + ' / ' + totalPages + ' (' + formatNumber(d.rows.length, 0) + ' dòng)</span>' + btnNext + 
                 '</div>';
@@ -4446,7 +4446,7 @@ function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
         var tp = tabs[pi];
         var hidden = pi === activeIdx ? "" : ' style="display:none"';
         var panelId = 'dk_dp_' + Math.random().toString(36).substr(2, 9) + '_' + tp.key;
-        panels += '<div class="dk-day-panel" id="' + panelId + '" data-tabkey="' + tp.key + '"' + hidden + ' style="position:relative; overflow-y:auto; max-height:65vh;">';
+        panels += '<div class="dk-day-panel" id="' + panelId + '" data-tabkey="' + tp.key + '"' + hidden + ' style="position:relative;">';
 
         if (tp.rows.length === 0) {
             panels +=
@@ -4460,7 +4460,7 @@ function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
             var html = renderGroupedDetailTable(tp.cols, pagedRows, tp.dateField);
             var totalPages = Math.ceil(tp.rows.length / 500);
             if (totalPages > 1) {
-                var btnNext = '<button class="dk-btn dk-btn-outline" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tp.key + '\', 1)">Trang sau &#8594;</button>';
+                var btnNext = '<button class="dk-btn-page" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tp.key + '\', 1)">Trang sau &#8594;</button>';
                 html += '<div class="dk-detail-pagination">' + 
                         '<span>Trang 1 / ' + totalPages + ' (' + formatNumber(tp.rows.length, 0) + ' dòng)</span>' + btnNext + 
                         '</div>';
@@ -4581,7 +4581,7 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned) {
         var tp = tabs[pi];
         var hidden = pi === activeIdx ? "" : ' style="display:none"';
         var panelId = 'dk_dp_' + Math.random().toString(36).substr(2, 9) + '_' + tp.key;
-        panels += '<div class="dk-day-panel" id="' + panelId + '" data-tabkey="' + tp.key + '"' + hidden + ' style="position:relative; overflow-y:auto; max-height:65vh;">';
+        panels += '<div class="dk-day-panel" id="' + panelId + '" data-tabkey="' + tp.key + '"' + hidden + ' style="position:relative;">';
 
         if (tp.rows.length === 0) {
             panels +=
@@ -4595,7 +4595,7 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned) {
             var html = renderGroupedDetailTable(tp.cols, pagedRows, tp.dateField);
             var totalPages = Math.ceil(tp.rows.length / 500);
             if (totalPages > 1) {
-                var btnNext = '<button class="dk-btn dk-btn-outline" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tp.key + '\', 1)">Trang sau &#8594;</button>';
+                var btnNext = '<button class="dk-btn-page" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tp.key + '\', 1)">Trang sau &#8594;</button>';
                 html += '<div class="dk-detail-pagination">' + 
                         '<span>Trang 1 / ' + totalPages + ' (' + formatNumber(tp.rows.length, 0) + ' dòng)</span>' + btnNext + 
                         '</div>';

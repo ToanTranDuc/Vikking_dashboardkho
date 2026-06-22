@@ -36333,3 +36333,28 @@ body.dark-theme .dk-detail-pagination {
     font-weight: 600;
     margin: 0 10px;
 }
+
+/* Pagination Buttons */
+.dk-btn-page {
+    background: var(--dk-card, #fff);
+    border: 1px solid var(--dk-line, #e2e8f0);
+    color: var(--dk-text, #1f3347);
+    padding: 6px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+.dk-btn-page:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-theme .dk-btn-page {
+    background: transparent;
+    border-color: rgba(96, 165, 250, 0.3);
+    color: var(--dkk-text, #e2eaf5);
+}
+body.dark-theme .dk-btn-page:hover {
+    background: rgba(96, 165, 250, 0.1);
+}
