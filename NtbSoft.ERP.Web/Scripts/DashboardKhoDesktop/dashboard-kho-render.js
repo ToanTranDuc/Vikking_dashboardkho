@@ -4339,6 +4339,34 @@ function renderGroupedDetailTable(cols, rows, dateField) {
     return html;
 }
 
+
+window.__dkDetailData = {};
+window.dkGoDetailPg = function(tabKey, dir) {
+    var d = window.__dkDetailData[tabKey];
+    if (!d) return;
+    d.page += dir;
+    var pageSize = 500;
+    var totalPages = Math.ceil(d.rows.length / pageSize);
+    if (d.page < 1) d.page = 1;
+    if (d.page > totalPages) d.page = totalPages;
+    
+    var pagedRows = d.rows.slice((d.page - 1) * pageSize, d.page * pageSize);
+    var html = renderGroupedDetailTable(d.cols, pagedRows, d.dateField);
+    
+    if (totalPages > 1) {
+        var btnPrev = d.page > 1 ? '<button class="dk-btn dk-btn-outline" style="margin-right:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', -1)">&#8592; Trang trước</button>' : '';
+        var btnNext = d.page < totalPages ? '<button class="dk-btn dk-btn-outline" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', 1)">Trang sau &#8594;</button>' : '';
+        html += '<div style="text-align:center; padding: 15px; background: #fff; border-top: 1px solid #e2e8f0; position: sticky; bottom: -1px; z-index: 10;">' + 
+                btnPrev + '<span style="font-weight:600; margin: 0 10px;">Trang ' + d.page + ' / ' + totalPages + ' (' + formatNumber(d.rows.length, 0) + ' dòng)</span>' + btnNext + 
+                '</div>';
+    }
+    var panel = document.getElementById(d.panelId);
+    if (panel) {
+        panel.innerHTML = html;
+        panel.scrollTop = 0;
+    }
+};
+
 function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
     if (!container) return;
 
@@ -4417,14 +4445,27 @@ function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
     for (var pi = 0; pi < tabs.length; pi++) {
         var tp = tabs[pi];
         var hidden = pi === activeIdx ? "" : ' style="display:none"';
-        panels += '<div class="dk-day-panel" data-tabkey="' + tp.key + '"' + hidden + ">";
+        var panelId = 'dk_dp_' + Math.random().toString(36).substr(2, 9) + '_' + tp.key;
+        panels += '<div class="dk-day-panel" id="' + panelId + '" data-tabkey="' + tp.key + '"' + hidden + ' style="position:relative; overflow-y:auto; max-height:65vh;">';
+
         if (tp.rows.length === 0) {
             panels +=
                 '<div class="dk-empty" style="padding:30px">Không có dữ liệu ' +
                 escapeHtml(tp.label.toLowerCase()) +
                 "</div>";
         } else {
-            panels += renderGroupedDetailTable(tp.cols, tp.rows, tp.dateField);
+            window.__dkDetailData = window.__dkDetailData || {};
+            window.__dkDetailData[tp.key] = { cols: tp.cols, rows: tp.rows, dateField: tp.dateField, page: 1, panelId: panelId };
+            var pagedRows = tp.rows.slice(0, 500);
+            var html = renderGroupedDetailTable(tp.cols, pagedRows, tp.dateField);
+            var totalPages = Math.ceil(tp.rows.length / 500);
+            if (totalPages > 1) {
+                var btnNext = '<button class="dk-btn dk-btn-outline" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tp.key + '\', 1)">Trang sau &#8594;</button>';
+                html += '<div style="text-align:center; padding: 15px; background: #fff; border-top: 1px solid #e2e8f0; position: sticky; bottom: -1px; z-index: 10;">' + 
+                        '<span style="font-weight:600; margin: 0 10px;">Trang 1 / ' + totalPages + ' (' + formatNumber(tp.rows.length, 0) + ' dòng)</span>' + btnNext + 
+                        '</div>';
+            }
+            panels += html;
         }
         panels += "</div>";
     }
@@ -4539,14 +4580,27 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned) {
     for (var pi = 0; pi < tabs.length; pi++) {
         var tp = tabs[pi];
         var hidden = pi === activeIdx ? "" : ' style="display:none"';
-        panels += '<div class="dk-day-panel" data-tabkey="' + tp.key + '"' + hidden + ">";
+        var panelId = 'dk_dp_' + Math.random().toString(36).substr(2, 9) + '_' + tp.key;
+        panels += '<div class="dk-day-panel" id="' + panelId + '" data-tabkey="' + tp.key + '"' + hidden + ' style="position:relative; overflow-y:auto; max-height:65vh;">';
+
         if (tp.rows.length === 0) {
             panels +=
                 '<div class="dk-empty" style="padding:30px">Không có dữ liệu ' +
                 escapeHtml(tp.label.toLowerCase()) +
                 " trong ngày này</div>";
         } else {
-            panels += renderGroupedDetailTable(tp.cols, tp.rows, tp.dateField);
+            window.__dkDetailData = window.__dkDetailData || {};
+            window.__dkDetailData[tp.key] = { cols: tp.cols, rows: tp.rows, dateField: tp.dateField, page: 1, panelId: panelId };
+            var pagedRows = tp.rows.slice(0, 500);
+            var html = renderGroupedDetailTable(tp.cols, pagedRows, tp.dateField);
+            var totalPages = Math.ceil(tp.rows.length / 500);
+            if (totalPages > 1) {
+                var btnNext = '<button class="dk-btn dk-btn-outline" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tp.key + '\', 1)">Trang sau &#8594;</button>';
+                html += '<div style="text-align:center; padding: 15px; background: #fff; border-top: 1px solid #e2e8f0; position: sticky; bottom: -1px; z-index: 10;">' + 
+                        '<span style="font-weight:600; margin: 0 10px;">Trang 1 / ' + totalPages + ' (' + formatNumber(tp.rows.length, 0) + ' dòng)</span>' + btnNext + 
+                        '</div>';
+            }
+            panels += html;
         }
         panels += "</div>";
     }
