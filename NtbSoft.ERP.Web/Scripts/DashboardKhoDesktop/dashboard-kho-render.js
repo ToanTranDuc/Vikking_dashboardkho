@@ -4460,7 +4460,7 @@ function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
         var tp = tabs[pi];
         var hidden = pi === activeIdx ? "" : ' style="display:none"';
         var panelId = 'dk_dp_' + Math.random().toString(36).substr(2, 9) + '_' + tp.key;
-        panels += '<div class="dk-day-panel" style="padding-bottom: 45px;" id="' + panelId + '" data-tabkey="' + tp.key + '"' + hidden + ' style="position:relative;">';
+        panels += '<div class="dk-day-panel" id="' + panelId + '" data-tabkey="' + tp.key + '"' + hidden + ' style="position:relative;">';
 
         if (tp.rows.length === 0) {
             panels +=
@@ -4609,7 +4609,7 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned) {
         var tp = tabs[pi];
         var hidden = pi === activeIdx ? "" : ' style="display:none"';
         var panelId = 'dk_dp_' + Math.random().toString(36).substr(2, 9) + '_' + tp.key;
-        panels += '<div class="dk-day-panel" style="padding-bottom: 45px;" id="' + panelId + '" data-tabkey="' + tp.key + '"' + hidden + ' style="position:relative;">';
+        panels += '<div class="dk-day-panel" id="' + panelId + '" data-tabkey="' + tp.key + '"' + hidden + ' style="position:relative;">';
 
         if (tp.rows.length === 0) {
             panels +=
