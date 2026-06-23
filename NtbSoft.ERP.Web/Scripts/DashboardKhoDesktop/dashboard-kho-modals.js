@@ -228,11 +228,11 @@ function renderDetailModal(detail, index) {
                     else if (tenMau) mauText = escapeHtml(tenMau);
                     var mauDisplay = mauText
                         ? '<span class="dk-mau-swatch" data-mau="' +
-                          escapeHtml(maMau || tenMau) +
-                          '"></span>' +
-                          '<span class="dk-mau-text">' +
-                          mauText +
-                          "</span>"
+                        escapeHtml(maMau || tenMau) +
+                        '"></span>' +
+                        '<span class="dk-mau-text">' +
+                        mauText +
+                        "</span>"
                         : "";
                     var khoVai = r.KhoVai ? String(r.KhoVai).trim() : "";
                     var dvvt = r.TenDVVT ? String(r.TenDVVT).trim() : "";
@@ -552,9 +552,9 @@ function renderTonDauKyDetailModal() {
         var from = state.dateFilter ? state.dateFilter.from : "";
         requestJson(
             "/api/DashboardKhoDesktop/GetTonDauKyChiTiet?tuNgay=" +
-                encodeURIComponent(from) +
-                "&loai=" +
-                encodeURIComponent(activeKey),
+            encodeURIComponent(from) +
+            "&loai=" +
+            encodeURIComponent(activeKey),
         )
             .then(function (d) {
                 allRows = normalizeArray(d);
@@ -614,8 +614,8 @@ function renderTongNhapDetailModal() {
         var q = (byId("kpiSearch").value || "").trim().toLowerCase();
         var filtered = q
             ? allRows.filter(function (r) {
-                  return JSON.stringify(r).toLowerCase().indexOf(q) >= 0;
-              })
+                return JSON.stringify(r).toLowerCase().indexOf(q) >= 0;
+            })
             : allRows;
         renderTable(filtered);
         var cnt = byId("kpiCount");
@@ -751,8 +751,8 @@ function renderTongXuatDetailModal() {
         var q = (byId("kpiSearch").value || "").trim().toLowerCase();
         var filtered = q
             ? allRows.filter(function (r) {
-                  return JSON.stringify(r).toLowerCase().indexOf(q) >= 0;
-              })
+                return JSON.stringify(r).toLowerCase().indexOf(q) >= 0;
+            })
             : allRows;
         renderTable(filtered);
         var cnt = byId("kpiCount");
@@ -887,21 +887,21 @@ function renderTonKhoDetailModal() {
         var q = (byId("kpiSearch").value || "").trim().toLowerCase();
         var filtered = q
             ? allRows.filter(function (r) {
-                  var hay = (
-                      (r.ItemCode || "") +
-                      " " +
-                      (r.TenVT || "") +
-                      " " +
-                      (r.ViTriKe || "") +
-                      " " +
-                      (r.POMua || "") +
-                      " " +
-                      (r.SoLo || "") +
-                      " " +
-                      (r.TenKH || "")
-                  ).toLowerCase();
-                  return hay.indexOf(q) >= 0;
-              })
+                var hay = (
+                    (r.ItemCode || "") +
+                    " " +
+                    (r.TenVT || "") +
+                    " " +
+                    (r.ViTriKe || "") +
+                    " " +
+                    (r.POMua || "") +
+                    " " +
+                    (r.SoLo || "") +
+                    " " +
+                    (r.TenKH || "")
+                ).toLowerCase();
+                return hay.indexOf(q) >= 0;
+            })
             : allRows;
         renderTable(filtered);
         var cnt = byId("kpiCount");
@@ -954,9 +954,9 @@ function renderTonKhoDetailModal() {
         content.innerHTML = modalLoading();
         requestJson(
             "/api/DashboardKhoDesktop/GetTonKhoChiTiet?denNgay=" +
-                encodeURIComponent(state.dateFilter.to) +
-                "&loai=" +
-                encodeURIComponent(activeKey),
+            encodeURIComponent(state.dateFilter.to) +
+            "&loai=" +
+            encodeURIComponent(activeKey),
         )
             .then(function (d) {
                 allRows = normalizeArray(d);
@@ -1018,9 +1018,9 @@ function renderPOTreDetailModal() {
         var q = (byId("kpiSearch").value || "").trim().toLowerCase();
         var filtered = q
             ? allRows.filter(function (r) {
-                  var hay = ((r.POMua || "") + " " + (r.NCC || "")).toLowerCase();
-                  return hay.indexOf(q) >= 0;
-              })
+                var hay = ((r.POMua || "") + " " + (r.NCC || "")).toLowerCase();
+                return hay.indexOf(q) >= 0;
+            })
             : allRows;
         renderTable(filtered);
         var cnt = byId("kpiCount");
@@ -1632,10 +1632,10 @@ function hetHanRowsHtml(rows) {
                 cl <= 0
                     ? "dk-conlai-overdue"
                     : cl <= 7
-                      ? "dk-conlai-urgent"
-                      : cl <= 30
-                        ? "dk-conlai-warn"
-                        : "dk-conlai-soft";
+                        ? "dk-conlai-urgent"
+                        : cl <= 30
+                            ? "dk-conlai-warn"
+                            : "dk-conlai-soft";
             var icon = cl <= 0 ? '<i class="fa-solid fa-triangle-exclamation"></i> ' : "";
             return (
                 "<tr>" +
@@ -2079,8 +2079,8 @@ function renderAlertDetailModal() {
         var q = (byId("kpiSearch").value || "").trim().toLowerCase();
         var filtered = q
             ? allRows.filter(function (r) {
-                  return JSON.stringify(r).toLowerCase().indexOf(q) >= 0;
-              })
+                return JSON.stringify(r).toLowerCase().indexOf(q) >= 0;
+            })
             : allRows;
         byId("kpiTbody").innerHTML = renderDetailTable(cfg.cols, filtered);
         var cnt = byId("kpiCount");

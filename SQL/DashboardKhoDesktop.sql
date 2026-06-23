@@ -7,6 +7,10 @@ IF OBJECT_ID('dbo.usp_DashboardKhoDesktop', 'P') IS NOT NULL
     DROP PROCEDURE dbo.usp_DashboardKhoDesktop;
 GO
 
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE PROCEDURE dbo.usp_DashboardKhoDesktop
     @Action VARCHAR(100),
     @TuNgay DATETIME = NULL,
@@ -376,25 +380,35 @@ BEGIN
 
     ELSE IF @Action = 'GetChuanBiXuat'
     BEGIN
-        SELECT
-            '' AS MaLenhSanXuat, -- Mã lệnh SX
-            '' AS MaLenh,        -- Mã lệnh thu gọn
-            '' AS MaDVSX,        -- Mã đơn vị sản xuất
-            '' AS KhachHang,     -- Tên khách hàng (JS hiển thị trên thẻ giao việc)
-            '' AS TenHang,       -- Tên hàng hóa sản xuất
-            0  AS SoLuongYeuCau, -- Dạng số. Tổng số lượng yêu cầu (đã gán 0 để ẩn số liệu thật).
-            MAX(CASE WHEN tp.StepCode = 'TTCat' THEN tp.kh_date END)                       AS KHCat,     -- Ngày KH Cắt (Datetime).
-            DATEADD(day, 7, MAX(CASE WHEN tp.StepCode = 'TTCat' THEN tp.kh_date END))      AS DuKienCat  -- Ngày dự kiến (Datetime).
-        FROM dbo.CanDoiDonViSanXuat cs
-        LEFT JOIN dbo.DonHangTong dh ON dh.MaDH = cs.MaDH
-        LEFT JOIN dbo.HangHoa     hh ON hh.MaHang = dh.MaHang AND hh.MaKH = dh.MaKH
-        LEFT JOIN dbo.KhachHang   kh ON kh.MaKH   = dh.MaKH
-        LEFT JOIN dbo.WIP_DonHang_Chuyen wc
-            ON wc.LenhSX = TRY_CONVERT(INT, REPLACE(ISNULL(cs.MaLenh, ''), 'SX_', ''))
-        LEFT JOIN dbo.WIP_DonHang_Chuyen_TechProgress tp ON tp.WIPId = wc.WIPId
-        WHERE NOT EXISTS (SELECT 1 FROM dbo.PhieuXuatHang ph WHERE ph.MaLenhSX = cs.MaLenhSanXuat)
-        GROUP BY cs.MaLenhSanXuat, cs.MaLenh, cs.MaDVSX
-        ORDER BY KHCat DESC;
+select sum(CapPhat) as SLYeuCau, MaLenhSanXuat
+	into #tblSL1
+	from CanDoiDinhMucNPL
+	group by MaLenhSanXuat
+
+
+	SELECT
+        cs.MaLenhSanXuat AS MaLenhSanXuat, -- Mã lệnh SX
+        cs.MaLenh AS MaLenh,        -- Mã lệnh thu gọn
+        cs.MaDVSX AS MaDVSX,        -- Mã đơn vị sản xuất
+        kh.TenKH AS KhachHang,     -- Tên khách hàng (JS hiển thị trên thẻ giao việc)
+        hh.TenHang AS TenHang,       -- Tên hàng hóa sản xuất
+        t1.SLYeuCau  AS SoLuongYeuCau, -- Dạng số. Tổng số lượng yêu cầu (đã gán 0 để ẩn số liệu thật).
+        MAX(CASE WHEN tp.StepCode = 'TTCat' THEN tp.kh_date END)                       AS KHCat,     -- Ngày KH Cắt (Datetime).
+        DATEADD(day, 7, MAX(CASE WHEN tp.StepCode = 'TTCat' THEN tp.kh_date END))      AS DuKienCat  -- Ngày dự kiến (Datetime).
+    FROM dbo.CanDoiDonViSanXuat cs
+    LEFT JOIN dbo.DonHangTong dh ON dh.MaDH = cs.MaDH
+    LEFT JOIN dbo.HangHoa     hh ON hh.MaHang = dh.MaHang AND hh.MaKH = dh.MaKH
+    LEFT JOIN dbo.KhachHang   kh ON kh.MaKH   = dh.MaKH
+    LEFT JOIN dbo.WIP_DonHang_Chuyen wc
+        ON wc.LenhSX = TRY_CONVERT(INT, REPLACE(ISNULL(cs.MaLenh, ''), 'SX_', ''))
+    LEFT JOIN dbo.WIP_DonHang_Chuyen_TechProgress tp ON tp.WIPId = wc.WIPId
+	left join #tblSL1 t1 on cs.MaLenhSanXuat = t1.MaLenhSanXuat
+    WHERE NOT EXISTS (SELECT 1 FROM dbo.PhieuXuatHang ph WHERE ph.MaLenhSX = cs.MaLenhSanXuat)
+    GROUP BY cs.MaLenhSanXuat, cs.MaLenh, cs.MaDVSX,kh.TenKH , hh.TenHang,t1.SLYeuCau
+    ORDER BY KHCat DESC,TRY_CAST(MaLenh as int) desc;
+
+
+	drop table #tblSL1
     END
 
     ELSE IF @Action = 'GlobalSearchByItemcode'
@@ -1747,46 +1761,37 @@ BEGIN
 
         IF @TodoType = 'itemcode_cho_nk'
         BEGIN
-            SELECT
-                ROW_NUMBER() OVER (ORDER BY t1.SoLoID, t1.MaNPL) AS STT, -- Số thực tế
-                '' AS ItemCode,  -- Mã Item
-                '' AS TenVT,     -- Tên chi tiết vật tư
-                '' AS POMua,     -- Số PO (Purchase Order)
-                '' AS MaMauVT,   -- Mã màu (Chuỗi)
-                '' AS MauVT,     -- Tên màu (Chuỗi)
-                '' AS WidthSize, -- Khổ vải/Kích cỡ (Chuỗi)
-                '' AS NgayTao,   -- Dạng chuỗi ngày. Ngày nhập kho.
-                '' AS NCC,       -- Nhà cung cấp
-                0  AS SLMua,     -- Dạng số. SL Mua (gán 0 để ẩn)
-                0  AS SLVe,      -- Dạng số. SL Về (gán 0 để ẩn)
-                'itemcode_cho_nk' AS Type -- Loại dữ liệu để phân biệt các Tab trên JS
-            FROM dbo.ERP_ChiTietNhapKhoNPL t1
-            LEFT JOIN dbo.ERP_VatTuTV vt ON vt.MaVTID = t1.MaVTID
-            LEFT JOIN dbo.ERP_MauVTTV mau ON mau.MauVTID = t1.MauVTID
-            LEFT JOIN dbo.ERP_KhoVai kv ON kv.KhoVaiID = t1.KhoVaiID
-            OUTER APPLY (
-                SELECT TOP 1 nk.NhaCungCap
-                FROM dbo.ERP_NhapKhoNPL nk
-                WHERE nk.SoLoID = t1.SoLoID
-                ORDER BY nk.SoLoID
-            ) nk_top
-            LEFT JOIN dbo.ERP_KhachHangNK kh ON nk_top.NhaCungCap = kh.MaNhaCC
-            WHERE ISNULL(t1.IsDuyetNK, 0) <> 1
-              AND (
-                  EXISTS (
-                      SELECT 1 FROM dbo.QTY_KiemVaiV2 kv2
-                      INNER JOIN dbo.QTY_KiemVaiV2_XacNhan kx
-                          ON kv2.SoLoID = kx.SoLoID AND kv2.MaNPL = kx.MaNPL
-                      WHERE kv2.SoLoID = t1.SoLoID AND kv2.MaNPL = t1.MaNPL
-                        AND kv2.DuyetQC = 1
-                  )
-                  OR EXISTS (
-                      SELECT 1 FROM dbo.Qty_KiemPL_XacNhan kp
-                      WHERE kp.SoLoID = t1.SoLoID AND kp.MaNPL = t1.MaNPL
-                        AND kp.Is_XN_SoLo = 1
-                  )
-              )
-            ORDER BY t1.SoLoID, t1.MaNPL;
+select t1.KhoVaiID, CONCAT(t1.KhoVai, ' ',t2.TenDVVT) as KhoVai
+into #tblKV1
+	from ERP_KhoVai t1
+	left join ERP_DonViVT t2 on t1.MaDVVT = t2.MaDVVT
+	union all
+	select MaSize as KhoVaiID, max(TenSize) as KhoVai
+	from BangSize
+	group by MaSize
+
+SELECT
+            ROW_NUMBER() OVER (ORDER BY t1.SoLoID, t1.MaNPL) AS STT, -- Số thứ tự
+            vt.MaVT AS ItemCode,  -- Mã Item
+            vt.ChiTiet AS TenVT,     -- Tên chi tiết vật tư
+            t1.POMua AS POMua,     -- Số PO (Purchase Order)
+            mau.MaMauVT AS MaMauVT,   -- Mã màu (Chuỗi)
+            mau.MauVT AS MauVT,     -- Tên màu (Chuỗi)
+            kv.KhoVai AS WidthSize, -- Khổ vải/Kích cỡ (Chuỗi)
+            t1.NgayNhapKho AS NgayTao,   -- Dạng chuỗi ngày. Ngày nhập kho.
+            t3.TenKH AS NCC,       -- Nhà cung cấp
+            maX(SLTong)  AS SLMua,     -- Dạng số. SL Mua (gán 0 để ẩn)
+            sum(SoLuongThucTeBanDau)  AS SLVe,      -- Dạng số. SL Về (gán 0 để ẩn)
+            'itemcode_cho_nk' AS Type -- Loại dữ liệu để phân biệt các Tab trên JS
+        FROM dbo.ERP_ChiTietNhapKhoNPL t1
+        LEFT JOIN dbo.ERP_VatTuTV vt ON vt.MaVTID = t1.MaVTID
+        LEFT JOIN dbo.ERP_MauVTTV mau ON mau.MauVTID = t1.MauVTID
+        LEFT JOIN dbo.#tblKV1 kv ON kv.KhoVaiID = t1.KhoVaiID
+		left join ERP_NhapKhoNPL t2 on t1.SoLoID = t2.SoLoID and t1.IsNPL = t2.IsNPL
+		left join ERP_KhachHangNK t3 on t2.NhaCungCap = t3.MaNhaCC
+        WHERE ISNULL(t1.IsDuyetNK, 0) <> 1 and t1.NgayNhapKho is not null
+		GROUP BY vt.MaVT, vt.ChiTiet,t1.POMua,mau.MaMauVT,mau.MauVT,kv.KhoVai,t1.NgayNhapKho,t3.TenKH,t1.SoLoID, t1.MaNPL
+		drop table #tblKV1
         END
         ELSE IF @TodoType = 'kk_cho_duyet'
         BEGIN
@@ -2517,6 +2522,10 @@ IF OBJECT_ID('dbo.SP_LICH_PHAN_CONG_PHU_LIEU', 'P') IS NOT NULL
     DROP PROCEDURE dbo.SP_LICH_PHAN_CONG_PHU_LIEU;
 GO
 
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE PROCEDURE dbo.SP_LICH_PHAN_CONG_PHU_LIEU
     @Action         NVARCHAR(50),
     @TuNgay         DATETIME = NULL,
@@ -2534,59 +2543,149 @@ BEGIN
 
     IF @Action = 'GetCalendarMonth'
     BEGIN
-        SELECT
-            CONVERT(VARCHAR(10), t.NgayThucHien, 120) AS NgayLam,
-            t.MaLenhSX,
-            ''                         AS MaKhachHang,
-            ''                         AS TenBrand,
-            0                          AS CoCanhBao,
-            0                          AS ThieuNPL,
-            ISNULL(t.MaNV, '')         AS MaNV,
-            ISNULL(t.TenNV, '')        AS TenNV,
-            0                          AS TrangThai,
-            ''                         AS GhiChu
-        FROM dbo.ERP_LichPhanCongPhuLieu_Task t
-        WHERE
-            (@TuNgay IS NULL OR t.NgayThucHien >= @TuNgay)
-            AND (@DenNgay IS NULL OR t.NgayThucHien < DATEADD(DAY, 1, @DenNgay));
+        SELECT 
+            t1.MaLenhSanXuat, t1.MaLenh, kh.TenKH, 
+            STUFF((
+                SELECT DISTINCT ', ' + hh.TenHang
+                FROM CanDoiDonViSanXuat t2
+                INNER JOIN DonHangTong dh2 ON t2.MaDH = dh2.MaDH
+                INNER JOIN HangHoa hh ON dh2.MaKH = hh.MaKH AND dh2.MaHang = hh.MaHang
+                WHERE t2.MaLenhSanXuat = t1.MaLenhSanXuat AND t2.MaLenh = t1.MaLenh
+                FOR XML PATH('')
+            ),1,2,'') AS TenHang
+        INTO #tblDVSX_Month
+        FROM CanDoiDonViSanXuat t1
+        INNER JOIN DonHangTong dh ON t1.MaDH = dh.MaDH
+		INNER JOIN KhachHang kh ON dh.MaKH = kh.MaKH
+        GROUP BY t1.MaLenhSanXuat, t1.MaLenh, kh.TenKH;
+
+        SELECT 
+            CONVERT(DATE, ISNULL(t1.NgayXuatHang, t1.NgayGiaoViec)) AS NgayLam,
+            t2.MaLenh AS MaLenhSX, t2.TenKH AS MaKhachHang, t2.TenHang AS MaHang,
+            0 AS CoCanhBao, 0 AS ThieuNPL,
+            '' AS MaNV, t1.NguoiGiaoViec AS TenNV,
+            CASE
+                WHEN t1.NgayXuatHang IS NULL THEN 0
+                WHEN CONVERT(DATE, t1.NgayXuatHang) <= CONVERT(DATE, t1.NgayGiaoViec) THEN 2
+                ELSE 3
+            END AS TrangThai,
+            'TASK' AS GhiChu
+        FROM ERP_KeHachGiaoViecNL t1
+        LEFT JOIN #tblDVSX_Month t2 ON t1.MaLenhSX = t2.MaLenhSanXuat
+        WHERE CONVERT(DATE, ISNULL(t1.NgayXuatHang, t1.NgayGiaoViec)) BETWEEN @TuNgay AND @DenNgay
+        UNION ALL
+        SELECT 
+            CONVERT(DATE, t1.NgaySoanHang) AS NgayLam,
+            t2.MaLenh AS MaLenhSX, t2.TenKH AS MaKhachHang, t2.TenHang AS MaHang,
+            0 AS CoCanhBao, 0 AS ThieuNPL,
+            '' AS MaNV, t1.NguoiSoanHang AS TenNV,
+            CASE WHEN ISNULL(SUM(t3.SLSoanHang_BC), 0) >= MAX(t1.SLCapPhat) THEN 2 ELSE 1 END AS TrangThai,
+            'PICK' AS GhiChu
+        FROM ERP_PhieuSoanHangVatTu t1
+        LEFT JOIN #tblDVSX_Month t2 ON t1.MaLenhSX = t2.MaLenhSanXuat
+        LEFT JOIN ERP_SoanHangNPL_BarCode t3 ON t1.PhieuSH = t3.PhieuSH AND t1.MaNPL = t3.MaNPL
+        WHERE CONVERT(DATE, t1.NgaySoanHang) BETWEEN @TuNgay AND @DenNgay
+        GROUP BY CONVERT(DATE, t1.NgaySoanHang), t1.MaLenhSX, t2.MaLenh, t2.TenKH, t2.TenHang, t1.NguoiSoanHang;
+        
+        DROP TABLE #tblDVSX_Month;
         RETURN;
     END
 
     IF @Action = 'GetDayDetail'
     BEGIN
-        -- Result 1: Phân công công việc (Assignments)
+        -- Bảng tạm: map Lệnh SX → TenKH, TenHang (đã tối ưu: chỉ lấy lệnh của ngày hiện tại)
         SELECT
-            ''                         AS MaLenhSX,      -- Mã lệnh sản xuất (VD: SX_001). JS dùng in đậm ở góc trên.
-            ''                         AS MaKhachHang,   -- Mã khách hàng.
-            ''                         AS TenBrand,      -- Tên thương hiệu (Nike...). JS hiển thị kế bên Mã lệnh.
-            0                          AS CoCanhBao,     -- Dạng Số (0/1). 1 -> JS hiển thị chuông cảnh báo trễ tiến độ. (Hiện tại gán 0 để ẩn)
-            0                          AS ThieuNPL,      -- Dạng Số (0/1). 1 -> JS hiển thị chữ/icon 'Thiếu NPL'. (Hiện tại gán 0 để ẩn)
-            ''                         AS MaNV,          -- Mã nhân viên phụ trách.
-            ''                         AS TenNV,         -- Tên nhân viên. JS render kèm icon avatar user.
-            0                          AS TrangThai,     -- Dạng Số. Quy ước: 0=Chờ, 1=Đang, 2=Xong, 3=Trễ. JS dùng ttBadge() sinh màu tương ứng. Cần if (0) return '' để ẩn.
-            ''                         AS GhiChu,        -- Nội dung chú thích/ghi chú của task.
-            ''                         AS NgayThucHien,  -- Dạng chuỗi ngày yyyy-MM-dd.
-            ''                         AS GioThucHien,   -- Dạng chuỗi giờ.
-            ''                         AS MoTaCongViec   -- Nội dung công việc.
-        FROM dbo.ERP_LichPhanCongPhuLieu_Task t
-        -- WHERE CONVERT(DATE, t.NgayThucHien) = CONVERT(DATE, @Ngay);
+            t1.MaLenhSanXuat, t1.MaLenh, kh.TenKH,
+            STUFF((
+                SELECT DISTINCT ', ' + hh.TenHang
+                FROM CanDoiDonViSanXuat t2
+                INNER JOIN DonHangTong dh ON t2.MaDH = dh.MaDH
+                INNER JOIN HangHoa hh ON dh.MaKH = hh.MaKH AND dh.MaHang = hh.MaHang
+                WHERE t2.MaLenhSanXuat = t1.MaLenhSanXuat AND t2.MaLenh = t1.MaLenh
+                FOR XML PATH('')
+            ),1,2,'') AS TenHang
+        INTO #tbldvsx
+        FROM CanDoiDonViSanXuat t1
+        INNER JOIN DonHangTong dh2 ON t1.MaDH = dh2.MaDH
+        INNER JOIN KhachHang kh ON dh2.MaKH = kh.MaKH
+        WHERE t1.MaLenhSanXuat IN (
+            SELECT MaLenhSX FROM ERP_KeHachGiaoViecNL 
+            WHERE CONVERT(DATE, ISNULL(NgayXuatHang, NgayGiaoViec)) = CONVERT(DATE, @Ngay)
+            UNION
+            SELECT MaLenhSX FROM ERP_PhieuSoanHangVatTu
+            WHERE CONVERT(DATE, NgaySoanHang) = CONVERT(DATE, @Ngay)
+        )
+        GROUP BY t1.MaLenhSanXuat, t1.MaLenh, kh.TenKH;
 
-        -- Result 2: Phụ liệu - Soạn hàng (Pick Orders)
+        -- ResultSet 1: Assignments (Phân công giao việc)
         SELECT
-            ''                         AS MaLenhSX,      -- Mã lệnh sản xuất.
-            ''                         AS MaKhachHang,   -- Mã khách hàng.
-            ''                         AS TenBrand,      -- Tên thương hiệu.
-            0                          AS TrangThai,     -- Dạng Số. Trạng thái soạn hàng. JS gọi ttBadge() để tô màu.
-            0                          AS SoPLThieu,     -- Dạng Số. Lượng phụ liệu đang thiếu.
-            ''                         AS TenNV,         -- Tên NV thực hiện.
-            ''                         AS MaNV,          -- Mã NV.
-            ''                         AS NgaySoan,      -- Dạng chuỗi ngày.
-            ''                         AS GioSoan,       -- Dạng chuỗi giờ.
-            0                          AS SoLoaiPL,      -- Dạng Số. Số loại phụ liệu.
-            0                          AS TongSLCanSoan, -- Dạng Số. JS thường gộp lại hiển thị: "SL: x / y".
-            ''                         AS GhiChu         -- Ghi chú.
-        FROM dbo.ERP_LichPhanCongPhuLieu_Task t
-        -- WHERE CONVERT(DATE, t.NgayThucHien) = CONVERT(DATE, @Ngay);
+            MAX(t2.MaLenh)                                      AS MaLenhSX,
+            CASE
+                WHEN MAX(t1.NgayXuatHang) IS NULL THEN 0
+                WHEN CONVERT(DATE, MAX(t1.NgayXuatHang)) <= MAX(CONVERT(DATE, t1.NgayGiaoViec)) THEN 2
+                ELSE 3
+            END                                                 AS TrangThai,
+            MAX(t1.NguoiGiaoViec)                               AS TenNV,
+            ''                                                  AS MaNV,
+            MAX(t2.TenKH)                                       AS MaKhachHang,
+            MAX(t2.TenHang)                                     AS MaHang,
+            CONVERT(VARCHAR(10), MAX(t1.NgayXuatHang), 120)     AS NgayThucHien,
+            ''                                                  AS GioThucHien,
+            ''                                                  AS MoTaCongViec,
+            CAST(0 AS BIT)                                      AS ThieuNPL,
+            STUFF((
+                SELECT DISTINCT ', ' + ISNULL(t3.GhiChu,'')
+                FROM ERP_KeHachGiaoViecNL t3
+                WHERE t3.MaLenhSX = t1.MaLenhSX AND ISNULL(t3.GhiChu,'') <> ''
+                FOR XML PATH('')
+            ),1,2,'')                                           AS GhiChu
+        FROM ERP_KeHachGiaoViecNL t1
+        LEFT JOIN #tbldvsx t2 ON t1.MaLenhSX = t2.MaLenhSanXuat
+        WHERE CONVERT(DATE, ISNULL(t1.NgayXuatHang, t1.NgayGiaoViec)) = CONVERT(DATE, @Ngay)
+        GROUP BY t1.MaLenhSX;
+
+        -- Bảng tạm pick orders chi tiết
+        SELECT
+            t1.MaLenhSX AS MaLenhSanXuat, t2.MaLenh AS MaLenhSX,
+            t2.TenKH AS MaKhachHang, t2.TenHang AS MaHang,
+            ISNULL(SUM(t3.SLSoanHang_BC), 0) AS SLSoan,
+            MAX(t1.SLCapPhat) AS TongSLCanSoan,
+            t1.MaNPL, t3.NgaySoanHang AS NgaySoan,
+            MAX(t1.SLCapPhat) - ISNULL(SUM(t3.SLSoanHang_BC), 0) AS SoPLThieu,
+            t1.NguoiSoanHang AS TenNV,
+            STUFF((
+                SELECT DISTINCT ', ' + ISNULL(t11.GhiChu,'')
+                FROM ERP_PhieuSoanHangVatTu t11
+                WHERE t11.MaLenhSX = t1.MaLenhSX AND t11.MaNPL = t1.MaNPL
+                FOR XML PATH(''), TYPE
+            ).value('.', 'nvarchar(max)'), 1, 2, '') AS GhiChu
+        INTO #tblSHCT
+        FROM ERP_PhieuSoanHangVatTu t1
+        LEFT JOIN #tbldvsx t2 ON t1.MaLenhSX = t2.MaLenhSanXuat
+        LEFT JOIN ERP_SoanHangNPL_BarCode t3 ON t1.PhieuSH = t3.PhieuSH AND t1.MaNPL = t3.MaNPL
+        WHERE CONVERT(DATE, t1.NgaySoanHang) = CONVERT(DATE, @Ngay)
+        GROUP BY t1.MaLenhSX, t2.MaLenh, t2.TenKH, t2.TenHang, t1.MaNPL, t3.NgaySoanHang, t1.NguoiSoanHang;
+
+        -- ResultSet 2: Pick Orders (Phụ liệu - Soạn hàng)
+        SELECT
+            MaLenhSX                                    AS MaLenhSX,
+            0                                           AS TrangThai,
+            TenNV                                       AS TenNV,
+            ''                                          AS MaNV,
+            MaKhachHang                                 AS MaKhachHang,
+            MaHang                                      AS MaHang,
+            CONVERT(VARCHAR(10), MAX(NgaySoan), 120)    AS NgaySoan,
+            ''                                          AS GioSoan,
+            COUNT(DISTINCT MaNPL)                       AS SoLoaiPL,
+            ROUND(SUM(SLSoan), 2)                       AS SLSoan,
+            ROUND(SUM(TongSLCanSoan), 2)                AS TongSLCanSoan,
+            ROUND(SUM(TongSLCanSoan) - SUM(SLSoan), 2) AS SoPLThieu,
+            GhiChu                                      AS GhiChu
+        FROM #tblSHCT
+        GROUP BY MaLenhSanXuat, MaLenhSX, MaKhachHang, MaHang, TenNV, GhiChu;
+
+        DROP TABLE #tbldvsx;
+        DROP TABLE #tblSHCT;
         RETURN;
     END
 
@@ -2791,6 +2890,11 @@ BEGIN
     SELECT 'Unknown action: ' + ISNULL(@Action, 'NULL') AS [Error];
 END
 GO
+
+
+
+
+
 
 
 

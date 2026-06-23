@@ -108,7 +108,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
         }
 
         
-        #endregion
+
 
         #region SYSTEM UTILS
         public static void ClearCache()
@@ -1526,6 +1526,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 ORDER BY nk.NgayNKDuKien;",
                 cmd => cmd.Parameters.AddWithValue("@MaTT", gb));
         }
+        #endregion
     }
 
     // ===================================================================
@@ -1553,7 +1554,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
         public string TenNV { get; set; }
         public string MaNV { get; set; }
         public string MaKhachHang { get; set; }
-        public string TenBrand { get; set; }
+        public string MaHang { get; set; }
         public bool CoCanhBao { get; set; }
         public bool ThieuNPL { get; set; }
         public string GhiChu { get; set; }
@@ -1576,8 +1577,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
         public string MaLenhSX { get; set; }
         public int TrangThai { get; set; }
         public string TenNV { get; set; }
-        public string TenBrand { get; set; }      // Loai hang / Brand
+        public string MaHang { get; set; }      // Loai hang / MaHang
         public string MaKhachHang { get; set; }   // Khach hang
+        public string GhiChu { get; set; }
     }
 
     // ===================================================================
@@ -1597,7 +1599,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
         public string TenNV { get; set; }
         public string MaNV { get; set; }
         public string MaKhachHang { get; set; }
-        public string TenBrand { get; set; }
+        public string MaHang { get; set; }
         public string NgayThucHien { get; set; }
         public string GioThucHien { get; set; }
         public string MoTaCongViec { get; set; }
@@ -1612,11 +1614,12 @@ namespace NtbSoft.ERP.Model.DashboardKho
         public string TenNV { get; set; }
         public string MaNV { get; set; }
         public string MaKhachHang { get; set; }
-        public string TenBrand { get; set; }
+        public string MaHang { get; set; }
         public string NgaySoan { get; set; }
         public string GioSoan { get; set; }
         public int SoLoaiPL { get; set; }
         public double TongSLCanSoan { get; set; }
+        public double SLSoan { get; set; }
         public int SoPLThieu { get; set; }
         public string GhiChu { get; set; }
         // Chi tiet phu lieu (load rieng qua GetPickOrderDetail)

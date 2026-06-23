@@ -622,7 +622,7 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
                         item.TenNV = reader["TenNV"] != DBNull.Value ? reader["TenNV"].ToString() : "";
                         item.MaNV = reader["MaNV"] != DBNull.Value ? reader["MaNV"].ToString() : "";
                         item.MaKhachHang = reader["MaKhachHang"] != DBNull.Value ? reader["MaKhachHang"].ToString() : "";
-                        item.TenBrand = reader["TenBrand"] != DBNull.Value ? reader["TenBrand"].ToString() : "";
+                        item.MaHang = reader["MaHang"] != DBNull.Value ? reader["MaHang"].ToString() : "";
                         item.CoCanhBao = reader["CoCanhBao"] != DBNull.Value && Convert.ToInt32(reader["CoCanhBao"]) == 1;
                         item.ThieuNPL = reader["ThieuNPL"] != DBNull.Value && Convert.ToInt32(reader["ThieuNPL"]) == 1;
                         item.GhiChu = reader["GhiChu"] != DBNull.Value ? reader["GhiChu"].ToString() : "";
@@ -664,8 +664,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
                         badge.MaLenhSX = item.MaLenhSX;
                         badge.TrangThai = item.TrangThai;
                         badge.TenNV = item.TenNV;
-                        badge.TenBrand = item.TenBrand;
+                        badge.MaHang = item.MaHang;
                         badge.MaKhachHang = item.MaKhachHang;
+                        badge.GhiChu = item.GhiChu;
                         cur.Tasks.Add(badge);
                     }
 
@@ -746,7 +747,7 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
                         a.TenNV = safeStr(reader, "TenNV");
                         a.MaNV = safeStr(reader, "MaNV");
                         a.MaKhachHang = safeStr(reader, "MaKhachHang");
-                        a.TenBrand = safeStr(reader, "TenBrand");
+                        a.MaHang = safeStr(reader, "MaHang");
                         a.NgayThucHien = safeStr(reader, "NgayThucHien");
                         a.GioThucHien = safeStr(reader, "GioThucHien");
                         a.MoTaCongViec = safeStr(reader, "MoTaCongViec");
@@ -766,11 +767,12 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
                             po.TenNV = safeStr(reader, "TenNV");
                             po.MaNV = safeStr(reader, "MaNV");
                             po.MaKhachHang = safeStr(reader, "MaKhachHang");
-                            po.TenBrand = safeStr(reader, "TenBrand");
+                            po.MaHang = safeStr(reader, "MaHang");
                             po.NgaySoan = safeStr(reader, "NgaySoan");
                             po.GioSoan = safeStr(reader, "GioSoan");
                             po.SoLoaiPL = safeInt(reader, "SoLoaiPL");
                             po.TongSLCanSoan = safeDbl(reader, "TongSLCanSoan");
+                            po.SLSoan = safeDbl(reader, "SLSoan");
                             po.SoPLThieu = safeInt(reader, "SoPLThieu");
                             po.GhiChu = safeStr(reader, "GhiChu");
                             po.Items = new System.Collections.Generic.List<LichPhanCong_PickItemModel>();

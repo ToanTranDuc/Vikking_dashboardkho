@@ -1,4 +1,4 @@
-﻿/* --- BOOTSTRAP 5.3 --- */
+/* --- BOOTSTRAP 5.3 --- */
 @charset "UTF-8";
 /*!
  * Bootstrap  v5.3.0 (https://getbootstrap.com/)
@@ -26441,8 +26441,10 @@ PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP  
     --dkk-border: rgba(96, 165, 250, 0.18);
     --dkk-border-strong: rgba(96, 165, 250, 0.32);
     --dkk-text: #e2eaf5;
-    --dkk-text-dim: #cbd5e1; /* Sáng hơn để phần chú thích dễ nhìn */
-    --dkk-text-muted: #94a3b8; /* Sáng hơn cho các phần mờ */
+    --dkk-text-dim: #cbd5e1;
+    /* Sáng hơn để phần chú thích dễ nhìn */
+    --dkk-text-muted: #94a3b8;
+    /* Sáng hơn cho các phần mờ */
     --dkk-title: #f1f5fb;
 }
 
@@ -28071,7 +28073,8 @@ body.dark-theme .dk-mc-icon i {
     flex: 0 0 auto;
 }
 
-.dk-todo-list {`n    height: 360px;
+.dk-todo-list {
+    `n height: 360px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -31999,7 +32002,8 @@ body.dark-theme .level-info .dk-lpcp-warn-severity {
 }
 
 body.dark-theme .dk-lpcp-warn-desc {
-    color: #e2e8f0 !important; /* Lighter text for better contrast in dark mode */
+    color: #e2e8f0 !important;
+    /* Lighter text for better contrast in dark mode */
 }
 
 /* dk-modal-content padding fix (rows go edge-to-edge) */
@@ -32639,7 +32643,10 @@ body.dark-theme .dk-kk-circular-val .pct-lbl {
 
 /* Định dạng thanh tìm kiếm khi ẩn thanh lọc (căn giữa tuyệt đối và mở rộng kích thước) */
 @media (min-width: 769px) {
-    .dk-topbar.filter-hidden .dk-topbar-filter-wrap { display: none; }
+    .dk-topbar.filter-hidden .dk-topbar-filter-wrap {
+        display: none;
+    }
+
     .dk-topbar.filter-hidden .dk-topbar-center {
         position: absolute;
         left: 50%;
@@ -36321,7 +36328,7 @@ body.dark-theme .dk-cal-month-11 {
     padding: 6px 15px;
     background: var(--dk-card, #fff);
     border-top: 1px solid var(--dk-line, #e2e8f0);
-    
+
     color: var(--dk-text, #1f3347);
 }
 
@@ -36349,6 +36356,7 @@ body.dark-theme .dk-detail-pagination {
     font-weight: 600;
     transition: all 0.2s;
 }
+
 .dk-btn-page:hover {
     background: rgba(0, 0, 0, 0.05);
 }
@@ -36358,6 +36366,7 @@ body.dark-theme .dk-btn-page {
     border-color: rgba(96, 165, 250, 0.3);
     color: var(--dkk-text, #e2eaf5);
 }
+
 body.dark-theme .dk-btn-page:hover {
     background: rgba(96, 165, 250, 0.1);
 }

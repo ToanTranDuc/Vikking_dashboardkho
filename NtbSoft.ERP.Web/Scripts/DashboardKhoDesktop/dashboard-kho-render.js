@@ -157,9 +157,7 @@ function renderOutboundReadyTable() {
                 '<td style="text-align:left;font-weight:700">' +
                 escapeHtml(shortMaLenh(item.MaLenhSanXuat || "")) +
                 "</td>" +
-                '<td style="text-align:left">' +
-                escapeHtml(normalizeCustomerName(item.KhachHang)) +
-                "</td>" +
+
                 "<td>" +
                 escapeHtml(formatDate(item.KHCat)) +
                 "</td>" +
@@ -847,30 +845,30 @@ function renderCapacityChart() {
         var segLength = (seg.value / 100) * c;
         circles.push(
             '<circle cx="' +
-                cx +
-                '" cy="' +
-                cy +
-                '" r="' +
-                r +
-                '" fill="none" stroke="' +
-                seg.color +
-                '" stroke-width="' +
-                strokeWidth +
-                '" ' +
-                'stroke-dasharray="' +
-                segLength +
-                " " +
-                (c - segLength) +
-                '" stroke-dashoffset="' +
-                -dashOffset +
-                '" transform="rotate(-90 ' +
-                cx +
-                " " +
-                cy +
-                ')" ' +
-                'data-cap-seg="' +
-                i +
-                '" style="transition:opacity 0.2s;" />',
+            cx +
+            '" cy="' +
+            cy +
+            '" r="' +
+            r +
+            '" fill="none" stroke="' +
+            seg.color +
+            '" stroke-width="' +
+            strokeWidth +
+            '" ' +
+            'stroke-dasharray="' +
+            segLength +
+            " " +
+            (c - segLength) +
+            '" stroke-dashoffset="' +
+            -dashOffset +
+            '" transform="rotate(-90 ' +
+            cx +
+            " " +
+            cy +
+            ')" ' +
+            'data-cap-seg="' +
+            i +
+            '" style="transition:opacity 0.2s;" />',
         );
         dashOffset += segLength;
 
@@ -904,57 +902,57 @@ function renderCapacityChart() {
 
         calloutLines.push(
             '<polyline points="' +
-                lineStartX +
-                "," +
-                lineStartY +
-                " " +
-                bendX +
-                "," +
-                bendY +
-                " " +
-                endX +
-                "," +
-                bendY +
-                '" fill="none" stroke="' +
-                seg.color +
-                '" stroke-width="2" marker-end="url(#arrow_' +
-                i +
-                ')"/>',
+            lineStartX +
+            "," +
+            lineStartY +
+            " " +
+            bendX +
+            "," +
+            bendY +
+            " " +
+            endX +
+            "," +
+            bendY +
+            '" fill="none" stroke="' +
+            seg.color +
+            '" stroke-width="2" marker-end="url(#arrow_' +
+            i +
+            ')"/>',
         );
         calloutBoxes.push(
             '<g class="cap-lbl" data-seg="' +
-                i +
-                '" style="cursor:pointer;">' +
-                '<rect class="dk-callout-bg" x="' +
-                boxX +
-                '" y="' +
-                boxY +
-                '" width="' +
-                boxW +
-                '" height="' +
-                boxH +
-                '" fill="#ffffff" stroke="' +
-                seg.color +
-                '" stroke-width="2" rx="6" />' +
-                '<text x="' +
-                boxCX +
-                '" y="' +
-                bendY +
-                '" text-anchor="middle" class="dk-capacity-callout-label" style="dominant-baseline:middle; fill:' +
-                seg.color +
-                '; font-size:14.9px;">' +
-                '<tspan x="' +
-                boxCX +
-                '" dy="-0.6em" font-weight="bold">' +
-                escapeHtml(seg.name) +
-                "</tspan>" +
-                '<tspan x="' +
-                boxCX +
-                '" dy="1.3em">' +
-                escapeHtml(seg.label) +
-                "</tspan>" +
-                "</text>" +
-                "</g>",
+            i +
+            '" style="cursor:pointer;">' +
+            '<rect class="dk-callout-bg" x="' +
+            boxX +
+            '" y="' +
+            boxY +
+            '" width="' +
+            boxW +
+            '" height="' +
+            boxH +
+            '" fill="#ffffff" stroke="' +
+            seg.color +
+            '" stroke-width="2" rx="6" />' +
+            '<text x="' +
+            boxCX +
+            '" y="' +
+            bendY +
+            '" text-anchor="middle" class="dk-capacity-callout-label" style="dominant-baseline:middle; fill:' +
+            seg.color +
+            '; font-size:14.9px;">' +
+            '<tspan x="' +
+            boxCX +
+            '" dy="-0.6em" font-weight="bold">' +
+            escapeHtml(seg.name) +
+            "</tspan>" +
+            '<tspan x="' +
+            boxCX +
+            '" dy="1.3em">' +
+            escapeHtml(seg.label) +
+            "</tspan>" +
+            "</text>" +
+            "</g>",
         );
         startAngle += segAngle;
     }
@@ -1078,31 +1076,31 @@ function renderCustomerPieChart() {
     // v2.4.3 — Palette sáng hơn ở dark (bỏ #1a3a6b dark-navy, dùng full bright)
     var colors = dkIsDark()
         ? [
-              "#60a5fa",
-              "#34d399",
-              "#fbbf24",
-              "#a78bfa",
-              "#22d3ee",
-              "#f87171",
-              "#f472b6",
-              "#5eead4",
-              "#fb923c",
-              "#c4b5fd",
-              "#6ee7b7",
-          ]
+            "#60a5fa",
+            "#34d399",
+            "#fbbf24",
+            "#a78bfa",
+            "#22d3ee",
+            "#f87171",
+            "#f472b6",
+            "#5eead4",
+            "#fb923c",
+            "#c4b5fd",
+            "#6ee7b7",
+        ]
         : [
-              "#1a3a6b",
-              "#2f7fd9",
-              "#f5a623",
-              "#8d6be6",
-              "#00a6c7",
-              "#e34f70",
-              "#718096",
-              "#5ebf5e",
-              "#d97706",
-              "#7c3aed",
-              "#059669",
-          ];
+            "#1a3a6b",
+            "#2f7fd9",
+            "#f5a623",
+            "#8d6be6",
+            "#00a6c7",
+            "#e34f70",
+            "#718096",
+            "#5ebf5e",
+            "#d97706",
+            "#7c3aed",
+            "#059669",
+        ];
     var offset = 0;
     var startAngle = -Math.PI / 2;
 
@@ -1125,36 +1123,36 @@ function renderCustomerPieChart() {
         var segOpacity = !filterActive || row.MaKH === activeCustomerFilter ? "1" : "0.15";
         segments.push(
             '<circle cx="' +
-                cx +
-                '" cy="' +
-                cy +
-                '" r="' +
-                r +
-                '" fill="none" stroke="' +
-                color +
-                '" stroke-width="' +
-                strokeWidth +
-                '" ' +
-                'stroke-dasharray="' +
-                segLength +
-                " " +
-                Math.max(0, c - segLength) +
-                '" stroke-dashoffset="' +
-                -offset +
-                '" transform="rotate(-90 ' +
-                cx +
-                " " +
-                cy +
-                ')" ' +
-                'class="js-open-detail" data-cust-seg="' +
-                i +
-                '" style="cursor:pointer; filter:url(#pieShadow); transition:opacity 0.2s; opacity:' +
-                segOpacity +
-                ';" data-detail="customerRow" data-index="' +
-                row.sourceIndex +
-                '"><title>' +
-                escapeHtml(row.TenKH) +
-                "</title></circle>",
+            cx +
+            '" cy="' +
+            cy +
+            '" r="' +
+            r +
+            '" fill="none" stroke="' +
+            color +
+            '" stroke-width="' +
+            strokeWidth +
+            '" ' +
+            'stroke-dasharray="' +
+            segLength +
+            " " +
+            Math.max(0, c - segLength) +
+            '" stroke-dashoffset="' +
+            -offset +
+            '" transform="rotate(-90 ' +
+            cx +
+            " " +
+            cy +
+            ')" ' +
+            'class="js-open-detail" data-cust-seg="' +
+            i +
+            '" style="cursor:pointer; filter:url(#pieShadow); transition:opacity 0.2s; opacity:' +
+            segOpacity +
+            ';" data-detail="customerRow" data-index="' +
+            row.sourceIndex +
+            '"><title>' +
+            escapeHtml(row.TenKH) +
+            "</title></circle>",
         );
         offset += segLength;
 
@@ -1252,73 +1250,73 @@ function renderCustomerPieChart() {
         var ctrlY = (radialY + item.labelY) / 2;
         labelLines.push(
             '<path d="M ' +
-                lineStartX +
-                " " +
-                lineStartY +
-                " C " +
-                radialX +
-                " " +
-                radialY +
-                " " +
-                ctrlX +
-                " " +
-                ctrlY +
-                " " +
-                endX +
-                " " +
-                item.labelY +
-                '" fill="none" stroke="' +
-                item.color +
-                '" stroke-width="2" stroke-opacity="0.5" stroke-linecap="round" />' +
-                '<circle cx="' +
-                endX +
-                '" cy="' +
-                item.labelY +
-                '" r="4" fill="' +
-                item.color +
-                '" fill-opacity="0.7" />',
+            lineStartX +
+            " " +
+            lineStartY +
+            " C " +
+            radialX +
+            " " +
+            radialY +
+            " " +
+            ctrlX +
+            " " +
+            ctrlY +
+            " " +
+            endX +
+            " " +
+            item.labelY +
+            '" fill="none" stroke="' +
+            item.color +
+            '" stroke-width="2" stroke-opacity="0.5" stroke-linecap="round" />' +
+            '<circle cx="' +
+            endX +
+            '" cy="' +
+            item.labelY +
+            '" r="4" fill="' +
+            item.color +
+            '" fill-opacity="0.7" />',
         );
         var lbOpacity = !filterActive || item.row.MaKH === activeCustomerFilter ? "1" : "0.15";
         labelBoxes.push(
             '<g class="cust-lbl js-open-detail" data-seg="' +
-                item.i +
-                '" data-detail="customerRow" data-index="' +
-                item.row.sourceIndex +
-                '" style="cursor:pointer;opacity:' +
-                lbOpacity +
-                ';">' +
-                '<rect class="dk-callout-bg" x="' +
-                boxX +
-                '" y="' +
-                boxY +
-                '" width="' +
-                boxW +
-                '" height="' +
-                boxH +
-                '" fill="#ffffff" fill-opacity="0.95" stroke="' +
-                item.color +
-                '" stroke-width="1.5" rx="10" filter="url(#pieShadow)" />' +
-                '<text x="' +
-                boxCX +
-                '" y="' +
-                item.labelY +
-                '" text-anchor="middle" class="dk-customer-callout" style="dominant-baseline: middle; fill: ' +
-                item.color +
-                '; font-size: 14px;">' +
-                '<tspan x="' +
-                boxCX +
-                '" dy="-0.7em" font-weight="800">' +
-                escapeHtml(item.row.TenKH || item.row.MaKH) +
-                "</tspan>" +
-                '<tspan x="' +
-                boxCX +
-                '" dy="1.4em">' +
-                formatNumber(item.row.TyTrongCBM, 1) +
-                "% (" +
-                formatNumber(item.row.CBMSDTrongKho, 1) +
-                " CBM)</tspan>" +
-                "</text>" +
-                "</g>",
+            item.i +
+            '" data-detail="customerRow" data-index="' +
+            item.row.sourceIndex +
+            '" style="cursor:pointer;opacity:' +
+            lbOpacity +
+            ';">' +
+            '<rect class="dk-callout-bg" x="' +
+            boxX +
+            '" y="' +
+            boxY +
+            '" width="' +
+            boxW +
+            '" height="' +
+            boxH +
+            '" fill="#ffffff" fill-opacity="0.95" stroke="' +
+            item.color +
+            '" stroke-width="1.5" rx="10" filter="url(#pieShadow)" />' +
+            '<text x="' +
+            boxCX +
+            '" y="' +
+            item.labelY +
+            '" text-anchor="middle" class="dk-customer-callout" style="dominant-baseline: middle; fill: ' +
+            item.color +
+            '; font-size: 14px;">' +
+            '<tspan x="' +
+            boxCX +
+            '" dy="-0.7em" font-weight="800">' +
+            escapeHtml(item.row.TenKH || item.row.MaKH) +
+            "</tspan>" +
+            '<tspan x="' +
+            boxCX +
+            '" dy="1.4em">' +
+            formatNumber(item.row.TyTrongCBM, 1) +
+            "% (" +
+            formatNumber(item.row.CBMSDTrongKho, 1) +
+            " CBM)</tspan>" +
+            "</text>" +
+            "</g>",
         );
     }
 
@@ -1988,8 +1986,8 @@ function renderAgeStockChart() {
                     "</b></div>" +
                     (rows
                         ? "<table style='border-collapse:collapse;width:100%;'><thead><tr><th style='font-size:9px;color:#94a3b8;text-align:left;padding:0 6px;'>Tháng</th><th style='font-size:9px;color:#94a3b8;text-align:right;padding:0 6px;'>SL</th></tr></thead><tbody>" +
-                          rows +
-                          "</tbody></table>"
+                        rows +
+                        "</tbody></table>"
                         : "") +
                     "</div>"
                 );
@@ -2101,8 +2099,8 @@ function renderLpcpBottomCharts() {
         return typeof requestJson === "function"
             ? requestJson(url)
             : fetch(url).then(function (r) {
-                  return r.json();
-              });
+                return r.json();
+            });
     }
 
     if (document.getElementById("chartVolumePie")) {
@@ -2123,17 +2121,17 @@ function renderLpcpBottomCharts() {
                 var actArr = Array.isArray(results[0])
                     ? results[0]
                     : results[0] && results[0].value
-                      ? results[0].value
-                      : results[0] && results[0].data
-                        ? results[0].data
-                        : [];
+                        ? results[0].value
+                        : results[0] && results[0].data
+                            ? results[0].data
+                            : [];
                 var nkArr = Array.isArray(results[1])
                     ? results[1]
                     : results[1] && results[1].value
-                      ? results[1].value
-                      : results[1] && results[1].data
-                        ? results[1].data
-                        : [];
+                        ? results[1].value
+                        : results[1] && results[1].data
+                            ? results[1].data
+                            : [];
 
                 var sumIn = 0,
                     sumOut = 0,
@@ -2188,14 +2186,14 @@ function renderLpcpBottomCharts() {
                                     chart.centerLabel = chart.renderer
                                         .text(
                                             '<div style="text-align:center;font-size:' +
-                                                labelFontSize +
-                                                ";line-height:1.2;color:" +
-                                                txtCol +
-                                                ';">Tổng<br><span style="font-size:' +
-                                                valueFontSize +
-                                                ';font-weight:700;">' +
-                                                Highcharts.numberFormat(sumTotal, 0, ".", ".") +
-                                                "</span></div>",
+                                            labelFontSize +
+                                            ";line-height:1.2;color:" +
+                                            txtCol +
+                                            ';">Tổng<br><span style="font-size:' +
+                                            valueFontSize +
+                                            ';font-weight:700;">' +
+                                            Highcharts.numberFormat(sumTotal, 0, ".", ".") +
+                                            "</span></div>",
                                             cx,
                                             cy,
                                             true,
@@ -2303,8 +2301,8 @@ function renderLpcpBottomCharts() {
                                 return v >= 1000000
                                     ? (v / 1000000).toFixed(1) + "M"
                                     : v >= 1000
-                                      ? (v / 1000).toFixed(0) + "K"
-                                      : v;
+                                        ? (v / 1000).toFixed(0) + "K"
+                                        : v;
                             },
                         },
                         gridLineColor: isDark ? "#334155" : "#e2e8f0",
@@ -2397,8 +2395,8 @@ function renderLpcpBottomCharts() {
                                 return v >= 1000000
                                     ? (v / 1000000).toFixed(1) + "M"
                                     : v >= 1000
-                                      ? (v / 1000).toFixed(0) + "K"
-                                      : v;
+                                        ? (v / 1000).toFixed(0) + "K"
+                                        : v;
                             },
                         },
                         gridLineColor: isDark ? "#334155" : "#e2e8f0",
@@ -2437,8 +2435,8 @@ function renderLpcpBottomCharts() {
                                     return v >= 1000000
                                         ? (v / 1000000).toFixed(1) + "M"
                                         : v >= 1000
-                                          ? (v / 1000).toFixed(0) + "K"
-                                          : String(v);
+                                            ? (v / 1000).toFixed(0) + "K"
+                                            : String(v);
                                 },
                                 style: {
                                     color: textColor,
@@ -3036,7 +3034,7 @@ function renderGiaTriTheoNhomChart() {
             centerEl.style.left = plotLeft + cx + "px";
             centerEl.style.top = plotTop + cy + "px";
             centerEl.style.transform = "translate(-50%, -50%)";
-        } catch (e) {}
+        } catch (e) { }
     }
     Highcharts.chart(node, {
         chart: {
@@ -3205,12 +3203,12 @@ function renderActivityCalendar() {
             var ttip = cell.isFuture
                 ? ""
                 : cell.key +
-                  "  Nhập: " +
-                  formatNumber(cell.info.totalIn, 0) +
-                  "  Xuất: " +
-                  formatNumber(cell.info.totalOut, 0) +
-                  "  Tổng: " +
-                  formatNumber(cell.info.total, 0);
+                "  Nhập: " +
+                formatNumber(cell.info.totalIn, 0) +
+                "  Xuất: " +
+                formatNumber(cell.info.totalOut, 0) +
+                "  Tổng: " +
+                formatNumber(cell.info.total, 0);
             weeksHtml +=
                 '<div class="dk-cal-cell" style="background:' +
                 bg +
@@ -3419,16 +3417,25 @@ function renderActivityCalendarMonthly() {
                 pickCount = 0;
             if (lpcpDay) {
                 var lTasks = lpcpDay.Tasks || lpcpDay.tasks || [];
-                taskCount = lTasks.length;
+                var uniqueLenh = {};
+                
                 lTasks.forEach(function (t) {
                     if (t.ThieuNPL || t.thieuNPL || t.TrangThai === 3) warnCount++;
+                    
+                    if (t.GhiChu === 'TASK') {
+                        taskCount++;
+                    } else if (t.GhiChu === 'PICK') {
+                        if (t.MaLenhSX || t.maLenhSX) uniqueLenh[t.MaLenhSX || t.maLenhSX] = 1;
+                    }
                 });
+
                 if (lpcpDay.ThieuNPL || lpcpDay.thieuNPL) warnCount = Math.max(warnCount, 1);
-                var uniqueLenh = {};
-                lTasks.forEach(function (t) {
-                    if (t.MaLenhSX || t.maLenhSX) uniqueLenh[t.MaLenhSX || t.maLenhSX] = 1;
-                });
-                pickCount = Object.keys(uniqueLenh).length || taskCount;
+                
+                var uniqueLenhCount = Object.keys(uniqueLenh).length;
+                pickCount = uniqueLenhCount;
+                if (pickCount === 0 && taskCount > 0 && lTasks.some(function(t) { return t.GhiChu !== 'TASK' && t.GhiChu !== 'PICK'; })) {
+                     pickCount = uniqueLenhCount || taskCount;
+                }
             }
 
             var iconIn =
@@ -3495,8 +3502,8 @@ function renderActivityCalendarMonthly() {
                     "</div>" +
                     (actListRight
                         ? '<div class="dk-cal-acts-right" style="display: flex; flex-direction: column; gap: 4px;">' +
-                          actListRight +
-                          "</div>"
+                        actListRight +
+                        "</div>"
                         : "") +
                     "</div>";
             } else {
@@ -3591,31 +3598,31 @@ function renderQuickStatus() {
     var blocks = [];
     blocks.push(
         '<div class="dk-status-item ' +
-            (racksCritical > 0 ? "warn" : "good") +
-            '"><strong>Kệ vượt 90%:</strong> ' +
-            formatNumber(racksCritical, 0) +
-            " kệ</div>",
+        (racksCritical > 0 ? "warn" : "good") +
+        '"><strong>Kệ vượt 90%:</strong> ' +
+        formatNumber(racksCritical, 0) +
+        " kệ</div>",
     );
     blocks.push(
         '<div class="dk-status-item ' +
-            (inboundOverdue > 0 ? "bad" : "good") +
-            '"><strong>Lệnh nhập quá hạn:</strong> ' +
-            formatNumber(inboundOverdue, 0) +
-            " lệnh</div>",
+        (inboundOverdue > 0 ? "bad" : "good") +
+        '"><strong>Lệnh nhập quá hạn:</strong> ' +
+        formatNumber(inboundOverdue, 0) +
+        " lệnh</div>",
     );
     blocks.push(
         '<div class="dk-status-item ' +
-            (outboundHighVolume > 0 ? "warn" : "good") +
-            '"><strong>Lệnh xuất SL lớn (&gt;1000):</strong> ' +
-            formatNumber(outboundHighVolume, 0) +
-            " lệnh</div>",
+        (outboundHighVolume > 0 ? "warn" : "good") +
+        '"><strong>Lệnh xuất SL lớn (&gt;1000):</strong> ' +
+        formatNumber(outboundHighVolume, 0) +
+        " lệnh</div>",
     );
     blocks.push(
         '<div class="dk-status-item"><strong>Kho đang theo dõi:</strong> ' +
-            formatNumber(state.customers.length, 0) +
-            " khách hàng | " +
-            formatNumber(state.racks.length, 0) +
-            " kệ</div>",
+        formatNumber(state.customers.length, 0) +
+        " khách hàng | " +
+        formatNumber(state.racks.length, 0) +
+        " kệ</div>",
     );
 
     statusNode.innerHTML = blocks.join("");
@@ -4352,8 +4359,8 @@ function renderGroupedDetailTable(cols, rows, dateField) {
                         typeof formatDateVn === "function"
                             ? formatDateVn(val)
                             : typeof formatDate === "function"
-                              ? formatDate(val)
-                              : val;
+                                ? formatDate(val)
+                                : val;
 
                 var cellAlign = cv.center ? "center" : cv.number !== undefined ? "right" : cv.left ? "left" : "";
                 var align = cellAlign ? " style='text-align:" + cellAlign + "'" : "";
@@ -4369,7 +4376,7 @@ function renderGroupedDetailTable(cols, rows, dateField) {
 
 
 window.__dkDetailData = {};
-window.dkGoDetailPg = function(tabKey, dir) {
+window.dkGoDetailPg = function (tabKey, dir) {
     var d = window.__dkDetailData[tabKey];
     if (!d) return;
     d.page += dir;
@@ -4377,16 +4384,16 @@ window.dkGoDetailPg = function(tabKey, dir) {
     var totalPages = Math.ceil(d.rows.length / pageSize);
     if (d.page < 1) d.page = 1;
     if (d.page > totalPages) d.page = totalPages;
-    
+
     var pagedRows = d.rows.slice((d.page - 1) * pageSize, d.page * pageSize);
     var html = renderGroupedDetailTable(d.cols, pagedRows, d.dateField);
-    
+
     if (totalPages > 1) {
         var btnPrev = d.page > 1 ? '<button class="dk-btn-page" style="margin-right:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', -1)">&#8592; Trang trước</button>' : '';
         var btnNext = d.page < totalPages ? '<button class="dk-btn-page" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', 1)">Trang sau &#8594;</button>' : '';
-        html += '<div class="dk-detail-pagination">' + 
-                btnPrev + '<span>Trang ' + d.page + ' / ' + totalPages + ' (' + formatNumber(d.rows.length, 0) + ' dòng)</span>' + btnNext + 
-                '</div>';
+        html += '<div class="dk-detail-pagination">' +
+            btnPrev + '<span>Trang ' + d.page + ' / ' + totalPages + ' (' + formatNumber(d.rows.length, 0) + ' dòng)</span>' + btnNext +
+            '</div>';
     }
     var panel = document.getElementById(d.panelId);
     if (panel) {
@@ -4394,7 +4401,7 @@ window.dkGoDetailPg = function(tabKey, dir) {
         panel.scrollTop = 0;
     }
 
-    setTimeout(function() {
+    setTimeout(function () {
         var container = document.getElementById('detailModalContent');
         if (!container) return;
         var tabs = container.querySelector(".dk-day-tabs");
@@ -4503,9 +4510,9 @@ function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
             var totalPages = Math.ceil(tp.rows.length / 500);
             if (totalPages > 1) {
                 var btnNext = '<button class="dk-btn-page" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tp.key + '\', 1)">Trang sau &#8594;</button>';
-                html += '<div class="dk-detail-pagination">' + 
-                        '<span>Trang 1 / ' + totalPages + ' (' + formatNumber(tp.rows.length, 0) + ' dòng)</span>' + btnNext + 
-                        '</div>';
+                html += '<div class="dk-detail-pagination">' +
+                    '<span>Trang 1 / ' + totalPages + ' (' + formatNumber(tp.rows.length, 0) + ' dòng)</span>' + btnNext +
+                    '</div>';
             }
             panels += html;
         }
@@ -4514,7 +4521,7 @@ function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
 
     container.innerHTML = tabBar + panels;
 
-    setTimeout(function() {
+    setTimeout(function () {
         var container = document.getElementById('detailModalContent');
         if (!container) return;
         var tabs = container.querySelector(".dk-day-tabs");
@@ -4528,7 +4535,7 @@ function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
     }, 10);
 
 
-    
+
 
     var tabBtns = container.querySelectorAll(".dk-day-tab");
     for (var bi = 0; bi < tabBtns.length; bi++) {
@@ -4643,9 +4650,9 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned) {
             var totalPages = Math.ceil(tp.rows.length / 500);
             if (totalPages > 1) {
                 var btnNext = '<button class="dk-btn-page" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tp.key + '\', 1)">Trang sau &#8594;</button>';
-                html += '<div class="dk-detail-pagination">' + 
-                        '<span>Trang 1 / ' + totalPages + ' (' + formatNumber(tp.rows.length, 0) + ' dòng)</span>' + btnNext + 
-                        '</div>';
+                html += '<div class="dk-detail-pagination">' +
+                    '<span>Trang 1 / ' + totalPages + ' (' + formatNumber(tp.rows.length, 0) + ' dòng)</span>' + btnNext +
+                    '</div>';
             }
             panels += html;
         }
@@ -4654,7 +4661,7 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned) {
 
     container.innerHTML = tabBar + panels;
 
-    setTimeout(function() {
+    setTimeout(function () {
         var container = document.getElementById('detailModalContent');
         if (!container) return;
         var tabs = container.querySelector(".dk-day-tabs");
@@ -4668,7 +4675,7 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned) {
     }, 10);
 
 
-    
+
 
     var tabBtns = container.querySelectorAll(".dk-day-tab");
     for (var bi = 0; bi < tabBtns.length; bi++) {
@@ -4787,7 +4794,7 @@ function showLpcpMonthModal(type) {
             html +=
                 '<thead><tr style="background: var(--dk-card-alt, rgba(0,0,0,0.02)); border-bottom: 1px solid var(--dk-line);">';
             html +=
-                '<th style="padding:14px 16px;text-align:left;border-bottom:1px solid var(--dk-line);font-weight:600;color:var(--dk-title);width:45%;">Mã lệnh / Brand</th>';
+                '<th style="padding:14px 16px;text-align:left;border-bottom:1px solid var(--dk-line);font-weight:600;color:var(--dk-title);width:45%;">Mã lệnh / Mã hàng</th>';
             html +=
                 '<th style="padding:14px 16px;text-align:left;border-bottom:1px solid var(--dk-line);font-weight:600;color:var(--dk-title);width:15%;">Ngày giao</th>';
             html +=
@@ -4817,8 +4824,8 @@ function showLpcpMonthModal(type) {
                     '<td style="padding:14px 16px;text-align:left;"><b>' +
                     escapeHtml(tk.MaLenhSX || "N/A") +
                     "</b>" +
-                    (tk.TenBrand
-                        ? ' <span style="color:var(--dk-muted);"> - ' + escapeHtml(tk.TenBrand) + "</span>"
+                    (tk.MaHang
+                        ? ' <span style="color:var(--dk-muted);"> - ' + escapeHtml(tk.MaHang) + "</span>"
                         : "") +
                     "</td>";
                 html +=
@@ -4923,8 +4930,7 @@ function showLpcpInlineDetail(dateKey) {
     var TT_BG = ["rgba(217,119,6,0.1)", "rgba(37,99,235,0.1)", "rgba(5,150,105,0.1)", "rgba(239,68,68,0.15)"];
 
     function ttBadge(tt) {
-        var i = tt || 0;
-        if (i === 0) return "";
+        var i = (tt !== undefined && tt !== null) ? parseInt(tt, 10) : 0;
         return (
             "<span style='display:inline-flex;align-items:center;gap:4px;" +
             "background:" +
@@ -4971,7 +4977,7 @@ function showLpcpInlineDetail(dateKey) {
                             TenNV: a.TenNV || a.MaNV || "",
                             MaNV: a.MaNV || "",
                             MaKhachHang: a.MaKhachHang || "",
-                            TenBrand: a.TenBrand || "",
+                            MaHang: a.MaHang || "",
                             NgaySoan: a.NgayThucHien || "",
                             GioSoan: a.GioThucHien || "",
                         };
@@ -4995,25 +5001,29 @@ function showLpcpInlineDetail(dateKey) {
                 if (a.TrangThai === 3) chuaHT.push(a.MaLenhSX || "?");
                 if (a.TrangThai === 0) choTH.push(a.MaLenhSX || "?");
             });
+            var thieuPOItems = [];
             pickOrders.forEach(function (po) {
                 if ((po.SoPLThieu || 0) > 0) {
                     tongThieu += po.SoPLThieu;
                     thieuPO.push(po.MaLenhSX || "?");
+                    thieuPOItems.push(po);
                 }
             });
             if (thieuNPL.length)
                 warnings.push({
                     level: "critical",
-                    name: "Thi\u1ebfu NPL ph\u00e2n c\u00f4ng",
-                    cnt: thieuNPL.length + " l\u1ec7nh",
-                    desc: thieuNPL.slice(0, 3).join(", ") + (thieuNPL.length > 3 ? "..." : ""),
+                    name: "Thiếu NPL phân công",
+                    cnt: thieuNPL.length + " lệnh",
+                    desc: thieuNPL.join(", "),
                 });
             if (thieuPO.length)
                 warnings.push({
+                    type: "thieuPO",
                     level: "critical",
-                    name: "PL thi\u1ebfu trong l\u1ec7nh so\u1ea1n",
-                    cnt: tongThieu + " lo\u1ea1i",
-                    desc: thieuPO.slice(0, 3).join(", ") + (thieuPO.length > 3 ? "..." : ""),
+                    name: "PL thiếu trong lệnh soạn",
+                    cnt: tongThieu + " loại",
+                    desc: thieuPO.join(", "),
+                    items: thieuPOItems,
                 });
             if (chuaHT.length)
                 warnings.push({
@@ -5087,20 +5097,16 @@ function showLpcpInlineDetail(dateKey) {
                 assignments.forEach(function (a) {
                     var name = escapeHtml(a.TenNV || a.MaNV || "\u2014");
                     var maLenh = escapeHtml(a.MaLenhSX || "");
-                    var brand = a.TenBrand
-                        ? " \u00b7 " + escapeHtml(a.TenBrand)
-                        : a.MaKhachHang
-                          ? " \u00b7 " + escapeHtml(a.MaKhachHang)
-                          : "";
+                    var brand = a.MaHang ? " \u00b7 " + escapeHtml(a.MaHang) : "";
                     var timeHtml = a.GioThucHien
-                        ? "<span style='font-size:10px;color:var(--dk-muted);margin-left:6px;'><i class='far fa-clock'></i> " +
-                          escapeHtml(a.GioThucHien) +
-                          "</span>"
+                        ? "<span style='font-size:10px;color:var(--dk-muted);margin-left:6px;'><svg width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='margin-right:4px;vertical-align:-1px'><circle cx='12' cy='12' r='10'></circle><polyline points='12 6 12 12 16 14'></polyline></svg> " +
+                        escapeHtml(a.GioThucHien) +
+                        "</span>"
                         : "";
                     var descHtml = a.MoTaCongViec
-                        ? "<div style='font-size:10px;color:var(--dk-muted);margin-top:2px;'><i class='fas fa-tasks' style='margin-right:4px;opacity:0.7'></i>" +
-                          escapeHtml(a.MoTaCongViec) +
-                          "</div>"
+                        ? "<div style='font-size:10px;color:var(--dk-muted);margin-top:2px;'><svg width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='margin-right:4px;opacity:0.7;vertical-align:-1px'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'></path><polyline points='14 2 14 8 20 8'></polyline><line x1='16' y1='13' x2='8' y2='13'></line><line x1='16' y1='17' x2='8' y2='17'></line><polyline points='10 9 9 9 8 9'></polyline></svg>" +
+                        escapeHtml(a.MoTaCongViec) +
+                        "</div>"
                         : "";
 
                     aHtml +=
@@ -5111,7 +5117,7 @@ function showLpcpInlineDetail(dateKey) {
                         brand +
                         timeHtml +
                         "</div>" +
-                        "<div style='font-size:10px;color:var(--dk-title);margin-top:2px;opacity:0.9;'><i class='far fa-user' style='margin-right:4px;opacity:0.7'></i>" +
+                        "<div style='font-size:10px;color:var(--dk-title);margin-top:2px;opacity:0.9;'><svg width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='margin-right:4px;opacity:0.7;vertical-align:-1px'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path><circle cx='12' cy='7' r='4'></circle></svg>" +
                         name +
                         "</div>" +
                         descHtml +
@@ -5129,32 +5135,27 @@ function showLpcpInlineDetail(dateKey) {
             } else {
                 pickOrders.forEach(function (po) {
                     var maLenh = escapeHtml(po.MaLenhSX || "\u2014");
-                    var brand = po.TenBrand
-                        ? escapeHtml(po.TenBrand)
+                    var brand = po.MaHang
+                        ? escapeHtml(po.MaHang)
                         : po.MaKhachHang
-                          ? escapeHtml(po.MaKhachHang)
-                          : "";
-                    var nv = escapeHtml(po.TenNV || po.MaNV || "");
-                    var thieu =
-                        (po.SoPLThieu || 0) > 0
-                            ? "<span style='font-size:9px;font-weight:700;color:#dc2626;background:rgba(220,38,38,0.15);padding:1px 6px;border-radius:3px;margin-left:4px;'>\u26a0 Thi\u1ebfu " +
-                              po.SoPLThieu +
-                              "</span>"
+                            ? escapeHtml(po.MaKhachHang)
                             : "";
+                    var nv = escapeHtml(po.TenNV || po.MaNV || "");
                     var timeHtml = po.GioSoan
-                        ? "<span style='font-size:10px;color:var(--dk-muted);margin-left:6px;'><i class='far fa-clock'></i> " +
-                          escapeHtml(po.GioSoan) +
-                          "</span>"
+                        ? "<span style='font-size:10px;color:var(--dk-muted);margin-left:6px;'><svg width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='margin-right:4px;vertical-align:-1px'><circle cx='12' cy='12' r='10'></circle><polyline points='12 6 12 12 16 14'></polyline></svg> " +
+                        escapeHtml(po.GioSoan) +
+                        "</span>"
                         : "";
-                    var slHtml = "";
-                    if (po.SoLoaiPL > 0 || po.TongSLCanSoan > 0) {
-                        slHtml =
-                            "<div style='font-size:10px;color:var(--dk-muted);margin-top:2px;'><i class='fas fa-box-open' style='margin-right:4px;opacity:0.7'></i>Soạn: <b>" +
-                            (po.SoLoaiPL || 0) +
-                            "</b> loại / <b>" +
-                            formatNumber(po.TongSLCanSoan || 0, 2) +
-                            "</b> SL</div>";
+                    
+                    var metricsHtml = "<div style='display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;'>";
+                    if (po.TongSLCanSoan > 0 || po.SLSoan > 0) {
+                        metricsHtml += "<span style='font-size:10px; font-weight:500; color:var(--dk-title); background:rgba(255,255,255,0.05); border:1px solid var(--dk-line); padding:2px 6px; border-radius:4px;'>Yêu cầu: <b>" + formatNumber(po.TongSLCanSoan || 0) + "</b></span>";
+                        metricsHtml += "<span style='font-size:10px; font-weight:600; color:var(--dk-primary); background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.2); padding:2px 6px; border-radius:4px;'>Đã soạn: " + formatNumber(po.SLSoan || 0) + "</span>";
                     }
+                    if ((po.SoPLThieu || 0) > 0) {
+                        metricsHtml += "<span style='font-size:10px; font-weight:600; color:#ef4444; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); padding:2px 6px; border-radius:4px;'>⚠ Thiếu: " + formatNumber(po.SoPLThieu || 0) + "</span>";
+                    }
+                    metricsHtml += "</div>";
 
                     pHtml +=
                         "<div style='padding:7px 0;border-bottom:1px solid var(--dk-line);'>" +
@@ -5168,16 +5169,15 @@ function showLpcpInlineDetail(dateKey) {
                         "</div>" +
                         (brand
                             ? "<div style='font-size:10px;color:var(--dk-title);margin-top:2px;opacity:0.9;'>" +
-                              brand +
-                              "</div>"
+                            brand +
+                            "</div>"
                             : "") +
                         (nv
-                            ? "<div style='font-size:10px;color:var(--dk-title);margin-top:2px;opacity:0.9;'><i class='far fa-user' style='margin-right:4px;opacity:0.7'></i>" +
-                              nv +
-                              "</div>"
+                            ? "<div style='font-size:10px;color:var(--dk-title);margin-top:2px;opacity:0.9;'><svg width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='margin-right:4px;opacity:0.7;vertical-align:-1px'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path><circle cx='12' cy='7' r='4'></circle></svg>" +
+                            nv +
+                            "</div>"
                             : "") +
-                        slHtml +
-                        (thieu ? "<div style='margin-top:4px'>" + thieu + "</div>" : "") +
+                        metricsHtml +
                         "</div>";
                 });
             }
@@ -5252,7 +5252,7 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
     }
 
     var COLS_TASK = "grid-template-columns:2fr 1.5fr 1.2fr 1.1fr;";
-    var COLS_PICK = "grid-template-columns:2fr 1.2fr 1.5fr 80px 1.1fr;";
+    var COLS_PICK = "grid-template-columns: 1fr 2fr 1.5fr 1fr 1fr 1fr 1fr;";
 
     var html = "";
 
@@ -5284,9 +5284,50 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                     escapeHtml(WL[lvl] || lvl) +
                     "</span>" +
                     "</div>" +
-                    "<div class='dk-lpcp-warn-desc'>" +
-                    escapeHtml(w.desc) +
-                    "</div>" +
+                    "<div class='dk-lpcp-warn-desc'>";
+                
+                if (w.type === "thieuPO" && w.items && w.items.length > 0) {
+                    var subHtml = "<div class='dk-lpcp-modal-thead' style='" + COLS_PICK + "; margin-top:12px; background:rgba(0,0,0,0.15); border:none; border-radius:4px 4px 0 0; padding:8px 16px;'>" +
+                        "<span>Mã Lệnh SX</span><span>Mã Hàng</span><span>NV Soạn</span><span style='text-align:right;padding-right:12px;'>SL Yêu Cầu</span><span style='text-align:right;padding-right:12px;'>SL Đã Soạn</span><span>PL Thiếu</span><span>Trạng Thái</span></div>";
+                    var wTotalYeuCau = 0, wTotalSoan = 0, wTotalThieu = 0;
+                    w.items.forEach(function (po) {
+                        wTotalYeuCau += (po.TongSLCanSoan || 0);
+                        wTotalSoan += (po.SLSoan || 0);
+                        wTotalThieu += (po.SoPLThieu || 0);
+
+                        var maLenh = escapeHtml(po.MaLenhSX || "—");
+                        var brand = escapeHtml(po.MaHang || "—");
+                        var nv = escapeHtml(po.TenNV || po.MaNV || "—");
+                        var thieu = "<span class='dk-lpcp-thieu-yes'>⚠ " + po.SoPLThieu + "</span>";
+                        var slYeuCauHtml = "<span style='font-size:12px;font-weight:600;color:var(--dk-title);text-align:right;padding-right:12px;'>" + formatNumber(po.TongSLCanSoan || 0) + "</span>";
+                        var slSoanHtml = "<span style='font-size:12px;font-weight:600;color:var(--dk-primary);text-align:right;padding-right:12px;'>" + formatNumber(po.SLSoan || 0) + "</span>";
+
+                        subHtml += "<div class='dk-lpcp-modal-row' style='" + COLS_PICK + "; padding:8px 16px; border-bottom:1px solid rgba(255,255,255,0.05); background:rgba(0,0,0,0.05);'>" +
+                            "<span class='dk-lpcp-col-code'>" + maLenh + "</span>" +
+                            "<span class='dk-lpcp-col-brand'>" + brand + "</span>" +
+                            "<span class='dk-lpcp-col-nv'>" + nv + "</span>" +
+                            slYeuCauHtml + slSoanHtml + thieu + badge(po.TrangThai || 0) + "</div>";
+                    });
+
+                    var wTotalThieuHtml = wTotalThieu > 0 
+                        ? "<span class='dk-lpcp-thieu-yes'>⚠ " + wTotalThieu + "</span>" 
+                        : "<span class='dk-lpcp-thieu-no'>—</span>";
+
+                    subHtml += 
+                        "<div class='dk-lpcp-modal-row' style='" + COLS_PICK + "; padding:8px 16px; background:rgba(0,0,0,0.15); border-radius:0 0 4px 4px;'>" +
+                        "<span></span><span></span>" +
+                        "<span style='text-align:right; font-weight:700; color:var(--dk-title); font-size:12px;'>Tổng Cộng:</span>" +
+                        "<span style='text-align:right; padding-right:12px; font-weight:700; color:var(--dk-title); font-size:13px;'>" + formatNumber(wTotalYeuCau) + "</span>" +
+                        "<span style='text-align:right; padding-right:12px; font-weight:700; color:var(--dk-primary); font-size:13px;'>" + formatNumber(wTotalSoan) + "</span>" +
+                        wTotalThieuHtml +
+                        "<span></span></div>";
+
+                    html += subHtml;
+                } else {
+                    html += escapeHtml(w.desc);
+                }
+                
+                html += "</div>" +
                     "</div></div>";
             });
         }
@@ -5303,11 +5344,11 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                 "<div class='dk-lpcp-modal-thead' style='" +
                 COLS_TASK +
                 "'>" +
-                "<span>Mã Lệnh SX</span><span>Nhân Viên</span><span>Brand / KH</span><span>Trạng Thái</span></div>";
+                "<span>Mã Lệnh SX</span><span>Nhân Viên</span><span>Mã Hàng</span><span>Trạng Thái</span></div>";
             assignments.forEach(function (a) {
                 var maLenh = escapeHtml(a.MaLenhSX || "—");
                 var nv = escapeHtml(a.TenNV || a.MaNV || "—");
-                var brand = escapeHtml(a.TenBrand || a.MaKhachHang || "—");
+                var brand = escapeHtml(a.MaHang || "—");
                 var ngay = a.NgayThucHien
                     ? "<span class='dk-lpcp-col-date'> · " + escapeHtml(a.NgayThucHien) + "</span>"
                     : "";
@@ -5342,15 +5383,24 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                 "<div class='dk-lpcp-modal-thead' style='" +
                 COLS_PICK +
                 "'>" +
-                "<span>Mã Lệnh SX</span><span>Brand</span><span>NV Soạn</span><span>PL Thiếu</span><span>Trạng Thái</span></div>";
+                "<span>Mã Lệnh SX</span><span>Mã Hàng</span><span>NV Soạn</span><span style='text-align:right;padding-right:12px;'>SL Yêu Cầu</span><span style='text-align:right;padding-right:12px;'>SL Đã Soạn</span><span>PL Thiếu</span><span>Trạng Thái</span></div>";
+            var totalYeuCau = 0, totalSoan = 0, totalThieu = 0;
             pickOrders.forEach(function (po) {
+                totalYeuCau += (po.TongSLCanSoan || 0);
+                totalSoan += (po.SLSoan || 0);
+                totalThieu += (po.SoPLThieu || 0);
+
                 var maLenh = escapeHtml(po.MaLenhSX || "—");
-                var brand = escapeHtml(po.TenBrand || po.MaKhachHang || "—");
+                var brand = escapeHtml(po.MaHang || "—");
                 var nv = escapeHtml(po.TenNV || po.MaNV || "—");
                 var thieu =
                     (po.SoPLThieu || 0) > 0
                         ? "<span class='dk-lpcp-thieu-yes'>⚠ " + po.SoPLThieu + "</span>"
                         : "<span class='dk-lpcp-thieu-no'>—</span>";
+                
+                var slYeuCauHtml = "<span style='font-size:12px;font-weight:600;color:var(--dk-title);text-align:right;padding-right:12px;'>" + formatNumber(po.TongSLCanSoan || 0) + "</span>";
+                var slSoanHtml = "<span style='font-size:12px;font-weight:600;color:var(--dk-primary);text-align:right;padding-right:12px;'>" + formatNumber(po.SLSoan || 0) + "</span>";
+
                 html +=
                     "<div class='dk-lpcp-modal-row' style='" +
                     COLS_PICK +
@@ -5358,16 +5408,31 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                     "<span class='dk-lpcp-col-code'>" +
                     maLenh +
                     "</span>" +
-                    "<span class='dk-lpcp-col-nv'>" +
+                    "<span class='dk-lpcp-col-brand'>" +
                     brand +
                     "</span>" +
-                    "<span class='dk-lpcp-col-brand'>" +
+                    "<span class='dk-lpcp-col-nv'>" +
                     nv +
                     "</span>" +
+                    slYeuCauHtml +
+                    slSoanHtml +
                     thieu +
                     badge(po.TrangThai || 0) +
                     "</div>";
             });
+
+            var totalThieuHtml = totalThieu > 0 
+                ? "<span class='dk-lpcp-thieu-yes'>⚠ " + totalThieu + "</span>" 
+                : "<span class='dk-lpcp-thieu-no'>—</span>";
+
+            html += 
+                "<div class='dk-lpcp-modal-row' style='" + COLS_PICK + "; background:rgba(0,0,0,0.1); border-top:1px solid rgba(255,255,255,0.1);'>" +
+                "<span></span><span></span>" +
+                "<span style='text-align:right; font-weight:700; color:var(--dk-title); font-size:12px;'>Tổng Cộng:</span>" +
+                "<span style='text-align:right; padding-right:12px; font-weight:700; color:var(--dk-title); font-size:13px;'>" + formatNumber(totalYeuCau) + "</span>" +
+                "<span style='text-align:right; padding-right:12px; font-weight:700; color:var(--dk-primary); font-size:13px;'>" + formatNumber(totalSoan) + "</span>" +
+                totalThieuHtml +
+                "<span></span></div>";
         }
     }
 
@@ -5400,19 +5465,19 @@ function appendLpcpTab(container, lpcpData) {
     var subColor = isDark ? "#94a3b8" : "#64748b";
 
     function ttBadge(tt) {
-        if (!tt || tt === 0 || tt === "0") return "";
+        var i = (tt !== undefined && tt !== null) ? parseInt(tt, 10) : 0;
         return (
             '<span style="display:inline-flex;align-items:center;gap:4px;' +
             "background:" +
-            (TT_BG[tt] || TT_BG[0]) +
+            (TT_BG[i] || TT_BG[0]) +
             ";color:" +
-            (TT_COLORS[tt] || TT_COLORS[0]) +
+            (TT_COLORS[i] || TT_COLORS[0]) +
             ";" +
             'padding:2px 8px;border-radius:4px;font-size:10px;font-weight:500;">' +
             '<span style="width:5px;height:5px;border-radius:50%;background:' +
-            (TT_COLORS[tt] || TT_COLORS[0]) +
+            (TT_COLORS[i] || TT_COLORS[0]) +
             ';display:inline-block;"></span>' +
-            escapeHtml(TT_LABELS[tt] || "") +
+            escapeHtml(TT_LABELS[i] || "") +
             "</span>"
         );
     }
@@ -5530,7 +5595,7 @@ function appendLpcpTab(container, lpcpData) {
                 '<span style="font-size:10px;color:' +
                 subColor +
                 ';margin-left:5px;">' +
-                escapeHtml(po.TenBrand || po.MaKhachHang || "") +
+                escapeHtml(po.MaHang || "") +
                 "</span>" +
                 "</div>" +
                 '<div style="font-size:10px;color:' +
@@ -5601,7 +5666,7 @@ function renderAll() {
                 state.activityCalendar = normalizeArray(data);
                 renderActivityCalendarMonthly();
             })
-            .catch(function () {});
+            .catch(function () { });
     }
 }
 
@@ -5625,7 +5690,7 @@ function switchPage(pageNum) {
     setTimeout(function () {
         try {
             loadPageData(pageNum);
-        } catch (e) {}
+        } catch (e) { }
         var pages = document.querySelectorAll(".dk-page");
         for (var i = 0; i < pages.length; i++) {
             var pn = parseInt(pages[i].getAttribute("data-page"), 10);
@@ -5651,16 +5716,16 @@ function switchPage(pageNum) {
             setTimeout(function () {
                 try {
                     renderAlertsList();
-                } catch (e) {}
+                } catch (e) { }
                 try {
                     renderHieuSuatGauges();
-                } catch (e) {}
+                } catch (e) { }
                 try {
                     renderTop5MaxChart();
-                } catch (e) {}
+                } catch (e) { }
                 try {
                     renderAgeStockChart();
-                } catch (e) {}
+                } catch (e) { }
             }, 50);
         }
 
@@ -5808,10 +5873,10 @@ function getDetailData(detail, index) {
                         ChiSo: r.ChiSo,
                         GiaTri: canDrill
                             ? '<a href="#" class="dk-link js-open-detail" data-detail="' +
-                              r.drill +
-                              '">' +
-                              formattedValue +
-                              "</a>"
+                            r.drill +
+                            '">' +
+                            formattedValue +
+                            "</a>"
                             : formattedValue,
                         _raw: r,
                     };
@@ -6057,8 +6122,7 @@ function getDetailData(detail, index) {
                 { key: "STT", label: "STT", number: 0, center: true, width: 50 },
                 // v2.3.31 — Chỉ giữ "Mã lệnh SX" = MaLenh từ CanDoiDonViSanXuat, bỏ cột nội bộ
                 { key: "MaLenh", label: "Mã lệnh SX", center: true, width: 120 },
-                { key: "KhachHang", label: "Khách hàng", width: 180 },
-                { key: "TenHang", label: "Tên hàng", width: 250 },
+                { key: "TenHang", label: "Mã hàng", width: 250 },
                 { key: "SoLuongYeuCau", label: "SL chuẩn bị xuất", number: 2, width: 120 },
                 { key: "KHCat", label: "KH cắt", date: true, center: true, width: 100 },
                 { key: "DuKienCat", label: "Dự kiến cắt", date: true, center: true, width: 100 },
@@ -6202,8 +6266,7 @@ function getDetailData(detail, index) {
                 { key: "MaLenhSanXuat", label: "Mã lệnh SX", center: true },
                 { key: "MaLenh", label: "Mã lệnh", center: true },
                 { key: "MaDVSX", label: "Mã ĐVSX", center: true },
-                { key: "TenHang", label: "Tên hàng" },
-                { key: "KhachHang", label: "Khách hàng" },
+                { key: "TenHang", label: "Mã hàng" },
                 { key: "KHCat", label: "KH cắt", date: true, center: true },
                 { key: "DuKienCat", label: "Dự kiến cắt", date: true, center: true },
             ],
@@ -7039,8 +7102,8 @@ function renderMetricCards() {
         setHtml(
             "metricPODangTreHint",
             '<i class="fa-solid fa-fire dk-text-danger"></i> ' +
-                toNumber(state.kpiPODangTre.SoPOChuaKiem) +
-                " PO chưa kiểm",
+            toNumber(state.kpiPODangTre.SoPOChuaKiem) +
+            " PO chưa kiểm",
         );
     } else {
         setText("metricPODangTre", "0");
@@ -7053,8 +7116,8 @@ function renderMetricCards() {
         var tg = state.kpiGiaTriTon
             ? toNumber(state.kpiGiaTriTon.Value)
             : state.thanhGia
-              ? toNumber(state.thanhGia.ThanhGia || state.thanhGia.TongTien)
-              : 0;
+                ? toNumber(state.thanhGia.ThanhGia || state.thanhGia.TongTien)
+                : 0;
         if (tg > 0) {
             var formatted;
             if (tg >= 1e9) formatted = (tg / 1e9).toFixed(3).replace(/\.?0+$/, "") + " tỷ";
