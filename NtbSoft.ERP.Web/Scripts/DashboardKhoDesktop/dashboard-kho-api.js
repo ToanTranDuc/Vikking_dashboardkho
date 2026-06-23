@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @file dashboard-kho-api.js
  * @description Đảm nhiệm toàn bộ việc giao tiếp với Server (Gọi API nạp dữ liệu). Không chứa logic vẽ giao diện.
  * @version 2.7.26
@@ -6,9 +6,10 @@
 
 //#region API FETCHING
 /**
- * Hàm gọi API dùng chung, tự động xử lý loading và lỗi mạng.
- * @param {string} url Đường dẫn API
- * @returns {Promise} Kết quả trả về từ server
+ * Hàm gọi API dùng chung (Promise-based), tự động xử lý loading và lỗi mạng.
+ * Hàm này đẩy request vào hàng đợi __requestQueue để giới hạn số kết nối song song.
+ * @param {string} url Đường dẫn API (ví dụ: "/api/DashboardKhoDesktop/GetRacks")
+ * @returns {Promise<any>} Dữ liệu JSON trả về từ server
  */
 function requestJson(url) {
     return new Promise(function (resolve, reject) {
@@ -415,9 +416,10 @@ function loadDemoData() {
 }
 
 /**
- * Hàm nạp toàn bộ dữ liệu tổng quan cho trang Dashboard.
- * @param {boolean} skipLoadingState Bỏ qua hiệu ứng loading màn hình
- * @param {boolean} skipReloadCurrent Không reload tab hiện tại
+ * Hàm cốt lõi: Nạp toàn bộ dữ liệu tổng quan cho trang Dashboard khi mới tải trang hoặc khi ấn "Làm mới".
+ * Quá trình: Gọi hàng loạt API, sau khi tất cả Promise hoàn tất thì vẽ lại giao diện.
+ * @param {boolean} skipLoadingState Bỏ qua hiệu ứng bộ xương (skeleton loading) màn hình
+ * @param {boolean} skipReloadCurrent Không tải lại dữ liệu của tab/page hiện tại
  */
 function loadData(skipLoadingState, skipReloadCurrent) {
     if (state.loading) return;
@@ -705,6 +707,12 @@ function loadData(skipLoadingState, skipReloadCurrent) {
         });
 }
 
+/**
+ * Tải dữ liệu bổ sung khi người dùng chuyển sang các trang/tab khác (Trang 2 hoặc Trang 3).
+ * Giúp tối ưu hóa hiệu suất (Lazy Loading) bằng cách không tải tất cả API ngay từ đầu.
+ * @param {number} pageNum Số thứ tự của trang cần tải (2 hoặc 3)
+ * @returns {Promise} Trạng thái Promise khi gọi xong API
+ */
 function loadPageData(pageNum) {
     if (loadedPages[pageNum]) return Promise.resolve();
     loadedPages[pageNum] = true;
@@ -886,6 +894,10 @@ function loadPageData(pageNum) {
     return Promise.resolve();
 }
 
+/**
+ * Hàm tải lại dữ liệu theo trình tự: Tải lại trang hiện tại (nếu là trang 2 hoặc 3) trước,
+ * sau đó mới tải lại dữ liệu tổng quan. Được gọi khi áp dụng bộ lọc ngày tháng.
+ */
 function triggerSequentialReload() {
     if (currentPage === 2 || currentPage === 3) {
         setLoading(true); // Hiển thị skeleton cho toàn bộ các tab
@@ -904,6 +916,11 @@ function triggerSequentialReload() {
     }
 }
 
+/**
+ * Hàm tải và vẽ biểu đồ luồng xuất nhập tồn (Flow Trend) cho một khoảng thời gian được chọn.
+ * @param {Date} fromDate Ngày bắt đầu
+ * @param {Date} toDate Ngày kết thúc
+ */
 function loadAndRenderFlowByRange(fromDate, toDate) {
     var node = byId(ids.chartFlowTrend);
     if (node) node.innerHTML = '<div class="dk-empty" style="padding:20px">Đang tải dữ liệu...</div>';
@@ -938,6 +955,9 @@ function loadAndRenderFlowByRange(fromDate, toDate) {
         });
 }
 
+/**
+ * Hàm tải và vẽ biểu đồ luồng xuất nhập tồn (Flow Trend) hiển thị theo tuần (Weekly).
+ */
 function loadAndRenderFlowWeekly() {
     var node = byId(ids.chartFlowTrend);
     if (node) node.innerHTML = '<div class="dk-empty" style="padding:20px">Đang tải dữ liệu tuần...</div>';

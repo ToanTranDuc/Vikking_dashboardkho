@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @file dashboard-kho-utils.js
  * @description Chứa các hàm tiện ích dùng chung (Format số, xử lý ngày tháng, hiển thị Toast).
  * @version 2.7.26
@@ -27,12 +27,23 @@ function byId(id) {
     return document.getElementById(id);
 }
 
+/**
+ * Chuyển đổi một giá trị sang số an toàn. Nếu null/undefined/empty sẽ trả về 0.
+ * @param {any} value Giá trị cần chuyển đổi
+ * @returns {number} Số đã chuyển đổi hoặc 0
+ */
 function toNumber(value) {
     if (value === null || value === undefined || value === "") return 0;
     var number = Number(value);
     return isNaN(number) ? 0 : number;
 }
 
+/**
+ * Định dạng số thành chuỗi hiển thị theo chuẩn Việt Nam (vd: 1.000.000).
+ * @param {any} value Số cần định dạng
+ * @param {number} fractionDigits Số chữ số thập phân
+ * @returns {string} Chuỗi số đã định dạng
+ */
 function formatNumber(value, fractionDigits) {
     var digits = typeof fractionDigits === "number" ? fractionDigits : 0;
     return toNumber(value).toLocaleString("vi-VN", {
@@ -41,10 +52,20 @@ function formatNumber(value, fractionDigits) {
     });
 }
 
+/**
+ * Định dạng số thành chuỗi phần trăm (vd: 15.50%).
+ * @param {any} value Giá trị phần trăm
+ * @returns {string} Chuỗi phần trăm đã định dạng
+ */
 function formatPercent(value) {
     return formatNumber(value, 2) + "%";
 }
 
+/**
+ * Hàm phân tích một chuỗi (vd: /Date(123456789)/ hoặc ISO String) thành đối tượng Date.
+ * @param {any} raw Chuỗi ngày tháng hoặc object Date gốc
+ * @returns {Date|null} Đối tượng Date hoặc null nếu không hợp lệ
+ */
 function parseDate(raw) {
     if (!raw) return null;
     if (Object.prototype.toString.call(raw) === "[object Date]") return raw;
@@ -137,6 +158,11 @@ function normalizeCustomerName(value) {
     return name ? name : "Khách trống";
 }
 
+/**
+ * Đảm bảo dữ liệu đầu vào luôn là một Array (Mảng). Xử lý các case API trả về object bọc ngoài.
+ * @param {any} data Dữ liệu đầu vào cần chuẩn hóa
+ * @returns {Array} Mảng dữ liệu
+ */
 function normalizeArray(data) {
     if (!data) return [];
     if (Array.isArray(data)) return data;
@@ -149,6 +175,11 @@ var __requestQueue = [];
 var __activeRequests = 0;
 var __maxConcurrent = 4; // Max 4 concurrent API calls to prevent network bottleneck
 
+/**
+ * Hàm xử lý hàng đợi gọi API.
+ * Cơ chế này giúp giới hạn số lượng request API gọi lên server cùng một lúc (Tối đa 4 request song song).
+ * Điều này tránh làm nghẽn kết nối mạng của trình duyệt, đặc biệt khi load nhiều biểu đồ.
+ */
 function __processRequestQueue() {
     if (__activeRequests >= __maxConcurrent || __requestQueue.length === 0) return;
     var req = __requestQueue.shift();
@@ -184,6 +215,11 @@ function injectMaximizeButtons() {
     }
 }
 
+/**
+ * Mở/Đóng chế độ toàn màn hình (Fullscreen) cho một Panel (ví dụ: phóng to biểu đồ).
+ * Đồng thời tự động reflow (vẽ lại) biểu đồ Highcharts để khớp với kích thước mới.
+ * @param {HTMLElement} panel Thẻ DOM panel cần phóng to/thu nhỏ
+ */
 function togglePanelFullscreen(panel) {
     var isFs = panel.classList.contains("dk-panel-fullscreen");
     var maxBtn = panel.querySelector(".dk-maximize-btn");
@@ -225,6 +261,8 @@ function togglePanelFullscreen(panel) {
                 '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="10" y1="14" x2="3" y2="21"/></svg>';
         }
     }
+    
+    // Gọi resize lại biểu đồ Highcharts bên trong
     function reflowAllHighcharts() {
         if (typeof Highcharts === "undefined") return;
         var charts = Highcharts.charts || [];
@@ -279,6 +317,8 @@ function togglePanelFullscreen(panel) {
             } catch (e) {}
         }
     }
+    
+    // Delay reflow để chờ CSS transition
     setTimeout(reflowAllHighcharts, 60);
     setTimeout(reflowAllHighcharts, 260);
     setTimeout(reflowAllHighcharts, 600);
@@ -352,6 +392,11 @@ function animateCountUp(scope) {
 // ════════════════════════════════════════════════════════════════
 // v2.4.4 — TOAST helper
 // ════════════════════════════════════════════════════════════════
+/**
+ * Hiển thị một thông báo nổi (Toast/Snackbar) góc trên màn hình.
+ * @param {string} msg Nội dung thông báo
+ * @param {string} kind Loại thông báo: "success", "error", "warn", hoặc "info"
+ */
 function showToast(msg, kind) {
     var cont = byId("dkToastContainer");
     if (!cont) return;

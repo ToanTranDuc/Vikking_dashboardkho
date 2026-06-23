@@ -41,6 +41,12 @@ var _currentDetail = null;
 
 var _currentDetailIndex = -1;
 
+/**
+ * Hàm vẽ nội dung cho Modal chi tiết dựa vào tham số detail (tên modal) và index (dữ liệu chọn).
+ * Có hỗ trợ phân nhánh để render giao diện tùy biến (customAsync) cho các Modal nghiệp vụ phức tạp.
+ * @param {string} detail Tên/loại modal
+ * @param {number} index Index/tham số của dòng dữ liệu
+ */
 function renderDetailModal(detail, index) {
     var model;
     try {
@@ -334,6 +340,9 @@ function renderDetailModal(detail, index) {
     }
 }
 
+/**
+ * Đóng Modal chi tiết và xóa trạng thái lưu lịch sử Drill-down.
+ */
 function closeDetailModal() {
     var modal = byId(ids.detailModal);
     if (!modal) return;
@@ -353,6 +362,10 @@ function closeDetailModal() {
 // ─── Feature 10: Full-screen Panel Mode ─────────────────────────────────────
 var fsBackdrop = null;
 
+/**
+ * Logic tìm kiếm nhanh các dòng hiển thị trong bảng dữ liệu của Modal chi tiết.
+ * @param {string} query Chuỗi từ khóa tìm kiếm
+ */
 function filterDetailTable(query) {
     var content = byId(ids.detailModalContent);
     if (!content) return;
@@ -441,6 +454,10 @@ function renderDetailModalDirect(model) {
 
 
 // ─── #0 Tồn đầu kỳ ────────────────────────────────────────────────
+/**
+ * Hiển thị Modal chi tiết cho Chỉ số: Tồn đầu kỳ.
+ * Cung cấp các tab filter (Tất cả, NL, PL) và bảng danh sách vật tư.
+ */
 function renderTonDauKyDetailModal() {
     var content = byId(ids.detailModalContent);
     if (!content) return;
@@ -553,6 +570,10 @@ function renderTonDauKyDetailModal() {
 }
 
 // ─── #1 Tổng nhập ────────────────────────────────────────────────
+/**
+ * Hiển thị Modal chi tiết cho Chỉ số: Tổng nhập kho.
+ * Hỗ trợ group dữ liệu theo Ngày, Theo PO, Nhà cung cấp hoặc Vật tư.
+ */
 function renderTongNhapDetailModal() {
     var content = byId(ids.detailModalContent);
     if (!content) return;
@@ -686,6 +707,10 @@ function renderTongNhapDetailModal() {
 }
 
 // ─── #2 Tổng xuất (similar to Tổng nhập) ──────────────────────────
+/**
+ * Hiển thị Modal chi tiết cho Chỉ số: Tổng xuất kho.
+ * Hỗ trợ group dữ liệu theo Ngày, Đơn hàng, Khách hàng hoặc Vật tư.
+ */
 function renderTongXuatDetailModal() {
     var content = byId(ids.detailModalContent);
     if (!content) return;

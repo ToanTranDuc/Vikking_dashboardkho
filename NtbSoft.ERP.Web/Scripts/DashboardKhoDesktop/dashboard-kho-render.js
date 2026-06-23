@@ -6,7 +6,8 @@
 
 //#region TABLE RENDERERS
 /**
- * Vẽ bảng chi tiết các kệ chứa hàng (Racks).
+ * Vẽ bảng danh sách chi tiết các kệ kho, hiển thị tỷ lệ lấp đầy kèm thanh tiến trình (progress bar).
+ * Dữ liệu được sắp xếp giảm dần theo tỷ lệ lấp đầy (lấy top 12 kệ).
  */
 function renderRacksTable() {
     var body = byId(ids.racksBody);
@@ -84,6 +85,10 @@ function renderRacksTable() {
     body.innerHTML = html;
 }
 
+/**
+ * Vẽ bảng danh sách PO chuẩn bị nhập kho (hàng sắp về).
+ * Sắp xếp theo ngày dự kiến nhập gần nhất.
+ */
 function renderInboundTable() {
     var body = byId(ids.inboundBody);
     if (!body) return;
@@ -128,6 +133,9 @@ function renderInboundTable() {
     body.innerHTML = html;
 }
 
+/**
+ * Vẽ bảng danh sách các Lệnh sản xuất chuẩn bị xuất kho.
+ */
 function renderOutboundReadyTable() {
     var body = byId(ids.outboundReadyBody);
     if (!body) return;
@@ -166,6 +174,9 @@ function renderOutboundReadyTable() {
     body.innerHTML = html;
 }
 
+/**
+ * Vẽ bảng danh sách các Lệnh sản xuất đang được xuất kho thực tế.
+ */
 function renderOutboundRunningTable() {
     var body = byId(ids.outboundRunningBody);
     if (!body) return;
@@ -257,6 +268,11 @@ function colsPlanned() {
     ];
 }
 
+/**
+ * Vẽ Sơ đồ lấp đầy kệ kho (Heatmap).
+ * Phân chia theo từng Module (Kho NL, Kho PL) và từng dãy. 
+ * Màu sắc mỗi ô (tile) biểu thị mức độ lấp đầy (<50%, 50-85%, >85%, >100%).
+ */
 function renderRacksHeatmap() {
     var container = byId("warehouseMapContainer");
     if (!container) return;
@@ -427,6 +443,14 @@ function renderRacksHeatmap() {
 // ════════════════════════════════════════════════════════════════
 // v2.4.6 — Render bảng Todo group-by-PO (header row + sub-rows)
 // ════════════════════════════════════════════════════════════════
+/**
+ * Hàm vẽ cấu trúc bảng (Table) đặc biệt: Gom nhóm các dòng theo PO (Mua)
+ * Có khả năng mở rộng/thu gọn (collapse/expand) các dòng con thuộc từng PO.
+ * @param {Array} cols Cấu hình các cột (columns config)
+ * @param {Array} rows Dữ liệu dòng (rows data)
+ * @param {boolean} isTraHang Đánh dấu nếu là bảng trả hàng (để hiện thêm cột NCC)
+ * @returns {string} Chuỗi HTML của bảng
+ */
 function renderTodoGroupedTable(cols, rows, isTraHang) {
     if (!rows || rows.length === 0) {
         return '<div class="dk-empty" style="padding:20px">Không có dữ liệu</div>';
@@ -724,6 +748,10 @@ function wireSortableTable(wrapEl, cols, rows, opts) {
     }
 }
 
+/**
+ * Vẽ biểu đồ vòng tròn (Donut Chart) thể hiện tỷ lệ sức chứa kho (Đã dùng NL, Đã dùng PL, Còn trống).
+ * Hàm này dùng mã vẽ SVG tùy biến thay vì Highcharts để tạo hiệu ứng UI đặc thù.
+ */
 function renderCapacityChart() {
     var ringNode = byId(ids.chartCapacityRing);
     var legendNode = byId(ids.chartCapacityLegend);

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * @file dashboard-kho-main.js
  * @description Điểm khởi đầu của ứng dụng. Khởi tạo dữ liệu và gán các sự kiện (Events) toàn cục.
  * @version 2.7.26
@@ -6,7 +6,8 @@
 
 //#region INITIALIZATION
 /**
- * Lắng nghe tất cả các sự kiện click, bộ lọc (Filters) trên toàn trang.
+ * Đăng ký (bind) tất cả các sự kiện click, bộ lọc (Filters) chính trên toàn trang.
+ * Xử lý các logic: Nút làm mới, bấm mở full-screen, click mở modal chi tiết, nút back/đóng modal...
  */
 function bindEvents() {
     // Refresh button (sidebar)
@@ -460,6 +461,10 @@ function bindEvents() {
     }
 }
 
+/**
+ * Xử lý sự kiện Ẩn/Hiện thanh điều hướng bên trái (Sidebar).
+ * Lưu trạng thái vào localStorage để ghi nhớ cho lần mở sau.
+ */
 function bindSidebarToggle() {
     var sidebar = byId("dkSidebar");
     if (!sidebar) return;
@@ -497,6 +502,9 @@ function bindSidebarToggle() {
     } catch (e) { }
 }
 
+/**
+ * Xử lý sự kiện chọn khoảng ngày (Date Range Picker) cho biểu đồ Xuất nhập tồn (Flow Trend).
+ */
 function bindFlowRangePicker() {
     var fromEl = byId("flowFromDate");
     var toEl = byId("flowToDate");
@@ -529,6 +537,10 @@ function bindPeriodSelector() {
     bindFlowRangePicker();
 }
 
+/**
+ * Xử lý sự kiện chuyển đổi giao diện Sáng/Tối (Light/Dark Theme).
+ * Lưu lựa chọn vào localStorage.
+ */
 function bindThemeToggle() {
     var btn = byId("btnThemeToggle");
     var btnTop = byId("btnThemeToggleTop");
@@ -565,6 +577,9 @@ function bindThemeToggle() {
     if (btnTop) btnTop.addEventListener("click", doThemeToggle);
 }
 
+/**
+ * Đăng ký sự kiện cho bộ lọc ngày toàn cục (Global Date Filter) ở góc phải trên cùng.
+ */
 function bindDateFilter() {
     var fromEl = byId("dashFromDate");
     var toEl = byId("dashToDate");
@@ -638,6 +653,9 @@ function bindDateFilter() {
     }
 }
 
+/**
+ * Đăng ký sự kiện đóng/mở (collapse) danh sách PO trong phần Công việc chờ xử lý.
+ */
 function bindTodoPOHandlers() {
     document.addEventListener("click", function (e) {
         var tog = e.target.closest ? e.target.closest("[data-po-toggle]") : null;
@@ -660,6 +678,10 @@ function bindTodoPOHandlers() {
     });
 }
 
+/**
+ * Logic xử lý cho thanh Tìm kiếm toàn cục (Global Search All) - Ô tìm kiếm góc trên cùng.
+ * Cho phép tìm nhanh các chức năng trong Dashboard (như biểu đồ, thông số) hoặc tìm Mã vật tư.
+ */
 function bindGlobalSearchAll() {
     var searchInput = document.getElementById("dkGlobalSearch");
     var searchDropdown = document.getElementById("dkSearchDropdown");
