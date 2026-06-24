@@ -2526,7 +2526,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE dbo.SP_LICH_PHAN_CONG_PHU_LIEU
+CREATE PROCEDURE [dbo].[SP_LICH_PHAN_CONG_PHU_LIEU]
     @Action         NVARCHAR(50),
     @TuNgay         DATETIME = NULL,
     @DenNgay        DATETIME = NULL,
@@ -2669,7 +2669,12 @@ BEGIN
         -- ResultSet 2: Pick Orders (Phụ liệu - Soạn hàng)
         SELECT
             MaLenhSX                                    AS MaLenhSX,
-            0                                           AS TrangThai,
+            CASE
+                WHEN ROUND(SUM(TongSLCanSoan) - SUM(SLSoan), 2) <= 0 THEN 2 -- Đã HT (không thiếu)
+                WHEN CONVERT(DATE, @Ngay) < CONVERT(DATE, GETDATE()) THEN 3 -- Quá hạn (nếu còn thiếu mà ngày soạn đã qua)
+                WHEN CONVERT(DATE, @Ngay) = CONVERT(DATE, GETDATE()) THEN 1 -- Đang làm (hôm nay)
+                ELSE 0 -- Chờ TH (tương lai)
+            END                                         AS TrangThai,
             TenNV                                       AS TenNV,
             ''                                          AS MaNV,
             MaKhachHang                                 AS MaKhachHang,

@@ -3418,10 +3418,10 @@ function renderActivityCalendarMonthly() {
             if (lpcpDay) {
                 var lTasks = lpcpDay.Tasks || lpcpDay.tasks || [];
                 var uniqueLenh = {};
-                
+
                 lTasks.forEach(function (t) {
                     if (t.ThieuNPL || t.thieuNPL || t.TrangThai === 3) warnCount++;
-                    
+
                     if (t.GhiChu === 'TASK') {
                         taskCount++;
                     } else if (t.GhiChu === 'PICK') {
@@ -3430,11 +3430,11 @@ function renderActivityCalendarMonthly() {
                 });
 
                 if (lpcpDay.ThieuNPL || lpcpDay.thieuNPL) warnCount = Math.max(warnCount, 1);
-                
+
                 var uniqueLenhCount = Object.keys(uniqueLenh).length;
                 pickCount = uniqueLenhCount;
-                if (pickCount === 0 && taskCount > 0 && lTasks.some(function(t) { return t.GhiChu !== 'TASK' && t.GhiChu !== 'PICK'; })) {
-                     pickCount = uniqueLenhCount || taskCount;
+                if (pickCount === 0 && taskCount > 0 && lTasks.some(function (t) { return t.GhiChu !== 'TASK' && t.GhiChu !== 'PICK'; })) {
+                    pickCount = uniqueLenhCount || taskCount;
                 }
             }
 
@@ -5146,7 +5146,7 @@ function showLpcpInlineDetail(dateKey) {
                         escapeHtml(po.GioSoan) +
                         "</span>"
                         : "";
-                    
+
                     var metricsHtml = "<div style='display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;'>";
                     if (po.TongSLCanSoan > 0 || po.SLSoan > 0) {
                         metricsHtml += "<span style='font-size:10px; font-weight:500; color:var(--dk-title); background:rgba(255,255,255,0.05); border:1px solid var(--dk-line); padding:2px 6px; border-radius:4px;'>Yêu cầu: <b>" + formatNumber(po.TongSLCanSoan || 0) + "</b></span>";
@@ -5285,7 +5285,7 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                     "</span>" +
                     "</div>" +
                     "<div class='dk-lpcp-warn-desc'>";
-                
+
                 if (w.type === "thieuPO" && w.items && w.items.length > 0) {
                     var subHtml = "<div class='dk-lpcp-modal-thead' style='" + COLS_PICK + "; margin-top:12px; background:rgba(0,0,0,0.15); border:none; border-radius:4px 4px 0 0; padding:8px 16px;'>" +
                         "<span>Mã Lệnh SX</span><span>Mã Hàng</span><span>NV Soạn</span><span style='text-align:right;padding-right:12px;'>SL Yêu Cầu</span><span style='text-align:right;padding-right:12px;'>SL Đã Soạn</span><span>PL Thiếu</span><span>Trạng Thái</span></div>";
@@ -5309,11 +5309,11 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                             slYeuCauHtml + slSoanHtml + thieu + badge(po.TrangThai || 0) + "</div>";
                     });
 
-                    var wTotalThieuHtml = wTotalThieu > 0 
-                        ? "<span class='dk-lpcp-thieu-yes'>⚠ " + wTotalThieu + "</span>" 
+                    var wTotalThieuHtml = wTotalThieu > 0
+                        ? "<span class='dk-lpcp-thieu-yes'>⚠ " + wTotalThieu + "</span>"
                         : "<span class='dk-lpcp-thieu-no'>—</span>";
 
-                    subHtml += 
+                    subHtml +=
                         "<div class='dk-lpcp-modal-row' style='" + COLS_PICK + "; padding:8px 16px; background:rgba(0,0,0,0.15); border-radius:0 0 4px 4px;'>" +
                         "<span></span><span></span>" +
                         "<span style='text-align:right; font-weight:700; color:var(--dk-title); font-size:12px;'>Tổng Cộng:</span>" +
@@ -5326,7 +5326,7 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                 } else {
                     html += escapeHtml(w.desc);
                 }
-                
+
                 html += "</div>" +
                     "</div></div>";
             });
@@ -5397,7 +5397,7 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                     (po.SoPLThieu || 0) > 0
                         ? "<span class='dk-lpcp-thieu-yes'>⚠ " + po.SoPLThieu + "</span>"
                         : "<span class='dk-lpcp-thieu-no'>—</span>";
-                
+
                 var slYeuCauHtml = "<span style='font-size:12px;font-weight:600;color:var(--dk-title);text-align:right;padding-right:12px;'>" + formatNumber(po.TongSLCanSoan || 0) + "</span>";
                 var slSoanHtml = "<span style='font-size:12px;font-weight:600;color:var(--dk-primary);text-align:right;padding-right:12px;'>" + formatNumber(po.SLSoan || 0) + "</span>";
 
@@ -5421,11 +5421,11 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                     "</div>";
             });
 
-            var totalThieuHtml = totalThieu > 0 
-                ? "<span class='dk-lpcp-thieu-yes'>⚠ " + totalThieu + "</span>" 
+            var totalThieuHtml = totalThieu > 0
+                ? "<span class='dk-lpcp-thieu-yes'>⚠ " + totalThieu + "</span>"
                 : "<span class='dk-lpcp-thieu-no'>—</span>";
 
-            html += 
+            html +=
                 "<div class='dk-lpcp-modal-row' style='" + COLS_PICK + "; background:rgba(0,0,0,0.1); border-top:1px solid rgba(255,255,255,0.1);'>" +
                 "<span></span><span></span>" +
                 "<span style='text-align:right; font-weight:700; color:var(--dk-title); font-size:12px;'>Tổng Cộng:</span>" +
