@@ -547,30 +547,39 @@ function bindThemeToggle() {
 
     function doThemeToggle(e) {
         if (e) e.preventDefault();
-        var mainContainer = document.getElementById("dkMain");
-        var scrollY = mainContainer ? mainContainer.scrollTop : window.scrollY || document.documentElement.scrollTop;
+        
+        function applyThemeChange() {
+            var mainContainer = document.getElementById("dkMain");
+            var scrollY = mainContainer ? mainContainer.scrollTop : window.scrollY || document.documentElement.scrollTop;
 
-        var isDark = document.body.classList.toggle("dark-theme");
-        try {
-            localStorage.setItem("dkTheme", isDark ? "dark" : "light");
-        } catch (err) { }
-        try {
-            applyHighchartsTheme();
-        } catch (err) { }
+            var isDark = document.body.classList.toggle("dark-theme");
+            try {
+                localStorage.setItem("dkTheme", isDark ? "dark" : "light");
+            } catch (err) { }
+            try {
+                applyHighchartsTheme();
+            } catch (err) { }
 
-        if (mainContainer) {
-            mainContainer.scrollTop = scrollY;
-        } else {
-            window.scrollTo(0, scrollY);
-        }
-
-        setTimeout(function () {
             if (mainContainer) {
                 mainContainer.scrollTop = scrollY;
             } else {
                 window.scrollTo(0, scrollY);
             }
-        }, 50);
+
+            setTimeout(function () {
+                if (mainContainer) {
+                    mainContainer.scrollTop = scrollY;
+                } else {
+                    window.scrollTo(0, scrollY);
+                }
+            }, 50);
+        }
+
+        if (document.startViewTransition) {
+            document.startViewTransition(applyThemeChange);
+        } else {
+            applyThemeChange();
+        }
     }
 
     if (btn) btn.addEventListener("click", doThemeToggle);

@@ -142,27 +142,40 @@ function setLoading(loading) {
     ];
     var tableBodies = ["customersBody", "racksBody"];
 
+    var mainContainer = document.getElementById("dkMain");
+    var isFirstLoad = !state.overall || state.overall.length === 0;
+
     if (loading) {
-        for (var i = 0; i < skeletonNodes.length; i++) {
-            var n = byId(skeletonNodes[i]);
-            if (n) {
-                n.innerHTML = '<div class="dk-skeleton"><div class="dk-skeleton-shimmer"></div></div>';
+        if (isFirstLoad) {
+            for (var i = 0; i < skeletonNodes.length; i++) {
+                var n = document.getElementById(skeletonNodes[i]);
+                if (n) {
+                    n.innerHTML = '<div class="dk-skeleton"><div class="dk-skeleton-shimmer"></div></div>';
+                }
             }
+            for (var j = 0; j < textMetrics.length; j++) {
+                var tm = document.getElementById(textMetrics[j]);
+                if (tm)
+                    tm.innerHTML =
+                        '<div class="dk-skeleton" style="width:60%; height:20px; display:inline-block;"><div class="dk-skeleton-shimmer"></div></div>';
+            }
+            for (var k = 0; k < tableBodies.length; k++) {
+                var tb = document.getElementById(tableBodies[k]);
+                if (tb)
+                    tb.innerHTML =
+                        '<tr><td colspan="10"><div class="dk-skeleton" style="height:30px;"><div class="dk-skeleton-shimmer"></div></div></td></tr>';
+            }
+        } else {
+            // Không xóa biểu đồ cũ. Chỉ làm mờ toàn trang một chút để báo hiệu đang tải.
+            if (mainContainer) mainContainer.style.opacity = "0.7";
+            if (mainContainer) mainContainer.style.pointerEvents = "none";
         }
-        for (var j = 0; j < textMetrics.length; j++) {
-            var tm = byId(textMetrics[j]);
-            if (tm)
-                tm.innerHTML =
-                    '<div class="dk-skeleton" style="width:60%; height:20px; display:inline-block;"><div class="dk-skeleton-shimmer"></div></div>';
-        }
-        for (var k = 0; k < tableBodies.length; k++) {
-            var tb = byId(tableBodies[k]);
-            if (tb)
-                tb.innerHTML =
-                    '<tr><td colspan="10"><div class="dk-skeleton" style="height:30px;"><div class="dk-skeleton-shimmer"></div></div></td></tr>';
-        }
+    } else {
+        if (mainContainer) mainContainer.style.opacity = "1";
+        if (mainContainer) mainContainer.style.pointerEvents = "auto";
     }
-    var button = byId(ids.refreshButton);
+    
+    var button = document.getElementById(ids.refreshButton);
     if (!button) return;
     button.disabled = state.loading;
     button.textContent = state.loading ? "Đang tải..." : "Làm mới";
