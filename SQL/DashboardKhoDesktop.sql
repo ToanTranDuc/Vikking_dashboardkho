@@ -1345,7 +1345,7 @@ select sum(CapPhat) as SLYeuCau, MaLenhSanXuat
         SET @EndDateCal   = CAST(@DenNgay AS DATE);
         SET @TotalDaysCal  = DATEDIFF(DAY, @StartDateCal, @EndDateCal) + 1;
         IF @TotalDaysCal < 1   SET @TotalDaysCal = 1;
-        IF @TotalDaysCal > 400 SET @TotalDaysCal = 400;
+        IF @TotalDaysCal > 2000 SET @TotalDaysCal = 2000;
         IF OBJECT_ID('tempdb..#CalDays_AC') IS NOT NULL DROP TABLE #CalDays_AC;
         SELECT TOP (@TotalDaysCal)
             DATEADD(DAY, ROW_NUMBER() OVER (ORDER BY (SELECT 1)) - 1, @StartDateCal) AS NgayHoatDong
@@ -1428,7 +1428,7 @@ select sum(CapPhat) as SLYeuCau, MaLenhSanXuat
         SET @EndDateRange   = CAST(@DenNgay AS DATE);
         SET @TotalDaysRange  = DATEDIFF(DAY, @StartDateRange, @EndDateRange) + 1;
         IF @TotalDaysRange < 1 SET @TotalDaysRange = 1;
-        IF @TotalDaysRange > 400 SET @TotalDaysRange = 400;
+        IF @TotalDaysRange > 2000 SET @TotalDaysRange = 2000;
 
         -- 1. X�Y D?NG L�I D? LI?U CHU?N (Core Logic)
         DECLARE @IsNPL_Check NVARCHAR(200);
@@ -1539,7 +1539,7 @@ select sum(CapPhat) as SLYeuCau, MaLenhSanXuat
             SELECT TOP (@TotalDaysRange)
                 CAST(DATEADD(DAY, number, @StartDateRange) AS DATE) AS Ngay
             FROM master..spt_values
-            WHERE type = 'P' AND number BETWEEN 0 AND 399
+            WHERE type = 'P' AND number BETWEEN 0 AND 1999
         ),
         DailyFlow AS (
             SELECT 
