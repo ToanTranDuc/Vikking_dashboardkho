@@ -4991,15 +4991,12 @@ function showLpcpInlineDetail(dateKey) {
 
             // ── Xây dựng cảnh báo từ dữ liệu ──────────────────────────────────
             var warnings = [];
-            var thieuNPL = [],
-                chuaHT = [],
-                choTH = [],
-                thieuPO = [],
-                tongThieu = 0;
+            var thieuNPL = [], chuaHT = [], choTH = [], thieuPO = [], tongThieu = 0;
+            var thieuNPLItems = [], chuaHTItems = [], choTHItems = [];
             assignments.forEach(function (a) {
-                if (a.ThieuNPL) thieuNPL.push(a.MaLenhSX || "?");
-                if (a.TrangThai === 3) chuaHT.push(a.MaLenhSX || "?");
-                if (a.TrangThai === 0) choTH.push(a.MaLenhSX || "?");
+                if (a.ThieuNPL) { thieuNPL.push(a.MaLenhSX || "?"); thieuNPLItems.push(a); }
+                if (a.TrangThai === 3) { chuaHT.push(a.MaLenhSX || "?"); chuaHTItems.push(a); }
+                if (a.TrangThai === 0) { choTH.push(a.MaLenhSX || "?"); choTHItems.push(a); }
             });
             var thieuPOItems = [];
             pickOrders.forEach(function (po) {
@@ -5011,10 +5008,12 @@ function showLpcpInlineDetail(dateKey) {
             });
             if (thieuNPL.length)
                 warnings.push({
+                    type: "task",
                     level: "critical",
                     name: "Thiếu NPL phân công",
                     cnt: thieuNPL.length + " lệnh",
                     desc: thieuNPL.join(", "),
+                    items: thieuNPLItems
                 });
             if (thieuPO.length)
                 warnings.push({
@@ -5027,21 +5026,26 @@ function showLpcpInlineDetail(dateKey) {
                 });
             if (chuaHT.length)
                 warnings.push({
+                    type: "task",
                     level: "caution",
-                    name: "Ch\u01b0a ho\u00e0n th\u00e0nh \u0111\u00fang h\u1ea1n",
+                    name: "Chưa hoàn thành đúng hạn",
                     cnt: chuaHT.length + " task",
-                    desc: "C\u1ea7n theo d\u00f5i v\u00e0 x\u1eed l\u00fd ngay",
+                    desc: chuaHT.join(", ") || "Cần theo dõi và xử lý ngay",
+                    items: chuaHTItems
                 });
             if (choTH.length)
                 warnings.push({
+                    type: "task",
                     level: "info",
-                    name: "Ch\u1edd b\u1eaft \u0111\u1ea7u TH",
+                    name: "Chờ bắt đầu TH",
                     cnt: choTH.length + " task",
-                    desc: "Ch\u01b0a tri\u1ec3n khai trong ng\u00e0y",
+                    desc: choTH.join(", ") || "Chưa triển khai trong ngày",
+                    items: choTHItems
                 });
 
             // Badge counts
-            setBadge("lpcpWarnCount", warnings.length);
+            var totalWarnItems = thieuNPL.length + thieuPO.length + chuaHT.length;
+            setBadge("lpcpWarnCount", totalWarnItems);
             setBadge("lpcpTaskCount", assignments.length);
             setBadge("lpcpPickCount", pickOrders.length);
             if (badgeEl)
@@ -5323,6 +5327,21 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                         "<span></span></div>";
 
                     html += subHtml;
+                } else if (w.type === "task" && w.items && w.items.length > 0) {
+                    var subHtmlTask = "<div class='dk-lpcp-modal-thead' style='" + COLS_TASK + "; margin-top:12px; background:rgba(0,0,0,0.15); border:none; border-radius:4px 4px 0 0; padding:8px 16px;'>" +
+                        "<span>Mã Lệnh SX</span><span>Nhân Viên</span><span>Mã Hàng</span><span>Trạng Thái</span></div>";
+                    w.items.forEach(function (a) {
+                        var maLenh = escapeHtml(a.MaLenhSX || "—");
+                        var nv = escapeHtml(a.TenNV || a.MaNV || "—");
+                        var brand = escapeHtml(a.MaHang || "—");
+                        var ngay = a.NgayThucHien ? "<span class='dk-lpcp-col-date'> · " + escapeHtml(a.NgayThucHien) + "</span>" : "";
+                        subHtmlTask += "<div class='dk-lpcp-modal-row' style='" + COLS_TASK + "; padding:8px 16px; border-bottom:1px solid rgba(255,255,255,0.05); background:rgba(0,0,0,0.05);'>" +
+                            "<span class='dk-lpcp-col-code'>" + maLenh + ngay + "</span>" +
+                            "<span class='dk-lpcp-col-nv'>" + nv + "</span>" +
+                            "<span class='dk-lpcp-col-brand'>" + brand + "</span>" +
+                            badge(a.TrangThai || 0) + "</div>";
+                    });
+                    html += subHtmlTask;
                 } else {
                     html += escapeHtml(w.desc);
                 }
