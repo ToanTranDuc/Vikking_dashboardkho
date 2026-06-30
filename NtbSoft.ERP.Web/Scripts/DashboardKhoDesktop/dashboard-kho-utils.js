@@ -44,11 +44,12 @@ function toNumber(value) {
  * @param {number} fractionDigits Số chữ số thập phân
  * @returns {string} Chuỗi số đã định dạng
  */
-function formatNumber(value, fractionDigits) {
-    var digits = typeof fractionDigits === "number" ? fractionDigits : 0;
+function formatNumber(value, fractionDigits, forceFractionDigits) {
+    var maxDigits = typeof fractionDigits === "number" ? fractionDigits : 0;
+    var minDigits = forceFractionDigits === true ? maxDigits : 0;
     return toNumber(value).toLocaleString("vi-VN", {
-        minimumFractionDigits: digits,
-        maximumFractionDigits: digits,
+        minimumFractionDigits: minDigits,
+        maximumFractionDigits: maxDigits,
     });
 }
 
@@ -144,6 +145,12 @@ function escapeHtml(value) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;");
+}
+
+function formatMaLenhSX(maLenh) {
+    if (!maLenh) return "-";
+    if (maLenh.indexOf("|") !== -1 || maLenh.length > 30) return "";
+    return escapeHtml(maLenh);
 }
 
 function shortMaLenh(value) {
@@ -261,7 +268,7 @@ function togglePanelFullscreen(panel) {
                 '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="10" y1="14" x2="3" y2="21"/></svg>';
         }
     }
-    
+
     // Gọi resize lại biểu đồ Highcharts bên trong
     function reflowAllHighcharts() {
         if (typeof Highcharts === "undefined") return;
@@ -314,10 +321,10 @@ function togglePanelFullscreen(panel) {
                         true,
                     );
                 }
-            } catch (e) {}
+            } catch (e) { }
         }
     }
-    
+
     // Delay reflow để chờ CSS transition
     setTimeout(reflowAllHighcharts, 60);
     setTimeout(reflowAllHighcharts, 260);
@@ -325,7 +332,7 @@ function togglePanelFullscreen(panel) {
     setTimeout(function () {
         try {
             window.dispatchEvent(new Event("resize"));
-        } catch (e) {}
+        } catch (e) { }
     }, 80);
 }
 

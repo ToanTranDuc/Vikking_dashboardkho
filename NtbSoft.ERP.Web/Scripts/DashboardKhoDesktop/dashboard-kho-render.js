@@ -2043,10 +2043,10 @@ function renderMoMStrip() {
         "</div>" +
         '    <div class="dk-mom-values">' +
         '      <span class="dk-mom-cur">' +
-        formatNumber(curIn, 0) +
+        formatNumber(curIn, 2) +
         "</span>" +
         '      <span class="dk-mom-prev">Tháng trước: ' +
-        formatNumber(prvIn, 0) +
+        formatNumber(prvIn, 2) +
         "</span>" +
         "      " +
         deltaHtml(curIn, prvIn) +
@@ -2058,10 +2058,10 @@ function renderMoMStrip() {
         "</div>" +
         '    <div class="dk-mom-values">' +
         '      <span class="dk-mom-cur">' +
-        formatNumber(curOut, 0) +
+        formatNumber(curOut, 2) +
         "</span>" +
         '      <span class="dk-mom-prev">Tháng trước: ' +
-        formatNumber(prvOut, 0) +
+        formatNumber(prvOut, 2) +
         "</span>" +
         "      " +
         deltaHtml(curOut, prvOut) +
@@ -3204,11 +3204,11 @@ function renderActivityCalendar() {
                 ? ""
                 : cell.key +
                 "  Nhập: " +
-                formatNumber(cell.info.totalIn, 0) +
+                formatNumber(cell.info.totalIn, 2) +
                 "  Xuất: " +
-                formatNumber(cell.info.totalOut, 0) +
+                formatNumber(cell.info.totalOut, 2) +
                 "  Tổng: " +
-                formatNumber(cell.info.total, 0);
+                formatNumber(cell.info.total, 2);
             weeksHtml +=
                 '<div class="dk-cal-cell" style="background:' +
                 bg +
@@ -3417,24 +3417,38 @@ function renderActivityCalendarMonthly() {
                 pickCount = 0;
             if (lpcpDay) {
                 var lTasks = lpcpDay.Tasks || lpcpDay.tasks || [];
-                var uniqueLenh = {};
+                var uniqueWarnTask = {};
+                var uniqueTask = {};
+                var warnPickCount = 0;
+                var rawPickCount = 0;
 
                 lTasks.forEach(function (t) {
-                    if (t.ThieuNPL || t.thieuNPL || t.TrangThai === 3) warnCount++;
+                    var ma = t.MaLenhSX || t.maLenhSX || "";
 
                     if (t.GhiChu === 'TASK') {
-                        taskCount++;
+                        if (ma) uniqueTask[ma] = 1;
+                        else taskCount++;
+
+                        if (t.ThieuNPL || t.thieuNPL || t.TrangThai === 3) {
+                            if (ma) uniqueWarnTask[ma] = 1;
+                            else warnCount++;
+                        }
                     } else if (t.GhiChu === 'PICK') {
-                        if (t.MaLenhSX || t.maLenhSX) uniqueLenh[t.MaLenhSX || t.maLenhSX] = 1;
+                        rawPickCount++;
+                        if (t.ThieuNPL || t.thieuNPL || t.TrangThai === 3) {
+                            warnPickCount++;
+                        }
                     }
                 });
 
+                warnCount += Object.keys(uniqueWarnTask).length + warnPickCount;
+                taskCount += Object.keys(uniqueTask).length;
+                pickCount = rawPickCount;
+
                 if (lpcpDay.ThieuNPL || lpcpDay.thieuNPL) warnCount = Math.max(warnCount, 1);
 
-                var uniqueLenhCount = Object.keys(uniqueLenh).length;
-                pickCount = uniqueLenhCount;
-                if (pickCount === 0 && taskCount > 0 && lTasks.some(function (t) { return t.GhiChu !== 'TASK' && t.GhiChu !== 'PICK'; })) {
-                    pickCount = uniqueLenhCount || taskCount;
+                if (pickCount === 0 && taskCount > 0) {
+                    pickCount = taskCount;
                 }
             }
 
@@ -3513,10 +3527,10 @@ function renderActivityCalendarMonthly() {
             var tooltip =
                 dk +
                 " Nh\u1eadp: " +
-                formatNumber(inVal, 0) +
+                formatNumber(inVal, 2) +
                 " Xu\u1ea5t: " +
-                formatNumber(outVal, 0) +
-                (kkVal ? " KK: " + formatNumber(kkVal, 0) : "") +
+                formatNumber(outVal, 2) +
+                (kkVal ? " KK: " + formatNumber(kkVal, 2) : "") +
                 (planVal ? " NK DK: " + planVal + " l\u00f4" : "");
 
             // Gộp chung 1 cell top
@@ -3878,13 +3892,13 @@ function openCalendarOverviewModal() {
             if (modalMeta) {
                 modalMeta.innerHTML =
                     '<span style="color:#3b82f6;font-weight:700">Nhập: ' +
-                    formatNumber(sumIn, 0) +
+                    formatNumber(sumIn, 2) +
                     "</span>" +
                     ' &nbsp;·&nbsp; <span style="color:#f97316;font-weight:700">Xuất: ' +
-                    formatNumber(sumOut, 0) +
+                    formatNumber(sumOut, 2) +
                     "</span>" +
                     ' &nbsp;·&nbsp; <span style="color:#10b981;font-weight:700">Kiểm kê: ' +
-                    formatNumber(sumKK, 0) +
+                    formatNumber(sumKK, 2) +
                     "</span>" +
                     ' &nbsp;·&nbsp; <span style="color:#8b5cf6;font-weight:700">NK dự kiến: ' +
                     plannedRows.length +
@@ -4042,13 +4056,13 @@ function showCalDayDetail(dateKey, info, plannedCount) {
     if (modalMeta) {
         modalMeta.innerHTML =
             '<span style="color:#3b82f6;font-weight:700">Nhập: ' +
-            formatNumber(info.totalIn, 0) +
+            formatNumber(info.totalIn, 2) +
             "</span>" +
             ' &nbsp;·&nbsp; <span style="color:#f97316;font-weight:700">Xuất: ' +
-            formatNumber(info.totalOut, 0) +
+            formatNumber(info.totalOut, 2) +
             "</span>" +
             ' &nbsp;·&nbsp; <span style="color:#10b981;font-weight:700">Kiểm kê: ' +
-            formatNumber(info.totalKK, 0) +
+            formatNumber(info.totalKK, 2) +
             "</span>" +
             ' &nbsp;·&nbsp; <span style="color:#8b5cf6;font-weight:700">NK dự kiến: ' +
             plannedCount +
@@ -4994,15 +5008,15 @@ function showLpcpInlineDetail(dateKey) {
             var thieuNPL = [], chuaHT = [], choTH = [], thieuPO = [], tongThieu = 0;
             var thieuNPLItems = [], chuaHTItems = [], choTHItems = [];
             assignments.forEach(function (a) {
-                if (a.ThieuNPL) { thieuNPL.push(a.MaLenhSX || "?"); thieuNPLItems.push(a); }
-                if (a.TrangThai === 3) { chuaHT.push(a.MaLenhSX || "?"); chuaHTItems.push(a); }
-                if (a.TrangThai === 0) { choTH.push(a.MaLenhSX || "?"); choTHItems.push(a); }
+                if (a.ThieuNPL) { thieuNPL.push(formatMaLenhSX(a.MaLenhSX) || "?"); thieuNPLItems.push(a); }
+                if (a.TrangThai === 3) { chuaHT.push(formatMaLenhSX(a.MaLenhSX) || "?"); chuaHTItems.push(a); }
+                if (a.TrangThai === 0) { choTH.push(formatMaLenhSX(a.MaLenhSX) || "?"); choTHItems.push(a); }
             });
             var thieuPOItems = [];
             pickOrders.forEach(function (po) {
                 if ((po.SoPLThieu || 0) > 0) {
                     tongThieu += po.SoPLThieu;
-                    thieuPO.push(po.MaLenhSX || "?");
+                    thieuPO.push(formatMaLenhSX(po.MaLenhSX) || "?");
                     thieuPOItems.push(po);
                 }
             });
@@ -5020,7 +5034,7 @@ function showLpcpInlineDetail(dateKey) {
                     type: "thieuPO",
                     level: "critical",
                     name: "PL thiếu trong lệnh soạn",
-                    cnt: tongThieu + " loại",
+                    cnt: thieuPO.length + " lệnh",
                     desc: thieuPO.join(", "),
                     items: thieuPOItems,
                 });
@@ -5100,7 +5114,7 @@ function showLpcpInlineDetail(dateKey) {
             } else {
                 assignments.forEach(function (a) {
                     var name = escapeHtml(a.TenNV || a.MaNV || "\u2014");
-                    var maLenh = escapeHtml(a.MaLenhSX || "");
+                    var maLenh = formatMaLenhSX(a.MaLenhSX);
                     var brand = a.MaHang ? " \u00b7 " + escapeHtml(a.MaHang) : "";
                     var timeHtml = a.GioThucHien
                         ? "<span style='font-size:10px;color:var(--dk-muted);margin-left:6px;'><svg width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='margin-right:4px;vertical-align:-1px'><circle cx='12' cy='12' r='10'></circle><polyline points='12 6 12 12 16 14'></polyline></svg> " +
@@ -5138,7 +5152,7 @@ function showLpcpInlineDetail(dateKey) {
                 pHtml = "<div class='dk-lpcp-empty'>Kh\u00f4ng c\u00f3 l\u1ec7nh so\u1ea1n h\u00e0ng</div>";
             } else {
                 pickOrders.forEach(function (po) {
-                    var maLenh = escapeHtml(po.MaLenhSX || "\u2014");
+                    var maLenh = formatMaLenhSX(po.MaLenhSX);
                     var brand = po.MaHang
                         ? escapeHtml(po.MaHang)
                         : po.MaKhachHang
@@ -5153,11 +5167,11 @@ function showLpcpInlineDetail(dateKey) {
 
                     var metricsHtml = "<div style='display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;'>";
                     if (po.TongSLCanSoan > 0 || po.SLSoan > 0) {
-                        metricsHtml += "<span style='font-size:10px; font-weight:500; color:var(--dk-title); background:rgba(255,255,255,0.05); border:1px solid var(--dk-line); padding:2px 6px; border-radius:4px;'>Yêu cầu: <b>" + formatNumber(po.TongSLCanSoan || 0) + "</b></span>";
-                        metricsHtml += "<span style='font-size:10px; font-weight:600; color:var(--dk-primary); background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.2); padding:2px 6px; border-radius:4px;'>Đã soạn: " + formatNumber(po.SLSoan || 0) + "</span>";
+                        metricsHtml += "<span style='font-size:10px; font-weight:500; color:var(--dk-title); background:rgba(255,255,255,0.05); border:1px solid var(--dk-line); padding:2px 6px; border-radius:4px;'>Yêu cầu: <b>" + formatNumber(po.TongSLCanSoan || 0, 2) + "</b></span>";
+                        metricsHtml += "<span style='font-size:10px; font-weight:600; color:var(--dk-primary); background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.2); padding:2px 6px; border-radius:4px;'>Đã soạn: " + formatNumber(po.SLSoan || 0, 2) + "</span>";
                     }
                     if ((po.SoPLThieu || 0) > 0) {
-                        metricsHtml += "<span style='font-size:10px; font-weight:600; color:#ef4444; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); padding:2px 6px; border-radius:4px;'>⚠ Thiếu: " + formatNumber(po.SoPLThieu || 0) + "</span>";
+                        metricsHtml += "<span style='font-size:10px; font-weight:600; color:#ef4444; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); padding:2px 6px; border-radius:4px;'>⚠ Thiếu: " + formatNumber(po.SoPLThieu || 0, 2) + "</span>";
                     }
                     metricsHtml += "</div>";
 
@@ -5291,7 +5305,7 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                     "<div class='dk-lpcp-warn-desc'>";
 
                 if (w.type === "thieuPO" && w.items && w.items.length > 0) {
-                    var subHtml = "<div class='dk-lpcp-modal-thead' style='" + COLS_PICK + "; margin-top:12px; background:rgba(0,0,0,0.15); border:none; border-radius:4px 4px 0 0; padding:8px 16px;'>" +
+                    var subHtml = "<div class='dk-lpcp-modal-thead' style='" + COLS_PICK + "; margin-top:12px; border-radius:4px 4px 0 0;'>" +
                         "<span>Mã Lệnh SX</span><span>Mã Hàng</span><span>NV Soạn</span><span style='text-align:right;padding-right:12px;'>SL Yêu Cầu</span><span style='text-align:right;padding-right:12px;'>SL Đã Soạn</span><span>PL Thiếu</span><span>Trạng Thái</span></div>";
                     var wTotalYeuCau = 0, wTotalSoan = 0, wTotalThieu = 0;
                     w.items.forEach(function (po) {
@@ -5299,14 +5313,14 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                         wTotalSoan += (po.SLSoan || 0);
                         wTotalThieu += (po.SoPLThieu || 0);
 
-                        var maLenh = escapeHtml(po.MaLenhSX || "—");
+                        var maLenh = formatMaLenhSX(po.MaLenhSX);
                         var brand = escapeHtml(po.MaHang || "—");
                         var nv = escapeHtml(po.TenNV || po.MaNV || "—");
-                        var thieu = "<span class='dk-lpcp-thieu-yes'>⚠ " + po.SoPLThieu + "</span>";
-                        var slYeuCauHtml = "<span style='font-size:12px;font-weight:600;color:var(--dk-title);text-align:right;padding-right:12px;'>" + formatNumber(po.TongSLCanSoan || 0) + "</span>";
-                        var slSoanHtml = "<span style='font-size:12px;font-weight:600;color:var(--dk-primary);text-align:right;padding-right:12px;'>" + formatNumber(po.SLSoan || 0) + "</span>";
+                        var thieu = "<span class='dk-lpcp-thieu-yes'>⚠ " + formatNumber(po.SoPLThieu, 2) + "</span>";
+                        var slYeuCauHtml = "<span style='font-size:12px;font-weight:600;color:var(--dk-title);text-align:right;padding-right:12px;'>" + formatNumber(po.TongSLCanSoan || 0, 2) + "</span>";
+                        var slSoanHtml = "<span style='font-size:12px;font-weight:600;color:var(--dk-primary);text-align:right;padding-right:12px;'>" + formatNumber(po.SLSoan || 0, 2) + "</span>";
 
-                        subHtml += "<div class='dk-lpcp-modal-row' style='" + COLS_PICK + "; padding:8px 16px; border-bottom:1px solid rgba(255,255,255,0.05); background:rgba(0,0,0,0.05);'>" +
+                        subHtml += "<div class='dk-lpcp-modal-row' style='" + COLS_PICK + "'>" +
                             "<span class='dk-lpcp-col-code'>" + maLenh + "</span>" +
                             "<span class='dk-lpcp-col-brand'>" + brand + "</span>" +
                             "<span class='dk-lpcp-col-nv'>" + nv + "</span>" +
@@ -5314,28 +5328,27 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                     });
 
                     var wTotalThieuHtml = wTotalThieu > 0
-                        ? "<span class='dk-lpcp-thieu-yes'>⚠ " + wTotalThieu + "</span>"
+                        ? "<span class='dk-lpcp-thieu-yes'>⚠ " + formatNumber(wTotalThieu, 2) + "</span>"
                         : "<span class='dk-lpcp-thieu-no'>—</span>";
 
                     subHtml +=
-                        "<div class='dk-lpcp-modal-row' style='" + COLS_PICK + "; padding:8px 16px; background:rgba(0,0,0,0.15); border-radius:0 0 4px 4px;'>" +
-                        "<span></span><span></span>" +
-                        "<span style='text-align:right; font-weight:700; color:var(--dk-title); font-size:12px;'>Tổng Cộng:</span>" +
-                        "<span style='text-align:right; padding-right:12px; font-weight:700; color:var(--dk-title); font-size:13px;'>" + formatNumber(wTotalYeuCau) + "</span>" +
-                        "<span style='text-align:right; padding-right:12px; font-weight:700; color:var(--dk-primary); font-size:13px;'>" + formatNumber(wTotalSoan) + "</span>" +
+                        "<div class='dk-lpcp-modal-row' style='" + COLS_PICK + "; background:var(--dk-card-alt, #f8fafc); border-top:1px solid var(--dk-line); border-bottom:none; border-radius:0 0 4px 4px;'>" +
+                        "<span style='grid-column: 1 / 4; text-align:center; font-weight:700; color:var(--dk-title); font-size:12px;'>Tổng Cộng:</span>" +
+                        "<span style='text-align:right; padding-right:12px; font-weight:700; color:var(--dk-title); font-size:13px;'>" + formatNumber(wTotalYeuCau, 2) + "</span>" +
+                        "<span style='text-align:right; padding-right:12px; font-weight:700; color:var(--dk-primary); font-size:13px;'>" + formatNumber(wTotalSoan, 2) + "</span>" +
                         wTotalThieuHtml +
                         "<span></span></div>";
 
                     html += subHtml;
                 } else if (w.type === "task" && w.items && w.items.length > 0) {
-                    var subHtmlTask = "<div class='dk-lpcp-modal-thead' style='" + COLS_TASK + "; margin-top:12px; background:rgba(0,0,0,0.15); border:none; border-radius:4px 4px 0 0; padding:8px 16px;'>" +
+                    var subHtmlTask = "<div class='dk-lpcp-modal-thead' style='" + COLS_TASK + "; margin-top:12px; border-radius:4px 4px 0 0;'>" +
                         "<span>Mã Lệnh SX</span><span>Nhân Viên</span><span>Mã Hàng</span><span>Trạng Thái</span></div>";
                     w.items.forEach(function (a) {
-                        var maLenh = escapeHtml(a.MaLenhSX || "—");
+                        var maLenh = formatMaLenhSX(a.MaLenhSX);
                         var nv = escapeHtml(a.TenNV || a.MaNV || "—");
                         var brand = escapeHtml(a.MaHang || "—");
                         var ngay = a.NgayThucHien ? "<span class='dk-lpcp-col-date'> · " + escapeHtml(a.NgayThucHien) + "</span>" : "";
-                        subHtmlTask += "<div class='dk-lpcp-modal-row' style='" + COLS_TASK + "; padding:8px 16px; border-bottom:1px solid rgba(255,255,255,0.05); background:rgba(0,0,0,0.05);'>" +
+                        subHtmlTask += "<div class='dk-lpcp-modal-row' style='" + COLS_TASK + "'>" +
                             "<span class='dk-lpcp-col-code'>" + maLenh + ngay + "</span>" +
                             "<span class='dk-lpcp-col-nv'>" + nv + "</span>" +
                             "<span class='dk-lpcp-col-brand'>" + brand + "</span>" +
@@ -5365,7 +5378,7 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                 "'>" +
                 "<span>Mã Lệnh SX</span><span>Nhân Viên</span><span>Mã Hàng</span><span>Trạng Thái</span></div>";
             assignments.forEach(function (a) {
-                var maLenh = escapeHtml(a.MaLenhSX || "—");
+                var maLenh = formatMaLenhSX(a.MaLenhSX);
                 var nv = escapeHtml(a.TenNV || a.MaNV || "—");
                 var brand = escapeHtml(a.MaHang || "—");
                 var ngay = a.NgayThucHien
@@ -5409,16 +5422,16 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                 totalSoan += (po.SLSoan || 0);
                 totalThieu += (po.SoPLThieu || 0);
 
-                var maLenh = escapeHtml(po.MaLenhSX || "—");
+                var maLenh = formatMaLenhSX(po.MaLenhSX);
                 var brand = escapeHtml(po.MaHang || "—");
                 var nv = escapeHtml(po.TenNV || po.MaNV || "—");
                 var thieu =
                     (po.SoPLThieu || 0) > 0
-                        ? "<span class='dk-lpcp-thieu-yes'>⚠ " + po.SoPLThieu + "</span>"
+                        ? "<span class='dk-lpcp-thieu-yes'>⚠ " + formatNumber(po.SoPLThieu, 2) + "</span>"
                         : "<span class='dk-lpcp-thieu-no'>—</span>";
 
-                var slYeuCauHtml = "<span style='font-size:12px;font-weight:600;color:var(--dk-title);text-align:right;padding-right:12px;'>" + formatNumber(po.TongSLCanSoan || 0) + "</span>";
-                var slSoanHtml = "<span style='font-size:12px;font-weight:600;color:var(--dk-primary);text-align:right;padding-right:12px;'>" + formatNumber(po.SLSoan || 0) + "</span>";
+                var slYeuCauHtml = "<span style='font-size:12px;font-weight:600;color:var(--dk-title);text-align:right;padding-right:12px;'>" + formatNumber(po.TongSLCanSoan || 0, 2) + "</span>";
+                var slSoanHtml = "<span style='font-size:12px;font-weight:600;color:var(--dk-primary);text-align:right;padding-right:12px;'>" + formatNumber(po.SLSoan || 0, 2) + "</span>";
 
                 html +=
                     "<div class='dk-lpcp-modal-row' style='" +
@@ -5441,15 +5454,14 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
             });
 
             var totalThieuHtml = totalThieu > 0
-                ? "<span class='dk-lpcp-thieu-yes'>⚠ " + totalThieu + "</span>"
+                ? "<span class='dk-lpcp-thieu-yes'>⚠ " + formatNumber(totalThieu, 2) + "</span>"
                 : "<span class='dk-lpcp-thieu-no'>—</span>";
 
             html +=
-                "<div class='dk-lpcp-modal-row' style='" + COLS_PICK + "; background:rgba(0,0,0,0.1); border-top:1px solid rgba(255,255,255,0.1);'>" +
-                "<span></span><span></span>" +
-                "<span style='text-align:right; font-weight:700; color:var(--dk-title); font-size:12px;'>Tổng Cộng:</span>" +
-                "<span style='text-align:right; padding-right:12px; font-weight:700; color:var(--dk-title); font-size:13px;'>" + formatNumber(totalYeuCau) + "</span>" +
-                "<span style='text-align:right; padding-right:12px; font-weight:700; color:var(--dk-primary); font-size:13px;'>" + formatNumber(totalSoan) + "</span>" +
+                "<div class='dk-lpcp-modal-row' style='" + COLS_PICK + "; background:var(--dk-card-alt, #f8fafc); border-top:1px solid var(--dk-line);'>" +
+                "<span style='grid-column: 1 / 4; text-align:center; font-weight:700; color:var(--dk-title); font-size:12px;'>Tổng Cộng:</span>" +
+                "<span style='text-align:right; padding-right:12px; font-weight:700; color:var(--dk-title); font-size:13px;'>" + formatNumber(totalYeuCau, 2) + "</span>" +
+                "<span style='text-align:right; padding-right:12px; font-weight:700; color:var(--dk-primary); font-size:13px;'>" + formatNumber(totalSoan, 2) + "</span>" +
                 totalThieuHtml +
                 "<span></span></div>";
         }
@@ -5609,7 +5621,7 @@ function appendLpcpTab(container, lpcpData) {
                 '<div style="flex:1;overflow:hidden;">' +
                 '<div style="font-size:12px;">' +
                 '<span style="font-weight:600;color:#3b82f6;">Lệnh ' +
-                escapeHtml(po.MaLenhSX || "") +
+                formatMaLenhSX(po.MaLenhSX) +
                 "</span>" +
                 '<span style="font-size:10px;color:' +
                 subColor +
@@ -5667,14 +5679,34 @@ function renderAll() {
     renderCustomersTable();
     renderRacksTable();
     // renderRacksHeatmap();
-    renderActivityCalendar();
-    renderActivityCalendarMonthly();
+
+    // v2.4.0 — Các section bổ sung
+    renderTodoList();
+    renderTop5VTTable();
+    renderTop5KHTable();
+    renderHetHanTable();
+    renderGiaTriTheoNhomChart();
+    renderKiemKeBox();
+
+    // Page 2 widgets
+    renderAlertsList();
+    renderHieuSuatGauges();
+
+    // Lịch hoạt động kho
+    if (state.activityCalendar && state.activityCalendar.length > 0) {
+        renderActivityCalendar();
+        renderActivityCalendarMonthly();
+    }
+
+    // Biểu đồ LPCP
+    if (typeof renderLpcpBottomCharts === "function") {
+        renderLpcpBottomCharts();
+    }
+
     setTimeout(injectMaximizeButtons, 80);
 
-    // v2.3.6 — Sau khi render lần đầu (có thể state.activityCalendar
-    // rỗng do API lỗi hoặc khoảng ngày mặc định không cover được tháng
-    // hiện tại), thử gọi lại API với khoảng ngày tường minh cho ±1 tháng.
-    if (!isDemoMode && (!state.activityCalendar || state.activityCalendar.length === 0)) {
+    // v2.3.6 — Nếu chưa có data lịch (vd ở Page 1), fetch bổ sung
+    if (!isDemoMode && currentPage !== 3 && (!state.activityCalendar || state.activityCalendar.length === 0)) {
         var now = new Date();
         var from = new Date(now.getFullYear(), now.getMonth() - 1, 1);
         var to = new Date(now.getFullYear(), now.getMonth() + 2, 0);
@@ -5682,7 +5714,10 @@ function renderAll() {
             "/api/DashboardKhoDesktop/GetActivityCalendar?tuNgay=" + asIsoDate(from) + "&denNgay=" + asIsoDate(to);
         requestJson(url)
             .then(function (data) {
-                state.activityCalendar = normalizeArray(data);
+                if (!state.activityCalendar || state.activityCalendar.length === 0) {
+                    state.activityCalendar = normalizeArray(data);
+                }
+                renderActivityCalendar();
                 renderActivityCalendarMonthly();
             })
             .catch(function () { });
@@ -6709,7 +6744,7 @@ function renderAlertsList() {
                 "</div>" +
                 '<div class="dk-alert-badge">' +
                 '<span class="dk-alert-num">' +
-                formatNumber(toNumber(a.SoLuong), 0) +
+                formatNumber(toNumber(a.SoLuong), 2) +
                 "</span> " +
                 '<span class="dk-alert-unit">' +
                 escapeHtml(a.DonVi || "") +
@@ -6893,7 +6928,7 @@ function renderTodoList() {
                 "</div>" +
                 '<div class="dk-todo-count">' +
                 '<div class="dk-todo-num">' +
-                formatNumber(toNumber(it.SoLuong), 0).padStart(2, "0") +
+                formatNumber(toNumber(it.SoLuong), 2).padStart(2, "0") +
                 "</div>" +
                 '<div class="dk-todo-unit">' +
                 escapeHtml(it.DonVi || "") +
@@ -6961,7 +6996,7 @@ function renderKiemKeBox() {
         '<div class="dk-kk-info-total">' +
         "<span>Tổng số itemcode:</span>" +
         "<strong>" +
-        formatNumber(toNumber(d.Tong), 0) +
+        formatNumber(toNumber(d.Tong), 2) +
         "</strong>" +
         "</div>" +
         "</div>" +
@@ -7191,7 +7226,7 @@ function renderCustomersTable() {
                 escapeHtml(normalizeCustomerName(item.TenKH)) +
                 "</td>" +
                 '<td class="text-end">' +
-                formatNumber(item.SLVatTu, 0) +
+                formatNumber(item.SLVatTu, 2) +
                 "</td>" +
                 '<td class="text-end">' +
                 formatNumber(item.CBMSDTrongKho, 2) +

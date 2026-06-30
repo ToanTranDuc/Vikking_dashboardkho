@@ -1620,7 +1620,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
         public int SoLoaiPL { get; set; }
         public double TongSLCanSoan { get; set; }
         public double SLSoan { get; set; }
-        public int SoPLThieu { get; set; }
+        public double SoPLThieu { get; set; }
         public string GhiChu { get; set; }
         // Chi tiet phu lieu (load rieng qua GetPickOrderDetail)
         public System.Collections.Generic.List<LichPhanCong_PickItemModel> Items { get; set; } = new System.Collections.Generic.List<LichPhanCong_PickItemModel>();

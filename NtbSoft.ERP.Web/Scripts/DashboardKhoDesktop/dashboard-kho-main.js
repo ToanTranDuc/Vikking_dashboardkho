@@ -547,7 +547,7 @@ function bindThemeToggle() {
 
     function doThemeToggle(e) {
         if (e) e.preventDefault();
-        
+
         function applyThemeChange() {
             var mainContainer = document.getElementById("dkMain");
             var scrollY = mainContainer ? mainContainer.scrollTop : window.scrollY || document.documentElement.scrollTop;
@@ -1023,7 +1023,7 @@ function init() {
     setTimeout(injectMaximizeButtons, 50);
 
     switchPage(currentPage || 1);
-    loadData();
+    loadData(false, true); // v2.3.6: true để không gọi lại loadPageData() nữa (vì switchPage đã gọi)
     window.setInterval(renderClockNow, 1000);
 
     window.setInterval(function () {

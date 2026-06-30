@@ -448,6 +448,16 @@ function loadData(skipLoadingState, skipReloadCurrent) {
 
     setLoading(true);
 
+    // RAF-debounce cho renderMetricCards: dù gọi 12 lần, chỉ thực thi 1 lần/frame
+    var _metricRafId = 0;
+    function _scheduleMetricCards() {
+        if (_metricRafId) return;
+        _metricRafId = requestAnimationFrame(function () {
+            _metricRafId = 0;
+            renderMetricCards();
+        });
+    }
+
     function safeJson(url) {
         return requestJson(url)
             .then(function (r) {
@@ -486,7 +496,7 @@ function loadData(skipLoadingState, skipReloadCurrent) {
     loadedPages[1] = true;
     var p1a = safeJson(BASE + "GetOverallCapacity").then(function (r) {
         state.overall = normalizeArray(r);
-        renderMetricCards();
+        _scheduleMetricCards();
         renderCapacityChart();
         renderCapacityBarChart();
     });
@@ -498,7 +508,7 @@ function loadData(skipLoadingState, skipReloadCurrent) {
     });
     var p1c = safeJson(BASE + "GetDistinctMaterialCount").then(function (r) {
         state.distinctMat = normalizeArray(r);
-        renderMetricCards();
+        _scheduleMetricCards();
     });
     var inboundTo = new Date(now);
     inboundTo.setDate(inboundTo.getDate() + 365);
@@ -510,15 +520,15 @@ function loadData(skipLoadingState, skipReloadCurrent) {
 
     var p1d = safeJson(BASE + "GetChuanBiVe" + inboundQS).then(function (r) {
         state.inbound = normalizeArray(r);
-        renderMetricCards();
+        _scheduleMetricCards();
     });
     var p1e = safeJson(BASE + "GetChuanBiXuat" + dfQS).then(function (r) {
         state.outboundReady = normalizeArray(r);
-        renderMetricCards();
+        _scheduleMetricCards();
     });
     var p1f = safeJson(BASE + "GetDangXuat" + dfQS).then(function (r) {
         state.outboundRunning = normalizeArray(r);
-        renderMetricCards();
+        _scheduleMetricCards();
     });
     var p1g = safeJson(BASE + "GetMoMComparison").then(function (r) {
         state.momComparison = normalizeArray(r);
@@ -536,7 +546,7 @@ function loadData(skipLoadingState, skipReloadCurrent) {
     var p1k = safeJson(BASE + "GetThanhGiaHangTon").then(function (r) {
         var arr = normalizeArray(r);
         state.thanhGia = arr.length > 0 ? arr[0] : null;
-        renderMetricCards();
+        _scheduleMetricCards();
     });
 
     // v2.4.0 — 6 section mới của Tổng quan (stub API)
@@ -570,34 +580,34 @@ function loadData(skipLoadingState, skipReloadCurrent) {
     var p1r = safeJson(BASE + "GetTongNhap" + dfQS).then(function (r) {
         var arr = normalizeArray(r);
         state.kpiTongNhap = arr[0] || null;
-        renderMetricCards();
+        _scheduleMetricCards();
     });
     var p1s = safeJson(BASE + "GetTongXuat" + dfQS).then(function (r) {
         var arr = normalizeArray(r);
         state.kpiTongXuat = arr[0] || null;
-        renderMetricCards();
+        _scheduleMetricCards();
     });
     var p1t = safeJson(BASE + "GetTonKho" + (dfTo ? "?denNgay=" + encodeURIComponent(dfTo) : "")).then(function (r) {
         var arr = normalizeArray(r);
         state.kpiTonKho = arr[0] || null;
-        renderMetricCards();
+        _scheduleMetricCards();
     });
     var p1u = safeJson(BASE + "GetTonDauKy" + (dfFrom ? "?tuNgay=" + encodeURIComponent(dfFrom) : "")).then(
         function (r) {
             var arr = normalizeArray(r);
             state.kpiTonDauKy = arr[0] || null;
-            renderMetricCards();
+            _scheduleMetricCards();
         },
     );
     var p1v = safeJson(BASE + "GetPODangTre").then(function (r) {
         var arr = normalizeArray(r);
         state.kpiPODangTre = arr[0] || null;
-        renderMetricCards();
+        _scheduleMetricCards();
     });
     var p1w = safeJson(BASE + "GetGiaTriTon" + (dfTo ? "?denNgay=" + encodeURIComponent(dfTo) : "")).then(function (r) {
         var arr = normalizeArray(r);
         state.kpiGiaTriTon = arr[0] || null;
-        renderMetricCards();
+        _scheduleMetricCards();
     });
     // Page 2 widget mới — load lazy nhưng đặt vào Promise.all để re-fetch khi Áp dụng
     var p1x = safeJson(BASE + "GetCanhBaoTonKho").then(function (r) {
@@ -608,9 +618,10 @@ function loadData(skipLoadingState, skipReloadCurrent) {
         state.hieuSuat = normalizeArray(r);
         renderHieuSuatGauges();
     });
-    var pLPCP = requestJson(LPCP_URL)
+    // LPCP mất ~3.5s — tách ra khỏi Promise.all để không block page load
+    // Chạy nền, khi xong sẽ tự render lịch (chỉ cần cho Page 3)
+    requestJson(LPCP_URL)
         .then(function (res) {
-            // Đọc Tasks và Inventory từ cấu trúc API mới
             var lpcpArr = normalizeArray(res.Tasks || res.data || res);
             var invArr = normalizeArray(res.Inventory || []);
 
@@ -619,7 +630,6 @@ function loadData(skipLoadingState, skipReloadCurrent) {
                 if (k) state.lpcpCalendar[k] = d;
             });
 
-            // Ánh xạ dữ liệu Inventory mới gán đè vào activityCalendar
             if (invArr.length > 0) {
                 state.activityCalendar = invArr.map(function (item) {
                     var inQty = toNumber(item.SoLuongNhapKho);
@@ -634,14 +644,18 @@ function loadData(skipLoadingState, skipReloadCurrent) {
                     };
                 });
             }
+
+            // Tự render khi LPCP xong (không cần chờ Promise.all)
+            if (state.activityCalendar && state.activityCalendar.length > 0) {
+                renderActivityCalendarMonthly();
+            }
+            if (typeof renderLpcpBottomCharts === "function") {
+                renderLpcpBottomCharts();
+            }
         })
         .catch(function (e) {
             console.warn("Lỗi tải lịch phân công:", e);
-            return [];
         });
-
-    // Bỏ gọi API GetActivityCalendar cũ để không bị ghi đè dữ liệu
-    var pActivity = Promise.resolve([]);
 
     Promise.all([
         p1a,
@@ -669,11 +683,14 @@ function loadData(skipLoadingState, skipReloadCurrent) {
         p1w,
         p1x,
         p1y,
-        pLPCP,
-        pActivity,
     ])
         .then(function () {
             state.lastUpdated = new Date();
+
+            // Cancel pending debounce và render metric cards 1 lần cuối cùng (đảm bảo đầy đủ)
+            if (_metricRafId) { cancelAnimationFrame(_metricRafId); _metricRafId = 0; }
+            renderMetricCards();
+
             if (!skipLoadingState) {
                 setLoading(false);
             } else {
@@ -685,18 +702,10 @@ function loadData(skipLoadingState, skipReloadCurrent) {
                 state.loading = false;
             }
 
-            // Render lại lịch kho (Hàm này giờ sẽ có state.lpcpCalendar để vẽ chấm)
-            renderActivityCalendarMonthly();
-
             // Tự động load nội dung của ngày hôm nay
             var today = new Date();
             if (typeof showLpcpInlineDetail === "function") {
                 showLpcpInlineDetail(_isoDate(today));
-            }
-
-            // Render 3 biểu đồ mới ở cuối trang với dữ liệu thực tế
-            if (typeof renderLpcpBottomCharts === "function") {
-                renderLpcpBottomCharts();
             }
 
             if ((currentPage === 2 || currentPage === 3) && !skipReloadCurrent) {

@@ -773,7 +773,7 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
                             po.SoLoaiPL = safeInt(reader, "SoLoaiPL");
                             po.TongSLCanSoan = safeDbl(reader, "TongSLCanSoan");
                             po.SLSoan = safeDbl(reader, "SLSoan");
-                            po.SoPLThieu = safeInt(reader, "SoPLThieu");
+                            po.SoPLThieu = safeDbl(reader, "SoPLThieu");
                             po.GhiChu = safeStr(reader, "GhiChu");
                             po.Items = new System.Collections.Generic.List<LichPhanCong_PickItemModel>();
                             result.PickOrders.Add(po);

@@ -2561,7 +2561,7 @@ BEGIN
 
         SELECT 
             CONVERT(DATE, ISNULL(t1.NgayXuatHang, t1.NgayGiaoViec)) AS NgayLam,
-            t2.MaLenh AS MaLenhSX, t2.TenKH AS MaKhachHang, t2.TenHang AS MaHang,
+            ISNULL(t2.MaLenh, t1.MaLenhSX) AS MaLenhSX, t2.TenKH AS MaKhachHang, t2.TenHang AS MaHang,
             0 AS CoCanhBao, 0 AS ThieuNPL,
             '' AS MaNV, t1.NguoiGiaoViec AS TenNV,
             CASE
@@ -2576,10 +2576,29 @@ BEGIN
         UNION ALL
         SELECT 
             CONVERT(DATE, t1.NgaySoanHang) AS NgayLam,
-            t2.MaLenh AS MaLenhSX, t2.TenKH AS MaKhachHang, t2.TenHang AS MaHang,
-            0 AS CoCanhBao, 0 AS ThieuNPL,
+            ISNULL(t2.MaLenh, t1.MaLenhSX) AS MaLenhSX, t2.TenKH AS MaKhachHang, t2.TenHang AS MaHang,
+            0 AS CoCanhBao, 
+            CASE WHEN ROUND((
+                SELECT SUM(CapPhat) - SUM(SoanHang)
+                FROM (
+                    SELECT MAX(sub1.SLCapPhat) AS CapPhat, ISNULL(SUM(sub2.SLSoanHang_BC), 0) AS SoanHang
+                    FROM ERP_PhieuSoanHangVatTu sub1 
+                    LEFT JOIN ERP_SoanHangNPL_BarCode sub2 ON sub1.PhieuSH = sub2.PhieuSH AND sub1.MaNPL = sub2.MaNPL 
+                    WHERE sub1.MaLenhSX = t1.MaLenhSX AND CONVERT(DATE, sub1.NgaySoanHang) = CONVERT(DATE, t1.NgaySoanHang)
+                    GROUP BY sub1.MaNPL 
+                ) as tmp
+            ), 2) > 0 THEN 1 ELSE 0 END AS ThieuNPL,
             '' AS MaNV, t1.NguoiSoanHang AS TenNV,
-            CASE WHEN ISNULL(SUM(t3.SLSoanHang_BC), 0) >= MAX(t1.SLCapPhat) THEN 2 ELSE 1 END AS TrangThai,
+            CASE WHEN ROUND((
+                SELECT SUM(CapPhat) - SUM(SoanHang)
+                FROM (
+                    SELECT MAX(sub1.SLCapPhat) AS CapPhat, ISNULL(SUM(sub2.SLSoanHang_BC), 0) AS SoanHang
+                    FROM ERP_PhieuSoanHangVatTu sub1 
+                    LEFT JOIN ERP_SoanHangNPL_BarCode sub2 ON sub1.PhieuSH = sub2.PhieuSH AND sub1.MaNPL = sub2.MaNPL 
+                    WHERE sub1.MaLenhSX = t1.MaLenhSX AND CONVERT(DATE, sub1.NgaySoanHang) = CONVERT(DATE, t1.NgaySoanHang)
+                    GROUP BY sub1.MaNPL 
+                ) as tmp
+            ), 2) > 0 THEN 3 ELSE 2 END AS TrangThai,
             'PICK' AS GhiChu
         FROM ERP_PhieuSoanHangVatTu t1
         LEFT JOIN #tblDVSX_Month t2 ON t1.MaLenhSX = t2.MaLenhSanXuat
@@ -2619,7 +2638,7 @@ BEGIN
 
         -- ResultSet 1: Assignments (Phân công giao việc)
         SELECT
-            MAX(t2.MaLenh)                                      AS MaLenhSX,
+            ISNULL(MAX(t2.MaLenh), t1.MaLenhSX)                                      AS MaLenhSX,
             CASE
                 WHEN MAX(t1.NgayXuatHang) IS NULL THEN 0
                 WHEN CONVERT(DATE, MAX(t1.NgayXuatHang)) <= MAX(CONVERT(DATE, t1.NgayGiaoViec)) THEN 2
@@ -2646,11 +2665,11 @@ BEGIN
 
         -- Bảng tạm pick orders chi tiết
         SELECT
-            t1.MaLenhSX AS MaLenhSanXuat, t2.MaLenh AS MaLenhSX,
-            t2.TenKH AS MaKhachHang, t2.TenHang AS MaHang,
+            t1.MaLenhSX AS MaLenhSanXuat, ISNULL(t2.MaLenh, t1.MaLenhSX) AS MaLenhSX,
+            ISNULL(t2.TenKH, N' ') AS MaKhachHang, ISNULL(t2.TenHang, N' ') AS MaHang,
             ISNULL(SUM(t3.SLSoanHang_BC), 0) AS SLSoan,
             MAX(t1.SLCapPhat) AS TongSLCanSoan,
-            t1.MaNPL, t3.NgaySoanHang AS NgaySoan,
+            t1.MaNPL, MAX(t3.NgaySoanHang) AS NgaySoan,
             MAX(t1.SLCapPhat) - ISNULL(SUM(t3.SLSoanHang_BC), 0) AS SoPLThieu,
             t1.NguoiSoanHang AS TenNV,
             STUFF((
@@ -2664,7 +2683,7 @@ BEGIN
         LEFT JOIN #tbldvsx t2 ON t1.MaLenhSX = t2.MaLenhSanXuat
         LEFT JOIN ERP_SoanHangNPL_BarCode t3 ON t1.PhieuSH = t3.PhieuSH AND t1.MaNPL = t3.MaNPL
         WHERE CONVERT(DATE, t1.NgaySoanHang) = CONVERT(DATE, @Ngay)
-        GROUP BY t1.MaLenhSX, t2.MaLenh, t2.TenKH, t2.TenHang, t1.MaNPL, t3.NgaySoanHang, t1.NguoiSoanHang;
+        GROUP BY t1.MaLenhSX, t2.MaLenh, t2.TenKH, t2.TenHang, t1.MaNPL, t1.NguoiSoanHang;
 
         -- ResultSet 2: Pick Orders (Phụ liệu - Soạn hàng)
         SELECT
@@ -2685,9 +2704,14 @@ BEGIN
             ROUND(SUM(SLSoan), 2)                       AS SLSoan,
             ROUND(SUM(TongSLCanSoan), 2)                AS TongSLCanSoan,
             ROUND(SUM(TongSLCanSoan) - SUM(SLSoan), 2) AS SoPLThieu,
-            GhiChu                                      AS GhiChu
-        FROM #tblSHCT
-        GROUP BY MaLenhSanXuat, MaLenhSX, MaKhachHang, MaHang, TenNV, GhiChu;
+            STUFF((
+                SELECT DISTINCT ', ' + sub.GhiChu
+                FROM #tblSHCT sub
+                WHERE sub.MaLenhSX = O.MaLenhSX AND ISNULL(sub.GhiChu, '') <> ''
+                FOR XML PATH(''), TYPE
+            ).value('.', 'nvarchar(max)'), 1, 2, '') AS GhiChu
+        FROM #tblSHCT O
+        GROUP BY O.MaLenhSanXuat, O.MaLenhSX, O.MaKhachHang, O.MaHang, O.TenNV;
 
         DROP TABLE #tbldvsx;
         DROP TABLE #tblSHCT;
