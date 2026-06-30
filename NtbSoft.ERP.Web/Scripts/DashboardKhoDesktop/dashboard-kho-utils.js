@@ -5,6 +5,8 @@
  */
 
 //#region CONFIG & UTILS
+window.DK_DETAIL_PAGE_SIZE = 200;
+
 var ids = {
     currentDate: "currentDate",
     currentTime: "currentTime",
@@ -44,13 +46,18 @@ function toNumber(value) {
  * @param {number} fractionDigits Số chữ số thập phân
  * @returns {string} Chuỗi số đã định dạng
  */
+var __numFormatCache = {};
 function formatNumber(value, fractionDigits, forceFractionDigits) {
     var maxDigits = typeof fractionDigits === "number" ? fractionDigits : 0;
     var minDigits = forceFractionDigits === true ? maxDigits : 0;
-    return toNumber(value).toLocaleString("vi-VN", {
-        minimumFractionDigits: minDigits,
-        maximumFractionDigits: maxDigits,
-    });
+    var cacheKey = minDigits + "_" + maxDigits;
+    if (!__numFormatCache[cacheKey]) {
+        __numFormatCache[cacheKey] = new Intl.NumberFormat("vi-VN", {
+            minimumFractionDigits: minDigits,
+            maximumFractionDigits: maxDigits,
+        });
+    }
+    return __numFormatCache[cacheKey].format(toNumber(value));
 }
 
 /**

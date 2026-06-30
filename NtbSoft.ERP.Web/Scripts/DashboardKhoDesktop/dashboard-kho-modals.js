@@ -26,12 +26,17 @@ function openDetail(detail, index) {
     var content = byId(ids.detailModalContent);
     var modal = byId(ids.detailModal);
     if (modal && content) {
+        document.documentElement.style.overflow = "hidden";
+        document.body.style.overflow = "hidden";
         content.innerHTML =
             '<div style="padding:40px;text-align:center"><div class="dk-spinner" style="margin:0 auto 10px auto;border-top-color:#3b82f6;"></div><div style="color:#6b7280;font-size:13px">Đang tải dữ liệu...</div></div>';
         modal.classList.add("open");
-        setTimeout(function () {
-            renderDetailModal(detail, index);
-        }, 10);
+        // Defer rendering so the browser paints the modal open animation and spinner first
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+                renderDetailModal(detail, index);
+            });
+        });
     } else {
         renderDetailModal(detail, index);
     }
@@ -348,6 +353,8 @@ function closeDetailModal() {
     if (!modal) return;
     modal.classList.remove("open");
     modal.style.display = ""; // clear any inline style from older code paths
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
 
     // v2.3.27 — Reset drill stack khi đóng modal hoàn toàn
     _detailStack = [];
@@ -370,9 +377,49 @@ function filterDetailTable(query) {
     var content = byId(ids.detailModalContent);
     if (!content) return;
 
+    var visiblePanels = content.querySelectorAll(".dk-day-panel");
+    if (visiblePanels.length > 0 && window.__dkDetailData) {
+        for (var vp = 0; vp < visiblePanels.length; vp++) {
+            if (visiblePanels[vp].style.display === "none") continue;
+            if (!visiblePanels[vp].querySelector(".dk-grid-table")) break;
+
+            var tabKey = visiblePanels[vp].getAttribute("data-tabkey");
+            var d = window.__dkDetailData[tabKey];
+            if (!d) return;
+            if (!d.allRows) d.allRows = d.rows || [];
+
+            var lowerQuery = String(query || "").toLowerCase();
+            if (!lowerQuery) {
+                d.rows = d.allRows;
+            } else {
+                d.rows = d.allRows.filter(function (row) {
+                    for (var key in row) {
+                        if (!Object.prototype.hasOwnProperty.call(row, key)) continue;
+                        if (key.indexOf("__dk") === 0) continue;
+                        var value = row[key];
+                        if (value === null || value === undefined) continue;
+                        if (String(value).toLowerCase().indexOf(lowerQuery) >= 0) return true;
+                    }
+                    return false;
+                });
+            }
+
+            d.page = 1;
+            d.sortedRows = null;
+            d.pageCache = {};
+            d.collapsedGroupsByPage = {};
+            initVirtualScrollGrid(tabKey);
+
+            var countEl = byId("detailSearchCount");
+            if (countEl) {
+                countEl.textContent = lowerQuery ? formatNumber(d.rows.length, 0) + " / " + formatNumber(d.allRows.length, 0) + " dòng" : "";
+            }
+            return;
+        }
+    }
+
     // v2.3.9 — Nếu có tabbed UI (modal ngày calendar), chỉ filter tab đang hiện;
     // ngược lại filter tất cả tbody trong modal.
-    var visiblePanels = content.querySelectorAll(".dk-day-panel");
     var tbodies;
     if (visiblePanels.length > 0) {
         // Chỉ lấy tbody của panel đang visible

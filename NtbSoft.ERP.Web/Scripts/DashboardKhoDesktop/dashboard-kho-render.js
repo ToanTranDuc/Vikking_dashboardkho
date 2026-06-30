@@ -3419,8 +3419,8 @@ function renderActivityCalendarMonthly() {
                 var lTasks = lpcpDay.Tasks || lpcpDay.tasks || [];
                 var uniqueWarnTask = {};
                 var uniqueTask = {};
-                var warnPickCount = 0;
-                var rawPickCount = 0;
+                var uniquePick = {};
+                var uniqueWarnPick = {};
 
                 lTasks.forEach(function (t) {
                     var ma = t.MaLenhSX || t.maLenhSX || "";
@@ -3434,22 +3434,19 @@ function renderActivityCalendarMonthly() {
                             else warnCount++;
                         }
                     } else if (t.GhiChu === 'PICK') {
-                        rawPickCount++;
+                        if (ma) uniquePick[ma] = 1;
+                        else pickCount++;
                         if (t.ThieuNPL || t.thieuNPL || t.TrangThai === 3) {
-                            warnPickCount++;
+                            if (ma) uniqueWarnPick[ma] = 1;
                         }
                     }
                 });
 
-                warnCount += Object.keys(uniqueWarnTask).length + warnPickCount;
+                warnCount += Object.keys(uniqueWarnTask).length + Object.keys(uniqueWarnPick).length;
                 taskCount += Object.keys(uniqueTask).length;
-                pickCount = rawPickCount;
+                pickCount += Object.keys(uniquePick).length;
 
                 if (lpcpDay.ThieuNPL || lpcpDay.thieuNPL) warnCount = Math.max(warnCount, 1);
-
-                if (pickCount === 0 && taskCount > 0) {
-                    pickCount = taskCount;
-                }
             }
 
             var iconIn =
@@ -4125,7 +4122,7 @@ function showCalDayDetail(dateKey, info, plannedCount) {
                 return asIsoDate(dt) === dateKey;
             });
 
-            renderDayDetailTabs(modalContent, nhapRows, xuatRows, kiemKeRows, plannedRows);
+            renderDayDetailTabs(modalContent, nhapRows, xuatRows, kiemKeRows, plannedRows, dateKey);
 
             // v2.3.54 — Append Lịch Phân Công tab sau 4 tabs kho
             if (!inRangeMode) {
@@ -4163,7 +4160,7 @@ function showCalDayDetail(dateKey, info, plannedCount) {
                     };
                 });
             if (modalContent) {
-                renderDayDetailTabs(modalContent, [], xuatFallback, [], plannedRows);
+                renderDayDetailTabs(modalContent, [], xuatFallback, [], plannedRows, dateKey);
             }
         });
 }
@@ -4262,11 +4259,11 @@ function renderGroupedDetailTable(cols, rows, dateField) {
 
         // Group header
         var dark = document.body.classList.contains("dark-theme");
-        var headBg = dark ? "#1e3a8a" : "#dbeafe"; // Nền xanh dương đặc màu (không dùng rgba)
-        var headBorder = dark ? "#1d4ed8" : "#bfdbfe"; // Viền trên/dưới
-        var dateColor = dark ? "#93c5fd" : "#1e40af"; // Màu chữ ngày
-        var totalColor = dark ? "#60a5fa" : "#0284c7"; // Màu chữ tổng
-        var subTextColor = dark ? "#bfdbfe" : "#475569"; // Màu chữ phụ
+        var headBg = dark ? "#112e51" : "#dbeafe"; // Nền nhóm ngày: xanh dương-chàm đậm ở dark, xanh nhạt ở light
+        var headBorder = dark ? "#1d3b68" : "#bfdbfe"; // Viền nhóm ngày
+        var dateColor = dark ? "#60a5fa" : "#1e40af"; // Màu chữ ngày
+        var totalColor = dark ? "#34d399" : "#0284c7"; // Màu chữ tổng (xanh lá ở dark, xanh dương ở light)
+        var subTextColor = dark ? "#cbd5e1" : "#475569"; // Màu chữ phụ
 
         html +=
             "<tr class='group-header' style='background-color: " +
@@ -4297,7 +4294,7 @@ function renderGroupedDetailTable(cols, rows, dateField) {
             html +=
                 "<span style='color: " +
                 dateColor +
-                "; font-size: 13px;'>&#128197; Ngày " +
+                "; font-size: 15px; font-weight: 700;'>&#128197; Ngày " +
                 escapeHtml(gDate) +
                 "</span>";
             html +=
@@ -4336,7 +4333,7 @@ function renderGroupedDetailTable(cols, rows, dateField) {
             html +=
                 "<span style='color: " +
                 dateColor +
-                "; font-size: 13px;'>&#128197; Ngày " +
+                "; font-size: 15px; font-weight: 700;'>&#128197; Ngày " +
                 escapeHtml(gDate) +
                 "</span>";
             if (hasSoLuong) {
@@ -4389,45 +4386,413 @@ function renderGroupedDetailTable(cols, rows, dateField) {
 }
 
 
+// === VIRTUAL SCROLL GRID ===
+function dkReadFirstValue(row, keys) {
+    if (!row) return "";
+    for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+        if (key && row[key] !== null && row[key] !== undefined && row[key] !== "") return row[key];
+    }
+    return "";
+}
+
+function dkFormatGroupDate(rawDate) {
+    if (!rawDate) return "Không có ngày";
+    if (rawDate instanceof Date && !isNaN(rawDate)) {
+        return String(rawDate.getDate()).padStart(2, "0") + "/" +
+            String(rawDate.getMonth() + 1).padStart(2, "0") + "/" +
+            rawDate.getFullYear();
+    }
+
+    var text = String(rawDate).trim();
+    var vn = text.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+    if (vn) return String(vn[1]).padStart(2, "0") + "/" + String(vn[2]).padStart(2, "0") + "/" + vn[3];
+
+    var iso = text.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if (iso) return String(iso[3]).padStart(2, "0") + "/" + String(iso[2]).padStart(2, "0") + "/" + iso[1];
+
+    var parsed = typeof parseDate === "function" ? parseDate(rawDate) : null;
+    if (!parsed) {
+        parsed = new Date(rawDate);
+    }
+    if (parsed && !isNaN(parsed)) {
+        return String(parsed.getDate()).padStart(2, "0") + "/" +
+            String(parsed.getMonth() + 1).padStart(2, "0") + "/" +
+            parsed.getFullYear();
+    }
+    return text.substring(0, 10);
+}
+
+function dkGetGroupDate(row, dateField, fallbackDate) {
+    return dkFormatGroupDate(dkReadFirstValue(row, [
+        dateField,
+        "NgayNhapKho",
+        "NgayNhap",
+        "NgayNhapTu",
+        "NgayNhapDen",
+        "NgayXuat",
+        "NgayXuatTu",
+        "NgayXuatDen",
+        "NgayXuatHang",
+        "NgayKiemKe",
+        "NgayKKTu",
+        "NgayKKDen",
+        "NgayNKDuKien",
+        "ngayNKDuKien",
+        "NgayDuKien",
+        "NgayChungTu",
+        "Ngay",
+    ]) || fallbackDate);
+}
+
+function dkParseGroupDateText(dateText) {
+    if (!dateText || dateText === "Không có ngày") return null;
+    var parts = String(dateText).split("/");
+    if (parts.length === 3) {
+        return new Date(parts[2], parts[1] - 1, parts[0]);
+    }
+    var parsed = new Date(dateText);
+    return parsed && !isNaN(parsed) ? parsed : null;
+}
+
+function dkCompareGroupDateDesc(a, b) {
+    if (a === "Không có ngày") return 1;
+    if (b === "Không có ngày") return -1;
+    var dA = dkParseGroupDateText(a);
+    var dB = dkParseGroupDateText(b);
+    if (dA && dB) return dB - dA;
+    return String(b).localeCompare(String(a));
+}
+
+function dkCompareGroupDateAsc(a, b) {
+    if (a === "Không có ngày") return 1;
+    if (b === "Không có ngày") return -1;
+    var dA = dkParseGroupDateText(a);
+    var dB = dkParseGroupDateText(b);
+    if (dA && dB) return dA - dB;
+    return String(a).localeCompare(String(b));
+}
+
+function dkGetSortedDetailRows(detailData) {
+    if (!detailData) return [];
+    if (detailData.sortedRows) return detailData.sortedRows;
+
+    var rows = (detailData.rows || []).map(function (row, index) {
+        return { row: row, sourceIndex: index };
+    });
+    rows.sort(function (a, b) {
+        var dateA = dkGetGroupDate(a.row, detailData.dateField, detailData.fallbackDate);
+        var dateB = dkGetGroupDate(b.row, detailData.dateField, detailData.fallbackDate);
+        var byDate = dkCompareGroupDateAsc(dateA, dateB);
+        if (byDate !== 0) return byDate;
+        return a.sourceIndex - b.sourceIndex;
+    });
+
+    detailData.sortedRows = rows.map(function (item, index) {
+        item.row.__dkVirtualStt = index + 1;
+        return item.row;
+    });
+    return detailData.sortedRows;
+}
+
+function dkFormatVirtualCells(cols, row, stt) {
+    var cells = [];
+    for (var c = 0; c < cols.length; c++) {
+        var cv = cols[c];
+        var val = row[cv.field || cv.key];
+        if (val === null || val === undefined) val = "";
+        if (cv.key === "STT") val = stt;
+        if (cv.type === "number" || cv.number !== undefined) {
+            val = formatNumber(val, cv.number !== undefined ? cv.number : 0);
+        }
+        if ((cv.type === "date" || cv.date) && val) {
+            val = typeof formatDateVn === "function" ? formatDateVn(val) : typeof formatDate === "function" ? formatDate(val) : val;
+        }
+        cells.push({
+            text: String(val),
+            align: cv.center ? "center" : (cv.number !== undefined || cv.type === "number") ? "flex-end" : "flex-start",
+        });
+    }
+    return cells;
+}
+
+function dkBuildVisibleVirtualRows(sourceData, collapsedGroups) {
+    var visible = [];
+    for (var i = 0; i < sourceData.length; i++) {
+        var item = sourceData[i];
+        if (item.isHeader || !collapsedGroups[item.groupKey]) visible.push(item);
+    }
+    return visible;
+}
+
+function initVirtualScrollGrid(tabKey) {
+    var d = window.__dkDetailData[tabKey];
+    if (!d) return;
+    var pageSize = window.DK_DETAIL_PAGE_SIZE || 200;
+    var sortedRows = dkGetSortedDetailRows(d);
+    var pageStart = (d.page - 1) * pageSize;
+    var pagedRows = sortedRows.slice(pageStart, pageStart + pageSize);
+    var panel = document.getElementById(d.panelId);
+    if (!panel) return;
+    var cacheKey = tabKey + "::" + d.page + "::" + pageSize;
+    if (!d.pageCache) d.pageCache = {};
+    var flatData;
+    if (d.pageCache[cacheKey]) {
+        flatData = d.pageCache[cacheKey].flatData;
+    } else {
+        flatData = [];
+        var groups = {};
+        for (var i = 0; i < pagedRows.length; i++) {
+            var r = pagedRows[i];
+            var dateStr = dkGetGroupDate(r, d.dateField, d.fallbackDate);
+            if (!groups[dateStr]) groups[dateStr] = [];
+            groups[dateStr].push(r);
+        }
+        var sortedDates = Object.keys(groups).sort(dkCompareGroupDateAsc);
+        var qtyColIdx = -1; var hasSoLuong = false;
+        for (var ck = 0; ck < d.cols.length; ck++) {
+            if (d.cols[ck].key === "SoLuong" || d.cols[ck].key === "SoLuongDuKien") { qtyColIdx = ck; hasSoLuong = true; }
+        }
+        for (var gi = 0; gi < sortedDates.length; gi++) {
+            var gDate = sortedDates[gi];
+            var groupRows = groups[gDate];
+            var dayTotal = 0;
+            if (hasSoLuong) {
+                for (var ri = 0; ri < groupRows.length; ri++) {
+                    var q = groupRows[ri].SoLuong || groupRows[ri].SoLuongDuKien || 0;
+                    dayTotal += parseFloat(q) || 0;
+                }
+            }
+            var groupKey = "g_" + gi;
+            flatData.push({
+                isHeader: true,
+                date: gDate,
+                dateText: gDate === "Không có ngày" ? gDate : "Ngày " + gDate,
+                count: groupRows.length,
+                countText: formatNumber(groupRows.length, 0),
+                total: dayTotal,
+                totalText: formatNumber(dayTotal, 2),
+                key: groupKey,
+                hasSoLuong: hasSoLuong,
+                qtyColIdx: qtyColIdx,
+                sourceIndex: flatData.length,
+            });
+            for (var ri = 0; ri < groupRows.length; ri++) {
+                var stt = groupRows[ri].__dkVirtualStt || (pageStart + ri + 1);
+                flatData.push({
+                    isHeader: false,
+                    row: groupRows[ri],
+                    groupKey: groupKey,
+                    stt: stt,
+                    cells: dkFormatVirtualCells(d.cols, groupRows[ri], stt),
+                });
+            }
+        }
+        d.pageCache[cacheKey] = { flatData: flatData };
+    }
+    if (!d.collapsedGroupsByPage) d.collapsedGroupsByPage = {};
+    var collapsedGroups = d.collapsedGroupsByPage[cacheKey] || {};
+    d.collapsedGroupsByPage[cacheKey] = collapsedGroups;
+    var visibleFlatData = dkBuildVisibleVirtualRows(flatData, collapsedGroups);
+
+    // Setup DOM
+    var gridTableWrap = panel.querySelector(".dk-grid-table");
+    var gridCols = d.cols.map(function (c) {
+        if (c.width) return (typeof c.width === "number" ? c.width + "px" : c.width);
+        return "minmax(120px, 1fr)";
+    }).join(" ");
+    if (!gridTableWrap) {
+        var shellHtml = '<div class="dk-grid-table">';
+        shellHtml += '<div class="dk-grid-thead dk-grid-row" style="grid-template-columns: ' + gridCols + ';">';
+        for (var c = 0; c < d.cols.length; c++) {
+            var col = d.cols[c];
+            var align = col.center ? "center" : (col.number !== undefined ? "flex-end" : "flex-start");
+            shellHtml += '<div class="dk-grid-cell" style="justify-content: ' + align + '">' + escapeHtml(col.label) + '</div>';
+        }
+        shellHtml += '</div>';
+        shellHtml += '<div class="dk-grid-pinned-group"></div>';
+        shellHtml += '<div class="dk-grid-tbody">';
+        shellHtml += '<div class="dk-grid-spacer"></div>';
+        shellHtml += '<div class="dk-grid-content"></div>';
+        shellHtml += '</div></div>';
+        var totalPages = Math.ceil(d.rows.length / pageSize);
+        if (totalPages > 1) {
+            var btnPrev = '<span style="display:inline-block;width:95px;margin-right:10px"></span>';
+            var btnNext = '<button class="dk-btn-page" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', 1)">Trang sau &#8594;</button>';
+            shellHtml += '<div class="dk-detail-pagination">' + btnPrev + '<span class="dk-pg-text">Trang ' + d.page + ' / ' + totalPages + ' (' + formatNumber(d.rows.length, 0) + ' dòng)</span>' + btnNext + '</div>';
+        }
+        panel.innerHTML = shellHtml;
+        gridTableWrap = panel.querySelector(".dk-grid-table");
+    }
+    // Update pagination
+    var totalPages = Math.ceil(d.rows.length / pageSize);
+    var pagination = panel.querySelector(".dk-detail-pagination");
+    if (totalPages <= 1 && pagination) {
+        pagination.parentNode.removeChild(pagination);
+    } else if (totalPages > 1 && !pagination) {
+        pagination = document.createElement("div");
+        pagination.className = "dk-detail-pagination";
+        panel.appendChild(pagination);
+    }
+    if (pagination && totalPages > 1) {
+        var btnPrev = d.page > 1 ? '<button class="dk-btn-page" style="margin-right:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', -1)">&#8592; Trang trước</button>' : '<span style="display:inline-block;width:95px;margin-right:10px"></span>';
+        var btnNext = d.page < totalPages ? '<button class="dk-btn-page" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', 1)">Trang sau &#8594;</button>' : '<span style="display:inline-block;width:87px;margin-left:10px"></span>';
+        pagination.innerHTML = btnPrev + '<span>Trang ' + d.page + ' / ' + totalPages + ' (' + formatNumber(d.rows.length, 0) + ' dòng)</span>' + btnNext;
+    }
+    var tbody = panel.querySelector(".dk-grid-tbody");
+    var spacer = panel.querySelector(".dk-grid-spacer");
+    var ROW_HEIGHT = 36;
+    d.virtualState = {
+        sourceData: flatData, flatData: visibleFlatData, scrollTop: 0, startIndex: -1, endIndex: -1,
+        rowHeight: ROW_HEIGHT, totalHeight: visibleFlatData.length * ROW_HEIGHT, gridCols: gridCols,
+        colCount: d.cols.length, collapsedGroups: collapsedGroups, cacheKey: cacheKey,
+    };
+    spacer.style.height = d.virtualState.totalHeight + "px";
+    if (tbody.scrollTop !== 0) tbody.scrollTop = 0;
+    window.dkRenderVirtualViewport(tabKey, tbody);
+
+    if (tbody._dkScrollHandler) tbody.removeEventListener("scroll", tbody._dkScrollHandler);
+    tbody._dkScrollHandler = function () { window.dkVirtualScroll(tbody, tabKey); };
+    tbody.addEventListener("scroll", tbody._dkScrollHandler, { passive: true });
+    tbody.onclick = function (ev) {
+        var header = ev.target && ev.target.closest ? ev.target.closest(".dk-grid-group-header") : null;
+        if (header) window.dkToggleVirtualGroup(tabKey, header.getAttribute("data-group"));
+    };
+    var pinnedGroup = panel.querySelector(".dk-grid-pinned-group");
+    if (pinnedGroup) {
+        pinnedGroup.onclick = function (ev) {
+            var header = ev.target && ev.target.closest ? ev.target.closest(".dk-grid-group-header") : null;
+            if (header) window.dkToggleVirtualGroup(tabKey, header.getAttribute("data-group"));
+        };
+    }
+}
+
+function dkRenderVirtualGroupHeader(item, vs, colors) {
+    var collapsed = !!vs.collapsedGroups[item.key];
+    var qtyColIdx = typeof item.qtyColIdx === "number" ? item.qtyColIdx : -1;
+    var colCount = vs.colCount || 1;
+    var titleEnd = item.hasSoLuong && qtyColIdx > 0 ? qtyColIdx + 1 : Math.max(2, colCount);
+    var html = [];
+    html.push('<div class="dk-grid-group-header' + (collapsed ? ' is-collapsed' : '') + '" style="grid-template-columns:' + vs.gridCols + ';background:' + colors.headBg + ';border-top:1px solid ' + colors.headBorder + ';border-bottom:1px solid ' + colors.headBorder + ';height:' + vs.rowHeight + 'px" data-group="' + item.key + '" aria-expanded="' + (!collapsed) + '">');
+    html.push('<div class="dk-grid-group-title" style="grid-column:1 / ' + titleEnd + '">');
+    html.push('<i class="fas ' + (collapsed ? 'fa-chevron-right' : 'fa-chevron-down') + ' dk-toggle-icon" style="color:' + colors.subTextColor + '"></i>');
+    html.push('<span style="font-size:15px;font-weight:700;color:' + colors.dateColor + '">' + escapeHtml(item.dateText || item.date) + '</span>');
+    html.push('</div>');
+    if (item.hasSoLuong && qtyColIdx >= 0) {
+        html.push('<div class="dk-grid-group-total" style="grid-column:' + (qtyColIdx + 1) + ';color:' + colors.totalColor + '">' + item.totalText + '</div>');
+    }
+    html.push('<div class="dk-grid-group-count" style="grid-column:' + colCount + ';color:' + colors.subTextColor + '">' + item.countText + ' dòng</div>');
+    html.push('</div>');
+    return html.join("");
+}
+
+window.dkRenderVirtualViewport = function (tabKey, tbody) {
+    var d = window.__dkDetailData[tabKey];
+    if (!d || !d.virtualState) return;
+    var vs = d.virtualState;
+    var content = tbody.querySelector(".dk-grid-content");
+    if (!content) return;
+    var st = tbody.scrollTop;
+    var clientH = tbody.clientHeight || 400;
+    var startIdx = Math.floor(st / vs.rowHeight);
+    var visibleCount = Math.ceil(clientH / vs.rowHeight);
+    var overscan = 15;
+    startIdx = Math.max(0, startIdx - overscan);
+    var endIdx = Math.min(vs.flatData.length, startIdx + visibleCount + (overscan * 2));
+    if (startIdx === vs.startIndex && endIdx === vs.endIndex) return;
+    vs.startIndex = startIdx;
+    vs.endIndex = endIdx;
+    content.style.transform = "translateY(" + (startIdx * vs.rowHeight) + "px)";
+    var dark = document.body.classList.contains("dark-theme");
+    var headBg = dark ? "#112e51" : "#e0f2f1"; // Nền nhóm ngày: xanh dương-chàm đậm ở dark, xanh nhạt ở light
+    var headBorder = dark ? "#1d3b68" : "#99d5d0";
+    var dateColor = dark ? "#60a5fa" : "#115e59"; // Màu chữ ngày
+    var totalColor = dark ? "#34d399" : "#0e7490"; // Màu chữ tổng (xanh lá ở dark, xanh dương ở light)
+    var subTextColor = dark ? "#cbd5e1" : "#527a7b";
+    var groupColors = {
+        headBg: headBg,
+        headBorder: headBorder,
+        dateColor: dateColor,
+        totalColor: totalColor,
+        subTextColor: subTextColor,
+    };
+    var pinnedItem = null;
+    for (var pi = startIdx; pi >= 0; pi--) {
+        if (vs.flatData[pi] && vs.flatData[pi].isHeader) {
+            pinnedItem = pi === startIdx ? null : vs.flatData[pi];
+            break;
+        }
+    }
+    var panel = document.getElementById(d.panelId);
+    var pinnedGroup = panel ? panel.querySelector(".dk-grid-pinned-group") : null;
+    if (pinnedGroup) {
+        if (pinnedItem) {
+            pinnedGroup.innerHTML = dkRenderVirtualGroupHeader(pinnedItem, vs, groupColors);
+            pinnedGroup.style.display = "";
+        } else {
+            pinnedGroup.innerHTML = "";
+            pinnedGroup.style.display = "none";
+        }
+    }
+    var html = [];
+    for (var i = startIdx; i < endIdx; i++) {
+        var item = vs.flatData[i];
+        if (item.isHeader) {
+            html.push(dkRenderVirtualGroupHeader(item, vs, groupColors));
+        } else {
+            html.push('<div class="dk-grid-row" style="grid-template-columns:' + vs.gridCols + ';height:' + vs.rowHeight + 'px" data-group="' + item.groupKey + '">');
+            for (var c = 0; c < item.cells.length; c++) {
+                html.push('<div class="dk-grid-cell" style="justify-content:' + item.cells[c].align + '">' + escapeHtml(item.cells[c].text) + '</div>');
+            }
+            html.push('</div>');
+        }
+    }
+    content.innerHTML = html.join("");
+};
+
+window.dkVirtualScroll = function (tbody, tabKey) {
+    if (!window.requestAnimationFrame) { window.dkRenderVirtualViewport(tabKey, tbody); return; }
+    var d = window.__dkDetailData[tabKey];
+    if (d && !d.ticking) {
+        window.requestAnimationFrame(function () { window.dkRenderVirtualViewport(tabKey, tbody); d.ticking = false; });
+        d.ticking = true;
+    }
+};
+
+window.dkToggleVirtualGroup = function (tabKey, groupKey) {
+    var d = window.__dkDetailData[tabKey];
+    if (!d || !d.virtualState || !groupKey) return;
+    var vs = d.virtualState;
+    vs.collapsedGroups[groupKey] = !vs.collapsedGroups[groupKey];
+    vs.flatData = dkBuildVisibleVirtualRows(vs.sourceData, vs.collapsedGroups);
+    vs.totalHeight = vs.flatData.length * vs.rowHeight;
+    vs.startIndex = -1;
+    vs.endIndex = -1;
+
+    var panel = document.getElementById(d.panelId);
+    if (!panel) return;
+    var tbody = panel.querySelector(".dk-grid-tbody");
+    var spacer = panel.querySelector(".dk-grid-spacer");
+    if (!tbody || !spacer) return;
+    spacer.style.height = vs.totalHeight + "px";
+    var maxScroll = Math.max(0, vs.totalHeight - tbody.clientHeight);
+    if (tbody.scrollTop > maxScroll) tbody.scrollTop = maxScroll;
+    window.dkRenderVirtualViewport(tabKey, tbody);
+};
+// === END VIRTUAL SCROLL GRID ===
+
 window.__dkDetailData = {};
 window.dkGoDetailPg = function (tabKey, dir) {
     var d = window.__dkDetailData[tabKey];
     if (!d) return;
     d.page += dir;
-    var pageSize = 500;
+    var pageSize = window.DK_DETAIL_PAGE_SIZE || 200;
     var totalPages = Math.ceil(d.rows.length / pageSize);
     if (d.page < 1) d.page = 1;
     if (d.page > totalPages) d.page = totalPages;
-
-    var pagedRows = d.rows.slice((d.page - 1) * pageSize, d.page * pageSize);
-    var html = renderGroupedDetailTable(d.cols, pagedRows, d.dateField);
-
-    if (totalPages > 1) {
-        var btnPrev = d.page > 1 ? '<button class="dk-btn-page" style="margin-right:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', -1)">&#8592; Trang trước</button>' : '';
-        var btnNext = d.page < totalPages ? '<button class="dk-btn-page" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tabKey + '\', 1)">Trang sau &#8594;</button>' : '';
-        html += '<div class="dk-detail-pagination">' +
-            btnPrev + '<span>Trang ' + d.page + ' / ' + totalPages + ' (' + formatNumber(d.rows.length, 0) + ' dòng)</span>' + btnNext +
-            '</div>';
-    }
     var panel = document.getElementById(d.panelId);
-    if (panel) {
-        panel.innerHTML = html;
-        panel.scrollTop = 0;
-    }
-
-    setTimeout(function () {
-        var container = document.getElementById('detailModalContent');
-        if (!container) return;
-        var tabs = container.querySelector(".dk-day-tabs");
-        if (tabs) {
-            var tabsHeight = tabs.offsetHeight;
-            var ths = container.querySelectorAll(".dk-detail-table thead th");
-            for (var i = 0; i < ths.length; i++) {
-                ths[i].style.top = tabsHeight + "px";
-            }
-        }
-    }, 10);
-
+    if (!panel) return;
+    initVirtualScrollGrid(tabKey);
 };
 
 function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
@@ -4518,22 +4883,14 @@ function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
                 "</div>";
         } else {
             window.__dkDetailData = window.__dkDetailData || {};
-            window.__dkDetailData[tp.key] = { cols: tp.cols, rows: tp.rows, dateField: tp.dateField, page: 1, panelId: panelId };
-            var pagedRows = tp.rows.slice(0, 500);
-            var html = renderGroupedDetailTable(tp.cols, pagedRows, tp.dateField);
-            var totalPages = Math.ceil(tp.rows.length / 500);
-            if (totalPages > 1) {
-                var btnNext = '<button class="dk-btn-page" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tp.key + '\', 1)">Trang sau &#8594;</button>';
-                html += '<div class="dk-detail-pagination">' +
-                    '<span>Trang 1 / ' + totalPages + ' (' + formatNumber(tp.rows.length, 0) + ' dòng)</span>' + btnNext +
-                    '</div>';
-            }
-            panels += html;
+            window.__dkDetailData[tp.key] = { cols: tp.cols, rows: tp.rows, dateField: tp.dateField, page: 1, panelId: panelId, loaded: pi === activeIdx };
+            // Virtual scroll grid will be initialized after DOM insert
         }
         panels += "</div>";
     }
 
     container.innerHTML = tabBar + panels;
+    if (tabs[activeIdx] && tabs[activeIdx].rows.length > 0) { initVirtualScrollGrid(tabs[activeIdx].key); }
 
     setTimeout(function () {
         var container = document.getElementById('detailModalContent');
@@ -4562,15 +4919,22 @@ function renderOverviewDetailTabs(container, nhap, xuat, kiemke, planned) {
             for (var p = 0; p < allPanels.length; p++) {
                 allPanels[p].style.display = allPanels[p].getAttribute("data-tabkey") === key ? "" : "none";
             }
+            // Lazy init virtual scroll for newly shown tab
+            var dTab = window.__dkDetailData[key];
+            if (dTab && !dTab.loaded) {
+                dTab.page = 1;
+                initVirtualScrollGrid(key);
+                dTab.loaded = true;
+            }
             var searchInput = document.getElementById("detailSearchInput");
-            if (searchInput && searchInput.value) {
+            if (searchInput) {
                 if (typeof filterDetailTable === "function") filterDetailTable(searchInput.value.trim());
             }
         });
     }
 }
 
-function renderDayDetailTabs(container, nhap, xuat, kiemke, planned) {
+function renderDayDetailTabs(container, nhap, xuat, kiemke, planned, fallbackDate) {
     if (!container) return;
 
     function addStt(arr) {
@@ -4658,22 +5022,19 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned) {
                 " trong ngày này</div>";
         } else {
             window.__dkDetailData = window.__dkDetailData || {};
-            window.__dkDetailData[tp.key] = { cols: tp.cols, rows: tp.rows, dateField: tp.dateField, page: 1, panelId: panelId };
-            var pagedRows = tp.rows.slice(0, 500);
-            var html = renderGroupedDetailTable(tp.cols, pagedRows, tp.dateField);
-            var totalPages = Math.ceil(tp.rows.length / 500);
-            if (totalPages > 1) {
-                var btnNext = '<button class="dk-btn-page" style="margin-left:10px" onclick="window.dkGoDetailPg(\'' + tp.key + '\', 1)">Trang sau &#8594;</button>';
-                html += '<div class="dk-detail-pagination">' +
-                    '<span>Trang 1 / ' + totalPages + ' (' + formatNumber(tp.rows.length, 0) + ' dòng)</span>' + btnNext +
-                    '</div>';
-            }
-            panels += html;
+            window.__dkDetailData[tp.key] = { cols: tp.cols, rows: tp.rows, dateField: tp.dateField, fallbackDate: fallbackDate || "", page: 1, panelId: panelId, loaded: pi === activeIdx };
+            // Virtual scroll grid will be initialized after DOM insert
         }
         panels += "</div>";
     }
 
     container.innerHTML = tabBar + panels;
+    if (tabs[activeIdx] && tabs[activeIdx].rows.length > 0) { initVirtualScrollGrid(tabs[activeIdx].key); }
+    var rcEl = byId("detailModalRowCount");
+    if (rcEl) {
+        var initialCount = tabs[activeIdx] ? tabs[activeIdx].rows.length : 0;
+        rcEl.textContent = "Tổng số dòng: " + formatNumber(initialCount, 0);
+    }
 
     setTimeout(function () {
         var container = document.getElementById('detailModalContent');
@@ -4702,8 +5063,21 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned) {
             for (var p = 0; p < allPanels.length; p++) {
                 allPanels[p].style.display = allPanels[p].getAttribute("data-tabkey") === key ? "" : "none";
             }
+            // Lazy init virtual scroll for newly shown tab
+            var dTab = window.__dkDetailData[key];
+            if (dTab && !dTab.loaded) {
+                dTab.page = 1;
+                initVirtualScrollGrid(key);
+                dTab.loaded = true;
+            }
+            // Update row count in footer
+            var rcEl = byId("detailModalRowCount");
+            if (rcEl) {
+                var rowCount = dTab && dTab.rows ? dTab.rows.length : 0;
+                rcEl.textContent = "Tổng số dòng: " + formatNumber(rowCount, 0);
+            }
             var searchInput = document.getElementById("detailSearchInput");
-            if (searchInput && searchInput.value) {
+            if (searchInput) {
                 if (typeof filterDetailTable === "function") filterDetailTable(searchInput.value.trim());
             }
         });
@@ -4741,7 +5115,7 @@ function showLpcpMonthModal(type) {
         tong: "Tất cả Task Phụ Liệu trong tháng",
         hoan: "Task Phụ Liệu - Hoàn thành",
         dang: "Task Phụ Liệu - Đang thực hiện",
-        cho: "Task Phụ Liệu - Chờ thực hiện",
+        cho: "Task Phụ Liệu - Chưa thực hiện",
         canhbao: "Task Phụ Liệu - Cảnh báo / Chưa HT",
     };
 
@@ -4817,7 +5191,7 @@ function showLpcpMonthModal(type) {
                 '<th style="padding:14px 16px;text-align:center;border-bottom:1px solid var(--dk-line);font-weight:600;color:var(--dk-title);width:15%;">Trạng thái</th>';
             html += "</tr></thead><tbody>";
 
-            var STATUS_LABELS = ["Chờ TH", "Đang TH", "Hoàn thành", "Chưa HT"];
+            var STATUS_LABELS = ["Chưa TH", "Đang TH", "Hoàn thành", "Chưa HT"];
             var STATUS_BG = [
                 "rgba(249,115,22,0.15)",
                 "rgba(59,130,246,0.15)",
@@ -4939,7 +5313,7 @@ function showLpcpInlineDetail(dateKey) {
         }
     });
 
-    var TT_LABELS = ["Ch\u1edd TH", "\u0110ang TH", "Ho\u00e0n th\u00e0nh", "Ch\u01b0a HT"];
+    var TT_LABELS = ["Ch\u01b0a TH", "\u0110ang TH", "Ho\u00e0n th\u00e0nh", "Ch\u01b0a HT"];
     var TT_COLORS = ["#d97706", "#2563eb", "#059669", "#ef4444"];
     var TT_BG = ["rgba(217,119,6,0.1)", "rgba(37,99,235,0.1)", "rgba(5,150,105,0.1)", "rgba(239,68,68,0.15)"];
 
@@ -5183,7 +5557,7 @@ function showLpcpInlineDetail(dateKey) {
                         "</span>" +
                         timeHtml +
                         "</div>" +
-                        ttBadge(po.TrangThai || 0) +
+                        ttBadge(po.SLSoan === 0 ? 0 : (po.TrangThai || 0)) +
                         "</div>" +
                         (brand
                             ? "<div style='font-size:10px;color:var(--dk-title);margin-top:2px;opacity:0.9;'>" +
@@ -5244,6 +5618,15 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
     var headEl = modal ? modal.querySelector(".dk-modal-head") : null;
     if (!modal || !contentEl) return;
 
+    var rcEl = document.getElementById("detailModalRowCount");
+    if (rcEl) {
+        var count = 0;
+        if (section === "warn") count = warnings.length;
+        else if (section === "task") count = assignments.length;
+        else if (section === "pick") count = pickOrders.length;
+        rcEl.textContent = "Tổng số dòng: " + formatNumber(count, 0);
+    }
+
     // Hide search bar (not used here)
     var searchBar = document.querySelector(".dk-modal-search-bar");
     if (searchBar) searchBar.style.display = "none";
@@ -5254,7 +5637,7 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
         headEl.classList.add("section-" + section);
     }
 
-    var TT_LABELS = ["Chờ TH", "Đang TH", "Hoàn thành", "Chưa HT"];
+    var TT_LABELS = ["Chưa TH", "Đang TH", "Hoàn thành", "Chưa HT"];
     var TT_SLUG = ["cho", "dang", "done", "chua"];
 
     function badge(tt) {
@@ -5449,7 +5832,7 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
                     slYeuCauHtml +
                     slSoanHtml +
                     thieu +
-                    badge(po.TrangThai || 0) +
+                    badge(po.SLSoan === 0 ? 0 : (po.TrangThai || 0)) +
                     "</div>";
             });
 
@@ -5484,7 +5867,7 @@ function appendLpcpTab(container, lpcpData) {
     var total = assignments.length + pickOrders.length;
 
     var isDark = document.body.classList.contains("dark-theme");
-    var TT_LABELS = ["Chờ thực hiện", "Đang thực hiện", "Hoàn thành", "Chưa hoàn thành"];
+    var TT_LABELS = ["Chưa thực hiện", "Đang thực hiện", "Hoàn thành", "Chưa hoàn thành"];
     var TT_COLORS = ["#d97706", "#3b82f6", "#10b981", "#ef4444"]; // Adjusted colors slightly for better contrast
     var TT_BG = isDark
         ? ["rgba(217,119,6,0.15)", "rgba(59,130,246,0.15)", "rgba(16,185,129,0.15)", "rgba(239,68,68,0.15)"]
@@ -5533,14 +5916,15 @@ function appendLpcpTab(container, lpcpData) {
     var html = "";
 
     // Left: Phân công nhân viên
-    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;">';
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;height:100%;min-height:0;box-sizing:border-box;">';
 
-    html += "<div>";
+    html += '<div style="display:flex;flex-direction:column;height:100%;min-height:0;overflow:hidden;">';
     html +=
         '<div style="font-size:10px;font-weight:700;color:' +
         subColor +
         ";text-transform:uppercase;" +
-        'letter-spacing:.05em;margin-bottom:8px;">Phân công công việc</div>';
+        'letter-spacing:.05em;margin-bottom:8px;flex:0 0 auto;">Phân công công việc</div>';
+    html += '<div style="flex:1;overflow-y:auto;min-height:0;padding-right:4px;">';
     if (assignments.length === 0) {
         html +=
             '<div style="color:' +
@@ -5585,15 +5969,16 @@ function appendLpcpTab(container, lpcpData) {
                 "</div>";
         });
     }
-    html += "</div>";
+    html += "</div></div>";
 
     // Right: Phụ liệu soạn hàng
-    html += "<div>";
+    html += '<div style="display:flex;flex-direction:column;height:100%;min-height:0;overflow:hidden;">';
     html +=
         '<div style="font-size:10px;font-weight:700;color:' +
         subColor +
         ";text-transform:uppercase;" +
-        'letter-spacing:.05em;margin-bottom:8px;">Phụ liệu — Soạn hàng</div>';
+        'letter-spacing:.05em;margin-bottom:8px;flex:0 0 auto;">Phụ liệu — Soạn hàng</div>';
+    html += '<div style="flex:1;overflow-y:auto;min-height:0;padding-right:4px;">';
     if (pickOrders.length === 0) {
         html +=
             '<div style="color:' +
@@ -5645,11 +6030,11 @@ function appendLpcpTab(container, lpcpData) {
                 "</span>" +
                 "</div>" +
                 "</div>" +
-                ttBadge(po.TrangThai || 0) +
+                ttBadge(po.SLSoan === 0 ? 0 : (po.TrangThai || 0)) +
                 "</div>";
         });
     }
-    html += "</div></div>"; // grid end
+    html += "</div></div></div>"; // grid end
 
     // Create panel div
     var panel = document.createElement("div");
@@ -5668,6 +6053,16 @@ function appendLpcpTab(container, lpcpData) {
         for (var p = 0; p < allPanels.length; p++) {
             allPanels[p].style.display = allPanels[p].getAttribute("data-tabkey") === "lpcp" ? "" : "none";
         }
+        // Update footer row count for Phân công PL
+        var rcEl = byId("detailModalRowCount");
+        if (rcEl) {
+            rcEl.textContent = "Tổng số dòng: " + formatNumber(total, 0);
+        }
+        // Reset search input and count to avoid confusion
+        var searchInput = document.getElementById("detailSearchInput");
+        if (searchInput) searchInput.value = "";
+        var searchCount = document.getElementById("detailSearchCount");
+        if (searchCount) searchCount.textContent = "";
     });
 }
 

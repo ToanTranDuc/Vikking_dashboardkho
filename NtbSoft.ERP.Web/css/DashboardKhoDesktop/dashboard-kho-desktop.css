@@ -22742,6 +22742,7 @@ fieldset:disabled .btn {
     --dk-bg-card-2: #ffffff;
     --dk-bg-soft: #f1f5f9;
     --dk-sb-text: #334155;
+    --dk-card-alt: #f8fafc;
 }
 
 /* v2.4.1 — Khi dark theme: override 6 token trên (không đụng selector dùng var) */
@@ -22752,6 +22753,7 @@ body.dark-theme {
     --dk-bg-card-2: #142a4c;
     --dk-bg-soft: rgba(255, 255, 255, 0.06);
     --dk-sb-text: #cbd5e1;
+    --dk-card-alt: rgba(255, 255, 255, 0.06);
 }
 
 * {
@@ -23806,19 +23808,27 @@ PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP  
 .dk-modal {
     position: fixed;
     inset: 0;
-    display: none;
+    display: flex;
+    /* Always flex, hide via visibility */
     z-index: 9999;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    contain: layout paint style;
+    isolation: isolate;
 }
 
 .dk-modal.open {
-    display: block;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .dk-modal-backdrop {
     position: absolute;
     inset: 0;
     background: rgba(7, 20, 33, 0.60);
-    backdrop-filter: blur(3px);
+    /* Removed backdrop-filter: blur to test Commit/Paint */
 }
 
 @keyframes dk-modal-in {
@@ -23841,8 +23851,7 @@ PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP  
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 24px 80px rgba(10, 30, 60, 0.30);
-    animation: dk-modal-in 0.22s ease both;
+    /* Removed box-shadow and animation to test performance */
 }
 
 .dk-modal-head {
@@ -23936,10 +23945,27 @@ PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP  
 }
 
 .dk-modal-content {
-    overflow: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
     flex: 1;
     padding: 0 0 12px;
+    max-height: calc(100vh - 80px);
+
+    contain: layout paint;
+    /* Removed translateZ and will-change to test if Layerize drops */
 }
+
+.dk-modal-content .dk-detail-table-wrap,
+.dk-modal-content .dk-detail-table {
+    /* Removed contain: layout paint to reduce Commit time per user request */
+}
+
+/* Removed body.modal-open to prevent global style invalidation, handled in JS */
+
+/* Hide dashboard in background when modal opens to save rendering */
+/* Removed content-visibility: hidden because it forces layout recalculation on open */
 
 /* v2.3.41 — Slot section group (NL / PL) */
 .dk-slot-section {
@@ -24052,14 +24078,13 @@ PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP  
 .dk-detail-table thead th {
     color: #fff;
     font-weight: 800;
-    font-size: 11.5px;
+    font-size: 15px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     background: linear-gradient(135deg, #3b6bd0 0%, #5b8cf0 50%, #4f7ad6 100%) !important;
     border-bottom: 2px solid #2563eb !important;
     padding: 11px 12px;
-    position: sticky;
-    top: 0;
+    /* Removed position: sticky to test Layerize/Commit performance */
     z-index: 5;
     box-shadow: 0 2px 4px rgba(37, 99, 235, 0.18);
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
@@ -24079,34 +24104,28 @@ PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP  
 }
 
 /* v2.3.40 — Zebra với gradient subtle */
-.dk-detail-table tbody tr:nth-child(odd) {
+.dk-detail-row:nth-child(odd) {
     background: #ffffff;
 }
 
-.dk-detail-table tbody tr:nth-child(even) {
+.dk-detail-row:nth-child(even) {
     background: linear-gradient(90deg, #f5f9ff 0%, #f1f6ff 50%, #f5f9ff 100%);
 }
 
-/* Hover effect: cell highlight + left border indicator */
-.dk-detail-table tbody tr {
+.dk-detail-table {
+    pointer-events: none;
+    /* Disable all mouse events for maximum scroll performance */
+}
+
+.dk-detail-row {
     position: relative;
 }
 
-.dk-detail-table tbody tr td {
-    transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+.dk-detail-cell {
+    /* Removed transition and hover */
 }
 
-.dk-detail-table tbody tr:hover td {
-    background: #d0e7ff !important;
-    color: var(--dk-text-strong) !important;
-    font-weight: 600;
-}
-
-.dk-detail-table tbody tr:hover td:first-child {
-    box-shadow: inset 5px 0 0 #2563eb !important;
-}
-
-.dk-detail-table tbody tr:last-child td {
+.dk-detail-row:last-child .dk-detail-cell {
     border-bottom: none;
 }
 
@@ -24122,63 +24141,7 @@ PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP  
     font-weight: 600;
 }
 
-/* v2.3.40 — Row fade-in on render */
-@keyframes dk-row-fade-in {
-    from {
-        opacity: 0;
-        transform: translateX(-4px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.dk-detail-table tbody tr {
-    animation: dk-row-fade-in 0.2s ease both;
-}
-
-/* Stagger first 10 rows */
-.dk-detail-table tbody tr:nth-child(1) {
-    animation-delay: 0.02s;
-}
-
-.dk-detail-table tbody tr:nth-child(2) {
-    animation-delay: 0.04s;
-}
-
-.dk-detail-table tbody tr:nth-child(3) {
-    animation-delay: 0.06s;
-}
-
-.dk-detail-table tbody tr:nth-child(4) {
-    animation-delay: 0.08s;
-}
-
-.dk-detail-table tbody tr:nth-child(5) {
-    animation-delay: 0.10s;
-}
-
-.dk-detail-table tbody tr:nth-child(6) {
-    animation-delay: 0.12s;
-}
-
-.dk-detail-table tbody tr:nth-child(7) {
-    animation-delay: 0.14s;
-}
-
-.dk-detail-table tbody tr:nth-child(8) {
-    animation-delay: 0.16s;
-}
-
-.dk-detail-table tbody tr:nth-child(9) {
-    animation-delay: 0.18s;
-}
-
-.dk-detail-table tbody tr:nth-child(10) {
-    animation-delay: 0.20s;
-}
+/* Removed row animations to improve performance */
 
 /* v2.3.17 — Cột text dài (TenKH/TenVT/ChiTiet/TenHang/TenNhom) cho phép wrap, max-width 280px */
 .dk-detail-table td[style*="text-align:left"] {
@@ -24189,9 +24152,6 @@ PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP  
 
 .dk-detail-table th {
     white-space: nowrap;
-    position: sticky;
-    top: 0;
-    z-index: 1;
     background: linear-gradient(180deg, #dbeafe 0%, #bfdbfe 100%);
     color: var(--dk-text-strong);
     font-weight: 800;
@@ -26723,9 +26683,10 @@ body.dark-theme .dk-modal-backdrop {
 }
 
 body.dark-theme .dk-modal-dialog {
-    background: linear-gradient(180deg, #142a4c 0%, #0d1d35 100%) !important;
+    background: #0d1d35 !important;
+    /* Simplified from linear-gradient */
     border: 1px solid var(--dkk-border) !important;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6) !important;
+    /* Removed box-shadow */
 }
 
 body.dark-theme .dk-modal-head {
@@ -26796,9 +26757,9 @@ body.dark-theme .dk-detail-table {
 }
 
 body.dark-theme .dk-detail-table thead th {
-    background: linear-gradient(135deg, #1e3a6b 0%, #2563eb 50%, #1e40af 100%) !important;
-    color: #f1f5fb !important;
-    border-bottom: 2px solid #3b82f6 !important;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1d4ed8 100%) !important;
+    color: #ffffff !important;
+    border-bottom: 2px solid #60a5fa !important;
 }
 
 body.dark-theme .dk-detail-table tbody td {
@@ -26820,7 +26781,7 @@ body.dark-theme .dk-detail-table tbody tr:hover td {
 }
 
 body.dark-theme .dk-detail-table tbody tr:hover td:first-child {
-    box-shadow: inset 5px 0 0 #60a5fa !important;
+    /* Removed box shadow on hover */
 }
 
 /* Grouped table (dark) */
@@ -31590,13 +31551,11 @@ body.dark-theme .dk-lpcp-detail-date {
     padding: 8px 16px;
     background: #f1f5f9;
     border-bottom: 2px solid #e2e8f0;
-    position: sticky;
-    top: 0;
-    z-index: 2;
+    /* Removed sticky */
 }
 
 .dk-lpcp-modal-thead>span {
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 700;
     color: #64748b;
     text-transform: uppercase;
@@ -32104,9 +32063,9 @@ body.dark-theme .dk-detail-table td {
 }
 
 body.dark-theme .dk-detail-table thead th {
-    background: linear-gradient(135deg, #1a3a6e 0%, #1e4faf 50%, #1a3060 100%) !important;
-    color: #e2e8f0 !important;
-    border-bottom: 2px solid rgba(96, 165, 250, .4) !important;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1d4ed8 100%) !important;
+    color: #ffffff !important;
+    border-bottom: 2px solid #60a5fa !important;
     text-shadow: 0 1px 2px rgba(0, 0, 0, .3) !important;
 }
 
@@ -32128,8 +32087,6 @@ body.dark-theme .dk-detail-table tbody tr:hover,
 body.dark-theme .dk-detail-table tbody tr:hover td {
     background: rgba(96, 165, 250, .13) !important;
     color: #f1f5f9 !important;
-    font-weight: 600 !important;
-    box-shadow: inset 4px 0 0 #60a5fa !important;
 }
 
 /* Number columns trong dark */
@@ -33256,26 +33213,207 @@ body.dark-theme .dk-lpcp-side-topbar {
     overflow: clip;
     border-radius: 10px;
     border: 1px solid #e2e8f0;
-    box-shadow: 0 1px 6px rgba(37, 99, 235, 0.07);
+    /* Removed box-shadow for performance */
     margin: 0 12px 12px;
 }
 
 body.dark-theme .dk-detail-table-wrap {
     border-color: rgba(96, 165, 250, 0.22) !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
+    /* Removed box-shadow for performance */
 }
 
-/* v2.6.5 — Tabs bar: sticky — luôn hiển thấy khi scroll */
-.dk-modal-content>.dk-day-tabs {
-    position: sticky;
+/* ════════════════════════════════════════════════════════════════
+   VIRTUAL SCROLL DIV GRID (v2.8)
+   ════════════════════════════════════════════════════════════════ */
+.dk-grid-table {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 24px);
+    min-height: 0;
+    flex: 1 1 auto;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    margin: 0 12px 12px;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: #fff;
+}
+
+body.dark-theme .dk-grid-table {
+    border-color: rgba(96, 165, 250, 0.22) !important;
+    background: #111827;
+}
+
+.dk-grid-thead {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    background: #eef2f7;
+    border-bottom: 2px solid #94a3b8;
+}
+
+body.dark-theme .dk-grid-thead {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1d4ed8 100%) !important;
+    border-color: #60a5fa !important;
+}
+
+.dk-grid-thead .dk-grid-cell {
+    min-height: 32px;
+    color: #0f172a;
+    font-size: 15px;
+    font-weight: 800;
+    border-right: 1px solid #cbd5e1;
+    background: #eef2f7;
+}
+
+.dk-grid-thead .dk-grid-cell:last-child {
+    border-right: none;
+}
+
+body.dark-theme .dk-grid-thead .dk-grid-cell {
+    color: #f1f5f9;
+    border-color: rgba(255, 255, 255, 0.08);
+    background: transparent !important;
+}
+
+.dk-grid-tbody {
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.dk-grid-tbody::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.dk-grid-pinned-group {
+    display: none;
+    flex: 0 0 auto;
+}
+
+.dk-grid-spacer {
+    position: absolute;
     top: 0;
-    z-index: 20;
+    left: 0;
+    width: 1px;
+    /* Height will be set via JS */
+}
+
+.dk-grid-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.dk-grid-row {
+    display: grid;
+    /* grid-template-columns will be set via JS based on cols */
+    box-sizing: border-box;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+body.dark-theme .dk-grid-row {
+    border-color: #334155;
+}
+
+.dk-grid-tbody .dk-grid-row:hover {
+    background: #e5e7eb;
+}
+
+.dk-grid-tbody .dk-grid-row:hover .dk-grid-cell {
+    color: #0f172a;
+}
+
+body.dark-theme .dk-grid-tbody .dk-grid-row:hover {
+    background: #243244;
+}
+
+body.dark-theme .dk-grid-tbody .dk-grid-row:hover .dk-grid-cell {
+    color: #ffffff;
+}
+
+.dk-grid-cell {
+    padding: 6px 8px;
+    font-size: 13px;
+    color: #334155;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+}
+
+body.dark-theme .dk-grid-cell {
+    color: #e2e8f0;
+}
+
+.dk-grid-group-header {
+    display: grid;
+    align-items: center;
+    padding: 6px 8px 6px 12px;
+    font-weight: bold;
+    cursor: pointer;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+.dk-grid-group-title {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+.dk-grid-group-total {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    font-size: 13px;
+}
+
+.dk-grid-group-count {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 0;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.dk-grid-group-header .dk-toggle-icon {
+    width: 14px;
+    margin-right: 6px;
+    font-size: 11px;
+    text-align: center;
+    flex: 0 0 14px;
+}
+
+/* v2.6.5 — Tabs bar: sticky — luôn hiển thấy khi scroll (Now handled by Flexbox) */
+.dk-modal-content>.dk-day-tabs {
+    /* Removed sticky since Flexbox wrapper now keeps it at the top */
     background: #fff;
     margin-bottom: 0;
     padding-top: 12px;
     padding-bottom: 4px;
     padding-left: 12px;
     padding-right: 12px;
+    flex: 0 0 auto;
+}
+
+.dk-modal-content>.dk-day-panel {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 body.dark-theme .dk-modal-content>.dk-day-tabs {
@@ -33283,15 +33421,7 @@ body.dark-theme .dk-modal-content>.dk-day-tabs {
 }
 
 .dk-modal-content .dk-detail-table thead th {
-    position: sticky !important;
-    top: 0;
-    z-index: 10 !important;
-}
-
-.dk-modal-content .dk-detail-table th {
-    position: sticky !important;
-    top: 0;
-    z-index: 10 !important;
+    /* Removed sticky */
 }
 
 /* END v2.6.5 */
@@ -33321,7 +33451,8 @@ body.dark-theme .dk-modal-content>.dk-day-tabs {
 }
 
 body.dark-theme .dk-modal-content .dk-detail-table thead th {
-    background: linear-gradient(135deg, #1e3a6e 0%, #1e40af 50%, #1d3a8e 100%) !important;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1d4ed8 100%) !important;
+    border-bottom: 2px solid #60a5fa !important;
 }
 
 .dk-modal-content .dk-detail-table tbody tr:nth-child(odd) td {
@@ -33355,7 +33486,6 @@ body.dark-theme .dk-modal-content .dk-detail-table tbody tr:nth-child(even) td {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    backdrop-filter: blur(2px);
     border-radius: 8px;
 }
 
@@ -36320,9 +36450,7 @@ body.dark-theme .dk-cal-month-11 {
 
 /* Pagination Styles */
 .dk-detail-pagination {
-    position: sticky;
-    bottom: -12px;
-    z-index: 25;
+    /* Removed sticky */
     margin-top: 10px;
     text-align: center;
     padding: 6px 15px;
@@ -36354,21 +36482,17 @@ body.dark-theme .dk-detail-pagination {
     cursor: pointer;
     font-size: 12px;
     font-weight: 600;
-    transition: all 0.2s;
 }
 
-.dk-btn-page:hover {
-    background: rgba(0, 0, 0, 0.05);
+/* Removed will-change to test if Layerize drops */
+.dk-is-scrolling .dk-detail-table {
+    pointer-events: none !important;
 }
 
 body.dark-theme .dk-btn-page {
     background: transparent;
     border-color: rgba(96, 165, 250, 0.3);
     color: var(--dkk-text, #e2eaf5);
-}
-
-body.dark-theme .dk-btn-page:hover {
-    background: rgba(96, 165, 250, 0.1);
 }
 
 
