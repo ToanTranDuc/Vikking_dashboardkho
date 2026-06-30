@@ -951,7 +951,7 @@ select sum(CapPhat) as SLYeuCau, MaLenhSanXuat
         GROUP BY ct.SoLoID, ct.MaNPL;
 
         IF OBJECT_ID('tempdb..#NhapFinalR_NDR') IS NOT NULL DROP TABLE #NhapFinalR_NDR;
-        SELECT TOP 2000
+        SELECT 
             ISNULL(nk.SoLo, '')                                                    AS PINCC,
             a.PO                                                                   AS PO,
             a.MaNPL                                                                AS MaNPL,
@@ -1010,7 +1010,7 @@ select sum(CapPhat) as SLYeuCau, MaLenhSanXuat
 
     ELSE IF @Action = 'GetXuatDetailByRange'
     BEGIN
-        SELECT TOP 2000
+        SELECT 
             xh.MaLenh,
             COUNT(*)                        AS SoBarCode,
             SUM(ISNULL(xh.SLNhap, 0))       AS SoLuong,
@@ -1053,7 +1053,7 @@ select sum(CapPhat) as SLYeuCau, MaLenhSanXuat
 
         IF @HasV2R = 2
         BEGIN
-            SELECT TOP 2000
+            SELECT 
                 ISNULL(kk.PhieuKiemKe, '')     AS PhieuKiemKe,
                 ISNULL(kk.SoLo, '')            AS SoLo,
                 COUNT(*)                    AS SoBarCode,
@@ -1072,7 +1072,7 @@ select sum(CapPhat) as SLYeuCau, MaLenhSanXuat
         END
         ELSE
         BEGIN
-            SELECT TOP 2000
+            SELECT 
                 ISNULL(kk.PhieuKiemKe, '')     AS PhieuKiemKe,
                 ISNULL(kk.SoLo, '')            AS SoLo,
                 COUNT(*)                    AS SoBarCode,
