@@ -1,4 +1,4 @@
-﻿
+
 USE [PMS_QLDH_VIKING_2025];
 GO
 
@@ -303,35 +303,15 @@ BEGIN
     -- ===================================================================
     ELSE IF @Action = 'GetChuanBiVe'
     BEGIN
-        ;WITH ChiTiet AS
-        (
-            SELECT
-                ct.SoLoID,
-                ct.POMua,
-                ct.MaNPL,
-                MAX(ISNULL(ct.SLTong, 0)) AS SLTong
-            FROM dbo.ERP_ChiTietNhapKhoNPL ct
-            GROUP BY ct.SoLoID, ct.POMua, ct.MaNPL
-        ),
-        ChiTietTheoSoLo AS
-        (
-            SELECT
-                ct.SoLoID,
-                ct.POMua,
-                SUM(ISNULL(ct.SLTong, 0)) AS SLTong
-            FROM ChiTiet ct
-            GROUP BY ct.SoLoID, ct.POMua
-        ),
-        NhapKho AS
+
+        ;WITH NhapKho AS
         (
             SELECT
                 nk.SoLoID,
                 nk.POMua,
                 MAX(nk.SoLo) AS SoLo,
                 MAX(ISNULL(nk.MaKH, '')) AS MaKH,
-                MAX(ISNULL((SELECT TOP 1 dh.MaDH FROM dbo.DonHangTong dh WHERE dh.MaHang = nk.MaHang AND dh.MaKH = nk.MaKH), '')) AS MaDH,
                 MAX(ISNULL(nk.MaHang, '')) AS MaHang,
-                MAX(ISNULL((SELECT TOP 1 hh.TenHang FROM dbo.HangHoa hh WHERE hh.MaHang = nk.MaHang AND hh.MaKH = nk.MaKH), '')) AS TenHang,
                 MIN(CAST(nk.NgayNKDuKien AS date)) AS NgayNKDuKien
             FROM dbo.ERP_NhapKhoNPL nk
             WHERE nk.NgayNKDuKien IS NOT NULL
@@ -346,9 +326,9 @@ BEGIN
             MAX(nk.SoLo) AS SoLo,
             nk.POMua AS PO,
             nk.POMua,
-            MAX(nk.MaDH) AS MaDH,
+            ISNULL((SELECT TOP 1 dh.MaDH FROM dbo.DonHangTong dh WHERE dh.MaHang = MAX(nk.MaHang) AND dh.MaKH = MAX(nk.MaKH)), '') AS MaDH,
             MAX(nk.MaHang) AS MaHang,
-            MAX(nk.TenHang) AS TenHang,
+            ISNULL((SELECT TOP 1 hh.TenHang FROM dbo.HangHoa hh WHERE hh.MaHang = MAX(nk.MaHang) AND hh.MaKH = MAX(nk.MaKH)), '') AS TenHang,
             MIN(nk.NgayNKDuKien) AS NgayNKDuKien,
             MIN(nk.NgayNKDuKien) AS NgayNhapKho_Update,
             CAST(N'' AS NVARCHAR(200)) AS MaNPL,
@@ -356,7 +336,15 @@ BEGIN
             CAST(0 AS decimal(18, 2)) AS SoLuongThung,
             MAX(ISNULL(kh.TenKH, '')) AS TenKH
         FROM NhapKho nk
-        LEFT JOIN ChiTietTheoSoLo ct ON ct.SoLoID = nk.SoLoID AND ct.POMua = nk.POMua
+        LEFT JOIN (
+            SELECT SoLoID, POMua, SUM(SLTong) AS SLTong
+            FROM (
+                SELECT SoLoID, POMua, MaNPL, MAX(ISNULL(SLTong, 0)) AS SLTong
+                FROM dbo.ERP_ChiTietNhapKhoNPL
+                GROUP BY SoLoID, POMua, MaNPL
+            ) AS tmp
+            GROUP BY SoLoID, POMua
+        ) ct ON ct.SoLoID = nk.SoLoID AND ct.POMua = nk.POMua
         LEFT JOIN KhachHang kh ON kh.MaKH = nk.MaKH
         GROUP BY nk.POMua
         ORDER BY MIN(nk.NgayNKDuKien), nk.POMua;
