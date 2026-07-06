@@ -278,6 +278,7 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             try
             {
                 DashboardKhoDesktopModel.ClearCache();
+                System.Runtime.Caching.MemoryCache.Default.Remove("dk_LichPhanCong_GetNhanVienList");
                 return Ok(new { Message = "Cache cleared", At = DateTime.Now });
             }
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
@@ -759,6 +760,13 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
         {
             try
             {
+                var cache = System.Runtime.Caching.MemoryCache.Default;
+                string cacheKey = "dk_LichPhanCong_GetNhanVienList";
+                if (cache.Contains(cacheKey))
+                {
+                    return Ok(new { success = true, data = cache.Get(cacheKey) });
+                }
+
                 var result = new System.Collections.Generic.List<NtbSoft.ERP.Model.DashboardKho.LichPhanCong_NhanVienModel>();
                 string connectionString = System.Configuration.ConfigurationManager
                     .ConnectionStrings["strCnn_ln"].ConnectionString;
@@ -794,6 +802,7 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
                         }
                     }
                 }
+                cache.Add(cacheKey, result, DateTimeOffset.Now.AddMinutes(30));
                 return Ok(new { success = true, data = result });
             }
             catch (Exception ex)

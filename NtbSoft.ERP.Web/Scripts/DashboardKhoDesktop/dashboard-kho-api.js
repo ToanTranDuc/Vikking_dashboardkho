@@ -8,8 +8,50 @@
  * Thực hiện gọi API GET bằng XMLHttpRequest, tự động Parse JSON và quản lý hàng đợi, xử lý lỗi mạng.
  */
 function requestJson(url) {
+    var staticEndpoints = [
+        "/GetOverallCapacity",
+        "/GetCustomers",
+        "/GetDistinctMaterialCount",
+        "/GetAllMaterialsInStock",
+        "/GetRacks",
+        "/GetTop5KhachHangTonKho",
+        "/GetTop5VatTuDungTich",
+        "/GetVatTuSapHetHan",
+        "/GetGiaTriTonKhoTheoNhom",
+        "/GetTinhHinhKiemKe",
+        "/LichPhanCong_GetNhanVienList",
+        "/GetRackSlotDetail"
+    ];
+    
+    var isStatic = staticEndpoints.some(function(e) { return url.indexOf(e) !== -1; });
+    if (isStatic) {
+        try {
+            var cached = sessionStorage.getItem("dkcache_" + url);
+            if (cached) {
+                var parsed = JSON.parse(cached);
+                if (!parsed._expire || parsed._expire > new Date().getTime()) {
+                    return Promise.resolve(parsed.data);
+                }
+            }
+        } catch (e) { }
+    }
+
     return new Promise(function (resolve, reject) {
-        __requestQueue.push({ url: url, resolve: resolve, reject: reject });
+        __requestQueue.push({ 
+            url: url, 
+            resolve: function(data) {
+                if (isStatic) {
+                    try {
+                        sessionStorage.setItem("dkcache_" + url, JSON.stringify({
+                            data: data,
+                            _expire: new Date().getTime() + 60 * 60 * 1000 // 1 hour
+                        }));
+                    } catch (e) { }
+                }
+                resolve(data);
+            }, 
+            reject: reject 
+        });
         __processRequestQueue();
     });
 }

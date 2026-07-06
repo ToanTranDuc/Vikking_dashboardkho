@@ -13,6 +13,13 @@ function bindEvents() {
      */
     function refreshWithClearCache() {
         sessionStorage.setItem("dk_restore_tab", currentPage);
+        // Clear all cached static API data
+        for (var i = sessionStorage.length - 1; i >= 0; i--) {
+            var key = sessionStorage.key(i);
+            if (key && key.indexOf("dkcache_") === 0) {
+                sessionStorage.removeItem(key);
+            }
+        }
         requestJson("/api/DashboardKhoDesktop/ClearCache")
             .then(function () {
                 window.location.reload();
