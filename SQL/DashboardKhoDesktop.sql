@@ -2571,6 +2571,28 @@ BEGIN
     -- ===================================================================
     IF @Action = 'GetCalendarMonth'
     BEGIN
+        -- [OPTIMIZED] Tính trước số lượng thiếu NPL của toàn bộ phiếu soạn hàng (Fast Indexing & Aggregation)
+        SELECT 
+            sub1.MaLenhSX, 
+            CONVERT(DATE, sub1.NgaySoanHang) AS NgaySoanHang,
+            sub1.NguoiSoanHang,
+            MAX(sub1.SLCapPhat) AS CapPhat, 
+            ISNULL(SUM(sub2.SLSoanHang_BC), 0) AS SoanHang
+        INTO #tblSoanHangTmp
+        FROM ERP_PhieuSoanHangVatTu sub1 
+        LEFT JOIN ERP_SoanHangNPL_BarCode sub2 ON sub1.PhieuSH = sub2.PhieuSH AND sub1.MaNPL = sub2.MaNPL 
+        WHERE sub1.NgaySoanHang >= @TuNgay AND sub1.NgaySoanHang < DATEADD(DAY, 1, @DenNgay)
+        GROUP BY sub1.MaLenhSX, CONVERT(DATE, sub1.NgaySoanHang), sub1.NguoiSoanHang, sub1.MaNPL;
+
+        SELECT 
+            MaLenhSX, 
+            NgaySoanHang, 
+            NguoiSoanHang, 
+            SUM(CapPhat) - SUM(SoanHang) AS SoLuongThieu
+        INTO #tblSoanHangThieu
+        FROM #tblSoanHangTmp
+        GROUP BY MaLenhSX, NgaySoanHang, NguoiSoanHang;
+
         ;WITH tblDVSX_Month AS (
             SELECT 
                 t1.MaLenhSanXuat, t1.MaLenh, kh.TenKH, 
@@ -2600,37 +2622,17 @@ BEGIN
                 END AS TrangThai,
                 'TASK' AS GhiChu
             FROM ERP_KeHachGiaoViecNL t1
-            WHERE CONVERT(DATE, ISNULL(t1.NgayXuatHang, t1.NgayGiaoViec)) BETWEEN @TuNgay AND @DenNgay
+            WHERE ISNULL(t1.NgayXuatHang, t1.NgayGiaoViec) >= @TuNgay AND ISNULL(t1.NgayXuatHang, t1.NgayGiaoViec) < DATEADD(DAY, 1, @DenNgay)
             UNION ALL
             SELECT 
-                CONVERT(DATE, t1.NgaySoanHang) AS NgayLam,
+                t1.NgaySoanHang AS NgayLam,
                 t1.MaLenhSX,
                 0 AS CoCanhBao, 
-                CASE WHEN ROUND((
-                    SELECT SUM(CapPhat) - SUM(SoanHang)
-                    FROM (
-                        SELECT MAX(sub1.SLCapPhat) AS CapPhat, ISNULL(SUM(sub2.SLSoanHang_BC), 0) AS SoanHang
-                        FROM ERP_PhieuSoanHangVatTu sub1 
-                        LEFT JOIN ERP_SoanHangNPL_BarCode sub2 ON sub1.PhieuSH = sub2.PhieuSH AND sub1.MaNPL = sub2.MaNPL 
-                        WHERE sub1.MaLenhSX = t1.MaLenhSX AND CONVERT(DATE, sub1.NgaySoanHang) = CONVERT(DATE, t1.NgaySoanHang)
-                        GROUP BY sub1.MaNPL 
-                    ) as tmp
-                ), 2) > 0 THEN 1 ELSE 0 END AS ThieuNPL,
+                CASE WHEN ROUND(t1.SoLuongThieu, 2) > 0 THEN 1 ELSE 0 END AS ThieuNPL,
                 '' AS MaNV, t1.NguoiSoanHang AS TenNV,
-                CASE WHEN ROUND((
-                    SELECT SUM(CapPhat) - SUM(SoanHang)
-                    FROM (
-                        SELECT MAX(sub1.SLCapPhat) AS CapPhat, ISNULL(SUM(sub2.SLSoanHang_BC), 0) AS SoanHang
-                        FROM ERP_PhieuSoanHangVatTu sub1 
-                        LEFT JOIN ERP_SoanHangNPL_BarCode sub2 ON sub1.PhieuSH = sub2.PhieuSH AND sub1.MaNPL = sub2.MaNPL 
-                        WHERE sub1.MaLenhSX = t1.MaLenhSX AND CONVERT(DATE, sub1.NgaySoanHang) = CONVERT(DATE, t1.NgaySoanHang)
-                        GROUP BY sub1.MaNPL 
-                    ) as tmp
-                ), 2) > 0 THEN 3 ELSE 2 END AS TrangThai,
+                CASE WHEN ROUND(t1.SoLuongThieu, 2) > 0 THEN 3 ELSE 2 END AS TrangThai,
                 'PICK' AS GhiChu
-            FROM ERP_PhieuSoanHangVatTu t1
-            WHERE CONVERT(DATE, t1.NgaySoanHang) BETWEEN @TuNgay AND @DenNgay
-            GROUP BY CONVERT(DATE, t1.NgaySoanHang), t1.MaLenhSX, t1.NguoiSoanHang
+            FROM #tblSoanHangThieu t1
         )
         SELECT 
             u.NgayLam,
@@ -2669,10 +2671,10 @@ BEGIN
         INNER JOIN KhachHang kh ON dh2.MaKH = kh.MaKH
         WHERE t1.MaLenhSanXuat IN (
             SELECT MaLenhSX FROM ERP_KeHachGiaoViecNL 
-            WHERE CONVERT(DATE, ISNULL(NgayXuatHang, NgayGiaoViec)) = CONVERT(DATE, @Ngay)
+            WHERE ISNULL(NgayXuatHang, NgayGiaoViec) >= CAST(@Ngay AS DATE) AND ISNULL(NgayXuatHang, NgayGiaoViec) < DATEADD(DAY, 1, CAST(@Ngay AS DATE))
             UNION
             SELECT MaLenhSX FROM ERP_PhieuSoanHangVatTu
-            WHERE CONVERT(DATE, NgaySoanHang) = CONVERT(DATE, @Ngay)
+            WHERE NgaySoanHang >= CAST(@Ngay AS DATE) AND NgaySoanHang < DATEADD(DAY, 1, CAST(@Ngay AS DATE))
         )
         GROUP BY t1.MaLenhSanXuat, t1.MaLenh, kh.TenKH;
 
@@ -2700,7 +2702,7 @@ BEGIN
             ),1,2,'')                                           AS GhiChu
         FROM ERP_KeHachGiaoViecNL t1
         LEFT JOIN #tbldvsx t2 ON t1.MaLenhSX = t2.MaLenhSanXuat
-        WHERE CONVERT(DATE, ISNULL(t1.NgayXuatHang, t1.NgayGiaoViec)) = CONVERT(DATE, @Ngay)
+        WHERE ISNULL(t1.NgayXuatHang, t1.NgayGiaoViec) >= CAST(@Ngay AS DATE) AND ISNULL(t1.NgayXuatHang, t1.NgayGiaoViec) < DATEADD(DAY, 1, CAST(@Ngay AS DATE))
         GROUP BY t1.MaLenhSX;
 
         -- Bảng tạm pick orders chi tiết
@@ -2722,7 +2724,7 @@ BEGIN
         FROM ERP_PhieuSoanHangVatTu t1
         LEFT JOIN #tbldvsx t2 ON t1.MaLenhSX = t2.MaLenhSanXuat
         LEFT JOIN ERP_SoanHangNPL_BarCode t3 ON t1.PhieuSH = t3.PhieuSH AND t1.MaNPL = t3.MaNPL
-        WHERE CONVERT(DATE, t1.NgaySoanHang) = CONVERT(DATE, @Ngay)
+        WHERE t1.NgaySoanHang >= CAST(@Ngay AS DATE) AND t1.NgaySoanHang < DATEADD(DAY, 1, CAST(@Ngay AS DATE))
         GROUP BY t1.MaLenhSX, t2.MaLenh, t2.TenKH, t2.TenHang, t1.MaNPL, t1.NguoiSoanHang;
 
         -- ResultSet 2: Pick Orders (Phụ liệu - Soạn hàng)
