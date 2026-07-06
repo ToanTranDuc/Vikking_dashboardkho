@@ -4,12 +4,8 @@
  * @version 2.7.26
  */
 
-//#region API FETCHING
 /**
- * Hàm gọi API dùng chung (Promise-based), tự động xử lý loading và lỗi mạng.
- * Hàm này đẩy request vào hàng đợi __requestQueue để giới hạn số kết nối song song.
- * @param {string} url Đường dẫn API (ví dụ: "/api/DashboardKhoDesktop/GetRacks")
- * @returns {Promise<any>} Dữ liệu JSON trả về từ server
+ * Thực hiện gọi API GET bằng XMLHttpRequest, tự động Parse JSON và quản lý hàng đợi, xử lý lỗi mạng.
  */
 function requestJson(url) {
     return new Promise(function (resolve, reject) {
@@ -18,6 +14,9 @@ function requestJson(url) {
     });
 }
 
+/**
+ * Hàm lõi thực hiện HTTP GET Request (được requestJson gọi).
+ */
 function __requestJsonCore(url) {
     // Luôn luôn băm cache (cache bust) để ngăn chặn trình duyệt cache API GET
     var cacheBustUrl = url + (url.indexOf("?") !== -1 ? "&" : "?") + "_t=" + new Date().getTime();
@@ -78,6 +77,9 @@ function __requestJsonCore(url) {
     });
 }
 
+/**
+ * Tạo chuỗi tham số ngày tháng (tuNgay, denNgay) để gắn vào URL API dựa theo bộ lọc (7 ngày, 30 ngày...).
+ */
 function buildDateRange() {
     var now = new Date();
     // Lấy 12 tháng cho biểu đồ xuất nhập tồn
@@ -89,6 +91,9 @@ function buildDateRange() {
     };
 }
 
+/**
+ * Lấy giá trị của một tham số (Query String) từ URL hiện tại.
+ */
 function getQueryParam(name) {
     if (!name) return "";
     if (window.URLSearchParams) {
@@ -100,6 +105,9 @@ function getQueryParam(name) {
     return match ? decodeURIComponent(match[1]) : "";
 }
 
+/**
+ * Cập nhật trạng thái kết nối mạng (Online/Offline) trên giao diện góc trên cùng.
+ */
 function setConnectionState(isOk, message) {
     var node = byId(ids.connectionStatus);
     if (!node) return;
@@ -107,6 +115,9 @@ function setConnectionState(isOk, message) {
     node.textContent = message;
 }
 
+/**
+ * Hiển thị hoặc ẩn giao diện tải dữ liệu (Loading Skeleton) cho toàn trang.
+ */
 function setLoading(loading) {
     state.loading = !!loading;
 
@@ -181,7 +192,9 @@ function setLoading(loading) {
     button.textContent = state.loading ? "Đang tải..." : "Làm mới";
 }
 
-// v2.4.6 — Render delta chip "↑ 18.6% so với kỳ trước"
+/**
+ * Định dạng mức độ chênh lệch tăng/giảm so với kỳ trước để vẽ mũi tên xanh/đỏ.
+ */
 function formatDelta(delta) {
     if (delta === null || delta === undefined || isNaN(toNumber(delta))) return "";
     var d = toNumber(delta);
@@ -191,6 +204,9 @@ function formatDelta(delta) {
 }
 
 
+/**
+ * Tạo chuỗi HTML thuộc tính data (data-detail, data-index) để gắn vào các dòng bảng phục vụ mở Modal chi tiết.
+ */
 function rowDataAttr(type, index) {
     return 'class="clickable js-open-detail" data-detail="' + type + '" data-index="' + index + '"';
 }
@@ -199,6 +215,9 @@ function rowDataAttr(type, index) {
 //#endregion
 
 
+/**
+ * Tạo dữ liệu giả lập (Demo) khi ứng dụng chạy ở chế độ Demo Mode hoặc rớt mạng.
+ */
 function buildDemoData() {
     var now = new Date();
     return {
@@ -416,6 +435,9 @@ function buildDemoData() {
     };
 }
 
+/**
+ * Nạp dữ liệu giả lập vào State và gọi các hàm Render giao diện để kiểm thử.
+ */
 function loadDemoData() {
     var demo = buildDemoData();
     state.overall = demo.overall;
@@ -429,10 +451,7 @@ function loadDemoData() {
 }
 
 /**
- * Hàm cốt lõi: Nạp toàn bộ dữ liệu tổng quan cho trang Dashboard khi mới tải trang hoặc khi ấn "Làm mới".
- * Quá trình: Gọi hàng loạt API, sau khi tất cả Promise hoàn tất thì vẽ lại giao diện.
- * @param {boolean} skipLoadingState Bỏ qua hiệu ứng bộ xương (skeleton loading) màn hình
- * @param {boolean} skipReloadCurrent Không tải lại dữ liệu của tab/page hiện tại
+ * Hàm tải toàn bộ dữ liệu Tổng quan của Dashboard. Gọi song song nhiều API bằng Promise.all() để tăng tốc.
  */
 function loadData(skipLoadingState, skipReloadCurrent) {
     if (state.loading) return;
@@ -450,6 +469,9 @@ function loadData(skipLoadingState, skipReloadCurrent) {
 
     // RAF-debounce cho renderMetricCards: dù gọi 12 lần, chỉ thực thi 1 lần/frame
     var _metricRafId = 0;
+    /**
+     * Lên lịch (Delay) việc vẽ các thẻ thông số KPI trên cùng, tránh làm giật lag giao diện.
+     */
     function _scheduleMetricCards() {
         if (_metricRafId) return;
         _metricRafId = requestAnimationFrame(function () {
@@ -458,6 +480,9 @@ function loadData(skipLoadingState, skipReloadCurrent) {
         });
     }
 
+    /**
+     * Gọi requestJson an toàn, bắt lỗi và trả về mảng rỗng [] nếu API sập, giúp Promise.all không bị đứt gãy.
+     */
     function safeJson(url) {
         return requestJson(url)
             .then(function (r) {
@@ -730,15 +755,15 @@ function loadData(skipLoadingState, skipReloadCurrent) {
 }
 
 /**
- * Tải dữ liệu bổ sung khi người dùng chuyển sang các trang/tab khác (Trang 2 hoặc Trang 3).
- * Giúp tối ưu hóa hiệu suất (Lazy Loading) bằng cách không tải tất cả API ngay từ đầu.
- * @param {number} pageNum Số thứ tự của trang cần tải (2 hoặc 3)
- * @returns {Promise} Trạng thái Promise khi gọi xong API
+ * Tải dữ liệu phân trang, tải riêng biệt dữ liệu chuyên sâu cho Page 2 (Luồng hàng) và Page 3 (Lịch phân công).
  */
 function loadPageData(pageNum) {
     if (loadedPages[pageNum]) return Promise.resolve();
     loadedPages[pageNum] = true;
 
+    /**
+     * Gọi requestJson an toàn, bắt lỗi và trả về mảng rỗng [] nếu API sập, giúp Promise.all không bị đứt gãy.
+     */
     function safeJson(url) {
         return requestJson(url)
             .then(function (r) {
@@ -823,7 +848,6 @@ function loadPageData(pageNum) {
         var to = new Date(baseMonth.getFullYear(), baseMonth.getMonth() + 2, 0);
 
         var urlLichGoc = BASE + "GetActivityCalendar?tuNgay=" + asIsoDate(from) + "&denNgay=" + asIsoDate(to);
-        var urlTrendLich = BASE + "GetFlowTrendByRange?tuNgay=" + asIsoDate(from) + "&denNgay=" + asIsoDate(to);
         var urlNKDK = BASE + "GetNKDuKienByRange?tuNgay=" + asIsoDate(from) + "&denNgay=" + asIsoDate(to);
         var urlLPCP =
             "/api/DashboardKhoDesktop/LichPhanCong_GetCalendarMonth?tuNgay=" +
@@ -835,9 +859,8 @@ function loadPageData(pageNum) {
         state.nkDuKien = [];
         state.activityCalendar = [];
         state.lpcpCalendar = {};
-        state.flowTrendByRange = [];
 
-        // GỌI 4 API SONG SONG VÀ ĐỢI TẤT CẢ HOÀN TẤT
+        // GỌI 3 API SONG SONG VÀ ĐỢI TẤT CẢ HOÀN TẤT
         return Promise.all([
             safeJson(urlNKDK),
             safeJson(urlLichGoc),
@@ -845,11 +868,9 @@ function loadPageData(pageNum) {
                 console.warn("API LPCP lỗi, bỏ qua hiển thị:", e);
                 return [];
             }),
-            safeJson(urlTrendLich),
         ])
             .then(function (results) {
                 state.nkDuKien = normalizeArray(results[0]);
-                state.flowTrendByRange = normalizeArray(results[3]);
 
                 // Xử lý dữ liệu LPCP và Inventory mới từ kết quả API
                 var rLPCP = results[2] || {};
@@ -917,8 +938,7 @@ function loadPageData(pageNum) {
 }
 
 /**
- * Hàm tải lại dữ liệu theo trình tự: Tải lại trang hiện tại (nếu là trang 2 hoặc 3) trước,
- * sau đó mới tải lại dữ liệu tổng quan. Được gọi khi áp dụng bộ lọc ngày tháng.
+ * Tải lại dữ liệu tuần tự: ưu tiên tải Page hiện tại trước, sau đó mới nạp lại trang Tổng quan.
  */
 function triggerSequentialReload() {
     if (currentPage === 2 || currentPage === 3) {
@@ -939,9 +959,7 @@ function triggerSequentialReload() {
 }
 
 /**
- * Hàm tải và vẽ biểu đồ luồng xuất nhập tồn (Flow Trend) cho một khoảng thời gian được chọn.
- * @param {Date} fromDate Ngày bắt đầu
- * @param {Date} toDate Ngày kết thúc
+ * Gọi API tải dữ liệu Xuất nhập tồn (Flow Trend) theo khoảng thời gian tùy chọn và tiến hành vẽ biểu đồ.
  */
 function loadAndRenderFlowByRange(fromDate, toDate) {
     var node = byId(ids.chartFlowTrend);
@@ -978,7 +996,7 @@ function loadAndRenderFlowByRange(fromDate, toDate) {
 }
 
 /**
- * Hàm tải và vẽ biểu đồ luồng xuất nhập tồn (Flow Trend) hiển thị theo tuần (Weekly).
+ * Gọi API tải dữ liệu Xuất nhập tồn theo từng tuần (Weekly) và vẽ biểu đồ luồng hàng.
  */
 function loadAndRenderFlowWeekly() {
     var node = byId(ids.chartFlowTrend);

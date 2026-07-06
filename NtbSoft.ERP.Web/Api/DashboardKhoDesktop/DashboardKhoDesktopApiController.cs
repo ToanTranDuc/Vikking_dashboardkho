@@ -1,8 +1,6 @@
 using NtbSoft.ERP.Model.DashboardKho;
 using System;
 using System.Data;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Web.Http;
 
 namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
@@ -10,33 +8,6 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
     [RoutePrefix("api/DashboardKhoDesktop")]
     public class DashboardKhoDesktopApiController : ApiController
     {
-        private static readonly Encoding Latin1 = Encoding.GetEncoding(1252);
-
-        
-        private static readonly Regex GarbledPattern = new Regex(
-            @"[\xC0-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF]{2}",
-            RegexOptions.Compiled);
-
-        private static string FixUtf8(string s)
-        {
-            if (string.IsNullOrEmpty(s)) return s;
-            bool hasHigh = false;
-            for (int i = 0; i < s.Length; i++)
-            {
-                if (s[i] > 127) { hasHigh = true; break; }
-            }
-            if (!hasHigh) return s;
-            // Check if it matches garbled UTF-8 
-            if (!GarbledPattern.IsMatch(s)) return s;
-            try
-            {
-                byte[] raw = Latin1.GetBytes(s);
-                string recovered = Encoding.UTF8.GetString(raw);
-                if (recovered.Contains("\uFFFD")) return s;
-                return recovered;
-            }
-            catch { return s; }
-        }
 
         private static System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object>> ToList(DataTable dt)
         {
@@ -54,6 +25,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             return list;
         }
 
+        /// <summary>
+        /// Lấy dung lượng lưu trữ tổng quan của kho, bao gồm dung lượng kệ NPL, PL, đã dùng và còn trống.
+        /// </summary>
         [HttpGet]
         [Route("GetOverallCapacity")]
         public IHttpActionResult GetOverallCapacity()
@@ -63,6 +37,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
         }
 
         
+        /// <summary>
+        /// Đếm số lượng mã vật tư NPL/PL khác nhau đang có trong kho (tính theo Barcode và mã định danh).
+        /// </summary>
         [Route("GetDistinctMaterialCount")]
         public IHttpActionResult GetDistinctMaterialCount()
         {
@@ -70,6 +47,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Lấy danh sách thông tin khách hàng đang có vật tư nằm trong kho, tổng số SKU và thể tích chiếm chỗ.
+        /// </summary>
         [HttpGet]
         [Route("GetCustomers")]
         public IHttpActionResult GetCustomers()
@@ -78,6 +58,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetVatTuTheoKhachHang
+        /// </summary>
         [HttpGet]
         [Route("GetVatTuTheoKhachHang")]
         public IHttpActionResult GetVatTuTheoKhachHang(string maKH = "")
@@ -86,6 +69,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Thống kê chi tiết thể tích chiếm chỗ của các ô và kệ trong kho.
+        /// </summary>
         [HttpGet]
         [Route("GetRacks")]
         public IHttpActionResult GetRacks()
@@ -94,6 +80,15 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Lấy danh sách hàng hóa (PO) dự kiến nhập kho (chuẩn bị về) trong khoảng thời gian hoặc theo keyword.
+        /// </summary>
+        /// <param name="tuNgay">Ngày bắt đầu dự kiến</param>
+        /// <param name="denNgay">Ngày kết thúc dự kiến</param>
+        /// <param name="keyword">Từ khóa tìm kiếm (POMua, SoLoID)</param>
+        /// <summary>
+        /// Xử lý request cho GetChuanBiVe
+        /// </summary>
         [HttpGet]
         [Route("GetChuanBiVe")]
         public IHttpActionResult GetChuanBiVe(DateTime? tuNgay = null, DateTime? denNgay = null, string keyword = "")
@@ -108,6 +103,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
         }
 
 
+        /// <summary>
+        /// Lấy danh sách các lệnh sản xuất đã có yêu cầu cấp vật tư nhưng chưa được xuất kho (chuẩn bị xuất).
+        /// </summary>
         [HttpGet]
         [Route("GetChuanBiXuat")]
         public IHttpActionResult GetChuanBiXuat(DateTime? tuNgay = null, DateTime? denNgay = null)
@@ -122,6 +120,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
         }
 
 
+        /// <summary>
+        /// Theo dõi tình trạng các phiếu yêu cầu đang xuất kho (tiến độ xuất vật tư).
+        /// </summary>
         [HttpGet]
         [Route("GetDangXuat")]
         public IHttpActionResult GetDangXuat(DateTime? tuNgay = null, DateTime? denNgay = null)
@@ -135,6 +136,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Lấy xu hướng luồng hàng (Nhập - Xuất - Tồn) theo 12 tháng gần nhất.
+        /// </summary>
         [HttpGet]
         [Route("GetFlowTrend12T")]
         public IHttpActionResult GetFlowTrend12T()
@@ -143,6 +147,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetFlowTrendWeekly
+        /// </summary>
         [HttpGet]
         [Route("GetFlowTrendWeekly")]
         public IHttpActionResult GetFlowTrendWeekly()
@@ -150,6 +157,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             try { return Ok(ToList(DashboardKhoDesktopModel.GetFlowTrendWeekly())); }
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
+        /// <summary>
+        /// Xử lý request cho GetAgeStock
+        /// </summary>
         [HttpGet]
         [Route("GetAgeStock")]
         public IHttpActionResult GetAgeStock()
@@ -158,6 +168,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetActivityCalendar
+        /// </summary>
         [HttpGet]
         [Route("GetActivityCalendar")]
         public IHttpActionResult GetActivityCalendar(DateTime? tuNgay = null, DateTime? denNgay = null, string maNPL = "all", string soLoID = "all", string maHang = "all", string maKH = "all", string khoLoi = "0", string nhom = "all", int isNPL = 2)
@@ -170,6 +183,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             }
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
+        /// <summary>
+        /// Xử lý request cho GetFlowTrendByRange
+        /// </summary>
         [HttpGet]
         [Route("GetFlowTrendByRange")]
         public IHttpActionResult GetFlowTrendByRange(DateTime? tuNgay = null, DateTime? denNgay = null, string maNPL = "all", string soLoID = "all", string maHang = "all", string maKH = "all", string khoLoi = "0", string nhom = "all", int isNPL = 2)
@@ -183,6 +199,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetRackSlotDetail
+        /// </summary>
         [HttpGet]
         [Route("GetRackSlotDetail")]
         public IHttpActionResult GetRackSlotDetail()
@@ -191,6 +210,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetActivityRangeDetail
+        /// </summary>
         [HttpGet]
         [Route("GetActivityRangeDetail")]
         public IHttpActionResult GetActivityRangeDetail(DateTime tuNgay, DateTime denNgay)
@@ -207,6 +229,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetThanhGiaHangTon
+        /// </summary>
         [HttpGet]
         [Route("GetThanhGiaHangTon")]
         public IHttpActionResult GetThanhGiaHangTon()
@@ -215,6 +240,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetAllMaterialsInStock
+        /// </summary>
         [HttpGet]
         [Route("GetAllMaterialsInStock")]
         public IHttpActionResult GetAllMaterialsInStock()
@@ -223,6 +251,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetNKDuKienByRange
+        /// </summary>
         [HttpGet]
         [Route("GetNKDuKienByRange")]
         public IHttpActionResult GetNKDuKienByRange(DateTime? tuNgay = null, DateTime? denNgay = null)
@@ -237,6 +268,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho ClearCache
+        /// </summary>
         [HttpGet]
         [Route("ClearCache")]
         public IHttpActionResult ClearCache()
@@ -249,6 +283,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetActivityDayDetail
+        /// </summary>
         [HttpGet]
         [Route("GetActivityDayDetail")]
         public IHttpActionResult GetActivityDayDetail(DateTime ngay)
@@ -265,6 +302,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetMoMComparison
+        /// </summary>
         [HttpGet]
         [Route("GetMoMComparison")]
         public IHttpActionResult GetMoMComparison()
@@ -272,6 +312,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             try { return Ok(ToList(DashboardKhoDesktopModel.GetMoMComparison())); }
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
+        /// <summary>
+        /// Xử lý request cho GetTop5
+        /// </summary>
         [HttpGet]
         [Route("GetTop5")]
         public IHttpActionResult GetTop5(int isNhieuNhat = 1, int loaiNPL = 0)
@@ -280,6 +323,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GlobalSearch
+        /// </summary>
         [HttpGet]
         [Route("GlobalSearch")]
         public IHttpActionResult GlobalSearch(string itemcode = "")
@@ -288,6 +334,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GlobalSearchAll
+        /// </summary>
         [HttpGet]
         [Route("GlobalSearchAll")]
         public IHttpActionResult GlobalSearchAll(string keyword = "")
@@ -297,6 +346,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
         }
 
 
+        /// <summary>
+        /// Xử lý request cho GetCongViecChoXuLy
+        /// </summary>
         [HttpGet]
         [Route("GetCongViecChoXuLy")]
         public IHttpActionResult GetCongViecChoXuLy(DateTime? tuNgay = null, DateTime? denNgay = null)
@@ -310,6 +362,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetTop5VatTuDungTich
+        /// </summary>
         [HttpGet]
         [Route("GetTop5VatTuDungTich")]
         public IHttpActionResult GetTop5VatTuDungTich()
@@ -318,6 +373,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetTop5KhachHangTonKho
+        /// </summary>
         [HttpGet]
         [Route("GetTop5KhachHangTonKho")]
         public IHttpActionResult GetTop5KhachHangTonKho()
@@ -326,6 +384,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetVatTuSapHetHan
+        /// </summary>
         [HttpGet]
         [Route("GetVatTuSapHetHan")]
         public IHttpActionResult GetVatTuSapHetHan()
@@ -334,6 +395,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }  
         }
 
+        /// <summary>
+        /// Xử lý request cho GetGiaTriTonKhoTheoNhom
+        /// </summary>
         [HttpGet]
         [Route("GetGiaTriTonKhoTheoNhom")]
         public IHttpActionResult GetGiaTriTonKhoTheoNhom()
@@ -342,6 +406,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
          
+        /// <summary>
+        /// Xử lý request cho GetTinhHinhKiemKe
+        /// </summary>
         [HttpGet]
         [Route("GetTinhHinhKiemKe")]
         public IHttpActionResult GetTinhHinhKiemKe() 
@@ -351,6 +418,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
         }
  
 
+        /// <summary>
+        /// Xử lý request cho GetTodoDetail
+        /// </summary>
         [HttpGet]
         [Route("GetTodoDetail")]
         public IHttpActionResult GetTodoDetail(string type = "itemcode_cho_nk")   
@@ -359,6 +429,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetVatTuTheoDungTich
+        /// </summary>
         [HttpGet]
         [Route("GetVatTuTheoDungTich")] 
         public IHttpActionResult GetVatTuTheoDungTich() 
@@ -367,6 +440,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetKhachHangTonKhoChiTiet
+        /// </summary>
         [HttpGet]
         [Route("GetKhachHangTonKhoChiTiet")]
         public IHttpActionResult GetKhachHangTonKhoChiTiet()
@@ -375,6 +451,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetVatTuSapHetHanChiTiet
+        /// </summary>
         [HttpGet]
         [Route("GetVatTuSapHetHanChiTiet")]
         public IHttpActionResult GetVatTuSapHetHanChiTiet()
@@ -383,6 +462,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetGiaTriNhomChiTiet
+        /// </summary>
         [HttpGet]
         [Route("GetGiaTriNhomChiTiet")]
         public IHttpActionResult GetGiaTriNhomChiTiet()
@@ -391,6 +473,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetKiemKeChiTiet
+        /// </summary>
         [HttpGet]
         [Route("GetKiemKeChiTiet")]
         public IHttpActionResult GetKiemKeChiTiet()
@@ -400,6 +485,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
         } 
 
 
+        /// <summary>
+        /// Xử lý request cho GetTongNhap
+        /// </summary>
         [HttpGet]
         [Route("GetTongNhap")] 
         public IHttpActionResult GetTongNhap(DateTime? tuNgay = null, DateTime? denNgay = null) 
@@ -413,6 +501,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetTongXuat
+        /// </summary>
         [HttpGet]
         [Route("GetTongXuat")]
         public IHttpActionResult GetTongXuat(DateTime? tuNgay = null, DateTime? denNgay = null)
@@ -426,6 +517,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetTonKho
+        /// </summary>
         [HttpGet]
         [Route("GetTonKho")]
         public IHttpActionResult GetTonKho(DateTime? denNgay = null)
@@ -434,6 +528,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetTonDauKy
+        /// </summary>
         [HttpGet]
         [Route("GetTonDauKy")]
         public IHttpActionResult GetTonDauKy(DateTime? tuNgay = null)
@@ -442,6 +539,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetPODangTre
+        /// </summary>
         [HttpGet]
         [Route("GetPODangTre")]
         public IHttpActionResult GetPODangTre()
@@ -450,6 +550,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetGiaTriTon
+        /// </summary>
         [HttpGet]
         [Route("GetGiaTriTon")]
         public IHttpActionResult GetGiaTriTon(DateTime? denNgay = null)
@@ -458,6 +561,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetCanhBaoTonKho
+        /// </summary>
         [HttpGet]
         [Route("GetCanhBaoTonKho")]
         public IHttpActionResult GetCanhBaoTonKho()
@@ -466,6 +572,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetHieuSuatHoatDong
+        /// </summary>
         [HttpGet]
         [Route("GetHieuSuatHoatDong")]
         public IHttpActionResult GetHieuSuatHoatDong(DateTime? tuNgay = null, DateTime? denNgay = null)
@@ -479,6 +588,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetHieuSuatHoatDongChiTiet
+        /// </summary>
         [HttpGet]
         [Route("GetHieuSuatHoatDongChiTiet")]
         public IHttpActionResult GetHieuSuatHoatDongChiTiet(DateTime? tuNgay = null, DateTime? denNgay = null)
@@ -493,6 +605,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
         }
 
 
+        /// <summary>
+        /// Xử lý request cho GetTonDauKyChiTiet
+        /// </summary>
         [HttpGet]
         [Route("GetTonDauKyChiTiet")]
         public IHttpActionResult GetTonDauKyChiTiet(DateTime? tuNgay = null, string loai = "all")
@@ -505,6 +620,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetTongNhapChiTiet
+        /// </summary>
         [HttpGet]
         [Route("GetTongNhapChiTiet")]
         public IHttpActionResult GetTongNhapChiTiet(DateTime? tuNgay = null, DateTime? denNgay = null, string groupBy = "date")
@@ -518,6 +636,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetTongXuatChiTiet
+        /// </summary>
         [HttpGet]
         [Route("GetTongXuatChiTiet")]
         public IHttpActionResult GetTongXuatChiTiet(DateTime? tuNgay = null, DateTime? denNgay = null, string groupBy = "date")
@@ -531,6 +652,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetTonKhoChiTiet
+        /// </summary>
         [HttpGet]
         [Route("GetTonKhoChiTiet")]
         public IHttpActionResult GetTonKhoChiTiet(DateTime? denNgay = null, string loai = "all")
@@ -543,6 +667,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetPODangTreChiTiet
+        /// </summary>
         [HttpGet]
         [Route("GetPODangTreChiTiet")]
         public IHttpActionResult GetPODangTreChiTiet(string groupBy = "all")
@@ -553,6 +680,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
 
 
 
+        /// <summary>
+        /// Xử lý request cho GetNPLThieuChiTiet
+        /// </summary>
         [HttpGet]
         [Route("GetNPLThieuChiTiet")]
         public IHttpActionResult GetNPLThieuChiTiet()
@@ -561,6 +691,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
         }
 
+        /// <summary>
+        /// Xử lý request cho GetKiemKeLechChiTiet
+        /// </summary>
         [HttpGet]
         [Route("GetKiemKeLechChiTiet")]
         public IHttpActionResult GetKiemKeLechChiTiet()
@@ -571,6 +704,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
 
 
 
+        /// <summary>
+        /// Xử lý request cho GetTonVuotDinhMucChiTiet
+        /// </summary>
         [HttpGet]
         [Route("GetTonVuotDinhMucChiTiet")]
         public IHttpActionResult GetTonVuotDinhMucChiTiet()
@@ -581,9 +717,6 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
 
 
 
-        // ===================================================================
-        // GET api/DashboardKhoDesktop/LichPhanCong_GetCalendarMonth
-        // ===================================================================
         [HttpGet, Route("LichPhanCong_GetCalendarMonth")]
         public IHttpActionResult GetCalendarMonth(string tuNgay = null, string denNgay = null)
         {
@@ -597,370 +730,16 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
                         DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month))
                     : DateTime.Parse(denNgay);
 
-                // Doc raw items tu SP
-                System.Collections.Generic.List<LichPhanCong_CalendarItemModel> rawItems = new System.Collections.Generic.List<LichPhanCong_CalendarItemModel>();
-                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["strCnn_ln"].ConnectionString;
+                var result = DashboardKhoDesktopModel.GetLichPhanCongCalendarMonth(tuDate, denDate);
+                var inventory = ToList(DashboardKhoDesktopModel.GetActivityCalendar(tuDate, denDate, "all", "all", "all", "all", "0", "all", 2));
 
-                using (System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(connectionString))
-                using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SP_LICH_PHAN_CONG_PHU_LIEU", conn))
+                return Ok(new
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandTimeout = 30;
-                    cmd.Parameters.AddWithValue("@Action", "GetCalendarMonth");
-                    cmd.Parameters.AddWithValue("@TuNgay", tuDate);
-                    cmd.Parameters.AddWithValue("@DenNgay", denDate);
-
-                    conn.Open();
-                    System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        LichPhanCong_CalendarItemModel item = new LichPhanCong_CalendarItemModel();
-
-                        item.NgayLam = reader["NgayLam"] != DBNull.Value ? Convert.ToDateTime(reader["NgayLam"]).ToString("yyyy-MM-dd") : "";
-                        item.MaLenhSX = reader["MaLenhSX"] != DBNull.Value ? reader["MaLenhSX"].ToString() : "";
-                        item.TrangThai = reader["TrangThai"] != DBNull.Value ? Convert.ToInt32(reader["TrangThai"]) : 0;
-                        item.TenNV = reader["TenNV"] != DBNull.Value ? reader["TenNV"].ToString() : "";
-                        item.MaNV = reader["MaNV"] != DBNull.Value ? reader["MaNV"].ToString() : "";
-                        item.MaKhachHang = reader["MaKhachHang"] != DBNull.Value ? reader["MaKhachHang"].ToString() : "";
-                        item.MaHang = reader["MaHang"] != DBNull.Value ? reader["MaHang"].ToString() : "";
-                        item.CoCanhBao = reader["CoCanhBao"] != DBNull.Value && Convert.ToInt32(reader["CoCanhBao"]) == 1;
-                        item.ThieuNPL = reader["ThieuNPL"] != DBNull.Value && Convert.ToInt32(reader["ThieuNPL"]) == 1;
-                        item.GhiChu = reader["GhiChu"] != DBNull.Value ? reader["GhiChu"].ToString() : "";
-                        rawItems.Add(item);
-                    }
-                    reader.Close();
-                }
-
-                // Gom nhom theo ngay bang Dictionary (khong dung LINQ)
-                System.Collections.Generic.Dictionary<string, LichPhanCong_CalendarDayModel> dict =
-                    new System.Collections.Generic.Dictionary<string, LichPhanCong_CalendarDayModel>();
-
-                foreach (LichPhanCong_CalendarItemModel item in rawItems)
-                {
-                    string key = item.NgayLam;
-                    if (string.IsNullOrEmpty(key)) continue;
-
-                    if (!dict.ContainsKey(key))
-                    {
-                        LichPhanCong_CalendarDayModel day = new LichPhanCong_CalendarDayModel();
-                        day.NgayLam = key;
-                        day.Workers = new System.Collections.Generic.List<string>();
-                        day.Tasks = new System.Collections.Generic.List<LichPhanCong_TaskBadgeModel>();
-                        day.HasAlert = false;
-                        day.ThieuNPL = false;
-                        dict[key] = day;
-                    }
-
-                    LichPhanCong_CalendarDayModel cur = dict[key];
-
-                    // Them NV neu chua co
-                    if (!string.IsNullOrEmpty(item.TenNV) && !cur.Workers.Contains(item.TenNV))
-                        cur.Workers.Add(item.TenNV);
-
-                    // Them task neu co ma lenh
-                    if (!string.IsNullOrEmpty(item.MaLenhSX))
-                    {
-                        LichPhanCong_TaskBadgeModel badge = new LichPhanCong_TaskBadgeModel();
-                        badge.MaLenhSX = item.MaLenhSX;
-                        badge.TrangThai = item.TrangThai;
-                        badge.TenNV = item.TenNV;
-                        badge.MaHang = item.MaHang;
-                        badge.MaKhachHang = item.MaKhachHang;
-                        badge.GhiChu = item.GhiChu;
-                        cur.Tasks.Add(badge);
-                    }
-
-                    if (item.CoCanhBao) cur.HasAlert = true;
-                    if (item.ThieuNPL) cur.ThieuNPL = true;
-                }
-
-                // Chuyen sang List va sap xep theo ngay
-                System.Collections.Generic.List<LichPhanCong_CalendarDayModel> result = new System.Collections.Generic.List<LichPhanCong_CalendarDayModel>();
-                foreach (LichPhanCong_CalendarDayModel day in dict.Values)
-                    result.Add(day);
-
-                result.Sort(delegate (LichPhanCong_CalendarDayModel a, LichPhanCong_CalendarDayModel b)
-                {
-                    return string.Compare(a.NgayLam, b.NgayLam, StringComparison.Ordinal);
+                    success = true,
+                    data = result,
+                    Tasks = result,
+                    Inventory = inventory
                 });
-
-                return Ok(new { success = true, data = result });
-            }
-            catch (Exception ex)
-            {
-                return Ok(new { success = false, message = ex.Message });
-            }
-        }
-
-        // ===================================================================
-        // GET api/DashboardKhoDesktop/LichPhanCong_GetDayDetail
-        // ===================================================================
-        [HttpGet, Route("LichPhanCong_GetDayDetail")]
-        public IHttpActionResult GetDayDetail(string ngay = null)
-        {
-            try
-            {
-                DateTime ngayDate = string.IsNullOrEmpty(ngay) ? DateTime.Today : DateTime.Parse(ngay);
-
-                LichPhanCong_DayDetailModel result = new LichPhanCong_DayDetailModel();
-                result.NgayLam = ngayDate.ToString("yyyy-MM-dd");
-                result.Assignments = new System.Collections.Generic.List<LichPhanCong_AssignmentModel>();
-                result.PickOrders = new System.Collections.Generic.List<LichPhanCong_PickOrderModel>();
-
-                string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["strCnn_ln"].ConnectionString;
-
-                using (System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(connectionString))
-                using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SP_LICH_PHAN_CONG_PHU_LIEU", conn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandTimeout = 30;
-                    cmd.Parameters.AddWithValue("@Action", "GetDayDetail");
-                    cmd.Parameters.AddWithValue("@Ngay", ngayDate);
-
-                    conn.Open();
-                    System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader();
-
-                    // Helper: đọc cột an toàn
-                    Func<System.Data.SqlClient.SqlDataReader, string, string> safeStr = (r, col) => {
-                        try { return r[col] != DBNull.Value ? r[col].ToString() : ""; }
-                        catch { return ""; }
-                    };
-                    Func<System.Data.SqlClient.SqlDataReader, string, int> safeInt = (r, col) => {
-                        try { return r[col] != DBNull.Value ? Convert.ToInt32(r[col]) : 0; }
-                        catch { return 0; }
-                    };
-                    Func<System.Data.SqlClient.SqlDataReader, string, double> safeDbl = (r, col) => {
-                        try { return r[col] != DBNull.Value ? Convert.ToDouble(r[col]) : 0; }
-                        catch { return 0; }
-                    };
-                    Func<System.Data.SqlClient.SqlDataReader, string, bool> safeBool = (r, col) => {
-                        try { return r[col] != DBNull.Value && Convert.ToInt32(r[col]) == 1; }
-                        catch { return false; }
-                    };
-
-                    // ResultSet 1: Assignments
-                    while (reader.Read())
-                    {
-                        LichPhanCong_AssignmentModel a = new LichPhanCong_AssignmentModel();
-                        a.MaLenhSX = safeStr(reader, "MaLenhSX");
-                        a.TrangThai = safeInt(reader, "TrangThai");
-                        a.TenNV = safeStr(reader, "TenNV");
-                        a.MaNV = safeStr(reader, "MaNV");
-                        a.MaKhachHang = safeStr(reader, "MaKhachHang");
-                        a.MaHang = safeStr(reader, "MaHang");
-                        a.NgayThucHien = safeStr(reader, "NgayThucHien");
-                        a.GioThucHien = safeStr(reader, "GioThucHien");
-                        a.MoTaCongViec = safeStr(reader, "MoTaCongViec");
-                        a.ThieuNPL = safeBool(reader, "ThieuNPL");
-                        a.GhiChu = safeStr(reader, "GhiChu");
-                        result.Assignments.Add(a);
-                    }
-
-                    // ResultSet 2: Pick Orders
-                    if (reader.NextResult())
-                    {
-                        while (reader.Read())
-                        {
-                            LichPhanCong_PickOrderModel po = new LichPhanCong_PickOrderModel();
-                            po.MaLenhSX = safeStr(reader, "MaLenhSX");
-                            po.TrangThai = safeInt(reader, "TrangThai");
-                            po.TenNV = safeStr(reader, "TenNV");
-                            po.MaNV = safeStr(reader, "MaNV");
-                            po.MaKhachHang = safeStr(reader, "MaKhachHang");
-                            po.MaHang = safeStr(reader, "MaHang");
-                            po.NgaySoan = safeStr(reader, "NgaySoan");
-                            po.GioSoan = safeStr(reader, "GioSoan");
-                            po.SoLoaiPL = safeInt(reader, "SoLoaiPL");
-                            po.TongSLCanSoan = safeDbl(reader, "TongSLCanSoan");
-                            po.SLSoan = safeDbl(reader, "SLSoan");
-                            po.SoPLThieu = safeDbl(reader, "SoPLThieu");
-                            po.GhiChu = safeStr(reader, "GhiChu");
-                            po.Items = new System.Collections.Generic.List<LichPhanCong_PickItemModel>();
-                            result.PickOrders.Add(po);
-                        }
-                    }
-                    reader.Close();
-                }
-                return Ok(new { success = true, data = result });
-            }
-            catch (Exception ex)
-            {
-                return Ok(new { success = false, message = ex.Message, detail = ex.GetType().Name });
-            }
-        }
-
-        // ===================================================================
-        // POST api/DashboardKhoDesktop/LichPhanCong_SavePhanCong
-        // Lưu (tạo mới hoặc cập nhật) một phân công nhân viên cho lệnh SX
-        // (Van's code — merged 2026-06-05)
-        // ===================================================================
-        [HttpPost]
-        [Route("LichPhanCong_SavePhanCong")]
-        public IHttpActionResult SavePhanCong([FromBody] NtbSoft.ERP.Model.DashboardKho.LichPhanCong_SavePhanCongRequest req)
-        {
-            if (req == null)
-                return BadRequest("Dữ liệu không hợp lệ.");
-            if (string.IsNullOrWhiteSpace(req.MaLenhSX))
-                return BadRequest("MaLenhSX không được để trống.");
-            if (string.IsNullOrWhiteSpace(req.MaNV))
-                return BadRequest("MaNV không được để trống.");
-
-            try
-            {
-                string connectionString = System.Configuration.ConfigurationManager
-                    .ConnectionStrings["strCnn_ln"].ConnectionString;
-
-                using (System.Data.SqlClient.SqlConnection conn =
-                    new System.Data.SqlClient.SqlConnection(connectionString))
-                using (System.Data.SqlClient.SqlCommand cmd =
-                    new System.Data.SqlClient.SqlCommand("SP_LICH_PHAN_CONG_PHU_LIEU", conn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandTimeout = 30;
-                    cmd.Parameters.AddWithValue("@Action",       "SavePhanCong");
-                    cmd.Parameters.AddWithValue("@MaLenhSX",    req.MaLenhSX.Trim());
-                    cmd.Parameters.AddWithValue("@MaNV",         req.MaNV.Trim());
-                    cmd.Parameters.AddWithValue("@NgayThucHien", req.NgayThucHien.Date);
-                    cmd.Parameters.AddWithValue("@GhiChu",
-                        string.IsNullOrWhiteSpace(req.GhiChu) ? (object)DBNull.Value : req.GhiChu.Trim());
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-
-                return Ok(new NtbSoft.ERP.Model.DashboardKho.LichPhanCong_SaveResult
-                {
-                    Success  = true,
-                    MaLenhSX = req.MaLenhSX
-                });
-            }
-            catch (Exception ex)
-            {
-                return Ok(new NtbSoft.ERP.Model.DashboardKho.LichPhanCong_SaveResult
-                {
-                    Success = false,
-                    Error   = ex.Message
-                });
-            }
-        }
-
-        // ===================================================================
-        // POST api/DashboardKhoDesktop/LichPhanCong_UpdateTrangThai
-        // Cập nhật trạng thái lệnh SX: 0=Chờ, 1=Đang, 2=Hoàn thành, 3=Chưa HT
-        // (Van's code — merged 2026-06-05)
-        // ===================================================================
-        [HttpPost]
-        [Route("LichPhanCong_UpdateTrangThai")]
-        public IHttpActionResult UpdateTrangThai([FromBody] NtbSoft.ERP.Model.DashboardKho.LichPhanCong_UpdateTrangThaiRequest req)
-        {
-            if (req == null)
-                return BadRequest("Dữ liệu không hợp lệ.");
-            if (string.IsNullOrWhiteSpace(req.MaLenhSX))
-                return BadRequest("MaLenhSX không được để trống.");
-
-            try
-            {
-                string connectionString = System.Configuration.ConfigurationManager
-                    .ConnectionStrings["strCnn_ln"].ConnectionString;
-
-                using (System.Data.SqlClient.SqlConnection conn =
-                    new System.Data.SqlClient.SqlConnection(connectionString))
-                using (System.Data.SqlClient.SqlCommand cmd =
-                    new System.Data.SqlClient.SqlCommand("SP_LICH_PHAN_CONG_PHU_LIEU", conn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandTimeout = 30;
-                    cmd.Parameters.AddWithValue("@Action",    "UpdateTrangThai");
-                    cmd.Parameters.AddWithValue("@MaLenhSX",  req.MaLenhSX.Trim());
-                    cmd.Parameters.AddWithValue("@TrangThai", req.TrangThai);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-
-                return Ok(new NtbSoft.ERP.Model.DashboardKho.LichPhanCong_SaveResult
-                {
-                    Success  = true,
-                    MaLenhSX = req.MaLenhSX
-                });
-            }
-            catch (Exception ex)
-            {
-                return Ok(new NtbSoft.ERP.Model.DashboardKho.LichPhanCong_SaveResult
-                {
-                    Success = false,
-                    Error   = ex.Message
-                });
-            }
-        }
-
-        // ===================================================================
-        // GET api/DashboardKhoDesktop/LichPhanCong_GetPickOrderDetail
-        // Lấy chi tiết các phụ liệu cần soạn cho một lệnh sản xuất
-        // (Van's code — merged 2026-06-05)
-        // ===================================================================
-        [HttpGet]
-        [Route("LichPhanCong_GetPickOrderDetail")]
-        public IHttpActionResult GetPickOrderDetail(string maLenhSX)
-        {
-            if (string.IsNullOrWhiteSpace(maLenhSX))
-                return BadRequest("MaLenhSX không được để trống.");
-
-            try
-            {
-                var result = new System.Collections.Generic.List<NtbSoft.ERP.Model.DashboardKho.LichPhanCong_PickItemModel>();
-                string connectionString = System.Configuration.ConfigurationManager
-                    .ConnectionStrings["strCnn_ln"].ConnectionString;
-
-                using (System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(connectionString))
-                using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SP_LICH_PHAN_CONG_PHU_LIEU", conn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandTimeout = 30;
-                    cmd.Parameters.AddWithValue("@Action", "GetPickOrderDetail");
-                    cmd.Parameters.AddWithValue("@MaLenhSX", maLenhSX.Trim());
-
-                    conn.Open();
-                    using (System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        Func<System.Data.SqlClient.SqlDataReader, string, string> safeStr = (r, col) => {
-                            try { return r[col] != DBNull.Value ? FixUtf8(r[col].ToString()) : ""; }
-                            catch { return ""; }
-                        };
-                        Func<System.Data.SqlClient.SqlDataReader, string, int> safeInt = (r, col) => {
-                            try { return r[col] != DBNull.Value ? Convert.ToInt32(r[col]) : 0; }
-                            catch { return 0; }
-                        };
-                        Func<System.Data.SqlClient.SqlDataReader, string, double> safeDbl = (r, col) => {
-                            try { return r[col] != DBNull.Value ? Convert.ToDouble(r[col]) : 0; }
-                            catch { return 0; }
-                        };
-                        Func<System.Data.SqlClient.SqlDataReader, string, bool> safeBool = (r, col) => {
-                            try { return r[col] != DBNull.Value && Convert.ToInt32(r[col]) == 1; }
-                            catch { return false; }
-                        };
-
-                        while (reader.Read())
-                        {
-                            var item = new NtbSoft.ERP.Model.DashboardKho.LichPhanCong_PickItemModel();
-                            item.ID = safeInt(reader, "ID");
-                            item.MaLenhSX = safeStr(reader, "MaLenhSX");
-                            item.MaNPL = safeStr(reader, "MaNPL");
-                            item.TenNPL = safeStr(reader, "TenNPL");
-                            item.SLCanSoan = safeDbl(reader, "SLCanSoan");
-                            item.SLTonKho = safeDbl(reader, "SLTonKho");
-                            item.SLDaSoan = safeDbl(reader, "SLDaSoan");
-                            item.DonVi = safeStr(reader, "DonVi");
-                            item.MaViTri = safeStr(reader, "MaViTri");
-                            item.ThieuHang = safeBool(reader, "ThieuHang");
-                            item.GhiChu = safeStr(reader, "GhiChu");
-                            result.Add(item);
-                        }
-                    }
-                }
-                return Ok(new { success = true, data = result });
-            }
-            catch (Exception ex)
             {
                 return Ok(new { success = false, message = ex.Message, detail = ex.GetType().Name });
             }
@@ -971,6 +750,9 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
         // Lấy danh sách nhân viên để chọn phân công
         // (Van's code — merged 2026-06-05)
         // ===================================================================
+        /// <summary>
+        /// Xử lý request cho GetNhanVienList
+        /// </summary>
         [HttpGet]
         [Route("LichPhanCong_GetNhanVienList")]
         public IHttpActionResult GetNhanVienList()

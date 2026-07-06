@@ -25,14 +25,15 @@ var ids = {
     detailModalContent: "detailModalContent",
 };
 
+/**
+ * Lấy phần tử HTML theo ID (viết tắt của document.getElementById).
+ */
 function byId(id) {
     return document.getElementById(id);
 }
 
 /**
- * Chuyển đổi một giá trị sang số an toàn. Nếu null/undefined/empty sẽ trả về 0.
- * @param {any} value Giá trị cần chuyển đổi
- * @returns {number} Số đã chuyển đổi hoặc 0
+ * Chuyển đổi một giá trị bất kỳ thành số thực (Float). Trả về 0 nếu giá trị không hợp lệ.
  */
 function toNumber(value) {
     if (value === null || value === undefined || value === "") return 0;
@@ -47,6 +48,9 @@ function toNumber(value) {
  * @returns {string} Chuỗi số đã định dạng
  */
 var __numFormatCache = {};
+/**
+ * Định dạng số theo chuẩn phân cách hàng nghìn (ví dụ: 1,000,000).
+ */
 function formatNumber(value, fractionDigits, forceFractionDigits) {
     var maxDigits = typeof fractionDigits === "number" ? fractionDigits : 0;
     var minDigits = forceFractionDigits === true ? maxDigits : 0;
@@ -61,18 +65,14 @@ function formatNumber(value, fractionDigits, forceFractionDigits) {
 }
 
 /**
- * Định dạng số thành chuỗi phần trăm (vd: 15.50%).
- * @param {any} value Giá trị phần trăm
- * @returns {string} Chuỗi phần trăm đã định dạng
+ * Định dạng số thập phân thành phần trăm (%) kèm dấu %.
  */
 function formatPercent(value) {
     return formatNumber(value, 2) + "%";
 }
 
 /**
- * Hàm phân tích một chuỗi (vd: /Date(123456789)/ hoặc ISO String) thành đối tượng Date.
- * @param {any} raw Chuỗi ngày tháng hoặc object Date gốc
- * @returns {Date|null} Đối tượng Date hoặc null nếu không hợp lệ
+ * Phân tích chuỗi ngày tháng từ server (hoặc chuỗi ISO) thành đối tượng Date của Javascript.
  */
 function parseDate(raw) {
     if (!raw) return null;
@@ -91,6 +91,9 @@ function parseDate(raw) {
     return null;
 }
 
+/**
+ * Định dạng ngày thành chuỗi DD/MM (Ngày/Tháng).
+ */
 function formatDateShort(d) {
     if (!d) return "";
     if (!(d instanceof Date)) d = parseDate(d);
@@ -100,17 +103,26 @@ function formatDateShort(d) {
     );
 }
 
+/**
+ * Định dạng ngày thành chuỗi DD/MM/YYYY.
+ */
 function formatDate(raw) {
     var date = parseDate(raw);
     if (!date) return "";
     return date.toLocaleDateString("vi-VN");
 }
 
+/**
+ * Định dạng ngày và giờ thành chuỗi DD/MM/YYYY HH:mm.
+ */
 function formatDateTime(date) {
     if (!date) return "--:--:--";
     return date.toLocaleTimeString("vi-VN", { hour12: false });
 }
 
+/**
+ * Hiển thị đồng hồ thời gian thực (Giờ:Phút:Giây) lên Topbar của giao diện.
+ */
 function renderClockNow() {
     var now = new Date();
     var timeNode = byId(ids.currentTime);
@@ -136,6 +148,9 @@ function renderClockNow() {
         });
 }
 
+/**
+ * Định dạng ngày tháng rút gọn (bỏ số năm) để tiết kiệm diện tích trên biểu đồ.
+ */
 function formatCompactDate(raw) {
     var date = parseDate(raw);
     if (!date) return "";
@@ -144,6 +159,9 @@ function formatCompactDate(raw) {
     return day + "/" + month;
 }
 
+/**
+ * Mã hóa (Encode) các ký tự HTML đặc biệt để phòng chống tấn công XSS (Cross-Site Scripting).
+ */
 function escapeHtml(value) {
     var text = String(value === null || value === undefined ? "" : value);
     return text
@@ -154,12 +172,18 @@ function escapeHtml(value) {
         .replace(/'/g, "&#39;");
 }
 
+/**
+ * Chuẩn hóa định dạng Mã Lệnh Sản Xuất để đồng bộ hiển thị.
+ */
 function formatMaLenhSX(maLenh) {
     if (!maLenh) return "-";
     if (maLenh.indexOf("|") !== -1 || maLenh.length > 30) return "";
     return escapeHtml(maLenh);
 }
 
+/**
+ * Rút gọn Mã Lệnh nếu quá dài, thêm dấu ... để tránh vỡ giao diện.
+ */
 function shortMaLenh(value) {
     if (!value) return "";
     var str = String(value).trim();
@@ -167,15 +191,16 @@ function shortMaLenh(value) {
     return idx >= 0 ? str.substring(0, idx).trim() : str;
 }
 
+/**
+ * Chuẩn hóa tên khách hàng (cắt khoảng trắng, xử lý lỗi font nếu có).
+ */
 function normalizeCustomerName(value) {
     var name = value === null || value === undefined ? "" : String(value).trim();
     return name ? name : "Khách trống";
 }
 
 /**
- * Đảm bảo dữ liệu đầu vào luôn là một Array (Mảng). Xử lý các case API trả về object bọc ngoài.
- * @param {any} data Dữ liệu đầu vào cần chuẩn hóa
- * @returns {Array} Mảng dữ liệu
+ * Đảm bảo dữ liệu trả về từ API luôn là một mảng. Nếu null thì trả về mảng rỗng [].
  */
 function normalizeArray(data) {
     if (!data) return [];
@@ -190,9 +215,7 @@ var __activeRequests = 0;
 var __maxConcurrent = 4; // Max 4 concurrent API calls to prevent network bottleneck
 
 /**
- * Hàm xử lý hàng đợi gọi API.
- * Cơ chế này giúp giới hạn số lượng request API gọi lên server cùng một lúc (Tối đa 4 request song song).
- * Điều này tránh làm nghẽn kết nối mạng của trình duyệt, đặc biệt khi load nhiều biểu đồ.
+ * Xử lý hàng đợi các request API (Queue) để tránh quá tải server khi gọi liên tục.
  */
 function __processRequestQueue() {
     if (__activeRequests >= __maxConcurrent || __requestQueue.length === 0) return;
@@ -214,6 +237,9 @@ function __processRequestQueue() {
 //#endregion
 
 
+/**
+ * Tự động chèn nút Phóng to (Maximize) vào góc phải của các bảng/biểu đồ.
+ */
 function injectMaximizeButtons() {
     var heads = document.querySelectorAll(".dk-panel-head");
     for (var hi = 0; hi < heads.length; hi++) {
@@ -230,9 +256,7 @@ function injectMaximizeButtons() {
 }
 
 /**
- * Mở/Đóng chế độ toàn màn hình (Fullscreen) cho một Panel (ví dụ: phóng to biểu đồ).
- * Đồng thời tự động reflow (vẽ lại) biểu đồ Highcharts để khớp với kích thước mới.
- * @param {HTMLElement} panel Thẻ DOM panel cần phóng to/thu nhỏ
+ * Kích hoạt/Hủy chế độ Toàn màn hình (Fullscreen) cho một Panel giao diện.
  */
 function togglePanelFullscreen(panel) {
     var isFs = panel.classList.contains("dk-panel-fullscreen");
@@ -276,7 +300,9 @@ function togglePanelFullscreen(panel) {
         }
     }
 
-    // Gọi resize lại biểu đồ Highcharts bên trong
+    /**
+     * Cập nhật lại kích thước (resize) cho toàn bộ biểu đồ Highcharts trên trang.
+     */
     function reflowAllHighcharts() {
         if (typeof Highcharts === "undefined") return;
         var charts = Highcharts.charts || [];
@@ -343,11 +369,17 @@ function togglePanelFullscreen(panel) {
     }, 80);
 }
 
+/**
+ * Kiểm tra xem một phần tử HTML có chứa class cụ thể hay không.
+ */
 function hasClass(node, className) {
     if (!node || !node.classList) return false;
     return node.classList.contains(className);
 }
 
+/**
+ * Tìm kiếm thẻ HTML chứa thông tin cấu hình mở Modal chi tiết (thuộc tính data-detail).
+ */
 function findDetailNode(node) {
     var current = node;
     while (current && current !== document) {
@@ -357,6 +389,9 @@ function findDetailNode(node) {
     return null;
 }
 
+/**
+ * Tìm kiếm nút Đóng (Close) của Modal hiện tại.
+ */
 function findCloseNode(node) {
     var current = node;
     while (current && current !== document) {
@@ -366,16 +401,25 @@ function findCloseNode(node) {
     return null;
 }
 
+/**
+ * Cộng/trừ số ngày vào một mốc thời gian (Date).
+ */
 function addDays(baseDate, diffDays) {
     var date = new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate());
     date.setDate(date.getDate() + diffDays);
     return date;
 }
 
+/**
+ * Cộng/trừ số tháng vào một mốc thời gian (Date).
+ */
 function addMonths(baseDate, diffMonths) {
     return new Date(baseDate.getFullYear(), baseDate.getMonth() + diffMonths, 1);
 }
 
+/**
+ * Chuyển đổi đối tượng Date thành chuỗi định dạng ISO (YYYY-MM-DD).
+ */
 function asIsoDate(date) {
     var year = date.getFullYear();
     var month = String(date.getMonth() + 1).padStart(2, "0");
@@ -383,7 +427,9 @@ function asIsoDate(date) {
     return year + "-" + month + "-" + day;
 }
 
-// v2.4.10 — Counter-up helper (chạy 1 lần per element)
+/**
+ * Tạo hiệu ứng đếm số (nhảy số liên tục) cho các thẻ KPI trên giao diện.
+ */
 function animateCountUp(scope) {
     var els = (scope || document).querySelectorAll(".dk-count-up:not([data-counted])");
     for (var i = 0; i < els.length; i++) {
@@ -403,13 +449,8 @@ function animateCountUp(scope) {
     }
 }
 
-// ════════════════════════════════════════════════════════════════
-// v2.4.4 — TOAST helper
-// ════════════════════════════════════════════════════════════════
 /**
- * Hiển thị một thông báo nổi (Toast/Snackbar) góc trên màn hình.
- * @param {string} msg Nội dung thông báo
- * @param {string} kind Loại thông báo: "success", "error", "warn", hoặc "info"
+ * Hiển thị thông báo nổi (Toast / Notification) trên màn hình.
  */
 function showToast(msg, kind) {
     var cont = byId("dkToastContainer");
@@ -434,7 +475,9 @@ function showToast(msg, kind) {
     }, 2500);
 }
 
-// Helper chung: format VND tỷ
+/**
+ * Định dạng số tiền VNĐ dạng rút gọn (ví dụ: 1.5 Tỷ, 500 Tr).
+ */
 function formatVNDShort(v) {
     var n = toNumber(v);
     if (n >= 1e9) return (n / 1e9).toFixed(2).replace(/\.?0+$/, "") + " tỷ";

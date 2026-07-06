@@ -4,11 +4,8 @@
  * @version 2.7.26
  */
 
-//#region MODALS & INTERACTIONS
 /**
- * Hàm gốc dùng để mở mọi loại Modal chi tiết. Tự động lưu lịch sử để hỗ trợ Drill-down (mở Modal con từ Modal cha).
- * @param {string} detail ID của chi tiết cần mở
- * @param {number} index Vị trí/Tham số phụ
+ * Hàm chính để mở hộp thoại (Modal) hiển thị chi tiết (Drill-down) từ một thẻ KPI hoặc biểu đồ.
  */
 function openDetail(detail, index) {
     // Push parent state lên stack nếu modal đang mở (= drilling)
@@ -47,10 +44,7 @@ var _currentDetail = null;
 var _currentDetailIndex = -1;
 
 /**
- * Hàm vẽ nội dung cho Modal chi tiết dựa vào tham số detail (tên modal) và index (dữ liệu chọn).
- * Có hỗ trợ phân nhánh để render giao diện tùy biến (customAsync) cho các Modal nghiệp vụ phức tạp.
- * @param {string} detail Tên/loại modal
- * @param {number} index Index/tham số của dòng dữ liệu
+ * Nạp cấu hình cột, gọi API tải dữ liệu và vẽ giao diện bảng bên trong Modal chi tiết.
  */
 function renderDetailModal(detail, index) {
     var model;
@@ -346,7 +340,7 @@ function renderDetailModal(detail, index) {
 }
 
 /**
- * Đóng Modal chi tiết và xóa trạng thái lưu lịch sử Drill-down.
+ * Đóng Modal chi tiết hiện tại và quay về màn hình trước đó.
  */
 function closeDetailModal() {
     var modal = byId(ids.detailModal);
@@ -370,8 +364,7 @@ function closeDetailModal() {
 var fsBackdrop = null;
 
 /**
- * Logic tìm kiếm nhanh các dòng hiển thị trong bảng dữ liệu của Modal chi tiết.
- * @param {string} query Chuỗi từ khóa tìm kiếm
+ * Lọc nhanh dữ liệu trực tiếp trên bảng chi tiết bằng từ khóa gõ vào ô tìm kiếm.
  */
 function filterDetailTable(query) {
     var content = byId(ids.detailModalContent);
@@ -460,6 +453,9 @@ var flowRangeTo = null;
 
 window.dkShowToast = showToast;
 
+/**
+ * Hiển thị trạng thái đang tải (Loading Spinner) bên trong Modal.
+ */
 function modalLoading(text) {
     return (
         '<div class="dk-empty" style="padding:40px;text-align:center"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px;margin-bottom:10px;display:block"></i>' +
@@ -468,6 +464,9 @@ function modalLoading(text) {
     );
 }
 
+/**
+ * Hiển thị thông báo lỗi khi không thể nạp được dữ liệu vào Modal.
+ */
 function modalErrorBox(msg) {
     return (
         '<div style="padding:30px">' +
@@ -479,6 +478,9 @@ function modalErrorBox(msg) {
     );
 }
 
+/**
+ * Mở nhanh một Modal chi tiết cụ thể mà không cần thông qua phân tích thẻ (Card) gốc.
+ */
 function renderDetailModalDirect(model) {
     var titleEl = byId(ids.detailModalTitle);
     if (_detailStack.length > 0) {
@@ -1131,6 +1133,9 @@ function renderPOTreDetailModal() {
     if (sb) sb.style.display = "none";
 }
 
+/**
+ * Mở Modal hiển thị danh sách các Công việc chờ xử lý (Nhập/Xuất/Tồn). Xử lý riêng biệt nhiều Tab bên trong.
+ */
 function renderTodoDetailModal() {
     var content = byId(ids.detailModalContent);
     if (!content) return;
@@ -2025,9 +2030,9 @@ function renderKiemKeAllModal() {
         });
 }
 
-// ════════════════════════════════════════════════════════════════
-// v2.4.16 — Alert detail modal (dispatcher theo MaCB)
-// ════════════════════════════════════════════════════════════════
+/**
+ * Mở Modal danh sách các Lỗi cảnh báo Tồn kho. Hỗ trợ hiển thị riêng theo mã lỗi cụ thể.
+ */
 function renderAlertDetailModal() {
     var content = byId(ids.detailModalContent);
     if (!content) return;
@@ -2148,7 +2153,9 @@ function renderAlertDetailModal() {
     if (sb) sb.style.display = "none";
 }
 
-// v2.3.25 + v2.3.26 — Fetch GetRackSlotDetail rồi filter + append vào modal
+/**
+ * Tải danh sách vật tư hiện có tại một vị trí (Slot/Rack) cụ thể và đưa vào Modal.
+ */
 function loadSlotDrillIntoModal(opts) {
     var content = byId(ids.detailModalContent);
     if (!content) return;

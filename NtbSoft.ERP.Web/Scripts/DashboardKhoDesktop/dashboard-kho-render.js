@@ -4,10 +4,8 @@
  * @version 2.7.26
  */
 
-//#region TABLE RENDERERS
 /**
- * Vẽ bảng danh sách chi tiết các kệ kho, hiển thị tỷ lệ lấp đầy kèm thanh tiến trình (progress bar).
- * Dữ liệu được sắp xếp giảm dần theo tỷ lệ lấp đầy (lấy top 12 kệ).
+ * Vẽ bảng phân bổ tồn kho theo vị trí kệ (Racks).
  */
 function renderRacksTable() {
     var body = byId(ids.racksBody);
@@ -86,8 +84,7 @@ function renderRacksTable() {
 }
 
 /**
- * Vẽ bảng danh sách PO chuẩn bị nhập kho (hàng sắp về).
- * Sắp xếp theo ngày dự kiến nhập gần nhất.
+ * Vẽ bảng danh sách hàng chuẩn bị Nhập kho (Inbound).
  */
 function renderInboundTable() {
     var body = byId(ids.inboundBody);
@@ -134,7 +131,7 @@ function renderInboundTable() {
 }
 
 /**
- * Vẽ bảng danh sách các Lệnh sản xuất chuẩn bị xuất kho.
+ * Vẽ bảng danh sách hàng chuẩn bị Xuất kho (Outbound Ready).
  */
 function renderOutboundReadyTable() {
     var body = byId(ids.outboundReadyBody);
@@ -173,7 +170,7 @@ function renderOutboundReadyTable() {
 }
 
 /**
- * Vẽ bảng danh sách các Lệnh sản xuất đang được xuất kho thực tế.
+ * Vẽ bảng danh sách hàng đang lấy/xuất kho (Outbound Running).
  */
 function renderOutboundRunningTable() {
     var body = byId(ids.outboundRunningBody);
@@ -438,16 +435,8 @@ function renderRacksHeatmap() {
     container.innerHTML = html;
 }
 
-// ════════════════════════════════════════════════════════════════
-// v2.4.6 — Render bảng Todo group-by-PO (header row + sub-rows)
-// ════════════════════════════════════════════════════════════════
 /**
- * Hàm vẽ cấu trúc bảng (Table) đặc biệt: Gom nhóm các dòng theo PO (Mua)
- * Có khả năng mở rộng/thu gọn (collapse/expand) các dòng con thuộc từng PO.
- * @param {Array} cols Cấu hình các cột (columns config)
- * @param {Array} rows Dữ liệu dòng (rows data)
- * @param {boolean} isTraHang Đánh dấu nếu là bảng trả hàng (để hiện thêm cột NCC)
- * @returns {string} Chuỗi HTML của bảng
+ * Vẽ bảng danh sách công việc gộp theo loại.
  */
 function renderTodoGroupedTable(cols, rows, isTraHang) {
     if (!rows || rows.length === 0) {
@@ -544,6 +533,9 @@ function renderTodoGroupedTable(cols, rows, isTraHang) {
     );
 }
 
+/**
+ * Vẽ bảng Top 5 vật tư có dung lượng lớn nhất.
+ */
 function renderTop5VTTable() {
     var body = byId("top5VTBody");
     if (!body) return;
@@ -583,6 +575,9 @@ function renderTop5VTTable() {
         .join("");
 }
 
+/**
+ * Vẽ bảng Top 5 Khách hàng có hàng tồn kho nhiều nhất.
+ */
 function renderTop5KHTable() {
     var body = byId("top5KHBody");
     if (!body) return;
@@ -613,6 +608,9 @@ function renderTop5KHTable() {
         .join("");
 }
 
+/**
+ * Vẽ bảng danh sách vật tư sắp hết hạn/đã hết hạn.
+ */
 function renderHetHanTable() {
     var body = byId("hetHanBody");
     if (!body) return;
@@ -653,9 +651,9 @@ function renderHetHanTable() {
         .join("");
 }
 
-// ════════════════════════════════════════════════════════════════
-// v2.4.4 — Sortable table helper (cho Top5 VT)
-// ════════════════════════════════════════════════════════════════
+/**
+ * Hàm tiện ích vẽ bảng HTML có khả năng sắp xếp (Sort) cột khi nhấn vào tiêu đề.
+ */
 function renderSortableTable(cols, rows, opts) {
     opts = opts || {};
     var head = "<thead><tr>";
@@ -720,6 +718,9 @@ function sortableTbody(cols, rows, opts) {
         .join("");
 }
 
+/**
+ * Gắn sự kiện Click cho các tiêu đề cột để kích hoạt tính năng sắp xếp dữ liệu bảng.
+ */
 function wireSortableTable(wrapEl, cols, rows, opts) {
     if (!wrapEl) return;
     var ths = wrapEl.querySelectorAll(".dk-sortable-th");
@@ -747,8 +748,7 @@ function wireSortableTable(wrapEl, cols, rows, opts) {
 }
 
 /**
- * Vẽ biểu đồ vòng tròn (Donut Chart) thể hiện tỷ lệ sức chứa kho (Đã dùng NL, Đã dùng PL, Còn trống).
- * Hàm này dùng mã vẽ SVG tùy biến thay vì Highcharts để tạo hiệu ứng UI đặc thù.
+ * Vẽ biểu đồ hình vành khuyên (Donut Chart) thể hiện tổng sức chứa và dung lượng đã sử dụng.
  */
 function renderCapacityChart() {
     var ringNode = byId(ids.chartCapacityRing);
@@ -1042,6 +1042,9 @@ function renderCapacityChart() {
     }
 }
 
+/**
+ * Vẽ biểu đồ hình tròn (Pie Chart) phân bổ hàng tồn kho theo Khách hàng.
+ */
 function renderCustomerPieChart() {
     var node = byId(ids.chartCustomerPie);
     if (!node) return;
@@ -1457,6 +1460,9 @@ function buildFlowSeries() {
     };
 }
 
+/**
+ * Vẽ biểu đồ luồng Xuất/Nhập/Tồn theo khoảng thời gian bằng Highcharts.
+ */
 function renderFlowTrendChart() {
     var node = byId(ids.chartFlowTrend);
     if (!node) return;
@@ -1852,23 +1858,38 @@ function renderTop5Single(nodeId, loaiNPL) {
     }
 }
 
+/**
+ * Vẽ biểu đồ cột (Bar Chart) Top Nguyên liệu tồn kho lớn nhất.
+ */
 function renderTop5MaxNLChart() {
     renderTop5Single("chartTop5MaxNL", 1);
 }
 
+/**
+ * Vẽ biểu đồ cột (Bar Chart) Top Phụ liệu tồn kho lớn nhất.
+ */
 function renderTop5MaxPLChart() {
     renderTop5Single("chartTop5MaxPL", 2);
 }
 
+/**
+ * Hàm dùng chung để vẽ biểu đồ Top 5 lớn nhất (Bar Chart).
+ */
 function renderTop5MaxChart() {
     renderTop5MaxNLChart();
     renderTop5MaxPLChart();
 }
 
+/**
+ * Hàm dùng chung để vẽ biểu đồ Top 5 nhỏ nhất.
+ */
 function renderTop5MinChart() {
     /* removed in v2.3.18 */
 }
 
+/**
+ * Vẽ biểu đồ cột biểu diễn Tuổi tồn kho (Thời gian hàng nằm trong kho).
+ */
 function renderAgeStockChart() {
     var node = byId(ids.chartAgeStock);
     if (!node) return;
@@ -3100,6 +3121,9 @@ function renderGiaTriTheoNhomChart() {
     node.appendChild(totalEl);
 }
 
+/**
+ * Vẽ lịch hoạt động của kho (nhập, xuất, phân công) dạng lưới ngang trên màn hình.
+ */
 function renderActivityCalendar() {
     var node = byId("chartActivityCalendar");
     if (!node) return;
@@ -3249,7 +3273,7 @@ function loadNKDuKienForCalendar(callback) {
 }
 
 /**
- * Vẽ lịch trình công việc và hoạt động của kho theo tháng.
+ * Vẽ lịch hoạt động dạng lịch tháng (Monthly Grid) tương tự Google Calendar.
  */
 function renderActivityCalendarMonthly() {
 
@@ -3915,7 +3939,9 @@ function openCalendarOverviewModal() {
         });
 }
 
-// v2.3.46 — Render kết quả global search Itemcode
+/**
+ * Render kết quả tìm kiếm vào giao diện hộp thoại Dropdown.
+ */
 function renderGlobalSearchResult(container, code, row) {
     if (!container) return;
     if (!row || !row.MaVTID) {
@@ -5618,10 +5644,20 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
     var headEl = modal ? modal.querySelector(".dk-modal-head") : null;
     if (!modal || !contentEl) return;
 
+    function countWarnDisplayRows(rows) {
+        rows = rows || [];
+        var total = 0;
+        for (var i = 0; i < rows.length; i++) {
+            var detailRows = rows[i] && Array.isArray(rows[i].items) ? rows[i].items.length : 0;
+            total += detailRows > 0 ? detailRows : 1;
+        }
+        return total;
+    }
+
     var rcEl = document.getElementById("detailModalRowCount");
     if (rcEl) {
         var count = 0;
-        if (section === "warn") count = warnings.length;
+        if (section === "warn") count = countWarnDisplayRows(warnings);
         else if (section === "task") count = assignments.length;
         else if (section === "pick") count = pickOrders.length;
         rcEl.textContent = "Tổng số dòng: " + formatNumber(count, 0);
@@ -6066,6 +6102,9 @@ function appendLpcpTab(container, lpcpData) {
     });
 }
 
+/**
+ * Hàm tổng chỉ huy, gọi tất cả các hàm render khác để cập nhật lại toàn bộ giao diện màn hình.
+ */
 function renderAll() {
     renderMetricCards();
     renderMoMStrip();
@@ -6126,6 +6165,9 @@ var autoRotateTimer = null;
 
 var AUTO_ROTATE_INTERVAL = 15000; // 15 giây
 
+/**
+ * Chuyển đổi hiển thị giữa các trang nội dung (Page 1: Tổng quan, Page 2: Luồng hàng, Page 3: Lịch phân công).
+ */
 function switchPage(pageNum) {
     currentPage = pageNum;
 
@@ -6197,6 +6239,9 @@ function switchPage(pageNum) {
     }
 }
 
+/**
+ * Bắt đầu quá trình tự động lật trang (Auto-rotate) sau một khoảng thời gian nhất định.
+ */
 function startAutoRotate() {
     stopAutoRotate();
     autoRotateTimer = setInterval(function () {
@@ -6205,6 +6250,9 @@ function startAutoRotate() {
     }, AUTO_ROTATE_INTERVAL);
 }
 
+/**
+ * Dừng tính năng tự động lật trang.
+ */
 function stopAutoRotate() {
     if (autoRotateTimer) {
         clearInterval(autoRotateTimer);
@@ -7335,6 +7383,9 @@ function renderTodoList() {
         .join("");
 }
 
+/**
+ * Cập nhật giao diện khối hộp hiển thị tiến độ Kiểm kê kho.
+ */
 function renderKiemKeBox() {
     var node = byId("kiemKeBox");
     if (!node) return;
@@ -7498,6 +7549,9 @@ function bindKpiSearch(scope, refilterFn) {
     });
 }
 
+/**
+ * Cập nhật lại giá trị cho các thẻ KPI trên cùng (Tổng Nhập, Xuất, Tồn, Cảnh báo).
+ */
 function renderMetricCards() {
     // v2.4.6 — 7 KPI mới: Tồn đầu kỳ + Tổng nhập + Tổng xuất + Tồn kho + PO chuẩn bị về + PO đang trễ + Giá trị tồn kho
     function setText(id, val) {

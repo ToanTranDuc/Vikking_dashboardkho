@@ -4,13 +4,13 @@
  * @version 2.7.26
  */
 
-//#region INITIALIZATION
 /**
- * Đăng ký (bind) tất cả các sự kiện click, bộ lọc (Filters) chính trên toàn trang.
- * Xử lý các logic: Nút làm mới, bấm mở full-screen, click mở modal chi tiết, nút back/đóng modal...
+ * Thiết lập và gắn tất cả các sự kiện (Event Listeners) cho giao diện người dùng.\n * Quản lý các tương tác như: làm mới dữ liệu, bộ lọc (khách hàng, thời gian), lịch phân công, và các nút điều hướng cơ bản.
  */
 function bindEvents() {
-    // Refresh button (sidebar)
+    /**
+     * Hàm tiện ích nội bộ: Lưu lại tab hiện tại và gọi API xóa cache backend trước khi reload trang.
+     */
     function refreshWithClearCache() {
         sessionStorage.setItem("dk_restore_tab", currentPage);
         requestJson("/api/DashboardKhoDesktop/ClearCache")
@@ -171,12 +171,16 @@ function bindEvents() {
         });
     }
 
-    // v2.3.60 — Tải stats LPCP cho đúng tháng đang hiển thị trên lịch
+    /**
+     * Tải thống kê Lịch phân công phụ liệu (LPCP) cho tháng được chọn trên giao diện lịch.
+     */
     function loadLpcpStatsForMonth(baseDate) {
         renderLpcpBottomCharts();
     }
 
-    // Monthly calendar navigation — fetch data when month changes (Issue 2)
+    /**
+     * Tải lại toàn bộ dữ liệu lịch (hoạt động xuất nhập + phân công) trong khoảng 3 tháng (tháng trước, hiện tại, tháng sau) để người dùng có thể xem liền mạch.
+     */
     function reloadCalendarForMonth() {
         var calNode = byId("chartActivityCalendarMonthly");
         if (calNode) calNode.innerHTML = '<div class="dk-skeleton"><div class="dk-skeleton-shimmer"></div></div>';
@@ -364,6 +368,9 @@ function bindEvents() {
     var gsClear = byId("globalKhoSearchClear");
     var gsResult = byId("globalKhoSearchResult");
     var gsDebounceTimer = null;
+    /**
+     * Thực thi lệnh tìm kiếm toàn cục (Global Search) từ khóa nhập vào, gọi API và hiển thị kết quả vào dropdown.
+     */
     function runGlobalSearch(immediate) {
         if (!gsInput || !gsResult) return;
         var code = (gsInput.value || "").trim();
@@ -462,12 +469,14 @@ function bindEvents() {
 }
 
 /**
- * Xử lý sự kiện Ẩn/Hiện thanh điều hướng bên trái (Sidebar).
- * Lưu trạng thái vào localStorage để ghi nhớ cho lần mở sau.
+ * Đăng ký sự kiện Ẩn/Hiện thanh điều hướng bên trái (Sidebar) để mở rộng không gian hiển thị.
  */
 function bindSidebarToggle() {
     var sidebar = byId("dkSidebar");
     if (!sidebar) return;
+    /**
+     * Hàm thực thi việc ẩn/hiện Sidebar và tính toán lại kích thước biểu đồ (resize) nếu cần.
+     */
     function doToggle() {
         sidebar.classList.toggle("collapsed");
         try {
@@ -503,7 +512,7 @@ function bindSidebarToggle() {
 }
 
 /**
- * Xử lý sự kiện chọn khoảng ngày (Date Range Picker) cho biểu đồ Xuất nhập tồn (Flow Trend).
+ * Đăng ký sự kiện cho hộp thoại chọn ngày tùy chỉnh của biểu đồ Xuất nhập tồn.\n * Khi người dùng chọn khoảng thời gian và nhấn "Áp dụng", hệ thống sẽ tải lại biểu đồ luồng hàng.
  */
 function bindFlowRangePicker() {
     var fromEl = byId("flowFromDate");
@@ -533,13 +542,15 @@ function bindFlowRangePicker() {
     });
 }
 
+/**
+ * Đăng ký sự kiện cho các nút chọn chu kỳ thời gian (Tuần, Tháng, Quý, Năm).\n * Xử lý sự kiện nhấn vào nút để cập nhật tham số lọc và reload biểu đồ tương ứng.
+ */
 function bindPeriodSelector() {
     bindFlowRangePicker();
 }
 
 /**
- * Xử lý sự kiện chuyển đổi giao diện Sáng/Tối (Light/Dark Theme).
- * Lưu lựa chọn vào localStorage.
+ * Quản lý tính năng chuyển đổi giao diện Sáng/Tối (Dark/Light Theme).\n * Trạng thái được lưu vào localStorage để giữ nguyên khi người dùng F5 tải lại trang.
  */
 function bindThemeToggle() {
     var btn = byId("btnThemeToggle");
@@ -587,7 +598,7 @@ function bindThemeToggle() {
 }
 
 /**
- * Đăng ký sự kiện cho bộ lọc ngày toàn cục (Global Date Filter) ở góc phải trên cùng.
+ * Gắn sự kiện cho các bộ lọc ngày tháng trên thanh Topbar (Từ ngày - Đến ngày).\n * Cho phép lọc nhanh (Hôm nay, 7 ngày, 30 ngày) và nạp lại dữ liệu KPIs.
  */
 function bindDateFilter() {
     var fromEl = byId("dashFromDate");
@@ -663,7 +674,7 @@ function bindDateFilter() {
 }
 
 /**
- * Đăng ký sự kiện đóng/mở (collapse) danh sách PO trong phần Công việc chờ xử lý.
+ * Quản lý các sự kiện click bên trong danh sách công việc chờ xử lý (Todo List).\n * Điều hướng người dùng đến đúng trang (Nhập kho, Xuất kho...) dựa theo loại công việc.
  */
 function bindTodoPOHandlers() {
     document.addEventListener("click", function (e) {
@@ -688,8 +699,7 @@ function bindTodoPOHandlers() {
 }
 
 /**
- * Logic xử lý cho thanh Tìm kiếm toàn cục (Global Search All) - Ô tìm kiếm góc trên cùng.
- * Cho phép tìm nhanh các chức năng trong Dashboard (như biểu đồ, thông số) hoặc tìm Mã vật tư.
+ * Thiết lập tính năng Tìm kiếm toàn cầu (Global Search).\n * Cho phép người dùng tìm kiếm đa luồng (Khách hàng, Mã vật tư, Đơn hàng, v.v...) từ thanh Topbar\n * và hiển thị trực tiếp danh sách thả xuống với các kết quả API trả về.
  */
 function bindGlobalSearchAll() {
     var searchInput = document.getElementById("dkGlobalSearch");
@@ -725,6 +735,9 @@ function bindGlobalSearchAll() {
         { label: "Lịch hoạt động kho", icon: "fa-calendar-days", elementId: "chartActivityCalendarMonthly", page: 3 },
     ];
 
+    /**
+     * Làm nổi bật (highlight) phần tử đang được chọn trong danh sách kết quả tìm kiếm (khi dùng phím mũi tên).
+     */
     function highlightElement(el) {
         // Scroll to element
         el.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -738,6 +751,9 @@ function bindGlobalSearchAll() {
         }, 3500);
     }
 
+    /**
+     * Chuyển hướng màn hình (cuộn trang) đến vị trí của một Chức năng (Section) được tìm thấy trong kết quả.
+     */
     function navigateToSection(section) {
         var targetPage = section.page || 1;
         // Use switchPage directly
@@ -755,6 +771,9 @@ function bindGlobalSearchAll() {
         }, 500);
     }
 
+    /**
+     * Lọc danh sách các mục/chức năng trên Dashboard dựa vào từ khóa người dùng nhập.
+     */
     function filterSections(query) {
         var q = query.toLowerCase();
         var words = q.split(/\s+/);
@@ -935,8 +954,14 @@ function bindGlobalSearchAll() {
     });
 }
 
+/**
+ * Khởi tạo thư viện Flatpickr dùng để hiển thị giao diện bộ lịch chọn ngày tháng\n * bằng tiếng Việt chuẩn (vn), tự động liên kết 2 ô input Từ ngày -> Đến ngày.
+ */
 function initFlatpickr() {
     if (typeof flatpickr !== "undefined") {
+        /**
+         * Hàm hỗ trợ: Ràng buộc 2 ô nhập ngày (Từ ngày - Đến ngày) với nhau, đảm bảo Từ ngày luôn <= Đến ngày.
+         */
         function bindPair(fromSelector, toSelector) {
             var fromEl = document.querySelector(fromSelector);
             var toEl = document.querySelector(toSelector);
@@ -976,7 +1001,7 @@ function initFlatpickr() {
 }
 
 /**
- * Hàm khởi chạy đầu tiên khi tải trang. Nạp dữ liệu và khởi tạo giao diện.
+ * Hàm khởi tạo chính của Dashboard. Gọi các thiết lập UI ban đầu,\n * đồng thời bắt đầu chu trình chạy đồng hồ và tải dữ liệu từ máy chủ.
  */
 function init() {
     var restoreTab = sessionStorage.getItem("dk_restore_tab");

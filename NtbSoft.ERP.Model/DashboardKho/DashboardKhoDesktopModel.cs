@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
+using System.Text.RegularExpressions;
 
 using NtbSoft.ERP.Model.Kho;
 
@@ -67,8 +69,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                                 };
                             }
                         }
-                        catch
+                        catch (Exception ex)
                         {
+                            System.Diagnostics.Debug.WriteLine("DashboardKhoDesktopModel Cache Refresh Error: " + ex.Message);
                             lock (_cacheLock)
                             {
                                 if (_cache.ContainsKey(key))
@@ -185,11 +188,17 @@ namespace NtbSoft.ERP.Model.DashboardKho
             });
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetOverallCapacity từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetOverallCapacity()
         {
-            return GetOrCache("dk_OverallCapacity", () => ExecuteSP("GetOverallCapacity"));
+            return ExecuteSP("GetOverallCapacity");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetDistinctMaterialCount từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetDistinctMaterialCount()
         {
             return ExecuteSP("GetDistinctMaterialCount");
@@ -198,16 +207,25 @@ namespace NtbSoft.ERP.Model.DashboardKho
         #endregion
 
         #region BÁO CÁO CHI TIẾT
+        /// <summary>
+        /// Lấy dữ liệu cho GetCustomers từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetCustomers()
         {
-            return GetOrCache("dk_Customers", () => ExecuteSP("GetCustomers"));
+            return ExecuteSP("GetCustomers");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetRacks từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetRacks()
         {
-            return GetOrCache("dk_Racks", () => ExecuteSP("GetRacks"));
+            return ExecuteSP("GetRacks");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetChuanBiVe từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetChuanBiVe(DateTime tuNgay, DateTime denNgay, string keyword = "")
         {
             return ExecuteSP("GetChuanBiVe", cmd => {
@@ -234,6 +252,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
         /// xuất 30 ngày, kiểm kê 30 ngày, dự kiến tới 60 ngày).
         /// JS dùng kết quả để render danh sách section có khớp + cho phép navigate.
         /// </summary>
+        /// <summary>
+        /// Lấy dữ liệu cho GlobalSearchByItemcode từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GlobalSearchByItemcode(string itemcode)
         {
             return ExecuteSP("GlobalSearchByItemcode", cmd => {
@@ -241,6 +262,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
             });
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GlobalSearchAll từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GlobalSearchAll(string keyword)
         {
             return ExecuteSP("GlobalSearchAll", cmd => {
@@ -254,6 +278,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
         ///   SL đã xuất = SUM(PhieuXuatHang.SLNhap) WHERE PhieuYC = ERP_PhieuDangKyXuatVT.PhieuDK
         ///   % đã xuất = SL đã xuất / SL yêu cầu
         /// </summary>
+        /// <summary>
+        /// Lấy dữ liệu cho GetDangXuat từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetDangXuat(DateTime tuNgay, DateTime denNgay)
         {
             return ExecuteSP("GetDangXuat", cmd => {
@@ -263,16 +290,25 @@ namespace NtbSoft.ERP.Model.DashboardKho
             });
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetFlowTrend12T từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetFlowTrend12T()
         {
             return ExecuteSP("GetFlowTrend12T");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetFlowTrendWeekly từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetFlowTrendWeekly()
         {
             return ExecuteSP("GetFlowTrendWeekly");
         } 
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetAgeStock từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetAgeStock()
         {
             return GetOrCache("dk_AgeStock", () => 
@@ -282,6 +318,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
             });
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetActivityCalendar từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetActivityCalendar(string maNPL = "all", string soLoID = "all", string maHang = "all", string maKH = "all", string khoLoi = "0", string nhom = "all", int isNPL = 2)
         {
             DateTime today = DateTime.Today;
@@ -294,7 +333,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
         /// </summary>
         public static DataTable GetAllMaterialsInStock()
         {
-            return GetOrCache("dk_AllMaterials", () => ExecuteSP("GetAllMaterialsInStock"));
+            return ExecuteSP("GetAllMaterialsInStock");
         }
 
         /// <summary>
@@ -303,7 +342,7 @@ namespace NtbSoft.ERP.Model.DashboardKho
         /// </summary>
         public static DataTable GetThanhGiaHangTon()
         {
-            return GetOrCache("dk_ThanhGia", () => ExecuteSP("GetThanhGiaHangTon"));
+            return ExecuteSP("GetThanhGiaHangTon");
         }
 
         /// <summary>
@@ -406,6 +445,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
         /// v2.3.7 — dùng temp tables, ép kiểu DATE tường minh, fallback an toàn cho
         /// bảng/cột kiểm kê nếu môi trường không có (Issue 2 fix).
         /// </summary>
+        /// <summary>
+        /// Lấy dữ liệu cho GetActivityCalendar từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetActivityCalendar(DateTime tuNgay, DateTime denNgay, string maNPL = "all", string soLoID = "all", string maHang = "all", string maKH = "all", string khoLoi = "0", string nhom = "all", int isNPL = 2)
         {
             return ExecuteSP("GetActivityCalendar", cmd => {
@@ -440,11 +482,17 @@ namespace NtbSoft.ERP.Model.DashboardKho
             });
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetMoMComparison từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetMoMComparison()
         {
             return ExecuteSP("GetMoMComparison");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetTop5 từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTop5(int isNhieuNhat)
         {
             return GetTop5(isNhieuNhat, 0);
@@ -456,19 +504,24 @@ namespace NtbSoft.ERP.Model.DashboardKho
         /// Truy vấn trực tiếp ERP_VatTuCBM + ERP_ONPL để Module quyết định NL/PL,
         /// thay vì SP_PHIEUKHONPL (không có cột phân biệt NL/PL). Bug fix v2.3.5.
         /// </summary>
+        /// <summary>
+        /// Lấy dữ liệu cho GetTop5 từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTop5(int isNhieuNhat, int loaiNPL)
         {
-            return GetOrCache("dk_Top5_" + isNhieuNhat + "_" + loaiNPL,
-                () => ExecuteSP("GetTop5", cmd => {
-                    cmd.Parameters.AddWithValue("@IsNhieuNhat", isNhieuNhat);
-                    cmd.Parameters.AddWithValue("@LoaiNPL",     loaiNPL);
-                }));
+            return ExecuteSP("GetTop5", cmd => {
+                cmd.Parameters.AddWithValue("@IsNhieuNhat", isNhieuNhat);
+                cmd.Parameters.AddWithValue("@LoaiNPL",     loaiNPL);
+            });
         }
 
         // ════════════════════════════════════════════════════════════════
         // v2.5.0 — Công việc chờ xử lý: SQL thật (2 mục: ItemCode chờ NK + KK chờ duyệt)
         // ════════════════════════════════════════════════════════════════
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetCongViecChoXuLy từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetCongViecChoXuLy(DateTime tuNgay, DateTime denNgay)
         {
             return ExecuteSP("GetCongViecChoXuLy", cmd => {
@@ -477,6 +530,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
             });
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetTop5VatTuDungTich từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTop5VatTuDungTich()
         {
             return ExecuteQuery(@"
@@ -495,11 +551,17 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 ORDER BY SUM(v.CBM) DESC;");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetTop5KhachHangTonKho từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTop5KhachHangTonKho()
         {
             return ExecuteSP("GetTop5KhachHangTonKho");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetVatTuSapHetHan từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetVatTuSapHetHan()
         {
             return ExecuteQuery(@"
@@ -522,11 +584,17 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 ORDER BY DATEDIFF(DAY, ct.NgayNhapKho, GETDATE()) DESC;");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetGiaTriTonKhoTheoNhom từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetGiaTriTonKhoTheoNhom()
         {
             return ExecuteSP("GetGiaTriTonKhoTheoNhom");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetTinhHinhKiemKe từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTinhHinhKiemKe()
         {
             return ExecuteSP("GetTinhHinhKiemKe");
@@ -536,6 +604,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
         // v2.5.0 — Chi tiết công việc chờ xử lý: SQL thật
         // ════════════════════════════════════════════════════════════════
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetTodoDetail từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTodoDetail(string type)
         {
             return ExecuteSP("GetTodoDetail", cmd => {
@@ -545,6 +616,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
         }
 
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetVatTuTheoDungTich từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetVatTuTheoDungTich()
         {
             return ExecuteQuery(@"
@@ -565,11 +639,17 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 ORDER BY SUM(v.CBM) DESC;");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetKhachHangTonKhoChiTiet từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetKhachHangTonKhoChiTiet()
         {
             return ExecuteSP("GetKhachHangTonKhoChiTiet");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetVatTuTheoKhachHang từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetVatTuTheoKhachHang(string maKH)
         {
             return ExecuteQuery(@"
@@ -597,6 +677,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 });
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetVatTuSapHetHanChiTiet từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetVatTuSapHetHanChiTiet()
         {
             return ExecuteQuery(@"
@@ -625,6 +708,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 ORDER BY DATEDIFF(DAY, ct.NgayNhapKho, GETDATE()) DESC;");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetGiaTriNhomChiTiet từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetGiaTriNhomChiTiet()
         {
             return ExecuteSP("GetGiaTriNhomChiTiet");
@@ -635,6 +721,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
         // TODO: thay bằng SQL thật khi nghiệp vụ sẵn sàng.
         // ════════════════════════════════════════════════════════════════
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetTongNhap từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTongNhap(DateTime tuNgay, DateTime denNgay)
         {
             return ExecuteQuery(@"
@@ -661,6 +750,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 });
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetTongXuat từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTongXuat(DateTime tuNgay, DateTime denNgay)
         {
             return ExecuteQuery(@"
@@ -687,6 +779,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 });
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetTonKho từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTonKho(DateTime denNgay)
         {
             return ExecuteQuery(@"
@@ -755,6 +850,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 cmd => cmd.Parameters.AddWithValue("@DenNgay", denNgay));
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetTonDauKy từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTonDauKy(DateTime tuNgay)
         {
             return ExecuteQuery(@"
@@ -787,6 +885,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 cmd => cmd.Parameters.AddWithValue("@TuNgay", tuNgay));
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetPODangTre từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetPODangTre()
         {
             return ExecuteQuery(@"
@@ -813,6 +914,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 SELECT @Total AS SoPO, @ChuaKiem AS SoPOChuaKiem;");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetGiaTriTon từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetGiaTriTon(DateTime denNgay)
         {
             return ExecuteQuery(@"
@@ -853,6 +957,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 cmd => cmd.Parameters.AddWithValue("@DenNgay", denNgay));
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetCanhBaoTonKho từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetCanhBaoTonKho()
         {
             return ExecuteQuery(@"
@@ -899,6 +1006,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 SELECT 'ton_vuot_dm', N'Tồn kho vượt định mức', @TonVuot, N'mã hàng', N'Vượt mức tồn cho phép', 'danger';");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetHieuSuatHoatDong từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetHieuSuatHoatDong(DateTime tuNgay, DateTime denNgay)
         {
             return ExecuteQuery(@"
@@ -949,6 +1059,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 });
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetKiemKeChiTiet từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetKiemKeChiTiet()
         {
             return ExecuteSP("GetKiemKeChiTiet");
@@ -959,6 +1072,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
         // TODO: thay bằng SQL thật khi nghiệp vụ sẵn sàng.
         // ════════════════════════════════════════════════════════════════
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetTonDauKyChiTiet từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTonDauKyChiTiet(DateTime tuNgay, string loai)
         {
             return ExecuteQuery(@"
@@ -1033,6 +1149,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 });
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetTongNhapChiTiet từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTongNhapChiTiet(DateTime tuNgay, DateTime denNgay, string groupBy)
         {
             var gb = (groupBy ?? "date").ToLowerInvariant();
@@ -1158,6 +1277,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
             }
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetTongXuatChiTiet từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTongXuatChiTiet(DateTime tuNgay, DateTime denNgay, string groupBy)
         {
             var gb = (groupBy ?? "date").ToLowerInvariant();
@@ -1281,6 +1403,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
             }
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetTonKhoChiTiet từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTonKhoChiTiet(DateTime denNgay, string loai)
         {
             return ExecuteQuery(@"
@@ -1394,6 +1519,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
         // v2.4.16 — STUB chi tiết cho 4 cảnh báo tồn kho (po_tre tái sử dụng)
         // ════════════════════════════════════════════════════════════════
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetNPLThieuChiTiet từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetNPLThieuChiTiet()
         {
             return ExecuteQuery(@"
@@ -1415,6 +1543,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
         }
         //  
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetKiemKeLechChiTiet từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetKiemKeLechChiTiet()
         {
             return ExecuteQuery(@"
@@ -1431,6 +1562,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 ORDER BY ABS(t1.SLKiemKeBanDau - t1.SLKiemKe) DESC;");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetQCQuaLauChiTiet từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetQCQuaLauChiTiet()
         {
             return ExecuteQuery(@"
@@ -1456,6 +1590,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 ORDER BY nk.NgayNKDuKien;");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetTonVuotDinhMucChiTiet từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetTonVuotDinhMucChiTiet()
         {
             return ExecuteQuery(@"
@@ -1490,6 +1627,9 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 ORDER BY t.SLTon DESC;");
         }
 
+        /// <summary>
+        /// Lấy dữ liệu cho GetPODangTreChiTiet từ cơ sở dữ liệu
+        /// </summary>
         public static DataTable GetPODangTreChiTiet(string groupBy)
         {
             var gb = (groupBy ?? "all").ToLowerInvariant();
@@ -1526,6 +1666,319 @@ namespace NtbSoft.ERP.Model.DashboardKho
                 ORDER BY nk.NgayNKDuKien;",
                 cmd => cmd.Parameters.AddWithValue("@MaTT", gb));
         }
+        // ════════════════════════════════════════════════════════════════
+        // Helper Data Readers & Encoding
+        // ════════════════════════════════════════════════════════════════
+
+        private static readonly Encoding Latin1 = Encoding.GetEncoding(1252);
+        private static readonly Regex GarbledPattern = new Regex(
+            @"[\xC0-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF]{2}",
+            RegexOptions.Compiled);
+
+        public static string FixUtf8(string s)
+        {
+            if (string.IsNullOrEmpty(s)) return s;
+            bool hasHigh = false;
+            for (int i = 0; i < s.Length; i++)
+                if (s[i] > 127) { hasHigh = true; break; }
+            if (!hasHigh) return s;
+            if (!GarbledPattern.IsMatch(s)) return s;
+            try
+            {
+                byte[] raw = Latin1.GetBytes(s);
+                string recovered = Encoding.UTF8.GetString(raw);
+                if (recovered.Contains("\uFFFD")) return s;
+                return recovered;
+            }
+            catch { return s; }
+        }
+
+        public static string SafeStr(SqlDataReader r, string col)
+        {
+            try { return r[col] != DBNull.Value ? FixUtf8(r[col].ToString()) : ""; }
+            catch { return ""; }
+        }
+        
+        public static string SafeStrNoFix(SqlDataReader r, string col)
+        {
+            try { return r[col] != DBNull.Value ? r[col].ToString() : ""; }
+            catch { return ""; }
+        }
+
+        public static int SafeInt(SqlDataReader r, string col)
+        {
+            try { return r[col] != DBNull.Value ? Convert.ToInt32(r[col]) : 0; }
+            catch { return 0; }
+        }
+
+        public static double SafeDbl(SqlDataReader r, string col)
+        {
+            try { return r[col] != DBNull.Value ? Convert.ToDouble(r[col]) : 0; }
+            catch { return 0; }
+        }
+
+        public static bool SafeBool(SqlDataReader r, string col)
+        {
+            try { return r[col] != DBNull.Value && Convert.ToInt32(r[col]) == 1; }
+            catch { return false; }
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // LỊCH PHÂN CÔNG PHỤ LIỆU 
+        // ════════════════════════════════════════════════════════════════
+
+        public static List<LichPhanCong_CalendarDayModel> GetLichPhanCongCalendarMonth(DateTime tuDate, DateTime denDate)
+        {
+            var rawItems = new List<LichPhanCong_CalendarItemModel>();
+            using (SqlConnection conn = NtbSoft.ERP.Libs.SqlHelper.GetConnection())
+            using (SqlCommand cmd = new SqlCommand("SP_LICH_PHAN_CONG_PHU_LIEU", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandTimeout = 300;
+                cmd.Parameters.AddWithValue("@Action", "GetCalendarMonth");
+                cmd.Parameters.AddWithValue("@TuNgay", tuDate);
+                cmd.Parameters.AddWithValue("@DenNgay", denDate);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var item = new LichPhanCong_CalendarItemModel();
+                        item.NgayLam = reader["NgayLam"] != DBNull.Value ? Convert.ToDateTime(reader["NgayLam"]).ToString("yyyy-MM-dd") : "";
+                        item.MaLenhSX = SafeStrNoFix(reader, "MaLenhSX");
+                        item.TrangThai = SafeInt(reader, "TrangThai");
+                        item.TenNV = SafeStrNoFix(reader, "TenNV");
+                        item.MaNV = SafeStrNoFix(reader, "MaNV");
+                        item.MaKhachHang = SafeStrNoFix(reader, "MaKhachHang");
+                        item.MaHang = SafeStrNoFix(reader, "MaHang");
+                        item.CoCanhBao = SafeBool(reader, "CoCanhBao");
+                        item.ThieuNPL = SafeBool(reader, "ThieuNPL");
+                        item.GhiChu = SafeStrNoFix(reader, "GhiChu");
+                        rawItems.Add(item);
+                    }
+                }
+            }
+
+            var dict = new Dictionary<string, LichPhanCong_CalendarDayModel>();
+            foreach (var item in rawItems)
+            {
+                string key = item.NgayLam;
+                if (string.IsNullOrEmpty(key)) continue;
+
+                if (!dict.ContainsKey(key))
+                {
+                    dict[key] = new LichPhanCong_CalendarDayModel
+                    {
+                        NgayLam = key,
+                        Workers = new List<string>(),
+                        Tasks = new List<LichPhanCong_TaskBadgeModel>(),
+                        HasAlert = false,
+                        ThieuNPL = false
+                    };
+                }
+
+                var cur = dict[key];
+                if (!string.IsNullOrEmpty(item.TenNV) && !cur.Workers.Contains(item.TenNV))
+                    cur.Workers.Add(item.TenNV);
+
+                if (!string.IsNullOrEmpty(item.MaLenhSX))
+                {
+                    cur.Tasks.Add(new LichPhanCong_TaskBadgeModel
+                    {
+                        MaLenhSX = item.MaLenhSX,
+                        TrangThai = item.TrangThai,
+                        TenNV = item.TenNV,
+                        MaHang = item.MaHang,
+                        MaKhachHang = item.MaKhachHang,
+                        GhiChu = item.GhiChu
+                    });
+                }
+                if (item.CoCanhBao) cur.HasAlert = true;
+                if (item.ThieuNPL) cur.ThieuNPL = true;
+            }
+
+            var result = new List<LichPhanCong_CalendarDayModel>(dict.Values);
+            result.Sort((a, b) => string.Compare(a.NgayLam, b.NgayLam, StringComparison.Ordinal));
+            return result;
+        }
+
+        /// <summary>
+        /// Lấy dữ liệu cho GetLichPhanCongDayDetail từ cơ sở dữ liệu
+        /// </summary>
+        public static LichPhanCong_DayDetailModel GetLichPhanCongDayDetail(DateTime ngayDate)
+        {
+            var result = new LichPhanCong_DayDetailModel
+            {
+                NgayLam = ngayDate.ToString("yyyy-MM-dd"),
+                Assignments = new List<LichPhanCong_AssignmentModel>(),
+                PickOrders = new List<LichPhanCong_PickOrderModel>()
+            };
+
+            using (SqlConnection conn = NtbSoft.ERP.Libs.SqlHelper.GetConnection())
+            using (SqlCommand cmd = new SqlCommand("SP_LICH_PHAN_CONG_PHU_LIEU", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandTimeout = 300;
+                cmd.Parameters.AddWithValue("@Action", "GetDayDetail");
+                cmd.Parameters.AddWithValue("@Ngay", ngayDate);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        result.Assignments.Add(new LichPhanCong_AssignmentModel
+                        {
+                            MaLenhSX = SafeStrNoFix(reader, "MaLenhSX"),
+                            TrangThai = SafeInt(reader, "TrangThai"),
+                            TenNV = SafeStrNoFix(reader, "TenNV"),
+                            MaNV = SafeStrNoFix(reader, "MaNV"),
+                            MaKhachHang = SafeStrNoFix(reader, "MaKhachHang"),
+                            MaHang = SafeStrNoFix(reader, "MaHang"),
+                            NgayThucHien = SafeStrNoFix(reader, "NgayThucHien"),
+                            GioThucHien = SafeStrNoFix(reader, "GioThucHien"),
+                            MoTaCongViec = SafeStrNoFix(reader, "MoTaCongViec"),
+                            ThieuNPL = SafeBool(reader, "ThieuNPL"),
+                            GhiChu = SafeStrNoFix(reader, "GhiChu")
+                        });
+                    }
+
+                    if (reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            result.PickOrders.Add(new LichPhanCong_PickOrderModel
+                            {
+                                MaLenhSX = SafeStrNoFix(reader, "MaLenhSX"),
+                                TrangThai = SafeInt(reader, "TrangThai"),
+                                TenNV = SafeStrNoFix(reader, "TenNV"),
+                                MaNV = SafeStrNoFix(reader, "MaNV"),
+                                MaKhachHang = SafeStrNoFix(reader, "MaKhachHang"),
+                                MaHang = SafeStrNoFix(reader, "MaHang"),
+                                NgaySoan = SafeStrNoFix(reader, "NgaySoan"),
+                                GioSoan = SafeStrNoFix(reader, "GioSoan"),
+                                SoLoaiPL = SafeInt(reader, "SoLoaiPL"),
+                                TongSLCanSoan = SafeDbl(reader, "TongSLCanSoan"),
+                                SLSoan = SafeDbl(reader, "SLSoan"),
+                                SoPLThieu = SafeDbl(reader, "SoPLThieu"),
+                                GhiChu = SafeStrNoFix(reader, "GhiChu"),
+                                Items = new List<LichPhanCong_PickItemModel>()
+                            });
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static LichPhanCong_SaveResult SavePhanCong(LichPhanCong_SavePhanCongRequest req)
+        {
+            try
+            {
+                using (SqlConnection conn = NtbSoft.ERP.Libs.SqlHelper.GetConnection())
+                using (SqlCommand cmd = new SqlCommand("SP_LICH_PHAN_CONG_PHU_LIEU", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = 300;
+                    cmd.Parameters.AddWithValue("@Action", "SavePhanCong");
+                    cmd.Parameters.AddWithValue("@MaLenhSX", req.MaLenhSX.Trim());
+                    cmd.Parameters.AddWithValue("@MaNV", req.MaNV.Trim());
+                    cmd.Parameters.AddWithValue("@NgayThucHien", req.NgayThucHien.Date);
+                    cmd.Parameters.AddWithValue("@GhiChu", string.IsNullOrWhiteSpace(req.GhiChu) ? (object)DBNull.Value : req.GhiChu.Trim());
+                    cmd.ExecuteNonQuery();
+                }
+                return new LichPhanCong_SaveResult { Success = true, MaLenhSX = req.MaLenhSX };
+            }
+            catch (Exception ex)
+            {
+                return new LichPhanCong_SaveResult { Success = false, Error = ex.Message };
+            }
+        }
+
+        public static LichPhanCong_SaveResult UpdateTrangThai(LichPhanCong_UpdateTrangThaiRequest req)
+        {
+            try
+            {
+                using (SqlConnection conn = NtbSoft.ERP.Libs.SqlHelper.GetConnection())
+                using (SqlCommand cmd = new SqlCommand("SP_LICH_PHAN_CONG_PHU_LIEU", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = 300;
+                    cmd.Parameters.AddWithValue("@Action", "UpdateTrangThai");
+                    cmd.Parameters.AddWithValue("@MaLenhSX", req.MaLenhSX.Trim());
+                    cmd.Parameters.AddWithValue("@TrangThai", req.TrangThai);
+                    cmd.ExecuteNonQuery();
+                }
+                return new LichPhanCong_SaveResult { Success = true, MaLenhSX = req.MaLenhSX };
+            }
+            catch (Exception ex)
+            {
+                return new LichPhanCong_SaveResult { Success = false, Error = ex.Message };
+            }
+        }
+
+        public static List<LichPhanCong_PickItemModel> GetPickOrderDetail(string maLenhSX)
+        {
+            var result = new List<LichPhanCong_PickItemModel>();
+            using (SqlConnection conn = NtbSoft.ERP.Libs.SqlHelper.GetConnection())
+            using (SqlCommand cmd = new SqlCommand("SP_LICH_PHAN_CONG_PHU_LIEU", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandTimeout = 300;
+                cmd.Parameters.AddWithValue("@Action", "GetPickOrderDetail");
+                cmd.Parameters.AddWithValue("@MaLenhSX", maLenhSX.Trim());
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new LichPhanCong_PickItemModel
+                        {
+                            ID = SafeInt(reader, "ID"),
+                            MaLenhSX = SafeStr(reader, "MaLenhSX"),
+                            MaNPL = SafeStr(reader, "MaNPL"),
+                            TenNPL = SafeStr(reader, "TenNPL"), // FixUtf8 inside SafeStr is used
+                            SLCanSoan = SafeDbl(reader, "SLCanSoan"),
+                            SLTonKho = SafeDbl(reader, "SLTonKho"),
+                            SLDaSoan = SafeDbl(reader, "SLDaSoan"),
+                            DonVi = SafeStr(reader, "DonVi"),
+                            MaViTri = SafeStr(reader, "MaViTri"),
+                            ThieuHang = SafeBool(reader, "ThieuHang"),
+                            GhiChu = SafeStr(reader, "GhiChu")
+                        });
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static List<LichPhanCong_NhanVienModel> GetNhanVienList()
+        {
+            var result = new List<LichPhanCong_NhanVienModel>();
+            using (SqlConnection conn = NtbSoft.ERP.Libs.SqlHelper.GetConnection())
+            using (SqlCommand cmd = new SqlCommand("SP_LICH_PHAN_CONG_PHU_LIEU", conn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandTimeout = 300;
+                cmd.Parameters.AddWithValue("@Action", "GetNhanVienList");
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new LichPhanCong_NhanVienModel
+                        {
+                            MaNV = SafeStr(reader, "MaNV"),
+                            TenNV = SafeStr(reader, "TenNV"),
+                            MaPhongBan = SafeStr(reader, "MaPhongBan"),
+                            TenPhongBan = SafeStr(reader, "TenPhongBan"),
+                            IsActive = SafeBool(reader, "IsActive")
+                        });
+                    }
+                }
+            }
+            return result;
+        }
+
         #endregion
     }
 
