@@ -1379,6 +1379,17 @@ BEGIN
                 N'@S DATE, @E DATE', @S = @StartDateCal, @E = @EndPlus1Cal;
         END
 
+        IF OBJECT_ID('tempdb..#tempNhapAC') IS NOT NULL DROP TABLE #tempNhapAC;
+        SELECT t1.BarCode, t1.NgayNhapKho, t1.SoLuongThucTeBanDau
+        INTO #tempNhapAC
+        FROM dbo.ERP_ChiTietNhapKhoNPL t1
+        WHERE t1.NgayNhapKho >= @StartDateCal AND t1.NgayNhapKho < @EndPlus1Cal;
+
+        DELETE t1 FROM #tempNhapAC t1
+        WHERE NOT EXISTS (SELECT 1 FROM dbo.ERP_VatTuCBM vt WHERE vt.Barcode = t1.BarCode AND ISNULL(vt.MaONPL, '') <> '')
+          AND NOT EXISTS (SELECT 1 FROM PhieuXuatHang px WHERE px.BarCodeGoc = t1.BarCode)
+          AND NOT EXISTS (SELECT 1 FROM PhieuThuHoiNPL th WHERE th.BarCode = t1.BarCode);
+
         ;WITH E1(N) AS (SELECT 1 FROM (VALUES (1),(1),(1),(1),(1),(1),(1),(1),(1),(1)) t(N)),
               E2(N) AS (SELECT 1 FROM E1 a CROSS JOIN E1 b),
               E4(N) AS (SELECT 1 FROM E2 a CROSS JOIN E2 b),
@@ -1388,19 +1399,10 @@ BEGIN
                   SELECT DATEADD(DAY, N, @StartDateCal) AS NgayHoatDong FROM Tally
               ),
               CalNhap AS (
-                  SELECT CAST(t1.NgayNhapKho AS DATE) AS Ngay,
-                         SUM(ISNULL(t1.SoLuongThucTeBanDau, 0)) AS TotalIn
-                  FROM dbo.ERP_ChiTietNhapKhoNPL t1
-                  WHERE t1.NgayNhapKho >= @StartDateCal
-                    AND t1.NgayNhapKho <  @EndPlus1Cal
-                    AND EXISTS (
-                        SELECT 1 FROM dbo.ERP_VatTuCBM vt 
-                        WHERE vt.Barcode = t1.BarCode 
-                          AND (ISNULL(vt.MaONPL, '') <> '' 
-                               OR EXISTS (SELECT 1 FROM PhieuXuatHang px WHERE px.BarCodeGoc = vt.Barcode)
-                               OR EXISTS (SELECT 1 FROM PhieuThuHoiNPL th WHERE th.BarCode = vt.Barcode))
-                    )
-                  GROUP BY CAST(t1.NgayNhapKho AS DATE)
+                  SELECT CAST(NgayNhapKho AS DATE) AS Ngay,
+                         SUM(ISNULL(SoLuongThucTeBanDau, 0)) AS TotalIn
+                  FROM #tempNhapAC
+                  GROUP BY CAST(NgayNhapKho AS DATE)
               ),
               CalXuat AS (
                   SELECT CAST(t1.NgayXuatHang AS DATE) AS Ngay,
@@ -1413,9 +1415,6 @@ BEGIN
                     AND EXISTS (
                         SELECT 1 FROM dbo.ERP_VatTuCBM vt 
                         WHERE vt.Barcode = t1.BarCodeGoc 
-                          AND (ISNULL(vt.MaONPL, '') <> '' 
-                               OR EXISTS (SELECT 1 FROM PhieuXuatHang px WHERE px.BarCodeGoc = vt.Barcode)
-                               OR EXISTS (SELECT 1 FROM PhieuThuHoiNPL th WHERE th.BarCode = vt.Barcode))
                     )
                   GROUP BY CAST(t1.NgayXuatHang AS DATE)
               )
@@ -2631,9 +2630,7 @@ BEGIN
                 '' AS MaNV, t1.NguoiSoanHang AS TenNV,
                 CASE WHEN ROUND(t1.SoLuongThieu, 2) > 0 THEN 3 ELSE 2 END AS TrangThai,
                 'PICK' AS GhiChu
-            FROM ERP_PhieuSoanHangVatTu t1
-            WHERE t1.NgaySoanHang >= CAST(@TuNgay AS DATE) AND t1.NgaySoanHang < DATEADD(day, 1, CAST(@DenNgay AS DATE))
-            GROUP BY CONVERT(DATE, t1.NgaySoanHang), t1.MaLenhSX, t1.NguoiSoanHang
+            FROM #tblSoanHangThieu t1
         )
         SELECT 
             u.NgayLam,
