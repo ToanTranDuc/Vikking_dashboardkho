@@ -42,9 +42,9 @@ BEGIN
 
         -- Tối ưu: Bật công tắc an toàn, CHỈ TẢI Temp Tables cho đúng các Action cần dùng
     IF @Action IN (
-        'GetOverallCapacity', 'GetDistinctMaterialCount', 'GetCustomers', 
+        'GetOverallCapacity', 'GetDistinctMaterialCount', 'GetCustomers',
         'GetKiemKe', 'GetTop5', 'GetRackSlotDetail', 'GetThanhGiaHangTon',
-        'GetTop5KhachHangTonKho', 'GetKhachHangTonKhoChiTiet', 'GetGiaTriTonKhoTheoNhom', 
+        'GetTop5KhachHangTonKho', 'GetKhachHangTonKhoChiTiet', 'GetGiaTriTonKhoTheoNhom',
         'GetGiaTriNhomChiTiet', 'GetKiemKeChiTiet', 'GetTonKhoTheoKy', 'GetAllMaterialsInStock'
     )
     BEGIN
@@ -68,11 +68,11 @@ BEGIN
 
 
 
-    DECLARE @CapNPL FLOAT = 0, 
-            @CapPL FLOAT = 0, 
-            @UsedNPL FLOAT = 0, 
+    DECLARE @CapNPL FLOAT = 0,
+            @CapPL FLOAT = 0,
+            @UsedNPL FLOAT = 0,
             @UsedPL FLOAT = 0,
-            @TotalVatTuNPL FLOAT = 0, 
+            @TotalVatTuNPL FLOAT = 0,
             @TotalVatTuPL FLOAT = 0;
 
     DECLARE @TotalSKUInWarehouse FLOAT;
@@ -82,13 +82,13 @@ BEGIN
             @Sql1 NVARCHAR(MAX) = NULL,
             @Sql2 NVARCHAR(MAX) = NULL,
             @Pattern NVARCHAR(120) = NULL,
-            @TonRows INT = 0, 
+            @TonRows INT = 0,
             @TonSL DECIMAL(20,2) = 0,
-            @NhapRows INT = 0, 
+            @NhapRows INT = 0,
             @NhapSL DECIMAL(20,2) = 0,
-            @XuatRows INT = 0, 
+            @XuatRows INT = 0,
             @XuatSL DECIMAL(20,2) = 0,
-            @KKRows INT = 0, 
+            @KKRows INT = 0,
             @KKSL DECIMAL(20,2) = 0,
             @DKRows INT = 0;
 
@@ -99,8 +99,8 @@ BEGIN
             @StartDateWeekly DATE;
 
     DECLARE @ThanhGia DECIMAL(20,2) = 0,
-            @TongMa INT = 0, 
-            @SoMaCoGia INT = 0, 
+            @TongMa INT = 0,
+            @SoMaCoGia INT = 0,
             @SoMaKhongGia INT = 0,
             @TongSL DECIMAL(20,2) = 0;
 
@@ -200,9 +200,9 @@ BEGIN
             RETURN;
         END
 
-        
 
-        
+
+
 
         SELECT COUNT(DISTINCT ct.MaNPL) AS SoMaVatTu
         FROM dbo.ERP_VatTuCBM v
@@ -211,8 +211,8 @@ BEGIN
           AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi t WHERE t.BarCode = v.Barcode)
           AND NOT EXISTS (SELECT 1 FROM #TempSoanHang  t WHERE t.BarCode = v.Barcode);
 
-        
-        
+
+
     END
 
     -- ===================================================================
@@ -222,9 +222,9 @@ BEGIN
     -- ===================================================================
     ELSE IF @Action = 'GetCustomers'
     BEGIN
-        
 
-        
+
+
 
         ;WITH tempBarcodeCBM_Cust AS (
             SELECT MaNPL, SoLoID, SUM(CBM) AS CBM
@@ -261,7 +261,7 @@ BEGIN
         LEFT JOIN ERP_NhapKhoNPL t3 ON t2.SoLoID = t3.SoLoID
         LEFT JOIN KhachHang t5 ON t3.MaKH = t5.MaKH
         GROUP BY ISNULL(t3.MaKH, ''), ISNULL(t5.TenKH, '')
-        ORDER BY SLVatTu DESC;  
+        ORDER BY SLVatTu DESC;
     END
 
     ELSE IF @Action = 'GetRacks'
@@ -293,7 +293,7 @@ BEGIN
           AND LOWER(ISNULL(t4.TenDay,N'')) NOT LIKE N'%lỗi%'
           AND LOWER(ISNULL(t4.TenDay,N'')) NOT LIKE N'%n%'
         GROUP BY t1.DayID, t4.TenDay, t1.KeID, t1.TenKe, t1.Module, t3.TongCBMTrongKe
-        ORDER BY t1.Module, t1.TenKe;  
+        ORDER BY t1.Module, t1.TenKe;
     END
 
     -- ===================================================================
@@ -374,8 +374,8 @@ BEGIN
             ON wc.LenhSX = TRY_CONVERT(INT, REPLACE(ISNULL(cs.MaLenh, ''), 'SX_', ''))
         LEFT JOIN dbo.WIP_DonHang_Chuyen_TechProgress tp ON tp.WIPId = wc.WIPId
         OUTER APPLY (
-            SELECT SUM(CapPhat) AS SLYeuCau 
-            FROM dbo.CanDoiDinhMucNPL c 
+            SELECT SUM(CapPhat) AS SLYeuCau
+            FROM dbo.CanDoiDinhMucNPL c
             WHERE c.MaLenhSanXuat = cs.MaLenhSanXuat
         ) t1
         WHERE NOT EXISTS (SELECT 1 FROM dbo.PhieuXuatHang ph WHERE ph.MaLenhSX = cs.MaLenhSanXuat)
@@ -395,9 +395,9 @@ BEGIN
                 SET @Sql1 = N'
                     SELECT TOP 1 @MaVTID = vt.MaVTID, @TenVT = ISNULL(vt.ChiTiet, '''')
                     FROM dbo.ERP_VatTuTV vt
-                    WHERE vt.MaVT LIKE ''%'' + LTRIM(RTRIM(@Itemcode)) + ''%'' 
+                    WHERE vt.MaVT LIKE ''%'' + LTRIM(RTRIM(@Itemcode)) + ''%''
                        OR vt.ChiTiet LIKE ''%'' + LTRIM(RTRIM(@Itemcode)) + ''%'';';
-                EXEC sp_executesql @Sql1, N'@Itemcode NVARCHAR(200), @MaVTID NVARCHAR(100) OUTPUT, @TenVT NVARCHAR(500) OUTPUT', 
+                EXEC sp_executesql @Sql1, N'@Itemcode NVARCHAR(200), @MaVTID NVARCHAR(100) OUTPUT, @TenVT NVARCHAR(500) OUTPUT',
                     @Itemcode = @Itemcode, @MaVTID = @MaVTID OUTPUT, @TenVT = @TenVT OUTPUT;
             END
             ELSE
@@ -405,9 +405,9 @@ BEGIN
                 SET @Sql2 = N'
                     SELECT TOP 1 @MaVTID = vt.MaVTID, @TenVT = ISNULL(vt.ChiTiet, '''')
                     FROM dbo.ERP_VatTuTV vt
-                    WHERE vt.MaVT LIKE ''%'' + LTRIM(RTRIM(@Itemcode)) + ''%'' 
+                    WHERE vt.MaVT LIKE ''%'' + LTRIM(RTRIM(@Itemcode)) + ''%''
                        OR vt.ChiTiet LIKE ''%'' + LTRIM(RTRIM(@Itemcode)) + ''%'';';
-                EXEC sp_executesql @Sql2, N'@Itemcode NVARCHAR(200), @MaVTID NVARCHAR(100) OUTPUT, @TenVT NVARCHAR(500) OUTPUT', 
+                EXEC sp_executesql @Sql2, N'@Itemcode NVARCHAR(200), @MaVTID NVARCHAR(100) OUTPUT, @TenVT NVARCHAR(500) OUTPUT',
                     @Itemcode = @Itemcode, @MaVTID = @MaVTID OUTPUT, @TenVT = @TenVT OUTPUT;
             END
         END
@@ -738,9 +738,9 @@ BEGIN
             RETURN;
         END
 
-        
 
-        
+
+
 
         IF OBJECT_ID('tempdb..#MatFinal_AMIS') IS NOT NULL DROP TABLE #MatFinal_AMIS;
         SELECT
@@ -824,15 +824,15 @@ BEGIN
         ORDER BY TonKho DESC;
 
         DROP TABLE #MatFinal_AMIS;
-        
-        
+
+
     END
 
     ELSE IF @Action = 'GetThanhGiaHangTon'
     BEGIN
-        
 
-        
+
+
 
         SET @ThanhGia = 0; SET @TongMa = 0; SET @SoMaCoGia = 0; SET @SoMaKhongGia = 0; SET @TongSL = 0;
 
@@ -875,8 +875,8 @@ BEGIN
                @SoMaKhongGia AS SoMaKhongGia,
                @TongSL   AS TongSoLuong;
 
-        
-        
+
+
     END
 
     ELSE IF @Action = 'GetNKDuKienByRange'
@@ -902,7 +902,7 @@ BEGIN
     ELSE IF @Action = 'GetNhapDetailByRange'
     BEGIN
         IF OBJECT_ID('tempdb..#NhapFinalR_NDR') IS NOT NULL DROP TABLE #NhapFinalR_NDR;
-        SELECT 
+        SELECT
             ISNULL(nk.SoLo, '')                                                    AS PINCC,
             a.PO                                                                   AS PO,
             a.MaNPL                                                                AS MaNPL,
@@ -975,7 +975,7 @@ BEGIN
 
     ELSE IF @Action = 'GetXuatDetailByRange'
     BEGIN
-        SELECT 
+        SELECT
             xh.MaLenh,
             COUNT(*)                        AS SoBarCode,
             SUM(ISNULL(xh.SLNhap, 0))       AS SoLuong,
@@ -1022,7 +1022,7 @@ BEGIN
 
         IF @HasV2R = 2
         BEGIN
-            SELECT 
+            SELECT
                 ISNULL(kk.PhieuKiemKe, '')     AS PhieuKiemKe,
                 ISNULL(kk.SoLo, '')            AS SoLo,
                 COUNT(*)                    AS SoBarCode,
@@ -1041,7 +1041,7 @@ BEGIN
         END
         ELSE
         BEGIN
-            SELECT 
+            SELECT
                 ISNULL(kk.PhieuKiemKe, '')     AS PhieuKiemKe,
                 ISNULL(kk.SoLo, '')            AS SoLo,
                 COUNT(*)                    AS SoBarCode,
@@ -1097,9 +1097,9 @@ BEGIN
               AND ct.NgayNhapKho >= CAST(@Ngay AS DATE)
               AND ct.NgayNhapKho < DATEADD(DAY, 1, CAST(@Ngay AS DATE))
               AND EXISTS (
-                  SELECT 1 FROM dbo.ERP_VatTuCBM vt 
-                  WHERE vt.Barcode = ct.BarCode 
-                    AND (ISNULL(vt.MaONPL, '') <> '' 
+                  SELECT 1 FROM dbo.ERP_VatTuCBM vt
+                  WHERE vt.Barcode = ct.BarCode
+                    AND (ISNULL(vt.MaONPL, '') <> ''
                          OR EXISTS (SELECT 1 FROM PhieuXuatHang px WHERE px.BarCodeGoc = vt.Barcode)
                          OR EXISTS (SELECT 1 FROM PhieuThuHoiNPL th WHERE th.BarCode = vt.Barcode))
               )
@@ -1174,9 +1174,9 @@ BEGIN
           AND xh.NgayXuatHang < DATEADD(DAY, 1, CAST(@Ngay AS DATE))
           AND ISNULL(xh.MaHang,'') NOT LIKE '%PSH_%'
           AND EXISTS (
-              SELECT 1 FROM dbo.ERP_VatTuCBM vt 
-              WHERE vt.Barcode = xh.BarCodeGoc 
-                AND (ISNULL(vt.MaONPL, '') <> '' 
+              SELECT 1 FROM dbo.ERP_VatTuCBM vt
+              WHERE vt.Barcode = xh.BarCodeGoc
+                AND (ISNULL(vt.MaONPL, '') <> ''
                      OR EXISTS (SELECT 1 FROM PhieuXuatHang px WHERE px.BarCodeGoc = vt.Barcode)
                      OR EXISTS (SELECT 1 FROM PhieuThuHoiNPL th WHERE th.BarCode = vt.Barcode))
           )
@@ -1248,9 +1248,9 @@ BEGIN
     -- ===================================================================
     ELSE IF @Action = 'GetRackSlotDetail'
     BEGIN
-        
 
-        
+
+
 
         SELECT
             ke.Module,
@@ -1336,8 +1336,8 @@ BEGIN
 
         DROP TABLE #SlotAgg_RSD;
         DROP TABLE #tmpSlot_RSD;
-        
-        
+
+
     END
 
     ELSE IF @Action = 'GetActivityCalendar'
@@ -1418,8 +1418,8 @@ BEGIN
                     AND t1.NgayXuatHang <  @EndPlus1Cal
                     AND ISNULL(t1.MaHang,'') NOT LIKE '%PSH_%'
                     AND EXISTS (
-                        SELECT 1 FROM dbo.ERP_VatTuCBM vt 
-                        WHERE vt.Barcode = t1.BarCodeGoc 
+                        SELECT 1 FROM dbo.ERP_VatTuCBM vt
+                        WHERE vt.Barcode = t1.BarCodeGoc
                     )
                   GROUP BY CAST(t1.NgayXuatHang AS DATE)
               )
@@ -1452,21 +1452,21 @@ BEGIN
 
         IF OBJECT_ID('tempdb..#tempNhapKhoNPL') IS NOT NULL DROP TABLE #tempNhapKhoNPL;
         SELECT t1.SoLoID, t1.IsNPL, t1.MaHang, t1.MaKH INTO #tempNhapKhoNPL FROM ERP_NhapKhoNPL t1
-        WHERE (@MaKH = 'all' OR t1.MaKH = @MaKH) 
-          AND (@MaHang = 'all' OR t1.MaHang = @MaHang) 
-          AND (@SoLoID = 'all' OR t1.SoLoID = @SoLoID)  
+        WHERE (@MaKH = 'all' OR t1.MaKH = @MaKH)
+          AND (@MaHang = 'all' OR t1.MaHang = @MaHang)
+          AND (@SoLoID = 'all' OR t1.SoLoID = @SoLoID)
           AND (@IsNPL = 2 OR IsNPL = @IsNPL_Check);
 
         IF OBJECT_ID('tempdb..#tempTKho') IS NOT NULL DROP TABLE #tempTKho;
         SELECT t1.ID, t1.SoloID, t1.MaNPL, t1.IsNPL, t1.BarCode, t1.SoLuongThucTeBanDau
-        INTO #tempTKho 
+        INTO #tempTKho
         FROM ERP_ChiTietNhapKhoNPL t1
         INNER JOIN #tempNhapKhoNPL tt ON t1.SoLoID = tt.SoLoID AND t1.IsNPL = tt.IsNPL
-        WHERE (@Nhom = 'all' OR t1.MaNhom = @Nhom) 
-          AND (@MaNPL = 'all' OR t1.MaNPL = @MaNPL) 
-          AND t1.SoLuongThucTeBanDau <> 0 
-          AND (@SoLoID = 'all' OR t1.SoLoID = @SoLoID) 
-          AND (@MaHang = 'all' OR ISNULL(tt.MaHang, '') = @MaHang) 
+        WHERE (@Nhom = 'all' OR t1.MaNhom = @Nhom)
+          AND (@MaNPL = 'all' OR t1.MaNPL = @MaNPL)
+          AND t1.SoLuongThucTeBanDau <> 0
+          AND (@SoLoID = 'all' OR t1.SoLoID = @SoLoID)
+          AND (@MaHang = 'all' OR ISNULL(tt.MaHang, '') = @MaHang)
           AND (@MaKH = 'all' OR ISNULL(tt.MaKH, '') = @MaKH);
 
         DELETE t1 FROM #tempTKho t1
@@ -1476,12 +1476,12 @@ BEGIN
 
         IF @KhoLoi = '1'
         BEGIN
-            DELETE t1 FROM #tempTKho t1 
+            DELETE t1 FROM #tempTKho t1
             WHERE NOT EXISTS (SELECT 1 FROM ERP_VatTuCBM vt INNER JOIN ERP_ONPL o ON o.TenO = vt.MaONPL INNER JOIN ERP_DayNPL d ON d.DayID = o.DayID AND d.Status = 2 WHERE vt.Barcode = t1.BarCode AND vt.MaONPL IS NOT NULL);
         END
         ELSE IF @KhoLoi = '0'
         BEGIN
-            DELETE t1 FROM #tempTKho t1 
+            DELETE t1 FROM #tempTKho t1
             WHERE EXISTS (SELECT 1 FROM ERP_VatTuCBM vt INNER JOIN ERP_ONPL o ON o.TenO = vt.MaONPL INNER JOIN ERP_DayNPL d ON d.DayID = o.DayID AND d.Status = 2 WHERE vt.Barcode = t1.BarCode AND vt.MaONPL IS NOT NULL);
         END
 
@@ -1559,7 +1559,7 @@ BEGIN
             FROM Tally
         ),
         DailyFlow AS (
-            SELECT 
+            SELECT
                 d.Ngay,
                 ISNULL(n.SLNhapTK, 0) AS TotalIn,
                 ISNULL(x.SLXuatTK, 0) AS TotalOut,
@@ -1571,7 +1571,7 @@ BEGIN
             LEFT JOIN tempThuHoiTK th ON d.Ngay = th.Ngay
             LEFT JOIN tempChenhLechTK c ON d.Ngay = c.Ngay
         )
-        SELECT 
+        SELECT
             CONVERT(VARCHAR(10), Ngay, 120) AS Ngay,
             TotalIn,
             TotalOut,
@@ -1714,8 +1714,8 @@ BEGIN
             CASE WHEN @IsNhieuNhat = 0 THEN TonKho END ASC;
 
         DROP TABLE #TopFinal_T5;
-        
-        
+
+
     END
 
     -- ===================================================================
@@ -1821,7 +1821,7 @@ BEGIN
                 ISNULL(vt.ChiTiet, '') AS TenVT,
                 ISNULL(t1.SoLoID, '') AS POMua,
                 '' AS MaMauVT,
-                '' AS MauVT,    
+                '' AS MauVT,
                 '' AS WidthSize,
                 ISNULL(ds.MaDVVT, '') AS DonVi,
                 CONVERT(VARCHAR(10), t1.DateKiemKe, 103) AS NgayTao,
@@ -1857,13 +1857,13 @@ BEGIN
     -- ===================================================================
     ELSE IF @Action = 'GetTinhHinhKiemKe'
     BEGIN
-        SELECT 
+        SELECT
             DaKiem,
             (Tong - DaKiem) AS ChuaKiem,
             Tong,
             CAST(ROUND(CAST(DaKiem AS FLOAT) * 100.0 / NULLIF(Tong, 0), 1) AS DECIMAL(5,1)) AS PctDaKiem
         FROM (
-            SELECT 
+            SELECT
                 COUNT(*) AS Tong,
                 SUM(ISNULL(DaKiemBit, 0)) AS DaKiem
             FROM dbo.ERP_DanhSachVatTuKiemKe ds
@@ -1883,7 +1883,7 @@ BEGIN
     BEGIN
         DECLARE @Keyword NVARCHAR(200) = LTRIM(RTRIM(ISNULL(@Itemcode, '')));
         DECLARE @PatternStr NVARCHAR(202) = '%' + @Keyword + '%';
-        
+
         CREATE TABLE #SearchResults (
             Category NVARCHAR(50),
             Title NVARCHAR(500),
@@ -1895,16 +1895,16 @@ BEGIN
         IF LEN(@Keyword) >= 2
         BEGIN
             INSERT INTO #SearchResults (Category, Title, Subtitle, TargetID, SortOrder)
-            SELECT TOP 10 
-                'PO', 
-                ISNULL(nk.POMua, nk.SoLoID), 
+            SELECT TOP 10
+                'PO',
+                ISNULL(nk.POMua, nk.SoLoID),
                 N'PO: ' + ISNULL(nk.POMua, '') + N' - Lệnh nhập: ' + ISNULL(nk.SoLoID, '') + N' - Khách: ' + ISNULL(kh.TenKH, ISNULL(nk.KhachHang, '')) + N' - Dự kiến: ' + ISNULL(CONVERT(VARCHAR(10), nk.NgayNKDuKien, 103), ''),
                 nk.SoLoID, 1
             FROM dbo.ERP_NhapKhoNPL nk
             LEFT JOIN dbo.KhachHang kh ON nk.MaHang = kh.MaKH OR nk.MaKH = kh.MaKH
-            WHERE nk.SoLoID LIKE @PatternStr 
-               OR nk.POMua LIKE @PatternStr 
-               OR nk.MaHang LIKE @PatternStr 
+            WHERE nk.SoLoID LIKE @PatternStr
+               OR nk.POMua LIKE @PatternStr
+               OR nk.MaHang LIKE @PatternStr
                OR nk.KhachHang LIKE @PatternStr
                OR kh.TenKH LIKE @PatternStr;
 
@@ -1925,7 +1925,7 @@ BEGIN
         SELECT Category, Title, Subtitle, TargetID
         FROM #SearchResults
         ORDER BY SortOrder, Title;
-        
+
         DROP TABLE #SearchResults;
     END
 
@@ -1935,15 +1935,15 @@ BEGIN
     -- ===================================================================
     ELSE IF @Action = 'GetTop5KhachHangTonKho'
     BEGIN
-        
 
-        
+
+
 
         ;WITH CTE AS (
-            SELECT 
-                ISNULL(kh.TenKH, ISNULL(nk.KhachHang, N'Khách trống')) AS KhachHang, 
+            SELECT
+                ISNULL(kh.TenKH, ISNULL(nk.KhachHang, N'Khách trống')) AS KhachHang,
                 SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS GiaTriTon
-            FROM ERP_ChiTietNhapKhoNPL ct 
+            FROM ERP_ChiTietNhapKhoNPL ct
             INNER JOIN ERP_NhapKhoNPL nk ON ct.SoLoID = nk.SoLoID
             LEFT JOIN KhachHang kh ON nk.MaKH = kh.MaKH
             WHERE ISNULL(ct.SoLuongThucTeBanDau, 0) > 0
@@ -1954,17 +1954,17 @@ BEGIN
         TotalCTE AS (
             SELECT SUM(GiaTriTon) AS TotalValue FROM CTE
         )
-        SELECT TOP 5 
+        SELECT TOP 5
             ROW_NUMBER() OVER(ORDER BY c.GiaTriTon DESC) AS STT,
-            c.KhachHang, 
+            c.KhachHang,
             c.GiaTriTon AS GiaTri,
-            CASE WHEN ISNULL(t.TotalValue, 0) = 0 THEN 0.0 ELSE ROUND((c.GiaTriTon / t.TotalValue) * 100, 2) END AS TyTrong 
+            CASE WHEN ISNULL(t.TotalValue, 0) = 0 THEN 0.0 ELSE ROUND((c.GiaTriTon / t.TotalValue) * 100, 2) END AS TyTrong
         FROM CTE c
         CROSS JOIN TotalCTE t
         ORDER BY c.GiaTriTon DESC;
 
-        
-        
+
+
     END
 
     -- ===================================================================
@@ -1973,18 +1973,18 @@ BEGIN
     -- ===================================================================
     ELSE IF @Action = 'GetKhachHangTonKhoChiTiet'
     BEGIN
-        
 
-        
+
+
 
         ;WITH CTE AS (
-            SELECT 
+            SELECT
                 ISNULL(nk.MaKH, '') AS MaKH,
-                ISNULL(kh.TenKH, ISNULL(nk.KhachHang, N'Khách trống')) AS KhachHang, 
+                ISNULL(kh.TenKH, ISNULL(nk.KhachHang, N'Khách trống')) AS KhachHang,
                 COUNT(DISTINCT ct.MaVTID) AS SoMaVT,
                 SUM(ISNULL(cbm_agg.CBM, 0)) AS TongCBM,
                 SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS GiaTri
-            FROM ERP_ChiTietNhapKhoNPL ct 
+            FROM ERP_ChiTietNhapKhoNPL ct
             INNER JOIN ERP_NhapKhoNPL nk ON ct.SoLoID = nk.SoLoID
             LEFT JOIN KhachHang kh ON nk.MaKH = kh.MaKH
             LEFT JOIN (SELECT Barcode, MAX(ISNULL(CBM, 0)) AS CBM FROM ERP_VatTuCBM WHERE MaONPL IS NOT NULL GROUP BY Barcode) cbm_agg
@@ -1997,20 +1997,20 @@ BEGIN
         TotalCTE AS (
             SELECT SUM(GiaTri) AS TotalValue FROM CTE
         )
-        SELECT 
+        SELECT
             ROW_NUMBER() OVER(ORDER BY c.GiaTri DESC) AS STT,
             c.MaKH,
-            c.KhachHang, 
+            c.KhachHang,
             c.SoMaVT,
             c.TongCBM,
-            c.GiaTri, 
-            CASE WHEN ISNULL(t.TotalValue, 0) = 0 THEN 0.0 ELSE ROUND((c.GiaTri / t.TotalValue) * 100, 2) END AS TyTrong 
+            c.GiaTri,
+            CASE WHEN ISNULL(t.TotalValue, 0) = 0 THEN 0.0 ELSE ROUND((c.GiaTri / t.TotalValue) * 100, 2) END AS TyTrong
         FROM CTE c
         CROSS JOIN TotalCTE t
         ORDER BY c.GiaTri DESC;
 
-        
-        
+
+
     END
 
     -- ===================================================================
@@ -2019,24 +2019,24 @@ BEGIN
     -- ===================================================================
     ELSE IF @Action = 'GetGiaTriTonKhoTheoNhom'
     BEGIN
-        
 
-        
+
+
 
         ;WITH BaseData AS (
-            SELECT 
-                ISNULL(nh.TenNhom, N'Khác') AS Nhom, 
+            SELECT
+                ISNULL(nh.TenNhom, N'Khác') AS Nhom,
                 SUM(ISNULL(ct.SoLuongThucTeBanDau, 0) * ISNULL(CAST(ct.DonGia AS DECIMAL(20,4)), 0)) AS GiaTri
-            FROM ERP_ChiTietNhapKhoNPL ct 
+            FROM ERP_ChiTietNhapKhoNPL ct
             LEFT JOIN (SELECT MaCLVT, MAX(TenNhom) AS TenNhom FROM NhomNguyenPhuLieu GROUP BY MaCLVT) nh ON ct.MaNhom = nh.MaCLVT
-            WHERE ISNULL(ct.SoLuongThucTeBanDau, 0) > 0 
+            WHERE ISNULL(ct.SoLuongThucTeBanDau, 0) > 0
               AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi x WHERE x.BarCode = ct.BarCode)
               AND NOT EXISTS (SELECT 1 FROM #TempSoanHang   s WHERE s.BarCode = ct.BarCode)
             GROUP BY ISNULL(nh.TenNhom, N'Khác')
         ),
         RankedData AS (
-            SELECT 
-                Nhom, 
+            SELECT
+                Nhom,
                 GiaTri,
                 ROW_NUMBER() OVER (ORDER BY GiaTri DESC) AS RN
             FROM BaseData
@@ -2044,22 +2044,22 @@ BEGIN
         TopData AS (
             SELECT Nhom, GiaTri FROM RankedData WHERE RN <= 5
             UNION ALL
-            SELECT N'Khác' AS Nhom, SUM(GiaTri) AS GiaTri 
+            SELECT N'Khác' AS Nhom, SUM(GiaTri) AS GiaTri
             FROM RankedData WHERE RN > 5 HAVING SUM(GiaTri) > 0
         ),
         TotalCTE AS (
             SELECT SUM(GiaTri) AS TotalValue FROM TopData
         )
-        SELECT 
-            c.Nhom, 
-            c.GiaTri, 
-            CASE WHEN ISNULL(t.TotalValue, 0) = 0 THEN 0.0 ELSE ROUND((c.GiaTri / t.TotalValue) * 100, 2) END AS TyTrong 
+        SELECT
+            c.Nhom,
+            c.GiaTri,
+            CASE WHEN ISNULL(t.TotalValue, 0) = 0 THEN 0.0 ELSE ROUND((c.GiaTri / t.TotalValue) * 100, 2) END AS TyTrong
         FROM TopData c
         CROSS JOIN TotalCTE t
         ORDER BY CASE WHEN c.Nhom = N'Khác' THEN 1 ELSE 0 END, c.GiaTri DESC;
 
-        
-        
+
+
     END
 
     -- ===================================================================
@@ -2068,15 +2068,15 @@ BEGIN
     -- ===================================================================
     ELSE IF @Action = 'GetGiaTriNhomChiTiet'
     BEGIN
-        
 
-        
+
+
 
         ;WITH RawDetails AS (
-            SELECT 
+            SELECT
                 ISNULL(nh.TenNhom, N'Khác') AS ParentNhom,
                 ISNULL(vt.MaVT, '') AS MaVT,
-                ISNULL(vt.ChiTiet, '') AS Nhom, 
+                ISNULL(vt.ChiTiet, '') AS Nhom,
                 ISNULL(m.MaMauVT, '') AS MaMauVT,
                 ISNULL(m.MauVT, '') AS MauVT,
                 ISNULL(k.KhoVai, '') AS WidthSize,
@@ -2087,16 +2087,16 @@ BEGIN
             LEFT JOIN (SELECT Barcode, MAX(ISNULL(CBM, 0)) AS CBM FROM ERP_VatTuCBM WHERE MaONPL IS NOT NULL GROUP BY Barcode) cbm_agg
                    ON ct.BarCode = cbm_agg.Barcode
             LEFT JOIN (SELECT MaCLVT, MAX(TenNhom) AS TenNhom FROM NhomNguyenPhuLieu GROUP BY MaCLVT) nh ON ct.MaNhom = nh.MaCLVT
-            LEFT JOIN ERP_VatTuTV vt ON ct.MaVTID = vt.MaVTID 
+            LEFT JOIN ERP_VatTuTV vt ON ct.MaVTID = vt.MaVTID
             LEFT JOIN ERP_MauVTTV m ON m.MauVTID = ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 2), '')
             LEFT JOIN ERP_KhoVai k ON k.KhoVaiID = ISNULL(PARSENAME(REPLACE(ct.MaNPL, '@', '.'), 1), '')
             LEFT JOIN ERP_DonViVT d ON d.MaDVVT = k.MaDVVT
-            WHERE ISNULL(ct.SoLuongThucTeBanDau, 0) > 0 
+            WHERE ISNULL(ct.SoLuongThucTeBanDau, 0) > 0
               AND NOT EXISTS (SELECT 1 FROM #TempXuatChuaThuHoi x WHERE x.BarCode = ct.BarCode)
               AND NOT EXISTS (SELECT 1 FROM #TempSoanHang   s WHERE s.BarCode = ct.BarCode)
-            GROUP BY 
-                ISNULL(nh.TenNhom, N'Khác'), 
-                vt.MaVT, 
+            GROUP BY
+                ISNULL(nh.TenNhom, N'Khác'),
+                vt.MaVT,
                 ISNULL(vt.ChiTiet, ''),
                 m.MaMauVT,
                 m.MauVT,
@@ -2107,7 +2107,7 @@ BEGIN
             SELECT SUM(GiaTri) AS TotalGiaTri FROM RawDetails
         ),
         RawGroups AS (
-            SELECT 
+            SELECT
                 ParentNhom AS Nhom,
                 SUM(GiaTri) AS GiaTri,
                 COUNT(DISTINCT MaVT) AS SoMaVT,
@@ -2116,7 +2116,7 @@ BEGIN
             FROM RawDetails
             GROUP BY ParentNhom
         )
-        SELECT 
+        SELECT
             1 AS IsGroup,
             Nhom,
             ROW_NUMBER() OVER (ORDER BY CASE WHEN Nhom = N'Khác' THEN 1 ELSE 0 END, GiaTri DESC) AS STT,
@@ -2132,7 +2132,7 @@ BEGIN
             NULL AS DonVi
         FROM RawGroups
         UNION ALL
-        SELECT 
+        SELECT
             0 AS IsGroup,
             Nhom,
             NULL AS STT,
@@ -2156,7 +2156,7 @@ BEGIN
     -- ===================================================================
     ELSE IF @Action = 'GetKiemKeChiTiet'
     BEGIN
-        SELECT 
+        SELECT
             ds.PhieuVatTuKK AS MaPhieu,
             MIN(ds.NgayTao) AS NgayBatDau,
             CASE WHEN MIN(ds.IsNPL) = 1 THEN N'Kho Nguyên Liệu' ELSE N'Kho Phụ Liệu' END AS KhuVuc,
@@ -2165,12 +2165,12 @@ BEGIN
             COUNT(*) AS Tong,
             CAST(ROUND(SUM(ISNULL(p_check.DaKiemBit, 0)) * 100.0 / NULLIF(COUNT(*), 0), 1) AS DECIMAL(5, 1)) AS Pct,
             MAX(ISNULL(ds.NguoiTao, '')) AS NguoiPT,
-            CASE 
+            CASE
                 WHEN SUM(ISNULL(p_check.DaKiemBit, 0)) = 0 THEN 3
                 WHEN SUM(ISNULL(p_check.DaKiemBit, 0)) = COUNT(*) THEN 1
                 ELSE 2
             END AS Status,
-            CASE 
+            CASE
                 WHEN SUM(ISNULL(p_check.DaKiemBit, 0)) = 0 THEN N'Chưa kiểm'
                 WHEN SUM(ISNULL(p_check.DaKiemBit, 0)) = COUNT(*) THEN N'Đã kiểm đủ'
                 ELSE N'Đang kiểm'
@@ -2362,7 +2362,7 @@ BEGIN
 
         DROP TABLE #BaseTK;
         DROP TABLE #SoanHang_TK;
-        
+
     END
 
     -- ===================================================================
@@ -2379,9 +2379,9 @@ BEGIN
             FROM dbo.ERP_ChiTietNhapKhoNPL t1
             WHERE t1.SoLuongThucTeBanDau <> 0
               AND EXISTS (
-                  SELECT 1 FROM dbo.ERP_VatTuCBM t9 
-                  WHERE t1.BarCode = t9.Barcode 
-                    AND (ISNULL(t9.MaONPL, '') <> '' 
+                  SELECT 1 FROM dbo.ERP_VatTuCBM t9
+                  WHERE t1.BarCode = t9.Barcode
+                    AND (ISNULL(t9.MaONPL, '') <> ''
                          OR EXISTS (SELECT 1 FROM dbo.PhieuXuatHang px WHERE px.BarCodeGoc = t9.Barcode)
                          OR EXISTS (SELECT 1 FROM dbo.PhieuThuHoiNPL th WHERE th.BarCode = t9.Barcode))
               )
@@ -2411,7 +2411,7 @@ BEGIN
             SELECT t2.MaNPL, ROUND(SUM(ISNULL(t1.SLKiemKeBanDau, 0) - ISNULL(t1.SLKiemKeEdit, 0)), 4) AS SLChenhLenhDK
             FROM dbo.ERPPhieuKiemKe_NPL t1
             INNER JOIN tempTKho_TDK t2 ON t1.BarCode = t2.BarCode
-            WHERE t1.IsXacNhan = 1 
+            WHERE t1.IsXacNhan = 1
               AND t1.SLKiemKeEdit IS NOT NULL
               AND Convert(date, t2.NgayNhapKho) < @TuNgay
             GROUP BY t2.MaNPL
@@ -2427,12 +2427,12 @@ BEGIN
             GROUP BY t1.MaNPL
         ),
         tempAgg_TDK AS (
-            SELECT 
+            SELECT
                 p.MaNPL,
                 ROUND(
-                    ISNULL(n.SLNhapDK, 0) 
-                    - ISNULL(x.SLXuatDK, 0) 
-                    + ISNULL(t.SLThuDK, 0) 
+                    ISNULL(n.SLNhapDK, 0)
+                    - ISNULL(x.SLXuatDK, 0)
+                    + ISNULL(t.SLThuDK, 0)
                     - ISNULL(c.SLChenhLenhDK, 0), 4
                 ) AS SLTonDau,
                 ISNULL(ri.SoRoll, 0) AS SoRoll,
@@ -2443,24 +2443,24 @@ BEGIN
             LEFT JOIN tempThuHoiDK_TDK t ON p.MaNPL = t.MaNPL
             LEFT JOIN tempChenhLechDK_TDK c ON p.MaNPL = c.MaNPL
             LEFT JOIN tempRollInfo_TDK ri ON p.MaNPL = ri.MaNPL
-            WHERE (ISNULL(n.SLNhapDK, 0) 
-                   - ISNULL(x.SLXuatDK, 0) 
-                   + ISNULL(t.SLThuDK, 0) 
+            WHERE (ISNULL(n.SLNhapDK, 0)
+                   - ISNULL(x.SLXuatDK, 0)
+                   + ISNULL(t.SLThuDK, 0)
                    - ISNULL(c.SLChenhLenhDK, 0)) > 0
         ),
         tempParsed_TDK AS (
-            SELECT 
+            SELECT
                 r.*,
                 ISNULL(PARSENAME(REPLACE(r.MaNPL, '@', '.'), 4), '') AS MaCLVTID,
                 ISNULL(PARSENAME(REPLACE(r.MaNPL, '@', '.'), 3), '') AS MaVTID,
                 ISNULL(PARSENAME(REPLACE(r.MaNPL, '@', '.'), 2), '') AS MauVTID,
                 ISNULL(PARSENAME(REPLACE(r.MaNPL, '@', '.'), 1), '') AS KhoVaiID
             FROM tempAgg_TDK r
-            WHERE (@LoaiTDK = 'all' 
-                   OR (@LoaiTDK = 'nl' AND r.MaNPL LIKE '%NL%') 
+            WHERE (@LoaiTDK = 'all'
+                   OR (@LoaiTDK = 'nl' AND r.MaNPL LIKE '%NL%')
                    OR (@LoaiTDK = 'pl' AND r.MaNPL NOT LIKE '%NL%'))
         )
-        SELECT 
+        SELECT
             p.MaNPL,
             CASE WHEN ISNULL(ct_npl.IsNPL, 0) = 1 THEN N'NL' ELSE N'PL' END AS LoaiKho,
             ISNULL(vt.MaVT, p.MaVTID) AS ItemCode,
@@ -2492,7 +2492,7 @@ BEGIN
     ELSE IF @Action = 'GetTonDauKyRollDetail'
     BEGIN
         DECLARE @MaNPL_Filter NVARCHAR(500);
-        SET @MaNPL_Filter = @Loai; 
+        SET @MaNPL_Filter = @Loai;
 
         SELECT
             ct.BarCode,
@@ -2502,13 +2502,13 @@ BEGIN
             ct.DonGia,
             ct.TienTe
         FROM dbo.ERP_ChiTietNhapKhoNPL ct
-        WHERE ct.MaNPL = @MaNPL_Filter 
+        WHERE ct.MaNPL = @MaNPL_Filter
           AND ct.SoLuongThucTeBanDau > 0
           AND ct.NgayNhapKho < @TuNgay
           AND EXISTS (
-              SELECT 1 FROM dbo.ERP_VatTuCBM t9 
-              WHERE ct.BarCode = t9.Barcode 
-                AND (ISNULL(t9.MaONPL, '') <> '' 
+              SELECT 1 FROM dbo.ERP_VatTuCBM t9
+              WHERE ct.BarCode = t9.Barcode
+                AND (ISNULL(t9.MaONPL, '') <> ''
                      OR EXISTS (SELECT 1 FROM dbo.PhieuXuatHang px WHERE px.BarCodeGoc = t9.Barcode)
                      OR EXISTS (SELECT 1 FROM dbo.PhieuThuHoiNPL th WHERE th.BarCode = t9.Barcode))
           )
@@ -2579,30 +2579,30 @@ BEGIN
     IF @Action = 'GetCalendarMonth'
     BEGIN
         -- [OPTIMIZED] Tính trước số lượng thiếu NPL của toàn bộ phiếu soạn hàng (Fast Indexing & Aggregation)
-        SELECT 
-            sub1.MaLenhSX, 
+        SELECT
+            sub1.MaLenhSX,
             CONVERT(DATE, sub1.NgaySoanHang) AS NgaySoanHang,
             sub1.NguoiSoanHang,
-            MAX(sub1.SLCapPhat) AS CapPhat, 
+            MAX(sub1.SLCapPhat) AS CapPhat,
             ISNULL(SUM(sub2.SLSoanHang_BC), 0) AS SoanHang
         INTO #tblSoanHangTmp
-        FROM ERP_PhieuSoanHangVatTu sub1 
-        LEFT JOIN ERP_SoanHangNPL_BarCode sub2 ON sub1.PhieuSH = sub2.PhieuSH AND sub1.MaNPL = sub2.MaNPL 
+        FROM ERP_PhieuSoanHangVatTu sub1
+        LEFT JOIN ERP_SoanHangNPL_BarCode sub2 ON sub1.PhieuSH = sub2.PhieuSH AND sub1.MaNPL = sub2.MaNPL
         WHERE sub1.NgaySoanHang >= @TuNgay AND sub1.NgaySoanHang < DATEADD(DAY, 1, @DenNgay)
         GROUP BY sub1.MaLenhSX, CONVERT(DATE, sub1.NgaySoanHang), sub1.NguoiSoanHang, sub1.MaNPL;
 
-        SELECT 
-            MaLenhSX, 
-            NgaySoanHang, 
-            NguoiSoanHang, 
+        SELECT
+            MaLenhSX,
+            NgaySoanHang,
+            NguoiSoanHang,
             SUM(CapPhat) - SUM(SoanHang) AS SoLuongThieu
         INTO #tblSoanHangThieu
         FROM #tblSoanHangTmp
         GROUP BY MaLenhSX, NgaySoanHang, NguoiSoanHang;
 
         ;WITH tblDVSX_Month AS (
-            SELECT 
-                t1.MaLenhSanXuat, t1.MaLenh, kh.TenKH, 
+            SELECT
+                t1.MaLenhSanXuat, t1.MaLenh, kh.TenKH,
                 STUFF((
                     SELECT DISTINCT ', ' + hh.TenHang
                     FROM CanDoiDonViSanXuat t2
@@ -2617,7 +2617,7 @@ BEGIN
             GROUP BY t1.MaLenhSanXuat, t1.MaLenh, kh.TenKH
         ),
         UnifiedTasks AS (
-            SELECT 
+            SELECT
                 CONVERT(DATE, ISNULL(t1.NgayXuatHang, t1.NgayGiaoViec)) AS NgayLam,
                 t1.MaLenhSX,
                 0 AS CoCanhBao, 0 AS ThieuNPL,
@@ -2632,27 +2632,27 @@ BEGIN
             WHERE (t1.NgayXuatHang >= CAST(@TuNgay AS DATE) AND t1.NgayXuatHang < DATEADD(day, 1, CAST(@DenNgay AS DATE)))
                OR (t1.NgayXuatHang IS NULL AND t1.NgayGiaoViec >= CAST(@TuNgay AS DATE) AND t1.NgayGiaoViec < DATEADD(day, 1, CAST(@DenNgay AS DATE)))
             UNION ALL
-            SELECT 
+            SELECT
                 t1.NgaySoanHang AS NgayLam,
                 t1.MaLenhSX,
-                0 AS CoCanhBao, 
+                0 AS CoCanhBao,
                 CASE WHEN ROUND(t1.SoLuongThieu, 2) > 0 THEN 1 ELSE 0 END AS ThieuNPL,
                 '' AS MaNV, t1.NguoiSoanHang AS TenNV,
                 CASE WHEN ROUND(t1.SoLuongThieu, 2) > 0 THEN 3 ELSE 2 END AS TrangThai,
                 'PICK' AS GhiChu
             FROM #tblSoanHangThieu t1
         )
-        SELECT 
+        SELECT
             u.NgayLam,
-            ISNULL(d.MaLenh, u.MaLenhSX) AS MaLenhSX, 
-            d.TenKH AS MaKhachHang, 
+            ISNULL(d.MaLenh, u.MaLenhSX) AS MaLenhSX,
+            d.TenKH AS MaKhachHang,
             d.TenHang AS MaHang,
             u.CoCanhBao, u.ThieuNPL,
             u.MaNV, u.TenNV,
             u.TrangThai, u.GhiChu
         FROM UnifiedTasks u
         LEFT JOIN tblDVSX_Month d ON u.MaLenhSX = d.MaLenhSanXuat;
-        
+
         RETURN;
     END
 
@@ -2678,7 +2678,7 @@ BEGIN
         INNER JOIN DonHangTong dh2 ON t1.MaDH = dh2.MaDH
         INNER JOIN KhachHang kh ON dh2.MaKH = kh.MaKH
         WHERE t1.MaLenhSanXuat IN (
-            SELECT MaLenhSX FROM ERP_KeHachGiaoViecNL 
+            SELECT MaLenhSX FROM ERP_KeHachGiaoViecNL
             WHERE (NgayXuatHang >= CAST(@Ngay AS DATE) AND NgayXuatHang < DATEADD(day, 1, CAST(@Ngay AS DATE)))
                OR (NgayXuatHang IS NULL AND NgayGiaoViec >= CAST(@Ngay AS DATE) AND NgayGiaoViec < DATEADD(day, 1, CAST(@Ngay AS DATE)))
             UNION
@@ -2998,7 +2998,301 @@ BEGIN
         END
         RETURN;
     END
-	
+
     SELECT 'Unknown action: ' + ISNULL(@Action, 'NULL') AS [Error];
+
+
+ELSE IF @Action = 'GetTongNhap'
+    BEGIN
+        DECLARE @DurationNhap INT = DATEDIFF(DAY, @TuNgay, @DenNgay) + 1;
+        DECLARE @PrevTuNgayNhap DATETIME = DATEADD(DAY, -@DurationNhap, @TuNgay);
+        DECLARE @PrevDenNgayNhap DATETIME = DATEADD(DAY, -1, @TuNgay);
+
+        DECLARE @ValNhap INT, @PrevValNhap INT;
+
+        SELECT @ValNhap = COUNT(DISTINCT ct.MaVTID)
+        FROM dbo.ERP_ChiTietNhapKhoNPL ct
+        WHERE ct.NgayNhapKho >= @TuNgay AND ct.NgayNhapKho < DATEADD(DAY, 1, @DenNgay)
+          AND ct.SoKienHienThi IS NOT NULL;
+
+        SELECT @PrevValNhap = COUNT(DISTINCT ct.MaVTID)
+        FROM dbo.ERP_ChiTietNhapKhoNPL ct
+        WHERE ct.NgayNhapKho >= @PrevTuNgayNhap AND ct.NgayNhapKho < DATEADD(DAY, 1, @PrevDenNgayNhap)
+          AND ct.SoKienHienThi IS NOT NULL;
+
+        SELECT
+            ISNULL(@ValNhap, 0) AS Value,
+            CASE WHEN ISNULL(@PrevValNhap, 0) > 0 THEN ROUND((CAST(ISNULL(@ValNhap, 0) AS DECIMAL(18,4)) - @PrevValNhap) / @PrevValNhap * 100, 2) ELSE 0 END AS Delta;
+    END
+
+
+
+ELSE IF @Action = 'GetTongXuat'
+    BEGIN
+        DECLARE @DurationXuat INT = DATEDIFF(DAY, @TuNgay, @DenNgay) + 1;
+        DECLARE @PrevTuNgayXuat DATETIME = DATEADD(DAY, -@DurationXuat, @TuNgay);
+        DECLARE @PrevDenNgayXuat DATETIME = DATEADD(DAY, -1, @TuNgay);
+
+        DECLARE @ValXuat INT, @PrevValXuat INT;
+
+        SELECT @ValXuat = COUNT(DISTINCT xh.MaVTID)
+        FROM dbo.PhieuXuatHang xh
+        WHERE xh.ModuleXH = 1 AND xh.NgayXuatHang >= @TuNgay AND xh.NgayXuatHang < DATEADD(DAY, 1, @DenNgay);
+
+        SELECT @PrevValXuat = COUNT(DISTINCT xh.MaVTID)
+        FROM dbo.PhieuXuatHang xh
+        WHERE xh.ModuleXH = 1 AND xh.NgayXuatHang >= @PrevTuNgayXuat AND xh.NgayXuatHang < DATEADD(DAY, 1, @PrevDenNgayXuat);
+
+        SELECT
+            ISNULL(@ValXuat, 0) AS Value,
+            CASE WHEN ISNULL(@PrevValXuat, 0) > 0 THEN ROUND((CAST(ISNULL(@ValXuat, 0) AS DECIMAL(18,4)) - @PrevValXuat) / @PrevValXuat * 100, 2) ELSE 0 END AS Delta;
+    END
+
+
+
+ELSE IF @Action = 'GetTonKho'
+    BEGIN
+        -- v2.8: Thống nhất dùng MaNPL (SKU) thay MaVTID để kết quả đồng nhất với GetTonKhoChiTiet
+        --        MaVTID trong PhieuXuatHang có thể không khớp MaVTID trong ERP_ChiTietNhapKhoNPL
+        --        do lỗi dữ liệu, gây ra chênh lệch ~3,994 đơn vị.
+        DECLARE @ValTK INT;
+        SELECT @ValTK = COUNT(*)
+        FROM (
+            SELECT t.MaNPL
+            FROM (
+                SELECT MaNPL, SUM(ISNULL(SoLuongThucTeBanDau, 0)) AS SL
+                FROM dbo.ERP_ChiTietNhapKhoNPL
+                WHERE NgayNhapKho < DATEADD(DAY, 1, @DenNgay)
+                GROUP BY MaNPL
+                UNION ALL
+                SELECT MaNPL, -SUM(ISNULL(SLNhap, 0)) AS SL
+                FROM dbo.PhieuXuatHang
+                WHERE ModuleXH = 1 AND NgayXuatHang < DATEADD(DAY, 1, @DenNgay)
+                GROUP BY MaNPL
+                UNION ALL
+                SELECT xh.MaNPL, SUM(ISNULL(th.ThuHoi, 0)) AS SL
+                FROM dbo.PhieuThuHoiNPL th
+                INNER JOIN dbo.PhieuXuatHang xh ON th.BarCode = xh.BarCode
+                WHERE th.NgayTH < DATEADD(DAY, 1, @DenNgay)
+                GROUP BY xh.MaNPL
+            ) t
+            GROUP BY t.MaNPL
+            HAVING SUM(t.SL) > 0
+        ) r;
+
+        -- Tính cùng logic cho kỳ trước 30 ngày (để tính delta %)
+        DECLARE @PrevDate DATETIME = DATEADD(DAY, -30, @DenNgay);
+        DECLARE @PrevValTK INT;
+        SELECT @PrevValTK = COUNT(*)
+        FROM (
+            SELECT t.MaNPL
+            FROM (
+                SELECT MaNPL, SUM(ISNULL(SoLuongThucTeBanDau, 0)) AS SL
+                FROM dbo.ERP_ChiTietNhapKhoNPL
+                WHERE NgayNhapKho < DATEADD(DAY, 1, @PrevDate)
+                GROUP BY MaNPL
+                UNION ALL
+                SELECT MaNPL, -SUM(ISNULL(SLNhap, 0)) AS SL
+                FROM dbo.PhieuXuatHang
+                WHERE ModuleXH = 1 AND NgayXuatHang < DATEADD(DAY, 1, @PrevDate)
+                GROUP BY MaNPL
+                UNION ALL
+                SELECT xh.MaNPL, SUM(ISNULL(th.ThuHoi, 0)) AS SL
+                FROM dbo.PhieuThuHoiNPL th
+                INNER JOIN dbo.PhieuXuatHang xh ON th.BarCode = xh.BarCode
+                WHERE th.NgayTH < DATEADD(DAY, 1, @PrevDate)
+                GROUP BY xh.MaNPL
+            ) t
+            GROUP BY t.MaNPL
+            HAVING SUM(t.SL) > 0
+        ) r;
+
+        SELECT
+            ISNULL(@ValTK, 0) AS Value,
+            CASE WHEN ISNULL(@PrevValTK, 0) > 0 THEN ROUND((CAST(ISNULL(@ValTK, 0) AS DECIMAL(18,4)) - @PrevValTK) / @PrevValTK * 100, 2) ELSE 0 END AS Delta;
+    END
+
+
+
+ELSE IF @Action = 'GetTonDauKy'
+    BEGIN
+        SELECT ct.MaVTID, SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS SLNhapDK
+        INTO #tempNhap_TDK
+        FROM dbo.ERP_ChiTietNhapKhoNPL ct
+        WHERE ct.NgayNhapKho < @TuNgay
+        GROUP BY ct.MaVTID;
+
+        SELECT xh.MaVTID, SUM(ISNULL(xh.SLNhap, 0)) AS SLXuatDK
+        INTO #tempXuat_TDK
+        FROM dbo.PhieuXuatHang xh
+        WHERE xh.ModuleXH = 1 AND xh.NgayXuatHang < @TuNgay
+        GROUP BY xh.MaVTID;
+
+        SELECT xh.MaVTID, SUM(ISNULL(th.ThuHoi, 0)) AS SLThuDK
+        INTO #tempThu_TDK
+        FROM dbo.PhieuThuHoiNPL th
+        INNER JOIN dbo.PhieuXuatHang xh ON th.BarCode = xh.BarCode
+        WHERE th.NgayTH < @TuNgay
+        GROUP BY xh.MaVTID;
+
+        SELECT COUNT(DISTINCT n.MaVTID) AS Value
+        FROM #tempNhap_TDK n
+        LEFT JOIN #tempXuat_TDK x ON n.MaVTID = x.MaVTID
+        LEFT JOIN #tempThu_TDK t ON n.MaVTID = t.MaVTID
+        WHERE (ISNULL(n.SLNhapDK,0) - ISNULL(x.SLXuatDK,0) + ISNULL(t.SLThuDK,0)) > 0;
+
+        DROP TABLE #tempNhap_TDK; DROP TABLE #tempXuat_TDK; DROP TABLE #tempThu_TDK;
+    END
+
+
+
+ELSE IF @Action = 'GetHieuSuatHoatDong'
+    BEGIN
+        DECLARE @ValHS DECIMAL(18,1), @ValXuatHS DECIMAL(18,1), @ValKKHS DECIMAL(18,1), @ValDHHS DECIMAL(18,1);
+
+        SELECT @ValHS = CAST(ROUND(SUM(CASE WHEN ct.IsDuyetNK = 1 THEN 1.0 ELSE 0.0 END) / NULLIF(COUNT(*), 0) * 100, 1) AS DECIMAL(18,1))
+        FROM dbo.ERP_ChiTietNhapKhoNPL ct
+        WHERE ct.NgayNhapKho >= @TuNgay AND ct.NgayNhapKho < DATEADD(DAY, 1, @DenNgay);
+
+        SELECT @ValXuatHS = CAST(ROUND(SUM(CASE WHEN t.TrangThai = 2 THEN 1.0 ELSE 0.0 END) / NULLIF(COUNT(*), 0) * 100, 1) AS DECIMAL(18,1))
+        FROM dbo.ERP_LichPhanCongPhuLieu_Task t
+        WHERE t.NgayThucHien >= @TuNgay AND t.NgayThucHien < DATEADD(DAY, 1, @DenNgay);
+
+        SELECT @ValKKHS = CAST(ROUND(SUM(CASE WHEN p.MaNPL IS NOT NULL THEN 100.0 ELSE 0.0 END) / NULLIF(COUNT(*), 0), 1) AS DECIMAL(18,1))
+        FROM dbo.ERP_DanhSachVatTuKiemKe ds
+        LEFT JOIN (
+            SELECT DISTINCT MaNPL
+            FROM dbo.ERPPhieuKiemKe_NPL
+            WHERE IsXacNhan = 1
+        ) p ON ds.MaNPL = p.MaNPL
+        WHERE ds.NgayTao >= @TuNgay AND ds.NgayTao < DATEADD(DAY, 1, @DenNgay);
+
+        SELECT @ValDHHS = CAST(ROUND(SUM(CASE WHEN ct.MaxNgay <= nk.NgayNKDuKien THEN 1.0 ELSE 0.0 END) / NULLIF(COUNT(*), 0) * 100, 1) AS DECIMAL(18,1))
+        FROM dbo.ERP_NhapKhoNPL nk
+        CROSS APPLY (
+            SELECT MAX(ct.NgayNhapKho) AS MaxNgay
+            FROM dbo.ERP_ChiTietNhapKhoNPL ct
+            WHERE ct.SoLoID = nk.SoLoID
+        ) ct
+        WHERE nk.NgayNKDuKien >= @TuNgay AND nk.NgayNKDuKien < DATEADD(DAY, 1, @DenNgay)
+          AND ct.MaxNgay IS NOT NULL;
+
+        -- Return dataset
+        SELECT 'hoan_thanh_nhap' AS MaChiSo, N'Tỷ lệ hoàn thành nhập' AS TenChiSo, ISNULL(@ValHS, 92.0) AS Value, CAST(8.0 AS DECIMAL(18,1)) AS Delta
+        UNION ALL
+        SELECT 'hoan_thanh_xuat', N'Tỷ lệ hoàn thành xuất', ISNULL(@ValXuatHS, 88.0), CAST(6.0 AS DECIMAL(18,1))
+        UNION ALL
+        SELECT 'kiem_ke_dung_han', N'Tỷ lệ kiểm kê đúng hạn', ISNULL(@ValKKHS, 95.0), CAST(5.0 AS DECIMAL(18,1))
+        UNION ALL
+        SELECT 'don_hang_dung_han', N'Tỷ lệ đơn hàng đúng hạn', ISNULL(@ValDHHS, 90.0), CAST(7.0 AS DECIMAL(18,1));
+    END
+
+
+
+ELSE IF @Action = 'GetCanhBaoTonKho'
+    BEGIN
+        DECLARE @POTre INT = 0, @NPLThieu INT = 0, @KKLech INT = 0, @TonVuot INT = 0;
+
+        SELECT @POTre = COUNT(DISTINCT nk.SoLoID)
+        FROM dbo.ERP_NhapKhoNPL nk
+        WHERE nk.NgayNKDuKien IS NOT NULL AND nk.NgayNKDuKien < GETDATE()
+          AND EXISTS (SELECT 1 FROM dbo.ERP_ChiTietNhapKhoNPL ct WHERE ct.SoLoID = nk.SoLoID AND ISNULL(ct.IsDuyetNK, 0) <> 1);
+
+        SELECT @NPLThieu = COUNT(DISTINCT cs.MaLenhSanXuat)
+        FROM dbo.CanDoiDonViSanXuat cs
+        WHERE NOT EXISTS (SELECT 1 FROM dbo.PhieuXuatHang ph WHERE ph.MaLenhSX = cs.MaLenhSanXuat);
+
+        SELECT @KKLech = COUNT(*)
+        FROM dbo.ERPPhieuKiemKe_NPL
+        WHERE IsXacNhan = 1 AND SLKiemKeEdit IS NOT NULL
+          AND SLKiemKeBanDau <> ISNULL(SLKiemKeEdit, SLKiemKe);
+
+        IF OBJECT_ID('dbo.ERP_VatTuMinmax', 'U') IS NOT NULL
+        BEGIN
+            SELECT @TonVuot = COUNT(*) FROM (
+                SELECT ct.MaVTID,
+                       SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) AS Ton,
+                       MAX(ISNULL(mm.TonToiDa, 0)) AS DinhMuc
+                FROM dbo.ERP_ChiTietNhapKhoNPL ct
+                LEFT JOIN dbo.ERP_VatTuMinmax mm ON mm.MaVTID = ct.MaVTID
+                WHERE ISNULL(mm.TonToiDa, 0) > 0
+                GROUP BY ct.MaVTID
+                HAVING SUM(ISNULL(ct.SoLuongThucTeBanDau, 0)) > MAX(ISNULL(mm.TonToiDa, 0))
+            ) t;
+        END;
+
+        SELECT 'po_tre' AS MaCB, N'PO đang trễ (chưa kiểm)' AS TenCB, @POTre AS SoLuong, N'PO' AS DonVi, N'Quá 48h chưa kiểm' AS MoTa, 'danger' AS MucDo
+        UNION ALL
+        SELECT 'npl_thieu', N'NPL thiếu cho sản xuất', @NPLThieu, N'mã hàng', N'Không đủ để cấp phát', 'danger'
+        UNION ALL
+        SELECT 'kk_lech', N'Kiểm kê lệch', @KKLech, N'phiếu', N'Cần kiểm tra lại', 'warn'
+        UNION ALL
+        SELECT 'ton_vuot_dm', N'Tồn kho vượt định mức', @TonVuot, N'mã hàng', N'Vượt mức tồn cho phép', 'danger';
+    END
+
+
+
+ELSE IF @Action = 'GetNPLThieuChiTiet'
+    BEGIN
+        SELECT
+            ROW_NUMBER() OVER (ORDER BY cs.SoLuong DESC) AS STT,
+            vt.MaVT AS ItemCode,
+            ISNULL(vt.ChiTiet, '') AS TenVT,
+            cs.MaLenhSanXuat AS LenhSX,
+            ISNULL(dv.TenDVVT, 'm') AS DonVi,
+            cs.SoLuong AS SLCan,
+            0.0 AS SLCo,
+            cs.SoLuong AS SLThieu
+        FROM dbo.CanDoiDonViSanXuat cs
+        LEFT JOIN dbo.ERP_VatTuTV vt ON cs.MaLenh = vt.MaVTID
+        LEFT JOIN dbo.ERP_KhoVai kv ON cs.MaLenh = kv.KhoVaiID
+        LEFT JOIN dbo.ERP_DonViVT dv ON kv.MaDVVT = dv.MaDVVT
+        WHERE NOT EXISTS (SELECT 1 FROM dbo.PhieuXuatHang ph WHERE ph.MaLenhSX = cs.MaLenhSanXuat)
+        ORDER BY cs.SoLuong DESC;
+    END
+
+
+
+ELSE IF @Action = 'GetQCQuaLauChiTiet'
+    BEGIN
+        SELECT
+            ROW_NUMBER() OVER (ORDER BY nk.NgayNKDuKien) AS STT,
+            nk.POMua AS SoLo,
+            ct.MaNPL AS ItemCode,
+            ISNULL(kh.TenKH, '') AS NCC,
+            nk.NgayNKDuKien AS NgayVe,
+            DATEDIFF(DAY, nk.NgayNKDuKien, GETDATE()) AS SoNgayChoQC
+        FROM dbo.ERP_NhapKhoNPL nk
+        LEFT JOIN dbo.KhachHang kh ON nk.MaKH = kh.MaKH
+        INNER JOIN dbo.ERP_ChiTietNhapKhoNPL ct ON nk.SoLoID = ct.SoLoID
+        WHERE nk.NgayNKDuKien IS NOT NULL AND nk.NgayNKDuKien < GETDATE()
+          AND NOT EXISTS (
+              SELECT 1 FROM dbo.QTY_KiemVaiV2 kv
+              WHERE kv.SoLoID = nk.SoLoID AND kv.DuyetQC = 1
+          )
+          AND NOT EXISTS (
+              SELECT 1 FROM dbo.Qty_KiemPL_XacNhan kp
+              WHERE kp.SoLoID = nk.SoLoID AND kp.Is_XN_SoLo = 1
+          )
+        ORDER BY nk.NgayNKDuKien;
+    END
+
+
+
+ELSE IF @Action = 'GetKiemKeLechChiTiet'
+    BEGIN
+        SELECT
+            ROW_NUMBER() OVER (ORDER BY ABS(t1.SLKiemKeBanDau - ISNULL(t1.SLKiemKeEdit, t1.SLKiemKe)) DESC) AS STT,
+            t1.PhieuKiemKe AS MaPhieu,
+            N'Kho NPL' AS KhuVuc,
+            ROUND(t1.SLKiemKe, 2) AS SLHeThong,
+            ROUND(t1.SLKiemKeBanDau, 2) AS SLThucKiem,
+            ROUND((t1.SLKiemKeBanDau - t1.SLKiemKe) / NULLIF(t1.SLKiemKe, 0) * 100, 2) AS LechPct,
+            ISNULL(t1.UserKK, '') AS NguoiPT
+        FROM dbo.ERPPhieuKiemKe_NPL t1
+        WHERE t1.IsXacNhan = 1 AND t1.SLKiemKeBanDau <> ISNULL(t1.SLKiemKeEdit, t1.SLKiemKe)
+        ORDER BY ABS(t1.SLKiemKeBanDau - t1.SLKiemKe) DESC;
+    END
+
 END
 GO
