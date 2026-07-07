@@ -343,6 +343,11 @@ function renderDetailModal(detail, index) {
  * Đóng Modal chi tiết hiện tại và quay về màn hình trước đó.
  */
 function closeDetailModal() {
+    if (window.__currentModalAbortController) {
+        window.__currentModalAbortController.abort();
+        window.__currentModalAbortController = null;
+    }
+
     var modal = byId(ids.detailModal);
     if (!modal) return;
     modal.classList.remove("open");

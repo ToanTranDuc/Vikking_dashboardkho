@@ -6,9 +6,43 @@
 var __inFlightRequests = {};
 
 /**
+ * Lấy thời gian timeout tùy biến dựa trên Endpoint (URL)
+ */
+function getTimeoutByEndpoint(url) {
+    if (!url) return 15000;
+    var lowerUrl = url.toLowerCase();
+    
+    // Export/API cực nặng
+    if (lowerUrl.indexOf("export") !== -1) return 120000;
+    
+    // API detail/modal/range dài 6 tháng
+    if (lowerUrl.indexOf("getactivityrangedetail") !== -1 || 
+        lowerUrl.indexOf("lichphancong_getcalendarmonth") !== -1) return 60000;
+    
+    // API calendar/range 3 tháng
+    if (lowerUrl.indexOf("getactivitycalendar") !== -1) return 45000;
+    
+    // API biểu đồ
+    if (lowerUrl.indexOf("getflowtrend") !== -1 || 
+        lowerUrl.indexOf("getkiemkedetail") !== -1 || 
+        lowerUrl.indexOf("getxuatdetail") !== -1 || 
+        lowerUrl.indexOf("getnhapdetail") !== -1 ||
+        lowerUrl.indexOf("getcapacitytrend") !== -1 ||
+        lowerUrl.indexOf("getcustomerpie") !== -1 ||
+        lowerUrl.indexOf("getagestock") !== -1) return 30000;
+
+    // API dashboard nhẹ (mặc định)
+    return 15000;
+}
+
+/**
  * Thực hiện gọi API GET bằng XMLHttpRequest, tự động Parse JSON và quản lý hàng đợi, xử lý lỗi mạng.
  */
-function requestJson(url) {
+function requestJson(url, options) {
+    options = options || {};
+    var timeoutMs = options.timeoutMs || getTimeoutByEndpoint(url);
+    options.timeoutMs = timeoutMs;
+    
     var staticEndpoints = [
         "/GetOverallCapacity",
         "/GetCustomers",
@@ -43,6 +77,7 @@ function requestJson(url) {
     var promise = new Promise(function (resolve, reject) {
         __requestQueue.push({ 
             url: url, 
+            options: options,
             resolve: function(data) {
                 if (isStatic) {
                     try {
@@ -67,13 +102,29 @@ function requestJson(url) {
 /**
  * Hàm lõi thực hiện HTTP GET Request (được requestJson gọi).
  */
-function __requestJsonCore(url) {
-    // Luôn luôn băm cache (cache bust) để ngăn chặn trình duyệt cache API GET
+function __requestJsonCore(url, options) {
+    options = options || {};
+    var timeoutMs = options.timeoutMs || getTimeoutByEndpoint(url);
+    var signal = options.signal;
     var cacheBustUrl = url + (url.indexOf("?") !== -1 ? "&" : "?") + "_t=" + new Date().getTime();
 
     if (window.fetch && window.AbortController) {
         var controller = new AbortController();
-        var timeoutId = setTimeout(function() { controller.abort(); }, 15000); // 15s timeout
+        var isTimeout = false;
+        
+        var timeoutId = setTimeout(function() { 
+            isTimeout = true;
+            controller.abort(); 
+        }, timeoutMs); 
+        
+        if (signal) {
+            signal.addEventListener('abort', function() {
+                controller.abort();
+            });
+            if (signal.aborted) {
+                controller.abort();
+            }
+        }
         
         return window
             .fetch(cacheBustUrl, {
@@ -92,9 +143,7 @@ function __requestJsonCore(url) {
                                 var j = JSON.parse(body);
                                 if (j && j.Message) errMsg += " - " + j.Message;
                                 else if (body.trim().startsWith("{")) errMsg += "\n" + body.substring(0, 500);
-                            } catch (e) {
-                                // Do not append raw HTML to the error message to avoid rendering it in the UI
-                            }
+                            } catch (e) { }
                         }
                         throw new Error(errMsg);
                     });
@@ -103,7 +152,11 @@ function __requestJsonCore(url) {
             }).catch(function(err) {
                 clearTimeout(timeoutId);
                 if (err.name === 'AbortError') {
-                    throw new Error("Request Timeout (15s)");
+                    if (isTimeout) {
+                        throw new Error("Request Timeout (" + Math.round(timeoutMs / 1000) + "s)");
+                    } else {
+                        throw new Error("USER_ABORTED");
+                    }
                 }
                 throw err;
             });
@@ -111,17 +164,31 @@ function __requestJsonCore(url) {
 
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
+        var isTimeout = false;
         var timeoutId = setTimeout(function() {
+            isTimeout = true;
             xhr.abort();
-            reject(new Error("Request Timeout (15s)"));
-        }, 15000);
+            reject(new Error("Request Timeout (" + Math.round(timeoutMs / 1000) + "s)"));
+        }, timeoutMs);
+        
+        if (signal) {
+            signal.addEventListener('abort', function() {
+                xhr.abort();
+                reject(new Error("USER_ABORTED"));
+            });
+            if (signal.aborted) {
+                xhr.abort();
+                reject(new Error("USER_ABORTED"));
+                return;
+            }
+        }
         
         xhr.open("GET", cacheBustUrl, true);
         xhr.setRequestHeader("Accept", "application/json");
         xhr.onreadystatechange = function () {
             if (xhr.readyState !== 4) return;
             clearTimeout(timeoutId);
-            if (xhr.status === 0) return; // Aborted by timeout
+            if (xhr.status === 0) return; // Aborted by timeout or user
             if (xhr.status < 200 || xhr.status >= 300) {
                 var em = "HTTP " + xhr.status;
                 if (xhr.responseText) {

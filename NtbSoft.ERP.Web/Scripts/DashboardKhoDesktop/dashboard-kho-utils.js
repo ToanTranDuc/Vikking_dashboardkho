@@ -221,7 +221,7 @@ function __processRequestQueue() {
     if (__activeRequests >= __maxConcurrent || __requestQueue.length === 0) return;
     var req = __requestQueue.shift();
     __activeRequests++;
-    __requestJsonCore(req.url)
+    __requestJsonCore(req.url, req.options)
         .then(function (res) {
             req.resolve(res);
         })

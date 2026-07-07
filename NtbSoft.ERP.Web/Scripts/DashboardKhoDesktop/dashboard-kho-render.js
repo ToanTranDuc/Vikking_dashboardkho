@@ -3925,9 +3925,14 @@ function openCalendarOverviewModal() {
     var url =
         "/api/DashboardKhoDesktop/GetActivityRangeDetail?tuNgay=" + asIsoDate(fromD) + "&denNgay=" + asIsoDate(toD);
 
+    if (window.__currentModalAbortController) {
+        window.__currentModalAbortController.abort();
+    }
+    window.__currentModalAbortController = new AbortController();
+
     var currentToken = ++__dkOverviewModalToken;
 
-    requestJson(url)
+    requestJson(url, { signal: window.__currentModalAbortController.signal, timeoutMs: 60000 })
         .then(function (data) {
             if (currentToken !== __dkOverviewModalToken) return; // Bỏ qua nếu có request mới hơn
             
@@ -3981,12 +3986,30 @@ function openCalendarOverviewModal() {
         })
         .catch(function (err) {
             if (currentToken !== __dkOverviewModalToken) return; // Bỏ qua nếu có request mới hơn
+            var errMsg = String((err && err.message) || err);
+            
+            // Nếu người dùng đóng modal hoặc đổi filter
+            if (errMsg.indexOf("USER_ABORTED") !== -1 || errMsg.indexOf("AbortError") !== -1 || errMsg === "USER_ABORTED") {
+                return; // Âm thầm hủy, không báo lỗi đỏ
+            }
+
             if (modalContent) {
-                modalContent.innerHTML =
-                    '<div class="dk-empty" style="padding:30px;color:#dc2626">' +
-                    "Lỗi tải tổng quát: " +
-                    escapeHtml(String((err && err.message) || err)) +
-                    "</div>";
+                if (errMsg.indexOf("Request Timeout") !== -1) {
+                    modalContent.innerHTML =
+                        '<div class="dk-empty" style="padding:30px;color:#dc2626">' +
+                        "Dữ liệu quá lớn hoặc server phản hồi chậm. Vui lòng thử lại hoặc thu hẹp khoảng ngày.<br/>(Chi tiết: Quá thời gian tải dữ liệu)" +
+                        "</div>";
+                } else if (errMsg.indexOf("HTTP 50") !== -1) {
+                    modalContent.innerHTML =
+                        '<div class="dk-empty" style="padding:30px;color:#dc2626">' +
+                        "Lỗi server khi tải dữ liệu<br/>" + escapeHtml(errMsg) +
+                        "</div>";
+                } else {
+                    modalContent.innerHTML =
+                        '<div class="dk-empty" style="padding:30px;color:#dc2626">' +
+                        "Lỗi tải tổng quát: " + escapeHtml(errMsg) +
+                        "</div>";
+                }
             }
         });
 }
@@ -5424,7 +5447,12 @@ function showLpcpInlineDetail(dateKey) {
         }
     }
 
-    requestJson("/api/DashboardKhoDesktop/LichPhanCong_GetDayDetail?ngay=" + dateKey)
+    if (window.__lpcpInlineAbortController) {
+        window.__lpcpInlineAbortController.abort();
+    }
+    window.__lpcpInlineAbortController = new AbortController();
+
+    requestJson("/api/DashboardKhoDesktop/LichPhanCong_GetDayDetail?ngay=" + dateKey, { signal: window.__lpcpInlineAbortController.signal })
         .then(function (res) {
             var data = res && res.data ? res.data : {};
             var assignments = data.Assignments || [];
@@ -5676,14 +5704,24 @@ function showLpcpInlineDetail(dateKey) {
             })();
         })
         .catch(function (err) {
-            var errMsg = err && err.message ? err.message : "Lỗi kết nối";
+            var errMsg = String((err && err.message) || err);
+            
+            // Bỏ qua nếu user abort
+            if (errMsg.indexOf("USER_ABORTED") !== -1 || errMsg.indexOf("AbortError") !== -1 || errMsg === "USER_ABORTED") {
+                return;
+            }
+
             if (badgeEl) badgeEl.textContent = "Lỗi tải dữ liệu";
-            if (assignEl)
-                assignEl.innerHTML =
-                    "<div class='dk-lpcp-empty' style='color:#ef4444'>" + escapeHtml(errMsg) + "</div>";
-            if (pickEl)
-                pickEl.innerHTML =
-                    "<div class='dk-lpcp-empty' style='color:#ef4444'>Kiểm tra console để biết chi tiết</div>";
+            
+            if (errMsg.indexOf("Request Timeout") !== -1) {
+                if (assignEl) assignEl.innerHTML = "<div class='dk-lpcp-empty' style='color:#ef4444'>Không thể tải dữ liệu</div>";
+                if (pickEl) pickEl.innerHTML = "<div class='dk-lpcp-empty' style='color:#ef4444'>Không thể tải dữ liệu</div>";
+                if (warnEl) warnEl.innerHTML = "<div class='dk-lpcp-empty' style='color:#ef4444'>Không thể tải dữ liệu</div>";
+            } else {
+                if (assignEl) assignEl.innerHTML = "<div class='dk-lpcp-empty' style='color:#ef4444'>Lỗi: " + escapeHtml(errMsg) + "</div>";
+                if (pickEl) pickEl.innerHTML = "<div class='dk-lpcp-empty' style='color:#ef4444'>Lỗi kết nối</div>";
+                if (warnEl) warnEl.innerHTML = "<div class='dk-lpcp-empty' style='color:#ef4444'>Lỗi kết nối</div>";
+            }
         });
 }
 
