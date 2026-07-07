@@ -4182,11 +4182,20 @@ function showCalDayDetail(dateKey, info, plannedCount) {
     if (modalContent) modalContent.innerHTML = '<div class="dk-empty" style="padding:30px">Đang tải chi tiết...</div>';
     modal.classList.add("open");
 
+    if (window.__currentDayModalAbortController) {
+        window.__currentDayModalAbortController.abort();
+    }
+    window.__currentDayModalAbortController = new AbortController();
+    
+    if (typeof window.__dkDayModalToken === 'undefined') window.__dkDayModalToken = 0;
+    var currentToken = ++window.__dkDayModalToken;
+
     var url = "/api/DashboardKhoDesktop/GetActivityDayDetail?ngay=" + dateKey;
     var inRangeMode = false; // Luôn hiển thị 1 ngày duy nhất khi click vào ô ngày, dù đang bật filter range
 
-    requestJson(url)
+    requestJson(url, { signal: window.__currentDayModalAbortController.signal })
         .then(function (data) {
+            if (currentToken !== window.__dkDayModalToken) return;
 
             var d = data || {};
             var nhapRows = normalizeArray(d.Nhap);
@@ -4238,6 +4247,8 @@ function showCalDayDetail(dateKey, info, plannedCount) {
             }
         })
         .catch(function (err) {
+            if (err && err.message === 'USER_ABORTED') return;
+            if (currentToken !== window.__dkDayModalToken) return;
             console.error("[Dashboard Kho] Day detail API error:", err);
             // v2.3.8.2 — Silent fallback: dùng data sẵn có (không hiện banner cảnh báo)
             var plannedRows = (state.nkDuKien || []).filter(function (r) {

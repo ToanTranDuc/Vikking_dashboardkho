@@ -894,7 +894,8 @@ BEGIN
         FROM dbo.ERP_NhapKhoNPL nk
         LEFT JOIN dbo.KhachHang kh ON kh.MaKH = nk.MaKH
         WHERE nk.NgayNKDuKien IS NOT NULL
-          AND CAST(nk.NgayNKDuKien AS DATE) BETWEEN CAST(@TuNgay AS DATE) AND CAST(@DenNgay AS DATE)
+          AND nk.NgayNKDuKien >= CAST(@TuNgay AS DATE)
+          AND nk.NgayNKDuKien < DATEADD(DAY, 1, CAST(@DenNgay AS DATE))
         ORDER BY nk.NgayNKDuKien, nk.SoLo;
     END
 
@@ -1093,7 +1094,8 @@ BEGIN
                 COUNT(*)                               AS SoBarCode
             FROM dbo.ERP_ChiTietNhapKhoNPL ct
             WHERE ct.NgayNhapKho IS NOT NULL
-              AND CAST(ct.NgayNhapKho AS DATE) = CAST(@Ngay AS DATE)
+              AND ct.NgayNhapKho >= CAST(@Ngay AS DATE)
+              AND ct.NgayNhapKho < DATEADD(DAY, 1, CAST(@Ngay AS DATE))
               AND EXISTS (
                   SELECT 1 FROM dbo.ERP_VatTuCBM vt 
                   WHERE vt.Barcode = ct.BarCode 
@@ -1168,7 +1170,8 @@ BEGIN
         LEFT JOIN dbo.KhachHang  kh ON kh.MaKH    = dh.MaKH
         WHERE xh.ModuleXH = 1
           AND xh.NgayXuatHang IS NOT NULL
-          AND CAST(xh.NgayXuatHang AS DATE) = CAST(@Ngay AS DATE)
+          AND xh.NgayXuatHang >= CAST(@Ngay AS DATE)
+          AND xh.NgayXuatHang < DATEADD(DAY, 1, CAST(@Ngay AS DATE))
           AND ISNULL(xh.MaHang,'') NOT LIKE '%PSH_%'
           AND EXISTS (
               SELECT 1 FROM dbo.ERP_VatTuCBM vt 
@@ -1215,7 +1218,8 @@ BEGIN
             FROM dbo.ERPPhieuKiemKe_NPLV2 kk
             LEFT JOIN dbo.SYS_NhanVien nv ON nv.UserID = kk.UserKK
             WHERE kk.DateKiemKe IS NOT NULL
-              AND CAST(kk.DateKiemKe AS DATE) = CAST(@Ngay AS DATE)
+              AND kk.DateKiemKe >= CAST(@Ngay AS DATE)
+              AND kk.DateKiemKe < DATEADD(DAY, 1, CAST(@Ngay AS DATE))
             GROUP BY kk.PhieuKiemKe, kk.SoLo
             ORDER BY SUM(kk.SLKiemKe) DESC;
         END
@@ -1231,7 +1235,8 @@ BEGIN
             FROM dbo.ERPPhieuKiemKe_NPL kk
             LEFT JOIN dbo.SYS_NhanVien nv ON nv.UserID = kk.UserKK
             WHERE kk.DateKiemKe IS NOT NULL
-              AND CAST(kk.DateKiemKe AS DATE) = CAST(@Ngay AS DATE)
+              AND kk.DateKiemKe >= CAST(@Ngay AS DATE)
+              AND kk.DateKiemKe < DATEADD(DAY, 1, CAST(@Ngay AS DATE))
             GROUP BY kk.PhieuKiemKe, kk.SoLo
             ORDER BY SUM(kk.SLKiemKe) DESC;
         END

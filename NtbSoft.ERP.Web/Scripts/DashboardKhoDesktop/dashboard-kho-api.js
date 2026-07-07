@@ -990,12 +990,14 @@ function loadPageData(pageNum) {
         return Promise.all([
             safeJson(urlNKDK),
             safeJson(urlLichGoc),
-            requestJson(urlLPCP).catch(function (e) {
+            requestJson(urlLPCP).catch(function(e) {
+            if (e && e.message === 'USER_ABORTED') return;
                 console.warn("API LPCP lỗi, bỏ qua hiển thị:", e);
                 return [];
             }),
         ])
             .then(function (results) {
+                if (!results || results.indexOf(undefined) !== -1) return;
                 state.nkDuKien = normalizeArray(results[0]);
 
                 // Xử lý dữ liệu LPCP và Inventory mới từ kết quả API
