@@ -177,8 +177,10 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
         {
             try
             {
-                if (tuNgay.HasValue && denNgay.HasValue)
+                if (tuNgay.HasValue && denNgay.HasValue) {
+                    if (tuNgay.Value.Date > denNgay.Value.Date) return BadRequest("Invalid date range: tuNgay > denNgay");
                     return Ok(ToList(DashboardKhoDesktopModel.GetActivityCalendar(tuNgay.Value, denNgay.Value, maNPL, soLoID, maHang, maKH, khoLoi, nhom, isNPL)));
+                }
                 return Ok(ToList(DashboardKhoDesktopModel.GetActivityCalendar(maNPL, soLoID, maHang, maKH, khoLoi, nhom, isNPL)));
             }
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
@@ -194,6 +196,7 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
             {
                 DateTime to   = (denNgay ?? DateTime.Today).Date;
                 DateTime from = (tuNgay  ?? to.AddDays(-30)).Date;
+                if (from > to) return BadRequest("Invalid date range: tuNgay > denNgay");
                 return Ok(ToList(DashboardKhoDesktopModel.GetFlowTrendByRange(from, to, maNPL, soLoID, maHang, maKH, khoLoi, nhom, isNPL)));
             }
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
@@ -263,6 +266,7 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
                 DateTime today = DateTime.Today;
                 DateTime from = (tuNgay  ?? today.AddDays(-30)).Date;
                 DateTime to   = (denNgay ?? today.AddDays(60)).Date;
+                if (from > to) return BadRequest("Invalid date range: tuNgay > denNgay");
                 return Ok(ToList(DashboardKhoDesktopModel.GetNKDuKienByRange(from, to)));
             }
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
@@ -301,6 +305,26 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
                 });
             }
             catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
+        }
+
+        /// <summary>
+        /// Xử lý request cho LichPhanCong_GetDayDetail
+        /// </summary>
+        [HttpGet]
+        [Route("LichPhanCong_GetDayDetail")]
+        public IHttpActionResult LichPhanCong_GetDayDetail(DateTime ngay)
+        {
+            try
+            {
+                var result = DashboardKhoDesktopModel.GetLichPhanCongDayDetail(ngay);
+                if (result == null) 
+                    return Ok(new { success = true, data = new { } });
+                return Ok(new { success = true, data = result });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { success = false, message = ex.Message, detail = ex.GetType().Name });
+            }
         }
 
         /// <summary>
@@ -731,6 +755,8 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
                         DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month))
                     : DateTime.Parse(denNgay);
 
+                if (tuDate.Date > denDate.Date) return BadRequest("Invalid date range: tuNgay > denNgay");
+
                 var result = DashboardKhoDesktopModel.GetLichPhanCongCalendarMonth(tuDate, denDate);
                 var inventory = ToList(DashboardKhoDesktopModel.GetActivityCalendar(tuDate, denDate, "all", "all", "all", "all", "0", "all", 2));
 
@@ -741,6 +767,8 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
                     Tasks = result,
                     Inventory = inventory
                 });
+            }
+            catch (Exception ex)
             {
                 return Ok(new { success = false, message = ex.Message, detail = ex.GetType().Name });
             }
@@ -782,7 +810,7 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
                     using (System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader())
                     {
                         Func<System.Data.SqlClient.SqlDataReader, string, string> safeStr = (r, col) => {
-                            try { return r[col] != DBNull.Value ? FixUtf8(r[col].ToString()) : ""; }
+                            try { return r[col] != DBNull.Value ? r[col].ToString() : ""; }
                             catch { return ""; }
                         };
                         Func<System.Data.SqlClient.SqlDataReader, string, bool> safeBool = (r, col) => {

@@ -1463,16 +1463,23 @@ BEGIN
           AND t1.SoLuongThucTeBanDau <> 0 
           AND (@SoLoID = 'all' OR t1.SoLoID = @SoLoID) 
           AND (@MaHang = 'all' OR ISNULL(tt.MaHang, '') = @MaHang) 
-          AND (@MaKH = 'all' OR ISNULL(tt.MaKH, '') = @MaKH) 
-          AND EXISTS (
-              SELECT 1 FROM dbo.ERP_VatTuCBM vt 
-              WHERE vt.Barcode = t1.BarCode 
-                AND (ISNULL(vt.MaONPL, '') <> '' 
-                     OR EXISTS (SELECT 1 FROM PhieuXuatHang px WHERE px.BarCodeGoc = vt.Barcode)
-                     OR EXISTS (SELECT 1 FROM PhieuThuHoiNPL th WHERE th.BarCode = vt.Barcode))
-          )
-          AND ((@KhoLoi = '1' AND EXISTS (SELECT 1 FROM ERP_VatTuCBM vt INNER JOIN ERP_ONPL o ON o.TenO = vt.MaONPL INNER JOIN ERP_DayNPL d ON d.DayID = o.DayID AND d.Status = 2 WHERE vt.Barcode = t1.BarCode AND vt.MaONPL IS NOT NULL))
-            OR (@KhoLoi = '0' AND NOT EXISTS (SELECT 1 FROM ERP_VatTuCBM vt INNER JOIN ERP_ONPL o ON o.TenO = vt.MaONPL INNER JOIN ERP_DayNPL d ON d.DayID = o.DayID AND d.Status = 2 WHERE vt.Barcode = t1.BarCode AND vt.MaONPL IS NOT NULL)));
+          AND (@MaKH = 'all' OR ISNULL(tt.MaKH, '') = @MaKH);
+
+        DELETE t1 FROM #tempTKho t1
+        WHERE NOT EXISTS (SELECT 1 FROM dbo.ERP_VatTuCBM vt WHERE vt.Barcode = t1.BarCode AND ISNULL(vt.MaONPL, '') <> '')
+          AND NOT EXISTS (SELECT 1 FROM PhieuXuatHang px WHERE px.BarCodeGoc = t1.BarCode)
+          AND NOT EXISTS (SELECT 1 FROM PhieuThuHoiNPL th WHERE th.BarCode = t1.BarCode);
+
+        IF @KhoLoi = '1'
+        BEGIN
+            DELETE t1 FROM #tempTKho t1 
+            WHERE NOT EXISTS (SELECT 1 FROM ERP_VatTuCBM vt INNER JOIN ERP_ONPL o ON o.TenO = vt.MaONPL INNER JOIN ERP_DayNPL d ON d.DayID = o.DayID AND d.Status = 2 WHERE vt.Barcode = t1.BarCode AND vt.MaONPL IS NOT NULL);
+        END
+        ELSE IF @KhoLoi = '0'
+        BEGIN
+            DELETE t1 FROM #tempTKho t1 
+            WHERE EXISTS (SELECT 1 FROM ERP_VatTuCBM vt INNER JOIN ERP_ONPL o ON o.TenO = vt.MaONPL INNER JOIN ERP_DayNPL d ON d.DayID = o.DayID AND d.Status = 2 WHERE vt.Barcode = t1.BarCode AND vt.MaONPL IS NOT NULL);
+        END
 
         -- 2. T�NH T?N �?U K?
         DECLARE @TonDauKy DECIMAL(18,4) = 0;
@@ -1483,52 +1490,55 @@ BEGIN
 
         SELECT @TonChenhDK = ROUND(SUM(ISNULL(SLKiemKeBanDau,0) - ISNULL(SLKiemKeEdit,0)), 4)
         FROM ERPPhieuKiemKe_NPL t1
-        WHERE IsXacNhan = 1 AND SLKiemKeEdit IS NOT NULL AND CONVERT(DATE, DateDuyetKK) < @StartDateRange
+        WHERE IsXacNhan = 1 AND SLKiemKeEdit IS NOT NULL AND DateDuyetKK < @StartDateRange
           AND EXISTS (SELECT 1 FROM #tempTKho t2 WHERE t1.BarCode = t2.BarCode);
 
         SELECT @TonNhapDK = SUM(t1.SoLuongThucTeBanDau)
         FROM ERP_ChiTietNhapKhoNPL t1
         INNER JOIN #tempNhapKhoNPL t2 ON t1.SoLoID = t2.SoLoID AND t1.IsNPL = t2.IsNPL
         INNER JOIN #tempTKho t4 ON t1.ID = t4.ID
-        WHERE CONVERT(DATE, t1.NgayNhapKho) < @StartDateRange;
+        WHERE t1.NgayNhapKho < @StartDateRange;
 
         SELECT @TonXuatDK = SUM(SLNhap)
         FROM PhieuXuatHang t1
         INNER JOIN #tempTKho t2 ON t1.BarCodeGoc = t2.BarCode
-        WHERE CONVERT(DATE, t1.NgayXuatHang) < @StartDateRange AND ISNULL(MaHang,'') NOT LIKE '%PSH_%';
+        WHERE t1.NgayXuatHang < @StartDateRange AND ISNULL(MaHang,'') NOT LIKE '%PSH_%';
 
         SELECT @TonThuDK = SUM(ThuHoi)
-        FROM Ph        IF OBJECT_ID('tempdb..#tempChenhLechTK') IS NOT NULL DROP TABLE #tempChenhLechTK;
+        FROM PhieuThuHoiNPL t1
+        WHERE t1.NgayTH < @StartDateRange;
+
+        IF OBJECT_ID('tempdb..#tempChenhLechTK') IS NOT NULL DROP TABLE #tempChenhLechTK;
         -- 3. TRONG KY THEO NGAY & 4. TONG HOP RA BIEU DO
         ;WITH tempChenhLechTK AS (
-            SELECT CONVERT(DATE, DateDuyetKK) AS Ngay, ROUND(SUM(ISNULL(SLKiemKeBanDau,0) - ISNULL(SLKiemKeEdit,0)), 4) AS SLChenhLenhTK
+            SELECT CAST(DateDuyetKK AS DATE) AS Ngay, ROUND(SUM(ISNULL(SLKiemKeBanDau,0) - ISNULL(SLKiemKeEdit,0)), 4) AS SLChenhLenhTK
             FROM ERPPhieuKiemKe_NPL t1
-            WHERE IsXacNhan = 1 AND SLKiemKeEdit IS NOT NULL AND (CONVERT(DATE, DateDuyetKK) BETWEEN @StartDateRange AND @EndDateRange)
+            WHERE IsXacNhan = 1 AND SLKiemKeEdit IS NOT NULL AND (DateDuyetKK >= @StartDateRange AND DateDuyetKK < DATEADD(day, 1, @EndDateRange))
               AND EXISTS (SELECT 1 FROM #tempTKho t2 WHERE t1.BarCode = t2.BarCode)
-            GROUP BY CONVERT(DATE, DateDuyetKK)
+            GROUP BY CAST(DateDuyetKK AS DATE)
         ),
         tempNhapKhoTK AS (
-            SELECT CONVERT(DATE, t1.NgayNhapKho) AS Ngay, SUM(CAST(t1.SoLuongThucTeBanDau AS DECIMAL(18,4))) AS SLNhapTK
+            SELECT CAST(t1.NgayNhapKho AS DATE) AS Ngay, SUM(CAST(t1.SoLuongThucTeBanDau AS DECIMAL(18,4))) AS SLNhapTK
             FROM ERP_ChiTietNhapKhoNPL t1
             INNER JOIN #tempNhapKhoNPL t2 ON t1.SoLoID = t2.SoLoID AND t1.IsNPL = t2.IsNPL
             INNER JOIN #tempTKho t4 ON t1.ID = t4.ID
-            WHERE (CONVERT(DATE, t1.NgayNhapKho) BETWEEN @StartDateRange AND @EndDateRange)
-            GROUP BY CONVERT(DATE, t1.NgayNhapKho)
+            WHERE (t1.NgayNhapKho >= @StartDateRange AND t1.NgayNhapKho < DATEADD(day, 1, @EndDateRange))
+            GROUP BY CAST(t1.NgayNhapKho AS DATE)
         ),
         tempXuatHangTK AS (
-            SELECT CONVERT(DATE, t1.NgayXuatHang) AS Ngay, SUM(SLNhap) AS SLXuatTK
+            SELECT CAST(t1.NgayXuatHang AS DATE) AS Ngay, SUM(SLNhap) AS SLXuatTK
             FROM PhieuXuatHang t1
             INNER JOIN #tempTKho t2 ON t1.BarCodeGoc = t2.BarCode
-            WHERE (CONVERT(DATE, t1.NgayXuatHang) BETWEEN @StartDateRange AND @EndDateRange) AND ISNULL(MaHang,'') NOT LIKE '%PSH_%'
-            GROUP BY CONVERT(DATE, t1.NgayXuatHang)
+            WHERE (t1.NgayXuatHang >= @StartDateRange AND t1.NgayXuatHang < DATEADD(day, 1, @EndDateRange)) AND ISNULL(MaHang,'') NOT LIKE '%PSH_%'
+            GROUP BY CAST(t1.NgayXuatHang AS DATE)
         ),
         tempThuHoiTK AS (
-            SELECT CONVERT(DATE, t1.NgayTH) AS Ngay, SUM(ThuHoi) AS SLThuTK
+            SELECT CAST(t1.NgayTH AS DATE) AS Ngay, SUM(ThuHoi) AS SLThuTK
             FROM PhieuThuHoiNPL t1
             LEFT JOIN PhieuXuatHang t2 ON t1.BarCode = t2.BarCode
-            WHERE (CONVERT(DATE, t1.NgayTH) BETWEEN @StartDateRange AND @EndDateRange)
+            WHERE (t1.NgayTH >= @StartDateRange AND t1.NgayTH < DATEADD(day, 1, @EndDateRange))
               AND EXISTS (SELECT 1 FROM #tempTKho t3 WHERE t2.BarCodeGoc = t3.BarCode)
-            GROUP BY CONVERT(DATE, t1.NgayTH)
+            GROUP BY CAST(t1.NgayTH AS DATE)
         ),
         E1(N) AS (SELECT 1 FROM (VALUES (1),(1),(1),(1),(1),(1),(1),(1),(1),(1)) t(N)),
         E2(N) AS (SELECT 1 FROM E1 a CROSS JOIN E1 b),
@@ -2610,7 +2620,8 @@ BEGIN
                 END AS TrangThai,
                 'TASK' AS GhiChu
             FROM ERP_KeHachGiaoViecNL t1
-            WHERE ISNULL(t1.NgayXuatHang, t1.NgayGiaoViec) >= @TuNgay AND ISNULL(t1.NgayXuatHang, t1.NgayGiaoViec) < DATEADD(DAY, 1, @DenNgay)
+            WHERE (t1.NgayXuatHang >= CAST(@TuNgay AS DATE) AND t1.NgayXuatHang < DATEADD(day, 1, CAST(@DenNgay AS DATE)))
+               OR (t1.NgayXuatHang IS NULL AND t1.NgayGiaoViec >= CAST(@TuNgay AS DATE) AND t1.NgayGiaoViec < DATEADD(day, 1, CAST(@DenNgay AS DATE)))
             UNION ALL
             SELECT 
                 t1.NgaySoanHang AS NgayLam,
@@ -2620,7 +2631,9 @@ BEGIN
                 '' AS MaNV, t1.NguoiSoanHang AS TenNV,
                 CASE WHEN ROUND(t1.SoLuongThieu, 2) > 0 THEN 3 ELSE 2 END AS TrangThai,
                 'PICK' AS GhiChu
-            FROM #tblSoanHangThieu t1
+            FROM ERP_PhieuSoanHangVatTu t1
+            WHERE t1.NgaySoanHang >= CAST(@TuNgay AS DATE) AND t1.NgaySoanHang < DATEADD(day, 1, CAST(@DenNgay AS DATE))
+            GROUP BY CONVERT(DATE, t1.NgaySoanHang), t1.MaLenhSX, t1.NguoiSoanHang
         )
         SELECT 
             u.NgayLam,
@@ -2659,10 +2672,11 @@ BEGIN
         INNER JOIN KhachHang kh ON dh2.MaKH = kh.MaKH
         WHERE t1.MaLenhSanXuat IN (
             SELECT MaLenhSX FROM ERP_KeHachGiaoViecNL 
-            WHERE ISNULL(NgayXuatHang, NgayGiaoViec) >= CAST(@Ngay AS DATE) AND ISNULL(NgayXuatHang, NgayGiaoViec) < DATEADD(DAY, 1, CAST(@Ngay AS DATE))
+            WHERE (NgayXuatHang >= CAST(@Ngay AS DATE) AND NgayXuatHang < DATEADD(day, 1, CAST(@Ngay AS DATE)))
+               OR (NgayXuatHang IS NULL AND NgayGiaoViec >= CAST(@Ngay AS DATE) AND NgayGiaoViec < DATEADD(day, 1, CAST(@Ngay AS DATE)))
             UNION
             SELECT MaLenhSX FROM ERP_PhieuSoanHangVatTu
-            WHERE NgaySoanHang >= CAST(@Ngay AS DATE) AND NgaySoanHang < DATEADD(DAY, 1, CAST(@Ngay AS DATE))
+            WHERE NgaySoanHang >= CAST(@Ngay AS DATE) AND NgaySoanHang < DATEADD(day, 1, CAST(@Ngay AS DATE))
         )
         GROUP BY t1.MaLenhSanXuat, t1.MaLenh, kh.TenKH;
 

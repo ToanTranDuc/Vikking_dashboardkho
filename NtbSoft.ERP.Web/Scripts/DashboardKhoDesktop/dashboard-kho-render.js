@@ -2107,15 +2107,15 @@ function renderLpcpBottomCharts() {
             String(d.getDate()).padStart(2, "0")
         );
     }
+    // Lưu trữ ID request hiện tại của từng biểu đồ để chống race condition
+    window.currentChartReqs = window.currentChartReqs || {
+        volumePie: 0,
+        trendLine: 0,
+        loadBar: 0
+    };
 
-    var now = new Date();
-    function buildRange(nDays) {
-        var to = new Date(now);
-        to.setDate(to.getDate() - 1);
-        var from = new Date(now);
-        from.setDate(from.getDate() - nDays);
-        return { from: _asIso(from), to: _asIso(to) };
-    }
+    // Lấy mốc ngày hiện tại của ứng dụng (nếu có state.dateFilter.to)
+    var baseDateStr = state.dateFilter && state.dateFilter.to ? state.dateFilter.to : null;
     function doFetch(url) {
         return typeof requestJson === "function"
             ? requestJson(url)
@@ -2124,21 +2124,36 @@ function renderLpcpBottomCharts() {
             });
     }
 
+    function safeDestroyChart(id) {
+        if (typeof Highcharts !== "undefined" && Highcharts.charts) {
+            Highcharts.charts.forEach(function(c, idx) {
+                if (c && c.renderTo && c.renderTo.id === id) {
+                    c.destroy();
+                    Highcharts.charts[idx] = undefined;
+                }
+            });
+        }
+    }
+
     if (document.getElementById("chartVolumePie")) {
         var volDays = document.getElementById("volumeFilterSelect")
             ? parseInt(document.getElementById("volumeFilterSelect").value)
             : 30;
-        var rVol = buildRange(volDays);
-        var urlAct = "/api/DashboardKhoDesktop/GetActivityCalendar?tuNgay=" + rVol.from + "&denNgay=" + rVol.to;
-        var urlNkdk = "/api/DashboardKhoDesktop/GetNKDuKienByRange?tuNgay=" + rVol.from + "&denNgay=" + rVol.to;
+        var rVol = normalizeChartRange(volDays, baseDateStr);
+        var urlAct = "/api/DashboardKhoDesktop/GetActivityCalendar?tuNgay=" + rVol.tuNgay + "&denNgay=" + rVol.denNgay;
+        var urlNkdk = "/api/DashboardKhoDesktop/GetNKDuKienByRange?tuNgay=" + rVol.tuNgay + "&denNgay=" + rVol.denNgay;
 
+        safeDestroyChart("chartVolumePie");
         document.getElementById("chartVolumePie").innerHTML =
             '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:' +
             textColor +
             ';font-size:12px;">Đang tải...</div>';
 
+        var reqId = ++window.currentChartReqs.volumePie;
+
         Promise.all([doFetch(urlAct), doFetch(urlNkdk)])
             .then(function (results) {
+                if (reqId !== window.currentChartReqs.volumePie) return; // Request cũ bị ghi đè
                 var actArr = Array.isArray(results[0])
                     ? results[0]
                     : results[0] && results[0].value
@@ -2268,6 +2283,7 @@ function renderLpcpBottomCharts() {
                 });
             })
             .catch(function () {
+                if (reqId !== window.currentChartReqs.volumePie) return;
                 var el = document.getElementById("chartVolumePie");
                 if (el) el.innerHTML = '<div style="padding:20px;color:' + textColor + ';">Không thể tải dữ liệu</div>';
             });
@@ -2281,18 +2297,34 @@ function renderLpcpBottomCharts() {
         ? parseInt(document.getElementById("loadFilterSelect").value)
         : 30;
 
+    // Lấy mốc ngày hiện tại của ứng dụng (nếu có state.dateFilter.to)
+    var baseDateStr = state.dateFilter && state.dateFilter.to ? state.dateFilter.to : null;
+
     // ── Biểu đồ 2: Xu hướng Nhập-Xuất ─────────────────────────────────────────
     if (document.getElementById("chartTrendLine")) {
-        var rTrend = buildRange(trendDays);
-        var urlTrend = "/api/DashboardKhoDesktop/GetFlowTrendByRange?tuNgay=" + rTrend.from + "&denNgay=" + rTrend.to;
+        var rTrend = normalizeChartRange(trendDays, baseDateStr);
+        var urlTrend = "/api/DashboardKhoDesktop/GetFlowTrendByRange?tuNgay=" + rTrend.tuNgay + "&denNgay=" + rTrend.denNgay;
+        
+        safeDestroyChart("chartTrendLine");
         document.getElementById("chartTrendLine").innerHTML =
             '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:' +
             textColor +
             ';font-size:12px;">Đang tải...</div>';
 
+        var reqId = ++window.currentChartReqs.trendLine;
+
         doFetch(urlTrend)
             .then(function (data) {
+                if (reqId !== window.currentChartReqs.trendLine) return; // Request cũ
                 var arr = Array.isArray(data) ? data : data && data.value ? data.value : [];
+                if (!document.getElementById("chartTrendLine")) return;
+                if (!arr || arr.length === 0) {
+                    document.getElementById("chartTrendLine").innerHTML =
+                        '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:' +
+                        textColor +
+                        ';font-size:13px;font-weight:500;">Không có dữ liệu</div>';
+                    return;
+                }
                 var cats = [],
                     inArr = [],
                     outArr = [];
@@ -2303,7 +2335,6 @@ function renderLpcpBottomCharts() {
                     inArr.push(toNumber(arr[j].TotalIn || arr[j].totalIn));
                     outArr.push(toNumber(arr[j].TotalOut || arr[j].totalOut));
                 }
-                if (!document.getElementById("chartTrendLine")) return;
                 Highcharts.chart("chartTrendLine", {
                     chart: { type: "spline", backgroundColor: bgColor, spacingTop: 20, spacingBottom: 15 },
                     title: { text: "" },
@@ -2362,23 +2393,37 @@ function renderLpcpBottomCharts() {
                 });
             })
             .catch(function () {
+                if (reqId !== window.currentChartReqs.trendLine) return;
                 var el = document.getElementById("chartTrendLine");
-                if (el) el.innerHTML = '<div style="padding:20px;color:' + textColor + ';">Không thể tải dữ liệu</div>';
+                if (el) el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:' + textColor + ';">Không thể tải dữ liệu</div>';
             });
     }
 
     // ── Biểu đồ 3: Tồn kho theo ngày (GetFlowTrendByRange → TotalStock) ────────
     if (document.getElementById("chartLoadBar")) {
-        var rLoad = buildRange(loadDays);
-        var urlLoad = "/api/DashboardKhoDesktop/GetFlowTrendByRange?tuNgay=" + rLoad.from + "&denNgay=" + rLoad.to;
+        var rLoad = normalizeChartRange(loadDays, baseDateStr);
+        var urlLoad = "/api/DashboardKhoDesktop/GetFlowTrendByRange?tuNgay=" + rLoad.tuNgay + "&denNgay=" + rLoad.denNgay;
+        
+        safeDestroyChart("chartLoadBar");
         document.getElementById("chartLoadBar").innerHTML =
             '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:' +
             textColor +
             ';font-size:12px;">Đang tải...</div>';
 
+        var reqId = ++window.currentChartReqs.loadBar;
+
         doFetch(urlLoad)
             .then(function (data) {
+                if (reqId !== window.currentChartReqs.loadBar) return;
                 var arr = Array.isArray(data) ? data : data && data.value ? data.value : [];
+                if (!document.getElementById("chartLoadBar")) return;
+                if (!arr || arr.length === 0) {
+                    document.getElementById("chartLoadBar").innerHTML =
+                        '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:' +
+                        textColor +
+                        ';font-size:13px;font-weight:500;">Không có dữ liệu</div>';
+                    return;
+                }
                 var cats = [],
                     vals = [],
                     colors = [];
@@ -2396,7 +2441,6 @@ function renderLpcpBottomCharts() {
                     var pct = maxStock > 0 ? (stock / maxStock) * 100 : 0;
                     colors.push(pct >= 95 ? "#ef4444" : pct >= 80 ? "#eab308" : "#22c55e");
                 }
-                if (!document.getElementById("chartLoadBar")) return;
                 var pw = loadDays <= 7 ? 28 : loadDays <= 14 ? 16 : loadDays <= 30 ? 8 : 4;
                 Highcharts.chart("chartLoadBar", {
                     chart: { type: "column", backgroundColor: bgColor, spacingTop: 20, spacingBottom: 15 },
@@ -2472,8 +2516,9 @@ function renderLpcpBottomCharts() {
                 });
             })
             .catch(function () {
+                if (reqId !== window.currentChartReqs.loadBar) return;
                 var el = document.getElementById("chartLoadBar");
-                if (el) el.innerHTML = '<div style="padding:20px;color:' + textColor + ';">Không thể tải dữ liệu</div>';
+                if (el) el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:' + textColor + ';">Không thể tải dữ liệu</div>';
             });
     }
 }
@@ -6154,7 +6199,10 @@ function renderAll() {
                 renderActivityCalendar();
                 renderActivityCalendarMonthly();
             })
-            .catch(function () { });
+            .catch(function () { 
+                renderActivityCalendar();
+                renderActivityCalendarMonthly();
+            });
     }
 }
 

@@ -3,6 +3,7 @@
  * @description Đảm nhiệm toàn bộ việc giao tiếp với Server (Gọi API nạp dữ liệu). Không chứa logic vẽ giao diện.
  * @version 2.7.26
  */
+var __inFlightRequests = {};
 
 /**
  * Thực hiện gọi API GET bằng XMLHttpRequest, tự động Parse JSON và quản lý hàng đợi, xử lý lỗi mạng.
@@ -36,7 +37,10 @@ function requestJson(url) {
         } catch (e) { }
     }
 
-    return new Promise(function (resolve, reject) {
+    if (__inFlightRequests[url]) {
+        return __inFlightRequests[url];
+    }
+    var promise = new Promise(function (resolve, reject) {
         __requestQueue.push({ 
             url: url, 
             resolve: function(data) {
@@ -53,7 +57,11 @@ function requestJson(url) {
             reject: reject 
         });
         __processRequestQueue();
+    }).finally(function() {
+        delete __inFlightRequests[url];
     });
+    __inFlightRequests[url] = promise;
+    return promise;
 }
 
 /**
@@ -63,48 +71,65 @@ function __requestJsonCore(url) {
     // Luôn luôn băm cache (cache bust) để ngăn chặn trình duyệt cache API GET
     var cacheBustUrl = url + (url.indexOf("?") !== -1 ? "&" : "?") + "_t=" + new Date().getTime();
 
-    if (window.fetch) {
+    if (window.fetch && window.AbortController) {
+        var controller = new AbortController();
+        var timeoutId = setTimeout(function() { controller.abort(); }, 15000); // 15s timeout
+        
         return window
             .fetch(cacheBustUrl, {
                 method: "GET",
                 cache: "no-store",
                 headers: { Accept: "application/json" },
+                signal: controller.signal
             })
             .then(function (response) {
+                clearTimeout(timeoutId);
                 if (!response.ok) {
                     return response.text().then(function (body) {
                         var errMsg = "HTTP " + response.status + " - " + response.statusText;
                         if (body) {
                             try {
                                 var j = JSON.parse(body);
-                                if (j && j.Message) errMsg += "\n" + j.Message;
-                                else errMsg += "\n" + body.substring(0, 500);
+                                if (j && j.Message) errMsg += " - " + j.Message;
+                                else if (body.trim().startsWith("{")) errMsg += "\n" + body.substring(0, 500);
                             } catch (e) {
-                                errMsg += "\n" + body.substring(0, 500);
+                                // Do not append raw HTML to the error message to avoid rendering it in the UI
                             }
                         }
                         throw new Error(errMsg);
                     });
                 }
                 return response.json();
+            }).catch(function(err) {
+                clearTimeout(timeoutId);
+                if (err.name === 'AbortError') {
+                    throw new Error("Request Timeout (15s)");
+                }
+                throw err;
             });
     }
 
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
+        var timeoutId = setTimeout(function() {
+            xhr.abort();
+            reject(new Error("Request Timeout (15s)"));
+        }, 15000);
+        
         xhr.open("GET", cacheBustUrl, true);
         xhr.setRequestHeader("Accept", "application/json");
         xhr.onreadystatechange = function () {
             if (xhr.readyState !== 4) return;
+            clearTimeout(timeoutId);
+            if (xhr.status === 0) return; // Aborted by timeout
             if (xhr.status < 200 || xhr.status >= 300) {
                 var em = "HTTP " + xhr.status;
                 if (xhr.responseText) {
                     try {
-                        var jj = JSON.parse(xhr.responseText);
-                        if (jj && jj.Message) em += "\n" + jj.Message;
-                    } catch (e) {
-                        em += "\n" + xhr.responseText.substring(0, 500);
-                    }
+                        var j = JSON.parse(xhr.responseText);
+                        if (j && j.Message) em += " - " + j.Message;
+                        else if (xhr.responseText.trim().startsWith("{")) em += "\n" + xhr.responseText.substring(0, 500);
+                    } catch(e) {}
                 }
                 reject(new Error(em));
                 return;
@@ -540,7 +565,13 @@ function loadData(skipLoadingState, skipReloadCurrent) {
     // v2.4.6 — Query string filter ngày global
     var dfFrom = state.dateFilter && state.dateFilter.from ? state.dateFilter.from : "";
     var dfTo = state.dateFilter && state.dateFilter.to ? state.dateFilter.to : "";
-    var dfQS = dfFrom && dfTo ? "?tuNgay=" + encodeURIComponent(dfFrom) + "&denNgay=" + encodeURIComponent(dfTo) : "";
+    var dfQS = "";
+    if (dfFrom && dfTo) {
+        var normDate = normalizeDateRange(dfFrom, dfTo);
+        dfFrom = normDate.from;
+        dfTo = normDate.to;
+        dfQS = "?tuNgay=" + encodeURIComponent(dfFrom) + "&denNgay=" + encodeURIComponent(dfTo);
+    }
 
     var lpcpFrom = new Date(now.getFullYear(), now.getMonth() - 1, 1);
     var lpcpTo = new Date(now.getFullYear(), now.getMonth() + 2, 0);
@@ -553,11 +584,7 @@ function loadData(skipLoadingState, skipReloadCurrent) {
             String(d.getDate()).padStart(2, "0")
         );
     }
-    var LPCP_URL =
-        "/api/DashboardKhoDesktop/LichPhanCong_GetCalendarMonth?tuNgay=" +
-        encodeURIComponent(_isoDate(lpcpFrom)) +
-        "&denNgay=" +
-        encodeURIComponent(_isoDate(lpcpTo));
+    var LPCP_URL = buildUrlWithDateRange("/api/DashboardKhoDesktop/LichPhanCong_GetCalendarMonth", _isoDate(lpcpFrom), _isoDate(lpcpTo));
 
     // === PAGE 1 priority — load + render NGAY (user thấy ngay khi vào) ===
     loadedPages[1] = true;
@@ -579,11 +606,8 @@ function loadData(skipLoadingState, skipReloadCurrent) {
     });
     var inboundTo = new Date(now);
     inboundTo.setDate(inboundTo.getDate() + 365);
-    var inboundQS =
-        "?tuNgay=" +
-        encodeURIComponent(now.toISOString().slice(0, 10)) +
-        "&denNgay=" +
-        encodeURIComponent(inboundTo.toISOString().slice(0, 10));
+    var normInbound = normalizeDateRange(now, inboundTo);
+    var inboundQS = "?tuNgay=" + encodeURIComponent(normInbound.from) + "&denNgay=" + encodeURIComponent(normInbound.to);
 
     var p1d = safeJson(BASE + "GetChuanBiVe" + inboundQS).then(function (r) {
         state.inbound = normalizeArray(r);
@@ -865,11 +889,8 @@ function loadPageData(pageNum) {
         }
         // v2.7.1 FIX: Fetch hieuSuat nếu chưa có data (khi navigate sang page 2 trước khi loadData hoàn thành)
         if (!state.hieuSuat || state.hieuSuat.length === 0) {
-            var dfQS2 =
-                "?tuNgay=" +
-                encodeURIComponent(state.dateFilter.from) +
-                "&denNgay=" +
-                encodeURIComponent(state.dateFilter.to);
+            var normHieuSuat = normalizeDateRange(state.dateFilter.from, state.dateFilter.to);
+            var dfQS2 = "?tuNgay=" + encodeURIComponent(normHieuSuat.from) + "&denNgay=" + encodeURIComponent(normHieuSuat.to);
             promises.push(
                 safeJson(BASE + "GetHieuSuatHoatDong" + dfQS2).then(function (r) {
                     state.hieuSuat = normalizeArray(r);
@@ -889,13 +910,9 @@ function loadPageData(pageNum) {
         var from = new Date(baseMonth.getFullYear(), baseMonth.getMonth() - 1, 1);
         var to = new Date(baseMonth.getFullYear(), baseMonth.getMonth() + 2, 0);
 
-        var urlLichGoc = BASE + "GetActivityCalendar?tuNgay=" + asIsoDate(from) + "&denNgay=" + asIsoDate(to);
-        var urlNKDK = BASE + "GetNKDuKienByRange?tuNgay=" + asIsoDate(from) + "&denNgay=" + asIsoDate(to);
-        var urlLPCP =
-            "/api/DashboardKhoDesktop/LichPhanCong_GetCalendarMonth?tuNgay=" +
-            asIsoDate(from) +
-            "&denNgay=" +
-            asIsoDate(to);
+        var urlLichGoc = buildUrlWithDateRange(BASE + "GetActivityCalendar", from, to);
+        var urlNKDK = buildUrlWithDateRange(BASE + "GetNKDuKienByRange", from, to);
+        var urlLPCP = buildUrlWithDateRange("/api/DashboardKhoDesktop/LichPhanCong_GetCalendarMonth", from, to);
 
         // Khởi tạo state rỗng
         state.nkDuKien = [];
@@ -1006,8 +1023,7 @@ function triggerSequentialReload() {
 function loadAndRenderFlowByRange(fromDate, toDate) {
     var node = byId(ids.chartFlowTrend);
     if (node) node.innerHTML = '<div class="dk-empty" style="padding:20px">Đang tải dữ liệu...</div>';
-    var url =
-        "/api/DashboardKhoDesktop/GetFlowTrendByRange?tuNgay=" + asIsoDate(fromDate) + "&denNgay=" + asIsoDate(toDate);
+    var url = buildUrlWithDateRange("/api/DashboardKhoDesktop/GetFlowTrendByRange", fromDate, toDate);
     requestJson(url)
         .then(function (data) {
             var arr = normalizeArray(data);

@@ -428,6 +428,85 @@ function asIsoDate(date) {
 }
 
 /**
+ * Chuẩn hóa khoảng ngày, đảm bảo tuNgay <= denNgay. Trả về obj { from: "...", to: "..." }.
+ */
+function normalizeDateRange(tuNgay, denNgay) {
+    var d1 = typeof tuNgay === "string" ? parseDate(tuNgay) : (tuNgay instanceof Date ? tuNgay : null);
+    var d2 = typeof denNgay === "string" ? parseDate(denNgay) : (denNgay instanceof Date ? denNgay : null);
+    
+    var now = new Date();
+    if (!d1) d1 = addDays(now, -30); // Fallback if missing
+    if (!d2) d2 = now;               // Fallback if missing
+
+    if (d1 > d2) {
+        console.warn("Date range inverted, swapping: from " + asIsoDate(d1) + " to " + asIsoDate(d2));
+        var temp = d1;
+        d1 = d2;
+        d2 = temp;
+    }
+
+    return {
+        from: asIsoDate(d1),
+        to: asIsoDate(d2)
+    };
+}
+
+/**
+ * Xây dựng URL chuẩn với khoảng ngày đã được validate.
+ */
+function buildUrlWithDateRange(endpoint, tuNgay, denNgay) {
+    var range = normalizeDateRange(tuNgay, denNgay);
+    var joinChar = endpoint.indexOf("?") !== -1 ? "&" : "?";
+    return endpoint + joinChar + "tuNgay=" + encodeURIComponent(range.from) + "&denNgay=" + encodeURIComponent(range.to);
+}
+
+/**
+ * Lấy khoảng ngày gần đây (VD: 30 ngày)
+ */
+function getRecentRange(days, baseDate) {
+    var end = baseDate ? (typeof baseDate === "string" ? parseDate(baseDate) : baseDate) : new Date();
+    if (!end || isNaN(end.getTime())) end = new Date();
+
+    var start = new Date(end);
+    start.setDate(start.getDate() - (days - 1)); // -29 ngày để có đủ 30 ngày
+
+    return {
+        tuNgay: asIsoDate(start),
+        denNgay: asIsoDate(end)
+    };
+}
+
+/**
+ * Chuẩn hóa tham số range của chart
+ */
+function normalizeChartRange(mode, baseDate) {
+    var end = baseDate ? (typeof baseDate === "string" ? parseDate(baseDate) : baseDate) : new Date();
+    if (!end || isNaN(end.getTime())) end = new Date();
+
+    var days = 30;
+    if (mode === "7days" || mode === 7 || mode === "7") days = 7;
+    else if (mode === "14days" || mode === 14 || mode === "14") days = 14;
+    else if (mode === "30days" || mode === 30 || mode === "30") days = 30;
+    else if (mode === "60days" || mode === 60 || mode === "60") days = 60;
+    else if (mode === "today" || mode === 1 || mode === "1") days = 1;
+
+    var start = new Date(end);
+    start.setDate(start.getDate() - (days - 1));
+
+    // Đảm bảo tuNgay <= denNgay
+    if (start > end) {
+        var temp = start;
+        start = end;
+        end = temp;
+    }
+
+    return {
+        tuNgay: asIsoDate(start),
+        denNgay: asIsoDate(end)
+    };
+}
+
+/**
  * Tạo hiệu ứng đếm số (nhảy số liên tục) cho các thẻ KPI trên giao diện.
  */
 function animateCountUp(scope) {
