@@ -69,7 +69,7 @@ function renderDetailModal(detail, index) {
     // Update footer row count
     var rowCountEl = byId("detailModalRowCount");
     if (rowCountEl) {
-        rowCountEl.textContent = "Tổng số dòng: " + formatNumber((model.rows || []).length, 0);
+        rowCountEl.textContent = "";
     }
 
     // Reset search
@@ -251,7 +251,7 @@ function renderDetailModal(detail, index) {
                 }
                 // Update footer row count
                 var rcEl = byId("detailModalRowCount");
-                if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(rows.length, 0);
+                if (rcEl) rcEl.textContent = "";
             })
             .catch(function (err) {
                 // v2.3.35 — Hiện rõ lỗi để debug, không chỉ "Lỗi tải" chung chung
@@ -571,7 +571,7 @@ function renderTonDauKyDetailModal() {
         var cnt = byId("kpiCount");
         if (cnt) cnt.textContent = filtered.length + " dòng";
         var rcEl = byId("detailModalRowCount");
-        if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(filtered.length, 0);
+        if (rcEl) rcEl.textContent = "";
     }
     function renderTable(rows) {
         var cols = [
@@ -675,7 +675,7 @@ function renderTongNhapDetailModal() {
         var cnt = byId("kpiCount");
         if (cnt) cnt.textContent = filtered.length + " dòng";
         var rcEl = byId("detailModalRowCount");
-        if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(filtered.length, 0);
+        if (rcEl) rcEl.textContent = "";
     }
     function renderTable(rows) {
         var cols;
@@ -812,7 +812,7 @@ function renderTongXuatDetailModal() {
         var cnt = byId("kpiCount");
         if (cnt) cnt.textContent = filtered.length + " dòng";
         var rcEl = byId("detailModalRowCount");
-        if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(filtered.length, 0);
+        if (rcEl) rcEl.textContent = "";
     }
     function renderTable(rows) {
         var cols;
@@ -961,7 +961,7 @@ function renderTonKhoDetailModal() {
         var cnt = byId("kpiCount");
         if (cnt) cnt.textContent = filtered.length + " dòng";
         var rcEl = byId("detailModalRowCount");
-        if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(filtered.length, 0);
+        if (rcEl) rcEl.textContent = "";
     }
     function renderTable(rows) {
         var today = new Date();
@@ -1080,7 +1080,7 @@ function renderPOTreDetailModal() {
         var cnt = byId("kpiCount");
         if (cnt) cnt.textContent = filtered.length + " dòng";
         var rcEl = byId("detailModalRowCount");
-        if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(filtered.length, 0);
+        if (rcEl) rcEl.textContent = "";
     }
     function renderTable(rows) {
         var rowsView = rows.map(function (r) {
@@ -1308,7 +1308,7 @@ function renderTodoDetailModal() {
                 searchBar + '<div id="todoTableWrap">' + renderTodoGroupedTable(cols, rowsView, false) + "</div>";
             // v2.7.1 — Cập nhật tổng số dòng ở footer modal
             var rcEl = byId("detailModalRowCount");
-            if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(rows.length, 0);
+            if (rcEl) rcEl.textContent = "";
             // Bind search
             var searchInput = byId("todoSearch");
             var searchCount = byId("todoSearchCount");
@@ -1406,7 +1406,7 @@ function renderTop5VTAllModal() {
                 sumHtml + '<div id="top5VTBodyTbl">' + renderSortableTable(cols, rows, { highlightTopN: 5 }) + "</div>";
             wireSortableTable(byId("top5VTBodyTbl"), cols, rows, { highlightTopN: 5 });
             var rcEl = byId("detailModalRowCount");
-            if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(rows.length, 0);
+            if (rcEl) rcEl.textContent = "";
             // Click cell MaVT → drill về popup ItemCode
             content.querySelectorAll("[data-mavt-drill]").forEach(function (el) {
                 el.addEventListener("click", function (e) {
@@ -1496,7 +1496,7 @@ function renderTop5KHAllModal() {
             tableHtml += "</tbody></table>";
             content.innerHTML = sumHtml + tableHtml;
             var rcEl = byId("detailModalRowCount");
-            if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(rows.length, 0);
+            if (rcEl) rcEl.textContent = "";
             content.querySelectorAll(".dk-row-kh").forEach(function (tr) {
                 tr.addEventListener("click", function () {
                     var customerItem = { MaKH: this.getAttribute("data-makh"), TenKH: this.getAttribute("data-tenkh") };
@@ -1593,7 +1593,7 @@ function loadCustomerMaterialDetail(customerItem) {
             content.innerHTML = sumHtml + tableHtml;
 
             var rcEl = byId("detailModalRowCount");
-            if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(rows.length, 0);
+            if (rcEl) rcEl.textContent = "";
         })
         .catch(function (err) {
             content.innerHTML = modalErrorBox(err && err.message);
@@ -1659,7 +1659,7 @@ function renderHetHanAllModal() {
             tableHtml += "</tbody></table>";
             content.innerHTML = sumHtml + filterHtml + tableHtml;
             var rcEl = byId("detailModalRowCount");
-            if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(rows.length, 0);
+            if (rcEl) rcEl.textContent = "";
             byId("hetHanFilter").addEventListener("change", function () {
                 var v = this.value;
                 var filtered = rows.filter(function (r) {
@@ -1672,7 +1672,7 @@ function renderHetHanAllModal() {
                 });
                 byId("hetHanTbody").innerHTML = hetHanRowsHtml(filtered);
                 var rcEl = byId("detailModalRowCount");
-                if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(filtered.length, 0);
+                if (rcEl) rcEl.textContent = "";
             });
         })
         .catch(function (err) {
@@ -1830,7 +1830,7 @@ function renderGiaTriNhomAllModal() {
             html += "</tbody></table>";
             content.innerHTML = html;
             var rcEl = byId("detailModalRowCount");
-            if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(groups.length, 0);
+            if (rcEl) rcEl.textContent = "";
             // Render donut Highcharts
             if (typeof Highcharts !== "undefined" && groups.length > 0) {
                 applyHighchartsTheme();
@@ -2014,7 +2014,7 @@ function renderKiemKeAllModal() {
                 byId("kpiTbody").innerHTML = renderDetailTable(cols, mappedRows);
                 byId("kkCount").textContent = filtered.length + " phiếu";
                 var rcEl = byId("detailModalRowCount");
-                if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(filtered.length, 0);
+                if (rcEl) rcEl.textContent = "";
             }
             content.querySelectorAll(".dk-kk-subtab").forEach(function (b) {
                 b.addEventListener("click", function () {
@@ -2143,7 +2143,7 @@ function renderAlertDetailModal() {
         var cnt = byId("kpiCount");
         if (cnt) cnt.textContent = filtered.length + " dòng";
         var rcEl = byId("detailModalRowCount");
-        if (rcEl) rcEl.textContent = "Tổng số dòng: " + formatNumber(filtered.length, 0);
+        if (rcEl) rcEl.textContent = "";
     }
     content.innerHTML = modalLoading();
     requestJson(cfg.api)

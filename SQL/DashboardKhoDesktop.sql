@@ -1446,7 +1446,7 @@ BEGIN
         SELECT TOP 1 @IsNPL_Check = IsNPL FROM ERP_ChiTietNhapKhoNPL WHERE MaNPL = @MaNPL;
 
         IF OBJECT_ID('tempdb..#tempNhapKhoNPL') IS NOT NULL DROP TABLE #tempNhapKhoNPL;
-        SELECT t1.* INTO #tempNhapKhoNPL FROM ERP_NhapKhoNPL t1
+        SELECT t1.SoLoID, t1.IsNPL, t1.MaHang, t1.MaKH INTO #tempNhapKhoNPL FROM ERP_NhapKhoNPL t1
         WHERE (@MaKH = 'all' OR t1.MaKH = @MaKH) 
           AND (@MaHang = 'all' OR t1.MaHang = @MaHang) 
           AND (@SoLoID = 'all' OR t1.SoLoID = @SoLoID)  
@@ -1505,7 +1505,12 @@ BEGIN
 
         SELECT @TonThuDK = SUM(ThuHoi)
         FROM PhieuThuHoiNPL t1
-        WHERE t1.NgayTH < @StartDateRange;
+        LEFT JOIN PhieuXuatHang t2 ON t1.BarCode = t2.BarCode
+        WHERE t1.NgayTH < @StartDateRange
+          AND EXISTS (SELECT 1 FROM #tempTKho t3 WHERE t2.BarCodeGoc = t3.BarCode);
+
+        -- PHỤC HỒI LOGIC TÍNH TỒN ĐẦU KỲ BỊ THIẾU
+        SET @TonDauKy = ISNULL(@TonNhapDK, 0) - ISNULL(@TonXuatDK, 0) + ISNULL(@TonThuDK, 0) - ISNULL(@TonChenhDK, 0);
 
         IF OBJECT_ID('tempdb..#tempChenhLechTK') IS NOT NULL DROP TABLE #tempChenhLechTK;
         -- 3. TRONG KY THEO NGAY & 4. TONG HOP RA BIEU DO

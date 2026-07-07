@@ -5134,7 +5134,7 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned, fallbackDat
     var rcEl = byId("detailModalRowCount");
     if (rcEl) {
         var initialCount = tabs[activeIdx] ? tabs[activeIdx].rows.length : 0;
-        rcEl.textContent = "Tổng số dòng: " + formatNumber(initialCount, 0);
+        rcEl.textContent = "";
     }
 
     setTimeout(function () {
@@ -5175,7 +5175,7 @@ function renderDayDetailTabs(container, nhap, xuat, kiemke, planned, fallbackDat
             var rcEl = byId("detailModalRowCount");
             if (rcEl) {
                 var rowCount = dTab && dTab.rows ? dTab.rows.length : 0;
-                rcEl.textContent = "Tổng số dòng: " + formatNumber(rowCount, 0);
+                rcEl.textContent = "";
             }
             var searchInput = document.getElementById("detailSearchInput");
             if (searchInput) {
@@ -5750,7 +5750,7 @@ function openLpcpSectionModal(section, warnings, assignments, pickOrders, dateLa
         if (section === "warn") count = countWarnDisplayRows(warnings);
         else if (section === "task") count = assignments.length;
         else if (section === "pick") count = pickOrders.length;
-        rcEl.textContent = "Tổng số dòng: " + formatNumber(count, 0);
+        rcEl.textContent = "";
     }
 
     // Hide search bar (not used here)
@@ -6182,7 +6182,7 @@ function appendLpcpTab(container, lpcpData) {
         // Update footer row count for Phân công PL
         var rcEl = byId("detailModalRowCount");
         if (rcEl) {
-            rcEl.textContent = "Tổng số dòng: " + formatNumber(total, 0);
+            rcEl.textContent = "";
         }
         // Reset search input and count to avoid confusion
         var searchInput = document.getElementById("detailSearchInput");
