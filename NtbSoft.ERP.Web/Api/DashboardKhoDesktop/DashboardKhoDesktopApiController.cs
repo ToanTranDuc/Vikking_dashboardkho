@@ -218,18 +218,23 @@ namespace NtbSoft.ERP.Web.Api.DashboardKhoDesktop
         /// </summary>
         [HttpGet]
         [Route("GetActivityRangeDetail")]
-        public IHttpActionResult GetActivityRangeDetail(DateTime tuNgay, DateTime denNgay)
+        public HttpResponseMessage GetActivityRangeDetail(DateTime tuNgay, DateTime denNgay)
         {
             try
             {
-                return Ok(new
+                var dtNhap = DashboardKhoDesktopModel.GetNhapDetailByRange(tuNgay, denNgay);
+                var dtXuat = DashboardKhoDesktopModel.GetXuatDetailByRange(tuNgay, denNgay);
+                var dtKiemKe = DashboardKhoDesktopModel.GetKiemKeDetailByRange(tuNgay, denNgay);
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(new { Nhap = dtNhap, Xuat = dtXuat, KiemKe = dtKiemKe });
+                return new HttpResponseMessage()
                 {
-                    Nhap   = ToList(DashboardKhoDesktopModel.GetNhapDetailByRange(tuNgay, denNgay)),
-                    Xuat   = ToList(DashboardKhoDesktopModel.GetXuatDetailByRange(tuNgay, denNgay)),
-                    KiemKe = ToList(DashboardKhoDesktopModel.GetKiemKeDetailByRange(tuNgay, denNgay))
-                });
+                    Content = new System.Net.Http.StringContent(json, System.Text.Encoding.UTF8, "application/json")
+                };
             }
-            catch (Exception ex) { return BadRequest("Error: " + ex.Message); }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(System.Net.HttpStatusCode.BadRequest, "Error: " + ex.Message);
+            }
         }
 
         /// <summary>

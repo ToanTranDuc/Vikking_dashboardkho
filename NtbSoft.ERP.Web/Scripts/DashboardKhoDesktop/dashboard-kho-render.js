@@ -3883,6 +3883,8 @@ function populateCustomerFilter() {
     sel.innerHTML = opts;
 }
 
+var __dkOverviewModalToken = 0;
+
 function openCalendarOverviewModal() {
     var fromD, toD, titleSuffix;
     if (calRangeFrom && calRangeTo) {
@@ -3923,8 +3925,12 @@ function openCalendarOverviewModal() {
     var url =
         "/api/DashboardKhoDesktop/GetActivityRangeDetail?tuNgay=" + asIsoDate(fromD) + "&denNgay=" + asIsoDate(toD);
 
+    var currentToken = ++__dkOverviewModalToken;
+
     requestJson(url)
         .then(function (data) {
+            if (currentToken !== __dkOverviewModalToken) return; // Bỏ qua nếu có request mới hơn
+            
             var d = data || {};
             var nhapRows = normalizeArray(d.Nhap);
             var xuatRows = normalizeArray(d.Xuat);
@@ -3974,6 +3980,7 @@ function openCalendarOverviewModal() {
             renderOverviewDetailTabs(modalContent, nhapRows, xuatRows, kiemKeRows, plannedRows);
         })
         .catch(function (err) {
+            if (currentToken !== __dkOverviewModalToken) return; // Bỏ qua nếu có request mới hơn
             if (modalContent) {
                 modalContent.innerHTML =
                     '<div class="dk-empty" style="padding:30px;color:#dc2626">' +
