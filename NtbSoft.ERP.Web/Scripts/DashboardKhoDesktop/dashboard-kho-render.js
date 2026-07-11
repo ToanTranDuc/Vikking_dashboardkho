@@ -5438,7 +5438,7 @@ function showLpcpInlineDetail(dateKey) {
             ";color:" +
             (TT_COLORS[i] || TT_COLORS[0]) +
             ";" +
-            "padding:2px 8px;border-radius:4px;font-size:10px;font-weight:500;flex-shrink:0;'>" +
+            "padding:4px 10px;border-radius:4px;font-size:13px;font-weight:bold;flex-shrink:0;'>" +
             "<span style='width:5px;height:5px;border-radius:50%;background:" +
             (TT_COLORS[i] || TT_COLORS[0]) +
             ";display:inline-block;'></span>" +
@@ -6024,7 +6024,7 @@ function appendLpcpTab(container, lpcpData) {
             ";color:" +
             (TT_COLORS[i] || TT_COLORS[0]) +
             ";" +
-            'padding:2px 8px;border-radius:4px;font-size:10px;font-weight:500;">' +
+            'padding:4px 10px;border-radius:4px;font-size:13px;font-weight:bold;">' +
             '<span style="width:5px;height:5px;border-radius:50%;background:' +
             (TT_COLORS[i] || TT_COLORS[0]) +
             ';display:inline-block;"></span>' +
@@ -6057,7 +6057,7 @@ function appendLpcpTab(container, lpcpData) {
 
     html += '<div style="display:flex;flex-direction:column;height:100%;min-height:0;overflow:hidden;">';
     html +=
-        '<div style="font-size:10px;font-weight:700;color:' +
+        '<div style="font-size:16px;font-weight:900;color:' +
         subColor +
         ";text-transform:uppercase;" +
         'letter-spacing:.05em;margin-bottom:8px;flex:0 0 auto;">Phân công công việc</div>';
@@ -6066,7 +6066,7 @@ function appendLpcpTab(container, lpcpData) {
         html +=
             '<div style="color:' +
             subColor +
-            ';font-size:12px;text-align:center;padding:20px 0;">Không có phân công</div>';
+            ';font-size:16px;font-weight:bold;text-align:center;padding:20px 0;">Không có phân công</div>';
     } else {
         assignments.forEach(function (a, i) {
             var name = escapeHtml(a.TenNV || a.MaNV || "");
@@ -6091,12 +6091,12 @@ function appendLpcpTab(container, lpcpData) {
                 initials +
                 "</span>" +
                 '<div style="flex:1;overflow:hidden;">' +
-                '<div style="font-size:12px;font-weight:600;color:' +
+                '<div style="font-size:16px;font-weight:900;color:' +
                 textColor +
                 ';">' +
                 name +
                 "</div>" +
-                '<div style="font-size:10px;color:' +
+                '<div style="font-size:14px;font-weight:600;color:' +
                 subColor +
                 ';">' +
                 escapeHtml(a.MoTaCongViec || "") +
@@ -6111,7 +6111,7 @@ function appendLpcpTab(container, lpcpData) {
     // Right: Phụ liệu soạn hàng
     html += '<div style="display:flex;flex-direction:column;height:100%;min-height:0;overflow:hidden;">';
     html +=
-        '<div style="font-size:10px;font-weight:700;color:' +
+        '<div style="font-size:16px;font-weight:900;color:' +
         subColor +
         ";text-transform:uppercase;" +
         'letter-spacing:.05em;margin-bottom:8px;flex:0 0 auto;">Phụ liệu — Soạn hàng</div>';
@@ -6120,7 +6120,7 @@ function appendLpcpTab(container, lpcpData) {
         html +=
             '<div style="color:' +
             subColor +
-            ';font-size:12px;text-align:center;padding:20px 0;">Không có lệnh soạn hàng</div>';
+            ';font-size:16px;font-weight:bold;text-align:center;padding:20px 0;">Không có lệnh soạn hàng</div>';
     } else {
         pickOrders.forEach(function (po) {
             var gioNgay =
@@ -6141,23 +6141,23 @@ function appendLpcpTab(container, lpcpData) {
                 borderColor +
                 ';margin-bottom:6px;">' +
                 '<div style="flex:1;overflow:hidden;">' +
-                '<div style="font-size:12px;">' +
-                '<span style="font-weight:600;color:#3b82f6;">Lệnh ' +
+                '<div style="font-size:16px;">' +
+                '<span style="font-weight:900;color:#3b82f6;">Lệnh ' +
                 formatMaLenhSX(po.MaLenhSX) +
                 "</span>" +
-                '<span style="font-size:10px;color:' +
+                '<span style="font-size:14px;font-weight:bold;color:' +
                 subColor +
                 ';margin-left:5px;">' +
                 escapeHtml(po.MaHang || "") +
                 "</span>" +
                 "</div>" +
-                '<div style="font-size:10px;color:' +
+                '<div style="font-size:14px;font-weight:bold;color:' +
                 subColor +
                 ';display:flex;align-items:center;gap:5px;margin-top:2px;">' +
-                '<span style="width:16px;height:16px;border-radius:50%;background:' +
+                '<span style="width:20px;height:20px;border-radius:50%;background:' +
                 bg2 +
                 ";" +
-                'display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:8px;font-weight:700;">' +
+                'display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:900;">' +
                 initials2 +
                 "</span>" +
                 "<span>" +
