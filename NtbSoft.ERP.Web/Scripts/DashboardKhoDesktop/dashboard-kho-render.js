@@ -2126,7 +2126,7 @@ function renderLpcpBottomCharts() {
 
     function safeDestroyChart(id) {
         if (typeof Highcharts !== "undefined" && Highcharts.charts) {
-            Highcharts.charts.forEach(function(c, idx) {
+            Highcharts.charts.forEach(function (c, idx) {
                 if (c && c.renderTo && c.renderTo.id === id) {
                     c.destroy();
                     Highcharts.charts[idx] = undefined;
@@ -2304,7 +2304,7 @@ function renderLpcpBottomCharts() {
     if (document.getElementById("chartTrendLine")) {
         var rTrend = normalizeChartRange(trendDays, baseDateStr);
         var urlTrend = "/api/DashboardKhoDesktop/GetFlowTrendByRange?tuNgay=" + rTrend.tuNgay + "&denNgay=" + rTrend.denNgay;
-        
+
         safeDestroyChart("chartTrendLine");
         document.getElementById("chartTrendLine").innerHTML =
             '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:' +
@@ -2403,7 +2403,7 @@ function renderLpcpBottomCharts() {
     if (document.getElementById("chartLoadBar")) {
         var rLoad = normalizeChartRange(loadDays, baseDateStr);
         var urlLoad = "/api/DashboardKhoDesktop/GetFlowTrendByRange?tuNgay=" + rLoad.tuNgay + "&denNgay=" + rLoad.denNgay;
-        
+
         safeDestroyChart("chartLoadBar");
         document.getElementById("chartLoadBar").innerHTML =
             '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:' +
@@ -3935,7 +3935,7 @@ function openCalendarOverviewModal() {
     requestJson(url, { signal: window.__currentModalAbortController.signal, timeoutMs: 60000 })
         .then(function (data) {
             if (currentToken !== __dkOverviewModalToken) return; // Bỏ qua nếu có request mới hơn
-            
+
             var d = data || {};
             var nhapRows = normalizeArray(d.Nhap);
             var xuatRows = normalizeArray(d.Xuat);
@@ -3987,7 +3987,7 @@ function openCalendarOverviewModal() {
         .catch(function (err) {
             if (currentToken !== __dkOverviewModalToken) return; // Bỏ qua nếu có request mới hơn
             var errMsg = String((err && err.message) || err);
-            
+
             // Nếu người dùng đóng modal hoặc đổi filter
             if (errMsg.indexOf("USER_ABORTED") !== -1 || errMsg.indexOf("AbortError") !== -1 || errMsg === "USER_ABORTED") {
                 return; // Âm thầm hủy, không báo lỗi đỏ
@@ -4186,7 +4186,7 @@ function showCalDayDetail(dateKey, info, plannedCount) {
         window.__currentDayModalAbortController.abort();
     }
     window.__currentDayModalAbortController = new AbortController();
-    
+
     if (typeof window.__dkDayModalToken === 'undefined') window.__dkDayModalToken = 0;
     var currentToken = ++window.__dkDayModalToken;
 
@@ -5651,25 +5651,25 @@ function showLpcpInlineDetail(dateKey) {
                             : "";
                     var nv = escapeHtml(po.TenNV || po.MaNV || "");
                     var timeHtml = po.GioSoan
-                        ? "<span style='font-size:10px;color:var(--dk-muted);margin-left:6px;'><svg width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='margin-right:4px;vertical-align:-1px'><circle cx='12' cy='12' r='10'></circle><polyline points='12 6 12 12 16 14'></polyline></svg> " +
+                        ? "<span style='font-size:11px;font-weight:600;color:var(--dk-muted);margin-left:6px;'><svg width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='margin-right:4px;vertical-align:-1px'><circle cx='12' cy='12' r='10'></circle><polyline points='12 6 12 12 16 14'></polyline></svg> " +
                         escapeHtml(po.GioSoan) +
                         "</span>"
                         : "";
 
-                    var metricsHtml = "<div style='display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;'>";
+                    var metricsHtml = "<div style='display:flex; flex-wrap:nowrap; gap:4px; margin-top:6px; overflow:hidden;'>";
                     if (po.TongSLCanSoan > 0 || po.SLSoan > 0) {
-                        metricsHtml += "<span style='font-size:10px; font-weight:500; color:var(--dk-title); background:rgba(255,255,255,0.05); border:1px solid var(--dk-line); padding:2px 6px; border-radius:4px;'>Yêu cầu: <b>" + formatNumber(po.TongSLCanSoan || 0, 2) + "</b></span>";
-                        metricsHtml += "<span style='font-size:10px; font-weight:600; color:var(--dk-primary); background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.2); padding:2px 6px; border-radius:4px;'>Đã soạn: " + formatNumber(po.SLSoan || 0, 2) + "</span>";
+                        metricsHtml += "<span style='font-size:11px; font-weight:600; color:var(--dk-title); background:rgba(255,255,255,0.05); border:1px solid var(--dk-line); padding:2px 4px; border-radius:4px; white-space:nowrap;'>Yêu cầu: <b>" + formatNumber(po.TongSLCanSoan || 0, 2) + "</b></span>";
+                        metricsHtml += "<span style='font-size:11px; font-weight:bold; color:var(--dk-primary); background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.2); padding:2px 4px; border-radius:4px; white-space:nowrap;'>Đã soạn: " + formatNumber(po.SLSoan || 0, 2) + "</span>";
                     }
                     if ((po.SoPLThieu || 0) > 0) {
-                        metricsHtml += "<span style='font-size:10px; font-weight:600; color:#ef4444; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); padding:2px 6px; border-radius:4px;'>⚠ Thiếu: " + formatNumber(po.SoPLThieu || 0, 2) + "</span>";
+                        metricsHtml += "<span style='font-size:11px; font-weight:bold; color:#ef4444; background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); padding:2px 4px; border-radius:4px; white-space:nowrap;'>⚠ Thiếu: " + formatNumber(po.SoPLThieu || 0, 2) + "</span>";
                     }
                     metricsHtml += "</div>";
 
                     pHtml +=
                         "<div style='padding:7px 0;border-bottom:1px solid var(--dk-line);'>" +
                         "<div style='display:flex;align-items:flex-start;justify-content:space-between;gap:6px;'>" +
-                        "<div><span style='font-size:11px;font-weight:600;color:var(--dk-primary,#2563eb);'>" +
+                        "<div><span style='font-size:13px;font-weight:900;color:var(--dk-primary,#2563eb);'>" +
                         maLenh +
                         "</span>" +
                         timeHtml +
@@ -5677,12 +5677,12 @@ function showLpcpInlineDetail(dateKey) {
                         ttBadge(po.SLSoan === 0 ? 0 : (po.TrangThai || 0)) +
                         "</div>" +
                         (brand
-                            ? "<div style='font-size:10px;color:var(--dk-title);margin-top:2px;opacity:0.9;'>" +
+                            ? "<div style='font-size:12px;font-weight:bold;color:var(--dk-title);margin-top:4px;opacity:0.9;'>" +
                             brand +
                             "</div>"
                             : "") +
                         (nv
-                            ? "<div style='font-size:10px;color:var(--dk-title);margin-top:2px;opacity:0.9;'><svg width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='margin-right:4px;opacity:0.7;vertical-align:-1px'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path><circle cx='12' cy='7' r='4'></circle></svg>" +
+                            ? "<div style='font-size:12px;font-weight:600;color:var(--dk-title);margin-top:4px;opacity:0.9;'><svg width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='margin-right:4px;opacity:0.7;vertical-align:-1px'><path d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'></path><circle cx='12' cy='7' r='4'></circle></svg>" +
                             nv +
                             "</div>"
                             : "") +
@@ -5716,14 +5716,14 @@ function showLpcpInlineDetail(dateKey) {
         })
         .catch(function (err) {
             var errMsg = String((err && err.message) || err);
-            
+
             // Bỏ qua nếu user abort
             if (errMsg.indexOf("USER_ABORTED") !== -1 || errMsg.indexOf("AbortError") !== -1 || errMsg === "USER_ABORTED") {
                 return;
             }
 
             if (badgeEl) badgeEl.textContent = "Lỗi tải dữ liệu";
-            
+
             if (errMsg.indexOf("Request Timeout") !== -1) {
                 if (assignEl) assignEl.innerHTML = "<div class='dk-lpcp-empty' style='color:#ef4444'>Không thể tải dữ liệu</div>";
                 if (pickEl) pickEl.innerHTML = "<div class='dk-lpcp-empty' style='color:#ef4444'>Không thể tải dữ liệu</div>";
@@ -6255,7 +6255,7 @@ function renderAll() {
                 renderActivityCalendar();
                 renderActivityCalendarMonthly();
             })
-            .catch(function () { 
+            .catch(function () {
                 renderActivityCalendar();
                 renderActivityCalendarMonthly();
             });
